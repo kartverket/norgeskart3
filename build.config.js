@@ -65,7 +65,11 @@ module.exports = {
             'vendor/angular-route/angular-route.js',
             'vendor/bootstrap/dist/js/bootstrap.min.js',
             'vendor/angular-translate/angular-translate.js',
-            'vendor/es5-shim/es5-shim.js'
+            'vendor/openlayers3/ol.js',
+            'vendor/proj4/dist/proj4.js',
+            'vendor/maplib/dist/maplib.js',
+            'vendor/es5-shim/es5-shim.js',
+            'vendor/pouchdb/dist/pouchdb.js'
         ],
         css: [
             'vendor/bootstrap/dist/css/bootstrap.min.css'
@@ -83,7 +87,9 @@ module.exports = {
     ],
     jssource_mapclient: [
         '!src/**/*.spec.js',
-        'src/app/shared/isyTranslate/**/*.js'
+        'src/app/shared/isyTranslate/**/*.js',
+        'src/app/apiController/**/*.js',
+        'src/app/zISY.Angular/**/*.js'
     ],
     source_css: [
         '*.css'

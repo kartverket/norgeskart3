@@ -1,5 +1,5 @@
 {
-  "name": "norgeskartClient",
+  "name": "norgeskartclient",
   "version": "0.1.0",
   "devDependencies": {},
   "dependencies": {
@@ -8,6 +8,9 @@
     "angular-mocks": "*",
     "bootstrap": "*",
     "angular-translate": "*",
+    "proj4": "*",
+    "maplib": "http://193.71.49.116:7990/scm/gi/maplib.git",
+    "pouchdb": "~5.0.0",
     "jasmine-ajax": "*",
     "es5-shim" : "*",
     "jquery": "*"
