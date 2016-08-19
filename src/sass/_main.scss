@@ -1,0 +1,417 @@
+$shadow-color: rgba(0, 0, 0, 0.298039);
+$shadow: $shadow-color 1px 1px 2px 1px;
+$backgroundColor: white;
+
+// Main colors
+$color-primary: #20aaac; // Norconsult-webfarge 2
+$color-contrast: #ea3d59; // Norconsult-webfarge 5
+$color-1: #e7e7dd; // Norconsult-webfarge 1
+$color-2: #c8dc3e; // Norconsult-webfarge 3
+
+$dark: #2f3940; // Norconsult-webfarge 4
+$white: white;
+
+$gray-dark: #4c4c4e;
+$gray: #98989b;
+$gray-light: $color-1;
+
+// Font families
+$font-special-normal: 'Roboto Slab', arial, helvetica, sans-serif;
+$font-default: 'Open sans', Arial, Helvetica, sans-serif;
+$font-icon: ISYicons;
+
+// Font sizes
+$font-xsmall: 14px;
+$font-small: 16px;
+$font-medium: 17px;
+$font-large: 24px;
+$font-xlarge: 36px;
+
+// Line heights
+$line-height-xsmall: 1.3;
+$line-height-small: 1.5;
+$line-height-medium: 22px;
+$line-height-large: 31px;
+$line-height-xlarge: 40px;
+
+// Borders
+$border-radius: 5px;
+$border: 1px solid $gray-light;
+$border: 1px solid $color-primary;
+
+h1 {
+  font: {
+    family: $font-special-normal;
+    size: $font-xlarge;
+    weight: normal;
+  }
+
+}
+
+h2, h3, h4, h5, h6 {
+  font-family: $font-default;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: $font-large;
+  font-weight: normal;
+}
+
+h3 {
+  font-size: $font-medium;
+}
+
+h4, h5, h6 {
+  font-size: $font-small;
+}
+
+a {
+  color: $gray-light;
+
+  &:hover,
+  &:focus {
+    color: $gray-light;
+    text-decoration: none;
+  }
+}
+
+body {
+  background: $white;
+  color: $dark;
+  font-size: $font-small;
+  font-family: $font-default;
+  line-height: $line-height-xsmall;
+}
+
+p {
+  line-height: $line-height-small;
+}
+
+ul {
+  //overflow: hidden;
+  padding: 0;
+  font-size: $font-xsmall;
+  line-height: $line-height-small;
+
+  li {
+    list-style-type: none;
+  }
+}
+
+/*
+  Defines a class which disables click on the
+  element but allows click on all child elements.
+*/
+.clickThrough{
+  pointer-events: none;
+
+  > *{
+    pointer-events: all;
+  }
+}
+
+body{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.main{
+  position: absolute;
+  top: 52px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.header-move{
+  cursor: move;
+}
+
+.overlayContent{
+  max-height: 100%;
+  overflow: auto;
+  border: $border;
+  box-shadow: $shadow;
+  background-color: white;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  .dropdown-menu{
+    position: inherit;
+  }
+}
+
+.pointer-cursor{
+  cursor: pointer;
+}
+
+.panel-body {
+  padding: 10px;
+}
+
+.panel-body > .content {
+  margin-top: 10px;
+}
+
+a.active{
+  color: $color-contrast;
+}
+
+.button{
+  margin: 0;
+}
+
+button{
+  height: 30px;
+}
+button:focus{
+  outline: 0!important;
+}
+
+.btn{
+  padding: 4px 12px;
+  background-color: #20aaac;
+}
+
+.btn-default {
+  background-color: $color-primary;
+  color: white;
+  height: 30px;
+}
+
+.btn-default:hover{
+  background-color: #229597;
+  color: white;
+}
+
+.btn-default[disabled]{
+  background-color:grey;
+}
+
+.btn-default[disabled]:hover{
+  background-color:#6D6D6D;
+  color:white;
+}
+
+.no-border{
+  border: 0px;
+}
+
+.login-icon{
+  color: $color-primary;
+}
+
+.login-icon:hover{
+  color: black;
+}
+
+.login-panel{
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid $gray;
+  margin-top: 50px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.login-header{
+  padding: 10px 10px 25px 10px;
+  font-size: $font-large;
+  margin: 20px;
+  border-bottom: 1px solid $gray; //#e7e7dd;
+}
+
+.login-content{
+  background: white;
+  margin:25px 20px 20px 20px;
+}
+
+.field-group{
+  .field-group-header{
+    background-color: $color-1;
+    margin:0 0 10px 0;
+    padding: 5px;
+    h2{
+      display: inline;
+      font-size: 18px;
+      line-height: 22px;
+    }
+    span{
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  .move-right{
+    padding-left: 5px;
+    width: auto;
+  }
+
+  .clean-btn{
+    width: 780px;
+  }
+
+  box-sizing: border-box;
+  clear: both;
+  padding:4px;
+  margin: auto;
+  max-width: 820px;
+  a,p{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 14px;
+  }
+  a {
+    color: $gray-light;
+    &:hover,
+    &:focus {
+      color: black;
+      text-decoration: none;
+    }
+  }
+
+  .max-width-button{
+    width: 100%;
+  }
+
+  .search-bar{
+    width:800px;
+  }
+
+  button{
+    .caret{
+      margin-top: 6px;
+    }
+  }
+  ul{
+    width: 100%;
+  }
+
+  label{
+    color:#707070;
+    font-weight: 100;
+    display: block;
+    text-align: left;
+    width: auto;
+    font-size: 13px;
+    margin-bottom: 2px;
+    padding-top: 5px;
+  }
+
+  input{
+    border-radius: 3.01px;
+    box-sizing: border-box;
+    font-size: inherit;
+    margin: 0;
+    vertical-align: baseline;
+    width: 100%;
+  }
+  .login-input{
+    height: 30px;
+    border: 1px solid #ccc;
+  }
+
+  .list-group-item{
+    border-top: 1px solid #ddd;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .list-group-item:first-child{
+    border-top: none;
+  }
+
+  .list-group-item-no-border{
+    border: 0;
+    padding: 5px;
+  }
+
+}
+
+.login-input{
+  height: 30px;
+  padding-left: 5px;
+}
+
+.login-img{
+  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+  alignment: center;
+}
+
+
+.btn-default-login {
+  background-color: #e7e7dd;
+  text-shadow: 1px 1px 1px #021622;
+  margin-right: 6px;
+}
+
+.btn-group{
+  width: 100%;
+
+  .btn{
+    width: 100%;
+  }
+  input[type="radio"]{
+    display: none;
+  }
+}
+
+.btn-first{
+  margin-top: 5px;
+}
+
+// END CONFIGAPP
+
+html{
+  font-size: 12px;
+}
+
+.isy{
+  position: fixed;
+}
+
+.header-panel{
+  left: 0;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  background-color: #20aaac;
+  color: #e7e7dd;
+  padding: 6px;
+}
+
+.header-title{
+  font-size: 22px;
+}
+
+.header-menu-icon{
+  display: inline-block;
+  padding: 0 10px;
+  margin:4px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.header-pointer{
+  cursor: pointer;
+}
+
+.page-panel{
+  top:$configPageWrapperTop;
+  width: 100%;
+  position: absolute;
+  background-color: white;
+}
+
+@import "dropdownmenu";
