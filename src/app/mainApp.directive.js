@@ -1,8 +1,8 @@
-angular.module('mapApp')
-    .directive('mapApp', [
+angular.module('mainApp')
+    .directive('mainApp', [
         function() {
             return {
-                templateUrl: 'appBody.html',
+                templateUrl: 'mainAppBody.html',
                 link: function (scope) {
                     //remove if scope function is implemented
                     if (false){

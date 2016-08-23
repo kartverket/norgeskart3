@@ -69,7 +69,8 @@ module.exports = {
             'vendor/proj4/dist/proj4.js',
             'vendor/maplib/dist/maplib.js',
             'vendor/es5-shim/es5-shim.js',
-            'vendor/pouchdb/dist/pouchdb.js'
+            'vendor/pouchdb/dist/pouchdb.js',
+            'vendor/xml2json/xml2json.js'
         ],
         css: [
             'vendor/bootstrap/dist/css/bootstrap.min.css'

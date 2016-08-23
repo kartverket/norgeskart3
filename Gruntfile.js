@@ -694,7 +694,7 @@ module.exports = function ( grunt ) {
         };
 
         grunt.file.copy('src/index.html', this.data.dir + '/index.html', copyOptions);
-
+        grunt.file.copy('src/config.xml', this.data.dir + '/config.xml', copyOptions);
     });
 
     //build Index.cshtml for NuGet package
