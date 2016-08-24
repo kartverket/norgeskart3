@@ -129,18 +129,19 @@ angular.module('mainApp')
 
             function getProjectCallback(project, isOffline) {
                 projectConfig = project;
-                // if (projectConfig === undefined || project.config === undefined || project.config.mapbounds === undefined) {
-                //     console.log("project and/or coordinateExtend is undefined. Check project config");
-                //     headerAppFactory.setShowSimpleHeader(true);
-                //     giAppFactory.setErrorBody();
-                //     $rootScope.$apply();
-                //     return false;
-                // }
+                if (projectConfig === undefined || project.config === undefined || project.config.mapbounds === undefined) {
+                    console.log("project and/or coordinateExtend is undefined. Check project config");
+                    // headerAppFactory.setShowSimpleHeader(true);
+                    // giAppFactory.setErrorBody();
+                    // $rootScope.$apply();
+                    return false;
+                }
 
                 mapConfig = new ISY.Repository.MapConfig(angular.copy(mapConfig));
                 mapConfig.instance = instance;
                 mapConfig.projectName = projectName().toLowerCase();
                 mapConfig.isOffline = isOffline;
+
                 if (project.config.project.isyauth !== undefined) {
                     mapConfig.authHost = project.config.project.isyauth;
                     mapConfig.authHost += "/authjson/";
