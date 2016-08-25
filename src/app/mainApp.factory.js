@@ -10,44 +10,55 @@ angular.module('mainApp')
             var groupIds = [];
             var notDummyGroup = false;
             var projectNameUrl;
-
-            var mapConfig = {
+            var mapConfig =
+            {
+                "name": "default config",
+                "useCategories": true,
+                "showProgressBar": true,
+                "showMousePosition": true,
+                "comment": "",
                 "numZoomLevels": 18,
                 "newMaxRes":  21664,
-                "center": [
-                    570130,7032300
-                ],
-                "groups": [],
-                "zoom": 15,
-                "layers": [
-                    {
-                        "id": "1992",
-                        "isBaseLayer": true,
-                        "subLayers": [
-                            {
-                                "title": "norges_grunnkart",
-                                "source": "WMS",
-                                "url": ["http://opencache.statkart.no/gatekeeper/gk/gk.open?LAYERS=norges_grunnkart"],
-                                "gatekeeper": true,
-                                "name": "norges_grunnkart",
-                                "format": "image/png",
-                                "coordinate_system": "EPSG:32632",
-                                "id": "1992",
-                                "tiled": true
-                            }
-                        ],
-                        "visibleOnLoad": true
-                    }
-                ],
-                "coordinate_system": "EPSG:32632",
-                "extent": [
-                    -2000000.0, 3500000.0, 3545984.0, 9045984.0
-                ],
+                "extent": [-2000000, 3500000, 3545984, 9045984],
                 "extentUnits": "m",
+                "proxyHost": "",
+                "searchHost": "",
+                "tokenHost": "",
+                "searchpointzoom": 12,
+                "groups": [],
                 "languages": {
                     "no": {},
                     "en": {}
-                }
+                },
+                "layers": [
+                            {
+                                "id": "1992",
+                                "isBaseLayer": true,
+                                "subLayers": [
+                                    {
+                                        "title": "norges_grunnkart",
+                                        "source": "WMS",
+                                        "url": ["http://opencache.statkart.no/gatekeeper/gk/gk.open?LAYERS=norges_grunnkart"],
+                                        "gatekeeper": true,
+                                        "name": "norges_grunnkart",
+                                        "format": "image/png",
+                                        "coordinate_system": "EPSG:32632",
+                                        "id": "1992",
+                                        "tiled": true
+                                    }
+                                ],
+                                "visibleOnLoad": true
+                            }
+                ],
+                "zoom": 3,
+                "center": [570130,7032300],
+                "hoverOptions": {
+                    "multiSelect": true,
+                    "mmultiSelect": false
+                },
+                "coordinate_system": "EPSG:32632",
+                "onlyOneGroup": false,
+                "isOffline": false
             };
 
             var getConfigCallback = function(configJson){
@@ -208,7 +219,7 @@ angular.module('mainApp')
                 // if (layout) {
                 //     mapConfig.showMousePosition = layout.enablemousepositionctrl === 'true';
                 // }
-                // updateMapConfigWithCoordinateAndExtend(project.config.mapbounds);
+                updateMapConfigWithCoordinateAndExtend(project.config.mapbounds);
                 //
                 updateMapConfigWithGroups(project);
                 updateMapConfigWithImageLayers(project);
@@ -219,6 +230,35 @@ angular.module('mainApp')
 
                 return true;
             }
+
+            var getBound = function(coordinateAndExtent) {
+                var bound;
+
+                for (var i = 0; i < coordinateAndExtent.mapbound.length; i++){
+                    bound = coordinateAndExtent.mapbound[i];
+                    if (bound.epsg === mapConfig.coordinate_system){
+                        return bound;
+                    }
+                }
+
+                return undefined;
+
+            };
+
+            var updateMapConfigWithCoordinateAndExtend = function(coordinateAndExtend) {
+                if (coordinateAndExtend === undefined) {
+                    return;
+                }
+
+                var bound = getBound(coordinateAndExtend);
+                if (bound === undefined) {
+                    console.log("Coordinatesystem is not defined. Maybe missing in file app.config");
+                } else {
+                    mapConfig.extent = bound.extent.toString().split(',').map(function(item){
+                        return parseInt(item, 10);
+                    });
+                }
+            };
 
             var updateMapConfigWithGroups = function(project) {
                 if (project.config.maplayer !== undefined){
