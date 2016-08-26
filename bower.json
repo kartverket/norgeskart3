@@ -9,7 +9,7 @@
     "bootstrap": "*",
     "angular-translate": "*",
     "proj4": "*",
-    "maplib": "http://193.71.49.116:7990/scm/gi/maplib.git",
+    "maplib": "C:/projects/GI/maplib",
     "pouchdb": "~5.0.0",
     "jasmine-ajax": "*",
     "es5-shim" : "*",
