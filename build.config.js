@@ -90,7 +90,10 @@ module.exports = {
         '!src/**/*.spec.js',
         'src/app/shared/isyTranslate/**/*.js',
         'src/app/apiController/**/*.js',
-        'src/app/zISY.Angular/**/*.js'
+        'src/app/zISY.Angular/**/*.js',
+        'src/app/components/menus/mainMenu/**/*.js',
+        'src/app/components/overlays/mainMenuOverlay/**/*.js',
+        'src/app/components/overlays/mapOverlays/**/*.js'
     ],
     source_css: [
         '*.css'

@@ -422,4 +422,11 @@ html{
   left: 0;
 }
 
+.main-menu-overlay{
+  z-index: 10;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+}
+
 @import "dropdownmenu";
