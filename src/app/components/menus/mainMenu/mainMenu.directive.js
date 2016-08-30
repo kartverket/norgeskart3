@@ -1,6 +1,6 @@
 angular.module('mainMenu')
-    .directive('mainMenu', ['mapToolsFactory',
-        function(mapToolsFactory) {
+    .directive('mainMenu', ['mapToolsFactory', 'mainMenuFactory',
+        function(mapToolsFactory, mainMenuFactory) {
             return {
                 templateUrl: 'components/menus/mainMenu/mainMenu.html',
                 restrict: 'A',
@@ -25,6 +25,14 @@ angular.module('mainMenu')
                         _startDrawing("Polygon");
                     };
 
+                    scope.uploadGpx = function () {
+                        // var data = '';
+                        // mainMenuFactory.setGpxData(data);
+                        mainMenuFactory.loadXml();
+                        var getXml = mainMenuFactory.getXmlFile();
+                        mainMenuFactory.setGpxData(getXml);
+                        mainMenuFactory.uploadGpxFile();
+                    };
 
 
                 }
