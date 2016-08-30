@@ -422,4 +422,30 @@ html{
   left: 0;
 }
 
+.main-menu-overlay{
+  z-index: 10;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+}
+
+.breadcrumbs {
+  margin: 0;
+}
+
+.breadcrumbs span {
+  padding: 5px 10px 5px 5px;
+  border-right: 1px solid #e7e7dd;
+}
+
+.no-breadcrumbs{
+  border-right:none!important;
+}
+
+.breadcrumbs span:last-child {
+  border-right: none;
+}
+
 @import "dropdownmenu";
+@import "icomoon";
+@import "vectoricon";
