@@ -93,7 +93,8 @@ module.exports = {
         'src/app/zISY.Angular/**/*.js',
         'src/app/components/menus/mainMenu/**/*.js',
         'src/app/components/overlays/mainMenuOverlay/**/*.js',
-        'src/app/components/overlays/mapOverlays/**/*.js'
+        'src/app/components/overlays/mapOverlays/**/*.js',
+        'src/app/components/map/mapTools/**/*.js'
     ],
     source_css: [
         '*.css'

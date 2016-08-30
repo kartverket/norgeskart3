@@ -3,6 +3,7 @@ angular.module('mainApp', [
     'templates-common',
     'ISY.Angular',
     'isyTranslate',
-    'mapOverlays'
+    'mapOverlays',
+    'mapTools'
 
 ]);
