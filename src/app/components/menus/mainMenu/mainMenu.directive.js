@@ -7,11 +7,24 @@ angular.module('mainMenu')
                 link: function(scope){
 
 
-                    scope.startDrawing = function () {
+                    function _startDrawing (style) {
                         var addFeatureTool = mapToolsFactory.getToolById("AddLayerFeature");
-                        mapToolsFactory.setAddFeatureType("Line", "AddLayerFeature");
+                        mapToolsFactory.setAddFeatureType(style, "AddLayerFeature");
                         mapToolsFactory.activateTool(addFeatureTool);
+                    }
+
+                    scope.drawPoint = function () {
+                        _startDrawing("Point");
                     };
+
+                    scope.drawLine = function () {
+                        _startDrawing("Line");
+                    };
+
+                    scope.drawPolygon = function () {
+                        _startDrawing("Polygon");
+                    };
+
 
 
                 }
