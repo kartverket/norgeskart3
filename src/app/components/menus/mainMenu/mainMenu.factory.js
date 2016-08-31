@@ -12,7 +12,7 @@ angular
                 loadXmlFile: function () {
                     $.ajax({
                         type: "GET",
-                        url: "test.xml",
+                        url: "elevationProfile.xml",
                         async: false,
                         success: function (result) {
                             xmlFile = result;
