@@ -125,6 +125,17 @@ module.exports = function ( grunt ) {
                     }
                 ]
             },
+            build_external_assets: {
+                files: [
+                    {
+                        src: [ '<%= external_files.assets %>' ],
+                        dest: '<%= build_dir %>/external/',
+                        cwd: '.',
+                        expand: true,
+                        flatten: true
+                    }
+                ]
+            },
             build_vendor_fonts: {
                 files: [
                     {
@@ -150,6 +161,16 @@ module.exports = function ( grunt ) {
                 files: [
                     {
                         src: [ '<%= vendor_files.js %>' ],
+                        dest: '<%= build_dir %>/',
+                        cwd: '.',
+                        expand: true
+                    }
+                ]
+            },
+            build_externaljs: {
+                files: [
+                    {
+                        src: [ '<%= external_files.js %>' ],
                         dest: '<%= build_dir %>/',
                         cwd: '.',
                         expand: true
@@ -232,6 +253,7 @@ module.exports = function ( grunt ) {
                 },
                 src: [
                     '<%= vendor_files.js %>',
+                    '<%= external_files.js %>',
                     '<%= build_dir %>/src/**/*.js',
                     '<%= html2js.app.dest %>',
                     '<%= html2js.common.dest %>'
@@ -386,6 +408,7 @@ module.exports = function ( grunt ) {
                 dir: '<%= build_dir %>',
                 src: [
                     '<%= vendor_files.js %>',
+                    '<%= external_files.js %>',
                     '<%= build_dir %>/src/**/*.js',
                     '<%= html2js.common.dest %>',
                     '<%= html2js.app.dest %>',
@@ -417,6 +440,7 @@ module.exports = function ( grunt ) {
                 dir: '<%= build_dir %>',
                 src: [
                     '<%= vendor_files.js %>',
+                    '<%= external_files.js %>',
                     '<%= html2js.app.dest %>',
                     '<%= html2js.common.dest %>',
                     '<%= test_files.js %>'
@@ -476,7 +500,7 @@ module.exports = function ( grunt ) {
                 files: [
                     'src/assets/**/*'
                 ],
-                tasks: [ 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_vendor_fonts' ]
+                tasks: [ 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_external_assets', 'copy:build_vendor_fonts' ]
             },
 
             /**
@@ -601,9 +625,11 @@ module.exports = function ( grunt ) {
         //'appcache',
         'copy:build_app_assets',
         'copy:build_vendor_assets',
+        'copy:build_external_assets',
         'copy:build_vendor_fonts',
         'copy:build_appjs',
         'copy:build_vendorjs',
+        'copy:build_externaljs',
         'ngmin',
         'index:build',
         'karmaconfig',

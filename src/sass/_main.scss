@@ -446,6 +446,13 @@ html{
   border-right: none;
 }
 
+.test-link {
+  a{
+    color: #000;
+  }
+}
+
+
 @import "dropdownmenu";
 @import "icomoon";
 @import "vectoricon";

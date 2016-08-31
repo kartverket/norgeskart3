@@ -5,8 +5,6 @@ angular.module('mainMenu')
                 templateUrl: 'components/menus/mainMenu/mainMenu.html',
                 restrict: 'A',
                 link: function(scope){
-
-
                     function _startDrawing (style) {
                         var addFeatureTool = mapToolsFactory.getToolById("AddLayerFeature");
                         mapToolsFactory.setAddFeatureType(style, "AddLayerFeature");
@@ -25,13 +23,10 @@ angular.module('mainMenu')
                         _startDrawing("Polygon");
                     };
 
-                    scope.uploadGpx = function () {
-                        // var data = '';
-                        // mainMenuFactory.setGpxData(data);
-                        mainMenuFactory.loadXml();
-                        var getXml = mainMenuFactory.getXmlFile();
-                        mainMenuFactory.setGpxData(getXml);
-                        mainMenuFactory.uploadGpxFile();
+                    scope.calculateElevationProfile = function () {
+                        mainMenuFactory.loadXmlFile();
+                        mainMenuFactory.generateElevationProfile();
+                        scope.elevationImage = mainMenuFactory.getElevationImage();
                     };
 
 
