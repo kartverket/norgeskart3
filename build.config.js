@@ -58,6 +58,15 @@ module.exports = {
      * with our app's assets. This structure is flattened, so it is not
      * recommended that you use wildcards.
      */
+    external_files:{
+        js:[
+            'external/maplib/dist/maplib-min.js'
+        ],
+        assets:[
+
+        ]
+    },
+
     vendor_files: {
         js: [
             'vendor/jquery/dist/jquery.js',
@@ -67,10 +76,11 @@ module.exports = {
             'vendor/angular-translate/angular-translate.js',
             'vendor/openlayers3/ol.js',
             'vendor/proj4/dist/proj4.js',
-            'vendor/maplib/dist/maplib.js',
             'vendor/es5-shim/es5-shim.js',
             'vendor/pouchdb/dist/pouchdb.js',
-            'vendor/xml2json/xml2json.js'
+            'vendor/xml2json/xml2json.js',
+            'vendor/openlayers3/ol.js',
+            'vendor/blob-util/dist/blob-util.min.js'
         ],
         css: [
             'vendor/bootstrap/dist/css/bootstrap.min.css'

@@ -9,11 +9,13 @@
     "bootstrap": "*",
     "angular-translate": "*",
     "proj4": "*",
-    "maplib": "C:/projects/GI/maplib",
     "pouchdb": "~5.0.0",
     "jasmine-ajax": "*",
-    "es5-shim" : "*",
-    "jquery": "*"
+    "es5-shim": "*",
+    "jquery": "*",
+    "xml2json": "^1.1.1",
+    "openlayers3": "https://github.com/openlayers/ol3/releases/download/v3.12.1/v3.12.1-dist.zip",
+    "blob-util": "*"
   },
   "resolutions": {
     "angular": "1.3.3"

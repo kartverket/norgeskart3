@@ -1,12 +1,10 @@
 angular.module('mainMenu')
-    .directive('mainMenu', ['mapToolsFactory',
-        function(mapToolsFactory) {
+    .directive('mainMenu', ['mapToolsFactory', 'mainMenuFactory',
+        function(mapToolsFactory, mainMenuFactory) {
             return {
                 templateUrl: 'components/menus/mainMenu/mainMenu.html',
                 restrict: 'A',
                 link: function(scope){
-
-
                     function _startDrawing (style) {
                         var addFeatureTool = mapToolsFactory.getToolById("AddLayerFeature");
                         mapToolsFactory.setAddFeatureType(style, "AddLayerFeature");
@@ -25,6 +23,11 @@ angular.module('mainMenu')
                         _startDrawing("Polygon");
                     };
 
+                    scope.calculateElevationProfile = function () {
+                        mainMenuFactory.loadXmlFile();
+                        mainMenuFactory.generateElevationProfile();
+                        scope.elevationImage = mainMenuFactory.getElevationImage();
+                    };
 
 
                 }

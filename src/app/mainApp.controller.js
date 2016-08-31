@@ -1,6 +1,6 @@
 angular.module('mainApp')
-    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','mapToolsFactory','ISY.EventHandler',
-        function($scope, map, mainAppFactory, mapToolsFactory, eventHandler){
+    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','mapToolsFactory','ISY.EventHandler','$timeout',
+        function($scope, map, mainAppFactory, mapToolsFactory, eventHandler, $timeout){
 
             function _initToolbar() {
                 mapToolsFactory.initToolbar();
@@ -13,9 +13,10 @@ angular.module('mainApp')
             $scope.initMainPage = function () {
                 _registerEvents();
                 mainAppFactory.updateMapConfig();
-                var mapConfig = mainAppFactory.getMapConfig();
-                map.Init('mapDiv', mapConfig);
-
+                $timeout(function() {
+                    var mapConfig = mainAppFactory.getMapConfig();
+                    map.Init('mapDiv', mapConfig);
+                },1000);
             };
 
 
