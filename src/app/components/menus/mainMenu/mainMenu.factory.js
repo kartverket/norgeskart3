@@ -6,6 +6,41 @@ angular
             var xmlFile;
             var elevationImage;
             var serializer_ = new XMLSerializer();
+            var gpxUrl;
+
+            var _uploadGpxFile = function () {
+                var serializerXml = serializer_.serializeToString(xmlFile);
+                $.ajax({
+                    type: "POST",
+                    url: mainAppService.uploadGpxFileService(),
+                    async: false,
+                    data: serializerXml,
+                    success: function (gpxUrlResult) {
+                        console.log("Generate elevation in the progress...");
+                        gpxUrl = gpxUrlResult;
+
+                    },
+                    error: function (error) {
+                        console.log("_uploadGpxFile error: ", error);
+                    }
+                });
+            };
+
+            var _generateElevationChart = function () {
+                $.ajax({
+                    type: "GET",
+                    url: mainAppService.generateElevationChartServiceUrl(gpxUrl),
+                    async: false,
+                    success: function (result) {
+                        var reference = result.getElementsByTagName("Reference")[0];
+                        elevationImage = reference.getAttribute("xlink:href");
+                        console.log(elevationImage);
+                    },
+                    error: function (error) {
+                        console.log("_generateElevationChart error: ", error);
+                    }
+                });
+            };
 
             return {
 
@@ -24,33 +59,38 @@ angular
                 },
 
                 generateElevationProfile: function () {
-                    var serializerXml = serializer_.serializeToString(xmlFile);
-                    $.ajax({
-                        type: "POST",
-                        url: mainAppService.uploadGpxFileService(),
-                        async: false,
-                        data: serializerXml,
-                        success: function (gpxUrl) {
-                            console.log("Generate elevation in the progress...");
-                            $.ajax({
-                                type: "GET",
-                                url: mainAppService.generateElevationChartServiceUrl(gpxUrl),
-                                async: false,
-                                success: function (result) {
-                                    var reference = result.getElementsByTagName("Reference")[0];
-                                    elevationImage = reference.getAttribute("xlink:href");
-                                    console.log(elevationImage);
-                                },
-                                error: function (error) {
-                                    console.log("GenerateElevationProfile image error: ", error);
-                                }
-                            });
-                        },
-                        error: function (error) {
-                            console.log("GenerateElevationProfile error: ", error);
-                        }
-                    });
+                    _uploadGpxFile();
+                    _generateElevationChart();
                 },
+
+                // generateElevationProfile: function () {
+                //     var serializerXml = serializer_.serializeToString(xmlFile);
+                //     $.ajax({
+                //         type: "POST",
+                //         url: mainAppService.uploadGpxFileService(),
+                //         async: false,
+                //         data: serializerXml,
+                //         success: function (gpxUrl) {
+                //             console.log("Generate elevation in the progress...");
+                //             $.ajax({
+                //                 type: "GET",
+                //                 url: mainAppService.generateElevationChartServiceUrl(gpxUrl),
+                //                 async: false,
+                //                 success: function (result) {
+                //                     var reference = result.getElementsByTagName("Reference")[0];
+                //                     elevationImage = reference.getAttribute("xlink:href");
+                //                     console.log(elevationImage);
+                //                 },
+                //                 error: function (error) {
+                //                     console.log("GenerateElevationProfile image error: ", error);
+                //                 }
+                //             });
+                //         },
+                //         error: function (error) {
+                //             console.log("GenerateElevationProfile error: ", error);
+                //         }
+                //     });
+                // },
 
                 getElevationImage: function () {
                     return elevationImage;
