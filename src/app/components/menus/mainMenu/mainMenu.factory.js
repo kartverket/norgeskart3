@@ -42,6 +42,19 @@ angular
                 });
             };
 
+            var emergencyPosterConfig = {
+                'locationName': '',
+                'position1': '',
+                'position2': '',
+                'street': '',
+                'place':'',
+                'matrikkel':'',
+                'utm':'',
+                'posDez':'',
+                'map':''
+            };
+
+
             return {
 
                 loadXmlFile: function () {
@@ -63,37 +76,20 @@ angular
                     _generateElevationChart();
                 },
 
-                // generateElevationProfile: function () {
-                //     var serializerXml = serializer_.serializeToString(xmlFile);
-                //     $.ajax({
-                //         type: "POST",
-                //         url: mainAppService.uploadGpxFileService(),
-                //         async: false,
-                //         data: serializerXml,
-                //         success: function (gpxUrl) {
-                //             console.log("Generate elevation in the progress...");
-                //             $.ajax({
-                //                 type: "GET",
-                //                 url: mainAppService.generateElevationChartServiceUrl(gpxUrl),
-                //                 async: false,
-                //                 success: function (result) {
-                //                     var reference = result.getElementsByTagName("Reference")[0];
-                //                     elevationImage = reference.getAttribute("xlink:href");
-                //                     console.log(elevationImage);
-                //                 },
-                //                 error: function (error) {
-                //                     console.log("GenerateElevationProfile image error: ", error);
-                //                 }
-                //             });
-                //         },
-                //         error: function (error) {
-                //             console.log("GenerateElevationProfile error: ", error);
-                //         }
-                //     });
-                // },
+                generateEmergancyPoster: function () {
+                    mainAppService.generateEmergencyPosterServiceUrl(emergencyPosterConfig);
+                },
 
                 getElevationImage: function () {
                     return elevationImage;
+                },
+
+                getEmergencyPosterConfig: function () {
+                    return emergencyPosterConfig;
+                },
+
+                updateEmergencyPosterConfig: function (config) {
+                    emergencyPosterConfig = config;
                 }
 
 
