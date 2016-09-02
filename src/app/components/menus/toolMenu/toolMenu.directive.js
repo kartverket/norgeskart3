@@ -9,8 +9,36 @@ angular.module('toolMenu')
                      Private variables start
                     */
                     var _elevationProfileActive = false;
+                    var _emergencyPosterActive = false;
                     /*
                      Private variables end
+                    */
+
+                    /*
+                     Events start
+                     */
+                    function _addLayerFeatureEnd(geometry){
+                        var coordinates, transformCoor;
+                        if (_elevationProfileActive){
+                            coordinates = geometry.getGeometry().getCoordinates();
+                            var transformedCoord = [];
+                            for (var i = 0; i < coordinates.length; i++){
+                                transformCoor = map.TransformToGeographic([coordinates[i][0], coordinates[i][1]]);
+                                transformedCoord.push(transformCoor);
+                            }
+                            toolsElevationProfileFactory.uploadCoordinates(transformedCoord);
+                        }
+                        if (_emergencyPosterActive){
+                            coordinates = geometry.getGeometry().getCoordinates();
+                            // transformCoor = map.TransformToGeographic(coordinates[0], coordinates[1]);
+                            toolsEmergencyPosterFactory.setPosterPosition(coordinates);
+                        }
+                    }
+
+                    eventHandler.RegisterEvent(ISY.Events.EventTypes.AddLayerFeatureEnd, _addLayerFeatureEnd);
+
+                    /*
+                     Events end
                      */
 
                     /*
@@ -24,16 +52,19 @@ angular.module('toolMenu')
 
                     scope.drawPoint = function () {
                         _elevationProfileActive = false;
+                        _emergencyPosterActive = false;
                         _startDrawing("Point");
                     };
 
                     scope.drawLine = function () {
                         _elevationProfileActive = false;
+                        _emergencyPosterActive = false;
                         _startDrawing("Line");
                     };
 
                     scope.drawPolygon = function () {
                         _elevationProfileActive = false;
+                        _emergencyPosterActive = false;
                         _startDrawing("Polygon");
                     };
                     /*
@@ -43,19 +74,6 @@ angular.module('toolMenu')
                     /*
                      Calculate elevation profile start
                      */
-                    function _elevationProfileGeometry(geometry){
-                        if (_elevationProfileActive){
-                            var coordinates = geometry.getGeometry().getCoordinates();
-                            var transformedCoord = [];
-                            for (var i = 0; i < coordinates.length; i++){
-                                var transformCoor = map.TransformToGeographic([coordinates[i][0], coordinates[i][1]]);
-                                transformedCoord.push(transformCoor);
-                            }
-                            toolsElevationProfileFactory.uploadCoordinates(transformedCoord);
-                        }
-                    }
-
-                    eventHandler.RegisterEvent(ISY.Events.EventTypes.AddLayerFeatureEnd, _elevationProfileGeometry);
 
                     scope.drawLineElevation = function(){
                         _elevationProfileActive = true;
@@ -78,6 +96,12 @@ angular.module('toolMenu')
                     /*
                      Generate emergancy poster start
                      */
+
+                    scope.drawEmergencyPoint = function () {
+                        _emergencyPosterActive = true;
+                        _startDrawing("Point");
+                    };
+
                     scope.generateEmergencyPoster = function () {
                         var configPoster = toolsEmergencyPosterFactory.getEmergencyPosterConfig();
                         configPoster.locationName = "Trondheim";
@@ -92,6 +116,7 @@ angular.module('toolMenu')
                         toolsEmergencyPosterFactory.updateEmergencyPosterConfig(configPoster);
                         scope.emergencyPoster = toolsEmergencyPosterFactory.generateEmergancyPoster();
                         // scope.emergencyPoster = toolsEmergencyPosterFactory.getEmergencyPoster();
+                        _emergencyPosterActive = false;
                     };
                     /*
                      Generate emergancy poster start

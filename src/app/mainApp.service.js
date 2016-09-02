@@ -2,6 +2,8 @@ angular.module('mainApp')
     .service('mainAppService', ['$http',
             function(){
                 var url = 'http://www.norgeskart.no/';
+                var urlOpenWps = 'http://openwps.statkart.no/skwms1/';
+                var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
                 // var urlGeonorge = 'http://ws.geonorge.no/';
 
                 this.uploadGpxFileService = function () {
@@ -9,8 +11,25 @@ angular.module('mainApp')
                 };
 
                 this.generateElevationChartServiceUrl = function (gpxFile) {
-                    var serviceUrl = "http://openwps.statkart.no/skwms1/wps.elevation?request=Execute&service=WPS&version=1.0.0&identifier=elevationChart&dataInputs=";
+                    var serviceUrl = urlOpenWps + "wps.elevation?request=Execute&service=WPS&version=1.0.0&identifier=elevationChart&dataInputs=";
                     return serviceUrl + "[gpx=" + gpxFile + "] ";
+                };
+
+                this.generateMapLinkServiceUrl = function (config) {
+                    var service = encodeURIComponent(config.service);
+                    var request = encodeURIComponent(config.request);
+                    var crs = encodeURIComponent(config.CRS);
+                    var format = encodeURIComponent(config.FORMAT);
+                    var bgcolor = encodeURIComponent(config.BGCOLOR);
+                    var transparent = encodeURIComponent(config.TRANSPARENT);
+                    var layers = encodeURIComponent(config.LAYERS);
+                    var version = encodeURIComponent(config.VERSION);
+                    var width = encodeURIComponent(config.WIDTH);
+                    var height = encodeURIComponent(config.HEIGHT);
+                    var bbox = encodeURIComponent(config.BBOX);
+
+                    return urlOpenWms + "wms.topo2?service=" + service + "&request=" + request + "&CRS=" + crs + "&FORMAT=" + format + "&BGCOLOR=" + bgcolor + "&TRANSPARENT=" + transparent +
+                            "&LAYERS=" + layers + "&VERSION=" + version + "&WIDTH=" + width + "&HEIGHT=" + height + "&BBOX=" + bbox;
                 };
 
                 this.generateEmergencyPosterServiceUrl = function (config) {
@@ -22,12 +41,14 @@ angular.module('mainApp')
                     var matrikkel = encodeURIComponent(config.matrikkel);
                     var utm = encodeURIComponent(config.utm);
                     var posDez = encodeURIComponent(config.posDez);
+                    var map = encodeURIComponent(config.map);
 
                     return "http://ws.geonorge.no/fop/fop?locationName=" + config.locationName + "&position1=" + position1 + "&position2=" + position2 +
-                        "&street=" + street + "&place=" + place + "&matrikkel=" + matrikkel + "&utm=" + utm + "&posDez=" + posDez + "&" + "map=http%3A%2F%2Fopenwms.statkart.no%2Fskwms1%2Fwms.topo2%3Fservice%3DWMS%26request%3DGetMap%26CRS%3DEPSG%3A32633%26FORMAT%3Dimage%252Fjpeg%26BGCOLOR%3D0xFFFFFF%26TRANSPARENT%3Dfalse%26LAYERS%3Dtopo2_WMS%26VERSION%3D1.3.0%26WIDTH%3D1145%26HEIGHT%3D660%26BBOX%3D268879.734375%2C7041158.8671875%2C271524.265625%2C7042481.1328125";
+                        "&street=" + street + "&place=" + place + "&matrikkel=" + matrikkel + "&utm=" + utm + "&posDez=" + posDez + "&map=" + map;
 
                 };
 
             }
         ]
     );
+

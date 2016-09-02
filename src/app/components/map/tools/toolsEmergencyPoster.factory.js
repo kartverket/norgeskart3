@@ -1,7 +1,7 @@
 angular
     .module('tools')
-    .factory('toolsEmergencyPosterFactory', ['mainAppService',
-        function(mainAppService) {
+    .factory('toolsEmergencyPosterFactory', ['mainAppService', 'ISY.MapAPI.Map',
+        function(mainAppService, map) {
 
             var emergencyPosterConfig = {
                 'locationName': '',
@@ -15,23 +15,36 @@ angular
                 'map':''
             };
 
-            // var poster;
+            var emergencyMapConfig = {
+                'service': 'WMS',
+                'request': 'GetMap',
+                'CRS': 'EPSG:32633',
+                'FORMAT': 'image/jpeg',
+                'BGCOLOR': '0xFFFFFF',
+                'TRANSPARENT': 'false',
+                'LAYERS': 'topo2_WMS',
+                'VERSION': '1.3.0',
+                'WIDTH': '1145',
+                'HEIGHT': '660',
+                'BBOX': ''
+            };
+
+            var posterPosition;
+
 
             return {
 
                 generateEmergancyPoster: function () {
-                    // console.log("Generating emergency poster...");
-                    // $.ajax({
-                    //     type: "GET",
-                    //     url: mainAppService.generateEmergencyPosterServiceUrl(emergencyPosterConfig),
-                    //     async: false,
-                    //     success: function (result) {
-                    //         poster = result;
-                    //     },
-                    //     error: function (error) {
-                    //         console.log("generateEmergancyPoster error: ", error);
-                    //     }
-                    // });
+                    map.SetCenter({
+                        'lon': posterPosition[0],
+                        'lat':posterPosition[1],
+                        'zoom': 10
+                    });
+
+                    var extent = map.GetExtent();
+                    emergencyMapConfig.BBOX = extent[0] + "," + extent[1] + "," + extent[2] + "," + extent[3];
+                    emergencyPosterConfig.map = mainAppService.generateMapLinkServiceUrl(emergencyMapConfig);
+
                     return mainAppService.generateEmergencyPosterServiceUrl(emergencyPosterConfig);
                 },
 
@@ -41,11 +54,11 @@ angular
 
                 updateEmergencyPosterConfig: function (config) {
                     emergencyPosterConfig = config;
-                }
+                },
 
-                // getEmergencyPoster: function () {
-                //     return poster;
-                // }
+                setPosterPosition: function (coor) {
+                    posterPosition = coor;
+                }
 
             };
         }]);
