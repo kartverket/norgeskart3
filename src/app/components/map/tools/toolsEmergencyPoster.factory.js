@@ -1,6 +1,6 @@
 angular
     .module('tools')
-    .factory('toolsEmergencyPoster', ['mainAppService',
+    .factory('toolsEmergencyPosterFactory', ['mainAppService',
         function(mainAppService) {
 
             var emergencyPosterConfig = {

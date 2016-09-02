@@ -1,9 +1,10 @@
 angular
     .module('tools')
-    .factory('toolsElevationProfFactory', ['mainAppService',
+    .factory('toolsElevationProfileFactory', ['mainAppService',
         function(mainAppService) {
             var xmlFile, elevationImage, gpxUrl;
             var serializer_ = new XMLSerializer();
+            var coordinates = [];
 
             var _uploadGpxFile = function () {
                 var serializerXml = serializer_.serializeToString(xmlFile);
@@ -14,6 +15,7 @@ angular
                     data: serializerXml,
                     success: function (gpxUrlResult) {
                         console.log("Generate elevation in the progress...");
+                        elevationImage = undefined;
                         gpxUrl = gpxUrlResult;
 
                     },
@@ -39,6 +41,34 @@ angular
                 });
             };
 
+            var _generateGpxFile = function () {
+                var xmlString = '<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="OpenLayers" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"></gpx>';
+                var parser = new DOMParser();
+                var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+                var nodetrk = xmlDoc.createElement("trk");
+                var elements = xmlDoc.getElementsByTagName("gpx");
+                elements[0].appendChild(nodetrk);
+                var nodename = xmlDoc.createElement("name");
+                nodename.innerHTML = "Høydeprofil";
+                var nodedesc = xmlDoc.createElement("desc");
+                nodedesc.innerHTML = "No description available";
+                var nodetrkseg = xmlDoc.createElement("trkseg");
+                var elementtrk = xmlDoc.getElementsByTagName("trk");
+                elementtrk[0].appendChild(nodename);
+                elementtrk[0].appendChild(nodedesc);
+                elementtrk[0].appendChild(nodetrkseg);
+
+                var elementtrkseg = xmlDoc.getElementsByTagName("trkseg");
+
+                for (var i = 0; i < coordinates.length; i++){
+                    var nodetrkpt = xmlDoc.createElement("trkpt");
+                    nodetrkpt.setAttribute("lon", coordinates[i][0]);
+                    nodetrkpt.setAttribute("lat", coordinates[i][1]);
+                    elementtrkseg[0].appendChild(nodetrkpt);
+                }
+                xmlFile = xmlDoc;
+            };
+
             return {
 
                 loadXmlFile: function () {
@@ -62,10 +92,11 @@ angular
 
                 getElevationImage: function () {
                     return elevationImage;
+                },
+
+                uploadCoordinates: function (data) {
+                    coordinates = data;
+                    _generateGpxFile();
                 }
-
             };
-
-
-
         }]);
