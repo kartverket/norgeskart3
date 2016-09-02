@@ -12,9 +12,9 @@ Contributing
         3.3 Verify that the command "ruby -v" outputs the ruby version in your terminal
         3.4 run "gem update --system"
         3.5 run "gem install compass"            
-    5. Run "npm install" on the command line from within the fetched directory
-    6. Run "bower install"
-    7. Build and run unit tests with "grunt default"
+    4. Run "npm install" on the command line from within the fetched directory
+    5. Run "bower install"
+    6. Build and run unit tests with "grunt default"
 
 
 Learn
@@ -62,9 +62,8 @@ learn more.
   components into the `vendor/` directory.
 - `bower.json` - this is our project configuration for Bower and it contains the
   list of Bower dependencies we need.
-- `build.config.js` - our customizable build settings; see "The Build System"
-  below.
-- `Gruntfile.js` - our build script; see "The Build System" below.
+- `build.config.js` - our customizable build settings.
+- `Gruntfile.js` - our build script.
 - `module.prefix` and `module.suffix` - our compiled application script is
   wrapped in these, which by default are used to place the application inside a
   self-executing anonymous function to ensure no clashes with other libraries.

@@ -1,9 +1,9 @@
 angular.module('mainApp')
-    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','mapToolsFactory','ISY.EventHandler','$timeout',
-        function($scope, map, mainAppFactory, mapToolsFactory, eventHandler, $timeout){
+    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','toolsFactory','ISY.EventHandler','$timeout',
+        function($scope, map, mainAppFactory, toolsFactory, eventHandler, $timeout){
 
             function _initToolbar() {
-                mapToolsFactory.initToolbar();
+                toolsFactory.initToolbar();
             }
 
             function _registerEvents(){

@@ -1,6 +1,6 @@
 angular
-    .module('mapTools')
-    .factory('mapToolsFactory', ['ISY.MapAPI.Tools.ToolFactory','isyTranslateFactory',
+    .module('tools')
+    .factory('toolsFactory', ['ISY.MapAPI.Tools.ToolFactory','isyTranslateFactory',
         function(toolFactory, isyTranslateFactory) {
 
             var tools = [

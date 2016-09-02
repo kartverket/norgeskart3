@@ -1,1 +1,1 @@
-angular.module('mainMenuOverlay', ['mainMenu']);
+angular.module('mainMenuOverlay', ['toolMenu']);

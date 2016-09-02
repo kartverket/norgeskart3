@@ -1,12 +1,10 @@
 angular
-    .module('mainMenu')
-    .factory('mainMenuFactory', ['mainAppService',
+    .module('tools')
+    .factory('toolsElevationProfileFactory', ['mainAppService',
         function(mainAppService) {
-
-            var xmlFile;
-            var elevationImage;
+            var xmlFile, elevationImage, gpxUrl;
             var serializer_ = new XMLSerializer();
-            var gpxUrl;
+            var coordinates = [];
 
             var _uploadGpxFile = function () {
                 var serializerXml = serializer_.serializeToString(xmlFile);
@@ -17,6 +15,7 @@ angular
                     data: serializerXml,
                     success: function (gpxUrlResult) {
                         console.log("Generate elevation in the progress...");
+                        elevationImage = undefined;
                         gpxUrl = gpxUrlResult;
 
                     },
@@ -42,6 +41,34 @@ angular
                 });
             };
 
+            var _generateGpxFile = function () {
+                var xmlString = '<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="OpenLayers" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"></gpx>';
+                var parser = new DOMParser();
+                var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+                var nodetrk = xmlDoc.createElement("trk");
+                var elements = xmlDoc.getElementsByTagName("gpx");
+                elements[0].appendChild(nodetrk);
+                var nodename = xmlDoc.createElement("name");
+                nodename.innerHTML = "Høydeprofil";
+                var nodedesc = xmlDoc.createElement("desc");
+                nodedesc.innerHTML = "No description available";
+                var nodetrkseg = xmlDoc.createElement("trkseg");
+                var elementtrk = xmlDoc.getElementsByTagName("trk");
+                elementtrk[0].appendChild(nodename);
+                elementtrk[0].appendChild(nodedesc);
+                elementtrk[0].appendChild(nodetrkseg);
+
+                var elementtrkseg = xmlDoc.getElementsByTagName("trkseg");
+
+                for (var i = 0; i < coordinates.length; i++){
+                    var nodetrkpt = xmlDoc.createElement("trkpt");
+                    nodetrkpt.setAttribute("lon", coordinates[i][0]);
+                    nodetrkpt.setAttribute("lat", coordinates[i][1]);
+                    elementtrkseg[0].appendChild(nodetrkpt);
+                }
+                xmlFile = xmlDoc;
+            };
+
             return {
 
                 loadXmlFile: function () {
@@ -63,39 +90,13 @@ angular
                     _generateElevationChart();
                 },
 
-                // generateElevationProfile: function () {
-                //     var serializerXml = serializer_.serializeToString(xmlFile);
-                //     $.ajax({
-                //         type: "POST",
-                //         url: mainAppService.uploadGpxFileService(),
-                //         async: false,
-                //         data: serializerXml,
-                //         success: function (gpxUrl) {
-                //             console.log("Generate elevation in the progress...");
-                //             $.ajax({
-                //                 type: "GET",
-                //                 url: mainAppService.generateElevationChartServiceUrl(gpxUrl),
-                //                 async: false,
-                //                 success: function (result) {
-                //                     var reference = result.getElementsByTagName("Reference")[0];
-                //                     elevationImage = reference.getAttribute("xlink:href");
-                //                     console.log(elevationImage);
-                //                 },
-                //                 error: function (error) {
-                //                     console.log("GenerateElevationProfile image error: ", error);
-                //                 }
-                //             });
-                //         },
-                //         error: function (error) {
-                //             console.log("GenerateElevationProfile error: ", error);
-                //         }
-                //     });
-                // },
-
                 getElevationImage: function () {
                     return elevationImage;
+                },
+
+                uploadCoordinates: function (data) {
+                    coordinates = data;
+                    _generateGpxFile();
                 }
-
-
             };
         }]);
