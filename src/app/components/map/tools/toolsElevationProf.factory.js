@@ -1,12 +1,9 @@
 angular
-    .module('mainMenu')
-    .factory('mainMenuFactory', ['mainAppService',
+    .module('tools')
+    .factory('toolsElevationProfFactory', ['mainAppService',
         function(mainAppService) {
-
-            var xmlFile;
-            var elevationImage;
+            var xmlFile, elevationImage, gpxUrl;
             var serializer_ = new XMLSerializer();
-            var gpxUrl;
 
             var _uploadGpxFile = function () {
                 var serializerXml = serializer_.serializeToString(xmlFile);
@@ -42,19 +39,6 @@ angular
                 });
             };
 
-            var emergencyPosterConfig = {
-                'locationName': '',
-                'position1': '',
-                'position2': '',
-                'street': '',
-                'place':'',
-                'matrikkel':'',
-                'utm':'',
-                'posDez':'',
-                'map':''
-            };
-
-
             return {
 
                 loadXmlFile: function () {
@@ -76,22 +60,12 @@ angular
                     _generateElevationChart();
                 },
 
-                generateEmergancyPoster: function () {
-                    mainAppService.generateEmergencyPosterServiceUrl(emergencyPosterConfig);
-                },
-
                 getElevationImage: function () {
                     return elevationImage;
-                },
-
-                getEmergencyPosterConfig: function () {
-                    return emergencyPosterConfig;
-                },
-
-                updateEmergencyPosterConfig: function (config) {
-                    emergencyPosterConfig = config;
                 }
 
-
             };
+
+
+
         }]);

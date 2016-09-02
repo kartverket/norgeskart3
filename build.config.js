@@ -105,8 +105,7 @@ module.exports = {
         'src/app/components/menus/mainMenu/**/*.js',
         'src/app/components/overlays/mainMenuOverlay/**/*.js',
         'src/app/components/overlays/mapOverlays/**/*.js',
-        'src/app/components/map/mapTools/**/*.js',
-        'src/app/components/map/services/**/*.js'
+        'src/app/components/map/tools/**/*.js'
     ],
     source_css: [
         '*.css'

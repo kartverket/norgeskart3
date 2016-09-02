@@ -1,14 +1,14 @@
 angular.module('mainMenu')
-    .directive('mainMenu', ['mapToolsFactory', 'mainMenuFactory',
-        function(mapToolsFactory, mainMenuFactory) {
+    .directive('mainMenu', ['toolsFactory', 'toolsElevationProfFactory', 'toolsEmergencyPoster',
+        function(toolsFactory, toolsElevationProfFactory, toolsEmergencyPoster) {
             return {
                 templateUrl: 'components/menus/mainMenu/mainMenu.html',
                 restrict: 'A',
                 link: function(scope){
                     function _startDrawing (style) {
-                        var addFeatureTool = mapToolsFactory.getToolById("AddLayerFeature");
-                        mapToolsFactory.setAddFeatureType(style, "AddLayerFeature");
-                        mapToolsFactory.activateTool(addFeatureTool);
+                        var addFeatureTool = toolsFactory.getToolById("AddLayerFeature");
+                        toolsFactory.setAddFeatureType(style, "AddLayerFeature");
+                        toolsFactory.activateTool(addFeatureTool);
                     }
 
                     scope.drawPoint = function () {
@@ -24,13 +24,13 @@ angular.module('mainMenu')
                     };
 
                     scope.calculateElevationProfile = function () {
-                        mainMenuFactory.loadXmlFile();
-                        mainMenuFactory.generateElevationProfile();
-                        scope.elevationImage = mainMenuFactory.getElevationImage();
+                        toolsElevationProfFactory.loadXmlFile();
+                        toolsElevationProfFactory.generateElevationProfile();
+                        scope.elevationImage = toolsElevationProfFactory.getElevationImage();
                     };
 
                     scope.generateEmergencyPoster = function () {
-                        var configPoster = mainMenuFactory.getEmergencyPosterConfig();
+                        var configPoster = toolsEmergencyPoster.getEmergencyPosterConfig();
                         configPoster.locationName = "Trondheim";
                         configPoster.position1 = "63 grader 25 minutter 49 sekunder nord";
                         configPoster.position2 = "10 grader 23 minutter 32 sekunder  st";
@@ -39,8 +39,8 @@ angular.module('mainMenu')
                         configPoster.matrikkel = "402/375 i TRONDHEIM";
                         configPoster.utm = "32V 569481 N 7034305";
                         configPoster.posDez = "N63.4303 - 10.3922";
-                        mainMenuFactory.updateEmergencyPosterConfig(configPoster);
-                        mainMenuFactory.generateEmergancyPoster();
+                        toolsEmergencyPoster.updateEmergencyPosterConfig(configPoster);
+                        toolsEmergencyPoster.generateEmergancyPoster();
                     };
 
 
