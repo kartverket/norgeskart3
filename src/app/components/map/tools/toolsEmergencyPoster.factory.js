@@ -15,11 +15,24 @@ angular
                 'map':''
             };
 
+            // var poster;
 
             return {
 
                 generateEmergancyPoster: function () {
-                    mainAppService.generateEmergencyPosterServiceUrl(emergencyPosterConfig);
+                    // console.log("Generating emergency poster...");
+                    // $.ajax({
+                    //     type: "GET",
+                    //     url: mainAppService.generateEmergencyPosterServiceUrl(emergencyPosterConfig),
+                    //     async: false,
+                    //     success: function (result) {
+                    //         poster = result;
+                    //     },
+                    //     error: function (error) {
+                    //         console.log("generateEmergancyPoster error: ", error);
+                    //     }
+                    // });
+                    return mainAppService.generateEmergencyPosterServiceUrl(emergencyPosterConfig);
                 },
 
                 getEmergencyPosterConfig: function () {
@@ -29,6 +42,10 @@ angular
                 updateEmergencyPosterConfig: function (config) {
                     emergencyPosterConfig = config;
                 }
+
+                // getEmergencyPoster: function () {
+                //     return poster;
+                // }
 
             };
         }]);

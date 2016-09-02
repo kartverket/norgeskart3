@@ -88,8 +88,10 @@ angular.module('toolMenu')
                         configPoster.matrikkel = "402/375 i TRONDHEIM";
                         configPoster.utm = "32V 569481 N 7034305";
                         configPoster.posDez = "N63.4303 - 10.3922";
+
                         toolsEmergencyPosterFactory.updateEmergencyPosterConfig(configPoster);
-                        toolsEmergencyPosterFactory.generateEmergancyPoster();
+                        scope.emergencyPoster = toolsEmergencyPosterFactory.generateEmergancyPoster();
+                        // scope.emergencyPoster = toolsEmergencyPosterFactory.getEmergencyPoster();
                     };
                     /*
                      Generate emergancy poster start
