@@ -1,8 +1,8 @@
-angular.module('mainMenu')
-    .directive('mainMenu', ['toolsFactory', 'toolsElevationProfileFactory', 'toolsEmergencyPosterFactory', 'ISY.EventHandler', 'ISY.MapAPI.Map',
+angular.module('toolMenu')
+    .directive('toolMenu', ['toolsFactory', 'toolsElevationProfileFactory', 'toolsEmergencyPosterFactory', 'ISY.EventHandler', 'ISY.MapAPI.Map',
         function(toolsFactory, toolsElevationProfileFactory, toolsEmergencyPosterFactory, eventHandler, map) {
             return {
-                templateUrl: 'components/menus/mainMenu/mainMenu.html',
+                templateUrl: 'components/menus/toolMenu/toolMenu.html',
                 restrict: 'A',
                 link: function(scope){
                     /*
