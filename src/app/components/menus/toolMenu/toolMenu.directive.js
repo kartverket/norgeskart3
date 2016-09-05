@@ -72,6 +72,38 @@ angular.module('toolMenu')
                      */
 
                     /*
+                     Measure tools start
+                     */
+                    function _startMeasure (style) {
+                        var featureTool;
+                        switch (style){
+                            case "Line":
+                                featureTool = toolsFactory.getToolById("MeasureLine");
+                                toolsFactory.activateTool(featureTool);
+                                break;
+                            case "Polygon":
+                                featureTool = toolsFactory.getToolById("Measure");
+                                toolsFactory.activateTool(featureTool);
+                                break;
+                        }
+                    }
+
+                    scope.measureLine = function () {
+                        _elevationProfileActive = false;
+                        _emergencyPosterActive = false;
+                        _startMeasure("Line");
+                    };
+
+                    scope.measurePolygon = function () {
+                        _elevationProfileActive = false;
+                        _emergencyPosterActive = false;
+                        _startMeasure("Polygon");
+                    };
+                    /*
+                     Measure tools end
+                     */
+
+                    /*
                      Calculate elevation profile start
                      */
 
