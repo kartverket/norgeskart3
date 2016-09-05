@@ -74,7 +74,6 @@ module.exports = {
             'vendor/angular-route/angular-route.js',
             'vendor/bootstrap/dist/js/bootstrap.min.js',
             'vendor/angular-translate/angular-translate.js',
-            'vendor/openlayers3/ol.js',
             'vendor/proj4/dist/proj4.js',
             'vendor/es5-shim/es5-shim.js',
             'vendor/pouchdb/dist/pouchdb.js',
