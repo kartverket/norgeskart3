@@ -90,7 +90,7 @@ angular.module('toolMenu')
                         _elevationProfileActive = false;
                     };
                     /*
-                     Calculate elevation profile start
+                     Calculate elevation profile end
                      */
 
                     /*
@@ -119,7 +119,7 @@ angular.module('toolMenu')
                         _emergencyPosterActive = false;
                     };
                     /*
-                     Generate emergancy poster start
+                     Generate emergancy poster end
                     */
                 }
             };
