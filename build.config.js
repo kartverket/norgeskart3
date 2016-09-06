@@ -102,12 +102,12 @@ module.exports = {
         'src/app/shared/isyTranslate/**/*.js',
         'src/app/apiController/**/*.js',
         'src/app/zISY.Angular/**/*.js',
-        'src/app/components/map/toolMenu/**/*.js',
+        'src/app/components/transclusions/toolMenu/**/*.js',
         'src/app/components/overlays/mainMenuOverlay/**/*.js',
         'src/app/components/overlays/mapOverlays/**/*.js',
         'src/app/components/overlays/moveableOverlay/**/*.js',
-        'src/app/components/map/tools/**/*.js',
-        'src/app/components/map/mapGetFeatures/**/*.js'
+        'src/app/components/transclusions/tools/**/*.js',
+        'src/app/components/transclusions/mapGetFeatures/**/*.js'
     ],
     source_css: [
         '*.css'

@@ -2,7 +2,7 @@ angular.module('toolMenu')
     .directive('toolMenu', ['toolsFactory', 'toolsElevationProfileFactory', 'toolsEmergencyPosterFactory', 'ISY.EventHandler', 'ISY.MapAPI.Map',
         function(toolsFactory, toolsElevationProfileFactory, toolsEmergencyPosterFactory, eventHandler, map) {
             return {
-                templateUrl: 'components/map/toolMenu/toolMenu.html',
+                templateUrl: 'components/transclusions/toolMenu/toolMenu.html',
                 restrict: 'A',
                 link: function(scope){
                     /*
