@@ -429,6 +429,13 @@ html{
   left: 30px;
 }
 
+.moveable-overlay{
+  z-index: 10;
+  position: absolute;
+  top: 20px;
+  left: 270px;
+}
+
 .breadcrumbs {
   margin: 0;
 }

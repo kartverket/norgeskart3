@@ -1,1 +1,1 @@
-angular.module('mapOverlays', ['mainMenuOverlay']);
+angular.module('mapOverlays', ['mainMenuOverlay', 'moveableOverlay']);
