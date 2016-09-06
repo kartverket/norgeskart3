@@ -1,6 +1,6 @@
 angular.module('mainApp')
-    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','toolsFactory','ISY.EventHandler','$timeout','isyTranslateFactory',
-        function($scope, map, mainAppFactory, toolsFactory, eventHandler, $timeout, isyTranslateFactory){
+    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','toolsFactory','ISY.EventHandler','isyTranslateFactory',
+        function($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory){
 
             function _initToolbar() {
                 toolsFactory.initToolbar();
@@ -14,14 +14,8 @@ angular.module('mainApp')
                 _registerEvents();
                 map.SetTranslateOptions(isyTranslateFactory.getTranslateOptionsByActiveLanguage());
                 mainAppFactory.updateMapConfig();
-                $timeout(function() {
-                    var mapConfig = mainAppFactory.getMapConfig();
-                    map.Init('mapDiv', mapConfig);
-                },1000);
+                var mapConfig = mainAppFactory.getMapConfig();
+                map.Init('mapDiv', mapConfig);
             };
-
-
-
-
         }
     ]);
