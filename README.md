@@ -11,10 +11,12 @@ Contributing
         3.2 Add ruby executables to your PATH 
         3.3 Verify that the command "ruby -v" outputs the ruby version in your terminal
         3.4 run "gem update --system"
-        3.5 run "gem install compass"            
-    4. Run "npm install" on the command line from within the fetched directory
-    5. Run "bower install"
-    6. Build and run unit tests with "grunt default"
+        3.5 run "gem install compass"
+    4. Clone and build maplib
+    5. In the bower.json fix the path to the maplib for ex.: "maplib": "C:/projects/GI/maplib"
+    6. Run "npm install" on the command line from within the fetched directory
+    7. Run "bower install"
+    8. Build and run unit tests with "grunt default"
 
 
 Learn

@@ -13,9 +13,8 @@
     "jasmine-ajax": "*",
     "es5-shim": "*",
     "jquery": "*",
-    "xml2json": "^1.1.1",
-    "openlayers3": "https://github.com/openlayers/ol3/releases/download/v3.12.1/v3.12.1-dist.zip",
-    "blob-util": "*"
+    "blob-util": "*",
+    "maplib": "C:/projects/GI/maplib"
   },
   "resolutions": {
     "angular": "1.3.3"
