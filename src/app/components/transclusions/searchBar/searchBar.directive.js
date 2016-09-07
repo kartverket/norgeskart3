@@ -75,10 +75,7 @@ angular.module('searchBar')
             var _pushXml = function (stedsnavn, searchResult){
                 var iteratorStedsnavn = stedsnavn.iterateNext();
                 while (iteratorStedsnavn) {
-                    var name = iteratorStedsnavn.textContent;
-                    var lat = (iteratorStedsnavn.parentNode.getElementsByTagName('nord')[0].textContent + '').split('.')[0];
-                    var lon = (iteratorStedsnavn.parentNode.getElementsByTagName('aust')[0].textContent + '').split('.')[0];
-                    _pushToUnifiedResults(name, lat, lon, searchResult['format'], searchResult['source']);
+                    _constructResult(iteratorStedsnavn, searchResult);
                     iteratorStedsnavn = stedsnavn.iterateNext();
                 }
             };
@@ -88,11 +85,15 @@ angular.module('searchBar')
                 doc.loadXML(xmlDocument.toString());
                 var stedsnavn=doc.selectNodes('/sokRes/stedsnavn/stedsnavn');
                 for (var i=0;i<stedsnavn.length;i++) {
-                    var name = stedsnavn[i].textContent;
-                    var lat = (stedsnavn[i].parentNode.getElementsByTagName('nord')[0].textContent + '').split('.')[0];
-                    var lon = (stedsnavn[i].parentNode.getElementsByTagName('aust')[0].textContent + '').split('.')[0];
-                    _pushToUnifiedResults(name, lat, lon, searchResult['format'], searchResult['source']);
+                    _constructResult(stedsnavn, searchResult);
                 }
+            };
+
+            var _constructResult = function(stedsnavn, searchResult){
+                var name = stedsnavn.textContent;
+                var lat = (stedsnavn.parentNode.getElementsByTagName('nord')[0].textContent + '').split('.')[0];
+                var lon = (stedsnavn.parentNode.getElementsByTagName('aust')[0].textContent + '').split('.')[0];
+                _pushToUnifiedResults(name, lat, lon, searchResult['format'], searchResult['source']);
             };
 
             var _pushToUnifiedResults = function (name, lat, lon, format, source) {
