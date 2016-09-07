@@ -53,11 +53,16 @@ angular.module('mainApp')
                 };
 
                 this.generateSearchAdresseUrl = function (query) {
+                    //TODO: check if we should use http://ws.geonorge.no/AdresseWS/adresse/sok?sokestreng=h%C3%B8g%C3%A5sen%207b&antPerSide=100&side=1 instead
                     return url + "ws/adr.py?" + encodeURIComponent(query);
                 };
 
                 this.generateSearchStedsnavnUrl = function (query) {
-                    return urlGeonorge + "SKWS3Index/ssr/sok?navn=" + encodeURIComponent(query) + "*&eksakteForst=true&antPerSide=15&epsgKode=4326&side=0";
+                    return urlGeonorge + "SKWS3Index/ssr/sok?navn=" + encodeURIComponent(query) + "*&eksakteForst=true&antPerSide=15&epsgKode=32633&side=0";
+                };
+
+                this.generateSearchEiendomUrl = function (query) {
+                    return "http://eiendom.statkart.no/Search.ashx?filter=KILDE:sted,matreiendom,SITEURLKEY:httpwwwseeiendomno,LESEGRUPPER:guests&term=" + query;
                 };
             }
         ]
