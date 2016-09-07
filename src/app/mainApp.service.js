@@ -4,7 +4,7 @@ angular.module('mainApp')
                 var url = 'http://www.norgeskart.no/';
                 var urlOpenWps = 'http://openwps.statkart.no/skwms1/';
                 var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
-                // var urlGeonorge = 'http://ws.geonorge.no/';
+                var urlGeonorge = 'http://ws.geonorge.no/';
 
                 this.uploadGpxFileService = function () {
                     return url + 'ws/upload-gpx.py';
@@ -43,11 +43,22 @@ angular.module('mainApp')
                     var posDez = encodeURIComponent(config.posDez);
                     var map = encodeURIComponent(config.map);
 
-                    return "http://ws.geonorge.no/fop/fop?locationName=" + config.locationName + "&position1=" + position1 + "&position2=" + position2 +
+                    return urlGeonorge + "/fop/fop?locationName=" + config.locationName + "&position1=" + position1 + "&position2=" + position2 +
                         "&street=" + street + "&place=" + place + "&matrikkel=" + matrikkel + "&utm=" + utm + "&posDez=" + posDez + "&map=" + map;
 
                 };
 
+                this.generateSearchVegUrl = function (query) {
+                    return url + "ws/veg.py?" + encodeURIComponent(query);
+                };
+
+                this.generateSearchAdresseUrl = function (query) {
+                    return url + "ws/adr.py?" + encodeURIComponent(query);
+                };
+
+                this.generateSearchStedsnavnUrl = function (query) {
+                    return urlGeonorge + "SKWS3Index/ssr/sok?navn=" + encodeURIComponent(query) + "*&eksakteForst=true&antPerSide=15&epsgKode=4326&side=0";
+                };
             }
         ]
     );
