@@ -4,7 +4,7 @@ angular.module('mainApp')
                 var url = 'http://www.norgeskart.no/';
                 var urlOpenWps = 'http://openwps.statkart.no/skwms1/';
                 var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
-                var urlGeonorge = 'http://ws.geonorge.no/';
+                var urlGeonorge = 'https://ws.geonorge.no/';
 
                 this.uploadGpxFileService = function () {
                     return url + 'ws/upload-gpx.py';
