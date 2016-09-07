@@ -7,18 +7,27 @@ angular.module('searchBar')
         };
 
         var _generateUrls = function(query){
-            return [
-                [ mainAppService.generateSearchVegUrl(query), 'json', 'veg'],
-                [ mainAppService.generateSearchAdresseUrl(query), 'json','adresse'],
-                [ mainAppService.generateSearchStedsnavnUrl(query), 'xml','ssr']
-                //[ mainAppService.generateSearchEiendomUrl(query), 'json']
-            ];
+            var serviceDict = {};
+            serviceDict['ssr'] = {
+                url : mainAppService.generateSearchStedsnavnUrl(query),
+                format : 'xml'
+            };
+            serviceDict['veg'] = {
+                url : mainAppService.generateSearchVegUrl(query),
+                format : 'json'
+            };
+            serviceDict['adresse'] = {
+                url : mainAppService.generateSearchAdresseUrl(query),
+                format: 'json'
+            };
+            return serviceDict;
+
         };
 
         var _getResults = function(query){
-            var urls=_generateUrls(query);
-            for (var i = 0; i < urls.length; i++){
-                _downloadFromUrl(urls[i]);
+            var serviceDict=_generateUrls(query);
+            for (var service in serviceDict){
+                _downloadFromUrl(serviceDict[service]);
             }
         };
 
@@ -78,14 +87,13 @@ angular.module('searchBar')
 
         this._unifiedResults={};
 
-        var _downloadFromUrl = function (url) {
+        var _downloadFromUrl = function (serviceDict) {
                 $.ajax({
                     type: "GET",
-                    url: url[0],
+                    url: serviceDict['url'],
                     async: false,
                     success: function (searchResult) {
-                        console.log(url[0]);
-                        _searchResults.push( [ searchResult, url[1]] );
+                        _searchResults.push( [ searchResult, serviceDict['format'], serviceDict['name']] );
                     },
                     error: function (searchError) {
                         console.log("Error load xml file: ", searchError);
