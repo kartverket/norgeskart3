@@ -63,7 +63,16 @@ angular.module('searchBar')
 
             var _populateUnifiedResultsFromXml = function (searchResult) {
                 var xmlDocument = searchResult['document'];
-                var stedsnavn = xmlDocument.evaluate('/sokRes/stedsnavn/stedsnavn', xmlDocument);
+                try {
+                    var stedsnavn = xmlDocument.evaluate('/sokRes/stedsnavn/stedsnavn', xmlDocument);
+                    _pushXml(stedsnavn, searchResult);
+                }
+                catch (e) {
+                    _pushXmlIE(xmlDocument, searchResult);
+                }
+            };
+
+            var _pushXml = function (stedsnavn, searchResult){
                 var iteratorStedsnavn = stedsnavn.iterateNext();
                 while (iteratorStedsnavn) {
                     var name = iteratorStedsnavn.textContent;
@@ -71,6 +80,18 @@ angular.module('searchBar')
                     var lon = (iteratorStedsnavn.parentNode.getElementsByTagName('aust')[0].textContent + '').split('.')[0];
                     _pushToUnifiedResults(name, lat, lon, searchResult['format'], searchResult['source']);
                     iteratorStedsnavn = stedsnavn.iterateNext();
+                }
+            };
+
+            var _pushXmlIE = function (xmlDocument, searchResult){
+                var doc = new ActiveXObject('Microsoft.XMLDOM');
+                doc.loadXML(xmlDocument.toString());
+                var stedsnavn=doc.selectNodes('/sokRes/stedsnavn/stedsnavn');
+                for (var i=0;i<stedsnavn.length;i++) {
+                    var name = stedsnavn[i].textContent;
+                    var lat = (stedsnavn[i].parentNode.getElementsByTagName('nord')[0].textContent + '').split('.')[0];
+                    var lon = (stedsnavn[i].parentNode.getElementsByTagName('aust')[0].textContent + '').split('.')[0];
+                    _pushToUnifiedResults(name, lat, lon, searchResult['format'], searchResult['source']);
                 }
             };
 
