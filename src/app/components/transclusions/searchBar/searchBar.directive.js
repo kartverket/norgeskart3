@@ -10,15 +10,18 @@ angular.module('searchBar')
             var serviceDict = {};
             serviceDict['ssr'] = {
                 url : mainAppService.generateSearchStedsnavnUrl(query),
-                format : 'xml'
+                format : 'xml',
+                source : 'ssr'
             };
             serviceDict['veg'] = {
                 url : mainAppService.generateSearchVegUrl(query),
-                format : 'json'
+                format : 'json',
+                source : 'veg'
             };
             serviceDict['adresse'] = {
                 url : mainAppService.generateSearchAdresseUrl(query),
-                format: 'json'
+                format: 'json',
+                source : 'adresse'
             };
             return serviceDict;
 
@@ -36,46 +39,49 @@ angular.module('searchBar')
         };
 
         var _showResults = function(){
-            for (var i = 0; i < _searchResults.length; i++) {
-                var resultType=_searchResults[i][1];
-                if (resultType == 'json'){
-                    _populateUnifiedResultsFromJson(JSON.parse(_searchResults[i][0]));
+            for (var service in _searchResults) {
+                if (_searchResults[service]['format'] == 'json'){
+                    _populateUnifiedResultsFromJson(_searchResults[service] );
                 }
                 else {
-                    _populateUnifiedResultsFromXml(_searchResults[i][0]);
+                    _populateUnifiedResultsFromXml(_searchResults[service]);
                 }
             }
             console.log(_unifiedResults);
         };
 
-        var _populateUnifiedResultsFromJson = function (jsonObject){
+        var _populateUnifiedResultsFromJson = function (searchResult){
+            var jsonObject = JSON.parse(searchResult['searchResult']);
             for (var i = 0; i < jsonObject.length; i++){
                 if (jsonObject[i].hasOwnProperty('LATITUDE')) {
                     var name = jsonObject[i]['NAVN'];
                     var lat = (jsonObject[i]['LATITUDE'] + '').split('.')[0];
                     var lon = (jsonObject[i]['LONGITUDE'] + '').split('.')[0];
-                    _pushToUnifiedResults(name, lat, lon);
+                    _pushToUnifiedResults(name, lat, lon, searchResult['format'], searchResult['source']);
                 }
             }
         };
 
-        var _populateUnifiedResultsFromXml = function (xmlDocument){
+        var _populateUnifiedResultsFromXml = function (searchResult){
+            var xmlDocument = searchResult['searchResult'];
             var stedsnavn=xmlDocument.evaluate('/sokRes/stedsnavn/stedsnavn', xmlDocument);
             var iteratorStedsnavn=stedsnavn.iterateNext();
             while (iteratorStedsnavn){
                 var name = iteratorStedsnavn.textContent;
                 var lat = (iteratorStedsnavn.parentNode.getElementsByTagName('nord')[0].textContent + '').split('.')[0];
                 var lon = (iteratorStedsnavn.parentNode.getElementsByTagName('aust')[0].textContent + '').split('.')[0];
-                _pushToUnifiedResults(name, lat, lon);
+                _pushToUnifiedResults(name, lat, lon, searchResult['format'], searchResult['source']);
                 iteratorStedsnavn=stedsnavn.iterateNext();
             }
         };
 
-        var _pushToUnifiedResults = function (name, lat, lon){
+        var _pushToUnifiedResults = function (name, lat, lon, format, source){
             _unifiedResults[lat + lon]={
                 name : _capitalizeFirstLetter(name.toLowerCase()),
                 lat  : lat,
-                lon : lon
+                lon : lon,
+                format: format,
+                source: source
             };
         };
 
@@ -83,7 +89,7 @@ angular.module('searchBar')
             return string.charAt(0).toUpperCase() + string.slice(1);
         };
 
-        this._searchResults=[];
+        this._searchResults={};
 
         this._unifiedResults={};
 
@@ -93,7 +99,12 @@ angular.module('searchBar')
                     url: serviceDict['url'],
                     async: false,
                     success: function (searchResult) {
-                        _searchResults.push( [ searchResult, serviceDict['format'], serviceDict['name']] );
+                        _searchResults[serviceDict['source']] = {
+                            searchResult : searchResult,
+                            format : serviceDict['format'],
+                            source : serviceDict['source']
+
+                        };
                     },
                     error: function (searchError) {
                         console.log("Error load xml file: ", searchError);
