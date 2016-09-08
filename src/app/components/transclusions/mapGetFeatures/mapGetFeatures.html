@@ -1,3 +1,9 @@
 <div class="test-name">
-    <span>Get Features</span>
+
+    <div ng-repeat="layer in layers | filter:{show:'true'}">
+        <h3 data-ng-bind="layer.name"></h3>
+    </div>
+
+
+
 </div>
