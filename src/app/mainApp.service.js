@@ -48,12 +48,11 @@ angular.module('mainApp')
 
                 };
 
-                this.generateSearchVegUrl = function (query) {
+                this.generateSearchMatrikkelVegUrl = function (query) {
                     return url + "ws/veg.py?" + encodeURIComponent(query);
                 };
 
-                this.generateSearchAdresseUrl = function (query) {
-                    //TODO: check if we should use http://ws.geonorge.no/AdresseWS/adresse/sok?sokestreng=h%C3%B8g%C3%A5sen%207b&antPerSide=100&side=1 instead
+                this.generateSearchMatrikkelAdresseUrl = function (query) {
                     return url + "ws/adr.py?" + encodeURIComponent(query);
                 };
 
@@ -61,9 +60,15 @@ angular.module('mainApp')
                     return urlGeonorge + "SKWS3Index/ssr/sok?navn=" + encodeURIComponent(query) + "*&eksakteForst=true&antPerSide=15&epsgKode=32633&side=0";
                 };
 
+                this.generateSearchAdresseUrl = function (query) {
+                    return urlGeonorge + "AdresseWS/adresse/sok?sokestreng=" + encodeURIComponent(query) + "&antPerSide=100&side=1";
+                };
+/*
+                // No CORS
                 this.generateSearchEiendomUrl = function (query) {
                     return "http://eiendom.statkart.no/Search.ashx?filter=KILDE:sted,matreiendom,SITEURLKEY:httpwwwseeiendomno,LESEGRUPPER:guests&term=" + query;
                 };
+*/
             }
         ]
     );
