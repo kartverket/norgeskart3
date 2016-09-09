@@ -9,6 +9,9 @@ angular.module('searchBar')
 
             this._serviceDict = {};
 
+            var _init = function () {
+                _resetResults();
+            };
             var _getQuery = function (scope) {
                 return scope.searchBarModel + '';
             };
@@ -27,7 +30,7 @@ angular.module('searchBar')
                     url: mainAppService.generateSearchMatrikkelVegUrl(query),
                     format: 'json',
                     source: 'matrikkelveg',
-                    epsg: 'EPSG:32633',
+                    epsg: 'EPSG:32632',
                     nameID: 'NAVN',
                     latID: 'LATITUDE',
                     lonID: 'LONGITUDE'
@@ -36,7 +39,7 @@ angular.module('searchBar')
                     url: mainAppService.generateSearchMatrikkelAdresseUrl(query),
                     format: 'json',
                     source: 'matrikkeladresse',
-                    epsg: 'EPSG:32633',
+                    epsg: 'EPSG:32632',
                     nameID: 'NAVN',
                     latID: 'LATITUDE',
                     lonID: 'LONGITUDE'
@@ -150,7 +153,8 @@ angular.module('searchBar')
                 for (var result in _unifiedResults) {
                     coordinates.push(_unifiedResults[result].point);
                 }
-                map.ShowInfoMarker(coordinates);
+                map.RemoveInfoMarkers();
+                map.ShowInfoMarkers(coordinates);
             };
 
             return {
@@ -163,7 +167,7 @@ angular.module('searchBar')
                         if (query.length < 4) {
                             return;
                         }
-                        _resetResults();
+                        _init();
                         _getResults(query);
                         _readResults();
                         _addResultsToMap();
