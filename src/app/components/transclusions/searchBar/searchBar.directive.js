@@ -65,46 +65,42 @@ angular.module('searchBar')
             };
 
             var _readResults = function () {
+                var jsonObject;
                 for (var service in _searchResults) {
-                    if ([ 'matrikkelveg', 'matrikkeladresse' ].indexOf(_searchResults[service].source) > -1 ) {
-                        _populateUnifiedResultsFromMatrikkelJson(_searchResults[service]);
+                    var searchResult = _searchResults[service];
+                    if ([ 'matrikkelveg', 'matrikkeladresse' ].indexOf(searchResult.source) > -1 ) {
+                        jsonObject = _convertFromMatrikkel2Json(searchResult.document);
                     }
-                    else if (_searchResults[service].source == 'ssr'){
-                        _populateUnifiedResultsFromStedsnavnXml(_searchResults[service]);
+                    else if (searchResult.source == 'ssr'){
+                        jsonObject = _convertFromStedsnavn2Json(searchResult.document);
                     }
-                    else if (_searchResults[service].source == 'adresse'){
-                        _populateUnifiedResultsFromAdresseJson(_searchResults[service]);
+                    else if (searchResult.source == 'adresse'){
+                        jsonObject = _convertFromAdresse2Json(searchResult.document);
                     }
+                    _iterateJsonObject(jsonObject, searchResult);
                 }
                 console.log(Object.keys(_unifiedResults).length);
                 console.log(_unifiedResults);
             };
 /*
-            var _populateUnifiedResultsFromAdresseJson = function (searchResult) {
-                var jsonObject = searchResult.document.adresser;
-                if(jsonObject) {
-                    for (var i = 0; i < jsonObject.length; i++) {
-                        _getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]);
-                    }
-                }
+            var _convertFromAdresse2Json= function (document) {
+                return document.adresser;
             };*/
 
-            var _populateUnifiedResultsFromMatrikkelJson = function (searchResult) {
-                var jsonObject = JSON.parse(searchResult.document);
-                if(jsonObject) {
-                    for (var i = 0; i < jsonObject.length; i++) {
-                        if (jsonObject[i].LATITUDE) {
-                            _getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]);
-                        }
-                    }
-                }
+            var _convertFromMatrikkel2Json = function (document) {
+                return JSON.parse(document);
             };
 
-            var _populateUnifiedResultsFromStedsnavnXml = function (searchResult) {
-                var jsonObject = xml.xmlToJSON(searchResult.document).sokRes.stedsnavn;
+            var _convertFromStedsnavn2Json = function (document) {
+                return xml.xmlToJSON(document).sokRes.stedsnavn;
+            };
+
+            var _iterateJsonObject = function (jsonObject, searchResult){
                 if(jsonObject) {
                     for (var i = 0; i < jsonObject.length; i++) {
-                        _getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]);
+                        if (jsonObject[i][_serviceDict[searchResult.source].latID]) {
+                            _getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]);
+                        }
                     }
                 }
             };
