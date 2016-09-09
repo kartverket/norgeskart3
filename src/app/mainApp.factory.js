@@ -385,7 +385,7 @@ angular.module('mainApp')
                             "sortingIndex": -1,
                             "featureInfo": {
                                 "supportsGetFeatureInfo": true,
-                                "getFeatureInfoFormat": "application/json",
+                                "getFeatureInfoFormat": "application/vnd.ogc.gml",
                                 "getFeatureInfoCrs": "",
                                 "supportsGetFeature": true,
                                 "getFeatureBaseUrl": "",
