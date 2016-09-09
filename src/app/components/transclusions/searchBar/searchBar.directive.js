@@ -7,44 +7,56 @@ angular.module('searchBar')
 
             this._unifiedResults = {};
 
+            this._serviceDict = {};
+
             var _getQuery = function (scope) {
                 return scope.searchBarModel + '';
             };
 
-            var _generateUrls = function (query) {
-                var serviceDict = {};
-                serviceDict['ssr'] = {
+            var _populateServiceDict = function (query) {
+                _serviceDict['ssr'] = {
                     url: mainAppService.generateSearchStedsnavnUrl(query),
                     format: 'xml',
                     source: 'ssr',
-                    epsg: 'EPSG:32633'
+                    epsg: 'EPSG:32633',
+                    nameID: 'stedsnavn',
+                    latID: 'nord',
+                    lonID: 'aust'
                 };
-/*                serviceDict['adresse'] = {
-                    url: mainAppService.generateSearchAdresseUrl(query),
-                    format: 'json',
-                    source: 'adresse',
-                    epsg: 'EPSG:4326'
-                };*/
-                serviceDict['matrikkelveg'] = {
+                _serviceDict['matrikkelveg'] = {
                     url: mainAppService.generateSearchMatrikkelVegUrl(query),
                     format: 'json',
                     source: 'matrikkelveg',
-                    epsg: 'EPSG:32633'
+                    epsg: 'EPSG:32633',
+                    nameID: 'NAVN',
+                    latID: 'LATITUDE',
+                    lonID: 'LONGITUDE'
                 };
-                serviceDict['matrikkeladresse'] = {
+                _serviceDict['matrikkeladresse'] = {
                     url: mainAppService.generateSearchMatrikkelAdresseUrl(query),
                     format: 'json',
                     source: 'matrikkeladresse',
-                    epsg: 'EPSG:32633'
+                    epsg: 'EPSG:32633',
+                    nameID: 'NAVN',
+                    latID: 'LATITUDE',
+                    lonID: 'LONGITUDE'
                 };
-
-                return serviceDict;
+/*
+                 serviceDict['adresse'] = {
+                 url: mainAppService.generateSearchAdresseUrl(query),
+                 format: 'json',
+                 source: 'adresse',
+                 epsg: 'EPSG:4326',
+                 nameID: 'adressenavn',
+                 latID: 'nord',
+                 lonID: 'aust'
+                 };*/
             };
 
             var _getResults = function (query) {
-                var serviceDict = _generateUrls(query);
-                for (var service in serviceDict) {
-                    _downloadFromUrl(serviceDict[service]);
+                _populateServiceDict(query);
+                for (var service in _serviceDict) {
+                    _downloadFromUrl(_serviceDict[service]);
                 }
             };
 
@@ -67,40 +79,42 @@ angular.module('searchBar')
                 console.log(Object.keys(_unifiedResults).length);
                 console.log(_unifiedResults);
             };
-
+/*
             var _populateUnifiedResultsFromAdresseJson = function (searchResult) {
                 var jsonObject = searchResult.document.adresser;
-                for (var i = 0; i < jsonObject.length; i++) {
-                    var name = jsonObject[i].adressenavn;
-                    var lat = jsonObject[i].nord + '';
-                    var lon = jsonObject[i].aust + '';
-                    var point = _constructPoint(lat, lon, searchResult.epsg);
-                    _pushToUnifiedResults(name, point, searchResult.format, searchResult.source);
+                if(jsonObject) {
+                    for (var i = 0; i < jsonObject.length; i++) {
+                        _getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]);
+                    }
                 }
-            };
+            };*/
 
             var _populateUnifiedResultsFromMatrikkelJson = function (searchResult) {
                 var jsonObject = JSON.parse(searchResult.document);
-                for (var i = 0; i < jsonObject.length; i++) {
-                    if (jsonObject[i].LATITUDE) {
-                        var name = jsonObject[i].NAVN;
-                        var lat = jsonObject[i].LATITUDE + '';
-                        var lon = jsonObject[i].LONGITUDE + '';
-                        var point = _constructPoint(lat, lon, searchResult.epsg);
-                        _pushToUnifiedResults(name, point, searchResult.format, searchResult.source);
+                if(jsonObject) {
+                    for (var i = 0; i < jsonObject.length; i++) {
+                        if (jsonObject[i].LATITUDE) {
+                            _getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]);
+                        }
                     }
                 }
             };
 
             var _populateUnifiedResultsFromStedsnavnXml = function (searchResult) {
                 var jsonObject = xml.xmlToJSON(searchResult.document).sokRes.stedsnavn;
-                for (var i = 0; i < jsonObject.length; i++) {
-                    var name = jsonObject[i].stedsnavn;
-                    var lat = jsonObject[i].nord + '';
-                    var lon = jsonObject[i].aust + '';
-                    var point = _constructPoint(lat, lon, searchResult.epsg);
-                    _pushToUnifiedResults(name, point, searchResult.format, searchResult.source);
+                if(jsonObject) {
+                    for (var i = 0; i < jsonObject.length; i++) {
+                        _getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]);
+                    }
                 }
+            };
+
+            var _getValuesFromJson = function(identifiersDict, jsonObject){
+                var name = jsonObject[identifiersDict.nameID];
+                var lat = jsonObject[identifiersDict.latID] + '';
+                var lon = jsonObject[identifiersDict.lonID] + '';
+                var point = _constructPoint(lat, lon, identifiersDict.epsg);
+                _pushToUnifiedResults(name, point, identifiersDict.format, identifiersDict.source);
             };
 
             var _pushToUnifiedResults = function (name, point, format, source) {
@@ -125,17 +139,17 @@ angular.module('searchBar')
                 return string.charAt(0).toUpperCase() + string.slice(1);
             };
 
-            var _downloadFromUrl = function (serviceDict) {
+            var _downloadFromUrl = function (_serviceDict) {
                 $.ajax({
                     type: "GET",
-                    url: serviceDict.url,
+                    url: _serviceDict.url,
                     async: false,
                     success: function (document) {
-                        _searchResults[serviceDict.source] = {
+                        _searchResults[_serviceDict.source] = {
                             document: document,
-                            format: serviceDict.format,
-                            source: serviceDict.source,
-                            epsg: serviceDict.epsg
+                            format: _serviceDict.format,
+                            source: _serviceDict.source,
+                            epsg: _serviceDict.epsg
                         };
                     },
                     error: function (searchError) {

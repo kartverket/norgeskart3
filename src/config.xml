@@ -1,4 +1,4 @@
 <config>
-    <configurl>http://localhost:81</configurl>
-    <instance>norgeskart3</instance>
+    <configurl>http://geoinnsyn3.nois.no/Services/ISY.GIS.IsyGeoinnsynConfig</configurl>
+    <instance>geoinnsyn2</instance>
 </config>
