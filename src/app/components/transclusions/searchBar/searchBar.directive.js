@@ -1,6 +1,6 @@
 angular.module('searchBar')
-    .directive('searchBar', ['mainAppService', 'ISY.MapAPI.Map',
-        function(mainAppService, map
+    .directive('searchBar', ['mainAppService', 'ISY.MapAPI.Map','$timeout',
+        function(mainAppService, map, $timeout
         ) {
 
             this._searchResults = {};
@@ -56,10 +56,11 @@ angular.module('searchBar')
                  };*/
             };
 
-            var _getResults = function (query) {
+            var _getResults = function (query, scope) {
                 _populateServiceDict(query);
+                scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
                 for (var service in _serviceDict) {
-                    _downloadFromUrl(_serviceDict[service]);
+                    _downloadFromUrl(_serviceDict[service], scope, scope.searchTimestamp);
                 }
             };
 
@@ -129,18 +130,27 @@ angular.module('searchBar')
                 return string.charAt(0).toUpperCase() + string.slice(1);
             };
 
-            var _downloadFromUrl = function (_serviceDict) {
+            var _downloadFromUrl = function (_serviceDict, scope, timestamp) {
                 $.ajax({
                     type: "GET",
                     url: _serviceDict.url,
-                    async: false,
+                    async: true,
                     success: function (document) {
+                        if (scope.searchTimestamp != timestamp) {
+                            return;
+                        }
                         _searchResults[_serviceDict.source] = {
                             document: document,
                             format: _serviceDict.format,
                             source: _serviceDict.source,
                             epsg: _serviceDict.epsg
                         };
+                        _readResults();
+                        _addResultsToMap();
+                        $timeout(function () {
+                            scope.searchResults = _unifiedResults;
+                        }, 100);
+                        //$timeout.cancel(promise);
                     },
                     error: function (searchError) {
                         console.log("Error load xml file: ", searchError);
@@ -168,9 +178,9 @@ angular.module('searchBar')
                             return;
                         }
                         _init();
-                        _getResults(query);
-                        _readResults();
-                        _addResultsToMap();
+                        _getResults(query, scope);
+
+
                     };
                 }
             };
