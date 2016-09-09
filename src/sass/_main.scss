@@ -425,7 +425,7 @@ html{
 .main-menu-overlay{
   z-index: 10;
   position: absolute;
-  top: 20px;
+  top: 60px;
   left: 30px;
 }
 
@@ -434,6 +434,13 @@ html{
   position: absolute;
   top: 20px;
   left: 270px;
+}
+
+.search-bar-overlay{
+  z-index: 11;
+  position: absolute;
+  top: 20px;
+  left: 30px;
 }
 
 .breadcrumbs {
