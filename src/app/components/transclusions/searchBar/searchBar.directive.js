@@ -68,31 +68,22 @@ angular.module('searchBar')
                 var jsonObject;
                 for (var service in _searchResults) {
                     var searchResult = _searchResults[service];
-                    if ([ 'matrikkelveg', 'matrikkeladresse' ].indexOf(searchResult.source) > -1 ) {
-                        jsonObject = _convertFromMatrikkel2Json(searchResult.document);
-                    }
-                    else if (searchResult.source == 'ssr'){
-                        jsonObject = _convertFromStedsnavn2Json(searchResult.document);
-                    }
-                    else if (searchResult.source == 'adresse'){
-                        jsonObject = _convertFromAdresse2Json(searchResult.document);
-                    }
+                    jsonObject = _convertSearchResult2Json(searchResult.document, searchResult.source);
                     _iterateJsonObject(jsonObject, searchResult);
                 }
                 console.log(Object.keys(_unifiedResults).length);
                 console.log(_unifiedResults);
             };
-/*
-            var _convertFromAdresse2Json= function (document) {
-                return document.adresser;
-            };*/
 
-            var _convertFromMatrikkel2Json = function (document) {
-                return JSON.parse(document);
-            };
-
-            var _convertFromStedsnavn2Json = function (document) {
-                return xml.xmlToJSON(document).sokRes.stedsnavn;
+            var _convertSearchResult2Json = function (document, source) {
+                switch (source){
+                    case('ssr'):
+                        return xml.xmlToJSON(document).sokRes.stedsnavn;
+                    case('adresse'):
+                        return document.adresser;
+                    default:
+                        return JSON.parse(document);
+                }
             };
 
             var _iterateJsonObject = function (jsonObject, searchResult){
