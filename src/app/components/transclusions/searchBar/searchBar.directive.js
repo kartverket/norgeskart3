@@ -1,6 +1,6 @@
 angular.module('searchBar')
-    .directive('searchBar', ['mainAppService', 'ISY.MapAPI.Map','$timeout',
-        function(mainAppService, map, $timeout
+    .directive('searchBar', ['$timeout','mainAppService', 'ISY.MapAPI.Map',
+        function($timeout, mainAppService, map
         ) {
 
             this._searchResults = {};
@@ -24,7 +24,8 @@ angular.module('searchBar')
                     epsg: 'EPSG:32633',
                     nameID: 'stedsnavn',
                     latID: 'nord',
-                    lonID: 'aust'
+                    lonID: 'aust',
+                    kommuneID: 'kommunenavn'
                 };
                 _serviceDict['matrikkelveg'] = {
                     url: mainAppService.generateSearchMatrikkelVegUrl(query),
@@ -33,7 +34,8 @@ angular.module('searchBar')
                     epsg: 'EPSG:32632',
                     nameID: 'NAVN',
                     latID: 'LATITUDE',
-                    lonID: 'LONGITUDE'
+                    lonID: 'LONGITUDE',
+                    kommuneID: 'KOMMUNENAVN'
                 };
                 _serviceDict['matrikkeladresse'] = {
                     url: mainAppService.generateSearchMatrikkelAdresseUrl(query),
@@ -42,7 +44,8 @@ angular.module('searchBar')
                     epsg: 'EPSG:32632',
                     nameID: 'NAVN',
                     latID: 'LATITUDE',
-                    lonID: 'LONGITUDE'
+                    lonID: 'LONGITUDE',
+                    kommuneID: 'KOMMUNENAVN'
                 };
 /*
                  serviceDict['adresse'] = {
@@ -101,29 +104,64 @@ angular.module('searchBar')
             };
 
             var _getValuesFromJson = function(identifiersDict, jsonObject){
-                var name = jsonObject[identifiersDict.nameID];
+                var name = _removeNumberFromName(jsonObject[identifiersDict.nameID]);
                 var lat = jsonObject[identifiersDict.latID] + '';
                 var lon = jsonObject[identifiersDict.lonID] + '';
+                var kommune = jsonObject[identifiersDict.kommuneID];
                 var point = _constructPoint(lat, lon, identifiersDict.epsg);
-                _pushToUnifiedResults(name, point, identifiersDict.format, identifiersDict.source);
+                _pushToUnifiedResults(name, kommune, point, identifiersDict.format, identifiersDict.source);
             };
 
-            var _pushToUnifiedResults = function (name, point, format, source) {
-                var concatinatedCoordinates=_concatinateCoordinates(point);
-                _unifiedResults[concatinatedCoordinates] = {
-                    name: _capitalizeFirstLetter(name.toLowerCase()),
+            var _removeNumberFromName = function (name){
+                var nameArray=name.split(' ');
+                var matches = nameArray[nameArray.length -1].match(/\d+/g);
+                if (matches != null) {
+                    return name.replace(nameArray[nameArray.length -1],'').trim();
+                }
+                else {
+                    return name.trim();
+                }
+            };
+
+            var _pushToUnifiedResults = function (name, kommune, point, format, source) {
+                //var resultID=_concatinateCoordinates(point);
+                var resultID=name + kommune;
+                _unifiedResults[resultID] = {
+                    name: _capitalizeName(name.toLowerCase()),
                     point: point,
                     format: format,
-                    source: source
+                    source: source,
+                    kommune: _capitalizeName(kommune.toLowerCase())
                 };
             };
 
-            var _concatinateCoordinates = function (point) {
+/*            var _concatinateCoordinates = function (point) {
                 return point[0].toString().split('.')[0] + point[1].toString().split('.')[0];
-            };
+            };*/
 
             var _constructPoint = function (lat, lon, epsg) {
                 return ol.proj.transform([lon, lat], epsg, 'EPSG:32633');
+            };
+
+            var _capitalizeName = function (name) {
+                name=name.trim();
+                name=_capitalizeNamePart(name, ' ');
+                name=_capitalizeNamePart(name, '-');
+                return name;
+            };
+
+            var _capitalizeNamePart = function (name, separator){
+                var nameArray=name.split(separator);
+                var newName='';
+                for (var i =0; i< nameArray.length; i++){
+                    newName +=_capitalizeFirstLetter(nameArray[i]) + separator;
+                }
+                newName=_rtrim(newName,1);
+                return newName;
+            };
+
+            var _rtrim = function (str, length) {
+                return str.substr(0, str.length - length);
             };
 
             var _capitalizeFirstLetter = function (string) {
@@ -150,7 +188,6 @@ angular.module('searchBar')
                         $timeout(function () {
                             scope.searchResults = _unifiedResults;
                         }, 100);
-                        //$timeout.cancel(promise);
                     },
                     error: function (searchError) {
                         console.log("Error load xml file: ", searchError);
