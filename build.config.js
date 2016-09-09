@@ -80,7 +80,9 @@ module.exports = {
             'vendor/xml2json/xml2json.js',
             'vendor/openlayers3/ol.js',
             'vendor/blob-util/dist/blob-util.min.js',
-            'vendor/maplib/dist/maplib.js'
+            'vendor/maplib/dist/maplib.js',
+            'vendor/xml-to-json/xml.js',
+            'vendor/xml-to-json/json2xml.js'
         ],
         css: [
             'vendor/bootstrap/dist/css/bootstrap.min.css'
