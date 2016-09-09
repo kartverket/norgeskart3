@@ -9,8 +9,10 @@ angular.module('mapGetFeatures')
                     scope.layers = [];
 
                     function _handleLoadingLayers(loadingLayers){
+                        scope.layers = [];
                         for(var i = 0; i < loadingLayers.length; i++){
                             // console.log(loadingLayers[i]);
+                            loadingLayers[i].show = false;
                             _addLoadingLayer(loadingLayers[i]);
                         }
                     }
@@ -65,7 +67,7 @@ angular.module('mapGetFeatures')
 
                             loadingLayer.isLoading = false;
                         }
-                        console.log(resultSet);
+                        console.log(loadingLayer);
                     }
 
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.FeatureInfoStart, _handleLoadingLayers);
