@@ -125,13 +125,15 @@ angular.module('searchBar')
 
             var _pushToUnifiedResults = function (name, kommune, point, format, source) {
                 //var resultID=_concatinateCoordinates(point);
+                name=_capitalizeName(name.toLowerCase());
+                kommune=_capitalizeName(kommune.toLowerCase());
                 var resultID=name + kommune;
                 _unifiedResults[resultID] = {
-                    name: _capitalizeName(name.toLowerCase()),
+                    name: name,
                     point: point,
                     format: format,
                     source: source,
-                    kommune: _capitalizeName(kommune.toLowerCase())
+                    kommune: kommune
                 };
             };
 
