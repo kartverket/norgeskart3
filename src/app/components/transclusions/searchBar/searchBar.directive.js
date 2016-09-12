@@ -8,6 +8,9 @@ angular.module('searchBar')
                 restrict: 'A',
                 link: function (scope) {
                     scope.searchBarValueChanged = function () {
+                        if (scope.searchBarModel === '') {
+                            return;
+                        }
                         var query = _getQuery();
                         _init();
                         _getResults(query);
