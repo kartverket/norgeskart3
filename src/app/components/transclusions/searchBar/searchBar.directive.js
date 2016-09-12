@@ -97,7 +97,7 @@ angular.module('searchBar')
                     var _convertSearchResult2Json = function (document, source) {
                         switch (source) {
                             case('ssr'):
-                                return xml.xmlToJSON(document).sokRes.stedsnavn;
+                                return xml.xmlToJSON(document).sokRes.stedsnavn ;
                             case('adresse'):
                                 return document.adresser;
                             default:
@@ -107,12 +107,15 @@ angular.module('searchBar')
 
                     var _iterateJsonObject = function (jsonObject, searchResult) {
                         if (jsonObject) {
-                            for (var i = 0; i < jsonObject.length; i++) {
-                                if (jsonObject[i][_serviceDict[searchResult.source].latID]) {
-                                    _getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]);
+                            if (!jsonObject.length) {
+                                jsonObject = [jsonObject];
+                            }
+                                for (var i = 0; i < jsonObject.length; i++) {
+                                    if (jsonObject[i][_serviceDict[searchResult.source].latID]) {
+                                        _getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]);
+                                    }
                                 }
                             }
-                        }
                     };
 
                     var _getValuesFromJson = function (identifiersDict, jsonObject) {
