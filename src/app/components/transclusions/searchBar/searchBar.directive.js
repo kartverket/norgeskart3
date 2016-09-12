@@ -69,6 +69,7 @@ angular.module('searchBar')
 
             var _resetResults = function () {
                 _unifiedResults = {};
+                _searchResults = {};
             };
 
             var _readResults = function () {
@@ -218,8 +219,6 @@ angular.module('searchBar')
                         }
                         _init();
                         _getResults(query, scope);
-
-
                     };
                 }
             };
