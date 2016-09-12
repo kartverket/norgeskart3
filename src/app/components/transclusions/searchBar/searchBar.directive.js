@@ -125,7 +125,6 @@ angular.module('searchBar')
             };
 
             var _pushToUnifiedResults = function (name, kommune, point, format, source) {
-                //var resultID=_concatinateCoordinates(point);
                 name=_capitalizeName(name.toLowerCase());
                 kommune=_capitalizeName(kommune.toLowerCase());
                 var resultID=name + kommune;
@@ -137,10 +136,6 @@ angular.module('searchBar')
                     kommune: kommune
                 };
             };
-
-/*            var _concatinateCoordinates = function (point) {
-                return point[0].toString().split('.')[0] + point[1].toString().split('.')[0];
-            };*/
 
             var _constructPoint = function (lat, lon, epsg) {
                 return ol.proj.transform([lon, lat], epsg, 'EPSG:32633');
@@ -188,12 +183,10 @@ angular.module('searchBar')
                         };
                         _readResults();
                         _addResultsToMap();
-                        $timeout(function () {
-                            scope.searchResults = _unifiedResults;
-                        }, 100);
+                        scope.searchResults = _unifiedResults;
                     },
                     error: function (searchError) {
-                        console.log("Error load xml file: ", searchError);
+                        console.log("Error downloading from " + _serviceDict.url, searchError);
                     }
                 });
             };
@@ -214,9 +207,6 @@ angular.module('searchBar')
                 link: function (scope) {
                     scope.searchBarValueChanged = function () {
                         var query = _getQuery(scope);
-                        if (query.length < 4) {
-                            return;
-                        }
                         _init();
                         _getResults(query, scope);
                     };
