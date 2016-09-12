@@ -182,8 +182,9 @@ angular.module('searchBar')
                             epsg: _serviceDict.epsg
                         };
                         _readResults();
-                        _addResultsToMap();
-                        scope.searchResults = _unifiedResults;
+                        _addResultsToMap(scope);
+
+
                     },
                     error: function (searchError) {
                         console.log("Error downloading from " + _serviceDict.url, searchError);
@@ -191,13 +192,18 @@ angular.module('searchBar')
                 });
             };
 
-            var _addResultsToMap = function(){
+            var _addResultsToMap = function(scope){
                 var coordinates=[];
                 for (var result in _unifiedResults) {
                     coordinates.push(_unifiedResults[result].point);
                 }
-                map.RemoveInfoMarkers();
-                map.ShowInfoMarkers(coordinates);
+                if(coordinates.length>0) {
+                    map.RemoveInfoMarkers();
+                    map.ShowInfoMarkers(coordinates);
+                    $timeout(function () {
+                        scope.searchResults = _unifiedResults;
+                    }, 0);
+                }
             };
 
             return {
