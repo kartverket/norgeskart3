@@ -222,11 +222,17 @@ angular.module('searchBar')
                     };
 
                     scope.mouseOver = function (searchResult){
-                        console.log('moused over: ' + searchResult.name + ' ' + searchResult.point);
+                        //console.log('moused over: ' + searchResult.name + ' ' + searchResult.point);
                     };
 
                     scope.mouseDown = function (searchResult){
-                        console.log('moused clicked: ' + searchResult.name + ' ' + searchResult.point);
+                        var center = {
+                            lon: parseFloat(searchResult.point[0]),
+                            lat: parseFloat(searchResult.point[1]),
+                            epsg: searchResult.epsg
+                            //zoom: parseFloat(12)
+                        };
+                        map.SetCenter(center);
                     };
                 }
             };
