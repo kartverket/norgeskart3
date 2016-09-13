@@ -1,5 +1,7 @@
-<input type="text" ng-change="searchBarValueChanged()" ng-model="searchBarModel" name="searchBarName" id="searchBarId" />
-<i ng-show="searchResults != undefined && Object.keys(searchResults).length != 0" class="glyphicon glyphicon-remove" data-ng-click="cleanResults()"></i>
+<div class="inner-addon right-addon">
+    <input type="text" ng-change="searchBarValueChanged()" ng-model="searchBarModel" name="searchBarName" id="searchBarId" />
+    <i ng-show="searchResults != undefined" class="glyphicon glyphicon-remove" data-ng-click="cleanResults()"></i>
+</div>
 <div class="panel">
     <div class="content no-border">
         <div class="content" ng-show="searchResults != undefined && Object.keys(searchResults).length != 0">

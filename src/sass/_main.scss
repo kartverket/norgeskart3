@@ -511,6 +511,10 @@ html{
   color: blue;
 }
 
+/* enable absolute positioning */
+.inner-addon {
+  position: relative;
+}
 
 /* style glyph */
 .inner-addon .glyphicon {
@@ -523,6 +527,7 @@ html{
 .inner-addon .ajax-loader-search{
   position: absolute;
 }
+
 
 /* align glyph */
 .left-addon .glyphicon  { left:  0px;}

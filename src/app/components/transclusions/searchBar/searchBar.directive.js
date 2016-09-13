@@ -240,8 +240,9 @@ angular.module('searchBar')
                         _init();
                         map.RemoveInfoMarkers();
                         map.RemoveInfoMarker();
-                        scope.searchResults = {};
+                        scope.searchResults = undefined;
                         scope.searchBarModel = "";
+
                     };
                 }
             };
