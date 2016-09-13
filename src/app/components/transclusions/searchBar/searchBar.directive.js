@@ -222,7 +222,7 @@ angular.module('searchBar')
                     };
 
                     scope.mouseOver = function (searchResult){
-                        //console.log('moused over: ' + searchResult.name + ' ' + searchResult.point);
+                        console.log('moused over: ' + searchResult.name + ' ' + searchResult.point);
                     };
 
                     scope.mouseDown = function (searchResult){

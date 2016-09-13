@@ -3,7 +3,12 @@
     <div class="content no-border">
         <div class="content" ng-show="searchResults != undefined && searchResults.length != 0">
             <ul>
-                <li class="pointer-cursor" ng-repeat="searchResult in searchResults" ng-mouseover="mouseOver(searchResult)" ng-mousedown="mouseDown(searchResult)">
+                <li class="pointer-cursor"
+                    ng-repeat="searchResult in searchResults"
+                    ng-class="{'searchbar-hover': hover}"
+                    ng-mouseenter="hover = true"
+                    ng-mouseleave="hover = false"
+                    ng-mousedown="mouseDown(searchResult)">
                     <span ng-bind="searchResult.name + ' ' + searchResult.kommune" ></span>
                 </li>
             </ul>
