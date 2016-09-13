@@ -222,6 +222,7 @@ angular.module('searchBar')
                     };
 
                     scope.mouseOver = function (searchResult){
+                        map.RemoveInfoMarker();
                         map.ShowInfoMarker(searchResult.point);
                     };
 
