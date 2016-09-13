@@ -512,6 +512,29 @@ html{
 }
 
 
+/* style glyph */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 5px 8px;
+  cursor: pointer;
+  //pointer-events: none;
+}
+
+.inner-addon .ajax-loader-search{
+  position: absolute;
+}
+
+/* align glyph */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+.left-addon .ajax-loader-search  { left:  0px;}
+.right-addon .ajax-loader-search { right: 32px; top: 4px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 80px; }
+
 
 @import "dropdownmenu";
 @import "icomoon";

@@ -235,6 +235,14 @@ angular.module('searchBar')
                         };
                         map.SetCenter(center);
                     };
+
+                    scope.cleanResults = function (){
+                        _init();
+                        map.RemoveInfoMarkers();
+                        map.RemoveInfoMarker();
+                        scope.searchResults = {};
+                        scope.searchBarModel = "";
+                    };
                 }
             };
         }]);
