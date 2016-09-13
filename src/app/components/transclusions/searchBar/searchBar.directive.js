@@ -8,6 +8,9 @@ angular.module('searchBar')
                 restrict: 'A',
                 link: function (scope) {
                     scope.searchBarValueChanged = function () {
+                        if (scope.searchBarModel === '') {
+                            return;
+                        }
                         var query = _getQuery();
                         _init();
                         _getResults(query);
@@ -216,6 +219,20 @@ angular.module('searchBar')
                                 scope.searchResults = _unifiedResults;
                             }, 0);
                         }
+                    };
+
+                    scope.mouseOver = function (searchResult){
+                        //console.log('moused over: ' + searchResult.name + ' ' + searchResult.point);
+                    };
+
+                    scope.mouseDown = function (searchResult){
+                        var center = {
+                            lon: parseFloat(searchResult.point[0]),
+                            lat: parseFloat(searchResult.point[1]),
+                            epsg: searchResult.epsg
+                            //zoom: parseFloat(12)
+                        };
+                        map.SetCenter(center);
                     };
                 }
             };
