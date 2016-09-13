@@ -220,6 +220,14 @@ angular.module('searchBar')
                             }, 0);
                         }
                     };
+
+                    scope.mouseOver = function (searchResult){
+                        console.log('moused over: ' + searchResult.name + ' ' + searchResult.point);
+                    };
+
+                    scope.mouseDown = function (searchResult){
+                        console.log('moused clicked: ' + searchResult.name + ' ' + searchResult.point);
+                    };
                 }
             };
         }]);
