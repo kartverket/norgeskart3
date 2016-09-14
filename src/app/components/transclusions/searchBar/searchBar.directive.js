@@ -22,6 +22,8 @@ angular.module('searchBar')
 
                     _serviceDict = {};
 
+                    _queryDict = {};
+
                     var _init = function () {
                         _resetResults();
                     };
@@ -75,9 +77,16 @@ angular.module('searchBar')
 
                     var _getResults = function (query) {
                         _populateServiceDict(query);
+                        _cancelOldRequests();
                         scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
                         for (var service in _serviceDict) {
                             _downloadFromUrl(_serviceDict[service], scope.searchTimestamp);
+                        }
+                    };
+
+                    var _cancelOldRequests = function () {
+                        for (var service in _queryDict){
+                            _queryDict[service].abort();
                         }
                     };
 
@@ -184,27 +193,30 @@ angular.module('searchBar')
                     };
 
                     var _downloadFromUrl = function (_serviceDict, timestamp) {
-                        $.ajax({
+                        _queryDict[_serviceDict.source] = $.ajax({
                             type: "GET",
                             url: _serviceDict.url,
                             async: true,
                             success: function (document) {
-                                if (scope.searchTimestamp != timestamp) {
-                                    return;
+                                if (document.length && scope.searchTimestamp == timestamp) {
+                                    _successFullSearch(_serviceDict, document);
                                 }
-                                _searchResults[_serviceDict.source] = {
-                                    document: document,
-                                    format: _serviceDict.format,
-                                    source: _serviceDict.source,
-                                    epsg: _serviceDict.epsg
-                                };
-                                _readResults();
-                                _addResultsToMap();
-                            },
+                            }/*,
                             error: function (searchError) {
                                 console.log("Error downloading from " + _serviceDict.url, searchError);
-                            }
+                            }*/
                         });
+                    };
+
+                    var _successFullSearch = function (_serviceDict, document) {
+                        _searchResults[_serviceDict.source] = {
+                            document: document,
+                            format: _serviceDict.format,
+                            source: _serviceDict.source,
+                            epsg: _serviceDict.epsg
+                        };
+                        _readResults();
+                        _addResultsToMap();
                     };
 
                     var _addResultsToMap = function () {
