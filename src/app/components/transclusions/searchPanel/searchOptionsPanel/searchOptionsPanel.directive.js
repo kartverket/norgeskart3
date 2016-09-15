@@ -4,8 +4,10 @@ angular.module('searchOptionsPanel')
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchOptionsPanel/searchOptionsPanel.html',
                 restrict: 'A',
-                link: function(){
-
+                link: function(scope){
+                    scope.mouseDown= function (searchOption) {
+                        console.log(searchOption);
+                    };
                 }
             };
         }]);

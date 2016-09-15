@@ -1,16 +1,12 @@
-<div class="search-panel" ng-show="searchResults != undefined">
+<div class="search-panel" ng-show="searchResults != undefined" ng-controller="searchOptionsPanelController">
     <div class="content search-content">
         <span data-ng-click="showSearchResultPanel()">←&emsp;Returner til søkeresultat</span>
-        <br/>
-        <span>🏠&emsp;Se eiendom</span>
-        <br/>
-        <span>⚑&emsp;Se fakta om stedsnavnet Sandvika</span>
-        <br/>
-        <span>🚶&emsp;Lage turkart</span>
-        <br/>
-        <span>🚑&emsp;Lage Nødplakat</span>
-        <br/>
-        <span>🌊&emsp;Se havnivå</span>
-        <br/>
+        <ul>
+            <li
+                    ng-repeat="searchOption in searchOptions"
+                    ng-mousedown="mouseDown(searchOption)">
+                <span ng-bind="searchOption.icon + '   ' + searchOption.text" ></span>
+            </li>
+        </ul>
     </div>
 </div>
