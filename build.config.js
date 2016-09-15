@@ -111,7 +111,8 @@ module.exports = {
         'src/app/components/overlays/searchBarOverlay/**/*.js',
         'src/app/components/transclusions/tools/**/*.js',
         'src/app/components/transclusions/mapGetFeatures/**/*.js',
-        'src/app/components/transclusions/searchBar/**/*.js'
+        'src/app/components/transclusions/searchBar/**/*.js',
+        'src/app/components/transclusions/searchPanel/**/*.js'
 
     ],
     source_css: [

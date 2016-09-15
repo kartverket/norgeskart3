@@ -1,0 +1,16 @@
+<div class="search-panel" ng-show="searchResults != undefined">
+    <div class="content no-border search-content">
+        <!--<div class="content search-content">-->
+            <ul>
+                <li
+                        data-ng-click="showSearchOptionsPanel()"
+                        class="pointer-cursor"
+                        ng-repeat="searchResult in searchResults"
+                        ng-mousedown="mouseDown(searchResult)"
+                        ng-mouseover="mouseOver(searchResult)">
+                    <span ng-bind="searchResult.name + ' ' + searchResult.kommune" ></span>
+                </li>
+            </ul>
+        </div>
+    <!--</div>-->
+</div>
