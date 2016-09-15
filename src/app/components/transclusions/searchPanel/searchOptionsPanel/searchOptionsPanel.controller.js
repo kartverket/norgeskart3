@@ -9,7 +9,7 @@ angular.module('searchOptionsPanel')
             };
             $scope.searchOptions['ssrFakta'] = {
                 icon: '⚑',
-                text: 'Se fakta om stedsnavnet Sandvika',
+                text: 'Se fakta om stedsnavnet',
                 name: 'ssrFakta'
             };
             $scope.searchOptions['turKart'] = {
@@ -19,13 +19,18 @@ angular.module('searchOptionsPanel')
             };
             $scope.searchOptions['nødplakat'] = {
                 icon: '🚑',
-                text: 'Lage Nødplakat',
+                text: 'Lage nødplakat',
                 name: 'nødplakat'
             };
             $scope.searchOptions['seHavnivå'] = {
                 icon: '🌊',
                 text: 'Se havnivå',
                 name: 'seHavnivå'
+            };
+            $scope.searchOptions['seKoordinater'] = {
+                icon: 'x,y',
+                text: 'Se koordinater',
+                name: 'seKoordinater'
             };
         }
     ]);
