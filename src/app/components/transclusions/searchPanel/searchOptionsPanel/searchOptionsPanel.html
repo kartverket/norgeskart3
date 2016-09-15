@@ -2,14 +2,14 @@
     <div class="content search-content">
         <ul>
             <li ng-mousedown="showSearchResultPanel()">
-        <span style="display:inline-block; width: 25px;">←</span>
+        <span class="search-options">←</span>
         <span>Returner til søkeresultat</span>
             </li>
             <li
                     ng-repeat="searchOption in searchOptions"
                     ng-mousedown="mouseDown(searchOption)">
 
-                <span style="display:inline-block; width: 25px;"
+                <span class="search-options"
                       ng-bind="searchOption.icon" />
                 <span ng-bind="searchOption.text" />
             </li>
