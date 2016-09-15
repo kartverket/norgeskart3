@@ -196,7 +196,7 @@ angular.module('searchPanel')
                             url: _serviceDict.url,
                             async: true,
                             success: function (document) {
-                                if (document.length && scope.searchTimestamp == timestamp) {
+                                if ((( document.length && document.length > 3) || (document.childNodes && document.childNodes[0].childNodes.length)) && scope.searchTimestamp == timestamp) {
                                     _successFullSearch(_serviceDict, document);
                                 }
                             }/*,
