@@ -1,0 +1,1 @@
+angular.module('searchPanel', ['searchOptionsPanel', 'searchResultsPanel']);

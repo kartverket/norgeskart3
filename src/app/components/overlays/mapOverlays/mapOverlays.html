@@ -1,10 +1,20 @@
-<div search-bar-overlay class="search-bar-overlay">
-    <div search-bar></div>
+<!--<div search-bar-overlay class="search-bar-overlay">-->
+    <!--<div search-bar></div>-->
+<!--</div>-->
+
+<!--<div main-menu-overlay class="main-menu-overlay" ng-hide="true">-->
+    <!--<div tool-menu></div>-->
+<!--</div>-->
+<!--<div moveable-overlay class="moveable-overlay" ng-hide="true">-->
+    <!--<div map-get-features></div>-->
+<!--</div>-->
+
+<div ng-switch="mapOverlaysLayout">
+    <div ng-switch-when="searchPanelLayout" search-panel class="search-bar-overlay"></div>
+        <!--<div search-panel></div>-->
+    <div ng-switch-when="mainMenuPanelLayout" main-menu-panel class="main-menu-panel"></div>
 </div>
 
-<div main-menu-overlay class="main-menu-overlay">
-    <div tool-menu></div>
-</div>
-<div moveable-overlay class="moveable-overlay" ng-hide="false">
-    <div map-get-features></div>
-</div>
+<!--<span data-ng-bind="mapOverlaysLayout"></span>-->
+<!--<div search-bar-overlay></div>-->
+<!--<div main-menu-overlay></div>-->
