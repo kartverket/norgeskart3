@@ -13,6 +13,7 @@ angular.module('mainApp')
             $scope.initMainPage = function () {
                 _registerEvents();
                 map.SetTranslateOptions(isyTranslateFactory.getTranslateOptionsByActiveLanguage());
+                map.SetImageInfoMarker("assets/img/pin-md-orange.png");
                 mainAppFactory.updateMapConfig();
                 var mapConfig = mainAppFactory.getMapConfig();
                 map.Init('mapDiv', mapConfig);
