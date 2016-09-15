@@ -1,11 +1,17 @@
 <div class="search-panel" ng-show="searchResults != undefined" ng-controller="searchOptionsPanelController">
     <div class="content search-content">
-        <span data-ng-click="showSearchResultPanel()">←&emsp;Returner til søkeresultat</span>
         <ul>
+            <li ng-mousedown="showSearchResultPanel()">
+        <span style="display:inline-block; width: 25px;">←</span>
+        <span>Returner til søkeresultat</span>
+            </li>
             <li
                     ng-repeat="searchOption in searchOptions"
                     ng-mousedown="mouseDown(searchOption)">
-                <span ng-bind="searchOption.icon + '   ' + searchOption.text" ></span>
+
+                <span style="display:inline-block; width: 25px;"
+                      ng-bind="searchOption.icon" />
+                <span ng-bind="searchOption.text" />
             </li>
         </ul>
     </div>
