@@ -2,16 +2,17 @@
     <div class="content search-content">
         <ul>
             <li ng-mousedown="showSearchResultPanel()">
-        <span class="search-options">←</span>
-        <span>Returner til søkeresultat</span>
+                <span class="search-options pointer-cursor">←</span>
+                <span class="pointer-cursor">Returner til søkeresultat</span>
             </li>
             <li
                     ng-repeat="searchOption in searchOptions"
                     ng-mousedown="mouseDown(searchOption)">
 
-                <span class="search-options"
+                <span class="search-options pointer-cursor"
                       ng-bind="searchOption.icon" />
-                <span ng-bind="searchOption.text" />
+                <span class="pointer-cursor"
+                      ng-bind="searchOption.text" />
             </li>
         </ul>
     </div>
