@@ -1,0 +1,20 @@
+@media screen and (max-device-width: 736px){
+  .search-bar-overlay{
+    z-index: 12;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin:7px;
+  }
+
+  .search-content{
+    max-height: 80%;
+  }
+
+  .field-group{
+    input{
+      min-width: 0;
+      width: 100%;
+    }
+  }
+}
