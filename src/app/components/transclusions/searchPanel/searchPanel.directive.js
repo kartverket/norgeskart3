@@ -100,8 +100,6 @@ angular.module('searchPanel')
                             jsonObject = _convertSearchResult2Json(searchResult.document, searchResult.source);
                             _iterateJsonObject(jsonObject, searchResult);
                         }
-                        console.log(Object.keys(_unifiedResults).length);
-                        console.log(_unifiedResults);
                     };
 
                     var _convertSearchResult2Json = function (document, source) {

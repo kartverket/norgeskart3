@@ -12,7 +12,6 @@ angular.module('searchOptionsPanel')
 
             var _downloadFromUrl = function(url, name){
                 $http.get(url).then(function(response){
-                    console.log(response.data);
                     _addSearchOptionToPanel(name, response.data);
 
                 });
@@ -24,7 +23,6 @@ angular.module('searchOptionsPanel')
                 var lon = $scope.activePosition.lon;
                 var epsgNumber = $scope.activePosition.epsg.split(':')[1];
                 var elevationPointUrl = mainAppService.generateElevationPointUrl(lat, lon, epsgNumber);
-                console.log(elevationPointUrl);
                 _downloadFromUrl(elevationPointUrl, 'elevationPoint');
             };
 
@@ -33,13 +31,11 @@ angular.module('searchOptionsPanel')
                 var lat = $scope.activePosition.geographicPoint[0];
                 var lon = $scope.activePosition.geographicPoint[1];
                 var matrikkelInfoUrl=mainAppService.generateMatrikkelInfoUrl(lon, lat, lon, lat);
-                console.log(matrikkelInfoUrl);
                 _downloadFromUrl(matrikkelInfoUrl, 'seEiendom');
             };
 
             var _addSearchOptionToPanel = function (name, data){
                 var jsonObject = xml.xmlToJSON(data);
-                console.log(jsonObject);
                 var searchOption = {};
                 var jsonRoot;
                 switch (name){
