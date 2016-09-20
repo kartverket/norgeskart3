@@ -133,7 +133,7 @@ angular.module('searchPanel')
                         var lat = jsonObject[identifiersDict.latID] + '';
                         var lon = jsonObject[identifiersDict.lonID] + '';
                         var kommune = jsonObject[identifiersDict.kommuneID];
-                        var point = _constructPoint(lat, lon, identifiersDict.epsg);
+                        var point = _constructPoint(lat, lon, identifiersDict.epsg, 'EPSG:32633');
                         _pushToUnifiedResults(name, kommune, point, identifiersDict.format, identifiersDict.source);
                     };
 
@@ -161,8 +161,8 @@ angular.module('searchPanel')
                         };
                     };
 
-                    var _constructPoint = function (lat, lon, epsg) {
-                        return ol.proj.transform([lon, lat], epsg, 'EPSG:32633');
+                    var _constructPoint = function (lat, lon, epsgFrom, epsgTo) {
+                        return ol.proj.transform([lon, lat], epsgFrom, epsgTo);
                     };
 
                     var _capitalizeName = function (name) {
@@ -237,13 +237,14 @@ angular.module('searchPanel')
                     };
 
                     scope.mouseDown = function (searchResult){
-                        var center = {
+                        var activePosition = {
                             lon: parseFloat(searchResult.point[0]),
                             lat: parseFloat(searchResult.point[1]),
-                            epsg: searchResult.epsg
+                            epsg: 'EPSG:32633'
                             //zoom: parseFloat(12)
                         };
-                        map.SetCenter(center);
+                        map.SetCenter(activePosition);
+                        scope.activePosition=activePosition;
                     };
 
                     scope.cleanResults = function (){
