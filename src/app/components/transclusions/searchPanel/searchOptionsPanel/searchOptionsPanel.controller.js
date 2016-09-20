@@ -2,6 +2,14 @@ angular.module('searchOptionsPanel')
     .controller('searchOptionsPanelController', ['$scope','mainAppService','$http',
         function($scope, mainAppService,$http){
 
+            var _clickableLinkClassIcon = 'search-options pointer-cursor';
+
+            var _clickableLinkClassText = 'pointer-cursor';
+
+            var _defaultClassIcon = 'search-options';
+
+            var _defaultClassText = '';
+
             var _downloadFromUrl = function(url, name){
                 $http.get(url).then(function(response){
                     console.log(response.data);
@@ -20,42 +28,86 @@ angular.module('searchOptionsPanel')
                 _downloadFromUrl(elevationPointUrl, 'elevationPoint');
             };
 
+            var _fetchMatrikkelInfo = function()
+            {
+                var lat = $scope.activePosition.geographicPoint[0];
+                var lon = $scope.activePosition.geographicPoint[1];
+                var matrikkelInfoUrl=mainAppService.generateMatrikkelInfoUrl(lon, lat, lon, lat);
+                console.log(matrikkelInfoUrl);
+                _downloadFromUrl(matrikkelInfoUrl, 'seEiendom');
+            };
+
             var _addSearchOptionToPanel = function (name, data){
                 var jsonObject = xml.xmlToJSON(data);
                 console.log(jsonObject);
                 var searchOption = {};
+                var jsonRoot;
                 switch (name){
                     case('elevationPoint'):
-
+                        jsonRoot=jsonObject.ExecuteResponse.ProcessOutputs;
                         searchOption = {
-                            icon: '⚑',
-                            text: 'Se fakta om stedsnavnet ' + jsonObject.ExecuteResponse.ProcessOutputs.Output[0].Data.LiteralData.Text,
+                            icon: {
+                                value: '⚑',
+                                class: _clickableLinkClassIcon
+                            },
+                            text: {
+                                value: 'Se fakta om stedsnavnet ' + jsonRoot.Output[0].Data.LiteralData.Text,
+                                class: _clickableLinkClassText
+                            },
                             name: 'ssrFakta',
-                            url: "http://faktaark.statkart.no/SSRFakta/faktaarkfraobjektid?enhet=" + jsonObject.ExecuteResponse.ProcessOutputs.Output[3].Data.LiteralData.Text
+                            url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
                         };
-                        $scope.searchOptions.push(searchOption);
+                        $scope.searchOptionsDict['ssrFakta'] = searchOption;
                         searchOption ={
-                            icon: '↑',
-                            text: "Høyde: " + jsonObject.ExecuteResponse.ProcessOutputs.Output[2].Data.LiteralData.Text.split('.')[0] + ' moh',
+                            icon: {
+                                value: '↑',
+                                class: _defaultClassIcon
+                            },
+                            text: {
+                                value: "Høyde: " + jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' moh',
+                                class: _defaultClassText
+                            },
                             name: name
                         };
+                        break;
 
+                    case('seEiendom'):
+                        jsonRoot=jsonObject.FeatureCollection.featureMembers.TEIGWFS;
+                        var knr = jsonRoot.KOMMUNENR;
+                        var gnr = jsonRoot.GARDSNR;
+                        var bnr = jsonRoot.BRUKSNR;
+                        var fnr = jsonRoot.FESTENR;
+                        var snr = jsonRoot.SEKSJONSNR;
+                        var matrikkelNr = jsonRoot.MATRIKKELNR;
+                        searchOption ={
+                            icon: {
+                                value:'🏠',
+                                class: _clickableLinkClassIcon
+                            },
+                            text: {
+                                value:  'Se eiendomsinformasjon for ' + matrikkelNr,
+                                class: _clickableLinkClassText
+                            },
+                            name: name,
+                            kommunenr: knr,
+                            gardsnr: gnr,
+                            bruksnr: bnr,
+                            festenr: fnr,
+                            seksjonsnr: snr,
+                            eiendomstype: jsonRoot.EIENDOMSTYPE,
+                            matrikkelnr: matrikkelNr,
+                            url: mainAppService.generateSeEiendomUrl(knr,gnr,bnr,fnr,snr)
+                        };
+                        break;
                     }
-
-
-
-
-                $scope.searchOptions.push(searchOption);
+                $scope.searchOptionsDict[name] = searchOption;
             };
 
             var _initSearchOptions= function() {
 
-                $scope.searchOptions = [
-                // {
-                //     icon: '🏠',
-                //     text: 'Se eiendom',
-                //     name: 'seEiendom'
-                // },
+                $scope.searchOptionsDict = {};
+                _fetchElevationPoint();
+                _fetchMatrikkelInfo();
                 // {
                 //     icon: '🚶',
                 //     text: 'Lage turkart',
@@ -76,10 +128,8 @@ angular.module('searchOptionsPanel')
                 //     text: 'Se koordinater',
                 //     name: 'seKoordinater'
                 // }
+            };
 
-                ];};
-
-            _fetchElevationPoint();
             _initSearchOptions();
 
         }

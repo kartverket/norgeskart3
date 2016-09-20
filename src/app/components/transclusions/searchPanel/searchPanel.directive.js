@@ -243,6 +243,7 @@ angular.module('searchPanel')
                             epsg: 'EPSG:32633'
                             //zoom: parseFloat(12)
                         };
+                        activePosition.geographicPoint=_constructPoint(activePosition.lat, activePosition.lon, 'EPSG:32633', 'EPSG:4326');
                         map.SetCenter(activePosition);
                         scope.activePosition=activePosition;
                     };
