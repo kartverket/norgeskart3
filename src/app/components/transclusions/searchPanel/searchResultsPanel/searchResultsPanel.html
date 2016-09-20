@@ -3,12 +3,11 @@
         <!--<div class="content search-content">-->
             <ul>
                 <li
-                        data-ng-click="showSearchOptionsPanel()"
                         class="pointer-cursor"
                         ng-repeat="searchResult in searchResults"
-                        ng-mousedown="mouseDown(searchResult)"
+                        ng-mousedown="mouseDown(searchResult); showSearchOptionsPanel()"
                         ng-mouseover="mouseOver(searchResult)">
-                    <span ng-bind="searchResult.name + ' ' + searchResult.kommune" />
+                    <span ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
                 </li>
             </ul>
         </div>
