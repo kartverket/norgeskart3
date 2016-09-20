@@ -35,7 +35,6 @@ angular.module('searchOptionsPanel')
                     text: 'Se koordinater',
                     name: 'seKoordinater'
                 }
-
                 ];};
 
                 _initSearchOptions();

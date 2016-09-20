@@ -106,6 +106,7 @@ module.exports = {
         'src/app/zISY.Angular/**/*.js',
         'src/app/components/overlays/mapOverlays/**/*.js',
         'src/app/components/overlays/moveableOverlay/**/*.js',
+        'src/app/components/overlays/mainMenuOverlays/**/*.js',
         'src/app/components/transclusions/mainMenuPanel/**/*.js',
         'src/app/components/transclusions/mapGetFeatures/**/*.js',
         'src/app/components/transclusions/searchPanel/**/*.js',

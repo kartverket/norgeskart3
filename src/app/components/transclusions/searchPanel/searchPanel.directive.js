@@ -254,6 +254,8 @@ angular.module('searchPanel')
                         scope.searchBarModel = "";
 
                     };
+
+
                 }
             };
         }]);
