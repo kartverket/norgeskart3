@@ -85,7 +85,7 @@ angular.module('searchOptionsPanel')
                                 class: _clickableLinkClassIcon
                             },
                             text: {
-                                value:  'Se eiendomsinformasjon for ' + matrikkelNr,
+                                value:  'Se eiendomsinformasjon for ' + knr + '-' + matrikkelNr.replace(new RegExp(' ','g'),''),
                                 class: _clickableLinkClassText
                             },
                             name: name,
