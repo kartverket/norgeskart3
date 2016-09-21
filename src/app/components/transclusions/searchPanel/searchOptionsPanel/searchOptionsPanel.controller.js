@@ -36,84 +36,81 @@ angular.module('searchOptionsPanel')
                 _downloadFromUrl(matrikkelInfoUrl, 'seEiendom');
             };
 
+            var _addElevationPointToSearchOptions = function (jsonRoot, name) {
+                var text = 'Se fakta om stedsnavnet ' + jsonRoot.Output[0].Data.LiteralData.Text;
+                var extra = {
+                    url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
+                };
+                $scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta','⚑',true, text, extra);
+
+                text = "Høyde: " + jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' moh';
+                extra = {};
+                $scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, text, extra);
+            };
+
+            var _addMatrikkelInfoToSearchOptions = function (jsonRoot, name) {
+                if (jsonRoot.MATRIKKELNR == 'Mnr mangler') {
+                    return;
+                }
+                var extra = {
+                    kommunenr: jsonRoot.KOMMUNENR,
+                    gardsnr: jsonRoot.GARDSNR,
+                    bruksnr: jsonRoot.BRUKSNR,
+                    festenr: jsonRoot.FESTENR,
+                    seksjonsnr: jsonRoot.SEKSJONSNR,
+                    eiendomstype: jsonRoot.EIENDOMSTYPE,
+                    matrikkelnr: jsonRoot.MATRIKKELNR
+                };
+                extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
+                var text = 'Se eiendomsinformasjon for ' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
+                $scope.searchOptionsDict[name] = _constructSearchOption(name, '🏠', true, text, extra);
+
+            };
+
             var _addSearchOptionToPanel = function (name, data){
                 var jsonObject = xml.xmlToJSON(data);
-                var searchOption = {};
                 var jsonRoot;
                 switch (name){
                     case('elevationPoint'):
                         jsonRoot=jsonObject.ExecuteResponse.ProcessOutputs;
-
                         if(!jsonRoot.Output[0].Data.LiteralData){
                             return;
                         }
-
-                        searchOption = {
-                            icon: {
-                                value: '⚑',
-                                class: _clickableLinkClass.icon
-                            },
-                            text: {
-                                value: 'Se fakta om stedsnavnet ' + jsonRoot.Output[0].Data.LiteralData.Text,
-                                class: _clickableLinkClass.text
-                            },
-                            name: 'ssrFakta',
-                            url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
-                        };
-                        $scope.searchOptionsDict['ssrFakta'] = searchOption;
-                        searchOption ={
-                            icon: {
-                                value: '↑',
-                                class: _defaultClass.icon
-                            },
-                            text: {
-                                value: "Høyde: " + jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' moh',
-                                class: _defaultClass.text
-                            },
-                            name: name
-                        };
+                        _addElevationPointToSearchOptions(jsonRoot, name);
                         break;
 
                     case('seEiendom'):
-
                         if (!jsonObject.FeatureCollection.featureMembers){
                             return;
                         }
-
                         jsonRoot=jsonObject.FeatureCollection.featureMembers.TEIGWFS;
-                        var knr = jsonRoot.KOMMUNENR;
-                        var gnr = jsonRoot.GARDSNR;
-                        var bnr = jsonRoot.BRUKSNR;
-                        var fnr = jsonRoot.FESTENR;
-                        var snr = jsonRoot.SEKSJONSNR;
-                        var matrikkelNr = jsonRoot.MATRIKKELNR;
-
-                        if (matrikkelNr == 'Mnr mangler'){
-                            return;
-                        }
-
-                        searchOption ={
-                            icon: {
-                                value:'🏠',
-                                class: _clickableLinkClass.icon
-                            },
-                            text: {
-                                value:  'Se eiendomsinformasjon for ' + knr + '-' + matrikkelNr.replace(new RegExp(' ','g'),''),
-                                class: _clickableLinkClass.text
-                            },
-                            name: name,
-                            kommunenr: knr,
-                            gardsnr: gnr,
-                            bruksnr: bnr,
-                            festenr: fnr,
-                            seksjonsnr: snr,
-                            eiendomstype: jsonRoot.EIENDOMSTYPE,
-                            matrikkelnr: matrikkelNr,
-                            url: mainAppService.generateSeEiendomUrl(knr,gnr,bnr,fnr,snr)
-                        };
+                        _addMatrikkelInfoToSearchOptions(jsonRoot, name);
                         break;
                     }
-                $scope.searchOptionsDict[name] = searchOption;
+            };
+
+            var _constructSearchOption = function (name, icon, clickable, text, extra) {
+                var searchOption= {
+                    icon: {
+                        value: icon,
+                        class: _defaultClass.icon
+                    },
+                    text: {
+                        value: text,
+                        class: _defaultClass.text
+                    },
+                    name: name
+
+                };
+
+                if (clickable){
+                    searchOption.icon.class = _clickableLinkClass.icon;
+                    searchOption.text.class = _clickableLinkClass.text;
+                }
+                for (var key in extra){
+                    searchOption[key] = extra[key];
+                }
+                return searchOption;
             };
 
             var _initSearchOptions= function() {
