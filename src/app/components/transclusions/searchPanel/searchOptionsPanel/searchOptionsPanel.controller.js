@@ -43,6 +43,11 @@ angular.module('searchOptionsPanel')
                 switch (name){
                     case('elevationPoint'):
                         jsonRoot=jsonObject.ExecuteResponse.ProcessOutputs;
+
+                        if(!jsonRoot.Output[0].Data.LiteralData){
+                            return;
+                        }
+
                         searchOption = {
                             icon: {
                                 value: '⚑',
@@ -70,6 +75,11 @@ angular.module('searchOptionsPanel')
                         break;
 
                     case('seEiendom'):
+
+                        if (!jsonObject.FeatureCollection.featureMembers){
+                            return;
+                        }
+
                         jsonRoot=jsonObject.FeatureCollection.featureMembers.TEIGWFS;
                         var knr = jsonRoot.KOMMUNENR;
                         var gnr = jsonRoot.GARDSNR;
