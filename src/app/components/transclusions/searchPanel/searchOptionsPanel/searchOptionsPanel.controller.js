@@ -54,7 +54,7 @@ angular.module('searchOptionsPanel')
                     matrikkelnr = jsonRoot[0].MATRIKKELNR;
                 }
 
-                if (matrikkelnr == 'Mnr mangler'){
+                if ((matrikkelnr == 'Mnr mangler') ||( matrikkelnr == 'Mnr vann mangler')) {
                     return;
                 }
 
