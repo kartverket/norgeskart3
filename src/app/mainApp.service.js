@@ -5,6 +5,8 @@ angular.module('mainApp')
                 var urlOpenWps = 'http://openwps.statkart.no/skwms1/';
                 var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
                 var urlGeonorge = 'https://ws.geonorge.no/';
+                var urlSeEiendom = 'http://www.seeiendom.no/';
+                var urlFaktaark = 'http://faktaark.statkart.no/';
 
                 this.uploadGpxFileService = function () {
                     return url + 'ws/upload-gpx.py';
@@ -62,6 +64,22 @@ angular.module('mainApp')
 
                 this.generateSearchAdresseUrl = function (query) {
                     return urlGeonorge + "AdresseWS/adresse/sok?sokestreng=" + encodeURIComponent(query) + "&antPerSide=100&side=1";
+                };
+
+                this.generateElevationPointUrl = function (lat, lon, epsgNumber){
+                    return urlOpenWps + "wps.elevation?request=Execute&service=WPS&version=1.0.0&identifier=elevation&datainputs=[lat=" + lat +";lon=" + lon + ";epsg=" + epsgNumber + "]";
+                };
+
+                this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy){
+                    return url + "ws/wfs.teig.py?bbox=" + minx + "," + miny + "," + maxx + "," + maxy;
+                };
+
+                this.generateSeEiendomUrl= function (knr, gnr, bnr, fnr, snr){
+                    return urlSeEiendom + "services/Matrikkel.svc/GetDetailPage?type=property&knr=" + knr + "&gnr= " + gnr + "&bnr=" + bnr + "&fnr=" + fnr + "&snr=" + snr + "&customer=kartverket";
+                };
+
+                this.generateFaktaarkUrl = function (ssrid){
+                    return urlFaktaark + "SSRFakta/faktaarkfraobjektid?enhet=" + ssrid;
                 };
 /*
                 // No CORS

@@ -1,18 +1,31 @@
 <div class="search-panel" ng-show="searchResults != undefined" ng-controller="searchOptionsPanelController">
     <div class="content search-content">
         <ul>
+
             <li ng-mousedown="showSearchResultPanel()">
                 <span class="search-options pointer-cursor">←</span>
                 <span class="pointer-cursor">Returner til søkeresultat</span>
             </li>
-            <li
-                    ng-repeat="searchOption in searchOptions"
-                    ng-mousedown="mouseDown(searchOption)">
 
-                <span class="search-options pointer-cursor"
-                      ng-bind="searchOption.icon" ></span>
-                <span class="pointer-cursor"
-                      ng-bind="searchOption.text" ></span>
+            <li>
+                <span ng-class="searchOptionsDict['elevationPoint'].icon.class"
+                      ng-bind="searchOptionsDict['elevationPoint'].icon.value" ></span>
+                <span ng-class="searchOptionsDict['elevationPoint'].text.class"
+                      ng-bind="searchOptionsDict['elevationPoint'].text.value" ></span>
+            </li>
+
+            <li ng-mousedown="mouseDown(searchOptionsDict['ssrFakta'])">
+                <span ng-class="searchOptionsDict['ssrFakta'].icon.class"
+                      ng-bind="searchOptionsDict['ssrFakta'].icon.value" ></span>
+                <span ng-class="searchOptionsDict['ssrFakta'].text.class"
+                      ng-bind="searchOptionsDict['ssrFakta'].text.value" ></span>
+            </li>
+
+            <li ng-mousedown="mouseDown(searchOptionsDict['seEiendom'])">
+                <span ng-class="searchOptionsDict['seEiendom'].icon.class"
+                      ng-bind="searchOptionsDict['seEiendom'].icon.value" ></span>
+                <span ng-class="searchOptionsDict['seEiendom'].text.class"
+                      ng-bind="searchOptionsDict['seEiendom'].text.value" ></span>
             </li>
         </ul>
     </div>

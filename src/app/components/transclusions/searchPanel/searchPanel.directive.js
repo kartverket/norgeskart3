@@ -100,8 +100,6 @@ angular.module('searchPanel')
                             jsonObject = _convertSearchResult2Json(searchResult.document, searchResult.source);
                             _iterateJsonObject(jsonObject, searchResult);
                         }
-                        console.log(Object.keys(_unifiedResults).length);
-                        console.log(_unifiedResults);
                     };
 
                     var _convertSearchResult2Json = function (document, source) {
@@ -133,7 +131,7 @@ angular.module('searchPanel')
                         var lat = jsonObject[identifiersDict.latID] + '';
                         var lon = jsonObject[identifiersDict.lonID] + '';
                         var kommune = jsonObject[identifiersDict.kommuneID];
-                        var point = _constructPoint(lat, lon, identifiersDict.epsg);
+                        var point = _constructPoint(lat, lon, identifiersDict.epsg, 'EPSG:32633');
                         _pushToUnifiedResults(name, kommune, point, identifiersDict.format, identifiersDict.source);
                     };
 
@@ -161,8 +159,8 @@ angular.module('searchPanel')
                         };
                     };
 
-                    var _constructPoint = function (lat, lon, epsg) {
-                        return ol.proj.transform([lon, lat], epsg, 'EPSG:32633');
+                    var _constructPoint = function (lat, lon, epsgFrom, epsgTo) {
+                        return ol.proj.transform([lon, lat], epsgFrom, epsgTo);
                     };
 
                     var _capitalizeName = function (name) {
@@ -237,13 +235,15 @@ angular.module('searchPanel')
                     };
 
                     scope.mouseDown = function (searchResult){
-                        var center = {
+                        var activePosition = {
                             lon: parseFloat(searchResult.point[0]),
                             lat: parseFloat(searchResult.point[1]),
-                            epsg: searchResult.epsg
+                            epsg: 'EPSG:32633'
                             //zoom: parseFloat(12)
                         };
-                        map.SetCenter(center);
+                        activePosition.geographicPoint=_constructPoint(activePosition.lat, activePosition.lon, 'EPSG:32633', 'EPSG:4326');
+                        map.SetCenter(activePosition);
+                        scope.activePosition=activePosition;
                     };
 
                     scope.cleanResults = function (){
