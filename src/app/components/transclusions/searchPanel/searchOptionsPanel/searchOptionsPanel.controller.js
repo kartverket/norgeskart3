@@ -33,6 +33,10 @@ angular.module('searchOptionsPanel')
                 _downloadFromUrl(matrikkelInfoUrl, 'seEiendom');
             };
 
+            var _fetchKoordTrans = function () {
+                $scope.searchOptionsDict['koordTrans'] = _constructSearchOption('koordTrans', 'x,y', true, 'Se koordinater', {});
+            };
+
             var _addElevationPointToSearchOptions = function (jsonRoot, name) {
                 var text = 'Se fakta om stedsnavnet ' + jsonRoot.Output[0].Data.LiteralData.Text;
                 var extra = {
@@ -71,10 +75,11 @@ angular.module('searchOptionsPanel')
             };
 
             var _addSearchOptionToPanel = function (name, data) {
-                var jsonObject = xml.xmlToJSON(data);
+                var jsonObject;
                 var jsonRoot;
                 switch (name) {
                     case('elevationPoint'):
+                        jsonObject = xml.xmlToJSON(data);
                         jsonRoot = jsonObject.ExecuteResponse.ProcessOutputs;
                         if (!jsonRoot.Output[0].Data.LiteralData) {
                             return;
@@ -83,6 +88,7 @@ angular.module('searchOptionsPanel')
                         break;
 
                     case('seEiendom'):
+                        jsonObject = xml.xmlToJSON(data);
                         if (!jsonObject.FeatureCollection.featureMembers) {
                             return;
                         }
@@ -133,12 +139,13 @@ angular.module('searchOptionsPanel')
 
             var _initSearchOptions = function () {
 
-                $scope.searchOptionsOrder = ['elevationPoint', 'ssrFakta', 'seEiendom'];
+                $scope.searchOptionsOrder = ['elevationPoint', 'ssrFakta', 'seEiendom', 'koordTrans'];
                 for (var searchOption in $scope.searchOptionsOrder){
                     $scope.searchOptionsDict[$scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
                 }
                 _fetchElevationPoint();
                 _fetchMatrikkelInfo();
+                _fetchKoordTrans();
                 // {
                 //     icon: '🚶',
                 //     text: 'Lage turkart',
@@ -153,11 +160,6 @@ angular.module('searchOptionsPanel')
                 //     icon: '🌊',
                 //     text: 'Se havnivå',
                 //     name: 'seHavnivå'
-                // },
-                // {
-                //     icon: 'x,y',
-                //     text: 'Se koordinater',
-                //     name: 'seKoordinater'
                 // }
             };
 

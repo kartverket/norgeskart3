@@ -19,5 +19,9 @@ angular.module('searchPanel')
             };
 
             $scope.searchOptionsDict = {};
+
+            $scope.showKoordTransPanel = function () {
+                $scope.searchPanelLayout = "searchKoordTransPanel";
+            };
         }
     ]);
