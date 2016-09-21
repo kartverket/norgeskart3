@@ -24,8 +24,9 @@ angular.module('mapOverlays')
 
             $scope.searchPanelLayout = "searchResultsPanel";
 
-
-
+            $scope.showSearchSeEiendomPanel = function () {
+                $scope.searchPanelLayout = "searchSeEiendomPanel";
+            };
 
         }
     ]);

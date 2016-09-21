@@ -6,8 +6,15 @@ angular.module('searchOptionsPanel')
                 restrict: 'A',
                 link: function(scope){
                     scope.mouseDown= function (searchOption) {
-                        if (searchOption.url){
-                            $window.open(searchOption.url, '_blank');
+                        switch (searchOption.name){
+                            case ('seEiendom'):
+                                scope.showSearchSeEiendomPanel();
+                                break;
+                            default:
+                                if (searchOption.url){
+                                    $window.open(searchOption.url, '_blank');
+                                }
+                                break;
                         }
                     };
                 }
