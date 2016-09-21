@@ -115,9 +115,28 @@ angular.module('searchOptionsPanel')
                 return searchOption;
             };
 
+            var _emptySearchOption = function () {
+                var searchOption = {
+                    icon: {
+                        value: '',
+                        class: ''
+                    },
+                    text: {
+                        value: '',
+                        class: ''
+                    },
+                    name: ''
+                };
+
+                return searchOption;
+            };
+
             var _initSearchOptions = function () {
 
                 $scope.searchOptionsOrder = ['elevationPoint', 'ssrFakta', 'seEiendom'];
+                for (var searchOption in $scope.searchOptionsOrder){
+                    $scope.searchOptionsDict[$scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
+                }
                 _fetchElevationPoint();
                 _fetchMatrikkelInfo();
                 // {
