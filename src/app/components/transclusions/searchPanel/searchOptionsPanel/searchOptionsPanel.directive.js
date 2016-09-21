@@ -9,8 +9,6 @@ angular.module('searchOptionsPanel')
                         if (searchOption.url){
                             $window.open(searchOption.url, '_blank');
                         }
-
-                        console.log(searchOption);
                     };
                 }
             };

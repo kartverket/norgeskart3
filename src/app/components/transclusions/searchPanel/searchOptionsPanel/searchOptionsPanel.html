@@ -7,25 +7,12 @@
                 <span class="pointer-cursor">Returner til søkeresultat</span>
             </li>
 
-            <li>
-                <span ng-class="searchOptionsDict['elevationPoint'].icon.class"
-                      ng-bind="searchOptionsDict['elevationPoint'].icon.value" ></span>
-                <span ng-class="searchOptionsDict['elevationPoint'].text.class"
-                      ng-bind="searchOptionsDict['elevationPoint'].text.value" ></span>
-            </li>
-
-            <li ng-mousedown="mouseDown(searchOptionsDict['ssrFakta'])">
-                <span ng-class="searchOptionsDict['ssrFakta'].icon.class"
-                      ng-bind="searchOptionsDict['ssrFakta'].icon.value" ></span>
-                <span ng-class="searchOptionsDict['ssrFakta'].text.class"
-                      ng-bind="searchOptionsDict['ssrFakta'].text.value" ></span>
-            </li>
-
-            <li ng-mousedown="mouseDown(searchOptionsDict['seEiendom'])">
-                <span ng-class="searchOptionsDict['seEiendom'].icon.class"
-                      ng-bind="searchOptionsDict['seEiendom'].icon.value" ></span>
-                <span ng-class="searchOptionsDict['seEiendom'].text.class"
-                      ng-bind="searchOptionsDict['seEiendom'].text.value" ></span>
+            <li data-ng-repeat="searchOption in searchOptionsOrder"
+                ng-mousedown="mouseDown(searchOptionsDict[searchOption])">
+                <span ng-class="searchOptionsDict[searchOption].icon.class"
+                ng-bind="searchOptionsDict[searchOption].icon.value" ></span>
+                <span ng-class="searchOptionsDict[searchOption].text.class"
+                ng-bind="searchOptionsDict[searchOption].text.value" ></span>
             </li>
         </ul>
     </div>

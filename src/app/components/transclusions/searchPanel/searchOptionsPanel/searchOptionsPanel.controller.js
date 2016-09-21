@@ -2,13 +2,15 @@ angular.module('searchOptionsPanel')
     .controller('searchOptionsPanelController', ['$scope','mainAppService','$http',
         function($scope, mainAppService,$http){
 
-            var _clickableLinkClassIcon = 'search-options pointer-cursor';
+            var _clickableLinkClass = {
+                icon: 'search-options pointer-cursor',
+                text: 'pointer-cursor'
+            };
 
-            var _clickableLinkClassText = 'pointer-cursor';
-
-            var _defaultClassIcon = 'search-options';
-
-            var _defaultClassText = '';
+            var _defaultClass = {
+                icon: 'search-options',
+                text: ''
+            };
 
             var _downloadFromUrl = function(url, name){
                 $http.get(url).then(function(response){
@@ -44,11 +46,11 @@ angular.module('searchOptionsPanel')
                         searchOption = {
                             icon: {
                                 value: '⚑',
-                                class: _clickableLinkClassIcon
+                                class: _clickableLinkClass.icon
                             },
                             text: {
                                 value: 'Se fakta om stedsnavnet ' + jsonRoot.Output[0].Data.LiteralData.Text,
-                                class: _clickableLinkClassText
+                                class: _clickableLinkClass.text
                             },
                             name: 'ssrFakta',
                             url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
@@ -57,11 +59,11 @@ angular.module('searchOptionsPanel')
                         searchOption ={
                             icon: {
                                 value: '↑',
-                                class: _defaultClassIcon
+                                class: _defaultClass.icon
                             },
                             text: {
                                 value: "Høyde: " + jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' moh',
-                                class: _defaultClassText
+                                class: _defaultClass.text
                             },
                             name: name
                         };
@@ -78,11 +80,11 @@ angular.module('searchOptionsPanel')
                         searchOption ={
                             icon: {
                                 value:'🏠',
-                                class: _clickableLinkClassIcon
+                                class: _clickableLinkClass.icon
                             },
                             text: {
                                 value:  'Se eiendomsinformasjon for ' + knr + '-' + matrikkelNr.replace(new RegExp(' ','g'),''),
-                                class: _clickableLinkClassText
+                                class: _clickableLinkClass.text
                             },
                             name: name,
                             kommunenr: knr,
@@ -101,6 +103,7 @@ angular.module('searchOptionsPanel')
 
             var _initSearchOptions= function() {
 
+                $scope.searchOptionsOrder = [ 'elevationPoint', 'ssrFakta', 'seEiendom' ];
                 $scope.searchOptionsDict = {};
                 _fetchElevationPoint();
                 _fetchMatrikkelInfo();
