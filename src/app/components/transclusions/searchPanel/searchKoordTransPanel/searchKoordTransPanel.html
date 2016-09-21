@@ -1,5 +1,18 @@
-<div class="search-panel">
+<div class="search-panel" data-ng-controller="searchKoordTransPanelController">
     <div class="content no-border search-content">
-KoordTrans
+        <ul>
+            <li ng-mousedown="showSearchOptionsPanel()">
+                <span class="search-options pointer-cursor"><b>←</b></span>
+                <span class="pointer-cursor"><b>Returner til tjenester</b></span>
+            </li>
+        </ul>
+        <span>X:</span>
+        <span data-ng-bind="activePosition.transLat"></span>
+        <br/><br/>
+        <span>Y:</span>
+        <span data-ng-bind="activePosition.transLon"></span>
+        <br/><br/>
+        <select ng-model = "activePosition.resSosiKoordSys" ng-change="_fetchKoordTrans()" ng-options="key as val for (key, val) in coordinateSystems">
+        </select>
     </div>
 </div>
