@@ -18,5 +18,7 @@ angular.module('mainApp')
                 var mapConfig = mainAppFactory.getMapConfig();
                 map.Init('mapDiv', mapConfig);
             };
+
+
         }
     ]);
