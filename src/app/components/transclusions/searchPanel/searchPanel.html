@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div ng-switch="searchPanelLayout">
+<div ng-switch="searchPanelLayout" ng-controller="searchPanelController">
     <div ng-switch-when="searchResultsPanel" search-results-panel></div>
     <div ng-switch-when="searchOptionsPanel" search-options-panel></div>
     <div ng-switch-when="searchSeEiendomPanel" search-se-eiendom-panel></div>

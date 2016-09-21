@@ -1,8 +1,17 @@
 <div class="search-panel">
     <div class="content no-border search-content">
         <ul>
+            <li ng-mousedown="showSearchOptionsPanel()">
+                <span class="search-options pointer-cursor"><b>←</b></span>
+                <span class="pointer-cursor"><b>Returner til tjenester</b></span>
+            </li>
+            <li data-ng-repeat="property in activeSearchOptionOrder">
+                <span ng-bind="_capitalizeFirstLetter(property)"></span>
+                <span ng-bind="activeSearchOption[property]"></span>
+            </li>
             <li>
-                <span>SeEiendom</span>
+                <span>Mer informasjon</span>
+                <a data-ng-href="{{activeSearchOption.url}}" target="_blank">Se eiendom</a>
             </li>
         </ul>
     </div>

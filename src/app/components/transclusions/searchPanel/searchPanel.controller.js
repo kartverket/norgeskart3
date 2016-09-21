@@ -1,17 +1,6 @@
-angular.module('mapOverlays')
-    .controller('mapOverlaysController', ['$scope',
+angular.module('searchPanel')
+    .controller('searchPanelController', ['$scope',
         function($scope){
-
-            $scope.showSearchPanel = function () {
-                $scope.mapOverlaysLayout = "searchPanelLayout";
-            };
-
-            $scope.showMainMenuPanel = function () {
-                $scope.mapOverlaysLayout = "mainMenuPanelLayout";
-            };
-
-            $scope.mapOverlaysLayout = "searchPanelLayout";
-
 
             $scope.showSearchResultPanel = function () {
                 $scope.searchPanelLayout = "searchResultsPanel";
@@ -21,12 +10,14 @@ angular.module('mapOverlays')
                 $scope.searchPanelLayout = "searchOptionsPanel";
             };
 
-
             $scope.searchPanelLayout = "searchResultsPanel";
 
             $scope.showSearchSeEiendomPanel = function () {
+                $scope.activeSearchOptionOrder = ['kommunenr', 'gardsnr', 'bruksnr', 'festenr', 'seksjonsnr', 'eiendomstype', 'matrikkelnr'];
+                $scope.activeSearchOption = $scope.searchOptionsDict['seEiendom'];
                 $scope.searchPanelLayout = "searchSeEiendomPanel";
             };
 
+            $scope.searchOptionsDict = {};
         }
     ]);
