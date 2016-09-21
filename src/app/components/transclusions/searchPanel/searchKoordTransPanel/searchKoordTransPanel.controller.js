@@ -2,9 +2,19 @@ angular.module('searchKoordTransPanel')
     .controller('searchKoordTransPanelController', [ '$scope','mainAppService','$http',
         function($scope, mainAppService,$http) {
 
+            var _round = function (value, decimals) {
+                return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+            };
+
             var _addSearchOptionToPanel = function (data) {
-                $scope.activePosition.transLat = data.nord;
-                $scope.activePosition.transLon = data.ost;
+                if (($scope.activePosition.resSosiKoordSys == '50') || ($scope.activePosition.resSosiKoordSys == '84')) {
+                    $scope.activePosition.transLat = _round(data.nord,7);
+                    $scope.activePosition.transLon = _round(data.ost,7);
+                }
+                else {
+                    $scope.activePosition.transLat = _round(data.nord,2);
+                    $scope.activePosition.transLon = _round(data.ost,2);
+                }
             };
 
             var _downloadFromUrl = function (url) {
@@ -20,8 +30,8 @@ angular.module('searchKoordTransPanel')
                 _downloadFromUrl(koordTransUrl);
             };
 
-            $scope.activePosition.transLat = ($scope.activePosition.lat + '').split('.')[0];
-            $scope.activePosition.transLon = ($scope.activePosition.lon + '').split('.')[0];
+            $scope.activePosition.transLat = _round($scope.activePosition.lat,2);
+            $scope.activePosition.transLon = _round($scope.activePosition.lon,2);
             $scope.activePosition.resSosiKoordSys = '23';
 
             $scope.coordinateSystems = {

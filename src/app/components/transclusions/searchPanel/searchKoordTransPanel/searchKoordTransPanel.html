@@ -6,10 +6,10 @@
                 <span class="pointer-cursor"><b>Returner til tjenester</b></span>
             </li>
         </ul>
-        <span>X:</span>
+        <span>Nord:</span>
         <span data-ng-bind="activePosition.transLat"></span>
         <br/><br/>
-        <span>Y:</span>
+        <span>Øst:</span>
         <span data-ng-bind="activePosition.transLon"></span>
         <br/><br/>
         <select ng-model = "activePosition.resSosiKoordSys" ng-change="_fetchKoordTrans()" ng-options="key as val for (key, val) in coordinateSystems">
