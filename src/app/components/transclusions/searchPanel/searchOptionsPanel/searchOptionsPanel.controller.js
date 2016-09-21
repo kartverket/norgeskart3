@@ -1,6 +1,6 @@
 angular.module('searchOptionsPanel')
     .controller('searchOptionsPanelController', ['$scope','mainAppService','$http',
-        function($scope, mainAppService,$http){
+        function($scope, mainAppService,$http) {
 
             var _clickableLinkClass = {
                 icon: 'search-options pointer-cursor',
@@ -12,15 +12,13 @@ angular.module('searchOptionsPanel')
                 text: ''
             };
 
-            var _downloadFromUrl = function(url, name){
-                $http.get(url).then(function(response){
+            var _downloadFromUrl = function (url, name) {
+                $http.get(url).then(function (response) {
                     _addSearchOptionToPanel(name, response.data);
-
                 });
             };
 
-            var _fetchElevationPoint = function ()
-            {
+            var _fetchElevationPoint = function () {
                 var lat = $scope.activePosition.lat;
                 var lon = $scope.activePosition.lon;
                 var epsgNumber = $scope.activePosition.epsg.split(':')[1];
@@ -28,11 +26,10 @@ angular.module('searchOptionsPanel')
                 _downloadFromUrl(elevationPointUrl, 'elevationPoint');
             };
 
-            var _fetchMatrikkelInfo = function()
-            {
+            var _fetchMatrikkelInfo = function () {
                 var lat = $scope.activePosition.geographicPoint[0];
                 var lon = $scope.activePosition.geographicPoint[1];
-                var matrikkelInfoUrl=mainAppService.generateMatrikkelInfoUrl(lon, lat, lon, lat);
+                var matrikkelInfoUrl = mainAppService.generateMatrikkelInfoUrl(lon, lat, lon, lat);
                 _downloadFromUrl(matrikkelInfoUrl, 'seEiendom');
             };
 
@@ -41,7 +38,7 @@ angular.module('searchOptionsPanel')
                 var extra = {
                     url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
                 };
-                $scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta','⚑',true, text, extra);
+                $scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', '⚑', true, text, extra);
 
                 text = "Høyde: " + jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' moh';
                 extra = {};
@@ -67,30 +64,30 @@ angular.module('searchOptionsPanel')
 
             };
 
-            var _addSearchOptionToPanel = function (name, data){
+            var _addSearchOptionToPanel = function (name, data) {
                 var jsonObject = xml.xmlToJSON(data);
                 var jsonRoot;
-                switch (name){
+                switch (name) {
                     case('elevationPoint'):
-                        jsonRoot=jsonObject.ExecuteResponse.ProcessOutputs;
-                        if(!jsonRoot.Output[0].Data.LiteralData){
+                        jsonRoot = jsonObject.ExecuteResponse.ProcessOutputs;
+                        if (!jsonRoot.Output[0].Data.LiteralData) {
                             return;
                         }
                         _addElevationPointToSearchOptions(jsonRoot, name);
                         break;
 
                     case('seEiendom'):
-                        if (!jsonObject.FeatureCollection.featureMembers){
+                        if (!jsonObject.FeatureCollection.featureMembers) {
                             return;
                         }
-                        jsonRoot=jsonObject.FeatureCollection.featureMembers.TEIGWFS;
+                        jsonRoot = jsonObject.FeatureCollection.featureMembers.TEIGWFS;
                         _addMatrikkelInfoToSearchOptions(jsonRoot, name);
                         break;
-                    }
+                }
             };
 
             var _constructSearchOption = function (name, icon, clickable, text, extra) {
-                var searchOption= {
+                var searchOption = {
                     icon: {
                         value: icon,
                         class: _defaultClass.icon
@@ -100,22 +97,21 @@ angular.module('searchOptionsPanel')
                         class: _defaultClass.text
                     },
                     name: name
-
                 };
 
-                if (clickable){
+                if (clickable) {
                     searchOption.icon.class = _clickableLinkClass.icon;
                     searchOption.text.class = _clickableLinkClass.text;
                 }
-                for (var key in extra){
+                for (var key in extra) {
                     searchOption[key] = extra[key];
                 }
                 return searchOption;
             };
 
-            var _initSearchOptions= function() {
+            var _initSearchOptions = function () {
 
-                $scope.searchOptionsOrder = [ 'elevationPoint', 'ssrFakta', 'seEiendom' ];
+                $scope.searchOptionsOrder = ['elevationPoint', 'ssrFakta', 'seEiendom'];
                 $scope.searchOptionsDict = {};
                 _fetchElevationPoint();
                 _fetchMatrikkelInfo();
