@@ -570,6 +570,34 @@ html{
   text-align: center;
 }
 
+.body-overlay{
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+  position: absolute;
+  @extend .clickThrough;
+}
+
+.logo-img{
+  background-image:url('../assets/img/kartverket-attribution.png');
+  width:22px;
+  height: 32px;
+  display: block;
+  top: 0;
+  position: absolute;
+  margin: 15px;
+}
+
+.logo-text{
+  font-size: 22px;
+  width:22px;
+  height: 32px;
+  display: block;
+  top: 0;
+  position: absolute;
+  left:50px;
+  margin-top: 22px;
+}
 
 
 
@@ -588,6 +616,7 @@ html{
 
 @import "dropdownmenu";
 @import "icomoon";
+@import "fontawesome";
 @import "vectoricon";
 @import "sidenav";
 @import "mobile";
