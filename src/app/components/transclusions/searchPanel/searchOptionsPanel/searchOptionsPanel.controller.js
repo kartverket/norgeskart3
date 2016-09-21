@@ -46,27 +46,24 @@ angular.module('searchOptionsPanel')
             };
 
             var _addMatrikkelInfoToSearchOptions = function (jsonRoot, name) {
-                var matrikkelnr;
-                if (jsonRoot.MATRIKKELNR){
-                    matrikkelnr = jsonRoot.MATRIKKELNR;
-                }
-                else if  (jsonRoot[0].MATRIKKELNR) {
-                    matrikkelnr = jsonRoot[0].MATRIKKELNR;
+                if (jsonRoot[0]){
+                    jsonRoot = jsonRoot[0];
                 }
 
-                if ((matrikkelnr == 'Mnr mangler') ||( matrikkelnr == 'Mnr vann mangler')) {
+                if ((jsonRoot.MATRIKKELNR == 'Mnr mangler') ||( jsonRoot.MATRIKKELNR == 'Mnr vann mangler')) {
                     return;
                 }
 
                 var extra = {
-                    kommunenr: jsonRoot.KOMMUNENR||jsonRoot[0].KOMMUNENR,
-                    gardsnr: jsonRoot.GARDSNR||jsonRoot[0].GARDSNR,
-                    bruksnr: jsonRoot.BRUKSNR||jsonRoot[0].BRUKSNR,
-                    festenr: jsonRoot.FESTENR||jsonRoot[0].FESTENR,
-                    seksjonsnr: jsonRoot.SEKSJONSNR||jsonRoot[0].SEKSJONSNR,
-                    eiendomstype: jsonRoot.EIENDOMSTYPE||jsonRoot[0].EIENDOMSTYPE,
-                    matrikkelnr: matrikkelnr
+                    kommunenr: jsonRoot.KOMMUNENR,
+                    gardsnr: jsonRoot.GARDSNR,
+                    bruksnr: jsonRoot.BRUKSNR,
+                    festenr: jsonRoot.FESTENR,
+                    seksjonsnr: jsonRoot.SEKSJONSNR,
+                    eiendomstype: jsonRoot.EIENDOMSTYPE,
+                    matrikkelnr: jsonRoot.MATRIKKELNR
                 };
+
                 extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
                 var text = 'Se eiendomsinformasjon for ' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
                 $scope.searchOptionsDict[name] = _constructSearchOption(name, '🏠', true, text, extra);
