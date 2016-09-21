@@ -77,6 +77,11 @@ angular.module('searchOptionsPanel')
                         var fnr = jsonRoot.FESTENR;
                         var snr = jsonRoot.SEKSJONSNR;
                         var matrikkelNr = jsonRoot.MATRIKKELNR;
+
+                        if (matrikkelNr == 'Mnr mangler'){
+                            return;
+                        }
+
                         searchOption ={
                             icon: {
                                 value:'🏠',
