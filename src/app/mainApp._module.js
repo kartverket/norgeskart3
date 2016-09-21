@@ -5,7 +5,6 @@ angular.module('mainApp', [
     'ISY.Angular',
     'isyTranslate',
     'mapOverlays',
-    'tools',
-    'mainMenuOverlays'
+    'tools'
 
 ]);

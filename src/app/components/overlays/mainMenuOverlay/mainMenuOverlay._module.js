@@ -1,1 +1,1 @@
-angular.module('mainMenuOverlays', []);
+angular.module('mainMenuOverlay', ['mainMenuPanel']);
