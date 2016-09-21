@@ -10,6 +10,9 @@ angular.module('searchOptionsPanel')
                             case ('seEiendom'):
                                 scope.showSearchSeEiendomPanel();
                                 break;
+                            case ('koordTrans'):
+                                scope.showKoordTransPanel();
+                                break;
                             default:
                                 if (searchOption.url){
                                     $window.open(searchOption.url, '_blank');
