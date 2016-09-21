@@ -5,14 +5,17 @@
                 <span class="search-options pointer-cursor"><b>←</b></span>
                 <span class="pointer-cursor"><b>Returner til tjenester</b></span>
             </li>
-            <li data-ng-repeat="property in activeSearchOptionOrder">
-                <span ng-bind="_capitalizeFirstLetter(property)"></span>
-                <span ng-bind="activeSearchOption[property]"></span>
-            </li>
-            <li>
-                <span>Mer informasjon</span>
-                <a data-ng-href="{{activeSearchOption.url}}" target="_blank">Se eiendom</a>
-            </li>
         </ul>
+
+        <table>
+            <tr data-ng-repeat="property in activeSearchOptionOrder">
+                <td ng-bind="_capitalizeFirstLetter(property)"></td>
+                <td ng-bind="activeSearchOption[property]"></td>
+            </tr>
+            <tr>
+                <td>Mer informasjon</td>
+                <td><a data-ng-href="{{activeSearchOption.url}}" target="_blank" class="searchbar-hover">Se eiendom</a></td>
+            </tr>
+        </table>
     </div>
 </div>
