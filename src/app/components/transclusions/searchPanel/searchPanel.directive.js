@@ -4,13 +4,16 @@ angular.module('searchPanel')
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchPanel.html',
                 restrict: 'A',
+                controller: 'searchPanelController',
                 link: function(scope){
                     scope.searchBarValueChanged = function () {
                         if (scope.searchBarModel === '') {
+                            scope.cleanResults();
                             return;
                         }
                         var query = _getQuery();
                         _init();
+                        scope.showSearchResultPanel();
                         _getResults(query);
                     };
 
@@ -244,6 +247,7 @@ angular.module('searchPanel')
                         activePosition.geographicPoint=_constructPoint(activePosition.lat, activePosition.lon, 'EPSG:32633', 'EPSG:4326');
                         map.SetCenter(activePosition);
                         scope.activePosition=activePosition;
+                        scope.searchBarModel=searchResult.name + ' ' + searchResult.kommune;
                     };
 
                     scope.cleanResults = function (){
