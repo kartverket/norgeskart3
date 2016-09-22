@@ -90,6 +90,10 @@ angular.module('mainApp')
                 this.generateSeHavnivaaUrl = function (lat, lon) {
                     return urlHavnivaa + "tideapi.php?lat=" + lat + "&lon=" + lon + "&lang=nb&year=" + new Date().getFullYear() + "&place=&tide_request=tidetable";
                 };
+
+                this.generateLagTurkartUrl = function () {
+                    return urlGeonorge + "freeprint/getprint2.py";
+                };
 /*
                 // No CORS
                    this.generateSeHavnivaaUrl = function (lat, lon) {
