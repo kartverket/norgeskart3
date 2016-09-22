@@ -45,7 +45,7 @@ angular.module('searchOptionsPanel')
                 var extra = {
                     url: mainAppService.generateSeHavnivaaUrl(lat, lon)
                 };
-                $scope.searchOptionsDict[name] = _constructSearchOption(name, '🌊', false, 'Se havnivå', extra);
+                $scope.searchOptionsDict[name] = _constructSearchOption(name, '🌊', true, 'Se havnivå', extra);
                 // var lat = $scope.activePosition.geographicPoint[0];
                 // var lon = $scope.activePosition.geographicPoint[1];
                 // var seHavnivaaUrl = mainAppService.generateSeHavnivaaUrl(lat, lon);
@@ -168,7 +168,7 @@ angular.module('searchOptionsPanel')
 
             var _initSearchOptions = function () {
 
-                $scope.searchOptionsOrder = ['koordTrans', 'elevationPoint', 'ssrFakta', 'seEiendom', 'seHavnivaa'];
+                $scope.searchOptionsOrder = ['elevationPoint', 'seEiendom', 'ssrFakta', 'seHavnivaa', 'koordTrans'];
                 for (var searchOption in $scope.searchOptionsOrder){
                     $scope.searchOptionsDict[$scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
                 }
