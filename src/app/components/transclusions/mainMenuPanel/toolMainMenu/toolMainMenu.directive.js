@@ -1,18 +1,18 @@
-angular.module('toolMenu')
-    .directive('toolMenu', ['toolsFactory', 'toolsElevationProfileFactory', 'toolsEmergencyPosterFactory', 'ISY.EventHandler', 'ISY.MapAPI.Map',
+angular.module('toolMainMenu')
+    .directive('toolMainMenu', ['toolsFactory', 'toolsElevationProfileFactory', 'toolsEmergencyPosterFactory', 'ISY.EventHandler', 'ISY.MapAPI.Map',
         function(toolsFactory, toolsElevationProfileFactory, toolsEmergencyPosterFactory, eventHandler, map) {
             return {
-                templateUrl: 'components/transclusions/toolMenu/toolMenu.html',
+                templateUrl: 'components/transclusions/mainMenuPanel/toolMainMenu/toolMainMenu.html',
                 restrict: 'A',
                 link: function(scope){
                     /*
                      Private variables start
-                    */
+                     */
                     var _elevationProfileActive = false;
                     var _emergencyPosterActive = false;
                     /*
                      Private variables end
-                    */
+                     */
 
                     /*
                      Events start
@@ -92,12 +92,14 @@ angular.module('toolMenu')
                         _elevationProfileActive = false;
                         _emergencyPosterActive = false;
                         _startMeasure("Line");
+                        scope.closeNav();
                     };
 
                     scope.measurePolygon = function () {
                         _elevationProfileActive = false;
                         _emergencyPosterActive = false;
                         _startMeasure("Polygon");
+                        scope.closeNav();
                     };
                     /*
                      Measure tools end
@@ -152,7 +154,7 @@ angular.module('toolMenu')
                     };
                     /*
                      Generate emergancy poster end
-                    */
+                     */
                 }
             };
         }]);

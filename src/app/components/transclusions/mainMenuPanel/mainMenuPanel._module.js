@@ -1,1 +1,1 @@
-angular.module('mainMenuPanel', ['toolMenu']);
+angular.module('mainMenuPanel', ['toolMainMenu']);
