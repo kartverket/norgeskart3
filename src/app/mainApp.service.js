@@ -81,6 +81,10 @@ angular.module('mainApp')
                 this.generateFaktaarkUrl = function (ssrid){
                     return urlFaktaark + "SSRFakta/faktaarkfraobjektid?enhet=" + ssrid;
                 };
+
+                this.generateKoordTransUrl = function (ost, nord, resSosiKoordSys) {
+                    return url + "/ws/trans.py?ost=" + ost + "&nord=" + nord + " &sosiKoordSys=23&resSosiKoordSys=" + resSosiKoordSys;
+                };
 /*
                 // No CORS
                 this.generateSearchEiendomUrl = function (query) {

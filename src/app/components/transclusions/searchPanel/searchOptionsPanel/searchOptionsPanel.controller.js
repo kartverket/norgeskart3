@@ -33,6 +33,10 @@ angular.module('searchOptionsPanel')
                 _downloadFromUrl(matrikkelInfoUrl, 'seEiendom');
             };
 
+            var _fetchKoordTrans = function () {
+                $scope.searchOptionsDict['koordTrans'] = _constructSearchOption('koordTrans', 'x,y', true, 'Se koordinater', {});
+            };
+
             var _addElevationPointToSearchOptions = function (jsonRoot, name) {
                 var text = 'Se fakta om stedsnavnet ' + jsonRoot.Output[0].Data.LiteralData.Text;
                 var extra = {
@@ -46,9 +50,14 @@ angular.module('searchOptionsPanel')
             };
 
             var _addMatrikkelInfoToSearchOptions = function (jsonRoot, name) {
-                if (jsonRoot.MATRIKKELNR == 'Mnr mangler') {
+                if (jsonRoot[0]){
+                    jsonRoot = jsonRoot[0];
+                }
+
+                if ((jsonRoot.MATRIKKELNR == 'Mnr mangler') ||( jsonRoot.MATRIKKELNR == 'Mnr vann mangler')) {
                     return;
                 }
+
                 var extra = {
                     kommunenr: jsonRoot.KOMMUNENR,
                     gardsnr: jsonRoot.GARDSNR,
@@ -58,6 +67,7 @@ angular.module('searchOptionsPanel')
                     eiendomstype: jsonRoot.EIENDOMSTYPE,
                     matrikkelnr: jsonRoot.MATRIKKELNR
                 };
+
                 extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
                 var text = 'Se eiendomsinformasjon for ' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
                 $scope.searchOptionsDict[name] = _constructSearchOption(name, '🏠', true, text, extra);
@@ -65,10 +75,11 @@ angular.module('searchOptionsPanel')
             };
 
             var _addSearchOptionToPanel = function (name, data) {
-                var jsonObject = xml.xmlToJSON(data);
+                var jsonObject;
                 var jsonRoot;
                 switch (name) {
                     case('elevationPoint'):
+                        jsonObject = xml.xmlToJSON(data);
                         jsonRoot = jsonObject.ExecuteResponse.ProcessOutputs;
                         if (!jsonRoot.Output[0].Data.LiteralData) {
                             return;
@@ -77,6 +88,7 @@ angular.module('searchOptionsPanel')
                         break;
 
                     case('seEiendom'):
+                        jsonObject = xml.xmlToJSON(data);
                         if (!jsonObject.FeatureCollection.featureMembers) {
                             return;
                         }
@@ -109,12 +121,31 @@ angular.module('searchOptionsPanel')
                 return searchOption;
             };
 
+            var _emptySearchOption = function () {
+                var searchOption = {
+                    icon: {
+                        value: '',
+                        class: ''
+                    },
+                    text: {
+                        value: '',
+                        class: ''
+                    },
+                    name: ''
+                };
+
+                return searchOption;
+            };
+
             var _initSearchOptions = function () {
 
-                $scope.searchOptionsOrder = ['elevationPoint', 'ssrFakta', 'seEiendom'];
-                $scope.searchOptionsDict = {};
+                $scope.searchOptionsOrder = ['elevationPoint', 'ssrFakta', 'seEiendom', 'koordTrans'];
+                for (var searchOption in $scope.searchOptionsOrder){
+                    $scope.searchOptionsDict[$scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
+                }
                 _fetchElevationPoint();
                 _fetchMatrikkelInfo();
+                _fetchKoordTrans();
                 // {
                 //     icon: '🚶',
                 //     text: 'Lage turkart',
@@ -129,11 +160,6 @@ angular.module('searchOptionsPanel')
                 //     icon: '🌊',
                 //     text: 'Se havnivå',
                 //     name: 'seHavnivå'
-                // },
-                // {
-                //     icon: 'x,y',
-                //     text: 'Se koordinater',
-                //     name: 'seKoordinater'
                 // }
             };
 
