@@ -89,6 +89,9 @@ angular.module('searchOptionsPanel')
 
                     case('seEiendom'):
                         jsonObject = xml.xmlToJSON(data);
+                        if (!jsonObject.FeatureCollection) {
+                            return;
+                        }
                         if (!jsonObject.FeatureCollection.featureMembers) {
                             return;
                         }
