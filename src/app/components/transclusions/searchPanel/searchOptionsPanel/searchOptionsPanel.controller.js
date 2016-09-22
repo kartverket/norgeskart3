@@ -27,14 +27,29 @@ angular.module('searchOptionsPanel')
             };
 
             var _fetchMatrikkelInfo = function () {
-                var lat = $scope.activePosition.geographicPoint[0];
-                var lon = $scope.activePosition.geographicPoint[1];
-                var matrikkelInfoUrl = mainAppService.generateMatrikkelInfoUrl(lon, lat, lon, lat);
+                var lat = $scope.activePosition.geographicPoint[1];
+                var lon = $scope.activePosition.geographicPoint[0];
+                var matrikkelInfoUrl = mainAppService.generateMatrikkelInfoUrl(lat, lon, lat, lon);
                 _downloadFromUrl(matrikkelInfoUrl, 'seEiendom');
             };
 
             var _fetchKoordTrans = function () {
-                $scope.searchOptionsDict['koordTrans'] = _constructSearchOption('koordTrans', 'x,y', true, 'Se koordinater', {});
+                var name = 'koordTrans';
+                $scope.searchOptionsDict[name] = _constructSearchOption(name, 'x,y', true, 'Se koordinater', {});
+            };
+
+            var _fetchSeHavnivaa = function () {
+                var name= 'seHavnivaa';
+                var lat = $scope.activePosition.geographicPoint[1];
+                var lon = $scope.activePosition.geographicPoint[0];
+                var extra = {
+                    url: mainAppService.generateSeHavnivaaUrl(lat, lon)
+                };
+                $scope.searchOptionsDict[name] = _constructSearchOption(name, '🌊', false, 'Se havnivå', extra);
+                // var lat = $scope.activePosition.geographicPoint[0];
+                // var lon = $scope.activePosition.geographicPoint[1];
+                // var seHavnivaaUrl = mainAppService.generateSeHavnivaaUrl(lat, lon);
+                // _downloadFromUrl(seHavnivaaUrl, 'seHavnivaa');
             };
 
             var _addElevationPointToSearchOptions = function (jsonRoot, name) {
@@ -74,6 +89,10 @@ angular.module('searchOptionsPanel')
 
             };
 
+            // var _addSeHavnivaaToSearchOptions = function (jsonRoot, name) {
+            //     $scope.searchOptionsDict[name] = _constructSearchOption(name, '🌊', false, '', {});
+            // };
+
             var _addSearchOptionToPanel = function (name, data) {
                 var jsonObject;
                 var jsonRoot;
@@ -98,6 +117,13 @@ angular.module('searchOptionsPanel')
                         jsonRoot = jsonObject.FeatureCollection.featureMembers.TEIGWFS;
                         _addMatrikkelInfoToSearchOptions(jsonRoot, name);
                         break;
+                    // case('seHavnivaa'):
+                    //     jsonObject = xml.xmlToJSON(data);
+                    //     if (!jsonObject.tide.meta){
+                    //         return;
+                    //     }
+                    //     jsonRoot = jsonObject.tide.locationlevel;
+                    //     _addSeHavnivaaToSearchOptions(jsonRoot, name);
                 }
             };
 
@@ -142,13 +168,14 @@ angular.module('searchOptionsPanel')
 
             var _initSearchOptions = function () {
 
-                $scope.searchOptionsOrder = ['elevationPoint', 'ssrFakta', 'seEiendom', 'koordTrans'];
+                $scope.searchOptionsOrder = ['koordTrans', 'elevationPoint', 'ssrFakta', 'seEiendom', 'seHavnivaa'];
                 for (var searchOption in $scope.searchOptionsOrder){
                     $scope.searchOptionsDict[$scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
                 }
                 _fetchElevationPoint();
                 _fetchMatrikkelInfo();
                 _fetchKoordTrans();
+                _fetchSeHavnivaa();
                 // {
                 //     icon: '🚶',
                 //     text: 'Lage turkart',
@@ -158,11 +185,6 @@ angular.module('searchOptionsPanel')
                 //     icon: '🚑',
                 //     text: 'Lage nødplakat',
                 //     name: 'nødplakat'
-                // },
-                // {
-                //     icon: '🌊',
-                //     text: 'Se havnivå',
-                //     name: 'seHavnivå'
                 // }
             };
 
