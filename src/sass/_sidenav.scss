@@ -59,7 +59,7 @@
   float: right;
   //right: 26px;
   right: 16px;
-  padding-top: 2px;
+  padding-top: 4px;
 }
 
 
@@ -72,6 +72,9 @@
   li:hover{
     background-color: lightgray;
     color: #000;
+  }
+  li{
+    cursor: pointer;
   }
 }
 
