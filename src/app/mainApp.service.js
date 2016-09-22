@@ -7,6 +7,7 @@ angular.module('mainApp')
                 var urlGeonorge = 'https://ws.geonorge.no/';
                 var urlSeEiendom = 'http://www.seeiendom.no/';
                 var urlFaktaark = 'http://faktaark.statkart.no/';
+                var urlHavnivaa = "http://api.sehavniva.no/";
 
                 this.uploadGpxFileService = function () {
                     return url + 'ws/upload-gpx.py';
@@ -84,6 +85,10 @@ angular.module('mainApp')
 
                 this.generateKoordTransUrl = function (ost, nord, resSosiKoordSys) {
                     return url + "/ws/trans.py?ost=" + ost + "&nord=" + nord + " &sosiKoordSys=23&resSosiKoordSys=" + resSosiKoordSys;
+                };
+
+                this.generateSeHavnivaaUrl = function (lat, lon) {
+                    return urlHavnivaa + "tideapi.php?lat=" + lat + "&lon=" + lon + "&refcode=cd&place=&lang=nn&file=&tide_request=locationlevels";
                 };
 /*
                 // No CORS
