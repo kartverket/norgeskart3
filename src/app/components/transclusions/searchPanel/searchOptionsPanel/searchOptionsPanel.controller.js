@@ -52,6 +52,11 @@ angular.module('searchOptionsPanel')
                 // _downloadFromUrl(seHavnivaaUrl, 'seHavnivaa');
             };
 
+            var _fetchLagTurkart = function () {
+                var name= 'lagTurkart';
+                $scope.searchOptionsDict[name] = _constructSearchOption(name, '🚶', true, 'Lag Turkart', {});
+            };
+
             var _addElevationPointToSearchOptions = function (jsonRoot, name) {
                 var text = 'Se fakta om stedsnavnet ' + jsonRoot.Output[0].Data.LiteralData.Text;
                 var extra = {
@@ -168,7 +173,7 @@ angular.module('searchOptionsPanel')
 
             var _initSearchOptions = function () {
 
-                $scope.searchOptionsOrder = ['elevationPoint', 'seEiendom', 'ssrFakta', 'seHavnivaa', 'koordTrans'];
+                $scope.searchOptionsOrder = ['elevationPoint', 'seEiendom', 'ssrFakta', 'seHavnivaa', 'koordTrans', 'lagTurkart'];
                 for (var searchOption in $scope.searchOptionsOrder){
                     $scope.searchOptionsDict[$scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
                 }
@@ -176,11 +181,7 @@ angular.module('searchOptionsPanel')
                 _fetchMatrikkelInfo();
                 _fetchKoordTrans();
                 _fetchSeHavnivaa();
-                // {
-                //     icon: '🚶',
-                //     text: 'Lage turkart',
-                //     name: 'turKart'
-                // },
+                _fetchLagTurkart();
                 // {
                 //     icon: '🚑',
                 //     text: 'Lage nødplakat',

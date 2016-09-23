@@ -23,5 +23,9 @@ angular.module('searchPanel')
             $scope.showKoordTransPanel = function () {
                 $scope.searchPanelLayout = "searchKoordTransPanel";
             };
+
+            $scope.showLagTurKartPanel = function () {
+                $scope.searchPanelLayout = "searchLagTurkartPanel";
+            };
         }
     ]);
