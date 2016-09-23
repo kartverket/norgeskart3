@@ -126,6 +126,15 @@ angular
                         'features':[],
                         'snappingFeatures': []
                     }
+                },
+                {
+                    "id": "PrintBoxSelect",
+                    "title": "PrintBoxSelect_title",
+                    "hover": "PrintBoxSelect_hover",
+                    "symbol": "flaticon-triangular43",
+                    "sortOrder": 10,
+                    "isSelected": false,
+                    "cursorStyle": "default"
                 }
             ];
 

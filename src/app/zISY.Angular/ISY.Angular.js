@@ -34,7 +34,7 @@ angular.module("ISY.Angular.MapAPI", [])
         ISY.MapAPI.Parsers.Factory
     ]);
 angular.module("ISY.Angular.MapImplementation", [])
-    .service("ISY.MapImplementation.Map", ["ISY.Repository", "ISY.EventHandler", "$http", "ISY.MapImplementation.OL3.Measure", "ISY.MapImplementation.OL3.FeatureInfo", "ISY.MapImplementation.OL3.Export", "ISY.MapImplementation.OL3.HoverInfo","ISY.MapImplementation.OL3.MeasureLine", "ISY.MapImplementation.OL3.DrawFeature", "ISY.MapImplementation.OL3.Offline", "ISY.MapImplementation.OL3.AddLayerFeature", "ISY.MapImplementation.OL3.ModifyFeature", "ISY.MapImplementation.OL3.AddFeatureGps", ISY.MapImplementation.OL3.Map])
+    .service("ISY.MapImplementation.Map", ["ISY.Repository", "ISY.EventHandler", "$http", "ISY.MapImplementation.OL3.Measure", "ISY.MapImplementation.OL3.FeatureInfo", "ISY.MapImplementation.OL3.Export", "ISY.MapImplementation.OL3.HoverInfo","ISY.MapImplementation.OL3.MeasureLine", "ISY.MapImplementation.OL3.DrawFeature", "ISY.MapImplementation.OL3.Offline", "ISY.MapImplementation.OL3.AddLayerFeature", "ISY.MapImplementation.OL3.ModifyFeature", "ISY.MapImplementation.OL3.AddFeatureGps", "ISY.MapImplementation.OL3.PrintBoxSelect", ISY.MapImplementation.OL3.Map])
     .service("ISY.MapImplementation.OL3.Utilities", [ISY.MapImplementation.OL3.Utilities])
     .service("ISY.MapImplementation.OL3.Measure", ["ISY.EventHandler", ISY.MapImplementation.OL3.Measure])
     .service("ISY.MapImplementation.OL3.FeatureInfo", [ISY.MapImplementation.OL3.FeatureInfo])
@@ -45,7 +45,8 @@ angular.module("ISY.Angular.MapImplementation", [])
     .service("ISY.MapImplementation.OL3.Offline", [ISY.MapImplementation.OL3.Offline])
     .service("ISY.MapImplementation.OL3.AddLayerFeature", ["ISY.EventHandler", ISY.MapImplementation.OL3.AddLayerFeature])
     .service("ISY.MapImplementation.OL3.ModifyFeature", ["ISY.EventHandler", ISY.MapImplementation.OL3.ModifyFeature])
-    .service("ISY.MapImplementation.OL3.AddFeatureGps", ["ISY.EventHandler", ISY.MapImplementation.OL3.AddFeatureGps]);
+    .service("ISY.MapImplementation.OL3.AddFeatureGps", ["ISY.EventHandler", ISY.MapImplementation.OL3.AddFeatureGps])
+    .service("ISY.MapImplementation.OL3.PrintBoxSelect", ["ISY.EventHandler", ISY.MapImplementation.OL3.PrintBoxSelect]);
 
 /*
  // Leaflet

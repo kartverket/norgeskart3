@@ -13,6 +13,9 @@ angular.module('searchOptionsPanel')
                             case ('koordTrans'):
                                 scope.showKoordTransPanel();
                                 break;
+                            case ('lagTurkart'):
+                                scope.showLagTurKartPanel();
+                                break;
                             default:
                                 if (searchOption.url){
                                     $window.open(searchOption.url, '_blank');
