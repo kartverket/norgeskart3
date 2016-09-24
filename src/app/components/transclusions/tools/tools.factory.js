@@ -134,7 +134,10 @@ angular
                     "symbol": "flaticon-triangular43",
                     "sortOrder": 10,
                     "isSelected": false,
-                    "cursorStyle": "default"
+                    "cursorStyle": "default",
+                    "additionalOptions": {
+                        scale: 25000
+                    }
                 }
             ];
 
@@ -202,6 +205,9 @@ angular
                             options['translate'] = isyTranslateFactory.getTranslateOptionsByActiveLanguage();
 
                             toolFactory.AdditionalToolOptions(options);
+                        }
+                        else if (tool.additionalOptions){
+                            toolFactory.AdditionalToolOptions(tool.additionalOptions);
                         }
                         toolFactory.ActivateTool(tool.id);
                         tool.isSelected = true;
