@@ -1,7 +1,7 @@
 <div class="search-panel" ng-show="searchResults != undefined">
     <div class="content no-border search-content">
         <ul>
-            <li ng-mousedown="showSearchOptionsPanel()">
+            <li ng-mousedown="_deactivatePrintBoxSelect();showSearchOptionsPanel()">
                 <span class="search-options pointer-cursor"><b>←</b></span>
                 <span class="pointer-cursor"><b>Returner til tjenester</b></span>
             </li>
