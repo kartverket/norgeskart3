@@ -7,7 +7,20 @@ angular.module('mainMenuBaseLayers')
                 link: function(scope){
 
                     scope.baseLayers = map.GetBaseLayers();
+                    console.log(scope.baseLayers);
 
+                    scope.getBaseLayerStyle = function (baseLayer) {
+                        if (baseLayer.isVisible){
+                            return 'glyphicon glyphicon-ok-sign pointer-cursor';
+                        }else{
+                            return 'icon-radio-unchecked pointer-cursor';
+                        }
+                    };
+
+                    scope.setAsBaseLayer = function (baseLayer) {
+                        map.SetBaseLayer(baseLayer);
+                        scope.baseLayers = map.GetBaseLayers();
+                    };
 
                 }
             };

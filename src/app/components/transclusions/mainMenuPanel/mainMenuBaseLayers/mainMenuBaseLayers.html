@@ -13,7 +13,8 @@
 
 
 <ul class="sidenav-group">
-    <li data-ng-repeat="baseLayer in baseLayers">
-        <span></span>
+    <li data-ng-repeat="baseLayer in baseLayers | filter: {name: '!!' }" data-ng-click="setAsBaseLayer(baseLayer)">
+        <span data-ng-class="getBaseLayerStyle(baseLayer)"></span>
+        <span data-ng-bind="baseLayer.name"></span>
     </li>
 </ul>
