@@ -1,0 +1,20 @@
+<ul class="sidenav-group">
+    <li data-ng-click="showMainMenuSections()">
+        <span class="icon-map2"></span>
+        <span>Bakgrunnskart</span>
+        <div class="backbtn">
+            <span class="glyphicon glyphicon-menu-left"></span>
+            <span class="glyphicon glyphicon-menu-left"></span>
+        </div>
+    </li>
+</ul>
+
+
+
+
+<ul class="sidenav-group">
+    <li data-ng-repeat="baseLayer in baseLayers | filter: {name: '!!' }" data-ng-click="setAsBaseLayer(baseLayer)">
+        <span data-ng-class="getBaseLayerStyle(baseLayer)"></span>
+        <span data-ng-bind="baseLayer.name"></span>
+    </li>
+</ul>
