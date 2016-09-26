@@ -8,6 +8,7 @@ angular.module('searchLagTurkartPanel')
 
                     var extent= {};
                     var mapLink = "";
+                    var retryMapCreation=true;
                     scope.mapAvailable = false;
                     scope.createMapButtonOn = true;
                     scope.showLegend=false;
@@ -58,7 +59,10 @@ angular.module('searchLagTurkartPanel')
                         var json = _createJson();
                         $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side
                         var urlLagTurkart=mainAppService.generateLagTurkartUrl();
-                        $http.post(urlLagTurkart,json).then(function(response){_mapReadyForDownload(response, urlLagTurkart);});
+                        $http.post(urlLagTurkart,json).then(
+                            function(response){_mapReadyForDownload(response, urlLagTurkart);},
+                            function(response){_mapCreationFailed(response);}
+                        );
 
                     };
 
@@ -81,13 +85,25 @@ angular.module('searchLagTurkartPanel')
                                     biSone: ""
                             },
                             paging: 12,
-                                layout: "A4 landscape",
+                            layout: "A4 landscape",
                             scale: extent.scale,
                             titel: scope.tittel,
                             legend: scope.showLegend,
                             trips: scope.showTrips,
                             link: "http://www.norgeskart.no/turkart/#9/238117/6674760"
                         };
+                    };
+
+                    var _mapCreationFailed = function(){
+                        if (retryMapCreation) {
+                            console.log('Map creation failed. Retrying.');
+                            retryMapCreation=false;
+                            scope.orderMap();
+                        }
+                        else {
+                            console.log('Retrying map creation failed. Try again later or contact Kartverket.');
+                            scope.createMapButtonOn = true;
+                        }
                     };
 
                     var _mapReadyForDownload = function (response, urlLagTurkart) {
