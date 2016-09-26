@@ -16,7 +16,7 @@ angular.module('mainApp')
 
                     $(document).keyup(function(e){
                         if (e.keyCode == 27){
-                            if (addFeatureTool.isSelected || measureLine.isSelected || measure.isSelected || printBoxSelect.isSelected){
+                            if (addFeatureTool.isSelected || measureLine.isSelected || measure.isSelected ){
                                 toolsFactory.deactivatAllTools();
                                 toolsFactory.activateTool(pointSelectTool);
                             }

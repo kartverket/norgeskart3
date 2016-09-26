@@ -13,6 +13,9 @@
         <select ng-model="scale" ng-change="applyScale()" ng-options="key as val for (key, val) in scales"></select>
         <br/>
         <h3>Gi kartet ditt et navn</h3>
-        <input type="text" placeholder="Turkart" />
+        <input type="text" placeholder="Turkart" ng-model="tittel"/>
+        <br/>
+        <button data-ng-click="orderMap()" ng-disabled="!createMapButtonOn">Lag Kart</button>
+        <button data-ng-click="downloadMap()" ng-show="mapAvailable">Last ned Kart</button>
     </div>
 </div>
