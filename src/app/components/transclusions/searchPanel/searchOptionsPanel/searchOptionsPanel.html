@@ -1,6 +1,12 @@
 <div class="search-panel" ng-show="searchResults != undefined" ng-controller="searchOptionsPanelController">
     <div class="content search-content">
         <ul>
+            <span>{{sourceDict[activeSearchResult.source]}} i {{activeSearchResult.kommune}}</span>
+            <br/>
+            <span ng-show="searchOptionsDict['elevationPoint'].text.value">Høyde (anslått ved interpolering):</span>
+            <span ng-class="searchOptionsDict['elevationPoint'].text.class"
+                  ng-bind="searchOptionsDict['elevationPoint'].text.value" ></span>
+            <h3>Hva ønsker du å gjøre?</h3>
             <li data-ng-repeat="searchOption in searchOptionsOrder"
                 ng-mousedown="mouseDown(searchOptionsDict[searchOption])">
                 <span ng-class="searchOptionsDict[searchOption].icon.class"

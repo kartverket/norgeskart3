@@ -17,6 +17,14 @@ angular.module('searchPanel')
                         _getResults(query);
                     };
 
+                    scope.sourceDict = {
+                        'ssr': 'Stedsnavn',
+                        'adresse': 'Matrikkeladresse',
+                        'matrikkelveg': 'Vegnavn fra matrikkel',
+                        'matrikkeladresse': 'Adresse fra matrikkel'
+
+                    };
+
                     _searchResults = {};
 
                     _unifiedResults = {};
@@ -211,7 +219,7 @@ angular.module('searchPanel')
                         _searchResults[_serviceDict.source] = {
                             document: document,
                             format: _serviceDict.format,
-                            source: _serviceDict.source,
+                            source:_serviceDict.source,
                             epsg: _serviceDict.epsg
                         };
                         _readResults();
@@ -247,7 +255,8 @@ angular.module('searchPanel')
                         activePosition.geographicPoint=_constructPoint(activePosition.lat, activePosition.lon, 'EPSG:32633', 'EPSG:4326');
                         map.SetCenter(activePosition);
                         scope.activePosition=activePosition;
-                        scope.searchBarModel=searchResult.name + ' ' + searchResult.kommune;
+                        scope.activeSearchResult=searchResult;
+                        scope.searchBarModel=searchResult.name;
                     };
 
                     scope.cleanResults = function (){
@@ -255,6 +264,7 @@ angular.module('searchPanel')
                         map.RemoveInfoMarkers();
                         map.RemoveInfoMarker();
                         scope.searchResults = undefined;
+                        scope.activeSearchResult=undefined;
                         scope.searchBarModel = "";
 
                     };

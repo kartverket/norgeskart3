@@ -58,13 +58,13 @@ angular.module('searchOptionsPanel')
             };
 
             var _addElevationPointToSearchOptions = function (jsonRoot, name) {
-                var text = 'Se fakta om stedsnavnet ' + jsonRoot.Output[0].Data.LiteralData.Text;
+                var text = 'Se fakta om stedsnavnet "' + jsonRoot.Output[0].Data.LiteralData.Text + '"';
                 var extra = {
                     url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
                 };
                 $scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', '⚑', true, text, extra);
 
-                text = "Høyde: " + jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' moh';
+                text = jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' moh';
                 extra = {};
                 $scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, text, extra);
             };
@@ -173,7 +173,7 @@ angular.module('searchOptionsPanel')
 
             var _initSearchOptions = function () {
 
-                $scope.searchOptionsOrder = ['elevationPoint', 'seEiendom', 'ssrFakta', 'seHavnivaa', 'koordTrans', 'lagTurkart'];
+                $scope.searchOptionsOrder = ['seEiendom', 'ssrFakta', 'seHavnivaa', 'koordTrans', 'lagTurkart'];
                 for (var searchOption in $scope.searchOptionsOrder){
                     $scope.searchOptionsDict[$scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
                 }
