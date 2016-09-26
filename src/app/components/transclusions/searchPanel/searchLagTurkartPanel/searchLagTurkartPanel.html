@@ -10,16 +10,16 @@
         <br/>
         <span>dekker området du ønsker å skrive ut.</span>
         <h3>Målestokk</h3>
-        <select ng-model="scale" ng-change="applyScale()" ng-options="key as val for (key, val) in scales"></select>
+        <select ng-model="scale" ng-change="applyScale()" ng-options="key as val for (key, val) in scales" ng-disabled="!createMapButtonOn"></select>
         <br/>
         <h3>Gi kartet ditt et navn</h3>
-        <input type="text" placeholder="Turkart" ng-model="tittel"/>
+        <input type="text" placeholder="Turkart" ng-model="tittel" ng-disabled="!createMapButtonOn"/>
         <br/>
         <button data-ng-click="orderMap()" ng-disabled="!createMapButtonOn">Lag Kart</button>
         <button data-ng-click="downloadMap()" ng-show="mapAvailable">Last ned Kart</button>
         <br/>
-        <input type="checkbox" ng-model="showTrips"/><span>Fremhev merkede stier</span>
+        <input type="checkbox" ng-model="showTrips" ng-disabled="!createMapButtonOn"/><span>Fremhev merkede stier</span>
         <br/>
-        <input type="checkbox" ng-model="showLegend"/><span>Ta med tegnforklaringer</span>
+        <input type="checkbox" ng-model="showLegend" ng-disabled="!createMapButtonOn"/><span>Ta med tegnforklaringer</span>
     </div>
 </div>
