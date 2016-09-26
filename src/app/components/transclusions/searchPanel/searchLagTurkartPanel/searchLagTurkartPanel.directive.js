@@ -1,6 +1,6 @@
 angular.module('searchLagTurkartPanel')
-    .directive('searchLagTurkartPanel', ['toolsFactory',
-        function(toolsFactory) {
+    .directive('searchLagTurkartPanel', ['toolsFactory','ISY.EventHandler',
+        function(toolsFactory, eventHandler) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchLagTurkartPanel/searchLagTurkartPanel.html',
                 restrict: 'A',
@@ -29,6 +29,13 @@ angular.module('searchLagTurkartPanel')
                     scope.scale='25000';
 
                     _activatePrintBoxSelect(scope.scale);
+
+                    function _boxExtent(extent){
+                        console.log(extent);
+                    }
+
+                    eventHandler.RegisterEvent(ISY.Events.EventTypes.PrintBoxSelectReturnValue, _boxExtent);
+
                 }
             };
         }]);
