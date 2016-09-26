@@ -1,0 +1,24 @@
+<ul class="sidenav-group">
+    <li data-ng-click="showMainMenuSections()">
+        <span data-ng-class="selectedProject.symbol" data-ng-bind="selectedProject.symbol_text"></span>
+        <span translate="{{selectedProject.title}}"></span>
+        <div class="backbtn">
+            <span class="glyphicon glyphicon-menu-left"></span>
+            <span class="glyphicon glyphicon-menu-left"></span>
+        </div>
+    </li>
+</ul>
+
+<ul class="sidenav-group">
+    <li data-ng-repeat="group in groupLayers" data-ng-click="group.isOpen = !group.isOpen">
+        <span data-ng-class="getGroupStyleStatus(group)"></span>
+        <span data-ng-bind="group.name"></span>
+        <span class="backbtn glyphicon glyphicon-menu-down"></span>
+        <ul class="sidenav-group" data-ng-show="group.isOpen">
+            <li data-ng-repeat="isyLayer in group.isyLayers">
+                <span data-ng-class="getLayerStyleStatus(isyLayer)"></span>
+                <span data-ng-bind="isyLayer.name"></span>
+            </li>
+        </ul>
+    </li>
+</ul>
