@@ -17,5 +17,9 @@
         <br/>
         <button data-ng-click="orderMap()" ng-disabled="!createMapButtonOn">Lag Kart</button>
         <button data-ng-click="downloadMap()" ng-show="mapAvailable">Last ned Kart</button>
+        <br/>
+        <input type="checkbox" ng-model="showTrips"/><span>Fremhev merkede stier</span>
+        <br/>
+        <input type="checkbox" ng-model="showLegend"/><span>Ta med tegnforklaringer</span>
     </div>
 </div>

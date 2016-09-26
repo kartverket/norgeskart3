@@ -10,6 +10,9 @@ angular.module('searchLagTurkartPanel')
                     var mapLink = "";
                     scope.mapAvailable = false;
                     scope.createMapButtonOn = true;
+                    scope.showLegend=false;
+                    scope.showTrips=false;
+
 
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.PrintBoxSelectReturnValue, _boxExtent);
 
@@ -81,8 +84,8 @@ angular.module('searchLagTurkartPanel')
                                 layout: "A4 landscape",
                             scale: extent.scale,
                             titel: scope.tittel,
-                            legend: false,
-                            trips: false,
+                            legend: scope.showLegend,
+                            trips: scope.showTrips,
                             link: "http://www.norgeskart.no/turkart/#9/238117/6674760"
                         };
                     };
