@@ -256,6 +256,9 @@ angular.module('searchPanel')
                         map.SetCenter(activePosition);
                         scope.activePosition=activePosition;
                         scope.activeSearchResult=searchResult;
+                        if(scope.searchOptionsDict['elevationPoint'] ) {
+                            scope.searchOptionsDict['elevationPoint'].text.value = undefined;
+                        }
                         scope.searchBarModel=searchResult.name;
                     };
 
