@@ -1,7 +1,8 @@
 <div class="search-panel" ng-show="searchResults != undefined" ng-controller="searchOptionsPanelController">
     <div class="content search-content">
         <ul>
-            <span>{{sourceDict[activeSearchResult.source]}} i {{activeSearchResult.kommune}}</span>
+            <span ng-if="activeSearchResult.kommune!='Utland'">{{sourceDict[activeSearchResult.source]}} i {{activeSearchResult.kommune}} kommune</span>
+            <span ng-if="activeSearchResult.kommune=='Utland'">{{sourceDict[activeSearchResult.source]}} i utlandet</span>
             <br/>
             <span ng-show="searchOptionsDict['elevationPoint'].text.value">Høyde (anslått ved interpolering):</span>
             <span ng-class="searchOptionsDict['elevationPoint'].text.class"

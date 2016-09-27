@@ -19,9 +19,9 @@ angular.module('searchPanel')
 
                     scope.sourceDict = {
                         'ssr': 'Stedsnavn',
-                        'adresse': 'Matrikkeladresse',
-                        'matrikkelveg': 'Vegnavn fra matrikkel',
-                        'matrikkeladresse': 'Adresse fra matrikkel'
+                        'adresse': 'Adresse',
+                        'matrikkelveg': 'Vegnavn',
+                        'matrikkeladresse': 'Adresse'
 
                     };
 
