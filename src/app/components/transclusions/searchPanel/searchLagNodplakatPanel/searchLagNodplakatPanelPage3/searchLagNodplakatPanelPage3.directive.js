@@ -1,8 +1,8 @@
-angular.module('searchLagNodplakatPanelPage2')
-    .directive('searchLagNodplakatPanelPage2', [
+angular.module('searchLagNodplakatPanelPage3')
+    .directive('searchLagNodplakatPanelPage3', [
         function() {
             return {
-                templateUrl: 'components/transclusions/searchPanel/searchLagNodplakatPanel/searchLagNodplakatPanelPage2/searchLagNodplakatPanelPage2.html',
+                templateUrl: 'components/transclusions/searchPanel/searchLagNodplakatPanel/searchLagNodplakatPanelPage3/searchLagNodplakatPanelPage3.html',
                 restrict: 'A',
                 link: function(){
 

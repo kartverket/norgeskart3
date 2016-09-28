@@ -4,6 +4,7 @@ angular.module('searchLagNodplakatPanel')
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchLagNodplakatPanel/searchLagNodplakatPanel.html',
                 restrict: 'A',
+                controller: 'searchLagNodplakatPanelController',
                 link: function(){
 
                 }
