@@ -15,7 +15,7 @@
             <option data-ng-repeat="placename in lagNodplakatDict['placenamesByBbox']">{{placename.stedsnavn}}</option>
         </select>
         <h4>Funnet veg er:</h4>
-        <h5 ng-if="lagNodplakatDict['emergencyPosterPoint'].veg != ''">{{lagNodplakatDict['emergencyPosterPoint'].veg}} i {{lagNodplakatDict['emergencyPosterPoint'].kommune}} kommune</h5>
+        <h5 ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">{{lagNodplakatDict['emergencyPosterPoint'].veg}} i {{lagNodplakatDict['emergencyPosterPoint'].kommune}} kommune</h5>
         <input type="checkbox" ng-model="lagNodplakatConfirmRoad">
         <span>Er dette riktig veg?</span>
         <br/>
