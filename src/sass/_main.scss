@@ -554,6 +554,7 @@ html{
 .search-content{
   padding: 8px;
   max-height: 800px;
+  max-width: 400px;
   overflow-y: auto;
   li{
     line-height: $line-height-small;

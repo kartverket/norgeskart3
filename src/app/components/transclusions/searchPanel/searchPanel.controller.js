@@ -27,5 +27,9 @@ angular.module('searchPanel')
             $scope.showLagTurKartPanel = function () {
                 $scope.searchPanelLayout = "searchLagTurkartPanel";
             };
+
+            $scope.showLagNodplakatPanel = function () {
+                $scope.searchPanelLayout = "searchLagNodplakatPanel";
+            };
         }
     ]);

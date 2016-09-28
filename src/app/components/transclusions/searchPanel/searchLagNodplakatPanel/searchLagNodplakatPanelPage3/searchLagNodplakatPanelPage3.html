@@ -1,0 +1,13 @@
+<div class="search-panel" ng-show="searchResults != undefined">
+    <div class="content no-border search-content">
+        <ul>
+            <li ng-mousedown="showSearchOptionsPanel()">
+                <span class="search-options pointer-cursor"><b>←</b></span>
+                <span class="pointer-cursor"><b>Returner til tjenester</b></span>
+            </li>
+        </ul>
+        <iframe ng-src="{{generateEmergancyPoster()}}" width="380px" height="570"></iframe>
+        <button data-ng-click="showLagNodplakatPage2()">< Forrige</button>
+        <button>Skriv ut</button>
+    </div>
+</div>

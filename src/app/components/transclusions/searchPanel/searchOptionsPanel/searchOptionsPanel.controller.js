@@ -33,12 +33,12 @@ angular.module('searchOptionsPanel')
                 _downloadFromUrl(matrikkelInfoUrl, 'seEiendom');
             };
 
-            var _fetchKoordTrans = function () {
+            var _addKoordTransToSearchOptions = function () {
                 var name = 'koordTrans';
                 $scope.searchOptionsDict[name] = _constructSearchOption(name, 'x,y', true, 'Se koordinater', {});
             };
 
-            var _fetchSeHavnivaa = function () {
+            var _addSeHavnivaaToSearchOptions = function () {
                 var name= 'seHavnivaa';
                 var lat = $scope.activePosition.geographicPoint[1];
                 var lon = $scope.activePosition.geographicPoint[0];
@@ -52,9 +52,14 @@ angular.module('searchOptionsPanel')
                 // _downloadFromUrl(seHavnivaaUrl, 'seHavnivaa');
             };
 
-            var _fetchLagTurkart = function () {
+            var _addLagTurkartToSearchOptions = function () {
                 var name= 'lagTurkart';
-                $scope.searchOptionsDict[name] = _constructSearchOption(name, '🚶', true, 'Lag Turkart', {});
+                $scope.searchOptionsDict[name] = _constructSearchOption(name, '🚶', true, 'Lage turkart', {});
+            };
+
+            var _addEmergencyPosterToSearchOptions = function () {
+                var name='lagNodplakat';
+                $scope.searchOptionsDict[name] = _constructSearchOption(name, '🚑', true, 'Lage nødplakat', {});
             };
 
             var _addElevationPointToSearchOptions = function (jsonRoot, name) {
@@ -173,15 +178,16 @@ angular.module('searchOptionsPanel')
 
             var _initSearchOptions = function () {
 
-                $scope.searchOptionsOrder = ['seEiendom', 'ssrFakta', 'seHavnivaa', 'koordTrans', 'lagTurkart'];
+                $scope.searchOptionsOrder = ['seEiendom', 'ssrFakta', 'seHavnivaa', 'koordTrans', 'lagTurkart', 'lagNodplakat'];
                 for (var searchOption in $scope.searchOptionsOrder){
                     $scope.searchOptionsDict[$scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
                 }
                 _fetchElevationPoint();
                 _fetchMatrikkelInfo();
-                _fetchKoordTrans();
-                _fetchSeHavnivaa();
-                _fetchLagTurkart();
+                _addKoordTransToSearchOptions();
+                _addSeHavnivaaToSearchOptions();
+                _addLagTurkartToSearchOptions();
+                _addEmergencyPosterToSearchOptions();
                 // {
                 //     icon: '🚑',
                 //     text: 'Lage nødplakat',
