@@ -1,6 +1,6 @@
 angular.module('searchLagNodplakatPanel')
-    .controller('searchLagNodplakatPanelController', [ '$scope',
-        function($scope){
+    .controller('searchLagNodplakatPanelController', [ '$scope','mainAppService','$http','ISY.MapAPI.Map',
+        function($scope, mainAppService,$http, map) {
             $scope.showLagNodplakatPage1 = function () {
                 $scope.searchLagNodplakatPanelLayout = 'page1';
             };
@@ -12,5 +12,78 @@ angular.module('searchLagNodplakatPanel')
             };
 
             $scope.searchLagNodplakatPanelLayout = 'page1';
+
+            var _downloadFromUrl = function (url, name) {
+                $http.get(url).then(function (response) {
+                    _retrieveDataFromResponse(name, response.data);
+                });
+            };
+
+            var _fetchElevationPoint = function () {
+                var lat = $scope.activePosition.lat;
+                var lon = $scope.activePosition.lon;
+                var epsgNumber = $scope.activePosition.epsg.split(':')[1];
+                var elevationPointUrl = mainAppService.generateElevationPointUrl(lat, lon, epsgNumber);
+                _downloadFromUrl(elevationPointUrl, 'elevationPoint');
+            };
+
+            var _fetchEmergencyPosterData = function () {
+                var lat = $scope.activePosition.geographicPoint[1];
+                var lon = $scope.activePosition.geographicPoint[0];
+                var elevationPointUrl = mainAppService.generateEmergencyPosterPointUrl(lat, lon);
+                _downloadFromUrl(elevationPointUrl, 'emergencyPosterPoint');
+            };
+
+            var _fetchPlacenamesByBbox = function () {
+                var extent = map.GetExtent();
+                var placenamesByBboxUrl = mainAppService.generateSearchStedsnavnBboxUrl(extent[0], extent[1], extent[2], extent[3]);
+                _downloadFromUrl(placenamesByBboxUrl, 'placenamesByBbox');
+            };
+
+            var _parseElevationPointData = function (jsonRoot, name) {
+                $scope.lagNodplakatDict[name] = jsonRoot.Output[0].Data.LiteralData.Text;
+            };
+
+            var _parseEmergencyPosterPointData = function (jsonRoot, name) {
+                $scope.lagNodplakatDict[name] = jsonRoot;
+            };
+
+            var _parsePlacenamesByBboxData = function (jsonRoot, name) {
+                console.log(jsonRoot);
+                $scope.lagNodplakatDict[name] = jsonRoot;
+            };
+
+            var _retrieveDataFromResponse = function (name, data) {
+                var jsonObject;
+                var jsonRoot;
+                switch (name) {
+                    case('elevationPoint'):
+                        jsonObject = xml.xmlToJSON(data);
+                        jsonRoot = jsonObject.ExecuteResponse.ProcessOutputs;
+                        if (!jsonRoot.Output[0].Data.LiteralData) {
+                            return;
+                        }
+                        _parseElevationPointData(jsonRoot, name);
+                        break;
+                    case('emergencyPosterPoint'):
+                        jsonRoot=data;
+                        _parseEmergencyPosterPointData(jsonRoot, name);
+                        break;
+                    case('placenamesByBbox'):
+                        jsonObject = data;
+                        jsonRoot=jsonObject.stedsnavn;
+                        _parsePlacenamesByBboxData(jsonRoot, name);
+                        break;
+                }
+            };
+
+            var _init = function () {
+                $scope.lagNodplakatDict = {};
+                _fetchElevationPoint();
+                _fetchEmergencyPosterData();
+                _fetchPlacenamesByBbox();
+            };
+
+            _init();
         }
     ]);
