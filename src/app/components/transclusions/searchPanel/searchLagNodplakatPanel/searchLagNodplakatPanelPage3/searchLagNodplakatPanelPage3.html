@@ -6,8 +6,8 @@
                 <span class="pointer-cursor"><b>Returner til tjenester</b></span>
             </li>
         </ul>
-        <iframe ng-src="{{generateEmergancyPoster()}}" width="380px" height="570"></iframe>
+        <iframe id="emergencyPoster" ng-src="{{generateEmergancyPoster()}}" width="380px" height="570"></iframe>
         <button data-ng-click="showLagNodplakatPage2()">< Forrige</button>
-        <button>Skriv ut</button>
+        <button data-ng-click="printIframe()">Skriv ut</button>
     </div>
 </div>
