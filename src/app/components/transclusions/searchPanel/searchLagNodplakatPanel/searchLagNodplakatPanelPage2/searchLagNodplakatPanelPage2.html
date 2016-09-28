@@ -6,18 +6,24 @@
                 <span class="pointer-cursor"><b>Returner til tjenester</b></span>
             </li>
         </ul>
-        <label>GI PUNKTET DITT ET NAVN:</label>
-        <input type="text" placeholder="(F.eks. navn på hytta" ng-model="lagNodplakatName" data-ng-init="lagNodplakatName=lagNodplakatDict['elevationPoint']"/>
-        <h4>Stedet er</h4>
-        <h5>{{lagNodplakatDict['elevationPoint']}}</h5>
-        <select>
-            <option selected disabled>Velg et annet stedsnavn i nærheten</option>
+        <span><b>Gi punktet ditt et navn:</b></span>
+        <br/>
+        <input ng-show="lagNodplakatDict['elevationPoint']" type="text" placeholder="(F.eks. navn på hytta" ng-model="lagNodplakatName" data-ng-init="lagNodplakatName=lagNodplakatDict['elevationPoint']"/>
+        <br/>
+        <br/>
+        <span ng-show="lagNodplakatDict['elevationPoint']"><b>Stedet er</b></span>
+        <span ng-show="lagNodplakatDict['elevationPoint']"><b>{{lagNodplakatDict['elevationPoint']}}</b></span>
+        <select ng-model="alternativePlacename" ng-change="lagNodplakatDict['elevationPoint']=alternativePlacename;lagNodplakatName=alternativePlacename">
+            <option selected disabled value="placeholder">Velg et annet stedsnavn i nærheten</option>
             <option data-ng-repeat="placename in lagNodplakatDict['placenamesByBbox']">{{placename.stedsnavn}}</option>
         </select>
-        <h4>Funnet veg er:</h4>
-        <h5 ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">{{lagNodplakatDict['emergencyPosterPoint'].veg}} i {{lagNodplakatDict['emergencyPosterPoint'].kommune}} kommune</h5>
-        <input type="checkbox" ng-model="lagNodplakatConfirmRoad">
-        <span>Er dette riktig veg?</span>
+        <br/>
+        <br/>
+        <span ng-show="lagNodplakatDict['emergencyPosterPoint'].veg"><b>Funnet veg er {{lagNodplakatDict['emergencyPosterPoint'].veg}} i {{lagNodplakatDict['emergencyPosterPoint'].kommune}} kommune</b></span>
+        <br/>
+        <input type="checkbox" ng-model="lagNodplakatConfirmRoad" ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">
+        <span ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">Dette er riktig veg</span>
+        <br/>
         <br/>
         <!--span>( Felter markert med * er obligatoriske ! )</span>
         <br/-->
