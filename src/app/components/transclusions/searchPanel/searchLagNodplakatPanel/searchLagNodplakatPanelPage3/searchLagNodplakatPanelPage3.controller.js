@@ -46,8 +46,8 @@ angular.module('searchLagNodplakatPanelPage3')
             'TRANSPARENT': 'false',
             'LAYERS': 'topo2_WMS',
             'VERSION': '1.3.0',
-            'WIDTH': '1145',
-            'HEIGHT': '660',
+            'WIDTH': $(window).width(),
+            'HEIGHT': $(window).height(),
             'BBOX': ''
         };
 
