@@ -1,5 +1,26 @@
 <div class="search-panel" ng-show="searchResults != undefined">
     <div class="content no-border search-content">
-Page2
+        <label>GI PUNKTET DITT ET NAVN:</label>
+        <input type="text" placeholder="(F.eks. navn på hytta"/>
+        <h4>Stedet er</h4>
+        <h5>{{lagNodplakatDict['elevationPoint']}}</h5>
+        <select>
+            <option selected disabled>Velg et annet stedsnavn i nærheten</option>
+            <option data-ng-repeat="placename in lagNodplakatDict['placenamesByBbox']">{{placename.stedsnavn}}</option>
+        </select>
+        <h4>Funnet veg er:</h4>
+        <h5>{{lagNodplakatDict['emergencyPosterPoint'].veg}} i {{lagNodplakatDict['emergencyPosterPoint'].kommune}} kommune</h5>
+        <select>
+            <option selected disabled>Er dette riktig veg?</option>
+            <option value="yes">Ja</option>
+            <option value="no">Nei</option>
+        </select>
+        <br/>
+        <span>( Felter markert med * er obligatoriske ! )</span>
+        <img ng-src="{{generateEmergencyPosterPreviewImage()}}" width="392px" />
+        <button data-ng-click="initLagNodplakat();showLagNodplakatPage2()">Velg nytt sted</button>
+        <button data-ng-click="showLagNodplakatPage3()">Godkjenn og klargjør utskrift</button>
+
+
     </div>
 </div>

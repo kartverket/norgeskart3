@@ -1,6 +1,6 @@
 angular.module('mainApp')
     .service('mainAppService', ['$http',
-            function(){
+            function() {
                 var url = 'http://www.norgeskart.no/';
                 var urlOpenWps = 'http://openwps.statkart.no/skwms1/';
                 var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
@@ -32,7 +32,7 @@ angular.module('mainApp')
                     var bbox = encodeURIComponent(config.BBOX);
 
                     return urlOpenWms + "wms.topo2?service=" + service + "&request=" + request + "&CRS=" + crs + "&FORMAT=" + format + "&BGCOLOR=" + bgcolor + "&TRANSPARENT=" + transparent +
-                            "&LAYERS=" + layers + "&VERSION=" + version + "&WIDTH=" + width + "&HEIGHT=" + height + "&BBOX=" + bbox;
+                        "&LAYERS=" + layers + "&VERSION=" + version + "&WIDTH=" + width + "&HEIGHT=" + height + "&BBOX=" + bbox;
                 };
 
                 this.generateEmergencyPosterServiceUrl = function (config) {
@@ -67,19 +67,19 @@ angular.module('mainApp')
                     return urlGeonorge + "AdresseWS/adresse/sok?sokestreng=" + encodeURIComponent(query) + "&antPerSide=100&side=1";
                 };
 
-                this.generateElevationPointUrl = function (lat, lon, epsgNumber){
-                    return urlOpenWps + "wps.elevation?request=Execute&service=WPS&version=1.0.0&identifier=elevation&datainputs=[lat=" + lat +";lon=" + lon + ";epsg=" + epsgNumber + "]";
+                this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
+                    return urlOpenWps + "wps.elevation?request=Execute&service=WPS&version=1.0.0&identifier=elevation&datainputs=[lat=" + lat + ";lon=" + lon + ";epsg=" + epsgNumber + "]";
                 };
 
-                this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy){
+                this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
                     return url + "ws/wfs.teig.py?bbox=" + minx + "," + miny + "," + maxx + "," + maxy;
                 };
 
-                this.generateSeEiendomUrl= function (knr, gnr, bnr, fnr, snr){
+                this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
                     return urlSeEiendom + "services/Matrikkel.svc/GetDetailPage?type=property&knr=" + knr + "&gnr= " + gnr + "&bnr=" + bnr + "&fnr=" + fnr + "&snr=" + snr + "&customer=kartverket";
                 };
 
-                this.generateFaktaarkUrl = function (ssrid){
+                this.generateFaktaarkUrl = function (ssrid) {
                     return urlFaktaark + "SSRFakta/faktaarkfraobjektid?enhet=" + ssrid;
                 };
 
@@ -100,16 +100,21 @@ angular.module('mainApp')
                 };
 
                 this.generateSearchStedsnavnBboxUrl = function (minx, miny, maxx, maxy) {
-                    return urlGeonorge + '/SKWS3Index/ssr/sok?&nordLL=' + miny  + '&ostLL=' + minx + '&nordUR=' + maxy + '&ostUR=' + maxx + '&epsgKode=32633';               };
-/*
-                // No CORS
-                   this.generateSeHavnivaaUrl = function (lat, lon) {
-                    return urlHavnivaa + "tideapi.php?lat=" + lat + "&lon=" + lon + "&refcode=cd&place=&lang=nb&file=&tide_request=locationlevels";
-
- };                this.generateSearchEiendomUrl = function (query) {
-                    return "http://eiendom.statkart.no/Search.ashx?filter=KILDE:sted,matreiendom,SITEURLKEY:httpwwwseeiendomno,LESEGRUPPER:guests&term=" + query;
+                    return urlGeonorge + '/SKWS3Index/ssr/sok?&nordLL=' + miny + '&ostLL=' + minx + '&nordUR=' + maxy + '&ostUR=' + maxx + '&epsgKode=32633';
                 };
-*/
+
+                this.generateEmergencyPosterPreviewImageUrl = function (minx, miny, maxx, maxy) {
+                    return urlOpenWms + 'wms.topo2?service=WMS&request=GetMap&CRS=EPSG:32633&FORMAT=image%2Fjpeg&BGCOLOR=0xFFFFFF&TRANSPARENT=false&LAYERS=topo2_WMS&VERSION=1.3.0&WIDTH=' + $(window).width() + '&HEIGHT=' + $(window).height() + '&BBOX='+ minx + ',' + miny + ',' + maxx + ',' + maxy;
+                };
+                /*
+                 // No CORS
+                 this.generateSeHavnivaaUrl = function (lat, lon) {
+                 return urlHavnivaa + "tideapi.php?lat=" + lat + "&lon=" + lon + "&refcode=cd&place=&lang=nb&file=&tide_request=locationlevels";
+
+                 };                this.generateSearchEiendomUrl = function (query) {
+                 return "http://eiendom.statkart.no/Search.ashx?filter=KILDE:sted,matreiendom,SITEURLKEY:httpwwwseeiendomno,LESEGRUPPER:guests&term=" + query;
+                 };
+                 */
             }
         ]
     );

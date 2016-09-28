@@ -49,7 +49,6 @@ angular.module('searchLagNodplakatPanel')
             };
 
             var _parsePlacenamesByBboxData = function (jsonRoot, name) {
-                console.log(jsonRoot);
                 $scope.lagNodplakatDict[name] = jsonRoot;
             };
 
@@ -77,13 +76,31 @@ angular.module('searchLagNodplakatPanel')
                 }
             };
 
-            var _init = function () {
-                $scope.lagNodplakatDict = {};
+            var _emptyLagNodplakatDict = function () {
+                var names = ['elevationPoint', 'emergencyPosterPoint', 'placenamesByBbox'];
+                for (var name in names){
+                    $scope.lagNodplakatDict[names[name]] = {};
+                }
+
+            };
+
+            $scope.initLagNodplakat = function () {
+                if ($scope.lagNodplakatDict ) {
+                    _emptyLagNodplakatDict();
+                }
+                else {
+                    $scope.lagNodplakatDict={};
+                }
                 _fetchElevationPoint();
                 _fetchEmergencyPosterData();
                 _fetchPlacenamesByBbox();
             };
 
-            _init();
+            $scope.initLagNodplakat();
+
+            $scope.generateEmergencyPosterPreviewImage = function () {
+                var extent = map.GetExtent();
+                return mainAppService.generateEmergencyPosterPreviewImageUrl(extent[0], extent[1], extent[2], extent[3]);
+            };
         }
     ]);
