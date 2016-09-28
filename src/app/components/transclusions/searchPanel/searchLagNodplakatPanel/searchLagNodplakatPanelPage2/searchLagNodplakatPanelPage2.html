@@ -7,7 +7,7 @@
             </li>
         </ul>
         <label>GI PUNKTET DITT ET NAVN:</label>
-        <input type="text" placeholder="(F.eks. navn på hytta" ng-model="lagNodplakatName"/>
+        <input type="text" placeholder="(F.eks. navn på hytta" ng-model="lagNodplakatName" data-ng-init="lagNodplakatName=lagNodplakatDict['elevationPoint']"/>
         <h4>Stedet er</h4>
         <h5>{{lagNodplakatDict['elevationPoint']}}</h5>
         <select>
