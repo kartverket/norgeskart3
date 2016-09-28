@@ -259,7 +259,6 @@ angular.module('searchPanel')
                         if(scope.searchOptionsDict['elevationPoint'] ) {
                             scope.searchOptionsDict['elevationPoint'].text.value = undefined;
                         }
-                        scope.searchBarModel=searchResult.name;
                     };
 
                     scope.cleanResults = function (){
