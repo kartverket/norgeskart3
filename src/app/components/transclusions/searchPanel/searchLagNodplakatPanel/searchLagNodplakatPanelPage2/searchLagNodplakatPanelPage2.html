@@ -24,6 +24,6 @@
         <!--img ng-src="{{generateEmergencyPosterPreviewImage()}}" width="392px" /-->
         <!--button data-ng-click="initLagNodplakat();showLagNodplakatPage2()">Velg nytt sted</button-->
         <!--button data-ng-click="showLagNodplakatPage2()">< Forrige</button-->
-        <button ng-show="lagNodplakatConfirmRoad && lagNodplakatName" data-ng-click="showLagNodplakatPage3(lagNodplakatName)">Neste ></button>
+        <button ng-show="lagNodplakatConfirmRoad && lagNodplakatName && lagNodplakatDict['emergencyPosterPoint'].veg" data-ng-click="showLagNodplakatPage3(lagNodplakatName)">Neste ></button>
     </div>
 </div>
