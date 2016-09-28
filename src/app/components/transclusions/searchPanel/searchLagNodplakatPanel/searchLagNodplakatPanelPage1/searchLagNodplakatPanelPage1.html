@@ -1,5 +1,11 @@
 <div class="search-panel" ng-show="searchResults != undefined">
     <div class="content no-border search-content">
+        <ul>
+            <li ng-mousedown="showSearchOptionsPanel()">
+                <span class="search-options pointer-cursor"><b>←</b></span>
+                <span class="pointer-cursor"><b>Returner til tjenester</b></span>
+            </li>
+        </ul>
         <h4>Ansvar</h4>
         <p>Nødplakaten er utviklet i samarbeid med Hovedredningsentralene og nødetatene. Kartverket er ansvarlig for datagrunnlaget, dvs. stedsnavn og kart - samt teknologien bak.</p>
         <p>Det er brukerens ansvar å kontrollere at det er korrekt hytte eller sted som vises på plakaten.</p>

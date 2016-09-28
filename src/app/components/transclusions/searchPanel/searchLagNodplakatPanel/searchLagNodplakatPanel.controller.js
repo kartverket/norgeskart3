@@ -7,7 +7,8 @@ angular.module('searchLagNodplakatPanel')
             $scope.showLagNodplakatPage2 = function () {
                 $scope.searchLagNodplakatPanelLayout = 'page2';
             };
-            $scope.showLagNodplakatPage3 = function () {
+            $scope.showLagNodplakatPage3 = function (lagNodplakatName) {
+                $scope.lagNodplakatName = lagNodplakatName;
                 $scope.searchLagNodplakatPanelLayout = 'page3';
             };
 

@@ -26,7 +26,7 @@ angular.module('searchLagNodplakatPanelPage3')
         };
 
         var emergencyPosterConfig = {
-            'locationName': 'templateName',
+            'locationName': $scope.lagNodplakatName,
             'position1': geographicalText($scope.activePosition.geographicPoint[1]) + ' nord',
             'position2': geographicalText($scope.activePosition.geographicPoint[0]) + ' øst',
             'street': $scope.lagNodplakatDict.emergencyPosterPoint.veg + ' i ' +  $scope.lagNodplakatDict.emergencyPosterPoint.kommune,

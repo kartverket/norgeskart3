@@ -1,7 +1,13 @@
 <div class="search-panel" ng-show="searchResults != undefined">
     <div class="content no-border search-content">
+        <ul>
+            <li ng-mousedown="showSearchOptionsPanel()">
+                <span class="search-options pointer-cursor"><b>←</b></span>
+                <span class="pointer-cursor"><b>Returner til tjenester</b></span>
+            </li>
+        </ul>
         <label>GI PUNKTET DITT ET NAVN:</label>
-        <input type="text" placeholder="(F.eks. navn på hytta"/>
+        <input type="text" placeholder="(F.eks. navn på hytta" ng-model="lagNodplakatName"/>
         <h4>Stedet er</h4>
         <h5>{{lagNodplakatDict['elevationPoint']}}</h5>
         <select>
@@ -10,17 +16,14 @@
         </select>
         <h4>Funnet veg er:</h4>
         <h5 ng-if="lagNodplakatDict['emergencyPosterPoint'].veg != ''">{{lagNodplakatDict['emergencyPosterPoint'].veg}} i {{lagNodplakatDict['emergencyPosterPoint'].kommune}} kommune</h5>
-        <select>
-            <option selected disabled>Er dette riktig veg?</option>
-            <option value="yes">Ja</option>
-            <option value="no">Nei</option>
-        </select>
+        <input type="checkbox" ng-model="lagNodplakatConfirmRoad">
+        <span>Er dette riktig veg?</span>
         <br/>
-        <span>( Felter markert med * er obligatoriske ! )</span>
+        <!--span>( Felter markert med * er obligatoriske ! )</span>
+        <br/-->
         <!--img ng-src="{{generateEmergencyPosterPreviewImage()}}" width="392px" /-->
         <!--button data-ng-click="initLagNodplakat();showLagNodplakatPage2()">Velg nytt sted</button-->
-        <button data-ng-click="showLagNodplakatPage3()">Godkjenn og klargjør utskrift</button>
-
-
+        <!--button data-ng-click="showLagNodplakatPage2()">< Forrige</button-->
+        <button ng-show="lagNodplakatConfirmRoad && lagNodplakatName" data-ng-click="showLagNodplakatPage3(lagNodplakatName)">Neste ></button>
     </div>
 </div>
