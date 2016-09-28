@@ -9,7 +9,7 @@
             <option data-ng-repeat="placename in lagNodplakatDict['placenamesByBbox']">{{placename.stedsnavn}}</option>
         </select>
         <h4>Funnet veg er:</h4>
-        <h5>{{lagNodplakatDict['emergencyPosterPoint'].veg}} i {{lagNodplakatDict['emergencyPosterPoint'].kommune}} kommune</h5>
+        <h5 ng-if="lagNodplakatDict['emergencyPosterPoint'].veg != ''">{{lagNodplakatDict['emergencyPosterPoint'].veg}} i {{lagNodplakatDict['emergencyPosterPoint'].kommune}} kommune</h5>
         <select>
             <option selected disabled>Er dette riktig veg?</option>
             <option value="yes">Ja</option>
@@ -17,8 +17,8 @@
         </select>
         <br/>
         <span>( Felter markert med * er obligatoriske ! )</span>
-        <img ng-src="{{generateEmergencyPosterPreviewImage()}}" width="392px" />
-        <button data-ng-click="initLagNodplakat();showLagNodplakatPage2()">Velg nytt sted</button>
+        <!--img ng-src="{{generateEmergencyPosterPreviewImage()}}" width="392px" /-->
+        <!--button data-ng-click="initLagNodplakat();showLagNodplakatPage2()">Velg nytt sted</button-->
         <button data-ng-click="showLagNodplakatPage3()">Godkjenn og klargjør utskrift</button>
 
 
