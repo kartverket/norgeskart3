@@ -26,6 +26,9 @@ angular.module('searchOptionsPanel')
                                 }
                                 scope.showLagTurKartPanel();
                                 break;
+                            case ('lagNodplakat'):
+                                scope.showLagNodplakatPanel();
+                                break;
                             default:
                                 if (searchOption.url){
                                     $window.open(searchOption.url, '_blank');

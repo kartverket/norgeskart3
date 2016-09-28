@@ -94,6 +94,13 @@ angular.module('mainApp')
                 this.generateLagTurkartUrl = function () {
                     return urlGeonorge + "freeprint/getprint2.py";
                 };
+
+                this.generateEmergencyPosterPointUrl = function (lat, lon) {
+                    return url + 'ws/emergencyPoster.py?&lon=' + lon + ',lat=' + lat;
+                };
+
+                this.generateSearchStedsnavnBboxUrl = function (minx, miny, maxx, maxy) {
+                    return urlGeonorge + '/SKWS3Index/ssr/sok?&nordLL=' + miny  + '&ostLL=' + minx + '&nordUR=' + maxy + '&ostUR=' + maxx + '&epsgKode=32633';               };
 /*
                 // No CORS
                    this.generateSeHavnivaaUrl = function (lat, lon) {
