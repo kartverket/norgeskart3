@@ -12,6 +12,9 @@ angular.module('searchPanel')
                             return;
                         }
                         var query = _getQuery();
+                        if (_checkQueryForCoordinates(query)){
+                            return;
+                        }
                         _init();
                         scope.showSearchResultPanel();
                         _getResults(query);
@@ -25,6 +28,8 @@ angular.module('searchPanel')
 
                     };
 
+                    _mapEpsg='EPSG:25833';
+
                     _searchResults = {};
 
                     _unifiedResults = {};
@@ -32,6 +37,43 @@ angular.module('searchPanel')
                     _serviceDict = {};
 
                     _queryDict = {};
+
+                    String.prototype.replaceAll = function(search, replacement) {
+                        var target = this;
+                        return target.replace(new RegExp(search, 'g'), replacement);
+                    };
+
+                    var _checkQueryForCoordinates = function(query){
+                        var epsg=query.split('@')[1];
+                        query=query.replaceAll(',','.');
+                        var queryParts = query.split(' ');
+                        if (queryParts.length !=2){
+                            return false;
+                        }
+                        if (epsg){
+                            _showQueryPoint(queryParts[1].split('@')[0], queryParts[0], 'EPSG:' + epsg, _mapEpsg);
+                            return true;
+                        }
+                        if(((queryParts[0] > 32.88) && (queryParts[1] > -16.1)) && ((queryParts[0] < 84.17) && (queryParts[1] < 39.65))){
+                            epsg='EPSG:4326';
+                            _showQueryPoint(queryParts[0], queryParts[1], epsg, _mapEpsg);
+                            return true;
+                        }
+                        if(((queryParts[0] > -2465220.60) && (queryParts[1] > 4102904.86)) && ((queryParts[0] < 771164.64) && (queryParts[1] < 9406031.63))){
+                            epsg='EPSG:25833';
+                            _showQueryPoint(queryParts[1], queryParts[0], epsg, _mapEpsg);
+                            scope.searchBarModel+='@' + _mapEpsg.split(':')[1];
+                            return true;
+                        }
+                        return false;
+                    };
+
+                    var _showQueryPoint = function(lat, lon, epsg){
+                        var queryPoint=_constructPoint(lat, lon, epsg, _mapEpsg);
+                        map.RemoveInfoMarkers();
+                        map.RemoveInfoMarker();
+                        map.ShowInfoMarker(queryPoint);
+                    };
 
                     var _init = function () {
                         _resetResults();
@@ -142,7 +184,7 @@ angular.module('searchPanel')
                         var lat = jsonObject[identifiersDict.latID] + '';
                         var lon = jsonObject[identifiersDict.lonID] + '';
                         var kommune = jsonObject[identifiersDict.kommuneID];
-                        var point = _constructPoint(lat, lon, identifiersDict.epsg, 'EPSG:32633');
+                        var point = _constructPoint(lat, lon, identifiersDict.epsg, _mapEpsg);
                         _pushToUnifiedResults(name, kommune, point, identifiersDict.format, identifiersDict.source);
                     };
 
@@ -249,10 +291,10 @@ angular.module('searchPanel')
                         var activePosition = {
                             lon: parseFloat(searchResult.point[0]),
                             lat: parseFloat(searchResult.point[1]),
-                            epsg: 'EPSG:32633'
+                            epsg: _mapEpsg
                             //zoom: parseFloat(12)
                         };
-                        activePosition.geographicPoint=_constructPoint(activePosition.lat, activePosition.lon, 'EPSG:32633', 'EPSG:4326');
+                        activePosition.geographicPoint=_constructPoint(activePosition.lat, activePosition.lon, _mapEpsg, 'EPSG:4326');
                         map.SetCenter(activePosition);
                         scope.activePosition=activePosition;
                         scope.activeSearchResult=searchResult;
