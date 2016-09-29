@@ -296,10 +296,14 @@ angular.module('searchPanel')
                         };
                         activePosition.geographicPoint=_constructPoint(activePosition.lat, activePosition.lon, _mapEpsg, 'EPSG:4326');
                         map.SetCenter(activePosition);
+                        map.RemoveInfoMarkers();
                         scope.activePosition=activePosition;
                         scope.activeSearchResult=searchResult;
                         if(scope.searchOptionsDict['elevationPoint'] ) {
                             scope.searchOptionsDict['elevationPoint'].text.value = undefined;
+                        }
+                        if (scope.searchBarModel.length < searchResult.name.length){
+                            scope.searchBarModel=searchResult.name;
                         }
                     };
 
