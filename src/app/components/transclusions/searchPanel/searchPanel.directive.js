@@ -12,6 +12,9 @@ angular.module('searchPanel')
                             return;
                         }
                         var query = _getQuery();
+                        if (_checkQueryForCoordinates(query)){
+                            return;
+                        }
                         _init();
                         scope.showSearchResultPanel();
                         _getResults(query);
@@ -32,6 +35,38 @@ angular.module('searchPanel')
                     _serviceDict = {};
 
                     _queryDict = {};
+
+                    var _checkQueryForCoordinates = function(query){
+                        var epsg=query.split('@')[1];
+                        var queryParts = query.split(' ');
+                        if (queryParts.length !=2){
+                            return false;
+                        }
+                        if (epsg){
+                            _showQueryPoint(queryParts[1].split('@')[0], queryParts[0], 'EPSG:' + epsg, 'EPSG:25833');
+                            return true;
+                        }
+                        if(((queryParts[0] > 32.88) && (queryParts[1] > -16.1)) && ((queryParts[0] < 84.17) && (queryParts[1] < 39.65))){
+                            epsg='EPSG:4326';
+                            _showQueryPoint(queryParts[0], queryParts[1], epsg, 'EPSG:25833');
+                            return true;
+                        }
+                        if(((queryParts[0] > -2465220.60) && (queryParts[1] > 4102904.86)) && ((queryParts[0] < 771164.64) && (queryParts[1] < 9406031.63))){
+                            epsg='EPSG:25833';
+                            _showQueryPoint(queryParts[1], queryParts[0], epsg, 'EPSG:25833');
+                            scope.searchBarModel+='@25833';
+                            return true;
+                        }
+                        return false;
+                    };
+
+                    var _showQueryPoint = function(lat, lon, epsg){
+                        var queryPoint=_constructPoint(lat, lon, epsg, 'EPSG:25833');
+                        map.RemoveInfoMarkers();
+                        map.RemoveInfoMarker();
+                        map.ShowInfoMarker(queryPoint);
+                        console.log(epsg);
+                    };
 
                     var _init = function () {
                         _resetResults();
