@@ -5,7 +5,7 @@
                 <li
                         class="pointer-cursor"
                         ng-repeat="searchResult in searchResults"
-                        ng-mousedown="mouseDown(searchResult); showSearchOptionsPanel()"
+                        ng-mousedown="mouseDown(searchResult, false); showSearchOptionsPanel()"
                         ng-mouseover="mouseOver(searchResult)">
                     <span ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
                 </li>

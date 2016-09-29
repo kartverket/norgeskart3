@@ -24,7 +24,8 @@ angular.module('searchPanel')
                         'ssr': 'Stedsnavn',
                         'adresse': 'Adresse',
                         'matrikkelveg': 'Vegnavn',
-                        'matrikkeladresse': 'Adresse'
+                        'matrikkeladresse': 'Adresse',
+                        'coord': 'Koordinat'
 
                     };
 
@@ -69,10 +70,21 @@ angular.module('searchPanel')
                     };
 
                     var _showQueryPoint = function(lat, lon, epsg){
-                        var queryPoint=_constructPoint(lat, lon, epsg, _mapEpsg);
-                        map.RemoveInfoMarkers();
+                        var queryPoint = {
+                            name: 'Koordinat',
+                            point: _constructPoint(lat, lon, epsg, _mapEpsg),
+                            format: 'Koordinat',
+                            source: 'coord',
+                            kommune: '1804'
+                        };
+                        if(!scope.searchResults) {
+                            scope.searchResults= {};
+                        }
+                        scope.searchResults['searchBar'] = queryPoint;
                         map.RemoveInfoMarker();
-                        map.ShowInfoMarker(queryPoint);
+                        map.ShowInfoMarker(queryPoint.point);
+                        scope.mouseDown(queryPoint, true);
+                        scope.showSearchOptionsPanel();
                     };
 
                     var _init = function () {
@@ -287,7 +299,7 @@ angular.module('searchPanel')
                         map.ShowInfoMarker(searchResult.point);
                     };
 
-                    scope.mouseDown = function (searchResult){
+                    scope.mouseDown = function (searchResult, coordinate){
                         var activePosition = {
                             lon: parseFloat(searchResult.point[0]),
                             lat: parseFloat(searchResult.point[1]),
@@ -302,7 +314,7 @@ angular.module('searchPanel')
                         if(scope.searchOptionsDict['elevationPoint'] ) {
                             scope.searchOptionsDict['elevationPoint'].text.value = undefined;
                         }
-                        if (scope.searchBarModel.length < searchResult.name.length){
+                        if (scope.searchBarModel.length < searchResult.name.length && !coordinate){
                             scope.searchBarModel=searchResult.name;
                         }
                     };

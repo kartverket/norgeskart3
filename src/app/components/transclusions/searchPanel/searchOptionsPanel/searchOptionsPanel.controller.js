@@ -93,6 +93,8 @@ angular.module('searchOptionsPanel')
                     matrikkelnr: jsonRoot.MATRIKKELNR
                 };
 
+                $scope.activeSearchResult.kommune=extra.kommunenr;
+
                 extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
                 var text = 'Se eiendomsinformasjon for ' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
                 $scope.searchOptionsDict[name] = _constructSearchOption(name, '🏠', true, text, extra);
@@ -188,11 +190,6 @@ angular.module('searchOptionsPanel')
                 _addSeHavnivaaToSearchOptions();
                 _addLagTurkartToSearchOptions();
                 _addEmergencyPosterToSearchOptions();
-                // {
-                //     icon: '🚑',
-                //     text: 'Lage nødplakat',
-                //     name: 'nødplakat'
-                // }
             };
 
             _initSearchOptions();
