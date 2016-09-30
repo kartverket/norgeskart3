@@ -83,9 +83,9 @@ angular.module('searchPanel')
                             scope.searchResults= {};
                         }
                         scope.searchResults['searchBar'] = queryPoint;
+                        map.RemoveInfoMarkers();
                         map.RemoveInfoMarker();
                         map.ShowInfoMarker(queryPoint.point);
-                        scope.mouseDown(queryPoint, true);
                     };
 
                     var _init = function (query) {
