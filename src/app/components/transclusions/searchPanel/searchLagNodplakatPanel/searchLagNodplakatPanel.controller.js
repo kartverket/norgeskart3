@@ -43,6 +43,7 @@ angular.module('searchLagNodplakatPanel')
 
             var _parseElevationPointData = function (jsonRoot, name) {
                 $scope.lagNodplakatDict[name] = jsonRoot.Output[0].Data.LiteralData.Text;
+                $scope.setSearchBarText($scope.lagNodplakatDict[name]);
             };
 
             var _parseEmergencyPosterPointData = function (jsonRoot, name) {

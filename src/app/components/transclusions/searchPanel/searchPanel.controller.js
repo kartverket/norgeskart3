@@ -31,5 +31,9 @@ angular.module('searchPanel')
             $scope.showLagNodplakatPanel = function () {
                 $scope.searchPanelLayout = "searchLagNodplakatPanel";
             };
+
+            $scope.setSearchBarText = function(text) {
+                $scope.searchBarModel = text;
+            };
         }
     ]);
