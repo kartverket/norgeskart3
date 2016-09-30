@@ -1,6 +1,6 @@
 angular.module('searchPanel')
-    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map',
-        function($timeout, mainAppService, map) {
+    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler',
+        function($timeout, mainAppService, map, eventHandler) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchPanel.html',
                 restrict: 'A',
@@ -26,7 +26,8 @@ angular.module('searchPanel')
                         'matrikkelveg': 'Vegnavn',
                         'matrikkeladresse': 'Adresse',
                         'coordGeo': 'Geografisk koordinat',
-                        'coordUtm': 'UTM-koordinat'
+                        'coordUtm': 'UTM-koordinat',
+                        'mouseClick': 'Klikk i kartet'
 
                     };
 
@@ -331,6 +332,14 @@ angular.module('searchPanel')
 
                     };
 
+                    var showQueryPointFromMouseClick = function (coordinates) {
+                        scope.coordinate=true;
+                        scope.showSearchResultPanel();
+                        scope.cleanResults();
+                        _showQueryPoint(coordinates[1], coordinates[0], _mapEpsg, 'mouseClick');
+                    };
+
+                    eventHandler.RegisterEvent(ISY.Events.EventTypes.MapClickCoordinate, showQueryPointFromMouseClick);
 
                 }
             };

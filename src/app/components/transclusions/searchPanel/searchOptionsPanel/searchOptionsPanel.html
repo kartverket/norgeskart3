@@ -2,7 +2,7 @@
     <div class="content search-content">
         <ul>
             <span>{{sourceDict[activeSearchResult.source]}}</span>
-            <span ng-if="activeSearchResult.kommune!='Utland' && !coordinate">i {{activeSearchResult.kommune}} kommune</span>
+            <span ng-if="activeSearchResult.kommune!='Utland' && activeSearchResult.kommune!=''">i {{activeSearchResult.kommune}} kommune</span>
             <span ng-if="activeSearchResult.kommune=='Utland'"> i utlandet</span>
             <br/>
             <span ng-show="searchOptionsDict['elevationPoint'].text.value">Høyde (anslått ved interpolering):</span>
