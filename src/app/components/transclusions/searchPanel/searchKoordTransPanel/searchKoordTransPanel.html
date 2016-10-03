@@ -18,5 +18,8 @@
         <br/><br/>
         <select ng-model = "activePosition.resSosiKoordSys" ng-change="_fetchKoordTrans()" ng-options="key as val for (key, val) in coordinateSystems">
         </select>
+        <br/>
+        <input type="checkbox" data-ng-click="generateCoordinateSystems()" ng-model="showAdvancedCoordinateSystems"/>
+        <span>Vis avanserte koordinatsystemer</span>
     </div>
 </div>
