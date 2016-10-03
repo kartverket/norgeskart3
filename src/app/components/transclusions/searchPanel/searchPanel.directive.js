@@ -88,7 +88,7 @@ angular.module('searchPanel')
                         map.RemoveInfoMarkers();
                         map.RemoveInfoMarker();
                         map.ShowInfoMarker(queryPoint.point);
-                        scope.mouseDown(queryPoint);
+                        scope.activatePosition(queryPoint);
                         scope.showSearchOptionsPanel();
                     };
 
@@ -308,7 +308,7 @@ angular.module('searchPanel')
                         map.ShowInfoMarker(searchResult.point);
                     };
 
-                    scope.mouseDown = function (searchResult){
+                    scope.activatePosition = function (searchResult){
                         var activePosition = {
                             lon: parseFloat(searchResult.point[0]),
                             lat: parseFloat(searchResult.point[1]),
