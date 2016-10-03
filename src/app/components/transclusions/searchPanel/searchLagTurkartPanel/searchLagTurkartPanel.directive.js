@@ -27,13 +27,10 @@ angular.module('searchLagTurkartPanel')
                         toolsFactory.activateTool(printBoxSelectTool);
                     };
 
-                    scope._deactivatePrintBoxSelect = function() {
-                        var printBoxSelectTool = toolsFactory.getToolById("PrintBoxSelect");
-                        toolsFactory.deactivateTool(printBoxSelectTool);
-                    };
+
 
                     scope.applyScale = function () {
-                        scope._deactivatePrintBoxSelect();
+                        scope.deactivatePrintBoxSelect();
                         _activatePrintBoxSelect(scope.scale);
                     };
 

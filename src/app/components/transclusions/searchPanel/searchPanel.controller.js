@@ -1,6 +1,6 @@
 angular.module('searchPanel')
-    .controller('searchPanelController', ['$scope',
-        function($scope){
+    .controller('searchPanelController', ['$scope', 'toolsFactory',
+        function($scope, toolsFactory){
 
             $scope.showSearchResultPanel = function () {
                 $scope.searchPanelLayout = "searchResultsPanel";
@@ -34,6 +34,11 @@ angular.module('searchPanel')
 
             $scope.setSearchBarText = function(text) {
                 $scope.searchBarModel = text;
+            };
+
+            $scope.deactivatePrintBoxSelect = function() {
+                var printBoxSelectTool = toolsFactory.getToolById("PrintBoxSelect");
+                toolsFactory.deactivateTool(printBoxSelectTool);
             };
         }
     ]);
