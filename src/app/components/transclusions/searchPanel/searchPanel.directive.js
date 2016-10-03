@@ -286,6 +286,7 @@ angular.module('searchPanel')
                         };
                         _readResults();
                         _addResultsToMap();
+                        scope.initSearchOptions();
                     };
 
                     var _addResultsToMap = function () {
