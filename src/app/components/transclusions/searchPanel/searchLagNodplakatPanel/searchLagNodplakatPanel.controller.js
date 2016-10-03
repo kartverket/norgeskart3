@@ -2,13 +2,16 @@ angular.module('searchLagNodplakatPanel')
     .controller('searchLagNodplakatPanelController', [ '$scope','mainAppService','$http','ISY.MapAPI.Map',
         function($scope, mainAppService,$http, map) {
             $scope.showLagNodplakatPage1 = function () {
+                map.SetCenter($scope.activePosition);
                 $scope.searchLagNodplakatPanelLayout = 'page1';
             };
             $scope.showLagNodplakatPage2 = function () {
+                map.SetCenter($scope.activePosition);
                 $scope.searchLagNodplakatPanelLayout = 'page2';
             };
             $scope.showLagNodplakatPage3 = function (lagNodplakatName) {
                 $scope.lagNodplakatName = lagNodplakatName;
+                map.SetCenter($scope.activePosition);
                 $scope.searchLagNodplakatPanelLayout = 'page3';
             };
 

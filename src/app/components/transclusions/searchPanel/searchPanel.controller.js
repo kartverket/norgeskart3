@@ -1,6 +1,6 @@
 angular.module('searchPanel')
-    .controller('searchPanelController', ['$scope', 'toolsFactory',
-        function($scope, toolsFactory){
+    .controller('searchPanelController', ['$scope', 'toolsFactory','ISY.MapAPI.Map',
+        function($scope, toolsFactory, map){
 
             $scope.showSearchResultPanel = function () {
                 $scope.searchPanelLayout = "searchResultsPanel";
@@ -21,14 +21,17 @@ angular.module('searchPanel')
             $scope.searchOptionsDict = {};
 
             $scope.showKoordTransPanel = function () {
+                map.SetCenter($scope.activePosition);
                 $scope.searchPanelLayout = "searchKoordTransPanel";
             };
 
             $scope.showLagTurKartPanel = function () {
+                map.SetCenter($scope.activePosition);
                 $scope.searchPanelLayout = "searchLagTurkartPanel";
             };
 
             $scope.showLagNodplakatPanel = function () {
+                map.SetCenter($scope.activePosition);
                 $scope.searchPanelLayout = "searchLagNodplakatPanel";
             };
 
