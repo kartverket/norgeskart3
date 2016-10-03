@@ -334,7 +334,7 @@ angular.module('searchPanel')
                         map.RemoveInfoMarkers();
                         map.RemoveInfoMarker();
                         scope.searchBarModel = "";
-
+                        scope.showSearchResultPanel();
                     };
 
                     var showQueryPointFromMouseClick = function (coordinates) {
