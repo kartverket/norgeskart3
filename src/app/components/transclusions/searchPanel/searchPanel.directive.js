@@ -151,7 +151,7 @@ angular.module('searchPanel')
                         _cancelOldRequests();
                         scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
                         for (var service in _serviceDict) {
-                            _downloadFromUrl(_serviceDict[service], scope.searchTimestamp);
+                            _downloadSearchBarFromUrl(_serviceDict[service], scope.searchTimestamp);
                         }
                     };
 
@@ -261,7 +261,7 @@ angular.module('searchPanel')
                         return str.substr(0, str.length - length);
                     };
 
-                    var _downloadFromUrl = function (_serviceDict, timestamp) {
+                    var _downloadSearchBarFromUrl = function (_serviceDict, timestamp) {
                         _queryDict[_serviceDict.source] = $.ajax({
                             type: "GET",
                             url: _serviceDict.url,
@@ -348,6 +348,8 @@ angular.module('searchPanel')
 
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.MapClickCoordinate, showQueryPointFromMouseClick);
 
+                    // Start searchOptions
+
                     var _clickableLinkClass = {
                         icon: 'search-options pointer-cursor',
                         text: 'pointer-cursor'
@@ -358,7 +360,7 @@ angular.module('searchPanel')
                         text: ''
                     };
 
-                    var _downloadFromUrl2 = function (url, name) {
+                    var _downloadSearchOptionFromUrl = function (url, name) {
                         $http.get(url).then(function (response) {
                             _addSearchOptionToPanel(name, response.data);
                         });
@@ -369,14 +371,14 @@ angular.module('searchPanel')
                         var lon = scope.activePosition.lon;
                         var epsgNumber = scope.activePosition.epsg.split(':')[1];
                         var elevationPointUrl = mainAppService.generateElevationPointUrl(lat, lon, epsgNumber);
-                        _downloadFromUrl2(elevationPointUrl, 'elevationPoint');
+                        _downloadSearchOptionFromUrl(elevationPointUrl, 'elevationPoint');
                     };
 
                     var _fetchMatrikkelInfo = function () {
                         var lat = scope.activePosition.geographicPoint[1];
                         var lon = scope.activePosition.geographicPoint[0];
                         var matrikkelInfoUrl = mainAppService.generateMatrikkelInfoUrl(lat, lon, lat, lon);
-                        _downloadFromUrl2(matrikkelInfoUrl, 'seEiendom');
+                        _downloadSearchOptionFromUrl(matrikkelInfoUrl, 'seEiendom');
                     };
 
                     var _addKoordTransToSearchOptions = function () {
@@ -395,7 +397,7 @@ angular.module('searchPanel')
                         // var lat = scope.activePosition.geographicPoint[0];
                         // var lon = scope.activePosition.geographicPoint[1];
                         // var seHavnivaaUrl = mainAppService.generateSeHavnivaaUrl(lat, lon);
-                        // _downloadFromUrl(seHavnivaaUrl, 'seHavnivaa');
+                        // _downloadSearchBarFromUrl(seHavnivaaUrl, 'seHavnivaa');
                     };
 
                     var _addLagTurkartToSearchOptions = function () {
@@ -409,11 +411,15 @@ angular.module('searchPanel')
                     };
 
                     var _addElevationPointToSearchOptions = function (jsonRoot, name) {
-                        var text = 'Se fakta om stedsnavnet "' + jsonRoot.Output[0].Data.LiteralData.Text + '"';
+                        var stedsnavn=jsonRoot.Output[0].Data.LiteralData.Text;
+                        var text = 'Se fakta om stedsnavnet "' + stedsnavn + '"';
                         var extra = {
                             url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
                         };
                         scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', '⚑', true, text, extra);
+                        if(scope.activeSearchResult.source=='mouseClick'){
+                            scope.searchBarModel=stedsnavn;
+                        }
 
                         text = jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' moh';
                         extra = {};
