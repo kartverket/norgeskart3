@@ -323,7 +323,7 @@ angular.module('searchPanel')
                         if(scope.searchOptionsDict['elevationPoint'] ) {
                             scope.searchOptionsDict['elevationPoint'].text.value = undefined;
                         }
-                        if (scope.searchBarModel.length < searchResult.name.length && !scope.coordinate){
+                        if (scope.searchBarModel.length < searchResult.name.length && !scope.coordinate && scope.activeSearchResult.source != 'mouseClick'){
                             scope.searchBarModel=searchResult.name;
                         }
                         scope.initSearchOptions();
