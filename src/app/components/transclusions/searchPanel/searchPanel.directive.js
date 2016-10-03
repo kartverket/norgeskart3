@@ -286,7 +286,7 @@ angular.module('searchPanel')
                         };
                         _readResults();
                         _addResultsToMap();
-                        scope.initSearchOptions();
+
                     };
 
                     var _addResultsToMap = function () {
@@ -326,6 +326,7 @@ angular.module('searchPanel')
                         if (scope.searchBarModel.length < searchResult.name.length && !scope.coordinate){
                             scope.searchBarModel=searchResult.name;
                         }
+                        scope.initSearchOptions();
                     };
 
                     scope.cleanResults = function (){
