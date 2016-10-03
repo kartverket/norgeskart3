@@ -106,7 +106,7 @@ angular.module('searchPanel')
 
                     var _populateServiceDict = function (query) {
                         _serviceDict['ssr'] = {
-                            url: mainAppService.generateSearchStedsnavnUrl(query),
+                            url: mainAppService.generateSearchStedsnavnUrl(query, 0),
                             format: 'xml',
                             source: 'ssr',
                             epsg: 'EPSG:32633',
@@ -387,20 +387,6 @@ angular.module('searchPanel')
                         scope.searchOptionsDict[name] = _constructSearchOption(name, 'x,y', true, 'Se koordinater', {});
                     };
 
-                    var _addSeHavnivaaToSearchOptions = function () {
-                        var name= 'seHavnivaa';
-                        var lat = scope.activePosition.geographicPoint[1];
-                        var lon = scope.activePosition.geographicPoint[0];
-                        var extra = {
-                            url: mainAppService.generateSeHavnivaaUrl(lat, lon)
-                        };
-                        scope.searchOptionsDict[name] = _constructSearchOption(name, '🌊', true, 'Se havnivå', extra);
-                        // var lat = scope.activePosition.geographicPoint[0];
-                        // var lon = scope.activePosition.geographicPoint[1];
-                        // var seHavnivaaUrl = mainAppService.generateSeHavnivaaUrl(lat, lon);
-                        // _downloadSearchBarFromUrl(seHavnivaaUrl, 'seHavnivaa');
-                    };
-
                     var _addLagTurkartToSearchOptions = function () {
                         var name= 'lagTurkart';
                         scope.searchOptionsDict[name] = _constructSearchOption(name, '🚶', true, 'Lage turkart', {});
@@ -453,9 +439,6 @@ angular.module('searchPanel')
 
                     };
 
-                    // var _addSeHavnivaaToSearchOptions = function (jsonRoot, name) {
-                    //     scope.searchOptionsDict[name] = _constructSearchOption(name, '🌊', false, '', {});
-                    // };
 
                     var _addSearchOptionToPanel = function (name, data) {
                         var jsonObject;
@@ -481,13 +464,6 @@ angular.module('searchPanel')
                                 jsonRoot = jsonObject.FeatureCollection.featureMembers.TEIGWFS;
                                 _addMatrikkelInfoToSearchOptions(jsonRoot, name);
                                 break;
-                            // case('seHavnivaa'):
-                            //     jsonObject = xml.xmlToJSON(data);
-                            //     if (!jsonObject.tide.meta){
-                            //         return;
-                            //     }
-                            //     jsonRoot = jsonObject.tide.locationlevel;
-                            //     _addSeHavnivaaToSearchOptions(jsonRoot, name);
                         }
                     };
 
@@ -532,14 +508,13 @@ angular.module('searchPanel')
 
                     scope.initSearchOptions = function () {
 
-                        scope.searchOptionsOrder = ['seEiendom', 'ssrFakta', 'seHavnivaa', 'koordTrans', 'lagTurkart', 'lagNodplakat'];
+                        scope.searchOptionsOrder = ['seEiendom', 'ssrFakta',  'koordTrans', 'lagTurkart', 'lagNodplakat'];
                         for (var searchOption in scope.searchOptionsOrder){
                             scope.searchOptionsDict[scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
                         }
                         _fetchElevationPoint();
                         _fetchMatrikkelInfo();
                         _addKoordTransToSearchOptions();
-                        _addSeHavnivaaToSearchOptions();
                         _addLagTurkartToSearchOptions();
                         _addEmergencyPosterToSearchOptions();
                     };
