@@ -343,8 +343,6 @@ angular.module('searchPanel')
                         scope.showSearchResultPanel();
                         scope.cleanResults();
                         _showQueryPoint(coordinates[1], coordinates[0], _mapEpsg, 'mouseClick');
-                        scope.initSearchOptions();
-
                     };
 
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.MapClickCoordinate, showQueryPointFromMouseClick);
