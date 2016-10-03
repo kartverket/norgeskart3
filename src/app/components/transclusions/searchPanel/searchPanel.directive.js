@@ -60,7 +60,7 @@ angular.module('searchPanel')
                             return true;
                         }
                         if(((queryParts[0] > 32.88) && (queryParts[1] > -16.1)) && ((queryParts[0] < 84.17) && (queryParts[1] < 39.65))){
-                            epsg='EPSG:4326';
+                            epsg='EPSG:4258';
                             _showQueryPoint(queryParts[0], queryParts[1], epsg, 'coordGeo');
                             return true;
                         }
