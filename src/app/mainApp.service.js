@@ -60,7 +60,7 @@ angular.module('mainApp')
                 };
 
                 this.generateSearchStedsnavnUrl = function (query, side) {
-                    return urlGeonorge + "SKWS3Index/ssr/sok?navn=" + encodeURIComponent(query) + "*&eksakteForst=true&antPerSide=15&epsgKode=32633&side=" + side;
+                    return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + encodeURIComponent(query) + "*&eksakteForst=true&antPerSide=15&epsgKode=32633&side=" + side;
                 };
 
                 this.generateSearchAdresseUrl = function (query) {
@@ -79,8 +79,8 @@ angular.module('mainApp')
                     return urlSeEiendom + "services/Matrikkel.svc/GetDetailPage?type=property&knr=" + knr + "&gnr= " + gnr + "&bnr=" + bnr + "&fnr=" + fnr + "&snr=" + snr + "&customer=kartverket";
                 };
 
-                this.generateFaktaarkUrl = function (ssrid) {
-                    return urlFaktaark + "SSRFakta/faktaarkfraobjektid?enhet=" + ssrid;
+                this.generateFaktaarkUrl = function (stedsnummer) {
+                    return urlFaktaark + "?stedsnummer=" + stedsnummer;
                 };
 
                 this.generateKoordTransUrl = function (ost, nord, resSosiKoordSys) {
