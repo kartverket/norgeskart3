@@ -117,7 +117,8 @@ angular.module('searchPanel')
                             nameID: 'stedsnavn',
                             latID: 'nord',
                             lonID: 'aust',
-                            kommuneID: 'kommunenavn'
+                            kommuneID: 'kommunenavn',
+                            husnummerID: false
                         };
                         _serviceDict['matrikkelveg'] = {
                             url: mainAppService.generateSearchMatrikkelVegUrl(query),
@@ -127,7 +128,8 @@ angular.module('searchPanel')
                             nameID: 'NAVN',
                             latID: 'LATITUDE',
                             lonID: 'LONGITUDE',
-                            kommuneID: 'KOMMUNENAVN'
+                            kommuneID: 'KOMMUNENAVN',
+                            husnummerID: 'HUSNUMMER'
                         };
                         _serviceDict['matrikkeladresse'] = {
                             url: mainAppService.generateSearchMatrikkelAdresseUrl(query),
@@ -137,7 +139,8 @@ angular.module('searchPanel')
                             nameID: 'NAVN',
                             latID: 'LATITUDE',
                             lonID: 'LONGITUDE',
-                            kommuneID: 'KOMMUNENAVN'
+                            kommuneID: 'KOMMUNENAVN',
+                            husnummerID: 'HUSNR'
                         };
                         /*
                          serviceDict['adresse'] = {
@@ -154,8 +157,9 @@ angular.module('searchPanel')
                     var _getResults = function () {
                         _cancelOldRequests();
                         scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
-                        for (var service in _serviceDict) {
-                            _downloadSearchBarFromUrl(_serviceDict[service], scope.searchTimestamp);
+                        var searchableServices=['ssr', 'matrikkelveg'];
+                        for (var serviceIndex =0; serviceIndex < searchableServices.length; serviceIndex++) {
+                            _downloadSearchBarFromUrl(_serviceDict[searchableServices[serviceIndex]], scope.searchTimestamp);
                         }
                     };
 
@@ -209,7 +213,11 @@ angular.module('searchPanel')
                         var lon = jsonObject[identifiersDict.lonID] + '';
                         var kommune = jsonObject[identifiersDict.kommuneID];
                         var point = _constructPoint(lat, lon, identifiersDict.epsg, _mapEpsg);
-                        _pushToUnifiedResults(name, kommune, point, identifiersDict.format, identifiersDict.source);
+                        var husnummer = jsonObject[identifiersDict.husnummerID];
+                        //console.log(jsonObject);
+                        _pushToUnifiedResults(name, kommune, point, identifiersDict.format, identifiersDict.source, husnummer);
+
+
                     };
 
                     var _removeNumberFromName = function (name) {
@@ -223,17 +231,27 @@ angular.module('searchPanel')
                         }
                     };
 
-                    var _pushToUnifiedResults = function (name, kommune, point, format, source) {
+                    var _pushToUnifiedResults = function (name, kommune, point, format, source, husnr) {
                         name = _capitalizeName(name.toLowerCase());
                         kommune = _capitalizeName(kommune.toLowerCase());
                         var resultID = name + kommune;
-                        _unifiedResults[resultID] = {
+                        if (!_unifiedResults[source]) {
+                            _unifiedResults[source] = {};
+                        }
+                        _unifiedResults[source][resultID] = {
                             name: name,
                             point: point,
                             format: format,
                             source: source,
                             kommune: kommune
                         };
+                        if (husnr) {
+
+                            _unifiedResults[source][resultID]['husnummer']=husnr;
+                            //console.log(_unifiedResults[source][resultID]['husnummer']);
+                        }
+
+
                     };
 
                     var _constructPoint = function (lat, lon, epsgFrom, epsgTo) {
@@ -295,8 +313,10 @@ angular.module('searchPanel')
 
                     var _addResultsToMap = function () {
                         var coordinates = [];
-                        for (var result in _unifiedResults) {
-                            coordinates.push(_unifiedResults[result].point);
+                        for (var source in _unifiedResults) {
+                            for (var result in _unifiedResults[source]) {
+                                coordinates.push(_unifiedResults[source][result].point);
+                            }
                         }
                         if (coordinates.length > 0) {
                             map.RemoveInfoMarkers();
