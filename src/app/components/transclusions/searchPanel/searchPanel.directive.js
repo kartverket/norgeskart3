@@ -47,15 +47,19 @@ angular.module('searchPanel')
                         return target.replace(new RegExp(search, 'g'), replacement);
                     };
 
+                    var _splitQuery = function (query) {
+                        query=query.replaceAll(',','.');
+                        return query.split(' ');
+                    };
+
                     var _checkQueryForCoordinates = function(query){
                         scope.coordinate=true;
                         var epsg=query.split('@')[1];
-                        query=query.replaceAll(',','.');
-                        var queryParts = query.split(' ');
+                        var queryParts = _splitQuery(query);
                         if (queryParts.length !=2){
                             return false;
                         }
-                        if (epsg){
+                        if (['25832','25833','25834','25835','25836','32632','32633','32634','32635','32636'].indexOf(epsg) > -1){
                             _showQueryPoint(queryParts[1].split('@')[0], queryParts[0], 'EPSG:' + epsg, 'coordUtm');
                             return true;
                         }
@@ -402,7 +406,7 @@ angular.module('searchPanel')
                             url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
                         };
                         scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', '⚑', true, text, extra);
-                        if(scope.activeSearchResult.source=='mouseClick'){
+                        if(scope.activeSearchResult && scope.activeSearchResult.source=='mouseClick'){
                             scope.searchBarModel=stedsnavn;
                         }
 
@@ -518,4 +522,38 @@ angular.module('searchPanel')
                     };
                 }
             };
-        }]);
+        }])
+
+    .directive('caret', function() {
+        function setCaretPosition(elem, caretPos) {
+            if (elem !== null) {
+                if (elem.createTextRange) {
+                    var range = elem.createTextRange();
+                    range.move('character', caretPos);
+                    range.select();
+                } else {
+                    if (elem.setSelectionRange) {
+                        elem.focus();
+                        elem.setSelectionRange(caretPos, caretPos);
+                    } else {
+                        elem.focus();
+                    }
+                }
+            }
+        }
+
+        return {
+            scope: {value: '=ngModel'},
+            link: function(scope, element) {
+                scope.$watch('value', function(newValue){
+                     if(newValue && newValue.indexOf('@') > -1 && !scope.searchBarCoordinateSystemIndicator) {
+                         scope.searchBarCoordinateSystemIndicator=true;
+                         setCaretPosition(element[0], newValue.indexOf('@'));
+                     }
+                     else if (newValue && newValue.indexOf('@') < 0) {
+                         scope.searchBarCoordinateSystemIndicator=false;
+                     }
+                });
+            }
+        };
+    });
