@@ -52,31 +52,34 @@ angular.module('searchPanel')
                         }
                         var availableUTMZones=searchPanelFactory.getAvailableUTMZones();
                         if (availableUTMZones.indexOf(epsg) > -1){
-                            _showQueryPoint(queryParts[1].split('@')[0], queryParts[0], 'EPSG:' + epsg, 'coordUtm');
+                            scope.showQueryPoint(scope.contructQueryPoint(queryParts[1].split('@')[0], queryParts[0], 'EPSG:' + epsg, 'coordUtm',''));
                             return true;
                         }
                         if(((queryParts[0] > 32.88) && (queryParts[1] > -16.1)) && ((queryParts[0] < 84.17) && (queryParts[1] < 39.65))){
                             epsg='EPSG:4258';
-                            _showQueryPoint(queryParts[0], queryParts[1], epsg, 'coordGeo');
+                            scope.showQueryPoint(scope.contructQueryPoint(queryParts[0], queryParts[1], epsg, 'coordGeo',''));
                             return true;
                         }
                         if(((queryParts[0] > -2465220.60) && (queryParts[1] > 4102904.86)) && ((queryParts[0] < 771164.64) && (queryParts[1] < 9406031.63))){
                             epsg='EPSG:25833';
-                            _showQueryPoint(queryParts[1], queryParts[0], epsg, 'coordUtm');
+                            scope.showQueryPoint(scope.contructQueryPoint(queryParts[1], queryParts[0], epsg, 'coordUtm',''));
                             scope.searchBarModel+='@' + _mapEpsg.split(':')[1];
                             return true;
                         }
                         return false;
                     };
 
-                    var _showQueryPoint = function(lat, lon, epsg, source){
-                        var queryPoint = {
-                            name: scope.sourceDict[source],
+                    scope.contructQueryPoint = function (lat, lon, epsg, source, kommune) {
+                        return {
+                            name: '',
                             point: searchPanelFactory.constructPoint(lat, lon, epsg, _mapEpsg),
-                            format: 'Koordinat',
+                            //format: _serviceDict[source].format,
                             source: source,
-                            kommune: ''
+                            kommune: kommune
                         };
+                    };
+
+                    scope.showQueryPoint = function(queryPoint){
                         if(!scope.searchResults) {
                             scope.searchResults= {};
                         }
@@ -309,7 +312,7 @@ angular.module('searchPanel')
                         scope.coordinate=true;
                         scope.showSearchResultPanel();
                         scope.cleanResults();
-                        _showQueryPoint(coordinates[1], coordinates[0], _mapEpsg, 'mouseClick');
+                        scope.showQueryPoint(scope.contructQueryPoint(coordinates[1], coordinates[0], _mapEpsg, 'mouseClick',''));
                     };
 
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.MapClickCoordinate, showQueryPointFromMouseClick);
