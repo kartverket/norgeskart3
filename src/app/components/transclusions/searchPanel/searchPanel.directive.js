@@ -161,15 +161,13 @@ angular.module('searchPanel')
                     };
 
                     var _getValuesFromJson = function (identifiersDict, jsonObject) {
-                        var name = _removeNumberFromName(jsonObject[identifiersDict.nameID]);
+                        var name = jsonObject[identifiersDict.nameID];
                         var lat = jsonObject[identifiersDict.latID] + '';
                         var lon = jsonObject[identifiersDict.lonID] + '';
                         var kommune = jsonObject[identifiersDict.kommuneID];
                         var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, _mapEpsg);
                         var husnummer = jsonObject[identifiersDict.husnummerID];
                         _pushToUnifiedResults(name, kommune, point, identifiersDict.format, identifiersDict.source, husnummer);
-
-
                     };
 
                     var _removeNumberFromName = function (name) {
@@ -183,8 +181,12 @@ angular.module('searchPanel')
                         }
                     };
 
+                    scope.fixMunicipalityNames = function (name) {
+                        return _removeNumberFromName(_capitalizeName(name.toLowerCase()));
+                    };
+
                     var _pushToUnifiedResults = function (name, kommune, point, format, source, husnummer) {
-                        name = _capitalizeName(name.toLowerCase());
+                        name = scope.fixMunicipalityNames(name);
                         kommune = _capitalizeName(kommune.toLowerCase());
                         var resultID = name + kommune;
                         if (!_unifiedResults[source]) {

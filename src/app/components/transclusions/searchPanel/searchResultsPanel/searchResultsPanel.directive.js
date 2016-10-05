@@ -28,7 +28,7 @@ angular.module('searchResultsPanel')
                             point: point,
                             format: identifiersDict.format,
                             source: source,
-                            kommune: kommune
+                            kommune: scope.fixMunicipalityNames(kommune)
                         };
                         scope.showQueryPoint(queryPoint);
                     };
