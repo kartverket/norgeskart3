@@ -2,19 +2,27 @@
     <div class="content no-border search-content">
         <!--<div class="content search-content">-->
             <ul>
-                <li ng-show="searchResults['matrikkelveg']">
+                <li ng-show="searchResults['matrikkelveg'] || searchResults['matrikkeladresse']">
                     <h3>Adresser:</h3>
                 </li>
-                <li
+                <li ng-show="searchResults['matrikkelveg']"
                         class="pointer-cursor"
                         ng-repeat="searchResult in searchResults['matrikkelveg']">
                     <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
                           ng-mouseover="mouseOver(searchResult)"
                           ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
-                    <select ng-model="activeHusnummer" ng-change="husnummerChanged(searchResult, activeHusnummer)" ng-options="o for o in searchResult.husnummer"><!-- ng-init="activeHusnummer=searchResult.husnummer[0]"-->
-                       <!-- <option data-ng-repeat="husnummer in searchResult.husnummer">{{husnummer}}</option>-->
+                    <select ng-model="activeHusnummer" ng-change="husnummerChanged(searchResult, activeHusnummer)" ng-options="o for o in searchResult.husnummer">
                     </select>
                 </li>
+                <li ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']"
+                    class="pointer-cursor"
+                    ng-repeat="searchResult in searchResults['matrikkeladresse']">
+                    <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
+                          ng-mouseover="mouseOver(searchResult)"
+                          ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
+                    </select>
+                </li>
+
                 <li ng-show="searchResults['ssr']">
                     <h3>Objekter:</h3>
                 </li>

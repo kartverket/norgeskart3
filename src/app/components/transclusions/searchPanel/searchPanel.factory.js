@@ -3,7 +3,7 @@ angular
     .factory('searchPanelFactory', ['mainAppService',
         function(mainAppService) {
 
-        var initialSearchServices= ['ssr', 'matrikkelveg'];
+        var initialSearchServices= ['ssr', 'matrikkelveg', 'matrikkeladresse'];
 
         var availableUTMZones=['25832','25833','25834','25835','25836','32632','32633','32634','32635','32636'];
 
@@ -53,16 +53,17 @@ angular
                     kommuneID: 'KOMMUNENAVN',
                     husnummerID: false
                 };
-                /*
                  serviceDict['adresse'] = {
-                 url: mainAppService.generateSearchAdresseUrl(query),
-                 format: 'json',
-                 source: 'adresse',
-                 epsg: 'EPSG:4326',
-                 nameID: 'adressenavn',
-                 latID: 'nord',
-                 lonID: 'aust'
-                 };*/
+                     url: mainAppService.generateSearchAdresseUrl(query),
+                     format: 'json',
+                     source: 'adresse',
+                     epsg: 'EPSG:4326',
+                     nameID: 'adressenavn',
+                     latID: 'nord',
+                     lonID: 'aust',
+                     kommuneID: false,
+                     husnummerID: false
+                 };
                 return serviceDict;
             };
 
