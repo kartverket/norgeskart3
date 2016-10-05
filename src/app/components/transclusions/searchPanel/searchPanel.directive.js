@@ -167,7 +167,14 @@ angular.module('searchPanel')
                         var kommune = jsonObject[identifiersDict.kommuneID];
                         var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, _mapEpsg);
                         var husnummer = jsonObject[identifiersDict.husnummerID];
-                        _pushToUnifiedResults(name, kommune, point, identifiersDict.format, identifiersDict.source, husnummer);
+                        var result={
+                            name: name,
+                            kommune: kommune,
+                            point: point,
+                            format: identifiersDict.format,
+                            source: identifiersDict.source
+                        };
+                        _pushToUnifiedResults(result, husnummer);
                     };
 
                     var _removeNumberFromName = function (name) {
@@ -185,22 +192,22 @@ angular.module('searchPanel')
                         return _removeNumberFromName(scope.capitalizeName(name.toLowerCase()));
                     };
 
-                    var _pushToUnifiedResults = function (name, kommune, point, format, source, husnummer) {
-                        name = scope.fixNames(name);
-                        kommune = scope.capitalizeName(kommune.toLowerCase());
-                        var resultID = name + kommune;
-                        if (!_unifiedResults[source]) {
-                            _unifiedResults[source] = {};
+                    var _pushToUnifiedResults = function (result, husnummer) {
+                        result.name = scope.fixNames(result.name);
+                        result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
+                        var resultID = result.name + result.kommune;
+                        if (!_unifiedResults[result.source]) {
+                            _unifiedResults[result.source] = {};
                         }
-                        _unifiedResults[source][resultID] = {
-                            name: name,
-                            point: point,
-                            format: format,
-                            source: source,
-                            kommune: kommune
+                        _unifiedResults[result.source][resultID] = {
+                            name: result.name,
+                            point: result.point,
+                            format: result.format,
+                            source: result.source,
+                            kommune: result.kommune
                         };
                         if (husnummer) {
-                            _unifiedResults[source][resultID]['husnummer']=husnummer;
+                            _unifiedResults[result.source][resultID]['husnummer']=husnummer;
                         }
 
 
