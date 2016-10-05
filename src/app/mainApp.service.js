@@ -76,7 +76,7 @@ angular.module('mainApp')
                 };
 
                 this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
-                    return urlSeEiendom + "services/Matrikkel.svc/GetDetailPage?type=property&knr=" + knr + "&gnr= " + gnr + "&bnr=" + bnr + "&fnr=" + fnr + "&snr=" + snr + "&customer=kartverket";
+                    return urlSeEiendom + "services/Matrikkel.svc/GetDetailPage?type=property&knr=" + knr + "&gnr=" + gnr + "&bnr=" + bnr + "&fnr=" + fnr + "&snr=" + snr + "&customer=kartverket";
                 };
 
                 this.generateFaktaarkUrl = function (stedsnummer) {
