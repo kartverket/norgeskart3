@@ -181,13 +181,13 @@ angular.module('searchPanel')
                         }
                     };
 
-                    scope.fixMunicipalityNames = function (name) {
-                        return _removeNumberFromName(_capitalizeName(name.toLowerCase()));
+                    scope.fixNames = function (name) {
+                        return _removeNumberFromName(scope.capitalizeName(name.toLowerCase()));
                     };
 
                     var _pushToUnifiedResults = function (name, kommune, point, format, source, husnummer) {
-                        name = scope.fixMunicipalityNames(name);
-                        kommune = _capitalizeName(kommune.toLowerCase());
+                        name = scope.fixNames(name);
+                        kommune = scope.capitalizeName(kommune.toLowerCase());
                         var resultID = name + kommune;
                         if (!_unifiedResults[source]) {
                             _unifiedResults[source] = {};
@@ -206,7 +206,7 @@ angular.module('searchPanel')
 
                     };
 
-                    var _capitalizeName = function (name) {
+                    scope.capitalizeName= function (name) {
                         name = name.trim();
                         name = _capitalizeNamePart(name, ' ');
                         name = _capitalizeNamePart(name, '-');

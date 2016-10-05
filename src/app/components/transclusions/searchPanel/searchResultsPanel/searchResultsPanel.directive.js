@@ -21,14 +21,15 @@ angular.module('searchResultsPanel')
                         var lat = jsonObject[identifiersDict.latID] + '';
                         var lon = jsonObject[identifiersDict.lonID] + '';
                         var kommune=jsonObject[identifiersDict.kommuneID];
+                        var name = jsonObject[identifiersDict.nameID];
                         var mapEpsg = searchPanelFactory.getMapEpsg();
                         var point=searchPanelFactory.constructPoint(lat, lon, epsg, mapEpsg);
                         var queryPoint = {
-                            name: searchPanelFactory.getSourceDict()[source],
+                            name: scope.capitalizeName(name.toLowerCase()),
                             point: point,
                             format: identifiersDict.format,
                             source: source,
-                            kommune: scope.fixMunicipalityNames(kommune)
+                            kommune: scope.fixNames(kommune)
                         };
                         scope.showQueryPoint(queryPoint);
                     };
