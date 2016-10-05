@@ -9,13 +9,13 @@
     </li>
 </ul>
 
-<ul class="sidenav-group">
-    <li data-ng-repeat="group in groupLayers" data-ng-click="group.isOpen = !group.isOpen">
-        <span data-ng-class="getGroupStyleStatus(group)"></span>
+<ul class="closeable">
+    <li data-ng-repeat="group in groupLayers" data-ng-click="group.isOpen = !group.isOpen;">
+        <span data-ng-class="getGroupStyleStatus(group)" data-ng-click="toggleGroup(group); $event.stopPropagation();"></span>
         <span data-ng-bind="group.name"></span>
         <span class="backbtn glyphicon glyphicon-menu-down"></span>
-        <ul class="sidenav-group" data-ng-show="group.isOpen">
-            <li data-ng-repeat="isyLayer in group.isyLayers">
+        <ul class="closeable" data-ng-show="group.isOpen">
+            <li data-ng-repeat="isyLayer in group.isyLayers" data-ng-click="toggleLayer(isyLayer); $event.stopPropagation();">
                 <span data-ng-class="getLayerStyleStatus(isyLayer)"></span>
                 <span data-ng-bind="isyLayer.name"></span>
             </li>

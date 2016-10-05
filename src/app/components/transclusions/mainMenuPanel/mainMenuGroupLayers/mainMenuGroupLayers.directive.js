@@ -33,6 +33,16 @@ angular.module('mainMenuGroupLayers')
                         }
                     };
 
+                    var _updateGroupStateByLayer = function(layer, groupLayers){
+                        groupLayers.forEach(function(group){
+                            layer.groupId.forEach(function(layerCatId){
+                                if(group.groupId === layerCatId) {
+                                    _updateGroupState(group);
+                                }
+                            });
+                        });
+                    };
+
                     function _initGroups(){
                         overlayLayers.forEach(function(isyLayer){
                             isyLayer.groupId.forEach(function(catId){
@@ -66,8 +76,58 @@ angular.module('mainMenuGroupLayers')
                         }
                     };
 
+                    scope.toggleLayer = function(isyLayer){
+                        if(!scope.onlyOneGroup || isyLayer.groupId.indexOf(999) > -1 ){
+                            if(isyLayer.isVisible){
+                                map.HideLayer(isyLayer);
+                                isyLayer.styles = undefined;
+                            } else{
+                                isyLayer.previewActive = false;
+                                map.ShowLayer(isyLayer);
+                            }
+                            _updateGroupStateByLayer(isyLayer, scope.groupLayers);
+                        }
+                    };
+
+                    scope.toggleGroup = function (group) {
+                        console.log(group);
+                        if (!group.isAllLayersSelected) { //select all layers
+                            if (group.isyLayers !== undefined) {
+                                if (scope.onlyOneGroup && group.groupId !== 999) {
+                                    scope.groupLayers.forEach(function (groupLayer) {
+                                        if (groupLayer.groupId !== 999) {
+                                            for (var i = 0; i < groupLayer.isyLayers.length; i++) {
+                                                map.HideLayer(groupLayer.isyLayers[i]);
+                                                groupLayer.isyLayers[i].styles = undefined;
+                                                _updateGroupStateByLayer(groupLayer.isyLayers[i], scope.groupLayers);
+                                            }
+                                        }
+                                    });
+                                }
+                                for (var i = 0; i < group.isyLayers.length; i++) {
+                                    map.ShowLayer(group.isyLayers[i]);
+                                    _updateGroupStateByLayer(group.isyLayers[i], scope.groupLayers);
+                                }
+                            }
+                            // if (group.subCategories !== undefined) {
+                            //     group.subCategories.forEach(scope.selectLayers);
+                            // }
+                        }else{ // deselect all layers
+                            if (group.isyLayers !== undefined) {
+                                for (var j = 0; j < group.isyLayers.length; j++){
+                                    map.HideLayer(group.isyLayers[j]);
+                                    group.isyLayers[j].styles = undefined;
+                                    _updateGroupStateByLayer(group.isyLayers[j], scope.groupLayers);
+                                }
+                            }
+                            // if (group.subCategories !== undefined) {
+                            //     group.subCategories.forEach(scope.toggleGroup);
+                            // }
+                        }
+                    };
+
                     _initGroups();
-                    console.log(scope.groupLayers);
+                    // console.log(scope.groupLayers);
                 }
             };
         }]);
