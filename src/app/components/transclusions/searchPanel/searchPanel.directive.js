@@ -167,6 +167,7 @@ angular.module('searchPanel')
                         var kommune = jsonObject[identifiersDict.kommuneID];
                         var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, _mapEpsg);
                         var husnummer = jsonObject[identifiersDict.husnummerID];
+                        var navnetype = jsonObject[identifiersDict.navnetypeID];
                         var result={
                             name: name,
                             kommune: kommune,
@@ -174,7 +175,7 @@ angular.module('searchPanel')
                             format: identifiersDict.format,
                             source: identifiersDict.source
                         };
-                        _pushToUnifiedResults(result, husnummer);
+                        _pushToUnifiedResults(result, husnummer, navnetype);
                     };
 
                     var _removeNumberFromName = function (name) {
@@ -192,7 +193,7 @@ angular.module('searchPanel')
                         return _removeNumberFromName(scope.capitalizeName(name.toLowerCase()));
                     };
 
-                    var _pushToUnifiedResults = function (result, husnummer) {
+                    var _pushToUnifiedResults = function (result, husnummer, navnetype) {
                         result.name = scope.fixNames(result.name);
                         result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
                         var resultID = result.name + result.kommune;
@@ -208,6 +209,9 @@ angular.module('searchPanel')
                         };
                         if (husnummer) {
                             _unifiedResults[result.source][resultID]['husnummer']=husnummer;
+                        }
+                        else if (navnetype){
+                            _unifiedResults[result.source][resultID]['navnetype']=navnetype;
                         }
 
 

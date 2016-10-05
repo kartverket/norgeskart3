@@ -30,7 +30,8 @@ angular
                     latID: 'nord',
                     lonID: 'aust',
                     kommuneID: 'kommunenavn',
-                    husnummerID: 'HUSNR'
+                    husnummerID: 'HUSNR',
+                    navnetypeID: 'navnetype'
                 };
                 serviceDict['matrikkelveg'] = {
                     url: mainAppService.generateSearchMatrikkelVegUrl(query),
@@ -41,7 +42,8 @@ angular
                     latID: 'LATITUDE',
                     lonID: 'LONGITUDE',
                     kommuneID: 'KOMMUNENAVN',
-                    husnummerID: 'HUSNUMMER'
+                    husnummerID: 'HUSNUMMER',
+                    navnetypeID: false
                 };
                 serviceDict['matrikkeladresse'] = {
                     url: mainAppService.generateSearchMatrikkelAdresseUrl(query),
@@ -52,7 +54,8 @@ angular
                     latID: 'LATITUDE',
                     lonID: 'LONGITUDE',
                     kommuneID: 'KOMMUNENAVN',
-                    husnummerID: false
+                    husnummerID: false,
+                    navnetypeID: false
                 };
                  serviceDict['adresse'] = {
                      url: mainAppService.generateSearchAdresseUrl(query),
@@ -63,7 +66,8 @@ angular
                      latID: 'nord',
                      lonID: 'aust',
                      kommuneID: false,
-                     husnummerID: false
+                     husnummerID: false,
+                     navnetypeID: false
                  };
                 return serviceDict;
             };

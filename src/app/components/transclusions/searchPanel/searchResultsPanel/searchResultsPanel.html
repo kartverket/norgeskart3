@@ -9,7 +9,7 @@
                 ng-repeat="searchResult in searchResults['matrikkelveg']">
                 <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
                       ng-mouseover="mouseOver(searchResult)"
-                      ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
+                      ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
                 <select ng-model="activeHusnummer"
                         ng-change="husnummerChanged(searchResult, activeHusnummer)"
                         ng-options="o for o in searchResult.husnummer">
@@ -25,7 +25,7 @@
                 ng-repeat="searchResult in searchResults['matrikkeladresse']">
                 <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
                       ng-mouseover="mouseOver(searchResult)"
-                      ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
+                      ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
                 </select>
             </li>
             <li ng-show="searchResults['ssr']">
@@ -35,7 +35,7 @@
                 ng-repeat="searchResult in searchResults['ssr']"
                 ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
                 ng-mouseover="mouseOver(searchResult)">
-                <span ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
+                <span ng-bind="searchResult.name + ', '  + searchResult.navnetype + ' i ' + searchResult.kommune"></span>
             </li>
         </ul>
     </div>
