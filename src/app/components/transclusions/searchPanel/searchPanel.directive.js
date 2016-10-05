@@ -262,8 +262,20 @@ angular.module('searchPanel')
                             epsg: _serviceDict.epsg
                         };
                         _readResults();
-                        _addResultsToMap();
+                        if(_notSingleAddressHit()) {
+                            _addResultsToMap();
+                        }
+                    };
 
+                    var _notSingleAddressHit = function () {
+                        var matrikkelKey='matrikkeladresse';
+                        if(_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length==1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']){
+                            var key=Object.keys(_unifiedResults[matrikkelKey])[0];
+                            var result=_unifiedResults[matrikkelKey][key];
+                            scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], _mapEpsg, result.source, result.kommune));
+                            return true;
+                        }
+                        return false;
                     };
 
                     var _addResultsToMap = function () {
