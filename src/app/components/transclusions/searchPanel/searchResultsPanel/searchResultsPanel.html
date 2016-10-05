@@ -12,6 +12,7 @@
                           ng-mouseover="mouseOver(searchResult)"
                           ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
                     <select ng-model="activeHusnummer" ng-change="husnummerChanged(searchResult, activeHusnummer)" ng-options="o for o in searchResult.husnummer">
+                        <option value="" disabled selected>Husnummer</option>
                     </select>
                 </li>
                 <li ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']"
