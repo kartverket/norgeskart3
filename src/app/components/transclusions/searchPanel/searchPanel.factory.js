@@ -3,6 +3,8 @@ angular
     .factory('searchPanelFactory', ['mainAppService',
         function(mainAppService) {
 
+        var initialSearchServices= ['ssr', 'matrikkelveg'];
+
         var availableUTMZones=['25832','25833','25834','25835','25836','32632','32633','32634','32635','32636'];
 
             var sourceDict = {
@@ -26,7 +28,8 @@ angular
                     nameID: 'stedsnavn',
                     latID: 'nord',
                     lonID: 'aust',
-                    kommuneID: 'kommunenavn'
+                    kommuneID: 'kommunenavn',
+                    husnummerID: 'HUSNR'
                 };
                 serviceDict['matrikkelveg'] = {
                     url: mainAppService.generateSearchMatrikkelVegUrl(query),
@@ -36,7 +39,8 @@ angular
                     nameID: 'NAVN',
                     latID: 'LATITUDE',
                     lonID: 'LONGITUDE',
-                    kommuneID: 'KOMMUNENAVN'
+                    kommuneID: 'KOMMUNENAVN',
+                    husnummerID: 'HUSNUMMER'
                 };
                 serviceDict['matrikkeladresse'] = {
                     url: mainAppService.generateSearchMatrikkelAdresseUrl(query),
@@ -46,7 +50,8 @@ angular
                     nameID: 'NAVN',
                     latID: 'LATITUDE',
                     lonID: 'LONGITUDE',
-                    kommuneID: 'KOMMUNENAVN'
+                    kommuneID: 'KOMMUNENAVN',
+                    husnummerID: false
                 };
                 /*
                  serviceDict['adresse'] = {
@@ -76,6 +81,9 @@ angular
                 },
                 getSearchOptionsOrder: function () {
                     return searchOptionsOrder;
+                },
+                getInitialSearchServices: function () {
+                    return initialSearchServices;
                 }
             };
 

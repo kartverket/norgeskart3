@@ -1,6 +1,6 @@
 angular.module('searchPanel')
-    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler','$http',
-        function($timeout, mainAppService, map, eventHandler, $http) {
+    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler','$http','searchPanelFactory',
+        function($timeout, mainAppService, map, eventHandler, $http, searchPanelFactory) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchPanel.html',
                 restrict: 'A',
@@ -21,16 +21,7 @@ angular.module('searchPanel')
                         _getResults(query);
                     };
 
-                    scope.sourceDict = {
-                        'ssr': 'Stedsnavn',
-                        'adresse': 'Adresse',
-                        'matrikkelveg': 'Vegnavn',
-                        'matrikkeladresse': 'Adresse',
-                        'coordGeo': 'Geografisk koordinat',
-                        'coordUtm': 'UTM-koordinat',
-                        'mouseClick': 'Klikk i kartet'
-
-                    };
+                    scope.sourceDict = searchPanelFactory.getSourceDict();
 
                     _mapEpsg='EPSG:25833';
 
@@ -59,7 +50,8 @@ angular.module('searchPanel')
                         if (queryParts.length !=2){
                             return false;
                         }
-                        if (['25832','25833','25834','25835','25836','32632','32633','32634','32635','32636'].indexOf(epsg) > -1){
+                        var availableUTMZones=searchPanelFactory.getAvailableUTMZones();
+                        if (availableUTMZones.indexOf(epsg) > -1){
                             _showQueryPoint(queryParts[1].split('@')[0], queryParts[0], 'EPSG:' + epsg, 'coordUtm');
                             return true;
                         }
@@ -109,57 +101,15 @@ angular.module('searchPanel')
                     };
 
                     var _populateServiceDict = function (query) {
-                        _serviceDict['ssr'] = {
-                            url: mainAppService.generateSearchStedsnavnUrl(query, 0),
-                            format: 'xml',
-                            source: 'ssr',
-                            epsg: 'EPSG:32633',
-                            nameID: 'stedsnavn',
-                            latID: 'nord',
-                            lonID: 'aust',
-                            kommuneID: 'kommunenavn',
-                            husnummerID: false
-                        };
-                        _serviceDict['matrikkelveg'] = {
-                            url: mainAppService.generateSearchMatrikkelVegUrl(query),
-                            format: 'json',
-                            source: 'matrikkelveg',
-                            epsg: 'EPSG:32632',
-                            nameID: 'NAVN',
-                            latID: 'LATITUDE',
-                            lonID: 'LONGITUDE',
-                            kommuneID: 'KOMMUNENAVN',
-                            husnummerID: 'HUSNUMMER'
-                        };
-                        _serviceDict['matrikkeladresse'] = {
-                            url: mainAppService.generateSearchMatrikkelAdresseUrl(query),
-                            format: 'json',
-                            source: 'matrikkeladresse',
-                            epsg: 'EPSG:32632',
-                            nameID: 'NAVN',
-                            latID: 'LATITUDE',
-                            lonID: 'LONGITUDE',
-                            kommuneID: 'KOMMUNENAVN',
-                            husnummerID: 'HUSNR'
-                        };
-                        /*
-                         serviceDict['adresse'] = {
-                         url: mainAppService.generateSearchAdresseUrl(query),
-                         format: 'json',
-                         source: 'adresse',
-                         epsg: 'EPSG:4326',
-                         nameID: 'adressenavn',
-                         latID: 'nord',
-                         lonID: 'aust'
-                         };*/
+                        _serviceDict = searchPanelFactory.getServiceDict(query);
                     };
 
                     var _getResults = function () {
                         _cancelOldRequests();
                         scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
-                        var searchableServices=['ssr', 'matrikkelveg'];
-                        for (var serviceIndex =0; serviceIndex < searchableServices.length; serviceIndex++) {
-                            _downloadSearchBarFromUrl(_serviceDict[searchableServices[serviceIndex]], scope.searchTimestamp);
+                        var initialSearchServices=searchPanelFactory.getInitialSearchServices();
+                        for (var serviceIndex =0; serviceIndex < initialSearchServices.length; serviceIndex++) {
+                            _downloadSearchBarFromUrl(_serviceDict[initialSearchServices[serviceIndex]], scope.searchTimestamp);
                         }
                     };
 
@@ -214,7 +164,6 @@ angular.module('searchPanel')
                         var kommune = jsonObject[identifiersDict.kommuneID];
                         var point = _constructPoint(lat, lon, identifiersDict.epsg, _mapEpsg);
                         var husnummer = jsonObject[identifiersDict.husnummerID];
-                        //console.log(jsonObject);
                         _pushToUnifiedResults(name, kommune, point, identifiersDict.format, identifiersDict.source, husnummer);
 
 
@@ -231,7 +180,7 @@ angular.module('searchPanel')
                         }
                     };
 
-                    var _pushToUnifiedResults = function (name, kommune, point, format, source, husnr) {
+                    var _pushToUnifiedResults = function (name, kommune, point, format, source, husnummer) {
                         name = _capitalizeName(name.toLowerCase());
                         kommune = _capitalizeName(kommune.toLowerCase());
                         var resultID = name + kommune;
@@ -245,10 +194,8 @@ angular.module('searchPanel')
                             source: source,
                             kommune: kommune
                         };
-                        if (husnr) {
-
-                            _unifiedResults[source][resultID]['husnummer']=husnr;
-                            //console.log(_unifiedResults[source][resultID]['husnummer']);
+                        if (husnummer) {
+                            _unifiedResults[source][resultID]['husnummer']=husnummer;
                         }
 
 
@@ -530,7 +477,7 @@ angular.module('searchPanel')
 
                     scope.initSearchOptions = function () {
 
-                        scope.searchOptionsOrder = ['seEiendom', 'ssrFakta',  'koordTrans', 'lagTurkart', 'lagNodplakat'];
+                        scope.searchOptionsOrder = searchPanelFactory.getSearchOptionsOrder();
                         for (var searchOption in scope.searchOptionsOrder){
                             scope.searchOptionsDict[scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
                         }
@@ -564,15 +511,15 @@ angular.module('searchPanel')
 
         return {
             scope: {value: '=ngModel'},
-            link: function(scope, element) {
-                scope.$watch('value', function(newValue){
-                     if(newValue && newValue.indexOf('@') > -1 && !scope.searchBarCoordinateSystemIndicator) {
-                         scope.searchBarCoordinateSystemIndicator=true;
-                         setCaretPosition(element[0], newValue.indexOf('@'));
-                     }
-                     else if (newValue && newValue.indexOf('@') < 0) {
-                         scope.searchBarCoordinateSystemIndicator=false;
-                     }
+            link: function (scope, element) {
+                scope.$watch('value', function (newValue) {
+                    if (newValue && newValue.indexOf('@') > -1 && !scope.searchBarCoordinateSystemIndicator) {
+                        scope.searchBarCoordinateSystemIndicator = true;
+                        setCaretPosition(element[0], newValue.indexOf('@'));
+                    }
+                    else if (newValue && newValue.indexOf('@') < 0) {
+                        scope.searchBarCoordinateSystemIndicator = false;
+                    }
                 });
             }
         };
