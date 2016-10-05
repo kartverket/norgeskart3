@@ -34,8 +34,8 @@
             <b>{{lagNodplakatDict['elevationPoint']}}</b>
         </span>
         <select ng-model="alternativePlacename"
-                ng-change="lagNodplakatDict['elevationPoint']=alternativePlacename;lagNodplakatName=alternativePlacename"
-                ng-options="o.stedsnavn for o in lagNodplakatDict['placenamesByBbox']">
+                ng-change="lagNodplakatDict['elevationPoint']=alternativePlacename.stedsnavn;lagNodplakatName=alternativePlacename.stedsnavn"
+                ng-options="value.stedsnavn for (key, value) in lagNodplakatDict['placenamesByBbox']">
             <option selected disabled value="">
                 Velg et annet stedsnavn i nærheten
             </option>
