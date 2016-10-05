@@ -35,7 +35,9 @@
                 ng-repeat="searchResult in searchResults['ssr']"
                 ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
                 ng-mouseover="mouseOver(searchResult)">
-                <span ng-bind="searchResult.name + ', '  + searchResult.navnetype + ' i ' + searchResult.kommune"></span>
+                <span ng-if="searchResult.name.indexOf(searchResult.kommune) > -1 && searchResult.name.indexOf(searchResult.navnetype) > -1" ng-bind="searchResult.name"></span>
+                <span ng-if="searchResult.name.indexOf(searchResult.kommune) > -1 && searchResult.name.indexOf(searchResult.navnetype) == -1" ng-bind="searchResult.name + ', '  + searchResult.navnetype"></span>
+                <span ng-if="searchResult.name.indexOf(searchResult.kommune) == -1 && searchResult.name.indexOf(searchResult.navnetype) == -1" ng-bind="searchResult.name + ', '  + searchResult.navnetype + ' i ' + searchResult.kommune"></span>
             </li>
         </ul>
     </div>
