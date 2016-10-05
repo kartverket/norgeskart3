@@ -1,40 +1,42 @@
 <div class="search-panel" ng-show="searchResults != undefined">
     <div class="content no-border search-content">
-        <!--<div class="content search-content">-->
-            <ul>
-                <li ng-show="searchResults['matrikkelveg'] || searchResults['matrikkeladresse']">
-                    <h3>Adresser:</h3>
-                </li>
-                <li ng-show="searchResults['matrikkelveg']"
-                        class="pointer-cursor"
-                        ng-repeat="searchResult in searchResults['matrikkelveg']">
-                    <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
-                          ng-mouseover="mouseOver(searchResult)"
-                          ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
-                    <select ng-model="activeHusnummer" ng-change="husnummerChanged(searchResult, activeHusnummer)" ng-options="o for o in searchResult.husnummer">
-                        <option value="" disabled selected>Husnummer</option>
-                    </select>
-                </li>
-                <li ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']"
-                    class="pointer-cursor"
-                    ng-repeat="searchResult in searchResults['matrikkeladresse']">
-                    <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
-                          ng-mouseover="mouseOver(searchResult)"
-                          ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
-                    </select>
-                </li>
-
-                <li ng-show="searchResults['ssr']">
-                    <h3>Objekter:</h3>
-                </li>
-                <li
-                        class="pointer-cursor"
-                        ng-repeat="searchResult in searchResults['ssr']"
-                        ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
-                        ng-mouseover="mouseOver(searchResult)">
-                    <span ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
-                </li>
-            </ul>
-        </div>
-    <!--</div>-->
-</div></h3>
+        <ul>
+            <li ng-show="searchResults['matrikkelveg'] || searchResults['matrikkeladresse']">
+                <h3>Adresser:</h3>
+            </li>
+            <li ng-show="searchResults['matrikkelveg']"
+                class="pointer-cursor"
+                ng-repeat="searchResult in searchResults['matrikkelveg']">
+                <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
+                      ng-mouseover="mouseOver(searchResult)"
+                      ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
+                <select ng-model="activeHusnummer"
+                        ng-change="husnummerChanged(searchResult, activeHusnummer)"
+                        ng-options="o for o in searchResult.husnummer">
+                    <option value=""
+                            disabled
+                            selected>
+                        Husnummer
+                    </option>
+                </select>
+            </li>
+            <li ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']"
+                class="pointer-cursor"
+                ng-repeat="searchResult in searchResults['matrikkeladresse']">
+                <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
+                      ng-mouseover="mouseOver(searchResult)"
+                      ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
+                </select>
+            </li>
+            <li ng-show="searchResults['ssr']">
+                <h3>Objekter:</h3>
+            </li>
+            <li class="pointer-cursor"
+                ng-repeat="searchResult in searchResults['ssr']"
+                ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
+                ng-mouseover="mouseOver(searchResult)">
+                <span ng-bind="searchResult.name + ' ' + searchResult.kommune"></span>
+            </li>
+        </ul>
+    </div>
+</div>

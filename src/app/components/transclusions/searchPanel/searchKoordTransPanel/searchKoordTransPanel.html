@@ -2,24 +2,35 @@
     <div class="content no-border search-content">
         <ul>
             <li>
-                <span class="search-options">{{searchOptionsDict['koordTrans'].icon.value}}</span>
+                <span class="search-options">
+                    {{searchOptionsDict['koordTrans'].icon.value}}
+                </span>
                 <span>Koordinater</span>
             </li>
             <li ng-mousedown="showSearchOptionsPanel()">
-                <span class="search-options pointer-cursor"><b>←</b></span>
-                <span class="pointer-cursor"><b>Returner til tjenester</b></span>
+                <span class="search-options pointer-cursor">
+                    <b>←</b>
+                </span>
+                <span class="pointer-cursor">
+                    <b>Returner til tjenester</b>
+                </span>
             </li>
         </ul>
         <span>Nord:</span>
         <span data-ng-bind="activePosition.transLat"></span>
-        <br/><br/>
+        <br/>
+        <br/>
         <span>Øst:</span>
         <span data-ng-bind="activePosition.transLon"></span>
-        <br/><br/>
-        <select ng-model = "activePosition.resSosiKoordSys" ng-change="_fetchKoordTrans()" ng-options="key as val for (key, val) in coordinateSystems">
-        </select>
         <br/>
-        <input type="checkbox" data-ng-click="generateCoordinateSystems()" ng-model="showAdvancedCoordinateSystems"/>
+        <br/>
+        <select ng-model = "activePosition.resSosiKoordSys"
+                ng-change="_fetchKoordTrans()"
+                ng-options="key as val for (key, val) in coordinateSystems"></select>
+        <br/>
+        <input type="checkbox"
+               data-ng-click="generateCoordinateSystems()"
+               ng-model="showAdvancedCoordinateSystems"/>
         <span>Vis avanserte koordinatsystemer</span>
     </div>
 </div>
