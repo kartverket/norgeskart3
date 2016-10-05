@@ -1,6 +1,6 @@
 angular.module('searchPanel')
-    .controller('searchPanelController', ['$scope',
-        function($scope){
+    .controller('searchPanelController', ['$scope', 'toolsFactory','ISY.MapAPI.Map',
+        function($scope, toolsFactory, map){
 
             $scope.showSearchResultPanel = function () {
                 $scope.searchPanelLayout = "searchResultsPanel";
@@ -21,11 +21,27 @@ angular.module('searchPanel')
             $scope.searchOptionsDict = {};
 
             $scope.showKoordTransPanel = function () {
+                map.SetCenter($scope.activePosition);
                 $scope.searchPanelLayout = "searchKoordTransPanel";
             };
 
             $scope.showLagTurKartPanel = function () {
+                map.SetCenter($scope.activePosition);
                 $scope.searchPanelLayout = "searchLagTurkartPanel";
+            };
+
+            $scope.showLagNodplakatPanel = function () {
+                map.SetCenter($scope.activePosition);
+                $scope.searchPanelLayout = "searchLagNodplakatPanel";
+            };
+
+            $scope.setSearchBarText = function(text) {
+                $scope.searchBarModel = text;
+            };
+
+            $scope.deactivatePrintBoxSelect = function() {
+                var printBoxSelectTool = toolsFactory.getToolById("PrintBoxSelect");
+                toolsFactory.deactivateTool(printBoxSelectTool);
             };
         }
     ]);
