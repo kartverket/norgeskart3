@@ -285,8 +285,10 @@ angular.module('searchPanel')
                             lon: parseFloat(searchResult.point[0]),
                             lat: parseFloat(searchResult.point[1]),
                             epsg: _mapEpsg
-                            //zoom: parseFloat(12)
                         };
+                        if (searchResult.source=='matrikkeladresse'){
+                            activePosition.zoom=parseFloat(12);
+                        }
                         activePosition.geographicPoint=searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, _mapEpsg, 'EPSG:4326');
                         map.SetCenter(activePosition);
                         map.RemoveInfoMarkers();
