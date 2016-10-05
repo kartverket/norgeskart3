@@ -2,33 +2,61 @@
     <div class="content no-border search-content">
         <ul>
             <li>
-                <span class="search-options">{{searchOptionsDict['lagNodplakat'].icon.value}}</span>
+                <span class="search-options">
+                    {{searchOptionsDict['lagNodplakat'].icon.value}}
+                </span>
                 <span>Nødplakat</span>
             </li>
             <li ng-mousedown="showSearchOptionsPanel()">
-                <span class="search-options pointer-cursor"><b>←</b></span>
-                <span class="pointer-cursor"><b>Returner til tjenester</b></span>
+                <span class="search-options pointer-cursor">
+                    <b>←</b>
+                </span>
+                <span class="pointer-cursor">
+                    <b>Returner til tjenester</b>
+                </span>
             </li>
         </ul>
-        <span><b>Gi punktet ditt et navn:</b></span>
+        <span>
+            <b>Gi punktet ditt et navn:</b>
+        </span>
         <br/>
-        <input ng-show="lagNodplakatDict['elevationPoint']" type="text" placeholder="(F.eks. navn på hytta" ng-model="lagNodplakatName" data-ng-init="lagNodplakatName=lagNodplakatDict['elevationPoint']"/>
+        <input ng-show="lagNodplakatDict['elevationPoint']"
+               type="text"
+               placeholder="(F.eks. navn på hytta"
+               ng-model="lagNodplakatName"
+               data-ng-init="lagNodplakatName=lagNodplakatDict['elevationPoint']"/>
         <br/>
         <br/>
-        <span ng-show="lagNodplakatDict['elevationPoint']"><b>Stedet er</b></span>
-        <span ng-show="lagNodplakatDict['elevationPoint']"><b>{{lagNodplakatDict['elevationPoint']}}</b></span>
-        <select ng-model="alternativePlacename" ng-change="lagNodplakatDict['elevationPoint']=alternativePlacename;lagNodplakatName=alternativePlacename">
-            <option selected disabled value="placeholder">Velg et annet stedsnavn i nærheten</option>
-            <option data-ng-repeat="placename in lagNodplakatDict['placenamesByBbox']">{{placename.stedsnavn}}</option>
+        <span ng-show="lagNodplakatDict['elevationPoint']">
+            <b>Stedet er</b>
+        </span>
+        <span ng-show="lagNodplakatDict['elevationPoint']">
+            <b>{{lagNodplakatDict['elevationPoint']}}</b>
+        </span>
+        <select ng-model="alternativePlacename"
+                ng-change="lagNodplakatDict['elevationPoint']=alternativePlacename;lagNodplakatName=alternativePlacename"
+                ng-options="o.stedsnavn for o in lagNodplakatDict['placenamesByBbox']">
+            <option selected disabled value="">
+                Velg et annet stedsnavn i nærheten
+            </option>
         </select>
         <br/>
         <br/>
-        <span ng-show="lagNodplakatDict['emergencyPosterPoint'].veg"><b>Funnet veg er {{lagNodplakatDict['emergencyPosterPoint'].veg}} i {{lagNodplakatDict['emergencyPosterPoint'].kommune}} kommune</b></span>
+        <span ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">
+            <b>Funnet veg er {{lagNodplakatDict['emergencyPosterPoint'].veg}} i {{lagNodplakatDict['emergencyPosterPoint'].kommune}} kommune</b>
+        </span>
         <br/>
-        <input type="checkbox" ng-model="lagNodplakatConfirmRoad" ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">
-        <span ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">Dette er riktig veg</span>
+        <input type="checkbox"
+               ng-model="lagNodplakatConfirmRoad"
+               ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">
+        <span ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">
+            Dette er riktig veg
+        </span>
         <br/>
         <br/>
-        <button ng-show="lagNodplakatConfirmRoad && lagNodplakatName && lagNodplakatDict['emergencyPosterPoint'].veg" data-ng-click="showLagNodplakatPage3(lagNodplakatName)">Neste ></button>
+        <button ng-show="lagNodplakatConfirmRoad && lagNodplakatName && lagNodplakatDict['emergencyPosterPoint'].veg"
+                data-ng-click="showLagNodplakatPage3(lagNodplakatName)">
+            Neste >
+        </button>
     </div>
 </div>
