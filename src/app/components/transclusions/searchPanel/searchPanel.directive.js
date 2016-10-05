@@ -273,9 +273,9 @@ angular.module('searchPanel')
                             var key=Object.keys(_unifiedResults[matrikkelKey])[0];
                             var result=_unifiedResults[matrikkelKey][key];
                             scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], _mapEpsg, result.source, result.kommune));
-                            return true;
+                            return false;
                         }
-                        return false;
+                        return true;
                     };
 
                     var _addResultsToMap = function () {
