@@ -23,7 +23,7 @@ angular.module('searchPanel')
 
                     scope.sourceDict = searchPanelFactory.getSourceDict();
 
-                    _mapEpsg='EPSG:25833';
+                    _mapEpsg=searchPanelFactory.getMapEpsg();
 
                     _searchResults = {};
 
@@ -72,7 +72,7 @@ angular.module('searchPanel')
                     var _showQueryPoint = function(lat, lon, epsg, source){
                         var queryPoint = {
                             name: scope.sourceDict[source],
-                            point: _constructPoint(lat, lon, epsg, _mapEpsg),
+                            point: searchPanelFactory.constructPoint(lat, lon, epsg, _mapEpsg),
                             format: 'Koordinat',
                             source: source,
                             kommune: ''
@@ -162,7 +162,7 @@ angular.module('searchPanel')
                         var lat = jsonObject[identifiersDict.latID] + '';
                         var lon = jsonObject[identifiersDict.lonID] + '';
                         var kommune = jsonObject[identifiersDict.kommuneID];
-                        var point = _constructPoint(lat, lon, identifiersDict.epsg, _mapEpsg);
+                        var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, _mapEpsg);
                         var husnummer = jsonObject[identifiersDict.husnummerID];
                         _pushToUnifiedResults(name, kommune, point, identifiersDict.format, identifiersDict.source, husnummer);
 
@@ -199,10 +199,6 @@ angular.module('searchPanel')
                         }
 
 
-                    };
-
-                    var _constructPoint = function (lat, lon, epsgFrom, epsgTo) {
-                        return ol.proj.transform([lon, lat], epsgFrom, epsgTo);
                     };
 
                     var _capitalizeName = function (name) {
@@ -286,7 +282,7 @@ angular.module('searchPanel')
                             epsg: _mapEpsg
                             //zoom: parseFloat(12)
                         };
-                        activePosition.geographicPoint=_constructPoint(activePosition.lat, activePosition.lon, _mapEpsg, 'EPSG:4326');
+                        activePosition.geographicPoint=searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, _mapEpsg, 'EPSG:4326');
                         map.SetCenter(activePosition);
                         map.RemoveInfoMarkers();
                         scope.activePosition=activePosition;

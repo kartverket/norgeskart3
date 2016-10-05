@@ -3,6 +3,8 @@ angular
     .factory('searchPanelFactory', ['mainAppService',
         function(mainAppService) {
 
+        var mapEpsg='EPSG:25833';
+
         var initialSearchServices= ['ssr', 'matrikkelveg', 'matrikkeladresse'];
 
         var availableUTMZones=['25832','25833','25834','25835','25836','32632','32633','32634','32635','32636'];
@@ -15,7 +17,6 @@ angular
                 'coordGeo': 'Geografisk koordinat',
                 'coordUtm': 'UTM-koordinat',
                 'mouseClick': 'Klikk i kartet'
-
             };
 
             var generateServiceDict = function (query) {
@@ -85,6 +86,12 @@ angular
                 },
                 getInitialSearchServices: function () {
                     return initialSearchServices;
+                },
+                getMapEpsg: function () {
+                    return mapEpsg;
+                },
+                constructPoint : function (lat, lon, epsgFrom, epsgTo) {
+                    return ol.proj.transform([lon, lat], epsgFrom, epsgTo);
                 }
             };
 
