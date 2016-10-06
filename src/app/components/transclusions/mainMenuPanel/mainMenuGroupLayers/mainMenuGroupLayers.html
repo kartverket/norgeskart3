@@ -11,9 +11,15 @@
 
 <ul class="closeable">
     <li data-ng-repeat="group in groupLayers" data-ng-click="group.isOpen = !group.isOpen;">
-        <span data-ng-class="getGroupStyleStatus(group)" data-ng-click="toggleGroup(group); $event.stopPropagation();"></span>
-        <span data-ng-bind="group.name"></span>
-        <span class="backbtn glyphicon glyphicon-menu-down"></span>
+        <div class="closeable-content" data-ng-class="{closeableIsOpen: group.isOpen}">
+            <span data-ng-class="getGroupStyleStatus(group)" data-ng-click="toggleGroup(group); $event.stopPropagation();"></span>
+            <span data-ng-bind="group.name"></span>
+            <span class="backbtn glyphicon glyphicon-menu-down" data-ng-show="!group.isOpen"></span>
+            <div class="upbtn" data-ng-show="group.isOpen">
+                <span class="glyphicon glyphicon-menu-down"></span>
+                <span class="glyphicon glyphicon-menu-down"></span>
+            </div>
+        </div>
         <ul class="closeable" data-ng-show="group.isOpen">
             <li data-ng-repeat="isyLayer in group.isyLayers" data-ng-click="toggleLayer(isyLayer); $event.stopPropagation();">
                 <span data-ng-class="getLayerStyleStatus(isyLayer)"></span>
