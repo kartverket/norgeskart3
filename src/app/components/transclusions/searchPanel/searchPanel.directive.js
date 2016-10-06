@@ -1,6 +1,6 @@
 angular.module('searchPanel')
-    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler','$http',
-        function($timeout, mainAppService, map, eventHandler, $http) {
+    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler','$http','searchPanelFactory',
+        function($timeout, mainAppService, map, eventHandler, $http, searchPanelFactory) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchPanel.html',
                 restrict: 'A',
@@ -18,21 +18,12 @@ angular.module('searchPanel')
                         }
                         _init(query);
                         scope.showSearchResultPanel();
-                        _getResults(query);
+                        scope.getResults(searchPanelFactory.getInitialSearchServices());
                     };
 
-                    scope.sourceDict = {
-                        'ssr': 'Stedsnavn',
-                        'adresse': 'Adresse',
-                        'matrikkelveg': 'Vegnavn',
-                        'matrikkeladresse': 'Adresse',
-                        'coordGeo': 'Geografisk koordinat',
-                        'coordUtm': 'UTM-koordinat',
-                        'mouseClick': 'Klikk i kartet'
+                    scope.sourceDict = searchPanelFactory.getSourceDict();
 
-                    };
-
-                    _mapEpsg='EPSG:25833';
+                    _mapEpsg=searchPanelFactory.getMapEpsg();
 
                     _searchResults = {};
 
@@ -59,32 +50,36 @@ angular.module('searchPanel')
                         if (queryParts.length !=2){
                             return false;
                         }
-                        if (['25832','25833','25834','25835','25836','32632','32633','32634','32635','32636'].indexOf(epsg) > -1){
-                            _showQueryPoint(queryParts[1].split('@')[0], queryParts[0], 'EPSG:' + epsg, 'coordUtm');
+                        var availableUTMZones=searchPanelFactory.getAvailableUTMZones();
+                        if (availableUTMZones.indexOf(epsg) > -1){
+                            scope.showQueryPoint(scope.contructQueryPoint(queryParts[1].split('@')[0], queryParts[0], 'EPSG:' + epsg, 'coordUtm',''));
                             return true;
                         }
                         if(((queryParts[0] > 32.88) && (queryParts[1] > -16.1)) && ((queryParts[0] < 84.17) && (queryParts[1] < 39.65))){
                             epsg='EPSG:4258';
-                            _showQueryPoint(queryParts[0], queryParts[1], epsg, 'coordGeo');
+                            scope.showQueryPoint(scope.contructQueryPoint(queryParts[0], queryParts[1], epsg, 'coordGeo',''));
                             return true;
                         }
                         if(((queryParts[0] > -2465220.60) && (queryParts[1] > 4102904.86)) && ((queryParts[0] < 771164.64) && (queryParts[1] < 9406031.63))){
                             epsg='EPSG:25833';
-                            _showQueryPoint(queryParts[1], queryParts[0], epsg, 'coordUtm');
+                            scope.showQueryPoint(scope.contructQueryPoint(queryParts[1], queryParts[0], epsg, 'coordUtm',''));
                             scope.searchBarModel+='@' + _mapEpsg.split(':')[1];
                             return true;
                         }
                         return false;
                     };
 
-                    var _showQueryPoint = function(lat, lon, epsg, source){
-                        var queryPoint = {
-                            name: scope.sourceDict[source],
-                            point: _constructPoint(lat, lon, epsg, _mapEpsg),
-                            format: 'Koordinat',
+                    scope.contructQueryPoint = function (lat, lon, epsg, source, kommune) {
+                        return {
+                            name: '',
+                            point: searchPanelFactory.constructPoint(lat, lon, epsg, _mapEpsg),
+                            //format: _serviceDict[source].format,
                             source: source,
-                            kommune: ''
+                            kommune: kommune
                         };
+                    };
+
+                    scope.showQueryPoint = function(queryPoint){
                         if(!scope.searchResults) {
                             scope.searchResults= {};
                         }
@@ -100,62 +95,25 @@ angular.module('searchPanel')
                         _resetResults();
                         scope.searchResults = undefined;
                         scope.activeSearchResult=undefined;
-                        _populateServiceDict(query);
+                        scope.populateServiceDict(query);
                         scope.coordinate=false;
+                        map.RemoveInfoMarker();
+                        scope.placenamePage=searchPanelFactory.resetPlacenamePage()+1;
                     };
 
                     var _getQuery = function () {
                         return scope.searchBarModel + '';
                     };
 
-                    var _populateServiceDict = function (query) {
-                        _serviceDict['ssr'] = {
-                            url: mainAppService.generateSearchStedsnavnUrl(query, 0),
-                            format: 'xml',
-                            source: 'ssr',
-                            epsg: 'EPSG:32633',
-                            nameID: 'stedsnavn',
-                            latID: 'nord',
-                            lonID: 'aust',
-                            kommuneID: 'kommunenavn'
-                        };
-                        _serviceDict['matrikkelveg'] = {
-                            url: mainAppService.generateSearchMatrikkelVegUrl(query),
-                            format: 'json',
-                            source: 'matrikkelveg',
-                            epsg: 'EPSG:32632',
-                            nameID: 'NAVN',
-                            latID: 'LATITUDE',
-                            lonID: 'LONGITUDE',
-                            kommuneID: 'KOMMUNENAVN'
-                        };
-                        _serviceDict['matrikkeladresse'] = {
-                            url: mainAppService.generateSearchMatrikkelAdresseUrl(query),
-                            format: 'json',
-                            source: 'matrikkeladresse',
-                            epsg: 'EPSG:32632',
-                            nameID: 'NAVN',
-                            latID: 'LATITUDE',
-                            lonID: 'LONGITUDE',
-                            kommuneID: 'KOMMUNENAVN'
-                        };
-                        /*
-                         serviceDict['adresse'] = {
-                         url: mainAppService.generateSearchAdresseUrl(query),
-                         format: 'json',
-                         source: 'adresse',
-                         epsg: 'EPSG:4326',
-                         nameID: 'adressenavn',
-                         latID: 'nord',
-                         lonID: 'aust'
-                         };*/
+                    scope.populateServiceDict = function (query) {
+                        _serviceDict = searchPanelFactory.getServiceDict(query);
                     };
 
-                    var _getResults = function () {
+                    scope.getResults = function (searchServices) {
                         _cancelOldRequests();
                         scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
-                        for (var service in _serviceDict) {
-                            _downloadSearchBarFromUrl(_serviceDict[service], scope.searchTimestamp);
+                        for (var serviceIndex =0; serviceIndex < searchServices.length; serviceIndex++) {
+                            _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
                         }
                     };
 
@@ -170,6 +128,12 @@ angular.module('searchPanel')
                         _searchResults = {};
                     };
 
+                    scope.resetResultsService = function (service) {
+                        _unifiedResults[service] = {};
+                        _searchResults[service] = {};
+                        scope.searchResults[service] = {};
+                    };
+
                     var _readResults = function () {
                         var jsonObject;
                         for (var service in _searchResults) {
@@ -182,12 +146,35 @@ angular.module('searchPanel')
                     var _convertSearchResult2Json = function (document, source) {
                         switch (source) {
                             case('ssr'):
-                                return xml.xmlToJSON(document).sokRes.stedsnavn ;
+                                var jsonObject=xml.xmlToJSON(document);
+                                _getPlacenameHits(jsonObject);
+                                return jsonObject.sokRes.stedsnavn;
                             case('adresse'):
                                 return document.adresser;
                             default:
                                 return JSON.parse(document);
                         }
+                    };
+
+                    var _getPlacenameHits = function (jsonObject) {
+                        scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
+                        scope.placenamePageTotal = Math.ceil(scope.placenameHits / searchPanelFactory.getPlacenameHitsPerPage());
+                    };
+
+                    scope.getNextPlacenamePage = function () {
+                        scope.placenamePage=searchPanelFactory.increasePlacenamePage() + 1;
+                        scope.resetResultsService('ssr');
+                        map.RemoveInfoMarker();
+                        scope.populateServiceDict(scope.searchBarModel);
+                        scope.getResults(['ssr']);
+                    };
+
+                    scope.getPreviousPlacenamePage = function () {
+                        scope.placenamePage=searchPanelFactory.decreasePlacenamePage() + 1;
+                        scope.resetResultsService('ssr');
+                        map.RemoveInfoMarker();
+                        scope.populateServiceDict(scope.searchBarModel);
+                        scope.getResults(['ssr']);
                     };
 
                     var _iterateJsonObject = function (jsonObject, searchResult) {
@@ -204,12 +191,23 @@ angular.module('searchPanel')
                     };
 
                     var _getValuesFromJson = function (identifiersDict, jsonObject) {
-                        var name = _removeNumberFromName(jsonObject[identifiersDict.nameID]);
+                        var name = jsonObject[identifiersDict.nameID];
                         var lat = jsonObject[identifiersDict.latID] + '';
                         var lon = jsonObject[identifiersDict.lonID] + '';
                         var kommune = jsonObject[identifiersDict.kommuneID];
-                        var point = _constructPoint(lat, lon, identifiersDict.epsg, _mapEpsg);
-                        _pushToUnifiedResults(name, kommune, point, identifiersDict.format, identifiersDict.source);
+                        var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, _mapEpsg);
+                        var husnummer = jsonObject[identifiersDict.husnummerID];
+                        var navnetype = jsonObject[identifiersDict.navnetypeID];
+                        var result={
+                            name: name,
+                            kommune: kommune,
+                            point: point,
+                            format: identifiersDict.format,
+                            source: identifiersDict.source,
+                            husnummer: husnummer,
+                            navnetype: navnetype
+                        };
+                        _pushToUnifiedResults(result);
                     };
 
                     var _removeNumberFromName = function (name) {
@@ -223,24 +221,41 @@ angular.module('searchPanel')
                         }
                     };
 
-                    var _pushToUnifiedResults = function (name, kommune, point, format, source) {
-                        name = _capitalizeName(name.toLowerCase());
-                        kommune = _capitalizeName(kommune.toLowerCase());
-                        var resultID = name + kommune;
-                        _unifiedResults[resultID] = {
-                            name: name,
-                            point: point,
-                            format: format,
-                            source: source,
-                            kommune: kommune
+                    scope.fixNames = function (name) {
+                        return _removeNumberFromName(scope.capitalizeName(name.toLowerCase()));
+                    };
+
+                    var _pushToUnifiedResults = function (result) {
+                        result.name = scope.fixNames(result.name);
+                        result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
+                        // var resultID = result.name + result.kommune;
+                        var resultID = _createID(result);
+                        if (!_unifiedResults[result.source]) {
+                            _unifiedResults[result.source] = {};
+                        }
+                        _unifiedResults[result.source][resultID] = {
+                            name: result.name,
+                            point: result.point,
+                            format: result.format,
+                            source: result.source,
+                            kommune: result.kommune,
+                            id: resultID
                         };
+                        if (result.husnummer) {
+                            _unifiedResults[result.source][resultID]['husnummer']=result.husnummer;
+                        }
+                        else if (result.navnetype){
+                            _unifiedResults[result.source][resultID]['navnetype']=result.navnetype;
+                        }
+
+
                     };
 
-                    var _constructPoint = function (lat, lon, epsgFrom, epsgTo) {
-                        return ol.proj.transform([lon, lat], epsgFrom, epsgTo);
+                    var _createID= function (result) {
+                        return result.name + (result.point[0] + '').split('.')[0]+ (result.point[1] + '').split('.')[0];
                     };
 
-                    var _capitalizeName = function (name) {
+                    scope.capitalizeName= function (name) {
                         name = name.trim();
                         name = _capitalizeNamePart(name, ' ');
                         name = _capitalizeNamePart(name, '-');
@@ -289,14 +304,31 @@ angular.module('searchPanel')
                             epsg: _serviceDict.epsg
                         };
                         _readResults();
-                        _addResultsToMap();
+                        if(_notSingleAddressHit()) {
+                            _addResultsToMap();
+                        }
+                    };
 
+                    var _notSingleAddressHit = function () {
+                        var matrikkelKey='matrikkeladresse';
+                        if(_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length==1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']){
+                            var key=Object.keys(_unifiedResults[matrikkelKey])[0];
+                            var result=_unifiedResults[matrikkelKey][key];
+                            scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], _mapEpsg, result.source, result.kommune));
+                            return false;
+                        }
+                        return true;
                     };
 
                     var _addResultsToMap = function () {
                         var coordinates = [];
-                        for (var result in _unifiedResults) {
-                            coordinates.push(_unifiedResults[result].point);
+                        for (var source in _unifiedResults) {
+                            if (source == 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg'].length>1)){
+                                continue;
+                            }
+                            for (var result in _unifiedResults[source]) {
+                                coordinates.push(_unifiedResults[source][result].point);
+                            }
                         }
                         if (coordinates.length > 0) {
                             map.RemoveInfoMarkers();
@@ -308,6 +340,7 @@ angular.module('searchPanel')
                     };
 
                     scope.mouseOver = function (searchResult){
+                        scope.mouseHoverSearchResult=searchResult;
                         map.RemoveInfoMarker();
                         map.ShowInfoMarker(searchResult.point);
                     };
@@ -317,9 +350,11 @@ angular.module('searchPanel')
                             lon: parseFloat(searchResult.point[0]),
                             lat: parseFloat(searchResult.point[1]),
                             epsg: _mapEpsg
-                            //zoom: parseFloat(12)
                         };
-                        activePosition.geographicPoint=_constructPoint(activePosition.lat, activePosition.lon, _mapEpsg, 'EPSG:4326');
+                        if (searchResult.source=='matrikkeladresse'){
+                            activePosition.zoom=parseFloat(16);
+                        }
+                        activePosition.geographicPoint=searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, _mapEpsg, 'EPSG:4326');
                         map.SetCenter(activePosition);
                         map.RemoveInfoMarkers();
                         scope.activePosition=activePosition;
@@ -346,7 +381,7 @@ angular.module('searchPanel')
                         scope.coordinate=true;
                         scope.showSearchResultPanel();
                         scope.cleanResults();
-                        _showQueryPoint(coordinates[1], coordinates[0], _mapEpsg, 'mouseClick');
+                        scope.showQueryPoint(scope.contructQueryPoint(coordinates[1], coordinates[0], _mapEpsg, 'mouseClick',''));
                     };
 
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.MapClickCoordinate, showQueryPointFromMouseClick);
@@ -510,7 +545,7 @@ angular.module('searchPanel')
 
                     scope.initSearchOptions = function () {
 
-                        scope.searchOptionsOrder = ['seEiendom', 'ssrFakta',  'koordTrans', 'lagTurkart', 'lagNodplakat'];
+                        scope.searchOptionsOrder = searchPanelFactory.getSearchOptionsOrder();
                         for (var searchOption in scope.searchOptionsOrder){
                             scope.searchOptionsDict[scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
                         }
@@ -544,15 +579,15 @@ angular.module('searchPanel')
 
         return {
             scope: {value: '=ngModel'},
-            link: function(scope, element) {
-                scope.$watch('value', function(newValue){
-                     if(newValue && newValue.indexOf('@') > -1 && !scope.searchBarCoordinateSystemIndicator) {
-                         scope.searchBarCoordinateSystemIndicator=true;
-                         setCaretPosition(element[0], newValue.indexOf('@'));
-                     }
-                     else if (newValue && newValue.indexOf('@') < 0) {
-                         scope.searchBarCoordinateSystemIndicator=false;
-                     }
+            link: function (scope, element) {
+                scope.$watch('value', function (newValue) {
+                    if (newValue && newValue.indexOf('@') > -1 && !scope.searchBarCoordinateSystemIndicator) {
+                        scope.searchBarCoordinateSystemIndicator = true;
+                        setCaretPosition(element[0], newValue.indexOf('@'));
+                    }
+                    else if (newValue && newValue.indexOf('@') < 0) {
+                        scope.searchBarCoordinateSystemIndicator = false;
+                    }
                 });
             }
         };

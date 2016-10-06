@@ -2,16 +2,28 @@
     <div class="content no-border search-content">
         <ul>
             <li>
-                <span class="search-options">{{searchOptionsDict['lagNodplakat'].icon.value}}</span>
+                <span class="search-options">
+                    {{searchOptionsDict['lagNodplakat'].icon.value}}
+                </span>
                 <span>Nødplakat</span>
             </li>
             <li ng-mousedown="showSearchOptionsPanel()">
-                <span class="search-options pointer-cursor"><b>←</b></span>
-                <span class="pointer-cursor"><b>Returner til tjenester</b></span>
+                <span class="search-options pointer-cursor">
+                    <b>←</b>
+                </span>
+                <span class="pointer-cursor">
+                    <b>Returner til tjenester</b>
+                </span>
             </li>
         </ul>
-        <iframe id="emergencyPoster" ng-src="{{generateEmergancyPoster()}}" width="380px" height="570"></iframe>
-        <button data-ng-click="showLagNodplakatPage2()">< Forrige</button>
-        <button data-ng-click="printIframe()">Skriv ut</button>
+        <iframe id="emergencyPoster" ng-src="{{generateEmergancyPoster()}}"
+                width="380px"
+                height="570"></iframe>
+        <button data-ng-click="showLagNodplakatPage2()">
+            < Forrige
+        </button>
+        <button data-ng-click="printIframe()">
+            Skriv ut
+        </button>
     </div>
 </div>

@@ -59,8 +59,8 @@ angular.module('mainApp')
                     return url + "ws/adr.py?" + encodeURIComponent(query);
                 };
 
-                this.generateSearchStedsnavnUrl = function (query, side) {
-                    return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + encodeURIComponent(query) + "*&eksakteForst=true&antPerSide=15&epsgKode=32633&side=" + side;
+                this.generateSearchStedsnavnUrl = function (query, side, antall) {
+                    return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + encodeURIComponent(query) + "*&eksakteForst=false&antPerSide=" + antall +"&epsgKode=32633&side=" + side;
                 };
 
                 this.generateSearchAdresseUrl = function (query) {
@@ -76,7 +76,7 @@ angular.module('mainApp')
                 };
 
                 this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
-                    return urlSeEiendom + "services/Matrikkel.svc/GetDetailPage?type=property&knr=" + knr + "&gnr= " + gnr + "&bnr=" + bnr + "&fnr=" + fnr + "&snr=" + snr + "&customer=kartverket";
+                    return urlSeEiendom + "services/Matrikkel.svc/GetDetailPage?type=property&knr=" + knr + "&gnr=" + gnr + "&bnr=" + bnr + "&fnr=" + fnr + "&snr=" + snr + "&customer=kartverket";
                 };
 
                 this.generateFaktaarkUrl = function (stedsnummer) {
