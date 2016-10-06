@@ -1,36 +1,41 @@
 <div class="search-panel" ng-show="searchResults != undefined">
     <div class="content no-border search-content">
         <ul>
-            <li ng-show="searchResults['matrikkelveg'] || searchResults['matrikkeladresse']">
-                <h3>Adresser:</h3>
-            </li>
-            <li ng-show="searchResults['matrikkelveg']"
-                class="pointer-cursor"
-                ng-mouseover="mouseOver(searchResult)"
-                ng-repeat="searchResult in searchResults['matrikkelveg']">
-                <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
-                      ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
-                <select ng-show="mouseHoverSearchResult.id==searchResult.id"
-                        ng-model="activeHusnummer"
-                        ng-change="husnummerChanged(searchResult, activeHusnummer)"
-                        ng-options="o for o in searchResult.husnummer">
-                    <option value=""
-                            disabled
-                            selected>
-                        Husnummer
-                    </option>
-                </select>
-            </li>
-            <li ng-mouseover="mouseOver(searchResult)"
-                ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']"
-                class="pointer-cursor"
-                ng-repeat="searchResult in searchResults['matrikkeladresse']">
-                <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
-                      ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
-                </select>
-            </li>
+            <div ng-show="searchResults['matrikkelveg']">
+                <li>
+                    <h3>Veger:</h3>
+                </li>
+                <li class="pointer-cursor"
+                    ng-mouseover="mouseOver(searchResult)"
+                    ng-repeat="searchResult in searchResults['matrikkelveg']">
+                    <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
+                          ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+                    <select ng-show="mouseHoverSearchResult.id==searchResult.id"
+                            ng-model="activeHusnummer"
+                            ng-change="husnummerChanged(searchResult, activeHusnummer)"
+                            ng-options="o for o in searchResult.husnummer">
+                        <option value=""
+                                disabled
+                                selected>
+                            Husnummer
+                        </option>
+                    </select>
+                </li>
+            </div>
+            <div ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']">
+                <li>
+                    <h3>Adresser:</h3>
+                </li>
+                <li ng-mouseover="mouseOver(searchResult)"
+                    class="pointer-cursor"
+                    ng-repeat="searchResult in searchResults['matrikkeladresse']">
+                    <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
+                          ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+                    </select>
+                </li>
+            </div>
             <li ng-show="searchResults['ssr']">
-                <h3>Objekter:</h3>
+                <h3>Stedsnavn:</h3>
                 <span>Totalt antall treff:</span>
                 <span data-ng-bind="placenameHits"></span>
                 <div ng-if="placenamePageTotal>1">
