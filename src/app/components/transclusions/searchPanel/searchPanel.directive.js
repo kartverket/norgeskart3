@@ -164,6 +164,7 @@ angular.module('searchPanel')
                     scope.getNextPlacenamePage = function () {
                         scope.placenamePage=searchPanelFactory.increasePlacenamePage() + 1;
                         scope.resetResultsService('ssr');
+                        map.RemoveInfoMarker();
                         scope.populateServiceDict(scope.searchBarModel);
                         scope.getResults(['ssr']);
                     };
@@ -171,6 +172,7 @@ angular.module('searchPanel')
                     scope.getPreviousPlacenamePage = function () {
                         scope.placenamePage=searchPanelFactory.decreasePlacenamePage() + 1;
                         scope.resetResultsService('ssr');
+                        map.RemoveInfoMarker();
                         scope.populateServiceDict(scope.searchBarModel);
                         scope.getResults(['ssr']);
                     };
