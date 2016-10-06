@@ -9,7 +9,13 @@ angular
             "logout": "Logg ut",
             "username": "Brukernavn",
             "password": "Passord",
-            "cancel": "Avbryt"
+            "cancel": "Avbryt",
+            "Friluft_title" : "Friluft",
+            "Stedsnavn_title" : "Stedsnavn",
+            "Tilgjengelighet_title" : "Tilgjengelight",
+            "Fastmerker_title" : "Fastmerker",
+            "Luftfartshindre_title": "Luftfartshindre"
+
         },
         'en': {
             "menu_selected_language": "Selected Language",
@@ -19,6 +25,12 @@ angular
             "logout": "Logout",
             "username": "Username",
             "password": "Password",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "Friluft_title" : "Outdoor life",
+            "Stedsnavn_title" : "Placenames",
+            "Tilgjengelighet_title" : "Availability",
+            "Fastmerker_title" : "Fastmerker",
+            "Luftfartshindre_title": "Aviation"
+
         }
     });

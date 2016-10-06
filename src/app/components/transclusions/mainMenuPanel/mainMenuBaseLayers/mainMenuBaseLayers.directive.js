@@ -7,7 +7,6 @@ angular.module('mainMenuBaseLayers')
                 link: function(scope){
 
                     scope.baseLayers = map.GetBaseLayers();
-                    console.log(scope.baseLayers);
 
                     scope.getBaseLayerStyle = function (baseLayer) {
                         if (baseLayer.isVisible){

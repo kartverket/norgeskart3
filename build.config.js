@@ -102,6 +102,7 @@ module.exports = {
     jssource_mapclient: [
         '!src/**/*.spec.js',
         'src/app/shared/isyTranslate/**/*.js',
+        'src/app/shared/localStorage/**/*.js',
         'src/app/apiController/**/*.js',
         'src/app/zISY.Angular/**/*.js',
         'src/app/components/overlays/mapOverlays/**/*.js',

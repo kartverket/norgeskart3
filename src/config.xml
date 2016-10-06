@@ -1,4 +1,4 @@
 <config>
     <configurl>http://geoinnsyn3.nois.no/Services/ISY.GIS.IsyGeoinnsynConfig</configurl>
-    <instance>geoinnsyn2</instance>
+    <instance>testnorgeskart</instance>
 </config>

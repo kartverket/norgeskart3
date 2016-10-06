@@ -17,7 +17,8 @@
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  //color: #818181;
+  color: #2f3940;
   display: block;
   transition: 0.3s
 }
@@ -27,13 +28,65 @@
   padding: 8px 8px 8px 15px;
   text-decoration: none;
   font-size: 17px;
-  color: #818181;
+  color: #2f3940;
   display: block;
   transition: 0.3s;
   span:first-child{
     margin-right: 10px;
   }
 }
+
+.closeable{
+  margin: 10px 10px 0px 10px;
+  border-top: 1px solid #cccccc;
+  padding-top: 5px;
+
+  .closeable{
+    border-top: 0;
+    margin: 2px 20px 0 25px;
+  }
+  //li:hover{
+  //  background-color: lightgray;
+  //  color: #000;
+  //}
+}
+
+.closeable-content:hover{
+  background-color: #cccccc;
+}
+
+.closeable-content{
+  padding: 8px 5px 8px 6px;
+}
+
+.closeableIsOpen{
+  font-weight: bold;
+}
+
+.closeable li {
+  //margin: 4px 0 2px 0;
+  //padding: 8px 5px 8px 6px;
+  padding: 2px 4px 4px 7px;
+  border-radius: 0px;
+  cursor: pointer;
+  //border: 1px solid #d0d0d0;
+  //border-top:1px solid #BABABA;
+  //border-bottom: 1px solid #BABABA;
+  .closeable li {
+    background-color: white;
+    /* margin-bottom: 0px; */
+    border: 0;
+    //border-top: 1px solid #cccccc;
+    border-radius: 0;
+    padding: 8px 5px 8px 6px;
+    margin: 0;
+  }
+  li:hover{
+    background-color: #cccccc;
+    color: #000;
+  }
+}
+
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .offcanvas a:focus{
@@ -73,6 +126,18 @@
   }
 }
 
+.upbtn{
+  font-size: 14px;
+  float: right;
+  //right: 26px;
+  margin-right: 16px;
+  //padding-top: 0px;
+  span:first-child{
+    left: 33px;
+    top: 6px;
+  }
+}
+
 .sidenav-group{
   border-top: 1px solid #cccccc ;
   padding-top: 10px;
@@ -89,6 +154,11 @@
 
 .glyphicon{
   padding-left: 5px;
+}
+
+.activeMenu{
+  background-color: lightblue;
+  color: black!important;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */

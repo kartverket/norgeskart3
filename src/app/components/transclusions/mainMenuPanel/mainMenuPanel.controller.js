@@ -12,5 +12,9 @@ angular.module('mainMenuPanel')
                 $scope.mainMenuPanelLayout = "mainMenuSections";
             };
 
+            $scope.showMainMenuGroupLayers = function () {
+                $scope.mainMenuPanelLayout = "mainMenuGroupLayers";
+            };
+
         }
     ]);
