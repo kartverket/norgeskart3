@@ -98,6 +98,7 @@ angular.module('searchPanel')
                         scope.populateServiceDict(query);
                         scope.coordinate=false;
                         map.RemoveInfoMarker();
+                        scope.placenamePage=searchPanelFactory.resetPlacenamePage()+1;
                     };
 
                     var _getQuery = function () {
@@ -158,7 +159,20 @@ angular.module('searchPanel')
                     var _getPlacenameHits = function (jsonObject) {
                         scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
                         scope.placenamePageTotal = Math.ceil(scope.placenameHits / searchPanelFactory.getPlacenameHitsPerPage());
-                        scope.placenamePage = 1;
+                    };
+
+                    scope.getNextPlacenamePage = function () {
+                        scope.placenamePage=searchPanelFactory.increasePlacenamePage() + 1;
+                        scope.resetResultsService('ssr');
+                        scope.populateServiceDict(scope.searchBarModel);
+                        scope.getResults(['ssr']);
+                    };
+
+                    scope.getPreviousPlacenamePage = function () {
+                        scope.placenamePage=searchPanelFactory.decreasePlacenamePage() + 1;
+                        scope.resetResultsService('ssr');
+                        scope.populateServiceDict(scope.searchBarModel);
+                        scope.getResults(['ssr']);
                     };
 
                     var _iterateJsonObject = function (jsonObject, searchResult) {

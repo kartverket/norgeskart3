@@ -103,12 +103,17 @@ angular
                 },
                 resetPlacenamePage: function () {
                     placenamePage=0;
+                    return placenamePage;
                 },
                 decreasePlacenamePage: function () {
-                    placenamePage--;
+                    if(placenamePage>0) {
+                        placenamePage--;
+                    }
+                    return placenamePage;
                 },
                 increasePlacenamePage: function () {
                     placenamePage++;
+                    return placenamePage;
                 },
                 getPlacenamePage: function () {
                     return placenamePage;
