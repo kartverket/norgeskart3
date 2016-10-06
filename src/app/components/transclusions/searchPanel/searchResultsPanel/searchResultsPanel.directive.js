@@ -33,6 +33,23 @@ angular.module('searchResultsPanel')
                         };
                         scope.showQueryPoint(queryPoint);
                     };
+
+                    scope.getNextPlacenamePage = function () {
+                        searchPanelFactory.increasePlacenamePage();
+                        scope.resetResultsService('ssr');
+                        scope.populateServiceDict(scope.searchBarModel);
+                        scope.getResults(['ssr']);
+                        scope.placenamePage++;
+                    };
+
+                    scope.getPreviousPlacenamePage = function () {
+                        searchPanelFactory.decreasePlacenamePage();
+                        scope.resetResultsService('ssr');
+                        scope.populateServiceDict(scope.searchBarModel);
+                        scope.getResults(['ssr']);
+                        scope.placenamePage--;
+                    };
+
                 }
             };
         }]);

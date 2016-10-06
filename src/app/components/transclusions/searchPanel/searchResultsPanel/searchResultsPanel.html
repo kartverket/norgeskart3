@@ -33,11 +33,17 @@
                 <span>Totalt antall treff:</span>
                 <span data-ng-bind="placenameHits"></span>
                 <span>Side</span>
-                <span data-ng-bind="placenameHitsPage"></span>
+                <span data-ng-bind="placenamePage"></span>
                 <span>av</span>
-                <span data-ng-bind="placenameHitsPageTotal"></span>
-                <button ng-disabled="placenameHitsPage==1">-</button>
-                <button ng-disabled="placenameHitsPage==placenameHitsPageTotal">+</button>
+                <span data-ng-bind="placenamePageTotal"></span>
+                <button ng-disabled="placenamePage==1"
+                        data-ng-click="getPreviousPlacenamePage()">
+                    -
+                </button>
+                <button ng-disabled="placenamePage==placenamePageTotal"
+                        data-ng-click="getNextPlacenamePage()">
+                    +
+                </button>
             </li>
             <li class="pointer-cursor"
                 ng-repeat="searchResult in searchResults['ssr']"

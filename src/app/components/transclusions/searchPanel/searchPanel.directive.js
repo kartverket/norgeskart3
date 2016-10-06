@@ -18,7 +18,7 @@ angular.module('searchPanel')
                         }
                         _init(query);
                         scope.showSearchResultPanel();
-                        _getResults(query);
+                        scope.getResults(searchPanelFactory.getInitialSearchServices());
                     };
 
                     scope.sourceDict = searchPanelFactory.getSourceDict();
@@ -95,7 +95,7 @@ angular.module('searchPanel')
                         _resetResults();
                         scope.searchResults = undefined;
                         scope.activeSearchResult=undefined;
-                        _populateServiceDict(query);
+                        scope.populateServiceDict(query);
                         scope.coordinate=false;
                     };
 
@@ -103,16 +103,15 @@ angular.module('searchPanel')
                         return scope.searchBarModel + '';
                     };
 
-                    var _populateServiceDict = function (query) {
+                    scope.populateServiceDict = function (query) {
                         _serviceDict = searchPanelFactory.getServiceDict(query);
                     };
 
-                    var _getResults = function () {
+                    scope.getResults = function (searchServices) {
                         _cancelOldRequests();
                         scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
-                        var initialSearchServices=searchPanelFactory.getInitialSearchServices();
-                        for (var serviceIndex =0; serviceIndex < initialSearchServices.length; serviceIndex++) {
-                            _downloadSearchBarFromUrl(_serviceDict[initialSearchServices[serviceIndex]], scope.searchTimestamp);
+                        for (var serviceIndex =0; serviceIndex < searchServices.length; serviceIndex++) {
+                            _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
                         }
                     };
 
@@ -125,6 +124,12 @@ angular.module('searchPanel')
                     var _resetResults = function () {
                         _unifiedResults = {};
                         _searchResults = {};
+                    };
+
+                    scope.resetResultsService = function (service) {
+                        _unifiedResults[service] = {};
+                        _searchResults[service] = {};
+                        scope.searchResults[service] = {};
                     };
 
                     var _readResults = function () {
@@ -151,8 +156,8 @@ angular.module('searchPanel')
 
                     var _getPlacenameHits = function (jsonObject) {
                         scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
-                        scope.placenameHitsPageTotal = Math.ceil(scope.placenameHits / searchPanelFactory.getPlacenameHitsPerPage());
-                        scope.placenameHitsPage = 1;
+                        scope.placenamePageTotal = Math.ceil(scope.placenameHits / searchPanelFactory.getPlacenameHitsPerPage());
+                        scope.placenamePage = 1;
                     };
 
                     var _iterateJsonObject = function (jsonObject, searchResult) {
@@ -206,7 +211,8 @@ angular.module('searchPanel')
                     var _pushToUnifiedResults = function (result) {
                         result.name = scope.fixNames(result.name);
                         result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
-                        var resultID = result.name + result.kommune;
+                        // var resultID = result.name + result.kommune;
+                        var resultID = _createID(result);
                         if (!_unifiedResults[result.source]) {
                             _unifiedResults[result.source] = {};
                         }
@@ -225,6 +231,10 @@ angular.module('searchPanel')
                         }
 
 
+                    };
+
+                    var _createID= function (result) {
+                        return result.name + (result.point[0] + '').split('.')[0]+ (result.point[1] + '').split('.')[0];
                     };
 
                     scope.capitalizeName= function (name) {

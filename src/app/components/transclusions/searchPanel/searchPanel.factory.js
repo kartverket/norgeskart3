@@ -5,6 +5,8 @@ angular
 
         var placenameHitsPerPage = 15;
 
+        var placenamePage=0;
+
         var mapEpsg='EPSG:25833';
 
         var initialSearchServices= ['ssr', 'matrikkelveg', 'matrikkeladresse'];
@@ -24,7 +26,7 @@ angular
             var generateServiceDict = function (query) {
                 var serviceDict = {};
                 serviceDict['ssr'] = {
-                    url: mainAppService.generateSearchStedsnavnUrl(query, 0, placenameHitsPerPage),
+                    url: mainAppService.generateSearchStedsnavnUrl(query, placenamePage, placenameHitsPerPage),
                     format: 'xml',
                     source: 'ssr',
                     epsg: 'EPSG:32633',
@@ -98,6 +100,15 @@ angular
                 },
                 getPlacenameHitsPerPage: function () {
                     return placenameHitsPerPage;
+                },
+                getPlacenamePage: function () {
+                    return placenamePage;
+                },
+                decreasePlacenamePage: function () {
+                    placenamePage--;
+                },
+                increasePlacenamePage: function () {
+                    placenamePage++;
                 },
                 constructPoint : function (lat, lon, epsgFrom, epsgTo) {
                     return ol.proj.transform([lon, lat], epsgFrom, epsgTo);
