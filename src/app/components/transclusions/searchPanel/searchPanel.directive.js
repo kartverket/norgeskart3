@@ -221,7 +221,8 @@ angular.module('searchPanel')
                             point: result.point,
                             format: result.format,
                             source: result.source,
-                            kommune: result.kommune
+                            kommune: result.kommune,
+                            id: resultID
                         };
                         if (result.husnummer) {
                             _unifiedResults[result.source][resultID]['husnummer']=result.husnummer;
@@ -319,6 +320,7 @@ angular.module('searchPanel')
                     };
 
                     scope.mouseOver = function (searchResult){
+                        scope.mouseHoverSearchResult=searchResult;
                         map.RemoveInfoMarker();
                         map.ShowInfoMarker(searchResult.point);
                     };
