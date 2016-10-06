@@ -58,6 +58,21 @@ angular.module('mainMenuGroupLayers')
                         }
                     }
 
+                    scope.removeGroups = function () {
+                        overlayLayers.forEach(function (isyLayer) {
+                            isyLayer.groupId.forEach(function(catId){
+                                var group = map.GetGroupById(catId);
+                                if (group){
+                                    group.isyLayers = [];
+                                }
+                            });
+                        });
+                        for (var c in scope.groupLayers){
+                            scope.groupLayers[c].isOpen = false;
+                        }
+
+                    };
+
                     scope.getGroupStyleStatus = function (group) {
                         if (group.groupIsVisible){
                             return 'glyphicon glyphicon-ok-sign pointer-cursor';

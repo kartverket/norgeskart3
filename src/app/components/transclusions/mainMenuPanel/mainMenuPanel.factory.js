@@ -5,25 +5,25 @@ angular
 
             var projects = [
                 {
-                    "id": "Friluft",
+                    "id": "norgeskart",
                     "title": "Friluft_title",
                     "symbol": "material-icons",
                     "symbol_text": "terrain",
                     "isSelected" : false
                 },
                 {
-                    "id": "Stedsnavn",
+                    "id": "ssr",
                     "title": "Stedsnavn_title",
                     "symbol": "fa fa-map-signs",
                     "symbol_text": "",
                     "isSelected" : false
                 },
                 {
-                    "id": "Tilgjengelight",
-                    "title": "Tilgjengelight_title",
+                    "id": "Tilgjengelighet",
+                    "title": "Tilgjengelighet_title",
                     "symbol": "fa fa-wheelchair",
                     "symbol_text": "",
-                    "isSelected" : true
+                    "isSelected" : false
                 },
                 {
                     "id": "Fastmerker",
@@ -33,7 +33,7 @@ angular
                     "isSelected" : false
                 },
                 {
-                    "id": "Luftfartshindre",
+                    "id": "nrl",
                     "title": "Luftfartshindre_title",
                     "symbol": "icon-airplane",
                     "symbol_text": "",
@@ -59,7 +59,7 @@ angular
 
                 setProjectById: function (id) {
                     for (var i = 0; i < projects.length; i++){
-                        projects[i].isSelected = projects[i].id === id;
+                        projects[i].isSelected = projects[i].id.toLowerCase() === id.toLowerCase();
                     }
                 }
             };

@@ -12,7 +12,7 @@ angular
             "cancel": "Avbryt",
             "Friluft_title" : "Friluft",
             "Stedsnavn_title" : "Stedsnavn",
-            "Tilgjengelight_title" : "Tilgjengelight",
+            "Tilgjengelighet_title" : "Tilgjengelight",
             "Fastmerker_title" : "Fastmerker",
             "Luftfartshindre_title": "Luftfartshindre"
 
@@ -28,7 +28,7 @@ angular
             "cancel": "Cancel",
             "Friluft_title" : "Outdoor life",
             "Stedsnavn_title" : "Placenames",
-            "Tilgjengelight_title" : "Availability",
+            "Tilgjengelighet_title" : "Availability",
             "Fastmerker_title" : "Fastmerker",
             "Luftfartshindre_title": "Aviation"
 
