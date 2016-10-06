@@ -21,11 +21,11 @@
                     </option>
                 </select>
             </li>
-            <li ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']"
+            <li ng-mouseover="mouseOver(searchResult)"
+                ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']"
                 class="pointer-cursor"
                 ng-repeat="searchResult in searchResults['matrikkeladresse']">
                 <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
-                      ng-mouseover="mouseOver(searchResult)"
                       ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
                 </select>
             </li>

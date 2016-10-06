@@ -97,6 +97,7 @@ angular.module('searchPanel')
                         scope.activeSearchResult=undefined;
                         scope.populateServiceDict(query);
                         scope.coordinate=false;
+                        map.RemoveInfoMarker();
                     };
 
                     var _getQuery = function () {
