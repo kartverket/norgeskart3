@@ -1,6 +1,6 @@
 angular.module('mainApp')
-    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','toolsFactory','ISY.EventHandler','isyTranslateFactory','$location','mainMenuPanelFactory',
-        function($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory){
+    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','toolsFactory','ISY.EventHandler','isyTranslateFactory','$location','mainMenuPanelFactory', 'localStorageFactory',
+        function($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory){
 
             function _initToolbar() {
                 toolsFactory.initToolbar();
@@ -15,16 +15,33 @@ angular.module('mainApp')
             };
 
             function _viewChanged(obj) {
-                // $scope.$apply(function () {
+                $scope.$apply(function () {
                     _setSearch(obj);
-                // }, 0);
-
+                },0);
+                localStorageFactory.set("lat", $location.search().lat);
+                localStorageFactory.set("lon", $location.search().lon);
+                localStorageFactory.set("zoom", $location.search().zoom);
             }
 
             function _registerEvents(){
                 eventHandler.RegisterEvent(ISY.Events.EventTypes.MapConfigLoaded, _initToolbar);
                 eventHandler.RegisterEvent(ISY.Events.EventTypes.MapMoveend, _viewChanged);
-                eventHandler.RegisterEvent(ISY.Events.EventTypes.ChangeLayers, _viewChanged);
+                // eventHandler.RegisterEvent(ISY.Events.EventTypes.ChangeLayers, _changedLayers);
+            }
+
+            function _initUrl() {
+                var obj = $location.search();
+                if (localStorageFactory.get("zoom") !== null){
+                    var center = {
+                        "lon": localStorageFactory.get("lon"),
+                        "lat": localStorageFactory.get("lat"),
+                        "zoom": localStorageFactory.get("zoom")
+                    };
+                    map.SetCenter(center);
+                }
+
+                var newSearch = angular.extend($location.search(), obj);
+                $location.search(newSearch);
             }
 
             $scope.initMainPage = function () {
@@ -33,7 +50,9 @@ angular.module('mainApp')
                 map.SetImageInfoMarker("assets/img/pin-md-orange.png");
                 mainAppFactory.updateMapConfig();
                 var mapConfig = mainAppFactory.getMapConfig();
+
                 map.Init('mapDiv', mapConfig);
+                _initUrl();
             };
 
 
