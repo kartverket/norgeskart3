@@ -59,8 +59,8 @@ angular.module('mainApp')
                     return url + "ws/adr.py?" + encodeURIComponent(query);
                 };
 
-                this.generateSearchStedsnavnUrl = function (query, side) {
-                    return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + encodeURIComponent(query) + "*&eksakteForst=true&antPerSide=15&epsgKode=32633&side=" + side;
+                this.generateSearchStedsnavnUrl = function (query, side, antall) {
+                    return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + encodeURIComponent(query) + "*&eksakteForst=true&antPerSide=" + antall +"&epsgKode=32633&side=" + side;
                 };
 
                 this.generateSearchAdresseUrl = function (query) {

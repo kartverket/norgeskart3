@@ -139,12 +139,20 @@ angular.module('searchPanel')
                     var _convertSearchResult2Json = function (document, source) {
                         switch (source) {
                             case('ssr'):
-                                return xml.xmlToJSON(document).sokRes.stedsnavn ;
+                                var jsonObject=xml.xmlToJSON(document);
+                                _getPlacenameHits(jsonObject);
+                                return jsonObject.sokRes.stedsnavn;
                             case('adresse'):
                                 return document.adresser;
                             default:
                                 return JSON.parse(document);
                         }
+                    };
+
+                    var _getPlacenameHits = function (jsonObject) {
+                        scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
+                        scope.placenameHitsPageTotal = Math.ceil(scope.placenameHits / searchPanelFactory.getPlacenameHitsPerPage());
+                        scope.placenameHitsPage = 1;
                     };
 
                     var _iterateJsonObject = function (jsonObject, searchResult) {
@@ -173,9 +181,11 @@ angular.module('searchPanel')
                             kommune: kommune,
                             point: point,
                             format: identifiersDict.format,
-                            source: identifiersDict.source
+                            source: identifiersDict.source,
+                            husnummer: husnummer,
+                            navnetype: navnetype
                         };
-                        _pushToUnifiedResults(result, husnummer, navnetype);
+                        _pushToUnifiedResults(result);
                     };
 
                     var _removeNumberFromName = function (name) {
@@ -193,7 +203,7 @@ angular.module('searchPanel')
                         return _removeNumberFromName(scope.capitalizeName(name.toLowerCase()));
                     };
 
-                    var _pushToUnifiedResults = function (result, husnummer, navnetype) {
+                    var _pushToUnifiedResults = function (result) {
                         result.name = scope.fixNames(result.name);
                         result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
                         var resultID = result.name + result.kommune;
@@ -207,11 +217,11 @@ angular.module('searchPanel')
                             source: result.source,
                             kommune: result.kommune
                         };
-                        if (husnummer) {
-                            _unifiedResults[result.source][resultID]['husnummer']=husnummer;
+                        if (result.husnummer) {
+                            _unifiedResults[result.source][resultID]['husnummer']=result.husnummer;
                         }
-                        else if (navnetype){
-                            _unifiedResults[result.source][resultID]['navnetype']=navnetype;
+                        else if (result.navnetype){
+                            _unifiedResults[result.source][resultID]['navnetype']=result.navnetype;
                         }
 
 

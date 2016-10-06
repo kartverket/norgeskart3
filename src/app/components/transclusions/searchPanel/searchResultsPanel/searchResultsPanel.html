@@ -30,6 +30,14 @@
             </li>
             <li ng-show="searchResults['ssr']">
                 <h3>Objekter:</h3>
+                <span>Totalt antall treff:</span>
+                <span data-ng-bind="placenameHits"></span>
+                <span>Side</span>
+                <span data-ng-bind="placenameHitsPage"></span>
+                <span>av</span>
+                <span data-ng-bind="placenameHitsPageTotal"></span>
+                <button ng-disabled="placenameHitsPage==1">-</button>
+                <button ng-disabled="placenameHitsPage==placenameHitsPageTotal">+</button>
             </li>
             <li class="pointer-cursor"
                 ng-repeat="searchResult in searchResults['ssr']"

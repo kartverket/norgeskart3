@@ -3,6 +3,8 @@ angular
     .factory('searchPanelFactory', ['mainAppService',
         function(mainAppService) {
 
+        var placenameHitsPerPage = 15;
+
         var mapEpsg='EPSG:25833';
 
         var initialSearchServices= ['ssr', 'matrikkelveg', 'matrikkeladresse'];
@@ -22,7 +24,7 @@ angular
             var generateServiceDict = function (query) {
                 var serviceDict = {};
                 serviceDict['ssr'] = {
-                    url: mainAppService.generateSearchStedsnavnUrl(query, 0),
+                    url: mainAppService.generateSearchStedsnavnUrl(query, 0, placenameHitsPerPage),
                     format: 'xml',
                     source: 'ssr',
                     epsg: 'EPSG:32633',
@@ -93,6 +95,9 @@ angular
                 },
                 getMapEpsg: function () {
                     return mapEpsg;
+                },
+                getPlacenameHitsPerPage: function () {
+                    return placenameHitsPerPage;
                 },
                 constructPoint : function (lat, lon, epsgFrom, epsgTo) {
                     return ol.proj.transform([lon, lat], epsgFrom, epsgTo);
