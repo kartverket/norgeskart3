@@ -6,9 +6,9 @@
             </li>
             <li ng-show="searchResults['matrikkelveg']"
                 class="pointer-cursor"
+                ng-mouseover="mouseOver(searchResult)"
                 ng-repeat="searchResult in searchResults['matrikkelveg']">
                 <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
-                      ng-mouseover="mouseOver(searchResult)"
                       ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
                 <select ng-show="mouseHoverSearchResult.id==searchResult.id"
                         ng-model="activeHusnummer"
