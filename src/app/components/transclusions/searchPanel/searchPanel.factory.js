@@ -101,14 +101,17 @@ angular
                 getPlacenameHitsPerPage: function () {
                     return placenameHitsPerPage;
                 },
-                getPlacenamePage: function () {
-                    return placenamePage;
+                resetPlacenamePage: function () {
+                    placenamePage=0;
                 },
                 decreasePlacenamePage: function () {
                     placenamePage--;
                 },
                 increasePlacenamePage: function () {
                     placenamePage++;
+                },
+                getPlacenamePage: function () {
+                    return placenamePage;
                 },
                 constructPoint : function (lat, lon, epsgFrom, epsgTo) {
                     return ol.proj.transform([lon, lat], epsgFrom, epsgTo);

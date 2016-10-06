@@ -33,18 +33,20 @@
                 <h3>Objekter:</h3>
                 <span>Totalt antall treff:</span>
                 <span data-ng-bind="placenameHits"></span>
-                <span>Side</span>
-                <span data-ng-bind="placenamePage"></span>
-                <span>av</span>
-                <span data-ng-bind="placenamePageTotal"></span>
-                <button ng-disabled="placenamePage==1"
-                        data-ng-click="getPreviousPlacenamePage()">
-                    -
-                </button>
-                <button ng-disabled="placenamePage==placenamePageTotal"
-                        data-ng-click="getNextPlacenamePage()">
-                    +
-                </button>
+                <div ng-if="placenamePageTotal>1">
+                    <span>Side</span>
+                    <span data-ng-bind="placenamePage"></span>
+                    <span>av</span>
+                    <span data-ng-bind="placenamePageTotal"></span>
+                    <button ng-disabled="placenamePage==1"
+                            data-ng-click="getPreviousPlacenamePage()">
+                        -
+                    </button>
+                    <button ng-disabled="placenamePage==placenamePageTotal"
+                            data-ng-click="getNextPlacenamePage()">
+                        +
+                    </button>
+                </div>
             </li>
             <li class="pointer-cursor"
                 ng-repeat="searchResult in searchResults['ssr']"
