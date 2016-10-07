@@ -1,6 +1,6 @@
 angular.module('mainMenuSections')
-    .directive('mainMenuSections', ['mainMenuPanelFactory','$location','ISY.MapAPI.Map','isyTranslateFactory','$translate',
-        function(mainMenuPanelFactory, $location, map, isyTranslateFactory, $translate) {
+    .directive('mainMenuSections', ['mainMenuPanelFactory','$location','ISY.MapAPI.Map','isyTranslateFactory','$translate', 'localStorageFactory',
+        function(mainMenuPanelFactory, $location, map, isyTranslateFactory, $translate, localStorageFactory) {
             return {
                 templateUrl: 'components/transclusions/mainMenuPanel/mainMenuSections/mainMenuSections.html',
                 restrict: 'A',
@@ -39,6 +39,7 @@ angular.module('mainMenuSections')
                         isyTranslateFactory.setCurrentLanguage(langId);
                         map.SetTranslateOptions(isyTranslateFactory.getTranslateOptionsByActiveLanguage());
                         $translate.use(langId);
+                        localStorageFactory.set("activeLanguage", langId);
                     };
                 }
             };
