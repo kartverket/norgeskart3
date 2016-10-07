@@ -168,6 +168,11 @@ angular.module('toolMainMenu')
                         toolsFactory.activateTool(drawFeatureTool);
                         console.log('Activation invoked');
                         scope.closeNav();
+                        eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
+                    };
+
+                    var getDrawing = function (geoJSON) {
+                        console.log(geoJSON);
                     };
 
                     /*
