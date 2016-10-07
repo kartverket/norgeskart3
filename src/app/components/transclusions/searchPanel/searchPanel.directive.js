@@ -323,7 +323,7 @@ angular.module('searchPanel')
                     var _addResultsToMap = function () {
                         var coordinates = [];
                         for (var source in _unifiedResults) {
-                            if (source == 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg'].length>1)){
+                            if (source == 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length>1){
                                 continue;
                             }
                             for (var result in _unifiedResults[source]) {
