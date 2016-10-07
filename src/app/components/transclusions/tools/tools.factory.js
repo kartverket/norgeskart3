@@ -74,7 +74,10 @@ angular
                     "symbol": "flaticon-triangular43",
                     "sortOrder": 7,
                     "isSelected": false,
-                    "cursorStyle": "default"
+                    "cursorStyle": "default",
+                    "additionalOptions": {
+                        type: 'Point'
+                    }
                 },
                 {
                     "id": "AddLayerFeature",
@@ -185,7 +188,7 @@ angular
 
                 activateTool: function(tool){
                     if (tool !== undefined){
-                        if(tool.id === "MeasureLine" || tool.id === "Measure" || tool.id === "DrawFeature" || tool.id === "AddLayerFeature" || tool.id === "ModifyFeature"){
+                        if(tool.id === "MeasureLine" || tool.id === "Measure" || tool.id === "AddLayerFeature" || tool.id === "ModifyFeature"){
                             //var activeLanguage = giTranslateFactory.getCurrentLanguage();
                             var options = {};
 

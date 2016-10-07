@@ -164,6 +164,7 @@ angular.module('toolMainMenu')
                         _elevationProfileActive = false;
                         _emergencyPosterActive = false;
                         var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                        drawFeatureTool.additionalOptions.type='Polygon';
                         toolsFactory.activateTool(drawFeatureTool);
                         console.log('Activation invoked');
                         scope.closeNav();
