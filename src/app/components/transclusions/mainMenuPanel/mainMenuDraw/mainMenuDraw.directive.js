@@ -10,20 +10,27 @@ angular.module('mainMenuDraw')
                      Draw start
                      */
 
-                    scope.drawFeature = function (type) {
-                        _elevationProfileActive = false;
-                        _emergencyPosterActive = false;
-                        var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                    var _setGeometryType = function(type){
                         drawFeatureTool.additionalOptions.type=type;
+                        toolsFactory.deactivateTool(drawFeatureTool);
                         toolsFactory.activateTool(drawFeatureTool);
-                        console.log('Activation invoked');
-                        eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
+                    };
+                    
+                    scope.drawFeature = function (type) {
+                        _setGeometryType(type);
                     };
 
                     var getDrawing = function (geoJSON) {
                         console.log(geoJSON);
                     };
 
+                    scope.deactivateDrawFeature = function () {
+                        toolsFactory.deactivateTool(drawFeatureTool);
+                    };
+
+                    var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                    _setGeometryType('Point');
+                    eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
                     /*
                      Draw end
                      */
