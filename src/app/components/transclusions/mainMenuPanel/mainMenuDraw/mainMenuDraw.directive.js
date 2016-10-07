@@ -10,14 +10,13 @@ angular.module('mainMenuDraw')
                      Draw start
                      */
 
-                    scope.drawFeature = function () {
+                    scope.drawFeature = function (type) {
                         _elevationProfileActive = false;
                         _emergencyPosterActive = false;
                         var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
-                        drawFeatureTool.additionalOptions.type='Polygon';
+                        drawFeatureTool.additionalOptions.type=type;
                         toolsFactory.activateTool(drawFeatureTool);
                         console.log('Activation invoked');
-                        scope.closeNav();
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
                     };
 
