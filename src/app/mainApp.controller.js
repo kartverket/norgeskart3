@@ -31,13 +31,15 @@ angular.module('mainApp')
 
             function _initUrl() {
                 var obj = $location.search();
-                if (localStorageFactory.get("zoom") !== null){
-                    var center = {
-                        "lon": localStorageFactory.get("lon"),
-                        "lat": localStorageFactory.get("lat"),
-                        "zoom": localStorageFactory.get("zoom")
-                    };
-                    map.SetCenter(center);
+                if (obj.zoom !== undefined && obj.lat !== undefined && obj.lon !== undefined){
+                    if (localStorageFactory.get("zoom") !== null && localStorageFactory.get("lat") !== null && localStorageFactory.get("lon") !== null){
+                        var center = {
+                            "lon": localStorageFactory.get("lon"),
+                            "lat": localStorageFactory.get("lat"),
+                            "zoom": localStorageFactory.get("zoom")
+                        };
+                        map.SetCenter(center);
+                    }
                 }
 
                 var newSearch = angular.extend($location.search(), obj);
