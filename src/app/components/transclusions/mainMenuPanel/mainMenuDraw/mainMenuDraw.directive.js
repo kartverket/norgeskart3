@@ -1,6 +1,6 @@
 angular.module('mainMenuDraw')
-    .directive('mainMenuDraw', [ 'toolsFactory', 'ISY.EventHandler', //'ISY.MapAPI.Map',
-        function(toolsFactory, eventHandler) {
+    .directive('mainMenuDraw', [ 'toolsFactory', 'ISY.EventHandler', 'ISY.MapAPI.Map',
+        function(toolsFactory, eventHandler, map) {
             return {
                 templateUrl: 'components/transclusions/mainMenuPanel/mainMenuDraw/mainMenuDraw.html',
                 restrict: 'A',
@@ -56,6 +56,8 @@ angular.module('mainMenuDraw')
                         toolsFactory.deactivateTool(drawFeatureTool);
                     };
 
+                    map.RemoveInfoMarkers();
+                    map.RemoveInfoMarker();
                     var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
                     _setGeometryType('Point');
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
