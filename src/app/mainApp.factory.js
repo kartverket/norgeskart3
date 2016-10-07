@@ -112,6 +112,14 @@ angular.module('mainApp')
                 // }
             }
 
+            var _setDeafultProject = function () {
+                var obj = $location.search();
+                obj.project = "norgeskart";
+                var newSearch = angular.extend($location.search(), obj);
+                $location.search(newSearch);
+                location.reload();
+            };
+
             var projectName = function(){
                 var absUrl = $location.$$absUrl;
                 if (absUrl.indexOf("project=") > -1){
@@ -119,12 +127,12 @@ angular.module('mainApp')
                     if (projectName === null){
                         projectName = /project=([^]+)/.exec(absUrl);
                         if (projectName === null){
-                            projectName = ["", "__Default"];
+                            _setDeafultProject();
                         }
                     }
                     return decodeURIComponent(projectName[1]);
                 }else{
-                    return "";
+                    _setDeafultProject();
                 }
             };
 
