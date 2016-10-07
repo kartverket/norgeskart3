@@ -155,6 +155,23 @@ angular.module('toolMainMenu')
                     /*
                      Generate emergancy poster end
                      */
+
+                    /*
+                    Draw start
+                    */
+
+                    scope.drawFeature = function () {
+                        _elevationProfileActive = false;
+                        _emergencyPosterActive = false;
+                        var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                        toolsFactory.activateTool(drawFeatureTool);
+                        console.log('Activation invoked');
+                        scope.closeNav();
+                    };
+
+                    /*
+                     Draw end
+                    */
                 }
             };
         }]);
