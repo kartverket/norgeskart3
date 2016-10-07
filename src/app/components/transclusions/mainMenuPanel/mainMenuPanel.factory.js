@@ -58,8 +58,10 @@ angular
                 },
 
                 setProjectById: function (id) {
-                    for (var i = 0; i < projects.length; i++){
-                        projects[i].isSelected = projects[i].id.toLowerCase() === id.toLowerCase();
+                    if (id !== undefined){
+                        for (var i = 0; i < projects.length; i++){
+                            projects[i].isSelected = projects[i].id.toLowerCase() === id.toLowerCase();
+                        }
                     }
                 }
             };

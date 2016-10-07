@@ -26,6 +26,14 @@ angular.module('mainMenuSections')
                             location.reload();
                         }
                     };
+
+                    // scope.getSelectedLanguageStyle = function (languageId) {
+                    //     if (languageId.isVisible){
+                    //         return 'glyphicon glyphicon-ok-sign pointer-cursor';
+                    //     }else{
+                    //         return 'icon-radio-unchecked pointer-cursor';
+                    //     }
+                    // };
                 }
             };
         }]);
