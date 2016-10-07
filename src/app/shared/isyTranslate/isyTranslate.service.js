@@ -22,7 +22,8 @@ angular
             "ShareMap_title" : "Del kartet",
             "UseMapView_title" : "Bruk kartutsnitt",
             "FAQ_title" : "Ofte stilte spørsmål",
-            "menu_select_baselayer": "Bakgrunnskart"
+            "menu_select_baselayer": "Bakgrunnskart",
+            "MeasureAndDraw_title" : "Tegne og mål"
 
 
         },
@@ -47,7 +48,8 @@ angular
             "ShareMap_title" : "Share map",
             "UseMapView_title" : "Use map view",
             "FAQ_title" : "FAQ",
-            "menu_select_baselayer": "Base map layer"
+            "menu_select_baselayer": "Base map layer",
+            "MeasureAndDraw_title" : "Measure & Draw"
 
         }
     });

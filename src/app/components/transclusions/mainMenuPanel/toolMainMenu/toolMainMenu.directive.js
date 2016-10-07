@@ -155,6 +155,7 @@ angular.module('toolMainMenu')
                     /*
                      Generate emergancy poster end
                      */
+
                 }
             };
         }]);
