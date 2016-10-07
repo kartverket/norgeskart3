@@ -1,11 +1,12 @@
 angular.module('mainMenuSections')
-    .directive('mainMenuSections', ['mainMenuPanelFactory','$location','ISY.MapAPI.Map',
-        function(mainMenuPanelFactory, $location, map) {
+    .directive('mainMenuSections', ['mainMenuPanelFactory','$location','ISY.MapAPI.Map','isyTranslateFactory','$translate', 'localStorageFactory',
+        function(mainMenuPanelFactory, $location, map, isyTranslateFactory, $translate, localStorageFactory) {
             return {
                 templateUrl: 'components/transclusions/mainMenuPanel/mainMenuSections/mainMenuSections.html',
                 restrict: 'A',
                 link: function(scope){
                     scope.projects = mainMenuPanelFactory.getAllProjects();
+                    scope.languages = isyTranslateFactory.getAllLanguages();
 
                     scope.activateProject = function (project) {
                         if (project.isSelected){
@@ -14,7 +15,6 @@ angular.module('mainMenuSections')
                             mainMenuPanelFactory.setProjectById(project.id);
                             var search = $location.search();
                             search['project'] = project.id;
-                            console.log("Search: ", search, "projectId: ", project.id);
                             setSearch(map.GetUrlObject());
                         }
                     };
@@ -27,13 +27,20 @@ angular.module('mainMenuSections')
                         }
                     };
 
-                    // scope.getSelectedLanguageStyle = function (languageId) {
-                    //     if (languageId.isVisible){
-                    //         return 'glyphicon glyphicon-ok-sign pointer-cursor';
-                    //     }else{
-                    //         return 'icon-radio-unchecked pointer-cursor';
-                    //     }
-                    // };
+                    scope.getSelectedLanguageStyle = function (active) {
+                        if (active){
+                            return 'glyphicon glyphicon-ok-sign pointer-cursor';
+                        }else{
+                            return 'icon-radio-unchecked pointer-cursor';
+                        }
+                    };
+
+                    scope.changeLanguage = function (langId) {
+                        isyTranslateFactory.setCurrentLanguage(langId);
+                        map.SetTranslateOptions(isyTranslateFactory.getTranslateOptionsByActiveLanguage());
+                        $translate.use(langId);
+                        localStorageFactory.set("activeLanguage", langId);
+                    };
                 }
             };
         }]);

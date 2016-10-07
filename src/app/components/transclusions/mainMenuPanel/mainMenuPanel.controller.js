@@ -16,5 +16,9 @@ angular.module('mainMenuPanel')
                 $scope.mainMenuPanelLayout = "mainMenuGroupLayers";
             };
 
+            $scope.showMainMenuDraw = function () {
+                $scope.mainMenuPanelLayout = "mainMenuDraw";
+            };
+
         }
     ]);

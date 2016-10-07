@@ -1,7 +1,7 @@
 <ul class="sidenav-group">
     <li data-ng-click="showMainMenuBaseLayers()">
         <span class="icon-map2"></span>
-        <span>Bakgrunnskart</span>
+        <span translate="menu_select_baselayer"></span>
         <span class="nextbtn glyphicon glyphicon-menu-right"></span>
     </li>
 </ul>
@@ -19,17 +19,13 @@
 <ul class="sidenav-group">
     <li>
         <span class="glyphicon glyphicon-question-sign"></span>
-        <span>Ofte stilte spørsmål</span>
+        <span translate="FAQ_title"></span>
     </li>
 </ul>
 
-<!--<ul class="sidenav-group">-->
-    <!--<li>-->
-        <!--<span data-ng-class="getSelectedLanguageStyle()"></span>-->
-        <!--<span>Norsk</span>-->
-    <!--</li>-->
-    <!--<li>-->
-        <!--<span data-ng-class="getSelectedLanguageStyle()"></span>-->
-        <!--<span>English</span>-->
-    <!--</li>-->
-<!--</ul>-->
+<ul class="sidenav-group">
+    <li data-ng-repeat="language in languages" data-ng-click="changeLanguage(language.id)">
+        <span data-ng-class="getSelectedLanguageStyle(language.active)"></span>
+        <span translate="{{language.title}}"></span>
+    </li>
+</ul>

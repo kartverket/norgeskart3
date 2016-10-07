@@ -1,6 +1,6 @@
 angular.module('mainApp')
-    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','toolsFactory','ISY.EventHandler','isyTranslateFactory','$location','mainMenuPanelFactory', 'localStorageFactory',
-        function($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory){
+    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','toolsFactory','ISY.EventHandler','isyTranslateFactory','$location','mainMenuPanelFactory', 'localStorageFactory','$translate',
+        function($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory, $translate){
 
             function _initToolbar() {
                 toolsFactory.initToolbar();
@@ -46,6 +46,15 @@ angular.module('mainApp')
                 $location.search(newSearch);
             }
 
+            function _initActiveLanguage() {
+                var langId = localStorageFactory.get("activeLanguage");
+                if (langId !== null){
+                    isyTranslateFactory.setCurrentLanguage(langId);
+                    map.SetTranslateOptions(isyTranslateFactory.getTranslateOptionsByActiveLanguage());
+                    $translate.use(langId);
+                }
+            }
+
             $scope.initMainPage = function () {
                 _registerEvents();
                 map.SetTranslateOptions(isyTranslateFactory.getTranslateOptionsByActiveLanguage());
@@ -56,6 +65,10 @@ angular.module('mainApp')
                 map.Init('mapDiv', mapConfig);
                 _initUrl();
             };
+
+            $( document ).ready(function() {
+                _initActiveLanguage();
+            });
 
 
         }
