@@ -84,7 +84,9 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.removeInfomarkers();
-                    eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
+                    if(!scope.isDrawActivated()) {
+                        eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
+                    }
                     _checkUrlForGeoJSON();
                     /*
                      Draw end
