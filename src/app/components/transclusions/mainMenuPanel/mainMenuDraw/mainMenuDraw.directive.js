@@ -38,13 +38,8 @@ angular.module('mainMenuDraw')
                      Draw start
                      */
 
-                    var _setGeometryType = function(type){
-                        var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
-                        drawFeatureTool.additionalOptions.type=type;
-                        _checkUrlForGeoJSON(drawFeatureTool);
-                    };
-
                     var getDrawing = function (geoJSON) {
+                        scope.GeoJSON=geoJSON;
                         console.log(geoJSON);
                     };
 
@@ -63,26 +58,34 @@ angular.module('mainMenuDraw')
 
                     var _getGeoJSON = function (drawFeatureTool, hash) {
                         var drawingUrl=mainAppService.generateGeoJSONUrl(hash);
-                        $http.get(drawingUrl).then(function(result){_addGeoJSONToOptions(result, drawFeatureTool);});
+                        $http.get(drawingUrl).then(function(result){_setGeoJSONOnScope(result);});
                     };
 
-                    var _addGeoJSONToOptions = function(result,drawFeatureTool){
-                        drawFeatureTool.additionalOptions.GeoJSON = result.data;
-                        _activateDrawFeatureTool(drawFeatureTool);
+                    var _setGeoJSONOnScope = function(result){
+                        scope.GeoJSON = result.data;
+                        _activateDrawFeatureTool();
                     };
 
-                    var _activateDrawFeatureTool = function (drawFeatureTool) {
+                    var _activateDrawFeatureTool = function (type) {
+                        if(!type){
+                            type='Point';
+                        }
+                        var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                        if(scope.GeoJSON){
+                            drawFeatureTool.additionalOptions.GeoJSON=scope.GeoJSON;
+                        }
+                        drawFeatureTool.additionalOptions.type=type;
                         toolsFactory.deactivateTool(drawFeatureTool);
                         toolsFactory.activateTool(drawFeatureTool);
                     };
 
                     scope.drawFeature = function (type) {
-                        _setGeometryType(type);
+                        _activateDrawFeatureTool(type);
                     };
 
                     scope.removeInfomarkers();
-                    _setGeometryType('Point');
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
+                    _checkUrlForGeoJSON();
                     /*
                      Draw end
                      */
