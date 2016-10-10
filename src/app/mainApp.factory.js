@@ -1,6 +1,6 @@
 angular.module('mainApp')
-    .factory('mainAppFactory', ['ISY.MapAPI.Map','$location','ISY.Repository','$translate','translations',
-        function(map, $location, repository, $translate, translations){
+    .factory('mainAppFactory', ['ISY.MapAPI.Map','$location','ISY.Repository','$translate','translations', '$timeout',
+        function(map, $location, repository, $translate, translations, $timeout){
 
             var instance = "";
             var configUrl;
@@ -117,7 +117,9 @@ angular.module('mainApp')
                 obj.project = "norgeskart";
                 var newSearch = angular.extend($location.search(), obj);
                 $location.search(newSearch);
-                location.reload();
+                $timeout(function () {
+                    window.location.reload();
+                }, 0);
             };
 
             var projectName = function(){
