@@ -84,11 +84,15 @@ angular.module('searchPanel')
                             scope.searchResults= {};
                         }
                         scope.searchResults['searchBar'] = queryPoint;
-                        map.RemoveInfoMarkers();
-                        map.RemoveInfoMarker();
+                        scope.removeInfomarkers();
                         map.ShowInfoMarker(queryPoint.point);
                         scope.activatePosition(queryPoint);
                         scope.showSearchOptionsPanel();
+                    };
+
+                    scope.removeInfomarkers = function () {
+                        map.RemoveInfoMarkers();
+                        map.RemoveInfoMarker();
                     };
 
                     var _init = function (query) {
@@ -305,7 +309,7 @@ angular.module('searchPanel')
                         };
                         _readResults();
                         if(_notSingleAddressHit()) {
-                            _addResultsToMap();
+                            scope.addResultsToMap();
                         }
                     };
 
@@ -320,7 +324,7 @@ angular.module('searchPanel')
                         return true;
                     };
 
-                    var _addResultsToMap = function () {
+                    scope.addResultsToMap = function () {
                         var coordinates = [];
                         for (var source in _unifiedResults) {
                             if (source == 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length>1){
@@ -370,8 +374,7 @@ angular.module('searchPanel')
 
                     scope.cleanResults = function (){
                         _init();
-                        map.RemoveInfoMarkers();
-                        map.RemoveInfoMarker();
+                        scope.removeInfomarkers();
                         scope.searchBarModel = "";
                         scope.showSearchResultPanel();
                         scope.deactivatePrintBoxSelect();

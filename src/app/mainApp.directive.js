@@ -13,10 +13,11 @@ angular.module('mainApp')
                     var measure = toolsFactory.getToolById("Measure");
                     var pointSelectTool = toolsFactory.getToolById('PointSelect');
                     var printBoxSelect = toolsFactory.getToolById('PrintBoxSelect');
+                    var drawFeature = toolsFactory.getToolById('DrawFeature');
 
                     $(document).keyup(function(e){
                         if (e.keyCode == 27){
-                            if (addFeatureTool.isSelected || measureLine.isSelected || measure.isSelected ){
+                            if (addFeatureTool.isSelected || measureLine.isSelected || measure.isSelected || drawFeature.isSelected){
                                 toolsFactory.deactivatAllTools();
                                 toolsFactory.activateTool(pointSelectTool);
                             }
@@ -24,7 +25,7 @@ angular.module('mainApp')
                     });
 
                     element.on('mousedown touchstart', function () {
-                        if (!addFeatureTool.isSelected && !measureLine.isSelected && !measure.isSelected && !printBoxSelect.isSelected){
+                        if (!addFeatureTool.isSelected && !measureLine.isSelected && !measure.isSelected && !printBoxSelect.isSelected &&!drawFeature.isSelected){
                             toolsFactory.activateTool(pointSelectTool);
                         }
                     });
