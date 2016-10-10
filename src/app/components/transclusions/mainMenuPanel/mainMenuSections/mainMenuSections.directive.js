@@ -1,6 +1,6 @@
 angular.module('mainMenuSections')
-    .directive('mainMenuSections', ['mainMenuPanelFactory','$location','ISY.MapAPI.Map','isyTranslateFactory','$translate', 'localStorageFactory',
-        function(mainMenuPanelFactory, $location, map, isyTranslateFactory, $translate, localStorageFactory) {
+    .directive('mainMenuSections', ['mainMenuPanelFactory','$location','ISY.MapAPI.Map','isyTranslateFactory','$translate', 'localStorageFactory', '$timeout',
+        function(mainMenuPanelFactory, $location, map, isyTranslateFactory, $translate, localStorageFactory, $timeout) {
             return {
                 templateUrl: 'components/transclusions/mainMenuPanel/mainMenuSections/mainMenuSections.html',
                 restrict: 'A',
@@ -23,7 +23,9 @@ angular.module('mainMenuSections')
                         if (!angular.equals(obj, $location.search())) {
                             var newSearch = angular.extend($location.search(), obj);
                             $location.search(newSearch);
-                            location.reload();
+                            $timeout(function () {
+                                window.location.reload();
+                            }, 0);
                         }
                     };
 
