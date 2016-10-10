@@ -44,16 +44,23 @@ angular.module('mainMenuDraw')
                     };
 
                     var _checkUrlForGeoJSON = function () {
+                        var drawingHash=_getValueFromUrl('drawing');
+                        if(drawingHash){
+                            _getGeoJSON(drawingHash);
+                                return;
+                            }
+                        _activateDrawFeatureTool();
+                    };
+
+                    var _getValueFromUrl = function (key) {
                         var url=$location.url();
                         var params=url.split('?')[1].split('&');
                         for(var i =0; i<params.length; i++){
                             var param=params[i].split('=');
-                            if(param[0]=='drawing') {
-                                _getGeoJSON(param[1]);
-                                return;
+                            if(param[0]==key) {
+                                return param[1];
                             }
                         }
-                        _activateDrawFeatureTool();
                     };
 
                     var _getGeoJSON = function (hash) {
