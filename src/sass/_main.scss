@@ -91,7 +91,7 @@ p {
 ul {
   //overflow: hidden;
   padding: 0;
-  font-size: $font-xsmall;
+  font-size: 15px;//$font-xsmall;
   line-height: $line-height-small;
 
   li {
@@ -161,41 +161,41 @@ a.active{
   color: $color-contrast;
 }
 
-.button{
-  margin: 0;
-}
+//.button{
+//  margin: 0;
+//}
+//
+//button{
+//  height: 30px;
+//}
+//button:focus{
+//  outline: 0!important;
+//}
 
-button{
-  height: 30px;
-}
-button:focus{
-  outline: 0!important;
-}
-
-.btn{
-  padding: 4px 12px;
-  background-color: #20aaac;
-}
-
-.btn-default {
-  background-color: $color-primary;
-  color: white;
-  height: 30px;
-}
-
-.btn-default:hover{
-  background-color: #229597;
-  color: white;
-}
-
-.btn-default[disabled]{
-  background-color:grey;
-}
-
-.btn-default[disabled]:hover{
-  background-color:#6D6D6D;
-  color:white;
-}
+//.btn{
+//  padding: 4px 12px;
+//  background-color: #20aaac;
+//}
+//
+//.btn-default {
+//  background-color: $color-primary;
+//  color: white;
+//  height: 30px;
+//}
+//
+//.btn-default:hover{
+//  background-color: #229597;
+//  color: white;
+//}
+//
+//.btn-default[disabled]{
+//  background-color:grey;
+//}
+//
+//.btn-default[disabled]:hover{
+//  background-color:#6D6D6D;
+//  color:white;
+//}
 
 .no-border{
   border: 0px;
@@ -265,7 +265,7 @@ button:focus{
   clear: both;
   padding-bottom:4px;
   margin: auto;
-  max-width: 820px;
+  max-width: 420px;
   a,p{
     display: block;
     margin-left: auto;
@@ -298,6 +298,7 @@ button:focus{
   }
   ul{
     width: 100%;
+    //font-size: 15px;
   }
 
   label{
@@ -323,6 +324,7 @@ button:focus{
     //padding-left: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 6px 1px;
     min-width: 420px;
+    font-size: 18px;
   }
   .login-input{
     height: 30px;
@@ -554,11 +556,12 @@ html{
   box-shadow: rgba(0, 0, 0, 0.24) 2px 2px 6px 1px;
   background: white;
   border-radius: 2px;
-  padding: 10px 0 10px 10px;
+  padding: 10px 0 10px 5px;
+  max-width: 420px;
 }
 
 .search-content{
-  padding: 5px;
+  padding: 5px 10px 5px 10px;
   max-height: 800px;
   //max-width: 400px;
   overflow-y: auto;
@@ -573,6 +576,82 @@ html{
     padding-top: 2px;
     padding-bottom: 2px;
   }
+  .info-text{
+    margin-bottom: 10px;
+    padding: 1px 5px 1px 6px;
+    font-size: 15px;
+    display: inline-block;
+    //span{
+    //  padding: 1px 5px 1px 6px;
+    //  font-size: 15px;
+    //  display: inline-block;
+    //}
+  }
+  .header-text{
+    span{
+      padding: 1px 5px 1px 6px;
+      font-size: 15px;
+      display: inline-block;
+    }
+  }
+  .title-text{
+    span{
+      padding: 1px 5px 1px 6px;
+      font-weight: bold;
+      display: inline-block;
+    }
+  }
+  .title{
+    display: inline-block;
+  }
+
+  .backbtn{
+    font-size: 15px;
+    float: right;
+    margin-right: 16px;
+    padding-top: 0;
+    cursor: pointer;
+  }
+
+
+  h4{
+    margin-left: 6px;
+    margin-bottom: 8px;
+
+  }
+
+  input{
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #b1b1b1;
+    padding: 2px 4px 2px 6px;
+    font-size: 15px;
+    margin: 1px 5px 1px 6px;
+  }
+
+  .btn{
+    height: 26px;
+    padding: 2px 10px;
+  }
+
+  .btn-content{
+    background-color: rgb(155, 201, 216);
+  }
+
+  .checkbox{
+    margin-top:5px;
+    width: 15px;
+  }
+
+  .new-section{
+    margin-top: 8px;
+  }
+
+  .header{
+    border-bottom: 1px solid #929090;
+    margin: 0 0 10px;
+  }
+
 
 }
 
@@ -589,10 +668,8 @@ html{
   }
 }
 
-
 .no-top{
   margin-top: 0;
-  margin-left: 6px;
 }
 
 .dropdown-search{
@@ -602,7 +679,7 @@ html{
 }
 
 .dropdown-searchPanel {
-  width: 135px;
+  max-width: 135px;
   max-height: 250px;
   overflow-x: auto;
   li{
@@ -615,13 +692,14 @@ html{
   background-color: #fff;
   border-color: #ccc;
   color: #000;
-  height: 25px;
-  padding: 0 12px;
+  height: 26px;
+  padding: 0 0;
 }
 
 .dropdown-menu{
   top: inherit;
-  min-width:0;
+  min-width: 100px;
+  width:100%;
 }
 
 .dropdown-menu>li>span {

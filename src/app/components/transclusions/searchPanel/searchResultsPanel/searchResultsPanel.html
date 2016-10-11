@@ -26,30 +26,6 @@
                         </div>
                     </div>
                 </li>
-                <!--<li class="pointer-cursor"-->
-                    <!--ng-mouseover="mouseOver(searchResult); isOver.show = true"-->
-                    <!--ng-mouseleave = "isOver.show = false"-->
-                    <!--ng-repeat="searchResult in searchResults['matrikkelveg']">-->
-                    <!--<div class="row">-->
-                        <!--<div class="col-xs-7 move-up">-->
-                            <!--<span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"-->
-                                  <!--ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>-->
-                        <!--</div>-->
-                        <!--<div class="col-xs-5">-->
-                            <!--<div class="dropdown dropdown-search" data-ng-show="mouseHoverSearchResult.id==searchResult.id && isOver.show">-->
-                                <!--<button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                                    <!--<span data-ng-bind="activeHusnum"></span>-->
-                                    <!--<span class="caret"></span>-->
-                                <!--</button>-->
-                                <!--<ul class="dropdown-menu dropdown-searchPanel" aria-labelledby="dropdownMenu2">-->
-                                    <!--<li data-ng-repeat="husnum in searchResult.husnummer" data-ng-click="husnummerChanged(searchResult, husnum); $event.stopPropagation();" class="pointer-cursor">-->
-                                        <!--<span data-ng-bind="husnum"></span>-->
-                                    <!--</li>-->
-                                <!--</ul>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</li>-->
             </ul>
         </div>
         <div data-ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']">
@@ -68,7 +44,7 @@
             <h4 class="no-top">Stedsnavn:</h4>
             <div class="search-pagination">
                 <dir-pagination-controls
-                        max-size="5"
+                        max-size="6"
                         direction-links="true"
                         boundary-links="true" on-page-change="pageChanged(newPageNumber)">
                 </dir-pagination-controls>
