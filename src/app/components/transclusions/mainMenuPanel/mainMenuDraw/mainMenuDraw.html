@@ -29,9 +29,18 @@
         <span class="flaticon-triangular43"></span>
         <span translate="Measure_title"></span>
     </li>
-    <button data-ng-click="snapButtonClick()">Snap</button>
+
     <button data-ng-click="newButtonClick()">Ny</button>
     <button data-ng-click="undoButtonClick()">Angre</button>
+    <br/>
     <button data-ng-click="downloadButtonClick()">Last ned</button>
     <button data-ng-click="saveButtonClick()">Lagre</button>
+    <br/>
+    <h3>Aktiv Modus:</h3><span data-ng-bind="mode"></span>
+    <br/>
+    <button data-ng-click="modifyButtonClick()">Endre</button>
+    <button data-ng-click="drawButtonClick()">Tegne</button>
+    <button data-ng-click="selectButtonClick()">Velg</button>
+    <br/>
+    <button data-ng-click="snapButtonClick()">Snap</button>
 </ul>

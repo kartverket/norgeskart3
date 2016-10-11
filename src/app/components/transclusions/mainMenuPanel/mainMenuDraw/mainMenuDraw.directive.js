@@ -39,6 +39,7 @@ angular.module('mainMenuDraw')
                      */
 
                     _operation="";
+                    scope.mode="draw";
 
                     var getDrawing = function (geoJSON) {
                         scope.GeoJSON=geoJSON;
@@ -86,6 +87,7 @@ angular.module('mainMenuDraw')
                         drawFeatureTool.additionalOptions.operation=_operation;
                         drawFeatureTool.additionalOptions.type=type;
                         drawFeatureTool.additionalOptions.snap=scope.snap;
+                        drawFeatureTool.additionalOptions.mode=scope.mode;
                         toolsFactory.deactivateTool(drawFeatureTool);
                         toolsFactory.activateTool(drawFeatureTool);
                     };
@@ -130,6 +132,21 @@ angular.module('mainMenuDraw')
                         var saveUrl=mainAppService.generateGeoJSONSaveUrl();
                         $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side
                         $http.post(saveUrl,scope.GeoJSON).then(function(result){_setDrawingInUrl(result);});
+                    };
+
+                    scope.modifyButtonClick= function () {
+                        scope.mode='modify';
+                        _activateDrawFeatureTool('Active');
+                    };
+
+                    scope.drawButtonClick= function () {
+                        scope.mode='draw';
+                        _activateDrawFeatureTool('Active');
+                    };
+
+                    scope.selectButtonClick= function () {
+                        scope.mode='select';
+                        _activateDrawFeatureTool('Active');
                     };
 
                     var _setDrawingInUrl = function (result) {
