@@ -1,36 +1,93 @@
 <div class="search-panel" data-ng-controller="searchKoordTransPanelController">
-    <div class="content no-border search-content">
-        <ul>
-            <li>
-                <span class="search-options">
-                    {{searchOptionsDict['koordTrans'].icon.value}}
-                </span>
-                <span>Koordinater</span>
-            </li>
-            <li ng-mousedown="showSearchOptionsPanel()">
-                <span class="search-options pointer-cursor">
-                    <b>←</b>
-                </span>
-                <span class="pointer-cursor">
-                    <b>Returner til tjenester</b>
-                </span>
-            </li>
-        </ul>
-        <span>Nord:</span>
-        <span data-ng-bind="activePosition.transLat"></span>
-        <br/>
-        <br/>
-        <span>Øst:</span>
-        <span data-ng-bind="activePosition.transLon"></span>
-        <br/>
-        <br/>
-        <select ng-model = "activePosition.resSosiKoordSys"
-                ng-change="_fetchKoordTrans()"
-                ng-options="key as val for (key, val) in coordinateSystems"></select>
-        <br/>
+    <div class="search-content">
+        <div class="header">
+            <h4 class="no-top title">{{searchOptionsDict['koordTrans'].icon.value}} Koordinater</h4>
+            <div class="backbtn" data-ng-click="showSearchOptionsPanel();showSearchOptionsPanel()">
+                <span class="glyphicon glyphicon-menu-left"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+                <span class="info-text">Nord:</span>
+            </div>
+            <div class="col-xs-5 info-text">
+                <span data-ng-bind="activePosition.transLat"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2">
+                <span class="info-text">Øst:</span>
+            </div>
+            <div class="col-xs-5 info-text">
+                <span data-ng-bind="activePosition.transLon"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="dropdown">
+                    <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span data-ng-bind="getActiveCoorSystem()"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
+                        <li data-ng-repeat="(key, value) in coordinateSystems" data-ng-click="_fetchKoordTrans(key); $event.stopPropagation();" class="pointer-cursor">
+                            <span data-ng-bind="coordinateSystems[key]"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<br/>-->
+        <!--<br/>-->
+        <!--<span>Øst:</span>-->
+        <!--<span data-ng-bind="activePosition.transLon"></span>-->
+        <!--<br/>-->
+        <!--<br/>-->
+        <!--<select ng-model = "activePosition.resSosiKoordSys"-->
+                <!--ng-change="_fetchKoordTrans()"-->
+                <!--ng-options="key as val for (key, val) in coordinateSystems"></select>-->
+        <!--<br/>-->
         <input type="checkbox"
                data-ng-click="generateCoordinateSystems()"
                ng-model="showAdvancedCoordinateSystems"/>
         <span>Vis avanserte koordinatsystemer</span>
+
+
+
+        <!--<ul>-->
+            <!--<li>-->
+                <!--<span class="search-options">-->
+                    <!--{{searchOptionsDict['koordTrans'].icon.value}}-->
+                <!--</span>-->
+                <!--<span>Koordinater</span>-->
+            <!--</li>-->
+            <!--<li ng-mousedown="showSearchOptionsPanel()">-->
+                <!--<span class="search-options pointer-cursor">-->
+                    <!--<b>←</b>-->
+                <!--</span>-->
+                <!--<span class="pointer-cursor">-->
+                    <!--<b>Returner til tjenester</b>-->
+                <!--</span>-->
+            <!--</li>-->
+        <!--</ul>-->
+        <!--<span>Nord:</span>-->
+        <!--<span data-ng-bind="activePosition.transLat"></span>-->
+        <!--<br/>-->
+        <!--<br/>-->
+        <!--<span>Øst:</span>-->
+        <!--<span data-ng-bind="activePosition.transLon"></span>-->
+        <!--<br/>-->
+        <!--<br/>-->
+        <!--<select ng-model = "activePosition.resSosiKoordSys"-->
+                <!--ng-change="_fetchKoordTrans()"-->
+                <!--ng-options="key as val for (key, val) in coordinateSystems"></select>-->
+        <!--<br/>-->
+        <!--<input type="checkbox"-->
+               <!--data-ng-click="generateCoordinateSystems()"-->
+               <!--ng-model="showAdvancedCoordinateSystems"/>-->
+        <!--<span>Vis avanserte koordinatsystemer</span>-->
     </div>
 </div>

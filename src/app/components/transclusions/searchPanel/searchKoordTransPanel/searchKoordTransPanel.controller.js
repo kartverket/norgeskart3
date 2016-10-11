@@ -23,7 +23,8 @@ angular.module('searchKoordTransPanel')
                 });
             };
 
-            $scope._fetchKoordTrans = function () {
+            $scope._fetchKoordTrans = function (key) {
+                $scope.activePosition.resSosiKoordSys = key;
                 var lat = $scope.activePosition.lat;
                 var lon = $scope.activePosition.lon;
                 var koordTransUrl = mainAppService.generateKoordTransUrl(lon, lat, $scope.activePosition.resSosiKoordSys);
@@ -75,6 +76,10 @@ angular.module('searchKoordTransPanel')
             $scope.activePosition.transLon = _round($scope.activePosition.lon,2);
             $scope.activePosition.resSosiKoordSys = '23';
             $scope.generateCoordinateSystems();
+
+            $scope.getActiveCoorSystem = function () {
+                return  $scope.coordinateSystems[$scope.activePosition.resSosiKoordSys];
+            };
 
 
         }
