@@ -110,6 +110,10 @@ angular.module('mainApp')
                 this.generateGeoJSONUrl = function (hash) {
                     return url + 'user/json/' + hash + '.json';
                 };
+
+                this.generateGeoJSONSaveUrl = function (hash) {
+                    return url + 'user/json/' + hash + '.json';
+                };
                 /*
                  // No CORS
                  this.generateSeHavnivaaUrl = function (lat, lon) {

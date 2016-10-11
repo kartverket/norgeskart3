@@ -126,6 +126,21 @@ angular.module('mainMenuDraw')
                         }
                     };
 
+                    scope.saveButtonClick = function () {
+                        var saveUrl=mainAppService.generateGeoJSONSaveUrl();
+                        $http.post(saveUrl,scope.GeoJSON).then(function(result){_setDrawingInUrl(result);});
+                    };
+
+                    var _setDrawingInUrl = function (result) {
+                        var drawingUrl=result.data;
+                        var hashIndex=drawingUrl.split['/'].length-1;
+                        var hash = drawingUrl.split['/'][hashIndex].split('.')[0];
+                        _removeDrawingFromUrl();
+                        var oldUrl=$location.url();
+                        $location.url(oldUrl + '&drawing=' + hash);
+                        _checkUrlForGeoJSON();
+                    };
+
                     scope.removeInfomarkers();
                     if(!scope.isDrawActivated()) {
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
