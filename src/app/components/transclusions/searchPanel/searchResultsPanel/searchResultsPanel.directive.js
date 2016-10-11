@@ -5,7 +5,11 @@ angular.module('searchResultsPanel')
                 templateUrl: 'components/transclusions/searchPanel/searchResultsPanel/searchResultsPanel.html',
                 restrict: 'A',
                 link: function(scope){
+
+                    scope.activeHusnum = "Husnummer";
+
                     scope.husnummerChanged= function (searchResult, activeHusnummer) {
+                        scope.activeHusnum = activeHusnummer;
                         var query=searchResult.name + ' ' + activeHusnummer + ',' + searchResult.kommune;
                         var url=mainAppService.generateSearchMatrikkelAdresseUrl(query);
                         $http.get(url).then(function (response) {
