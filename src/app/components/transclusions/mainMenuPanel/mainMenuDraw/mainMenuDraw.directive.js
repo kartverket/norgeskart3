@@ -47,7 +47,7 @@ angular.module('mainMenuDraw')
                     scope.refreshStyle=function () {
                         var style=new ol.style.Style({
                             fill: new ol.style.Fill({
-                                color: scope.colorPolygonFill
+                                color: hex2rgba(scope.colorPolygonFill + '80')
                             }),
                             stroke: new ol.style.Stroke({
                                 color: scope.colorLine,
@@ -191,6 +191,15 @@ angular.module('mainMenuDraw')
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
                     }
                     _checkUrlForGeoJSON();
+
+                    function hex2rgba(hexa){
+                        var r = parseInt(hexa.slice(1,3), 16);
+                        g = parseInt(hexa.slice(3,5), 16);
+                        b = parseInt(hexa.slice(5,7), 16);
+                        a = parseInt(hexa.slice(7,9), 16)/255;
+                        return 'rgba('+r+', '+g+', '+b+', '+a+')';
+                    }
+
                     /*
                      Draw end
                      */
