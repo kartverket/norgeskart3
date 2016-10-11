@@ -118,7 +118,12 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.downloadButtonClick=function () {
-                        scope.saveToPc(scope.GeoJSON);
+                        if(scope.GeoJSON=='remove'){
+                            alert('Empty drawing');
+                        }
+                        else {
+                            scope.saveToPc(scope.GeoJSON);
+                        }
                     };
 
                     scope.removeInfomarkers();
