@@ -2,6 +2,8 @@ angular.module('mainMenuPanel')
     .controller('mainMenuPanelController', ['$scope',
         function($scope){
 
+            $scope.drawActivated=false;
+
             $scope.mainMenuPanelLayout = "mainMenuSections";
 
             $scope.showMainMenuBaseLayers = function () {
@@ -20,5 +22,14 @@ angular.module('mainMenuPanel')
                 $scope.mainMenuPanelLayout = "mainMenuDraw";
             };
 
+            $scope.isDrawActivated = function () {
+                if($scope.drawActivated){
+                    return true;
+                }
+                else {
+                    $scope.drawActivated=true;
+                    return false;
+                }
+            };
         }
     ]);

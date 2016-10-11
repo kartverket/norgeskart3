@@ -1,6 +1,6 @@
 angular.module('mainMenuDraw')
-    .directive('mainMenuDraw', [ 'toolsFactory', 'ISY.EventHandler',
-        function(toolsFactory, eventHandler) {
+    .directive('mainMenuDraw', [ 'toolsFactory', 'ISY.EventHandler', '$location','mainAppService', '$http',
+        function(toolsFactory, eventHandler, $location,mainAppService,$http) {
             return {
                 templateUrl: 'components/transclusions/mainMenuPanel/mainMenuDraw/mainMenuDraw.html',
                 restrict: 'A',
@@ -38,24 +38,63 @@ angular.module('mainMenuDraw')
                      Draw start
                      */
 
-                    var _setGeometryType = function(type){
+                    var getDrawing = function (geoJSON) {
+                        scope.GeoJSON=geoJSON;
+                        console.log(geoJSON);
+                    };
+
+                    var _checkUrlForGeoJSON = function () {
+                        var drawingHash=_getValueFromUrl('drawing');
+                        if(drawingHash){
+                            _getGeoJSON(drawingHash);
+                                return;
+                            }
+                        _activateDrawFeatureTool();
+                    };
+
+                    var _getValueFromUrl = function (key) {
+                        var url=$location.url();
+                        var params=url.split('?')[1].split('&');
+                        for(var i =0; i<params.length; i++){
+                            var param=params[i].split('=');
+                            if(param[0]==key) {
+                                return param[1];
+                            }
+                        }
+                    };
+
+                    var _getGeoJSON = function (hash) {
+                        var drawingUrl=mainAppService.generateGeoJSONUrl(hash);
+                        $http.get(drawingUrl).then(function(result){_setGeoJSONOnScope(result);});
+                    };
+
+                    var _setGeoJSONOnScope = function(result){
+                        scope.GeoJSON = result.data;
+                        _activateDrawFeatureTool();
+                    };
+
+                    var _activateDrawFeatureTool = function (type) {
+                        if(!type){
+                            type='Point';
+                        }
                         var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                        if(scope.GeoJSON){
+                            drawFeatureTool.additionalOptions.GeoJSON=scope.GeoJSON;
+                        }
                         drawFeatureTool.additionalOptions.type=type;
                         toolsFactory.deactivateTool(drawFeatureTool);
                         toolsFactory.activateTool(drawFeatureTool);
                     };
 
-                    var getDrawing = function (geoJSON) {
-                        console.log(geoJSON);
-                    };
-                    
                     scope.drawFeature = function (type) {
-                        _setGeometryType(type);
+                        _activateDrawFeatureTool(type);
                     };
 
                     scope.removeInfomarkers();
-                    _setGeometryType('Point');
-                    eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
+                    if(!scope.isDrawActivated()) {
+                        eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
+                    }
+                    _checkUrlForGeoJSON();
                     /*
                      Draw end
                      */
