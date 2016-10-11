@@ -38,6 +38,8 @@ angular.module('mainMenuDraw')
                      Draw start
                      */
 
+                    _operation="";
+
                     var getDrawing = function (geoJSON) {
                         scope.GeoJSON=geoJSON;
                         console.log(geoJSON);
@@ -81,6 +83,7 @@ angular.module('mainMenuDraw')
                         if(scope.GeoJSON){
                             drawFeatureTool.additionalOptions.GeoJSON=scope.GeoJSON;
                         }
+                        drawFeatureTool.additionalOptions.operation=_operation;
                         drawFeatureTool.additionalOptions.type=type;
                         drawFeatureTool.additionalOptions.snap=scope.snap;
                         toolsFactory.deactivateTool(drawFeatureTool);
@@ -109,7 +112,9 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.undoButtonClick = function(){
-                        console.log('Undo clicked');
+                        _operation='undo';
+                        _activateDrawFeatureTool('Active');
+                        _operation="";
                     };
 
                     scope.removeInfomarkers();
