@@ -39,7 +39,33 @@ angular.module('mainMenuDraw')
                      */
 
                     _operation="";
+                    firstLoad=true;
+
                     scope.mode="draw";
+
+
+                    scope.refreshStyle=function () {
+                        var style=new ol.style.Style({
+                            fill: new ol.style.Fill({
+                                color: scope.colorPolygonFill
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: scope.colorLine,
+                                width: 2
+                            }),
+                            image: new ol.style.Circle({
+                                radius: 5,
+                                fill: new ol.style.Fill({
+                                    color: scope.colorPoint
+                                }),
+                                stroke: new ol.style.Stroke({
+                                    color: scope.colorPoint,
+                                    width: 2
+                                })
+                            })}
+                        );
+                        return style;
+                    };
 
                     var getDrawing = function (geoJSON) {
                         scope.GeoJSON=geoJSON;
@@ -52,7 +78,7 @@ angular.module('mainMenuDraw')
                             _getGeoJSON(drawingHash);
                                 return;
                             }
-                        _activateDrawFeatureTool();
+                        scope.activateDrawFeatureTool();
                     };
 
                     var _getValueFromUrl = function (key) {
@@ -73,10 +99,10 @@ angular.module('mainMenuDraw')
 
                     var _setGeoJSONOnScope = function(result){
                         scope.GeoJSON = result.data;
-                        _activateDrawFeatureTool();
+                        scope.activateDrawFeatureTool();
                     };
 
-                    var _activateDrawFeatureTool = function (type) {
+                    scope.activateDrawFeatureTool = function (type) {
                         if(!type){
                             type='Point';
                         }
@@ -86,6 +112,7 @@ angular.module('mainMenuDraw')
                         }
                         drawFeatureTool.additionalOptions.operation=_operation;
                         drawFeatureTool.additionalOptions.type=type;
+                        drawFeatureTool.additionalOptions.style=scope.refreshStyle();
                         drawFeatureTool.additionalOptions.snap=scope.snap;
                         drawFeatureTool.additionalOptions.mode=scope.mode;
                         toolsFactory.deactivateTool(drawFeatureTool);
@@ -93,18 +120,18 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.drawFeature = function (type) {
-                        _activateDrawFeatureTool(type);
+                        scope.activateDrawFeatureTool(type);
                     };
 
                     scope.snapButtonClick = function () {
                         scope.toggleSnap();
-                        _activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool('Active');
                     };
 
                     scope.newButtonClick = function(){
                         scope.GeoJSON='remove';
                         _removeDrawingFromUrl();
-                        _activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool('Active');
                     };
 
                     var _removeDrawingFromUrl = function () {
@@ -115,7 +142,7 @@ angular.module('mainMenuDraw')
 
                     scope.undoButtonClick = function(){
                         _operation='undo';
-                        _activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool('Active');
                         _operation="";
                     };
 
@@ -136,17 +163,17 @@ angular.module('mainMenuDraw')
 
                     scope.modifyButtonClick= function () {
                         scope.mode='modify';
-                        _activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool('Active');
                     };
 
                     scope.drawButtonClick= function () {
                         scope.mode='draw';
-                        _activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool('Active');
                     };
 
                     scope.selectButtonClick= function () {
                         scope.mode='select';
-                        _activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool('Active');
                     };
 
                     var _setDrawingInUrl = function (result) {

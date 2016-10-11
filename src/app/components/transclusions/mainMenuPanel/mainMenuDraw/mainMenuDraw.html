@@ -43,4 +43,12 @@
     <button data-ng-click="selectButtonClick()">Velg</button>
     <br/>
     <button data-ng-click="snapButtonClick()">Snap</button>
+    <br/>
+    <input type="color" ng-model="colorPoint" ng-change="activateDrawFeatureTool('Active');"  data-ng-init="colorPoint='#ff0000'"/><span>Punkt</span>
+    <br/>
+    <input type="color" ng-model="colorLine" ng-change="activateDrawFeatureTool('Active');" data-ng-init="colorLine='#ff0000'"/><span>Linje</span>
+    <br/>
+    <!--<input type="color" ng-model="colorPolygonStroke" ng-change="refreshStyle(colorPolygonStroke, 'polygonStroke')"/><span>Område - grense</span>-->
+    <!--<br/>-->
+    <input type="color" ng-model="colorPolygonFill" ng-change="activateDrawFeatureTool('Active');" data-ng-init="colorPolygonFill='#ff0000'"/><span>Område - fyll</span>
 </ul>
