@@ -96,6 +96,22 @@ angular.module('mainMenuDraw')
                         _activateDrawFeatureTool('Active');
                     };
 
+                    scope.newButtonClick = function(){
+                        scope.GeoJSON='remove';
+                        _removeDrawingFromUrl();
+                        _activateDrawFeatureTool('Active');
+                    };
+
+                    var _removeDrawingFromUrl = function () {
+                        var hash=_getValueFromUrl('drawing');
+                        var oldUrl=$location.url();
+                        $location.url(oldUrl.replace('drawing=' + hash, ''));
+                    };
+
+                    scope.undoButtonClick = function(){
+                        console.log('Undo clicked');
+                    };
+
                     scope.removeInfomarkers();
                     if(!scope.isDrawActivated()) {
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
