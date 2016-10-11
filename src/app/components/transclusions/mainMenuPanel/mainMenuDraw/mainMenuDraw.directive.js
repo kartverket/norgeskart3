@@ -82,12 +82,18 @@ angular.module('mainMenuDraw')
                             drawFeatureTool.additionalOptions.GeoJSON=scope.GeoJSON;
                         }
                         drawFeatureTool.additionalOptions.type=type;
+                        drawFeatureTool.additionalOptions.snap=scope.snap;
                         toolsFactory.deactivateTool(drawFeatureTool);
                         toolsFactory.activateTool(drawFeatureTool);
                     };
 
                     scope.drawFeature = function (type) {
                         _activateDrawFeatureTool(type);
+                    };
+
+                    scope.snapButtonClick = function () {
+                        scope.toggleSnap();
+                        _activateDrawFeatureTool('Active');
                     };
 
                     scope.removeInfomarkers();
