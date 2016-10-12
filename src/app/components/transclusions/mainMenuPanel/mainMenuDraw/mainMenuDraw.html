@@ -45,4 +45,14 @@
     <button data-ng-click="snapButtonClick()">Snap</button>
     <br/>
     <input type="color" ng-model="color" ng-change="setColor()"/><span>Farge</span>
+    <br/>
+    <div ng-show="type=='Point'">
+        <input  type="number" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/><span>Punktstørrelse</span>
+    </div>
+    <div ng-show="type=='LineString'">
+        <input type=number" ng-model="lineWidth" ng-change="activateDrawFeatureTool()"/><span>Linjebredde</span>
+    </div>
+    <div ng-show="type=='Polygon'" >
+        <input type="number" max="100" min="0" ng-model="fillAlpha" ng-change="activateDrawFeatureTool()"/><span>Synlighet Område</span>
+    </div>
 </ul>

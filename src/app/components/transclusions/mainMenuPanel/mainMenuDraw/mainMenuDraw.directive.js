@@ -40,10 +40,19 @@ angular.module('mainMenuDraw')
                     scope.mode="draw";
                     scope.type='Point';
                     scope.color='#ffcc33';
+                    scope.fillAlpha=50;
+                    scope.pointRadius=7;
+                    scope.lineWidth=2;
                     _colorDict ={
-                        Point: scope.color,
-                        LineString: scope.color,
-                        Polygon: scope.color
+                        Point: {
+                            color: scope.color
+                        },
+                        LineString: {
+                            color: scope.color
+                        },
+                        Polygon: {
+                            color: scope.color
+                        }
                     };
                     _firstLoad=true;
                     _operation="";
@@ -51,16 +60,16 @@ angular.module('mainMenuDraw')
                     scope.refreshStyle=function () {
                         var style=new ol.style.Style({
                             fill: new ol.style.Fill({
-                                color: hex2rgba(_colorDict.Polygon + '80')
+                                color: hex2rgba(_colorDict.Polygon.color, scope.fillAlpha/100)
                             }),
                             stroke: new ol.style.Stroke({
-                                color: _colorDict.LineString,
-                                width: 2
+                                color: _colorDict.LineString.color,
+                                width: scope.lineWidth
                             }),
                             image: new ol.style.Circle({
-                                radius: 7,
+                                radius: scope.pointRadius,
                                 fill: new ol.style.Fill({
-                                    color: _colorDict.Point
+                                    color: _colorDict.Point.color
                                 })
                             })}
                         );
@@ -124,19 +133,19 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.setColor = function () {
-                       _colorDict[scope.type]=scope.color;
-                        scope.activateDrawFeatureTool(scope.type);
+                       _colorDict[scope.type].color=scope.color;
+                        scope.activateDrawFeatureTool();
                     };
 
                     scope.snapButtonClick = function () {
                         scope.toggleSnap();
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                     };
 
                     scope.newButtonClick = function(){
                         scope.GeoJSON='remove';
                         _removeDrawingFromUrl();
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                     };
 
                     var _removeDrawingFromUrl = function () {
@@ -147,7 +156,7 @@ angular.module('mainMenuDraw')
 
                     scope.undoButtonClick = function(){
                         _operation='undo';
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                         _operation="";
                     };
 
@@ -168,17 +177,17 @@ angular.module('mainMenuDraw')
 
                     scope.modifyButtonClick= function () {
                         scope.mode='modify';
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                     };
 
                     scope.drawButtonClick= function () {
                         scope.mode='draw';
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                     };
 
                     scope.selectButtonClick= function () {
                         scope.mode='select';
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                     };
 
                     var _setDrawingInUrl = function (result) {
@@ -197,12 +206,12 @@ angular.module('mainMenuDraw')
                     }
                     _checkUrlForGeoJSON();
 
-                    function hex2rgba(hexa){
-                        var r = parseInt(hexa.slice(1,3), 16);
-                        g = parseInt(hexa.slice(3,5), 16);
-                        b = parseInt(hexa.slice(5,7), 16);
-                        a = parseInt(hexa.slice(7,9), 16)/255;
-                        return 'rgba('+r+', '+g+', '+b+', '+a+')';
+                    function hex2rgba(hexRGB, alpha){
+                        var r = parseInt(hexRGB.slice(1,3), 16);
+                        g = parseInt(hexRGB.slice(3,5), 16);
+                        b = parseInt(hexRGB.slice(5,7), 16);
+                        //a = parseInt(hexRGB.slice(7,9), 16)/255;
+                        return 'rgba('+r+', '+g+', '+b+', '+alpha+')';
                     }
 
                     /*
