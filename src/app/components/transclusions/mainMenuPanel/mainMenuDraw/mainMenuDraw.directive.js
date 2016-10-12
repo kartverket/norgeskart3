@@ -38,6 +38,7 @@ angular.module('mainMenuDraw')
                      Draw start
                      */
                     scope.geometryTypes=['Point', 'LineString', 'Polygon'];
+                    scope.modeTypes=['draw', 'modify'];
                     scope.mode="draw";
                     scope.type='Point';
                     scope.color='#ffcc33';
@@ -115,7 +116,10 @@ angular.module('mainMenuDraw')
                         scope.activateDrawFeatureTool();
                     };
 
-                    scope.activateDrawFeatureTool = function () {
+                    scope.activateDrawFeatureTool = function (overrideMode) {
+                        if(overrideMode){
+                            scope.mode=overrideMode;
+                        }
                         var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
                         drawFeatureTool.additionalOptions = {
                             operation: _operation,
@@ -173,20 +177,6 @@ angular.module('mainMenuDraw')
                         $http.post(saveUrl,scope.GeoJSON).then(function(result){_setDrawingInUrl(result);});
                     };
 
-                    scope.modifyButtonClick= function () {
-                        scope.mode='modify';
-                        scope.activateDrawFeatureTool();
-                    };
-
-                    scope.drawButtonClick= function () {
-                        scope.mode='draw';
-                        scope.activateDrawFeatureTool();
-                    };
-
-                    scope.selectButtonClick= function () {
-                        scope.mode='select';
-                        scope.activateDrawFeatureTool();
-                    };
 
                     var _setDrawingInUrl = function (result) {
                         var drawingUrl=result.data;
