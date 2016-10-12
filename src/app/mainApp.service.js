@@ -108,7 +108,11 @@ angular.module('mainApp')
                 };
 
                 this.generateGeoJSONUrl = function (hash) {
-                    return url + 'user/json/' + hash + '.json';
+                    return url + 'user/json-test/' + hash + '.json';
+                };
+
+                this.generateGeoJSONSaveUrl = function () {
+                    return url + 'ws/upload-json-test.py';
                 };
                 /*
                  // No CORS
