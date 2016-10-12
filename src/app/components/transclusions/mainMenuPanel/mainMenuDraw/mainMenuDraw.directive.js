@@ -37,6 +37,7 @@ angular.module('mainMenuDraw')
                     /*
                      Draw start
                      */
+                    scope.geometryTypes=['Point', 'LineString', 'Polygon'];
                     scope.mode="draw";
                     scope.type='Point';
                     scope.color='#ffcc33';
@@ -127,18 +128,12 @@ angular.module('mainMenuDraw')
                         toolsFactory.activateTool(drawFeatureTool);
                     };
 
-                    scope.drawFeature = function (type) {
-                        scope.type=type;
+                    scope.drawFeature = function () {
                         scope.setColor();
                     };
 
                     scope.setColor = function () {
                        _colorDict[scope.type].color=scope.color;
-                        scope.activateDrawFeatureTool();
-                    };
-
-                    scope.snapButtonClick = function () {
-                        scope.toggleSnap();
                         scope.activateDrawFeatureTool();
                     };
 

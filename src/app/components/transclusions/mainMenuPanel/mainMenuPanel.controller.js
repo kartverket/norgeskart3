@@ -31,9 +31,5 @@ angular.module('mainMenuPanel')
                     return false;
                 }
             };
-
-            $scope.toggleSnap = function () {
-                $scope.snap=!$scope.snap;
-            };
         }
     ]);
