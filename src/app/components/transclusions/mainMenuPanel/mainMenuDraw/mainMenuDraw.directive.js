@@ -78,7 +78,7 @@ angular.module('mainMenuDraw')
                     };
 
                     var getDrawing = function (geoJSON) {
-                        scope.GeoJSON=geoJSON;
+                        scope.setGeoJSON(geoJSON);
                         console.log(geoJSON);
                     };
 
@@ -108,7 +108,7 @@ angular.module('mainMenuDraw')
                     };
 
                     var _setGeoJSONOnScope = function(result){
-                        scope.GeoJSON = result.data;
+                        scope.setGeoJSON(result.data);
                         scope.activateDrawFeatureTool();
                     };
 

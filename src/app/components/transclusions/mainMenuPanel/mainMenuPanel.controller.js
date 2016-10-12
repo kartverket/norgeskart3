@@ -31,5 +31,9 @@ angular.module('mainMenuPanel')
                     return false;
                 }
             };
+
+            $scope.setGeoJSON = function (GeoJSON) {
+                $scope.GeoJSON=GeoJSON;
+            };
         }
     ]);
