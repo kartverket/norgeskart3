@@ -42,13 +42,12 @@ angular.module('mainMenuDraw')
                     scope.color='#ffcc33';
                     scope.pointRadius=7;
                     scope.lineWidth=2;
-                    _styleDict ={
+                    _colorDict ={
                         Point: {
                             color: scope.color
                         },
                         LineString: {
-                            color: scope.color,
-                            width: scope.lineWidth
+                            color: scope.color
                         },
                         Polygon: {
                             color: scope.color
@@ -60,16 +59,16 @@ angular.module('mainMenuDraw')
                     scope.refreshStyle=function () {
                         var style=new ol.style.Style({
                             fill: new ol.style.Fill({
-                                color: hex2rgba(_styleDict.Polygon.color + '80')
+                                color: hex2rgba(_colorDict.Polygon.color + '80')
                             }),
                             stroke: new ol.style.Stroke({
-                                color: _styleDict.LineString.color,
-                                width: _styleDict.LineString.width
+                                color: _colorDict.LineString.color,
+                                width: scope.lineWidth
                             }),
                             image: new ol.style.Circle({
                                 radius: scope.pointRadius,
                                 fill: new ol.style.Fill({
-                                    color: _styleDict.Point.color
+                                    color: _colorDict.Point.color
                                 })
                             })}
                         );
@@ -133,11 +132,7 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.setColor = function () {
-                       _styleDict[scope.type].color=scope.color;
-                        scope.activateDrawFeatureTool();
-                    };
-
-                    scope.setPointRadius = function () {
+                       _colorDict[scope.type].color=scope.color;
                         scope.activateDrawFeatureTool();
                     };
 
