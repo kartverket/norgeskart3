@@ -572,6 +572,7 @@ angular.module('searchPanel')
                         _addLagTurkartToSearchOptions();
                         _addEmergencyPosterToSearchOptions();
                     };
+
                 }
             };
         }])

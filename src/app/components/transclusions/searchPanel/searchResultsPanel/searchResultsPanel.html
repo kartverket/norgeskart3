@@ -2,7 +2,7 @@
     <div class="search-content">
         <div data-ng-show="searchResults['matrikkelveg']">
             <h4 class="no-top">Veger:</h4>
-            <ul>
+            <ul class="list-result">
                 <li class="pointer-cursor"
                     ng-click="mouseOver(searchResult)"
                     ng-repeat="searchResult in searchResults['matrikkelveg']">
@@ -17,7 +17,7 @@
                                     <span data-ng-bind="activeHusnum"></span>
                                     <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu dropdown-searchPanel" aria-labelledby="dropdownMenu2">
+                                <ul class="dropdown-menu dropdown-searchPanel default-list" aria-labelledby="dropdownMenu2">
                                     <li data-ng-repeat="husnum in searchResult.husnummer" data-ng-click="husnummerChanged(searchResult, husnum); $event.stopPropagation();" class="pointer-cursor">
                                         <span data-ng-bind="husnum"></span>
                                     </li>
@@ -30,7 +30,7 @@
         </div>
         <div data-ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']">
             <h4 class="no-top">Adresser:</h4>
-            <ul>
+            <ul class="list-result">
                 <li ng-mouseover="mouseOver(searchResult)"
                     class="pointer-cursor"
                     ng-repeat="searchResult in searchResults['matrikkeladresse']">
@@ -51,7 +51,7 @@
             </div>
             <div dir-paginate="obj in placenameItems | itemsPerPage: 15 track by $index"></div>
         </div>
-        <ul>
+        <ul class="list-result">
             <li class="pointer-cursor"
                 ng-repeat="searchResult in searchResults['ssr']"
                 ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"

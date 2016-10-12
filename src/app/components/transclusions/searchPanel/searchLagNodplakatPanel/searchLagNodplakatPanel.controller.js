@@ -107,5 +107,9 @@ angular.module('searchLagNodplakatPanel')
                 var extent = map.GetExtent();
                 return mainAppService.generateEmergencyPosterPreviewImageUrl(extent[0], extent[1], extent[2], extent[3]);
             };
+
+            $scope.setNodePlagatName = function (value) {
+                $scope.lagNodplakatDict['elevationPoint'] = value;
+            };
         }
     ]);
