@@ -40,6 +40,7 @@ angular.module('mainMenuDraw')
                     scope.mode="draw";
                     scope.type='Point';
                     scope.color='#ffcc33';
+                    scope.fillAlpha=50;
                     scope.pointRadius=7;
                     scope.lineWidth=2;
                     _colorDict ={
@@ -59,7 +60,7 @@ angular.module('mainMenuDraw')
                     scope.refreshStyle=function () {
                         var style=new ol.style.Style({
                             fill: new ol.style.Fill({
-                                color: hex2rgba(_colorDict.Polygon.color + '80')
+                                color: hex2rgba(_colorDict.Polygon.color, scope.fillAlpha/100)
                             }),
                             stroke: new ol.style.Stroke({
                                 color: _colorDict.LineString.color,
@@ -205,12 +206,12 @@ angular.module('mainMenuDraw')
                     }
                     _checkUrlForGeoJSON();
 
-                    function hex2rgba(hexa){
-                        var r = parseInt(hexa.slice(1,3), 16);
-                        g = parseInt(hexa.slice(3,5), 16);
-                        b = parseInt(hexa.slice(5,7), 16);
-                        a = parseInt(hexa.slice(7,9), 16)/255;
-                        return 'rgba('+r+', '+g+', '+b+', '+a+')';
+                    function hex2rgba(hexRGB, alpha){
+                        var r = parseInt(hexRGB.slice(1,3), 16);
+                        g = parseInt(hexRGB.slice(3,5), 16);
+                        b = parseInt(hexRGB.slice(5,7), 16);
+                        //a = parseInt(hexRGB.slice(7,9), 16)/255;
+                        return 'rgba('+r+', '+g+', '+b+', '+alpha+')';
                     }
 
                     /*
