@@ -44,6 +44,8 @@ angular.module('mainMenuDraw')
                     scope.fillAlpha=50;
                     scope.pointRadius=7;
                     scope.lineWidth=2;
+                    scope.lineLength=15;
+                    scope.lineSpace=0;
                     _colorDict ={
                         Point: {
                             color: scope.color
@@ -65,7 +67,8 @@ angular.module('mainMenuDraw')
                             }),
                             stroke: new ol.style.Stroke({
                                 color: _colorDict.LineString.color,
-                                width: scope.lineWidth
+                                width: scope.lineWidth,
+                                lineDash: [scope.lineLength, scope.lineSpace]
                             }),
                             image: new ol.style.Circle({
                                 radius: scope.pointRadius,
