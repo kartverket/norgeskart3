@@ -38,56 +38,15 @@
                 </div>
             </div>
         </div>
-
-
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<span>Øst:</span>-->
-        <!--<span data-ng-bind="activePosition.transLon"></span>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<select ng-model = "activePosition.resSosiKoordSys"-->
-                <!--ng-change="_fetchKoordTrans()"-->
-                <!--ng-options="key as val for (key, val) in coordinateSystems"></select>-->
-        <!--<br/>-->
-        <input type="checkbox"
-               data-ng-click="generateCoordinateSystems()"
-               ng-model="showAdvancedCoordinateSystems"/>
-        <span>Vis avanserte koordinatsystemer</span>
-
-
-
-        <!--<ul>-->
-            <!--<li>-->
-                <!--<span class="search-options">-->
-                    <!--{{searchOptionsDict['koordTrans'].icon.value}}-->
-                <!--</span>-->
-                <!--<span>Koordinater</span>-->
-            <!--</li>-->
-            <!--<li ng-mousedown="showSearchOptionsPanel()">-->
-                <!--<span class="search-options pointer-cursor">-->
-                    <!--<b>←</b>-->
-                <!--</span>-->
-                <!--<span class="pointer-cursor">-->
-                    <!--<b>Returner til tjenester</b>-->
-                <!--</span>-->
-            <!--</li>-->
-        <!--</ul>-->
-        <!--<span>Nord:</span>-->
-        <!--<span data-ng-bind="activePosition.transLat"></span>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<span>Øst:</span>-->
-        <!--<span data-ng-bind="activePosition.transLon"></span>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<select ng-model = "activePosition.resSosiKoordSys"-->
-                <!--ng-change="_fetchKoordTrans()"-->
-                <!--ng-options="key as val for (key, val) in coordinateSystems"></select>-->
-        <!--<br/>-->
-        <!--<input type="checkbox"-->
-               <!--data-ng-click="generateCoordinateSystems()"-->
-               <!--ng-model="showAdvancedCoordinateSystems"/>-->
-        <!--<span>Vis avanserte koordinatsystemer</span>-->
+        <div class="row new-section">
+            <div class="col-xs-8">
+                <span class="info-text">Vis avanserte koordinatsystemer:</span>
+            </div>
+            <div class="col-xs-2 no-padding">
+                <input type="checkbox" class="checkbox"
+                       data-ng-click="generateCoordinateSystems()"
+                       ng-model="showAdvancedCoordinateSystems"/>
+            </div>
+        </div>
     </div>
 </div>
