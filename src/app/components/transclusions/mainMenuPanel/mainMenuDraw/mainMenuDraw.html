@@ -42,6 +42,22 @@
         <span>Synlighet</span>
         <input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="activateDrawFeatureTool()"/>
     </li>
+    <li data-ng-click="newButtonClick()">
+        <span>☒</span>
+        <span>Start ny tegning</span>
+    </li>
+    <li data-ng-click="undoButtonClick()">
+        <span>←</span>
+        <span>Slett siste objekt</span>
+    </li>
+    <li data-ng-click="downloadButtonClick()">
+        <span>↓</span>
+        <span>Last ned GeoJSON</span>
+    </li>
+    <li data-ng-click="saveButtonClick()">
+        <span>☑</span>
+        <span>Lagre GeoJSON til url</span>
+    </li>
     <li data-ng-click="measureLine()">
         <span class="flaticon-tool292"></span>
         <span translate="MeasureLine_title"></span>
@@ -50,11 +66,4 @@
         <span class="flaticon-triangular43"></span>
         <span translate="Measure_title"></span>
     </li>
-
-    <button data-ng-click="newButtonClick()">Ny</button>
-    <button data-ng-click="undoButtonClick()">Angre</button>
-    <br/>
-    <button data-ng-click="downloadButtonClick()">Last ned</button>
-    <button data-ng-click="saveButtonClick()">Lagre</button>
-    <br/>
 </ul>
