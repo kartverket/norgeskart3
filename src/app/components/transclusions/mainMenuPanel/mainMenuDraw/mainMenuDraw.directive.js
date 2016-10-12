@@ -145,7 +145,7 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.newButtonClick = function(){
-                        scope.GeoJSON='remove';
+                        scope.setGeoJSON('remove');
                         _removeDrawingFromUrl();
                         scope.activateDrawFeatureTool();
                     };
