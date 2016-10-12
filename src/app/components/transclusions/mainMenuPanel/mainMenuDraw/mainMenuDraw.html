@@ -23,7 +23,13 @@
     </li>
     <li ng-show="type=='LineString'">
         <span>Bredde</span>
-        <input type=number" min="0" max="100" ng-model="lineWidth" ng-change="activateDrawFeatureTool()"/>
+        <input type="number" min="0" max="100" ng-model="lineWidth" ng-change="activateDrawFeatureTool()"/>
+        <br/>
+        <span>Lengde</span>
+        <input type="number" min="0" max="100" ng-model="lineLength" ng-change="activateDrawFeatureTool()"/>
+        <br/>
+        <span>Mellomrom</span>
+        <input type="number" min="0" max="100" ng-model="lineSpace" ng-change="activateDrawFeatureTool()"/>
     </li>
     <li ng-show="type=='Polygon'" >
         <span>Synlighet</span>
@@ -48,10 +54,7 @@
     <br/>
     <button data-ng-click="modifyButtonClick()">Endre</button>
     <button data-ng-click="drawButtonClick()">Tegne</button>
-    <button data-ng-click="selectButtonClick()">Velg</button>
+    <!--<button data-ng-click="selectButtonClick()">Velg</button>-->
     <br/>
     <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()"><span>Snap</span>
-    <!--<button data-ng-click="snapButtonClick()">Snap</button>-->
-
-
 </ul>
