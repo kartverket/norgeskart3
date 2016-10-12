@@ -11,7 +11,7 @@
 <ul class="sidenav-group">
     <li>
         <span>Geometritype</span>
-       <select ng-model="type"  ng-options="o for o in geometryTypes" ng-change="activateDrawFeatureTool()"></select>
+       <select ng-model="type"  ng-options="o for o in geometryTypes" ng-change="drawButtonClick()"></select>
     </li>
     <li>
         <span>Farge</span>
@@ -19,21 +19,21 @@
     </li>
     <li ng-show="type=='Point'">
         <span>Radius</span>
-        <input  type="number" min="0" max="100" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/>
+        <input  type="number" min="0" max="100" ng-model="pointRadius" ng-change="drawButtonClick()"/>
     </li>
     <li ng-show="type=='LineString'">
         <span>Bredde</span>
-        <input type="number" min="0" max="100" ng-model="lineWidth" ng-change="activateDrawFeatureTool()"/>
+        <input type="number" min="0" max="100" ng-model="lineWidth" ng-change="drawButtonClick()"/>
         <br/>
         <span>Lengde</span>
-        <input type="number" min="0" max="100" ng-model="lineLength" ng-change="activateDrawFeatureTool()"/>
+        <input type="number" min="0" max="100" ng-model="lineLength" ng-change="drawButtonClick()"/>
         <br/>
         <span>Mellomrom</span>
-        <input type="number" min="0" max="100" ng-model="lineSpace" ng-change="activateDrawFeatureTool()"/>
+        <input type="number" min="0" max="100" ng-model="lineSpace" ng-change="drawButtonClick()"/>
     </li>
     <li ng-show="type=='Polygon'" >
         <span>Synlighet</span>
-        <input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="activateDrawFeatureTool()"/>
+        <input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="drawButtonClick()"/>
     </li>
     <li data-ng-click="measureLine()">
         <span class="flaticon-tool292"></span>
