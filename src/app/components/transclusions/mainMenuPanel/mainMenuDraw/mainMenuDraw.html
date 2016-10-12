@@ -14,7 +14,7 @@
         <select ng-model="type"  ng-options="o for o in geometryTypes" ng-change="activateDrawFeatureTool('draw')"></select>
     </li>
     <li>
-        <span>Modus:</span>
+        <span>Modus</span>
         <select ng-model="mode" ng-options="o for o in modeTypes" ng-change="activateDrawFeatureTool()"></select>
     </li>
     <li>
@@ -52,11 +52,11 @@
     </li>
     <li data-ng-click="downloadButtonClick()">
         <span>↓</span>
-        <span>Last ned GeoJSON</span>
+        <span>Last ned tegning</span>
     </li>
     <li data-ng-click="saveButtonClick()">
         <span>☑</span>
-        <span>Lagre GeoJSON til url</span>
+        <span>Del tegning</span>
     </li>
     <li data-ng-click="measureLine()">
         <span class="flaticon-tool292"></span>
