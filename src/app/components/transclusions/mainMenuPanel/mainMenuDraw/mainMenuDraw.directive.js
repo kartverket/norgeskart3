@@ -180,6 +180,7 @@ angular.module('mainMenuDraw')
 
                     var _setDrawingInUrl = function (result) {
                         var drawingUrl=result.data;
+                        alert(drawingUrl);
                         var hashIndex=drawingUrl.split('/').length-1;
                         var hash = drawingUrl.split('/')[hashIndex].split('.')[0];
                         _removeDrawingFromUrl();
