@@ -54,13 +54,9 @@ angular.module('mainMenuDraw')
                                 width: 2
                             }),
                             image: new ol.style.Circle({
-                                radius: 5,
+                                radius: 7,
                                 fill: new ol.style.Fill({
                                     color: scope.colorPoint
-                                }),
-                                stroke: new ol.style.Stroke({
-                                    color: scope.colorPoint,
-                                    width: 2
                                 })
                             })}
                         );
