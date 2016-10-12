@@ -118,6 +118,11 @@ angular
                 getPlacenamePage: function () {
                     return placenamePage;
                 },
+
+                setPlacenamePage: function (value) {
+                    placenamePage = value;
+                },
+
                 constructPoint : function (lat, lon, epsgFrom, epsgTo) {
                     return ol.proj.transform([lon, lat], epsgFrom, epsgTo);
                 }

@@ -160,8 +160,13 @@ angular.module('searchPanel')
                         }
                     };
 
+                    var _generateArrayWithValues = function (values) {
+                        return new Array(values);
+                    };
+
                     var _getPlacenameHits = function (jsonObject) {
                         scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
+                        scope.placenameItems = _generateArrayWithValues(parseInt(scope.placenameHits, 10));
                         scope.placenamePageTotal = Math.ceil(scope.placenameHits / searchPanelFactory.getPlacenameHitsPerPage());
                     };
 
@@ -175,6 +180,15 @@ angular.module('searchPanel')
 
                     scope.getPreviousPlacenamePage = function () {
                         scope.placenamePage=searchPanelFactory.decreasePlacenamePage() + 1;
+                        scope.resetResultsService('ssr');
+                        map.RemoveInfoMarker();
+                        scope.populateServiceDict(scope.searchBarModel);
+                        scope.getResults(['ssr']);
+                    };
+
+                    scope.pageChanged = function (newPage) {
+                        scope.placenamePage = newPage;
+                        searchPanelFactory.setPlacenamePage(newPage);
                         scope.resetResultsService('ssr');
                         map.RemoveInfoMarker();
                         scope.populateServiceDict(scope.searchBarModel);

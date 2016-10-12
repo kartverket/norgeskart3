@@ -82,7 +82,8 @@ module.exports = {
             'vendor/blob-util/dist/blob-util.min.js',
             'vendor/maplib/dist/maplib.js',
             'vendor/xml-to-json/xml.js',
-            'vendor/xml-to-json/json2xml.js'
+            'vendor/xml-to-json/json2xml.js',
+            'vendor/angular-utils-pagination/dirPagination.js'
         ],
         css: [
             'vendor/bootstrap/dist/css/bootstrap.min.css'
