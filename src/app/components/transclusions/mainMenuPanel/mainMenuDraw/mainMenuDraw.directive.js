@@ -40,14 +40,15 @@ angular.module('mainMenuDraw')
                     scope.mode="draw";
                     scope.type='Point';
                     scope.color='#ffcc33';
+                    scope.pointRadius=7;
+                    scope.lineWidth=2;
                     _styleDict ={
                         Point: {
-                            color: scope.color,
-                            radius: 7
+                            color: scope.color
                         },
                         LineString: {
                             color: scope.color,
-                            width: 2
+                            width: scope.lineWidth
                         },
                         Polygon: {
                             color: scope.color
@@ -66,7 +67,7 @@ angular.module('mainMenuDraw')
                                 width: _styleDict.LineString.width
                             }),
                             image: new ol.style.Circle({
-                                radius: _styleDict.Point.radius,
+                                radius: scope.pointRadius,
                                 fill: new ol.style.Fill({
                                     color: _styleDict.Point.color
                                 })
@@ -133,18 +134,22 @@ angular.module('mainMenuDraw')
 
                     scope.setColor = function () {
                        _styleDict[scope.type].color=scope.color;
-                        scope.activateDrawFeatureTool(scope.type);
+                        scope.activateDrawFeatureTool();
+                    };
+
+                    scope.setPointRadius = function () {
+                        scope.activateDrawFeatureTool();
                     };
 
                     scope.snapButtonClick = function () {
                         scope.toggleSnap();
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                     };
 
                     scope.newButtonClick = function(){
                         scope.GeoJSON='remove';
                         _removeDrawingFromUrl();
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                     };
 
                     var _removeDrawingFromUrl = function () {
@@ -155,7 +160,7 @@ angular.module('mainMenuDraw')
 
                     scope.undoButtonClick = function(){
                         _operation='undo';
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                         _operation="";
                     };
 
@@ -176,17 +181,17 @@ angular.module('mainMenuDraw')
 
                     scope.modifyButtonClick= function () {
                         scope.mode='modify';
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                     };
 
                     scope.drawButtonClick= function () {
                         scope.mode='draw';
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                     };
 
                     scope.selectButtonClick= function () {
                         scope.mode='select';
-                        scope.activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                     };
 
                     var _setDrawingInUrl = function (result) {
