@@ -37,30 +37,30 @@ angular.module('mainMenuDraw')
                     /*
                      Draw start
                      */
-
-                    _operation="";
-                    firstLoad=true;
-
                     scope.mode="draw";
-
+                    scope.type='Point';
+                    scope.color='#ffcc33';
+                    _colorDict ={
+                        Point: scope.color,
+                        LineString: scope.color,
+                        Polygon: scope.color
+                    };
+                    _firstLoad=true;
+                    _operation="";
 
                     scope.refreshStyle=function () {
                         var style=new ol.style.Style({
                             fill: new ol.style.Fill({
-                                color: hex2rgba(scope.colorPolygonFill + '80')
+                                color: hex2rgba(_colorDict.Polygon + '80')
                             }),
                             stroke: new ol.style.Stroke({
-                                color: scope.colorLine,
+                                color: _colorDict.LineString,
                                 width: 2
                             }),
                             image: new ol.style.Circle({
-                                radius: 5,
+                                radius: 7,
                                 fill: new ol.style.Fill({
-                                    color: scope.colorPoint
-                                }),
-                                stroke: new ol.style.Stroke({
-                                    color: scope.colorPoint,
-                                    width: 2
+                                    color: _colorDict.Point
                                 })
                             })}
                         );
@@ -102,25 +102,30 @@ angular.module('mainMenuDraw')
                         scope.activateDrawFeatureTool();
                     };
 
-                    scope.activateDrawFeatureTool = function (type) {
-                        if(!type){
-                            type='Point';
-                        }
+                    scope.activateDrawFeatureTool = function () {
                         var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                        drawFeatureTool.additionalOptions = {
+                            operation: _operation,
+                            type: scope.type,
+                            style: scope.refreshStyle(),
+                            snap: scope.snap,
+                            mode: scope.mode
+                        };
                         if(scope.GeoJSON){
                             drawFeatureTool.additionalOptions.GeoJSON=scope.GeoJSON;
                         }
-                        drawFeatureTool.additionalOptions.operation=_operation;
-                        drawFeatureTool.additionalOptions.type=type;
-                        drawFeatureTool.additionalOptions.style=scope.refreshStyle();
-                        drawFeatureTool.additionalOptions.snap=scope.snap;
-                        drawFeatureTool.additionalOptions.mode=scope.mode;
                         toolsFactory.deactivateTool(drawFeatureTool);
                         toolsFactory.activateTool(drawFeatureTool);
                     };
 
                     scope.drawFeature = function (type) {
-                        scope.activateDrawFeatureTool(type);
+                        scope.type=type;
+                        scope.setColor();
+                    };
+
+                    scope.setColor = function () {
+                       _colorDict[scope.type]=scope.color;
+                        scope.activateDrawFeatureTool(scope.type);
                     };
 
                     scope.snapButtonClick = function () {
@@ -239,7 +244,6 @@ angular.module('mainMenuDraw')
                             a.dispatchEvent(e);
                         }
                     };
-
                 }
             };
         }]);

@@ -44,11 +44,5 @@
     <br/>
     <button data-ng-click="snapButtonClick()">Snap</button>
     <br/>
-    <input type="color" ng-model="colorPoint" ng-change="activateDrawFeatureTool('Active');"  data-ng-init="colorPoint='#ff0000'"/><span>Punkt</span>
-    <br/>
-    <input type="color" ng-model="colorLine" ng-change="activateDrawFeatureTool('Active');" data-ng-init="colorLine='#00ff00'"/><span>Linje</span>
-    <br/>
-    <!--<input type="color" ng-model="colorPolygonStroke" ng-change="refreshStyle(colorPolygonStroke, 'polygonStroke')"/><span>Område - grense</span>-->
-    <!--<br/>-->
-    <input type="color" ng-model="colorPolygonFill" ng-change="activateDrawFeatureTool('Active');" data-ng-init="colorPolygonFill='#0000ff'"/><span>Område - fyll</span>
+    <input type="color" ng-model="color" ng-change="setColor()"/><span>Farge</span>
 </ul>
