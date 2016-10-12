@@ -11,7 +11,14 @@
 <ul class="sidenav-group">
     <li>
         <span>Geometritype</span>
-       <select ng-model="type"  ng-options="o for o in geometryTypes" ng-change="drawButtonClick()"></select>
+        <select ng-model="type"  ng-options="o for o in geometryTypes" ng-change="activateDrawFeatureTool('draw')"></select>
+    </li>
+    <li>
+        <span>Modus:</span>
+        <select ng-model="mode" ng-options="o for o in modeTypes" ng-change="activateDrawFeatureTool()"></select>
+    </li>
+    <li>
+        <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()"><span>Snap</span>
     </li>
     <li>
         <span>Farge</span>
@@ -19,21 +26,21 @@
     </li>
     <li ng-show="type=='Point'">
         <span>Radius</span>
-        <input  type="number" min="0" max="100" ng-model="pointRadius" ng-change="drawButtonClick()"/>
+        <input  type="number" min="0" max="100" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/>
     </li>
     <li ng-show="type=='LineString'">
         <span>Bredde</span>
-        <input type="number" min="0" max="100" ng-model="lineWidth" ng-change="drawButtonClick()"/>
+        <input type="number" min="0" max="100" ng-model="lineWidth" ng-change="activateDrawFeatureTool()"/>
         <br/>
         <span>Lengde</span>
-        <input type="number" min="0" max="100" ng-model="lineLength" ng-change="drawButtonClick()"/>
+        <input type="number" min="0" max="100" ng-model="lineLength" ng-change="activateDrawFeatureTool()"/>
         <br/>
         <span>Mellomrom</span>
-        <input type="number" min="0" max="100" ng-model="lineSpace" ng-change="drawButtonClick()"/>
+        <input type="number" min="0" max="100" ng-model="lineSpace" ng-change="activateDrawFeatureTool()"/>
     </li>
     <li ng-show="type=='Polygon'" >
         <span>Synlighet</span>
-        <input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="drawButtonClick()"/>
+        <input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="activateDrawFeatureTool()"/>
     </li>
     <li data-ng-click="measureLine()">
         <span class="flaticon-tool292"></span>
@@ -50,11 +57,4 @@
     <button data-ng-click="downloadButtonClick()">Last ned</button>
     <button data-ng-click="saveButtonClick()">Lagre</button>
     <br/>
-    <span>Aktiv Modus:</span><span data-ng-bind="mode"></span>
-    <br/>
-    <button data-ng-click="modifyButtonClick()">Endre</button>
-    <button data-ng-click="drawButtonClick()">Tegne</button>
-    <button data-ng-click="selectButtonClick()">Velg</button>
-    <br/>
-    <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()"><span>Snap</span>
 </ul>
