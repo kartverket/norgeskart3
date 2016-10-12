@@ -40,10 +40,18 @@ angular.module('mainMenuDraw')
                     scope.mode="draw";
                     scope.type='Point';
                     scope.color='#ffcc33';
-                    _colorDict ={
-                        Point: scope.color,
-                        LineString: scope.color,
-                        Polygon: scope.color
+                    _styleDict ={
+                        Point: {
+                            color: scope.color,
+                            radius: 7
+                        },
+                        LineString: {
+                            color: scope.color,
+                            width: 2
+                        },
+                        Polygon: {
+                            color: scope.color
+                        }
                     };
                     _firstLoad=true;
                     _operation="";
@@ -51,16 +59,16 @@ angular.module('mainMenuDraw')
                     scope.refreshStyle=function () {
                         var style=new ol.style.Style({
                             fill: new ol.style.Fill({
-                                color: hex2rgba(_colorDict.Polygon + '80')
+                                color: hex2rgba(_styleDict.Polygon.color + '80')
                             }),
                             stroke: new ol.style.Stroke({
-                                color: _colorDict.LineString,
-                                width: 2
+                                color: _styleDict.LineString.color,
+                                width: _styleDict.LineString.width
                             }),
                             image: new ol.style.Circle({
-                                radius: 7,
+                                radius: _styleDict.Point.radius,
                                 fill: new ol.style.Fill({
-                                    color: _colorDict.Point
+                                    color: _styleDict.Point.color
                                 })
                             })}
                         );
@@ -124,7 +132,7 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.setColor = function () {
-                       _colorDict[scope.type]=scope.color;
+                       _styleDict[scope.type].color=scope.color;
                         scope.activateDrawFeatureTool(scope.type);
                     };
 
