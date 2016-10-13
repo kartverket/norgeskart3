@@ -32,8 +32,8 @@ angular.module('mainMenuPanel')
                 }
             };
 
-            $scope.toggleSnap = function () {
-                $scope.snap=!$scope.snap;
+            $scope.setGeoJSON = function (GeoJSON) {
+                $scope.GeoJSON=GeoJSON;
             };
         }
     ]);

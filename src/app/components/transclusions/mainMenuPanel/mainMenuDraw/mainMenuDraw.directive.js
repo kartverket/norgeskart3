@@ -37,12 +37,52 @@ angular.module('mainMenuDraw')
                     /*
                      Draw start
                      */
-
-                    _operation="";
+                    scope.geometryTypes=['Point', 'LineString', 'Polygon'];
+                    scope.modeTypes=['draw', 'modify'];
                     scope.mode="draw";
+                    scope.type='Point';
+                    scope.color='#ffcc33';
+                    scope.fillAlpha=50;
+                    scope.pointRadius=7;
+                    scope.lineWidth=2;
+                    scope.lineLength=15;
+                    scope.lineSpace=0;
+                    _colorDict ={
+                        Point: {
+                            color: scope.color
+                        },
+                        LineString: {
+                            color: scope.color
+                        },
+                        Polygon: {
+                            color: scope.color
+                        }
+                    };
+                    _firstLoad=true;
+                    _operation="";
+
+                    scope.refreshStyle=function () {
+                        var style=new ol.style.Style({
+                            fill: new ol.style.Fill({
+                                color: hex2rgba(_colorDict.Polygon.color, scope.fillAlpha/100)
+                            }),
+                            stroke: new ol.style.Stroke({
+                                color: _colorDict.LineString.color,
+                                width: scope.lineWidth,
+                                lineDash: [scope.lineLength, scope.lineSpace]
+                            }),
+                            image: new ol.style.Circle({
+                                radius: scope.pointRadius,
+                                fill: new ol.style.Fill({
+                                    color: _colorDict.Point.color
+                                })
+                            })}
+                        );
+                        return style;
+                    };
 
                     var getDrawing = function (geoJSON) {
-                        scope.GeoJSON=geoJSON;
+                        scope.setGeoJSON(geoJSON);
                         console.log(geoJSON);
                     };
 
@@ -52,7 +92,7 @@ angular.module('mainMenuDraw')
                             _getGeoJSON(drawingHash);
                                 return;
                             }
-                        _activateDrawFeatureTool();
+                        scope.activateDrawFeatureTool();
                     };
 
                     var _getValueFromUrl = function (key) {
@@ -72,39 +112,42 @@ angular.module('mainMenuDraw')
                     };
 
                     var _setGeoJSONOnScope = function(result){
-                        scope.GeoJSON = result.data;
-                        _activateDrawFeatureTool();
+                        scope.setGeoJSON(result.data);
+                        scope.activateDrawFeatureTool();
                     };
 
-                    var _activateDrawFeatureTool = function (type) {
-                        if(!type){
-                            type='Point';
+                    scope.activateDrawFeatureTool = function (overrideMode) {
+                        if(overrideMode){
+                            scope.mode=overrideMode;
                         }
                         var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                        drawFeatureTool.additionalOptions = {
+                            operation: _operation,
+                            type: scope.type,
+                            style: scope.refreshStyle(),
+                            snap: scope.snap,
+                            mode: scope.mode
+                        };
                         if(scope.GeoJSON){
                             drawFeatureTool.additionalOptions.GeoJSON=scope.GeoJSON;
                         }
-                        drawFeatureTool.additionalOptions.operation=_operation;
-                        drawFeatureTool.additionalOptions.type=type;
-                        drawFeatureTool.additionalOptions.snap=scope.snap;
-                        drawFeatureTool.additionalOptions.mode=scope.mode;
                         toolsFactory.deactivateTool(drawFeatureTool);
                         toolsFactory.activateTool(drawFeatureTool);
                     };
 
-                    scope.drawFeature = function (type) {
-                        _activateDrawFeatureTool(type);
+                    scope.drawFeature = function () {
+                        scope.setColor();
                     };
 
-                    scope.snapButtonClick = function () {
-                        scope.toggleSnap();
-                        _activateDrawFeatureTool('Active');
+                    scope.setColor = function (overrideMode) {
+                       _colorDict[scope.type].color=scope.color;
+                        scope.activateDrawFeatureTool(overrideMode);
                     };
 
                     scope.newButtonClick = function(){
-                        scope.GeoJSON='remove';
+                        scope.setGeoJSON('remove');
                         _removeDrawingFromUrl();
-                        _activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                     };
 
                     var _removeDrawingFromUrl = function () {
@@ -115,7 +158,7 @@ angular.module('mainMenuDraw')
 
                     scope.undoButtonClick = function(){
                         _operation='undo';
-                        _activateDrawFeatureTool('Active');
+                        scope.activateDrawFeatureTool();
                         _operation="";
                     };
 
@@ -134,23 +177,10 @@ angular.module('mainMenuDraw')
                         $http.post(saveUrl,scope.GeoJSON).then(function(result){_setDrawingInUrl(result);});
                     };
 
-                    scope.modifyButtonClick= function () {
-                        scope.mode='modify';
-                        _activateDrawFeatureTool('Active');
-                    };
-
-                    scope.drawButtonClick= function () {
-                        scope.mode='draw';
-                        _activateDrawFeatureTool('Active');
-                    };
-
-                    scope.selectButtonClick= function () {
-                        scope.mode='select';
-                        _activateDrawFeatureTool('Active');
-                    };
 
                     var _setDrawingInUrl = function (result) {
                         var drawingUrl=result.data;
+                        alert(drawingUrl);
                         var hashIndex=drawingUrl.split('/').length-1;
                         var hash = drawingUrl.split('/')[hashIndex].split('.')[0];
                         _removeDrawingFromUrl();
@@ -164,6 +194,15 @@ angular.module('mainMenuDraw')
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
                     }
                     _checkUrlForGeoJSON();
+
+                    function hex2rgba(hexRGB, alpha){
+                        var r = parseInt(hexRGB.slice(1,3), 16);
+                        g = parseInt(hexRGB.slice(3,5), 16);
+                        b = parseInt(hexRGB.slice(5,7), 16);
+                        //a = parseInt(hexRGB.slice(7,9), 16)/255;
+                        return 'rgba('+r+', '+g+', '+b+', '+alpha+')';
+                    }
+
                     /*
                      Draw end
                      */
@@ -203,7 +242,6 @@ angular.module('mainMenuDraw')
                             a.dispatchEvent(e);
                         }
                     };
-
                 }
             };
         }]);
