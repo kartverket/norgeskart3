@@ -70,7 +70,15 @@
     </li>
     <li>
         <span>Farge</span>
-        <input type="color" ng-model="colorText"/>
+        <input type="color" ng-model="colorText" ng-change="activateDrawFeatureTool()"/>
+    </li>
+    <li>
+        <span>Kant</span>
+        <input type="color" ng-model="colorTextStroke" ng-change="activateDrawFeatureTool()"/>
+    </li>
+    <li>
+        <span>Tykkelse</span>
+        <input type="number" min="0" max="100" ng-model="colorTextStrokeWidth" ng-change="activateDrawFeatureTool()"/>
     </li>
     <h3>Annet</h3>
     <li data-ng-click="newButtonClick()">

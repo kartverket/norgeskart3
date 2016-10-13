@@ -51,6 +51,7 @@ angular.module('mainMenuDraw')
                     scope.lineSpace=0;
                     scope.text="";
                     scope.fontSize=15;
+                    scope.colorTextStrokeWidth=0;
                     _colorDict ={
                         Point: {
                             color: scope.color
@@ -89,6 +90,10 @@ angular.module('mainMenuDraw')
                                         text: scope.text,
                                         fill: new ol.style.Fill({
                                             color: scope.colorText
+                                        }),
+                                        stroke: new ol.style.Stroke({
+                                            color: scope.colorTextStroke,
+                                            width: scope.colorTextStrokeWidth
                                         })
                                     }
                                 )
@@ -97,9 +102,8 @@ angular.module('mainMenuDraw')
                         return style;
                     };
 
-                    var getDrawing = function (geoJSON) {
-                        scope.setGeoJSON(geoJSON);
-                        console.log(geoJSON);
+                    var getDrawing = function (GeoJSON) {
+                        scope.setGeoJSON(GeoJSON);
                     };
 
                     var _checkUrlForGeoJSON = function () {
