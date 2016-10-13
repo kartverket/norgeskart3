@@ -560,6 +560,23 @@ html{
   max-width: 420px;
 }
 
+.list-result{
+  li{
+    border-bottom: 1px solid #dedede;
+  }
+  li:last-child{
+    border-bottom: 0;
+  }
+}
+
+.default-list{
+  li{
+    border: 0;
+  }
+}
+
+
+
 .search-content{
   padding: 5px 10px 5px 10px;
   max-height: 800px;
@@ -567,8 +584,9 @@ html{
   overflow-y: auto;
   overflow-x: hidden;
   li{
-    padding: 1px 5px 1px 6px;
+    padding: 4px 6px 4px 6px;
   }
+
   li:hover{
     background-color: #e8e6e6;
   }
@@ -597,7 +615,6 @@ html{
   .title-text{
     span{
       padding: 1px 5px 1px 6px;
-      font-weight: bold;
       display: inline-block;
     }
   }
@@ -626,7 +643,7 @@ html{
     border: 1px solid #b1b1b1;
     padding: 2px 4px 2px 6px;
     font-size: 15px;
-    margin: 1px 5px 1px 6px;
+    //margin: 1px 5px 1px 6px;
   }
 
   .btn{
@@ -635,7 +652,8 @@ html{
   }
 
   .btn-content{
-    background-color: rgb(155, 201, 216);
+    background-color: #2c98bb; //rgb(155, 201, 216);
+    color: white;
   }
 
   .checkbox{
@@ -648,10 +666,16 @@ html{
   }
 
   .header{
-    border-bottom: 1px solid #929090;
+    //border-bottom: 1px solid #929090;
     margin: 0 0 10px;
+    background-color: #e2f0f4;
+    padding-top: 8px;
+    border-radius: 4px;
   }
 
+  iframe{
+    margin: 5px;
+  }
 
 }
 

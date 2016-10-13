@@ -1,27 +1,25 @@
 <div class="search-panel" ng-show="searchResults != undefined">
-    <div class="content no-border search-content">
-        <ul>
-            <li>
-                <span class="search-options">
-                    {{searchOptionsDict['lagNodplakat'].icon.value}}
-                </span>
-                <span>Nødplakat</span>
-            </li>
-            <li ng-mousedown="showSearchOptionsPanel()">
-                <span class="search-options pointer-cursor">
-                    <b>←</b>
-                </span>
-                <span class="pointer-cursor">
-                    <b>Returner til tjenester</b>
-                </span>
-            </li>
-        </ul>
-        <h4>Ansvar</h4>
-        <p>Nødplakaten er utviklet i samarbeid med Hovedredningsentralene og nødetatene. Kartverket er ansvarlig for datagrunnlaget, dvs. stedsnavn og kart - samt teknologien bak.</p>
-        <p>Det er brukerens ansvar å kontrollere at det er korrekt hytte eller sted som vises på plakaten.</p>
-        <p>Kartverket tar ikke ansvar for mulige feil som skyldes brukeren, datagrunnlaget eller teknologien.</p>
-        <button data-ng-click="showLagNodplakatPage2()">
-            Jeg godtar og går videre
+    <div class="search-content">
+        <div class="header">
+            <h4 class="no-top title">{{searchOptionsDict['lagNodplakat'].icon.value}} Nødplakat</h4>
+            <div class="backbtn" data-ng-click="showSearchOptionsPanel()">
+                <span class="glyphicon glyphicon-menu-left"></span>
+            </div>
+        </div>
+        <h4 class="no-top">Ansvar</h4>
+        <div class="info-text">
+            <span>Nødplakaten er utviklet i samarbeid med Hovedredningsentralene og nødetatene. Kartverket er ansvarlig for datagrunnlaget, dvs. stedsnavn og kart - samt teknologien bak.</span>
+        </div>
+        <div class="info-text">
+            <span>Det er brukerens ansvar å kontrollere at det er korrekt hytte eller sted som vises på plakaten.</span>
+        </div>
+        <div class="info-text">
+            <span>Kartverket tar ikke ansvar for mulige feil som skyldes brukeren, datagrunnlaget eller teknologien.</span>
+        </div>
+
+        <button type="button" class="btn btn-default btn-content pull-right" data-ng-click="showLagNodplakatPage2()">
+            <span>Jeg godtar og går videre</span>
         </button>
+
     </div>
 </div>
