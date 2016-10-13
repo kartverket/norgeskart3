@@ -86,10 +86,10 @@ angular.module('mainMenuDraw')
                                 }),
                                 text: new ol.style.Text({
                                         font: scope.fontSize + 'px ' + _fontName,
-                                        text: scope.text
-                                        // ,fill: new ol.style.Fill({
-                                        //     color: scope.color
-                                        // })
+                                        text: scope.text,
+                                        fill: new ol.style.Fill({
+                                            color: scope.colorText
+                                        })
                                     }
                                 )
                             }

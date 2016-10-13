@@ -57,12 +57,16 @@
         <input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="activateDrawFeatureTool()"/>
     </li>
     <li>
-        <span>Tekst</span>
+        <h3>Tekst</h3>
         <input type="text" ng-model="text" placeholder="Skriv inn tekst her" ng-change="activateDrawFeatureTool()"/>
     </li>
     <li>
         <span>Størrelse</span>
         <input type="number" min="1" max="100" ng-model="fontSize" ng-change="activateDrawFeatureTool()"/>
+    </li>
+    <li>
+        <span>Farge</span>
+        <input type="color" ng-model="colorText"/>
     </li>
     <li data-ng-click="newButtonClick()">
         <span>☒</span>
