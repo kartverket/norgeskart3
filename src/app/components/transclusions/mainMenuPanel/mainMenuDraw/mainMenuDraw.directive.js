@@ -43,7 +43,9 @@ angular.module('mainMenuDraw')
                     scope.type='Point';
                     scope.color='#ffcc33';
                     scope.fillAlpha=50;
+                    scope.pointNumber=1;
                     scope.pointRadius=7;
+                    scope.pointRadius2=7;
                     scope.lineWidth=2;
                     scope.lineLength=15;
                     scope.lineSpace=0;
@@ -71,11 +73,13 @@ angular.module('mainMenuDraw')
                                 width: scope.lineWidth,
                                 lineDash: [scope.lineLength, scope.lineSpace]
                             }),
-                            image: new ol.style.Circle({
-                                radius: scope.pointRadius,
+                            image: new ol.style.RegularShape({
                                 fill: new ol.style.Fill({
                                     color: _colorDict.Point.color
-                                })
+                                }),
+                                points: scope.pointNumber,
+                                radius: scope.pointRadius
+                                //radius2: scope.pointRadius2
                             })}
                         );
                         return style;
