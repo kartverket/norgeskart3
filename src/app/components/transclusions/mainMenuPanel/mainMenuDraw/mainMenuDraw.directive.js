@@ -50,6 +50,7 @@ angular.module('mainMenuDraw')
                     scope.lineLength=15;
                     scope.lineSpace=0;
                     scope.text="";
+                    scope.fontSize=15;
                     _colorDict ={
                         Point: {
                             color: scope.color
@@ -63,6 +64,7 @@ angular.module('mainMenuDraw')
                     };
                     _firstLoad=true;
                     _operation="";
+                    _fontName='sans-serif,helvetica';
 
                     scope.refreshStyle=function () {
                         var style = new ol.style.Style({
@@ -83,6 +85,7 @@ angular.module('mainMenuDraw')
                                     //radius2: scope.pointRadius2
                                 }),
                                 text: new ol.style.Text({
+                                        font: scope.fontSize + 'px ' + _fontName,
                                         text: scope.text
                                         // ,fill: new ol.style.Fill({
                                         //     color: scope.color
