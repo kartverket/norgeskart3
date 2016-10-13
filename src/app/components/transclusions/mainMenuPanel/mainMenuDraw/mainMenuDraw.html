@@ -56,6 +56,10 @@
         <span>Synlighet</span>
         <input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="activateDrawFeatureTool()"/>
     </li>
+    <li>
+        <span>Tekst</span>
+        <input type="text" ng-model="text" placeholder="Skriv inn tekst her" ng-change="activateDrawFeatureTool()"/>
+    </li>
     <li data-ng-click="newButtonClick()">
         <span>☒</span>
         <span>Start ny tegning</span>

@@ -49,6 +49,7 @@ angular.module('mainMenuDraw')
                     scope.lineWidth=2;
                     scope.lineLength=15;
                     scope.lineSpace=0;
+                    scope.text="";
                     _colorDict ={
                         Point: {
                             color: scope.color
@@ -64,23 +65,31 @@ angular.module('mainMenuDraw')
                     _operation="";
 
                     scope.refreshStyle=function () {
-                        var style=new ol.style.Style({
-                            fill: new ol.style.Fill({
-                                color: hex2rgba(_colorDict.Polygon.color, scope.fillAlpha/100)
-                            }),
-                            stroke: new ol.style.Stroke({
-                                color: _colorDict.LineString.color,
-                                width: scope.lineWidth,
-                                lineDash: [scope.lineLength, scope.lineSpace]
-                            }),
-                            image: new ol.style.RegularShape({
+                        var style = new ol.style.Style({
                                 fill: new ol.style.Fill({
-                                    color: _colorDict.Point.color
+                                    color: hex2rgba(_colorDict.Polygon.color, scope.fillAlpha / 100)
                                 }),
-                                points: scope.pointNumber,
-                                radius: scope.pointRadius
-                                //radius2: scope.pointRadius2
-                            })}
+                                stroke: new ol.style.Stroke({
+                                    color: _colorDict.LineString.color,
+                                    width: scope.lineWidth,
+                                    lineDash: [scope.lineLength, scope.lineSpace]
+                                }),
+                                image: new ol.style.RegularShape({
+                                    fill: new ol.style.Fill({
+                                        color: _colorDict.Point.color
+                                    }),
+                                    points: scope.pointNumber,
+                                    radius: scope.pointRadius
+                                    //radius2: scope.pointRadius2
+                                }),
+                                text: new ol.style.Text({
+                                        text: scope.text
+                                        // ,fill: new ol.style.Fill({
+                                        //     color: scope.color
+                                        // })
+                                    }
+                                )
+                            }
                         );
                         return style;
                     };
