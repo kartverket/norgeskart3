@@ -43,7 +43,7 @@ angular.module('mainMenuDraw')
                     scope.type='Point';
                     scope.color='#ffcc33';
                     scope.fillAlpha=50;
-                    scope.pointNumber=1;
+                    scope.pointNumber=64;
                     scope.pointRadius=7;
                     scope.pointRadius2=7;
                     scope.lineWidth=2;
