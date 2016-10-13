@@ -652,7 +652,8 @@ html{
   }
 
   .btn-content{
-    background-color: rgb(155, 201, 216);
+    background-color: #2c98bb; //rgb(155, 201, 216);
+    color: white;
   }
 
   .checkbox{
@@ -665,10 +666,16 @@ html{
   }
 
   .header{
-    border-bottom: 1px solid #929090;
+    //border-bottom: 1px solid #929090;
     margin: 0 0 10px;
+    background-color: #e2f0f4;
+    padding-top: 8px;
+    border-radius: 4px;
   }
 
+  iframe{
+    margin: 5px;
+  }
 
 }
 
