@@ -139,9 +139,9 @@ angular.module('mainMenuDraw')
                         scope.setColor();
                     };
 
-                    scope.setColor = function () {
+                    scope.setColor = function (overrideMode) {
                        _colorDict[scope.type].color=scope.color;
-                        scope.activateDrawFeatureTool();
+                        scope.activateDrawFeatureTool(overrideMode);
                     };
 
                     scope.newButtonClick = function(){
