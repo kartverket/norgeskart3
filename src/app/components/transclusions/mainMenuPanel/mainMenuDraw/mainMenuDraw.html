@@ -24,9 +24,23 @@
         <span>Farge</span>
         <input type="color" ng-model="color" ng-change="setColor()"/>
     </li>
-    <li ng-show="type=='Point'">
+    <div data-ng-show="type=='Point'">
+        <li data-ng-click="pointNumber=64;activateDrawFeatureTool()">
+            <span>Sirkel</span>
+            <span>●</span>
+        </li>
+        <li data-ng-click="pointNumber=3;activateDrawFeatureTool()">
+            <span>Trekant</span>
+            <span>▲</span>
+        </li>
+        <li data-ng-click="pointNumber=4;activateDrawFeatureTool()">
+            <span>Firkant</span>
+            <span>♦</span>
+        </li>
+    </div>
+    <li>
         <span>Radius</span>
-        <input  type="number" min="0" max="100" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/>
+        <input type="number" min="1" max="100" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/>
     </li>
     <li ng-show="type=='LineString'">
         <span>Bredde</span>
