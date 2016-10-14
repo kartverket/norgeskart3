@@ -117,8 +117,8 @@ angular.module('mainMenuDraw')
                                 scope.selectionActive=true;
                                 scope.selectedFeatureId=selectedFeatureId;
                                 _setDrawingPropertiesFromSelectedFeature(jsonObject.features[i]);
-                                scope.activateDrawFeatureTool();
                                 scope.$apply();
+                                scope.activateDrawFeatureTool();
                                 return;
                             }
                         }
@@ -159,6 +159,14 @@ angular.module('mainMenuDraw')
                         scope.selectionActive=false;
                         scope.mode='draw';
                         scope.activateDrawFeatureTool();
+                    };
+
+                    scope.pointTypeChanged = function () {
+                        var mode;
+                        if(!scope.selectionActive){
+                            mode='draw';
+                        }
+                        scope.activateDrawFeatureTool(mode);
                     };
 
                     var _checkUrlForGeoJSON = function () {
@@ -213,7 +221,7 @@ angular.module('mainMenuDraw')
                         if(scope.GeoJSON){
                             drawFeatureTool.additionalOptions.GeoJSON=scope.GeoJSON;
                         }
-                        //toolsFactory.deactivateTool(drawFeatureTool);
+                        toolsFactory.deactivateTool(drawFeatureTool);
                         toolsFactory.activateTool(drawFeatureTool);
                     };
 
