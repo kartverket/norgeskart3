@@ -57,7 +57,7 @@
 
 .closeable-content{
   padding: 8px 5px 8px 6px;
-  background-color: #e2f0f4;
+  background-color: #d9e8ec;
 }
 
 .closeableIsOpen{
@@ -146,7 +146,7 @@
   margin-left: 10px;
   li:hover{
     background-color: lightgray;
-    color: #000;
+    color: #000!important;
   }
   li{
     cursor: pointer;
@@ -158,8 +158,8 @@
 }
 
 .activeMenu{
-  background-color: lightblue;
-  color: black!important;
+  background-color: rgb(60, 131, 152);
+  color: white!important;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
