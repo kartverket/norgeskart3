@@ -14,6 +14,9 @@
         <span>Modus</span>
         <select ng-model="mode" ng-options="o for o in modeTypes" ng-change="activateDrawFeatureTool()"></select>
     </li>
+    <li data-ng-show="selectionActive">
+        <button data-ng-click="applyChanges()">Lagre Endringer</button>
+    </li>
     <li>
         <span>Snap</span>
         <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()">
