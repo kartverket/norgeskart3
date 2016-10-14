@@ -29,23 +29,15 @@
         <input type="color" ng-model="color" ng-change="setColor()"/>
     </li>
     <div data-ng-show="type=='Point'">
-        <li data-ng-click="pointNumber=64;activateDrawFeatureTool()">
-            <span>Sirkel</span>
-            <span>●</span>
-        </li>
-        <li data-ng-click="pointNumber=3;activateDrawFeatureTool()">
-            <span>Trekant</span>
-            <span>▲</span>
-        </li>
-        <li data-ng-click="pointNumber=4;activateDrawFeatureTool()">
-            <span>Firkant</span>
-            <span>♦</span>
-        </li>
-    </div>
+    <li>
+        <span>Punkttype</span>
+        <select ng-model="pointNumber" ng-options="key for (key, val) in pointTypes" ng-change="activateDrawFeatureTool('draw')"></select>
+    </li>
     <li>
         <span>Radius</span>
         <input type="number" min="1" max="100" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/>
     </li>
+    </div>
     <li ng-show="type=='LineString'">
         <span>Bredde</span>
         <input type="number" min="0" max="100" ng-model="lineWidth" ng-change="activateDrawFeatureTool()"/>
@@ -57,7 +49,7 @@
         <input type="number" min="0" max="100" ng-model="lineSpace" ng-change="activateDrawFeatureTool()"/>
     </li>
     <li ng-show="type=='Polygon'" >
-        <span>Synlighet</span>
+        <span>Gjennomsiktighet</span>
         <input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="activateDrawFeatureTool()"/>
     </li>
     <h3>Tekst</h3>
