@@ -462,7 +462,7 @@ angular.module('searchPanel')
                             scope.searchBarModel=stedsnavn;
                         }
 
-                        text = jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' moh';
+                        text = jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' ';
                         extra = {};
                         scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, text, extra);
                     };
