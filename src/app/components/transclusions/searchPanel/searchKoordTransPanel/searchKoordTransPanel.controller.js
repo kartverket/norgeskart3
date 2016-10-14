@@ -33,7 +33,7 @@ angular.module('searchKoordTransPanel')
 
             $scope.generateCoordinateSystems = function () {
                 if ($scope.showAdvancedCoordinateSystems) {
-                    $scope.coordinateSystems = {
+                    /*$scope.coordinateSystems = {
                         '84': 'EU89 - Geografisk grader (Lat/Lon)',
                         '21': 'EU89, UTM-sone 31',
                         '22': 'EU89, UTM-sone 32',
@@ -56,11 +56,34 @@ angular.module('searchKoordTransPanel')
                         '34': 'ED50, UTM-sone 34',
                         '35': 'ED50, UTM-sone 35',
                         '36': 'ED50, UTM-sone 36'
-                        // 'what3words': 'what3words'
+                    };*/
+                    $scope.coordinateSystems = {
+                        '84': 'EU89_Lat_Lon',
+                        '21': 'EU89_UTM_31',
+                        '22': 'EU89_UTM_32',
+                        '23': 'EU89_UTM_33',
+                        '24': 'EU89_UTM_34',
+                        '25': 'EU89_UTM_35',
+                        '26': 'EU89_UTM_36',
+                        '1': 'NGO1948_GaussK_1',
+                        '2': 'NGO1948_GaussK_2',
+                        '3': 'NGO1948_GaussK_3',
+                        '4': 'NGO1948_GaussK_4',
+                        '5': 'NGO1948_GaussK_5',
+                        '6': 'NGO1948_GaussK_6',
+                        '7': 'NGO1948_GaussK_7',
+                        '8': 'NGO1948_GaussK_8',
+                        '50': 'ED50',
+                        '31': 'ED50_UTM_31',
+                        '32': 'ED50_UTM_32',
+                        '33': 'ED50_UTM_33',
+                        '34': 'ED50_UTM_34',
+                        '35': 'ED50_UTM_35',
+                        '36': 'ED50_UTM_36'
                     };
                 }
                 else {
-                    $scope.coordinateSystems = {
+                    /*$scope.coordinateSystems = {
                         '84': 'EU89 - Geografisk grader (Lat/Lon)',
                         '21': 'EU89, UTM-sone 31',
                         '22': 'EU89, UTM-sone 32',
@@ -68,6 +91,15 @@ angular.module('searchKoordTransPanel')
                         '24': 'EU89, UTM-sone 34',
                         '25': 'EU89, UTM-sone 35',
                         '26': 'EU89, UTM-sone 36'
+                    };*/
+                    $scope.coordinateSystems = {
+                        '84': 'EU89_Lat_Lon',
+                        '21': 'EU89_UTM_31',
+                        '22': 'EU89_UTM_32',
+                        '23': 'EU89_UTM_33',
+                        '24': 'EU89_UTM_34',
+                        '25': 'EU89_UTM_35',
+                        '26': 'EU89_UTM_36'
                     };
                 }
             };

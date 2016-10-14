@@ -2,24 +2,22 @@
     <div class="search-content">
         <div class="info-text">
             <div>
-                <span>{{sourceDict[activeSearchResult.source]}}</span>
+                <!--<span>{{sourceDict[activeSearchResult.source]}}</span>-->
                 <span ng-if="activeSearchResult.kommune!='Utland' && activeSearchResult.kommune!=''"> i {{activeSearchResult.kommune}} kommune</span>
                 <span ng-if="activeSearchResult.kommune=='Utland'"> i utlandet</span>
             </div>
             <div>
-                <span ng-show="searchOptionsDict['elevationPoint'].text.value">Høyde (anslått ved interpolering): </span>
+                <span ng-show="searchOptionsDict['elevationPoint'].text.value" translate="HeightEstimatedByInterpolation_text"></span>
                 <span ng-class="searchOptionsDict['elevationPoint'].text.class"
                       ng-bind="searchOptionsDict['elevationPoint'].text.value"></span>
             </div>
         </div>
-        <h4>Hva ønsker du å gjøre?</h4>
+        <h4 translate="WhatDoYouWantToDo_text"></h4>
         <ul>
-            <li data-ng-repeat="searchOption in searchOptionsOrder"
-                ng-mousedown="mouseDown(searchOptionsDict[searchOption])">
-                <span ng-class="searchOptionsDict[searchOption].icon.class"
-                      ng-bind="searchOptionsDict[searchOption].icon.value"></span>
-                <span ng-class="searchOptionsDict[searchOption].text.class"
-                      ng-bind="searchOptionsDict[searchOption].text.value" ></span>
+            <li data-ng-repeat="searchOption in searchOptionsOrder" ng-mousedown="mouseDown(searchOptionsDict[searchOption])">
+                <span ng-class="searchOptionsDict[searchOption].icon.class" ng-bind="searchOptionsDict[searchOption].icon.value"></span>
+                <span ng-class="searchOptionsDict[searchOption].text.class" translate="{{searchOptionsDict[searchOption].name}}"></span>
+                <span ng-if="searchOptionsDict[searchOption].name=='seEiendom' || searchOptionsDict[searchOption].name=='ssrFakta'" ng-bind="searchOptionsDict[searchOption].text.value"></span>
             </li>
         </ul>
     </div>

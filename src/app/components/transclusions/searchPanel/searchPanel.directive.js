@@ -453,7 +453,7 @@ angular.module('searchPanel')
 
                     var _addElevationPointToSearchOptions = function (jsonRoot, name) {
                         var stedsnavn=jsonRoot.Output[0].Data.LiteralData.Text;
-                        var text = 'Se fakta om stedsnavnet "' + stedsnavn + '"';
+                        var text = '"' + stedsnavn + '"';
                         var extra = {
                             url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
                         };
@@ -488,7 +488,7 @@ angular.module('searchPanel')
 
 
                         extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
-                        var text = 'Se eiendomsinformasjon for ' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
+                        var text = '' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
                         scope.searchOptionsDict[name] = _constructSearchOption(name, '🏠', true, text, extra);
 
                     };

@@ -1,7 +1,10 @@
 <div class="search-panel" data-ng-controller="searchKoordTransPanelController">
     <div class="search-content">
         <div class="header">
-            <h4 class="no-top title">{{searchOptionsDict['koordTrans'].icon.value}} Koordinater</h4>
+            <h4 class="no-top title">
+                <span>{{searchOptionsDict['koordTrans'].icon.value}} </span>
+                <span translate="Coordinates_text"></span>
+            </h4>
             <div class="backbtn" data-ng-click="showSearchOptionsPanel();showSearchOptionsPanel()">
                 <span class="glyphicon glyphicon-menu-left"></span>
             </div>
@@ -9,7 +12,7 @@
 
         <div class="row">
             <div class="col-xs-2">
-                <span class="info-text">Nord:</span>
+                <span class="info-text" translate="North_text"></span>
             </div>
             <div class="col-xs-5 info-text">
                 <span data-ng-bind="activePosition.transLat"></span>
@@ -17,7 +20,7 @@
         </div>
         <div class="row">
             <div class="col-xs-2">
-                <span class="info-text">Øst:</span>
+                <span class="info-text" translate="East_text"></span>
             </div>
             <div class="col-xs-5 info-text">
                 <span data-ng-bind="activePosition.transLon"></span>
@@ -27,12 +30,13 @@
             <div class="col-xs-12">
                 <div class="dropdown">
                     <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <span data-ng-bind="getActiveCoorSystem()"></span>
+                        <span translate="{{getActiveCoorSystem()}}"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
                         <li data-ng-repeat="(key, value) in coordinateSystems" data-ng-click="_fetchKoordTrans(key); $event.stopPropagation();" class="pointer-cursor">
-                            <span data-ng-bind="coordinateSystems[key]"></span>
+                            <!--<span data-ng-bind="coordinateSystems[key]"></span>--->
+                            <span translate="{{coordinateSystems[key]}}"></span>
                         </li>
                     </ul>
                 </div>
@@ -40,7 +44,7 @@
         </div>
         <div class="row new-section">
             <div class="col-xs-8">
-                <span class="info-text">Vis avanserte koordinatsystemer:</span>
+                <span class="info-text" translate="ShowAdvancedCoordinateSystems_text"></span>
             </div>
             <div class="col-xs-2 no-padding">
                 <input type="checkbox" class="checkbox"
