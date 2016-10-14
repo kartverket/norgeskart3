@@ -9,24 +9,42 @@
 </ul>
 
 <ul class="sidenav-group">
-    <li>
-        <span>Geometritype</span>
-        <select ng-model="type"  ng-options="o for o in geometryTypes" ng-change="setColor('draw')"></select>
-    </li>
+    <h3>Global</h3>
     <li>
         <span>Modus</span>
         <select ng-model="mode" ng-options="o for o in modeTypes" ng-change="activateDrawFeatureTool()"></select>
     </li>
     <li>
-        <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()"><span>Snap</span>
+        <span>Snap</span>
+        <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()">
     </li>
+    <h3>Valg</h3>
+    <li>
+        <span>Geometritype</span>
+        <select ng-model="type"  ng-options="o for o in geometryTypes" ng-change="setColor('draw')"></select>
+    </li>
+
     <li>
         <span>Farge</span>
         <input type="color" ng-model="color" ng-change="setColor()"/>
     </li>
-    <li ng-show="type=='Point'">
+    <div data-ng-show="type=='Point'">
+        <li data-ng-click="pointNumber=64;activateDrawFeatureTool()">
+            <span>Sirkel</span>
+            <span>●</span>
+        </li>
+        <li data-ng-click="pointNumber=3;activateDrawFeatureTool()">
+            <span>Trekant</span>
+            <span>▲</span>
+        </li>
+        <li data-ng-click="pointNumber=4;activateDrawFeatureTool()">
+            <span>Firkant</span>
+            <span>♦</span>
+        </li>
+    </div>
+    <li>
         <span>Radius</span>
-        <input  type="number" min="0" max="100" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/>
+        <input type="number" min="1" max="100" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/>
     </li>
     <li ng-show="type=='LineString'">
         <span>Bredde</span>
@@ -42,6 +60,27 @@
         <span>Synlighet</span>
         <input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="activateDrawFeatureTool()"/>
     </li>
+    <h3>Tekst</h3>
+    <li>
+        <input type="text" ng-model="text" placeholder="Skriv inn tekst her" ng-change="activateDrawFeatureTool()"/>
+    </li>
+    <li>
+        <span>Størrelse</span>
+        <input type="number" min="1" max="100" ng-model="fontSize" ng-change="activateDrawFeatureTool()"/>
+    </li>
+    <li>
+        <span>Farge</span>
+        <input type="color" ng-model="colorText" ng-change="activateDrawFeatureTool()"/>
+    </li>
+    <li>
+        <span>Kant</span>
+        <input type="color" ng-model="colorTextStroke" ng-change="activateDrawFeatureTool()"/>
+    </li>
+    <li>
+        <span>Tykkelse</span>
+        <input type="number" min="0" max="100" ng-model="colorTextStrokeWidth" ng-change="activateDrawFeatureTool()"/>
+    </li>
+    <h3>Annet</h3>
     <li data-ng-click="newButtonClick()">
         <span>☒</span>
         <span>Start ny tegning</span>
@@ -58,6 +97,7 @@
         <span>☑</span>
         <span>Del tegning</span>
     </li>
+    <h3>Måling</h3>
     <li data-ng-click="measureLine()">
         <span class="flaticon-tool292"></span>
         <span translate="MeasureLine_title"></span>
@@ -67,3 +107,4 @@
         <span translate="Measure_title"></span>
     </li>
 </ul>
+
