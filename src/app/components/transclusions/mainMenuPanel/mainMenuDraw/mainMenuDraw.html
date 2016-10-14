@@ -29,15 +29,15 @@
         <input type="color" ng-model="color" ng-change="setColor()"/>
     </li>
     <div data-ng-show="type=='Point'">
-        <li data-ng-click="pointNumber=64;activateDrawFeatureTool()">
+        <li data-ng-click="pointNumber=64;activateDrawFeatureTool('draw')">
             <span>Sirkel</span>
             <span>●</span>
         </li>
-        <li data-ng-click="pointNumber=3;activateDrawFeatureTool()">
+        <li data-ng-click="pointNumber=3;activateDrawFeatureTool('draw')">
             <span>Trekant</span>
             <span>▲</span>
         </li>
-        <li data-ng-click="pointNumber=4;activateDrawFeatureTool()">
+        <li data-ng-click="pointNumber=4;activateDrawFeatureTool('draw')">
             <span>Firkant</span>
             <span>♦</span>
         </li>
