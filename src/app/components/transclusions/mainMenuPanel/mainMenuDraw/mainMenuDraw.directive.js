@@ -107,6 +107,10 @@ angular.module('mainMenuDraw')
                         scope.setGeoJSON(GeoJSON);
                     };
 
+                    var getSelectedFeatures = function (selectedFeatures) {
+                        console.log(selectedFeatures);
+                    };
+
                     var _checkUrlForGeoJSON = function () {
                         var drawingHash=_getValueFromUrl('drawing');
                         if(drawingHash){
@@ -213,6 +217,7 @@ angular.module('mainMenuDraw')
                     scope.removeInfomarkers();
                     if(!scope.isDrawActivated()) {
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
+                        eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureSelect, getSelectedFeatures);
                     }
                     _checkUrlForGeoJSON();
 
