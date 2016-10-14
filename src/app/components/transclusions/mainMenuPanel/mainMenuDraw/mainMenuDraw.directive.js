@@ -37,6 +37,7 @@ angular.module('mainMenuDraw')
                     /*
                      Draw start
                      */
+                    scope.pointTypes={ '●': 64,'▲': 3,'♦': 4};
                     scope.geometryTypes=['Point', 'LineString', 'Polygon'];
                     scope.modeTypes=['draw', 'modify'];
                     scope.mode="draw";
