@@ -71,7 +71,7 @@ angular.module('mainMenuDraw')
                     scope.refreshStyle=function () {
                         var style = new ol.style.Style({
                                 fill: new ol.style.Fill({
-                                    color: hex2rgba(_colorDict.Polygon.color, scope.fillAlpha / 100)
+                                    color: hex2rgba(_colorDict.Polygon.color, (100-scope.fillAlpha) / 100)
                                 }),
                                 stroke: new ol.style.Stroke({
                                     color: _colorDict.LineString.color,
