@@ -107,8 +107,14 @@ angular.module('mainMenuDraw')
                         scope.setGeoJSON(GeoJSON);
                     };
 
-                    var getSelectedFeatures = function (selectedFeatures) {
-                        console.log(selectedFeatures);
+                    var getSelectedFeatureId = function (selectedFeatureId) {
+                        var jsonObject = typeof scope.GeoJSON == 'object' ? scope.GeoJSON : JSON.parse(scope.GeoJSON);
+                        for (var i = 0; i < jsonObject.features.length; i++) {
+                            if (jsonObject.features[i].id == selectedFeatureId) {
+                                console.log(jsonObject.features[i]);
+                                return;
+                            }
+                        }
                     };
 
                     var _checkUrlForGeoJSON = function () {
@@ -217,7 +223,7 @@ angular.module('mainMenuDraw')
                     scope.removeInfomarkers();
                     if(!scope.isDrawActivated()) {
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
-                        eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureSelect, getSelectedFeatures);
+                        eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureSelect, getSelectedFeatureId);
                     }
                     _checkUrlForGeoJSON();
 
