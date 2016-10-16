@@ -155,12 +155,6 @@ angular.module('mainMenuDraw')
 
                     };
 
-                    scope.applyChanges = function () {
-                        scope.selectionActive=false;
-                        scope.mode='draw';
-                        scope.activateDrawFeatureTool();
-                    };
-
                     scope.pointTypeChanged = function () {
                         var mode;
                         if(!scope.selectionActive){
@@ -200,12 +194,7 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.activateDrawFeatureTool = function (overrideMode) {
-                        if(scope.selectionActive){
-                            if(scope.mode=='draw'){
-                                scope.selectionActive=false;
-                                scope.selectedFeatureId=undefined;
-                            }
-                        }
+
                         if(overrideMode){
                             scope.mode=overrideMode;
                         }
@@ -216,13 +205,20 @@ angular.module('mainMenuDraw')
                             style: scope.refreshStyle(),
                             snap: scope.snap,
                             mode: scope.mode,
-                            selectedFeatureId: scope.selectedFeatureId
+                            selectedFeatureId: scope.selectedFeatureId,
+                            selectionActive: scope.selectionActive
                         };
                         if(scope.GeoJSON){
                             drawFeatureTool.additionalOptions.GeoJSON=scope.GeoJSON;
                         }
                         toolsFactory.deactivateTool(drawFeatureTool);
                         toolsFactory.activateTool(drawFeatureTool);
+                        if(scope.selectionActive){
+                            if(scope.mode=='draw'){
+                                scope.selectionActive=false;
+                                scope.selectedFeatureId=undefined;
+                            }
+                        }
                     };
 
                     scope.drawFeature = function () {
