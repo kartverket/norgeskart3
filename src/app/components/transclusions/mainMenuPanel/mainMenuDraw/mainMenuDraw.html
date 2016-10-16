@@ -10,6 +10,10 @@
 
 <ul class="sidenav-group">
     <h3>Global</h3>
+    <li data-ng-click="undoButtonClick()">
+        <span>←</span>
+        <span>Slett siste objekt</span>
+    </li>
     <li>
         <span>Modus</span>
         <select ng-model="mode" ng-options="o for o in modeTypes" ng-change="activateDrawFeatureTool()"></select>
@@ -76,10 +80,6 @@
     <li data-ng-click="newButtonClick()">
         <span>☒</span>
         <span>Start ny tegning</span>
-    </li>
-    <li data-ng-click="undoButtonClick()">
-        <span>←</span>
-        <span>Slett siste objekt</span>
     </li>
     <li data-ng-click="downloadButtonClick()">
         <span>↓</span>

@@ -37,6 +37,7 @@ angular.module('mainMenuDraw')
                     /*
                      Draw start
                      */
+                    scope.snap=true;
                     scope.selectionActive=false;
                     scope.pointTypes={ '●': 64,'▲': 3,'♦': 4};
                     scope.geometryTypes=['Point', 'LineString', 'Polygon'];
@@ -55,15 +56,9 @@ angular.module('mainMenuDraw')
                     scope.fontSize=15;
                     scope.colorTextStrokeWidth=0;
                     _colorDict ={
-                        Point: {
-                            color: scope.color
-                        },
-                        LineString: {
-                            color: scope.color
-                        },
-                        Polygon: {
-                            color: scope.color
-                        }
+                        Point: scope.color,
+                        LineString:  scope.color,
+                        Polygon: scope.color
                     };
                     _firstLoad=true;
                     _operation="";
@@ -73,16 +68,16 @@ angular.module('mainMenuDraw')
                     scope.refreshStyle=function () {
                         var style = new ol.style.Style({
                                 fill: new ol.style.Fill({
-                                    color: hex2rgba(_colorDict.Polygon.color, (100-scope.fillAlpha) / 100)
+                                    color: hex2rgba(_colorDict.Polygon, (100-scope.fillAlpha) / 100)
                                 }),
                                 stroke: new ol.style.Stroke({
-                                    color: _colorDict.LineString.color,
+                                    color: _colorDict.LineString,
                                     width: scope.lineWidth,
                                     lineDash: [scope.lineLength, scope.lineSpace]
                                 }),
                                 image: new ol.style.RegularShape({
                                     fill: new ol.style.Fill({
-                                        color: _colorDict.Point.color
+                                        color: _colorDict.Point
                                     }),
                                     points: scope.pointNumber,
                                     radius: scope.pointRadius
@@ -146,12 +141,15 @@ angular.module('mainMenuDraw')
                                 scope.fillAlpha=100-parseInt(featureStyle.fill.color.split(',')[3].replace(')', '')*100,10)||scope.fillAlpha;
                                 break;
                         }
-
+                        // TEXT
                         scope.fontSize=parseInt(featureStyle.text.font.split('px')[0],10)||scope.fontSize;
                         scope.text=featureStyle.text.text||scope.text;
                         scope.colorText=featureStyle.text.color||scope.colorText;
                         scope.colorTextStroke=featureStyle.text.stroke.color||scope.colorTextStroke;
                         scope.colorTextStrokeWidth=featureStyle.text.stroke.width||scope.colorTextStrokeWidth;
+
+                        // Color
+                        _colorDict[scope.type]=scope.color;
 
                     };
 
@@ -226,7 +224,7 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.setColor = function (overrideMode) {
-                       _colorDict[scope.type].color=scope.color;
+                       _colorDict[scope.type]=scope.color;
                         scope.activateDrawFeatureTool(overrideMode);
                     };
 
@@ -276,6 +274,7 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.removeInfomarkers();
+
                     if(!scope.isDrawActivated()) {
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureSelect, getSelectedFeatureId);
