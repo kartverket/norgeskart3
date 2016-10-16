@@ -54,7 +54,9 @@ angular.module('mainMenuDraw')
                     scope.lineSpace=0;
                     scope.text="";
                     scope.fontSize=15;
-                    scope.colorTextStrokeWidth=1;
+                    scope.colorTextStrokeWidth=0;
+                    scope.colorTextStroke='#000000';
+                    scope.colorText='#000000';
                     _colorDict ={
                         Point: scope.color,
                         LineString:  scope.color,
@@ -88,15 +90,17 @@ angular.module('mainMenuDraw')
                                         text: scope.text,
                                         fill: new ol.style.Fill({
                                             color: scope.colorText
-                                        }),
-                                        stroke: new ol.style.Stroke({
-                                            color: scope.colorTextStroke,
-                                            width: scope.colorTextStrokeWidth
                                         })
                                     }
                                 )
                             }
                         );
+                        if(scope.colorTextStrokeWidth > 0){
+                            style.getText().setStroke(new ol.style.Stroke({
+                                color: scope.colorTextStroke,
+                                width: scope.colorTextStrokeWidth
+                            }));
+                        }
                         return style;
                     };
 
