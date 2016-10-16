@@ -54,7 +54,7 @@ angular.module('mainMenuDraw')
                     scope.lineSpace=0;
                     scope.text="";
                     scope.fontSize=15;
-                    scope.colorTextStrokeWidth=0;
+                    scope.colorTextStrokeWidth=1;
                     _colorDict ={
                         Point: scope.color,
                         LineString:  scope.color,
