@@ -3,6 +3,7 @@ angular.module('mainApp')
         function(toolsFactory) {
             return {
                 templateUrl: 'mainAppBody.html',
+                controller: 'mainAppController',
                 link: function (scope, element) {
                     if (element.scope){
                         element = $(element);

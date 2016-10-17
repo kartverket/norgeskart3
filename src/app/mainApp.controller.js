@@ -41,10 +41,20 @@ angular.module('mainApp')
                         map.SetCenter(center);
                     }
                 }
-
                 var newSearch = angular.extend($location.search(), obj);
                 $location.search(newSearch);
             }
+
+            $scope.initMapLayout = function(){
+                var obj = $location.search();
+                if (obj.type !== undefined){
+                    if (obj.type === "1"){
+                        $scope.showMapLayout();
+                        return;
+                    }
+                }
+                $scope.showMapOverlaysLayout();
+            };
 
             function _initActiveLanguage() {
                 var langId = localStorageFactory.get("activeLanguage");
@@ -61,15 +71,25 @@ angular.module('mainApp')
                 map.SetImageInfoMarker("assets/img/pin-md-orange.png");
                 mainAppFactory.updateMapConfig();
                 var mapConfig = mainAppFactory.getMapConfig();
-
                 map.Init('mapDiv', mapConfig);
                 _initUrl();
             };
 
             $( document ).ready(function() {
                 _initActiveLanguage();
+                $scope.initMainPage();
+
             });
 
+            $scope.showMapLayout = function () {
+                $scope.mapTypeLayout = "mapLayout";
+            };
+
+            $scope.showMapOverlaysLayout = function () {
+                $scope.mapTypeLayout = "mapOverlaysLayout";
+            };
+
+            // $scope.mapTypeLayout = "mapOverlaysLayout";
 
         }
     ]);

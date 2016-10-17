@@ -7,7 +7,7 @@ angular.module('mainApp', [
     'isyTranslate',
     'mapOverlays',
     'tools',
-    'localStorage'
-
-
+    'localStorage',
+    'mapLayout',
+    'mapOverlaysLayout'
 ]);
