@@ -315,6 +315,15 @@ angular.module('mainApp')
                         addWmts(project.config.wmts);
                     }
                 }
+                if (project.config.vector !== undefined){
+                    if (project.config.vector.length !== undefined) {
+                        project.config.vector.forEach(function (vector) {
+                            addVector(vector);
+                        });
+                    } else {
+                        addVector(project.config.vector);
+                    }
+                }
             };
 
             var findGroupExistance = function(grpIds){
@@ -349,6 +358,10 @@ angular.module('mainApp')
                 addLayer("WMTS", wmts);
             };
 
+            var addVector = function(vector){
+                addLayer("VECTOR", vector);
+            };
+
             var addLayer = function(sourceType, source) {
 
                 var cat_ids = [999];
@@ -375,13 +388,13 @@ angular.module('mainApp')
                     "subLayers": [
                         {
                             "title": source.name,
-                            "name": getNewLayers(source.params.layers, source.url),
-                            "providerName": getNewLayers(source.params.layers, source.url),
+                            "name": source.params.layers||source.name,
+                            "providerName": source.params.layers||source.name,
                             "source": sourceType,
                             "gatekeeper": source.gatekeeper === "true",
                             "url": getWmsUrl(source.url),
                             "format": source.params.format,
-                            "coordinate_system": mapConfig.coordinate_system,
+                            "coordinate_system": source.epsg||mapConfig.coordinate_system,
                             "extent": mapConfig.extent,
                             "extentUnits": mapConfig.extentUnits,
                             "matrixPrefix": source.matrixprefix === "true",
@@ -389,7 +402,7 @@ angular.module('mainApp')
                             "id": mapConfig.layers.length+1001,
                             "transparent": true,
                             "layerIndex": -1,
-                            "legendGraphicUrl": source.layers.layer.legendurl,
+                            //"legendGraphicUrl": source.layers.layer.legendurl,
                             "minScale": source.options.minscale,
                             "maxScale": source.options.maxscale,
                             "sortingIndex": -1,
@@ -436,60 +449,10 @@ angular.module('mainApp')
             var getWmsUrl = function(url){
                 if (url.indexOf('|')){
                     var urls = url.split('|');
-                    for (var i = 0; i < urls.length; i++){
-                        urls[i] = fixNibUrl(urls[i]);
-                    }
                     return urls;
                 } else {
-                    return fixNibUrl(url);
+                    return url;
                 }
-            };
-
-            var oldNibUrl = 'geonorge.no/BaatGatekeeper/gk/gk.nibcache';
-            var newNibUrl = 'geonorge.no/BaatGatekeeper/gk/gk.nib_utm';
-            var getNewLayers = function(layers, url){
-                if (url.indexOf(oldNibUrl) > 0){
-                    switch (mapConfig.coordinate_system){
-                        case 'EPSG:25832':
-                        case 'EPSG:32632':
-                            layers = 'Nibcache_UTM32_EUREF89';
-                            break;
-                        case 'EPSG:25833':
-                        case 'EPSG:32633':
-                            layers = 'Nibcache_UTM33_EUREF89';
-                            break;
-                        case 'EPSG:25835':
-                        case 'EPSG:32635':
-                            layers = 'Nibcache_UTM35_EUREF89';
-                            break;
-                    }
-                }
-                return layers;
-            };
-
-            var fixNibUrl = function (url) {
-                var iPos = url.indexOf(oldNibUrl);
-                if (iPos > 0) {
-                    url = url.substr(0, iPos) + newNibUrl + url.substr(iPos + oldNibUrl.length);
-                    switch (mapConfig.coordinate_system) {
-                        case 'EPSG:25832':
-                        case 'EPSG:32632':
-                            url += '32';
-                            break;
-                        case 'EPSG:25833':
-                        case 'EPSG:32633':
-                            url += '33';
-                            break;
-                        case 'EPSG:25835':
-                        case 'EPSG:32635':
-                            url += '35';
-                            break;
-                        default:
-                            console.error(url + ' støtter ikke ' + mapConfig.coordinate_system);
-                            break;
-                    }
-                }
-                return url;
             };
 
             function registerTranslations(languages) {
