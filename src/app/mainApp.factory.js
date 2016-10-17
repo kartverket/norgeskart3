@@ -349,21 +349,21 @@ angular.module('mainApp')
                 addLayer("WMTS", wmts);
             };
 
-            var addLayer = function(sourceType, wms) {
+            var addLayer = function(sourceType, source) {
 
                 var cat_ids = [999];
-                if (wms.groupid !== undefined){
-                    cat_ids = wms.groupid.toString().split(',').map(function(item){
+                if (source.groupid !== undefined){
+                    cat_ids = source.groupid.toString().split(',').map(function(item){
                         return parseInt(item, 10);
                     });
-                    createNotExistGroup(cat_ids, wms.name, wms.namelng);
+                    createNotExistGroup(cat_ids, source.name, source.namelng);
                 }else{
-                    if (wms.options.isbaselayer === 'false'){
+                    if (source.options.isbaselayer === 'false'){
                         createDummyGroup();
                     }
                 }
 
-                //if (wms.gatekeeper === 'true'){
+                //if (source.gatekeeper === 'true'){
                 //    wmsSource = "WMS"; // WMS is default
                 //}else{
                 //    wmsSource = "proxyWms";
@@ -374,24 +374,24 @@ angular.module('mainApp')
                 var newIsyLayer = new ISY.Domain.Layer({
                     "subLayers": [
                         {
-                            "title": wms.name,
-                            "name": getNewLayers(wms.params.layers, wms.url),
-                            "providerName": getNewLayers(wms.params.layers, wms.url),
+                            "title": source.name,
+                            "name": getNewLayers(source.params.layers, source.url),
+                            "providerName": getNewLayers(source.params.layers, source.url),
                             "source": sourceType,
-                            "gatekeeper": wms.gatekeeper === "true",
-                            "url": getWmsUrl(wms.url),
-                            "format": wms.params.format,
+                            "gatekeeper": source.gatekeeper === "true",
+                            "url": getWmsUrl(source.url),
+                            "format": source.params.format,
                             "coordinate_system": mapConfig.coordinate_system,
                             "extent": mapConfig.extent,
                             "extentUnits": mapConfig.extentUnits,
-                            "matrixPrefix": wms.matrixprefix === "true",
+                            "matrixPrefix": source.matrixprefix === "true",
                             "numZoomLevels": mapConfig.numZoomLevels,
                             "id": mapConfig.layers.length+1001,
                             "transparent": true,
                             "layerIndex": -1,
-                            "legendGraphicUrl": wms.layers.layer.legendurl,
-                            "minScale": wms.options.minscale,
-                            "maxScale": wms.options.maxscale,
+                            "legendGraphicUrl": source.layers.layer.legendurl,
+                            "minScale": source.options.minscale,
+                            "maxScale": source.options.maxscale,
                             "sortingIndex": -1,
                             "featureInfo": {
                                 "supportsGetFeatureInfo": true,
@@ -402,16 +402,16 @@ angular.module('mainApp')
                                 "getFeatureFormat": "application/json",
                                 "getFeatureCrs": "EPSG:4326"
                             },
-                            "tiled": wms.options.singletile !== "true",
+                            "tiled": source.options.singletile !== "true",
                             "crossOrigin": null
                         }
                     ],
-                    "guid": wms.guid,
-                    "name":wms.name,
+                    "guid": source.guid,
+                    "name":source.name,
                     "groupId": cat_ids,
-                    "visibleOnLoad": (wms.options.visibility === 'true'),
+                    "visibleOnLoad": (source.options.visibility === 'true'),
                     "id":  mapConfig.layers.length+1001,
-                    "isBaseLayer": (wms.options.isbaselayer === 'true'),
+                    "isBaseLayer": (source.options.isbaselayer === 'true'),
                     "previewActive": false,
                     "opacity": 1,
                     "mapLayerIndex": -1,
@@ -419,8 +419,8 @@ angular.module('mainApp')
                     "selectedLayerOpen": false
                 });
                 mapConfig.layers.push(newIsyLayer);
-                mapConfig.languages.en[newIsyLayer.id] = wms.name;
-                mapConfig.languages.no[newIsyLayer.id] = wms.namelng;
+                mapConfig.languages.en[newIsyLayer.id] = source.name;
+                mapConfig.languages.no[newIsyLayer.id] = source.namelng;
             };
 
             var _getBoolean = function(value){
