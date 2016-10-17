@@ -37,6 +37,9 @@ angular.module('mainMenuDraw')
                     /*
                      Draw start
                      */
+                    scope.snap=true;
+                    scope.selectionActive=false;
+                    scope.pointTypes={ '●': 64,'▲': 3,'♦': 4};
                     scope.geometryTypes=['Point', 'LineString', 'Polygon'];
                     scope.modeTypes=['draw', 'modify'];
                     scope.mode="draw";
@@ -52,34 +55,31 @@ angular.module('mainMenuDraw')
                     scope.text="";
                     scope.fontSize=15;
                     scope.colorTextStrokeWidth=0;
+                    scope.colorTextStroke='#000000';
+                    scope.colorText='#000000';
                     _colorDict ={
-                        Point: {
-                            color: scope.color
-                        },
-                        LineString: {
-                            color: scope.color
-                        },
-                        Polygon: {
-                            color: scope.color
-                        }
+                        Point: scope.color,
+                        LineString:  scope.color,
+                        Polygon: scope.color
                     };
                     _firstLoad=true;
                     _operation="";
                     _fontName='sans-serif,helvetica';
+                    var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
 
                     scope.refreshStyle=function () {
                         var style = new ol.style.Style({
                                 fill: new ol.style.Fill({
-                                    color: hex2rgba(_colorDict.Polygon.color, scope.fillAlpha / 100)
+                                    color: hex2rgba(_colorDict.Polygon, (100-scope.fillAlpha) / 100)
                                 }),
                                 stroke: new ol.style.Stroke({
-                                    color: _colorDict.LineString.color,
+                                    color: _colorDict.LineString,
                                     width: scope.lineWidth,
                                     lineDash: [scope.lineLength, scope.lineSpace]
                                 }),
                                 image: new ol.style.RegularShape({
                                     fill: new ol.style.Fill({
-                                        color: _colorDict.Point.color
+                                        color: _colorDict.Point
                                     }),
                                     points: scope.pointNumber,
                                     radius: scope.pointRadius
@@ -90,20 +90,81 @@ angular.module('mainMenuDraw')
                                         text: scope.text,
                                         fill: new ol.style.Fill({
                                             color: scope.colorText
-                                        }),
-                                        stroke: new ol.style.Stroke({
-                                            color: scope.colorTextStroke,
-                                            width: scope.colorTextStrokeWidth
                                         })
                                     }
                                 )
                             }
                         );
+                        if(scope.colorTextStrokeWidth > 0){
+                            style.getText().setStroke(new ol.style.Stroke({
+                                color: scope.colorTextStroke,
+                                width: scope.colorTextStrokeWidth
+                            }));
+                        }
                         return style;
                     };
 
                     var getDrawing = function (GeoJSON) {
                         scope.setGeoJSON(GeoJSON);
+                        console.log(GeoJSON);
+                    };
+
+                    var getSelectedFeatureId = function (selectedFeatureId) {
+                        var jsonObject = typeof scope.GeoJSON == 'object' ? scope.GeoJSON : JSON.parse(scope.GeoJSON);
+                        for (var i = 0; i < jsonObject.features.length; i++) {
+                            if (jsonObject.features[i].id == selectedFeatureId) {
+                                scope.selectionActive=true;
+                                scope.selectedFeatureId=selectedFeatureId;
+                                _setDrawingPropertiesFromSelectedFeature(jsonObject.features[i]);
+                                scope.$apply();
+                                scope.activateDrawFeatureTool();
+                                return;
+                            }
+                        }
+                    };
+
+                    var _setDrawingPropertiesFromSelectedFeature = function (feature) {
+                        var featureStyle=feature.properties.style;
+                        scope.type=feature.geometry.type;
+                        switch(scope.type){
+                            case('Point'):
+                                scope.color = featureStyle.regularshape.fill.color;
+                                scope.pointNumber = featureStyle.regularshape.points;
+                                scope.pointRadius = featureStyle.regularshape.radius;
+                                break;
+
+                            case('LineString'):
+                                scope.color=featureStyle.stroke.color;
+                                scope.lineWidth=featureStyle.stroke.width;
+                                scope.lineLength=featureStyle.stroke.lineDash[0];
+                                scope.lineSpace=featureStyle.stroke.lineDash[1];
+                                break;
+
+                            case('Polygon'):
+                                scope.color=rgba2hex(featureStyle.fill.color);
+                                scope.fillAlpha=100-parseInt(featureStyle.fill.color.split(',')[3].replace(')', '')*100,10)||scope.fillAlpha;
+                                break;
+                        }
+                        // TEXT
+                        scope.fontSize=parseInt(featureStyle.text.font.split('px')[0],10)||scope.fontSize;
+                        scope.text=featureStyle.text.text||scope.text;
+                        scope.colorText=featureStyle.text.color||scope.colorText;
+                        if(featureStyle.text.stroke) {
+                            scope.colorTextStrokeWidth = featureStyle.text.stroke.width || scope.colorTextStrokeWidth;
+                            scope.colorTextStroke = featureStyle.text.stroke.color || scope.colorTextStroke;
+                        }
+
+                        // Color
+                        _colorDict[scope.type]=scope.color;
+
+                    };
+
+                    scope.pointTypeChanged = function () {
+                        var mode;
+                        if(!scope.selectionActive){
+                            mode='draw';
+                        }
+                        scope.activateDrawFeatureTool(mode);
                     };
 
                     var _checkUrlForGeoJSON = function () {
@@ -137,22 +198,31 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.activateDrawFeatureTool = function (overrideMode) {
+
                         if(overrideMode){
                             scope.mode=overrideMode;
                         }
-                        var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+
                         drawFeatureTool.additionalOptions = {
                             operation: _operation,
                             type: scope.type,
                             style: scope.refreshStyle(),
                             snap: scope.snap,
-                            mode: scope.mode
+                            mode: scope.mode,
+                            selectedFeatureId: scope.selectedFeatureId,
+                            selectionActive: scope.selectionActive
                         };
                         if(scope.GeoJSON){
                             drawFeatureTool.additionalOptions.GeoJSON=scope.GeoJSON;
                         }
                         toolsFactory.deactivateTool(drawFeatureTool);
                         toolsFactory.activateTool(drawFeatureTool);
+                        if(scope.selectionActive){
+                            if(scope.mode=='draw'){
+                                scope.selectionActive=false;
+                                scope.selectedFeatureId=undefined;
+                            }
+                        }
                     };
 
                     scope.drawFeature = function () {
@@ -160,7 +230,7 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.setColor = function (overrideMode) {
-                       _colorDict[scope.type].color=scope.color;
+                       _colorDict[scope.type]=scope.color;
                         scope.activateDrawFeatureTool(overrideMode);
                     };
 
@@ -210,8 +280,10 @@ angular.module('mainMenuDraw')
                     };
 
                     scope.removeInfomarkers();
+
                     if(!scope.isDrawActivated()) {
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
+                        eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureSelect, getSelectedFeatureId);
                     }
                     _checkUrlForGeoJSON();
 
@@ -221,6 +293,20 @@ angular.module('mainMenuDraw')
                         b = parseInt(hexRGB.slice(5,7), 16);
                         //a = parseInt(hexRGB.slice(7,9), 16)/255;
                         return 'rgba('+r+', '+g+', '+b+', '+alpha+')';
+                    }
+
+                    var hexDigits = new Array
+                    ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
+
+
+                    function rgba2hex(rgba){
+                        rgba=rgba.replace('rgba','').replace('(','').replace(')','').split(',');
+                        return "#" + hex(rgba[0]) + hex(rgba[1]) + hex(rgba[2]);
+
+                    }
+
+                    function hex(x) {
+                        return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
                     }
 
                     /*
