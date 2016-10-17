@@ -5,6 +5,7 @@ angular.module('mainApp')
             var instance = "";
             var configUrl;
             var projectUrl;
+            var beginLayersInURL;
             var projectsList;
             var projectConfig;
             var groupIds = [];
@@ -467,6 +468,12 @@ angular.module('mainApp')
                 },
                 updateMapConfig: function() {
                     getProject();
+                },
+                setInitLayersInUrl: function (url) {
+                    beginLayersInURL = url;
+                },
+                getInitLayersInUrl: function () {
+                    return beginLayersInURL;
                 }
             };
         }]

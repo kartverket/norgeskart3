@@ -1,18 +1,22 @@
 <div class="search-panel" ng-show="searchResults != undefined">
     <div class="header">
-        <h4 class="no-top title">{{searchOptionsDict['lagTurkart'].icon.value}} Turkart</h4>
+        <h4 class="no-top title">
+            <span>{{searchOptionsDict['lagTurkart'].icon.value}} </span>
+            <span translate="Turkart_title"></span>
+        </h4>
         <div class="backbtn" data-ng-click="deactivatePrintBoxSelect();showSearchOptionsPanel()">
             <span class="glyphicon glyphicon-menu-left"></span>
         </div>
     </div>
     <div class="search-content">
+
         <div class="info-text">
-            <span>Flytt kartet slik at det gule feltet dekker området du ønsker å skrive ut.</span>
+            <span translate="Turkart_info"></span>
         </div>
 
         <div class="row">
             <div class="col-xs-6">
-                <span class="info-text">Målestokk: </span>
+                <span class="info-text" translate="Scale"></span>
             </div>
             <div class="col-xs-6">
                 <div class="dropdown">
@@ -28,28 +32,26 @@
                 </div>
             </div>
         </div>
-        <h4 class="no-top">Gi kartet ditt et navn: </h4>
+        <h4 class="no-top" translate="Turkart_navn"></h4>
         <div class="row">
             <div class="col-xs-6">
                 <input type="text"
-                       placeholder="Turkart"
+                       placeholder="{{'Turkart_navn_eks' | translate}}"
                        ng-model="tittel"
                        ng-disabled="!createMapButtonOn"/>
             </div>
             <div class="col-xs-6">
                 <button class="btn btn-default btn-content" data-ng-click="orderMap()"
-                        ng-disabled="!createMapButtonOn">
-                    Lag Kart
+                        ng-disabled="!createMapButtonOn" translate="lagTurkart">
                 </button>
                 <button class="btn btn-default btn-content" data-ng-click="downloadMap()"
-                        ng-show="mapAvailable">
-                    Last ned Kart
+                        ng-show="mapAvailable" translate="DownloadMap">
                 </button>
             </div>
         </div>
         <div class="row new-section">
             <div class="col-xs-6 header-text">
-                <span>Fremhev merkede stier</span>
+                <span translate="FremhevMerkedeStier"></span>
             </div>
             <div class="col-xs-2">
                 <input class="checkbox"
@@ -60,7 +62,7 @@
         </div>
         <div class="row">
             <div class="col-xs-6 header-text">
-                <span>Ta med tegnforklaringer</span>
+                <span translate="AddLegend"></span>
             </div>
             <div class="col-xs-2">
                 <input class="checkbox"

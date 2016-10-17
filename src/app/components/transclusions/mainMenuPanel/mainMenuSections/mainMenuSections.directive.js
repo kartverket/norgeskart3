@@ -15,13 +15,15 @@ angular.module('mainMenuSections')
                             mainMenuPanelFactory.setProjectById(project.id);
                             var search = $location.search();
                             search['project'] = project.id;
-                            setSearch(map.GetUrlObject());
+                            search.layers = "";
+                            setSearch(map.GetUrlObject(), search.layers);
                         }
                     };
 
-                    var setSearch = function (obj) {
+                    var setSearch = function (obj, layers) {
                         if (!angular.equals(obj, $location.search())) {
                             var newSearch = angular.extend($location.search(), obj);
+                            newSearch.layers = layers;
                             $location.search(newSearch);
                             $timeout(function () {
                                 window.location.reload();

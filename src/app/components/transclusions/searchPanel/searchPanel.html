@@ -1,6 +1,6 @@
 <div class="field-group">
     <div class="inner-addon left-addon right-addon">
-        <input caret type="text" ng-change="searchBarValueChanged()" ng-model="searchBarModel" name="searchBarName" id="searchBarId" placeholder="Søk Norgeskart"  />
+        <input caret type="text" ng-change="searchBarValueChanged()" ng-model="searchBarModel" name="searchBarName" id="searchBarId" placeholder="{{'search_text' | translate}}"  />
         <i class="left-side glyphicon glyphicon-menu-hamburger" data-ng-click="openNav()"></i>
         <i ng-show="searchResults != undefined" class="right-side glyphicon glyphicon-remove" data-ng-click="cleanResults()"></i>
         <i class="absolute-right-side glyphicon glyphicon-search"></i>
