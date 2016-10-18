@@ -40,7 +40,12 @@ angular.module('mainMenuDraw')
                     scope.snap=true;
                     scope.selectionActive=false;
                     scope.pointTypes={ '●': 64,'▲': 3,'♦': 4};
-                    scope.geometryTypes=['Point', 'LineString', 'Polygon'];
+                    scope.geometryTypes={
+                        Point:'Point',
+                        LineString: 'LineString',
+                        Polygon: 'Polygon',
+                        Text: 'Text'
+                    };
                     scope.modeTypes=['draw', 'modify'];
                     scope.mode="draw";
                     scope.type='Point';
@@ -128,9 +133,21 @@ angular.module('mainMenuDraw')
                         scope.type=feature.geometry.type;
                         switch(scope.type){
                             case('Point'):
-                                scope.color = featureStyle.regularshape.fill.color;
-                                scope.pointNumber = featureStyle.regularshape.points;
-                                scope.pointRadius = featureStyle.regularshape.radius;
+                                if(featureStyle.text){
+                                    scope.type='Text';
+                                    scope.fontSize=parseInt(featureStyle.text.font.split('px')[0],10)||scope.fontSize;
+                                    scope.text=featureStyle.text.text||scope.text;
+                                    scope.colorText=featureStyle.text.color||scope.colorText;
+                                    if(featureStyle.text.stroke) {
+                                        scope.colorTextStrokeWidth = featureStyle.text.stroke.width || scope.colorTextStrokeWidth;
+                                        scope.colorTextStroke = featureStyle.text.stroke.color || scope.colorTextStroke;
+                                    }
+                                }
+                                else {
+                                    scope.color = featureStyle.regularshape.fill.color;
+                                    scope.pointNumber = featureStyle.regularshape.points;
+                                    scope.pointRadius = featureStyle.regularshape.radius;
+                                }
                                 break;
 
                             case('LineString'):
@@ -145,16 +162,7 @@ angular.module('mainMenuDraw')
                                 scope.fillAlpha=100-parseInt(featureStyle.fill.color.split(',')[3].replace(')', '')*100,10)||scope.fillAlpha;
                                 break;
                         }
-                        // TEXT
-                        scope.fontSize=parseInt(featureStyle.text.font.split('px')[0],10)||scope.fontSize;
-                        scope.text=featureStyle.text.text||scope.text;
-                        scope.colorText=featureStyle.text.color||scope.colorText;
-                        if(featureStyle.text.stroke) {
-                            scope.colorTextStrokeWidth = featureStyle.text.stroke.width || scope.colorTextStrokeWidth;
-                            scope.colorTextStroke = featureStyle.text.stroke.color || scope.colorTextStroke;
-                        }
 
-                        // Color
                         _colorDict[scope.type]=scope.color;
 
                     };
@@ -197,10 +205,22 @@ angular.module('mainMenuDraw')
                         scope.activateDrawFeatureTool();
                     };
 
+                    scope.switchMode = function () {
+                        if(scope.mode=='draw'){
+                            scope.selectedFeatureId=undefined;
+                            scope.selectionActive=false;
+                        }
+                        scope.activateDrawFeatureTool();
+                    };
+
                     scope.activateDrawFeatureTool = function (overrideMode) {
 
                         if(overrideMode){
                             scope.mode=overrideMode;
+                        }
+
+                        if(scope.type!='Text'){
+                            scope.text="";
                         }
 
                         drawFeatureTool.additionalOptions = {
