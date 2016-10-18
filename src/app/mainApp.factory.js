@@ -417,7 +417,8 @@ angular.module('mainApp')
                                 "getFeatureCrs": "EPSG:4326"
                             },
                             "tiled": source.options.singletile !== "true",
-                            "crossOrigin": null
+                            "crossOrigin": null,
+                            "style": source.style
                         }
                     ],
                     "guid": source.guid,
