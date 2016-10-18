@@ -62,6 +62,16 @@ angular.module('mainApp')
                 $location.search(newSearch);
             }
 
+            var _setDeafultProject = function () {
+                var obj = $location.search();
+                obj.project = "norgeskart";
+                var newSearch = angular.extend($location.search(), obj);
+                $location.search(newSearch);
+                $timeout(function () {
+                    window.location.reload();
+                }, 0);
+            };
+
             $scope.initMapLayout = function(){
                 _initActiveLanguage();
                 var obj = $location.search();
@@ -70,6 +80,19 @@ angular.module('mainApp')
                         $scope.showMapLayout();
                         return;
                     }
+                }
+                var absUrl = $location.$$absUrl;
+                if (absUrl.indexOf("project=") > -1){
+                    var projectName = /project=([^&]+)&/.exec(absUrl);
+                    if (projectName === null){
+                        projectName = /project=([^]+)/.exec(absUrl);
+                        if (projectName === null){
+                            _setDeafultProject();
+                        }
+                    }
+                    return decodeURIComponent(projectName[1]);
+                }else{
+                    _setDeafultProject();
                 }
                 $scope.showMapOverlaysLayout();
             };
