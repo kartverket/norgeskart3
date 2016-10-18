@@ -1,6 +1,6 @@
 angular.module('mainMenuPanel')
-    .controller('mainMenuPanelController', ['$scope',
-        function($scope){
+    .controller('mainMenuPanelController', ['$scope', 'moveableOverlayFactory',
+        function($scope, moveableOverlayFactory){
 
             $scope.drawActivated=false;
 
@@ -20,6 +20,10 @@ angular.module('mainMenuPanel')
 
             $scope.showMainMenuDraw = function () {
                 $scope.mainMenuPanelLayout = "mainMenuDraw";
+            };
+
+            $scope.showMoveableDrawMenu = function () {
+                moveableOverlayFactory.setActiveOverlay("DrawMenu");
             };
 
             $scope.isDrawActivated = function () {

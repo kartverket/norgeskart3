@@ -3,8 +3,8 @@ angular
     .factory('moveableOverlayFactory', function(){
         var moveableOverlayList = [
             {
-                id: "DrawingMenu",
-                headingTitle: 'drawing_menu',
+                id: "DrawMenu",
+                headingTitle: 'draw_menu',
                 show: false,
                 top: 100,
                 left: 265
