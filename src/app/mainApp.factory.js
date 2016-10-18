@@ -79,8 +79,8 @@ angular.module('mainApp')
                     instance = '';
                 }
                 var projectsListUrl = projectUrl;
-                projectsListUrl += '/api/v1/listprojects?application=' + instance;
-                projectUrl += '/api/v1/project?application=' + instance + '&name=';
+                projectsListUrl += '/listprojects.py?application=' + instance;
+                projectUrl += '/project.py?application=' + instance + '&name=';
                 var nameProject = projectName();
                 if (nameProject.length > 0){
 
@@ -316,6 +316,15 @@ angular.module('mainApp')
                         addWmts(project.config.wmts);
                     }
                 }
+                if (project.config.vector !== undefined){
+                    if (project.config.vector.length !== undefined) {
+                        project.config.vector.forEach(function (vector) {
+                            addVector(vector);
+                        });
+                    } else {
+                        addVector(project.config.vector);
+                    }
+                }
             };
 
             var findGroupExistance = function(grpIds){
@@ -350,21 +359,25 @@ angular.module('mainApp')
                 addLayer("WMTS", wmts);
             };
 
-            var addLayer = function(sourceType, wms) {
+            var addVector = function(vector){
+                addLayer("VECTOR", vector);
+            };
+
+            var addLayer = function(sourceType, source) {
 
                 var cat_ids = [999];
-                if (wms.groupid !== undefined){
-                    cat_ids = wms.groupid.toString().split(',').map(function(item){
+                if (source.groupid !== undefined){
+                    cat_ids = source.groupid.toString().split(',').map(function(item){
                         return parseInt(item, 10);
                     });
-                    createNotExistGroup(cat_ids, wms.name, wms.namelng);
+                    createNotExistGroup(cat_ids, source.name, source.namelng);
                 }else{
-                    if (wms.options.isbaselayer === 'false'){
+                    if (source.options.isbaselayer === 'false'){
                         createDummyGroup();
                     }
                 }
 
-                //if (wms.gatekeeper === 'true'){
+                //if (source.gatekeeper === 'true'){
                 //    wmsSource = "WMS"; // WMS is default
                 //}else{
                 //    wmsSource = "proxyWms";
@@ -375,24 +388,24 @@ angular.module('mainApp')
                 var newIsyLayer = new ISY.Domain.Layer({
                     "subLayers": [
                         {
-                            "title": wms.name,
-                            "name": getNewLayers(wms.params.layers, wms.url),
-                            "providerName": getNewLayers(wms.params.layers, wms.url),
+                            "title": source.name,
+                            "name": source.params.layers||source.name,
+                            "providerName": source.params.layers||source.name,
                             "source": sourceType,
-                            "gatekeeper": wms.gatekeeper === "true",
-                            "url": getWmsUrl(wms.url),
-                            "format": wms.params.format,
-                            "coordinate_system": mapConfig.coordinate_system,
+                            "gatekeeper": source.gatekeeper === "true",
+                            "url": getWmsUrl(source.url),
+                            "format": source.params.format,
+                            "coordinate_system": source.epsg||mapConfig.coordinate_system,
                             "extent": mapConfig.extent,
                             "extentUnits": mapConfig.extentUnits,
-                            "matrixPrefix": wms.matrixprefix === "true",
+                            "matrixPrefix": source.matrixprefix === "true",
                             "numZoomLevels": mapConfig.numZoomLevels,
                             "id": mapConfig.layers.length+1001,
                             "transparent": true,
                             "layerIndex": -1,
-                            "legendGraphicUrl": wms.layers.layer.legendurl,
-                            "minScale": wms.options.minscale,
-                            "maxScale": wms.options.maxscale,
+                            //"legendGraphicUrl": source.layers.layer.legendurl,
+                            "minScale": source.options.minscale,
+                            "maxScale": source.options.maxscale,
                             "sortingIndex": -1,
                             "featureInfo": {
                                 "supportsGetFeatureInfo": true,
@@ -403,16 +416,17 @@ angular.module('mainApp')
                                 "getFeatureFormat": "application/json",
                                 "getFeatureCrs": "EPSG:4326"
                             },
-                            "tiled": wms.options.singletile !== "true",
-                            "crossOrigin": null
+                            "tiled": source.options.singletile !== "true",
+                            "crossOrigin": null,
+                            "style": source.style
                         }
                     ],
-                    "guid": wms.guid,
-                    "name":wms.name,
+                    "guid": source.guid,
+                    "name":source.name,
                     "groupId": cat_ids,
-                    "visibleOnLoad": (wms.options.visibility === 'true'),
+                    "visibleOnLoad": (source.options.visibility === 'true'),
                     "id":  mapConfig.layers.length+1001,
-                    "isBaseLayer": (wms.options.isbaselayer === 'true'),
+                    "isBaseLayer": (source.options.isbaselayer === 'true'),
                     "previewActive": false,
                     "opacity": 1,
                     "mapLayerIndex": -1,
@@ -420,8 +434,8 @@ angular.module('mainApp')
                     "selectedLayerOpen": false
                 });
                 mapConfig.layers.push(newIsyLayer);
-                mapConfig.languages.en[newIsyLayer.id] = wms.name;
-                mapConfig.languages.no[newIsyLayer.id] = wms.namelng;
+                mapConfig.languages.en[newIsyLayer.id] = source.name;
+                mapConfig.languages.no[newIsyLayer.id] = source.namelng;
             };
 
             var _getBoolean = function(value){
@@ -437,60 +451,10 @@ angular.module('mainApp')
             var getWmsUrl = function(url){
                 if (url.indexOf('|')){
                     var urls = url.split('|');
-                    for (var i = 0; i < urls.length; i++){
-                        urls[i] = fixNibUrl(urls[i]);
-                    }
                     return urls;
                 } else {
-                    return fixNibUrl(url);
+                    return url;
                 }
-            };
-
-            var oldNibUrl = 'geonorge.no/BaatGatekeeper/gk/gk.nibcache';
-            var newNibUrl = 'geonorge.no/BaatGatekeeper/gk/gk.nib_utm';
-            var getNewLayers = function(layers, url){
-                if (url.indexOf(oldNibUrl) > 0){
-                    switch (mapConfig.coordinate_system){
-                        case 'EPSG:25832':
-                        case 'EPSG:32632':
-                            layers = 'Nibcache_UTM32_EUREF89';
-                            break;
-                        case 'EPSG:25833':
-                        case 'EPSG:32633':
-                            layers = 'Nibcache_UTM33_EUREF89';
-                            break;
-                        case 'EPSG:25835':
-                        case 'EPSG:32635':
-                            layers = 'Nibcache_UTM35_EUREF89';
-                            break;
-                    }
-                }
-                return layers;
-            };
-
-            var fixNibUrl = function (url) {
-                var iPos = url.indexOf(oldNibUrl);
-                if (iPos > 0) {
-                    url = url.substr(0, iPos) + newNibUrl + url.substr(iPos + oldNibUrl.length);
-                    switch (mapConfig.coordinate_system) {
-                        case 'EPSG:25832':
-                        case 'EPSG:32632':
-                            url += '32';
-                            break;
-                        case 'EPSG:25833':
-                        case 'EPSG:32633':
-                            url += '33';
-                            break;
-                        case 'EPSG:25835':
-                        case 'EPSG:32635':
-                            url += '35';
-                            break;
-                        default:
-                            console.error(url + ' støtter ikke ' + mapConfig.coordinate_system);
-                            break;
-                    }
-                }
-                return url;
             };
 
             function registerTranslations(languages) {
