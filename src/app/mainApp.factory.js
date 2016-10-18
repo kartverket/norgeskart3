@@ -79,8 +79,8 @@ angular.module('mainApp')
                     instance = '';
                 }
                 var projectsListUrl = projectUrl;
-                projectsListUrl += '/api/v1/listprojects?application=' + instance;
-                projectUrl += '/api/v1/project?application=' + instance + '&name=';
+                projectsListUrl += '/listprojects.py?application=' + instance;
+                projectUrl += '/project.py?application=' + instance + '&name=';
                 var nameProject = projectName();
                 if (nameProject.length > 0){
 
