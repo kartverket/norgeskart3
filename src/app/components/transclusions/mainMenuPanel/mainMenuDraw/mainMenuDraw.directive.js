@@ -137,7 +137,7 @@ angular.module('mainMenuDraw')
                                     scope.type='Text';
                                     scope.fontSize=parseInt(featureStyle.text.font.split('px')[0],10)||scope.fontSize;
                                     scope.text=featureStyle.text.text||scope.text;
-                                    scope.colorText=featureStyle.text.color||scope.colorText;
+                                    scope.colorText=featureStyle.text.fill.color||scope.colorText;
                                     if(featureStyle.text.stroke) {
                                         scope.colorTextStrokeWidth = featureStyle.text.stroke.width || scope.colorTextStrokeWidth;
                                         scope.colorTextStroke = featureStyle.text.stroke.color || scope.colorTextStroke;
