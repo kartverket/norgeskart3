@@ -100,9 +100,10 @@ angular.module('mainMenuDraw')
                                 )
                             }
                         );
+                        scope.colorTextStrokeWidth=10;
                         if(scope.colorTextStrokeWidth > 0){
                             style.getText().setStroke(new ol.style.Stroke({
-                                color: scope.colorTextStroke,
+                                color: 'rgba(255,255,255,1)',
                                 width: scope.colorTextStrokeWidth
                             }));
                         }
