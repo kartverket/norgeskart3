@@ -266,9 +266,11 @@ angular.module('mainMenuDraw')
                         $location.url(oldUrl.replace('drawing=' + hash, ''));
                     };
 
-                    scope.undoButtonClick = function(){
-                        _operation='undo';
+                    scope.deleteButtonClick = function(){
+                        _operation='delete';
                         scope.activateDrawFeatureTool();
+                        scope.selectedFeatureId=undefined;
+                        scope.selectionActive=false;
                         _operation="";
                     };
 
