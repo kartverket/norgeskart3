@@ -8,4 +8,9 @@
 
 node_modules
 
+vendor
+coverage
+
 build
+dist
+
