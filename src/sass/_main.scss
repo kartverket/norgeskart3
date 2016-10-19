@@ -1,9 +1,9 @@
-$shadow-color: rgba(0, 0, 0, 0.298039);
+$shadow-color: rgba(0, 0, 0, 0.24);
 $shadow: $shadow-color 1px 1px 2px 1px;
 $backgroundColor: white;
 
 // Main colors
-$color-primary: #20aaac; // Norconsult-webfarge 2
+$color-primary: #3c8398; // Norconsult-webfarge 2
 $color-contrast: #ea3d59; // Norconsult-webfarge 5
 $color-1: #e7e7dd; // Norconsult-webfarge 1
 $color-2: #c8dc3e; // Norconsult-webfarge 3
@@ -138,8 +138,8 @@ body{
   border: $border;
   box-shadow: $shadow;
   background-color: white;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
   .dropdown-menu{
     position: inherit;
   }
@@ -453,8 +453,23 @@ html{
 .moveableOverlay{
   @extend .clickThrough;
   position: absolute;
-  z-index: 10;
+  z-index: 14;
   -webkit-overflow-scrolling:touch;
+
+  .backbtn{
+    font-size: 14px;
+    float: right;
+    margin-right: 16px;
+    padding-top: 1px;
+    cursor: pointer;
+  }
+}
+
+.drawmenu{
+  width: 420px;
+  .panel{
+    margin-bottom: 0;
+  }
 }
 
 .moveable-overlay{
@@ -580,6 +595,7 @@ html{
 .list-result{
   li{
     border-bottom: 1px solid #dedede;
+    //position: relative;
   }
   li:last-child{
     border-bottom: 0;
@@ -698,6 +714,27 @@ html{
     margin: 5px;
   }
 
+}
+
+.header-moveable{
+  background-color: $color-primary;
+  color: white;
+  padding: 6px 8px 6px 12px;
+  box-shadow: $shadow;
+  border: $border;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  font-size: 16px;
+
+  &.isClosed{
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+
+  &.descriptionVisible{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 }
 
 .header{

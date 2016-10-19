@@ -1,4 +1,8 @@
-<div class="header header-move ellipsis">
+<div class="header-moveable header-move ellipsis">
+    <span data-ng-class="headerIcon"></span>
     <span class="header-text" translate="{{header}}"></span>
-    <span class="close-buffer pull-right glyphicon glyphicon-remove pointer-cursor" ng-click="closeOverlay(overlay.id)"></span>
+    <div class="backbtn" data-ng-click="closeOverlay()">
+        <span class="glyphicon glyphicon-remove"></span>
+    </div>
 </div>
+<div ng-transclude></div>

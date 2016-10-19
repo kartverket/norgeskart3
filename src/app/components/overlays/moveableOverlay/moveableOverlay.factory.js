@@ -5,68 +5,59 @@ angular
             {
                 id: "DrawMenu",
                 headingTitle: 'draw_menu',
+                headingIcon: 'fa fa-pencil',
                 show: false,
-                top: 100,
-                left: 265
+                top: 12,
+                left: 455
             }
         ];
 
+        var defaultPosition = {
+            top: 12,
+            left: 455
+        };
+
         return {
-            getOverlayById: function(overlayId){
-                for (var i = 0; i < moveableOverlayList.length; i++){
-                    if (moveableOverlayList[i].id === overlayId){
-                        return moveableOverlayList[i];
-                    }
-                }
-                return undefined;
-            },
 
             setActiveOverlay: function(overlayId){
                 for (var i = 0; i < moveableOverlayList.length; i++){
-                    if (moveableOverlayList[i].id === overlayId){
-                        moveableOverlayList[i].show = true;
-                    }
+                    moveableOverlayList[i].show = moveableOverlayList[i].id === overlayId;
                 }
             },
 
             deactiveAllOverlay: function(){
                 for (var i = 0; i < moveableOverlayList.length; i++){
                     moveableOverlayList[i].show = false;
+                    moveableOverlayList[i].top = defaultPosition.top;
+                    moveableOverlayList[i].left = defaultPosition.left;
                 }
             },
 
-            deactiveOverlay: function(overlayId){
+            setPositionForActiveOverlay: function (letft, top) {
                 for (var i = 0; i < moveableOverlayList.length; i++){
-                    if (moveableOverlayList[i].id === overlayId){
-                        moveableOverlayList[i].show = false;
+                    if (moveableOverlayList[i].show){
+                        moveableOverlayList[i].left = letft;
+                        moveableOverlayList[i].top = top;
+
                     }
                 }
             },
 
-            hasElementHeaderName: function(headerName){
-                for (var i = 0; i< moveableOverlayList.length; i++){
-                    if (moveableOverlayList[i].headingTitle === headerName){
-                        return true;
-                    }
-                }
-                return false;
-            },
-
-            getOverlayByHeaderName: function(headerName){
-                for (var i=0; i < moveableOverlayList.length; i++){
-                    if (moveableOverlayList[i].headingTitle === headerName){
+            getActiveOverlay: function () {
+                for (var i = 0; i < moveableOverlayList.length; i++){
+                    if (moveableOverlayList[i].show){
                         return moveableOverlayList[i];
                     }
                 }
+                return undefined;
             },
 
-            setPositionForOverlayByHeaderName: function(headerName, left, top){
-                for (var i=0; i < moveableOverlayList.length; i++){
-                    if (moveableOverlayList[i].headingTitle == headerName){
-                        moveableOverlayList[i].left = left;
-                        moveableOverlayList[i].top = top;
-                        break;
-                    }
+            isOverlayVisible: function () {
+                var activeOverlay = this.getActiveOverlay();
+                if (activeOverlay !== undefined){
+                    return activeOverlay.show;
+                }else{
+                    return false;
                 }
             }
         };

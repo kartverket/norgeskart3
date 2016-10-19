@@ -5,12 +5,13 @@ angular.module('moveableOverlay')
                 templateUrl: 'components/overlays/moveableOverlay/moveableOverlay.html',
                 controller: 'moveableOverlayController',
                 restrict: 'A',
+                transclude: true,
                 link: function($scope, element){
                     if (element.scope){
                         element = $(element);
                     }
-                    $scope.closeOverlay = function(idOverlay){
-                        moveableOverlayFactory.deactiveOverlay(idOverlay);
+                    $scope.closeOverlay = function(){
+                        moveableOverlayFactory.deactiveAllOverlay();
                     };
 
                     var startX = 0;
@@ -22,22 +23,25 @@ angular.module('moveableOverlay')
                     var x = 0;
                     var y = 0;
 
-                    var elementHeaderName = '';
+
 
                     element.on('mousedown touchstart', function(event) {
                         updateElementsPosition(element);
-                        if (event.target.className !== 'header header-move ellipsis' && event.target.className !== 'header-text ng-scope'){
+                        if (event.target.className !== 'header-moveable header-move ellipsis' && event.target.className !== 'header-text ng-scope'){
                             return event;
                         }
                         // Prevent default dragging of selected content
                         event.preventDefault();
-                        elementHeaderName = getElementHeaderName();
+                        // elementHeaderName = getElementHeaderName();
 
-                        if (!moveableOverlayFactory.hasElementHeaderName(elementHeaderName)){
-                            elementHeaderName = "menu_feature_info_detail";
+                        // if (!moveableOverlayFactory.hasElementHeaderName(elementHeaderName)){
+                        //     elementHeaderName = "menu_feature_info_detail";
+                        // }
+
+                        var overlayPosition = moveableOverlayFactory.getActiveOverlay();
+                        if (overlayPosition === undefined){
+                            return event;
                         }
-
-                        var overlayPosition = moveableOverlayFactory.getOverlayByHeaderName(elementHeaderName);
                         x = overlayPosition.left;
                         if (x === undefined || isNaN(x)){
                             x = 0;
@@ -69,9 +73,9 @@ angular.module('moveableOverlay')
                         var elements = document.getElementsByClassName("moveableOverlay");
                         for(var i = 0; i<elements.length; i++){
                             if (elements[i] !== element[0]){
-                                elements[i].style.zIndex = 10;
+                                elements[i].style.zIndex = 13;
                             }else{
-                                elements[i].style.zIndex = 11;
+                                elements[i].style.zIndex = 14;
                             }
                         }
                     }
@@ -104,7 +108,7 @@ angular.module('moveableOverlay')
                                 y = 0;
                             }
                         }
-                        moveableOverlayFactory.setPositionForOverlayByHeaderName(elementHeaderName, x, y);
+                        moveableOverlayFactory.setPositionForActiveOverlay(x, y);
 
                         element.css({
                             top: y + 'px',
@@ -112,10 +116,10 @@ angular.module('moveableOverlay')
                         });
                     }
 
-                    function getElementHeaderName(){
-                        var spanElement = element[0].getElementsByTagName('span');
-                        return spanElement[0].getAttribute('translate');
-                    }
+                    // function getElementHeaderName(){
+                    //     var spanElement = element[0].getElementsByTagName('span');
+                    //     return spanElement[0].getAttribute('translate');
+                    // }
 
                     function mouseup() {
                         $document.off('mousemove touchmove', mousemove);

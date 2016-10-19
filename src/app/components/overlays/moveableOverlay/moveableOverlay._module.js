@@ -1,1 +1,1 @@
-angular.module('moveableOverlay', []);
+angular.module('moveableOverlay', ['menuDraw']);
