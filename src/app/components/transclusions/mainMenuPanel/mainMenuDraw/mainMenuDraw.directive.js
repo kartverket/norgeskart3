@@ -111,7 +111,7 @@ angular.module('mainMenuDraw')
 
                     var getDrawing = function (GeoJSON) {
                         scope.setGeoJSON(GeoJSON);
-                        console.log(GeoJSON);
+                        // console.log(GeoJSON);
                     };
 
                     var getSelectedFeatureId = function (selectedFeatureId) {
