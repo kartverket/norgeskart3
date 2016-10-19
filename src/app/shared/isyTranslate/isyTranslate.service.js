@@ -87,7 +87,8 @@ angular
             "ED50_UTM_33": "ED50, UTM-sone 33",
             "ED50_UTM_34": "ED50, UTM-sone 34",
             "ED50_UTM_35": "ED50, UTM-sone 35",
-            "ED50_UTM_36": "ED50, UTM-sone 36"
+            "ED50_UTM_36": "ED50, UTM-sone 36",
+            "draw_menu": "Tegne"
         },
         'en': {
             "search_text": "Search Norgeskart",
@@ -175,6 +176,7 @@ angular
             "ED50_UTM_33": "ED50, UTM-zone 33",
             "ED50_UTM_34": "ED50, UTM-zone 34",
             "ED50_UTM_35": "ED50, UTM-zone 35",
-            "ED50_UTM_36": "ED50, UTM-zone 36"
+            "ED50_UTM_36": "ED50, UTM-zone 36",
+            "draw_menu": "Draw"
         }
     });
