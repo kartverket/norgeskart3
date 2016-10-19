@@ -213,12 +213,13 @@ angular.module('mainMenuDraw')
                         scope.activateDrawFeatureTool();
                     };
 
-                    scope.activateDrawFeatureTool = function (overrideMode) {
+                    scope.switchType = function () {
+                        _colorDict[scope.type]=scope.color;
+                        scope.mode='draw';
+                        scope.switchMode();
+                    };
 
-                        if(overrideMode){
-                            scope.mode=overrideMode;
-                        }
-
+                    scope.activateDrawFeatureTool = function () {
                         if(scope.type!='Text'){
                             scope.text="";
                         }
@@ -249,9 +250,9 @@ angular.module('mainMenuDraw')
                         scope.setColor();
                     };
 
-                    scope.setColor = function (overrideMode) {
+                    scope.setColor = function () {
                        _colorDict[scope.type]=scope.color;
-                        scope.activateDrawFeatureTool(overrideMode);
+                        scope.activateDrawFeatureTool();
                     };
 
                     scope.newButtonClick = function(){
