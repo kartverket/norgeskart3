@@ -25,7 +25,7 @@
     <h3>Valg</h3>
     <li>
         <span>Geometritype</span>
-        <select ng-model="type"  ng-options="key for (key, val) in geometryTypes" ng-change="setColor('draw')"></select>
+        <select ng-model="type"  ng-options="key for (key, val) in geometryTypes" ng-change="switchType()"></select>
     </li>
 
     <li data-ng-show="type!=='Text'">
