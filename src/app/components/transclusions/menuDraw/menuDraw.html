@@ -1,10 +1,13 @@
 <div class="panel-body">
     <div>
-        <button data-ng-click="switchType('Point')">Punkt</button>
-        <button data-ng-click="switchType('LineString')">Linje</button>
-        <button data-ng-click="switchType('Polygon')">Polygon</button>
-        <button data-ng-click="switchType('Text')">Tekst</button>
+        <button data-ng-repeat="geometryType in geometryTypes" data-ng-click="switchType(geometryType)">{{geometryType}}</button>
         <button data-ng-click="switchMode('modify')">Rediger</button>
+    </div>
+
+
+    <div>
+        <span>Farge</span>
+        <button ng-model="color" data-ng-click="setColor(val)" data-ng-repeat="(key, val) in colors" style="background-color:{{key}};border: none;font-size:1;line-height:9">clr</button>
     </div>
 
 
@@ -14,7 +17,7 @@
         <button data-ng-click="switchSymbol('Triangle')">▲</button>
         <button data-ng-click="switchSymbol('Diamond')">♦</button>
         <br/>
-        <span>Radius</span>
+        <span>Størrelse</span>
         <input type="number" min="1" max="100" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/>
     </div>
 
@@ -38,16 +41,10 @@
 
 
     <div ng-show="type=='Text'">
-        <input type="text" ng-model="text" placeholder="Skriv inn tekst her" ng-change="activateDrawFeatureTool()"/>
         <span>Størrelse</span>
         <input type="number" min="1" max="100" ng-model="fontSize" ng-change="activateDrawFeatureTool()"/>
-    </div>
-
-
-    <div>
-        <span>Farge</span>
-        <input data-ng-show="type!=='Text'" type="color" ng-model="color" ng-change="setColor()"/>
-        <input data-ng-show="type=='Text'" type="color" ng-model="colorText" ng-change="activateDrawFeatureTool()"/>
+        <br/>
+        <input type="text" ng-model="text" placeholder="Skriv inn tekst her" ng-change="activateDrawFeatureTool()"/>
     </div>
 
 
