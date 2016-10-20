@@ -8,13 +8,13 @@ angular
                 headingIcon: 'fa fa-pencil',
                 show: false,
                 top: 12,
-                left: 455
+                left: 19
             }
         ];
 
         var defaultPosition = {
             top: 12,
-            left: 455
+            left: 19
         };
 
         return {

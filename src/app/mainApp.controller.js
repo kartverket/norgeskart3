@@ -153,5 +153,32 @@ angular.module('mainApp')
 
             $scope.mapTypeLayout = "mapOverlaysLayout";
 
+            $scope.isDrawActivated = function () {
+                if($scope.drawActivated){
+                    return true;
+                }
+                else {
+                    $scope.drawActivated=true;
+                    return false;
+                }
+            };
+
+            $scope.setGeoJSON = function (GeoJSON) {
+                $scope.GeoJSON=GeoJSON;
+            };
+
+            $scope.drawActivated=false;
+
+            $scope.initDrawFeatureTool = function(){
+                var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                toolsFactory.activateTool(drawFeatureTool);
+            };
+
+            $scope.deactivateDrawFeatureTool = function(){
+                var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                toolsFactory.deactivateTool(drawFeatureTool);
+            };
+
+
         }
     ]);
