@@ -214,7 +214,7 @@ angular.module('menuDraw')
 
                     scope.switchSymbol = function (newSymbol) {
                         scope.pointNumber=scope.pointTypes[newSymbol];
-                        scope.switchMode('draw');
+                        scope.activateDrawFeatureTool();
                     };
 
                     scope.activateDrawFeatureTool = function () {
