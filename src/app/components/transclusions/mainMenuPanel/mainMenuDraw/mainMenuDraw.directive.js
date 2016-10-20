@@ -6,33 +6,7 @@ angular.module('mainMenuDraw')
                 restrict: 'A',
                 link: function(scope){
 
-                    /*
-                     Measure tools start
-                     */
-                    function _startMeasure (style) {
-                        var featureTool;
-                        switch (style){
-                            case "Line":
-                                featureTool = toolsFactory.getToolById("MeasureLine");
-                                toolsFactory.activateTool(featureTool);
-                                break;
-                            case "Polygon":
-                                featureTool = toolsFactory.getToolById("Measure");
-                                toolsFactory.activateTool(featureTool);
-                                break;
-                        }
-                    }
 
-                    scope.measureLine = function () {
-                        _startMeasure("Line");
-                    };
-
-                    scope.measurePolygon = function () {
-                        _startMeasure("Polygon");
-                    };
-                    /*
-                     Measure tools end
-                     */
 
                     /*
                      Draw start
