@@ -2,7 +2,7 @@ angular.module('mapGetFeatures')
     .directive('mapGetFeatures', ['ISY.EventHandler',
         function(eventHandler) {
             return {
-                templateUrl: 'components/transclusions/mapGetFeatures/mapGetFeatures.html',
+                templateUrl: 'components/transclusions/searchPanel/searchOptionsPanel/mapGetFeatures/mapGetFeatures.html',
                 restrict: 'A',
                 link: function(scope){
 
@@ -41,22 +41,8 @@ angular.module('mapGetFeatures')
                             else {
                                 if (resultSet.features !== undefined){
                                     if(resultSet.features.length > 0) {
-
-                                        //if (resultSet.features[0].attributes.length > 0){
                                         loadingLayer.features = resultSet.features;
-                                        // loadingLayer.featureInfo = resultSet.featureInfoElement;
-                                        // loadingLayer.featureInfoTitle = resultSet.featureInfoTitle;
-                                        // loadingLayer.wms = resultSet.wms;
                                         loadingLayer.hasFeatures = resultSet.showDialog;
-                                        // loadingLayer.hasFeatureInfoDetail = findFeatureInfoDetail(resultSet.featureInfoElement);
-                                        // loadingLayer.openNewWindow = resultSet.openNewWindow;
-                                        // loadingLayer.openParentWindow = resultSet.openParentWindow;
-                                        // loadingLayer.windowWidth = resultSet.windowWidth;
-                                        // loadingLayer.editable = resultSet.editable;
-                                        // loadingLayer.attachment = resultSet.attachment;
-                                        //}else if (resultSet.editable !== undefined){
-                                        //    loadingLayer.editable = resultSet.editable;
-                                        //}
                                     }
                                 }
                             }
@@ -65,13 +51,43 @@ angular.module('mapGetFeatures')
                                 loadingLayer.show = true;
                             }
 
+                            for (var j = 0; j < scope.layers.length; j++){
+                                scope.layers[j].open = false;
+                            }
+
                             loadingLayer.isLoading = false;
                         }
-                        console.log(loadingLayer);
+                        // console.log(loadingLayer);
                     }
 
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.FeatureInfoStart, _handleLoadingLayers);
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.FeatureInfoEnd, _loadResult);
+
+                    scope.toggleLayer = function (layer) {
+                        if (layer.open){
+                            layer.open = false;
+                        }else{
+                            for (var i = 0; i < scope.layers.length; i++){
+                                scope.layers[i].open = false;
+                            }
+                            layer.open = true;
+                        }
+                    };
+
+                    scope.getFeatureName = function (index) {
+                        return "#" + index+1;
+                    };
+
+                    scope.toggleFeature = function (layer, feature) {
+                        if (feature.open){
+                            feature.open = false;
+                        }else{
+                            for (var i = 0; i < layer.features.length; i++){
+                                layer.features[i].open = false;
+                            }
+                            feature.open = true;
+                        }
+                    };
 
                 }
             };

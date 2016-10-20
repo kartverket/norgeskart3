@@ -136,7 +136,7 @@ body{
   max-height: 100%;
   overflow: auto;
   border: $border;
-  box-shadow: $shadow;
+  //box-shadow: $shadow;
   background-color: white;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
@@ -453,6 +453,7 @@ html{
 .moveableOverlay{
   @extend .clickThrough;
   position: absolute;
+  box-shadow: $shadow;
   z-index: 14;
   -webkit-overflow-scrolling:touch;
 
@@ -720,7 +721,7 @@ html{
   background-color: $color-primary;
   color: white;
   padding: 6px 8px 6px 12px;
-  box-shadow: $shadow;
+  //box-shadow: $shadow;
   border: $border;
   border-top-left-radius: 0;
   border-top-right-radius: 0;

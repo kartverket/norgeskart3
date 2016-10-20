@@ -113,7 +113,6 @@ module.exports = {
         'src/app/components/overlays/mainMenuOverlay/**/*.js',
         'src/app/components/overlays/searchBarOverlay/**/*.js',
         'src/app/components/transclusions/mainMenuPanel/**/*.js',
-        'src/app/components/transclusions/mapGetFeatures/**/*.js',
         'src/app/components/transclusions/menuDraw/**/*.js',
         'src/app/components/transclusions/searchPanel/**/*.js',
         'src/app/components/transclusions/toolMenu/**/*.js',
