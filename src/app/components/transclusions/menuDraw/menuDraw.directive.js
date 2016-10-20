@@ -10,13 +10,28 @@ angular.module('menuDraw')
                      */
                     scope.snap=true;
                     scope.selectionActive=false;
-                    scope.pointTypes={ '●': 64,'▲': 3,'♦': 4};
-                    scope.geometryTypes={
-                        Point:'Point',
-                        LineString: 'LineString',
-                        Polygon: 'Polygon',
-                        Text: 'Text'
+                    scope.pointTypes={
+                        'Circle': 64,
+                        'Triangle': 3,
+                        'Diamond': 4
                     };
+                    scope.colors= {
+                        'black': '#000000',
+                        'yellow':'#FFFF00',
+                        'orange':'#FFA500',
+                        'red':'#FF0000',
+                        'purple':'#800080',
+                        'blue':'#0000FF',
+                        'darkgreen':'#006400',
+                        'grey':'#808080',
+                        'white':'#FFFFFF'
+                    };
+                    scope.geometryTypes=[
+                        'Point',
+                        'LineString',
+                        'Polygon',
+                        'Text'
+                    ];
                     scope.modeTypes=['draw', 'modify'];
                     scope.mode="draw";
                     scope.type='Point';
@@ -36,7 +51,8 @@ angular.module('menuDraw')
                     _colorDict ={
                         Point: scope.color,
                         LineString:  scope.color,
-                        Polygon: scope.color
+                        Polygon: scope.color,
+                        Text: scope.color
                     };
                     _firstLoad=true;
                     _operation="";
@@ -65,7 +81,7 @@ angular.module('menuDraw')
                                         font: scope.fontSize + 'px ' + _fontName,
                                         text: scope.text,
                                         fill: new ol.style.Fill({
-                                            color: scope.colorText
+                                            color: _colorDict.Text
                                         })
                                     }
                                 )
@@ -109,7 +125,7 @@ angular.module('menuDraw')
                                     scope.type='Text';
                                     scope.fontSize=parseInt(featureStyle.text.font.split('px')[0],10)||scope.fontSize;
                                     scope.text=featureStyle.text.text||scope.text;
-                                    scope.colorText=featureStyle.text.fill.color||scope.colorText;
+                                    scope.color=featureStyle.text.fill.color||scope.color;
                                     if(featureStyle.text.stroke) {
                                         scope.colorTextStrokeWidth = featureStyle.text.stroke.width || scope.colorTextStrokeWidth;
                                         scope.colorTextStroke = featureStyle.text.stroke.color || scope.colorTextStroke;
@@ -181,7 +197,8 @@ angular.module('menuDraw')
                         scope.activateDrawFeatureTool();
                     };
 
-                    scope.switchMode = function () {
+                    scope.switchMode = function (newMode) {
+                        scope.mode=newMode;
                         if(scope.mode=='draw'){
                             scope.selectedFeatureId=undefined;
                             scope.selectionActive=false;
@@ -189,10 +206,15 @@ angular.module('menuDraw')
                         scope.activateDrawFeatureTool();
                     };
 
-                    scope.switchType = function () {
+                    scope.switchType = function (newType) {
+                        scope.type=newType;
                         _colorDict[scope.type]=scope.color;
-                        scope.mode='draw';
-                        scope.switchMode();
+                        scope.switchMode('draw');
+                    };
+
+                    scope.switchSymbol = function (newSymbol) {
+                        scope.pointNumber=scope.pointTypes[newSymbol];
+                        scope.switchMode('draw');
                     };
 
                     scope.activateDrawFeatureTool = function () {
@@ -229,7 +251,8 @@ angular.module('menuDraw')
                         scope.setColor();
                     };
 
-                    scope.setColor = function () {
+                    scope.setColor = function (newColor) {
+                        scope.color=newColor;
                         _colorDict[scope.type]=scope.color;
                         scope.activateDrawFeatureTool();
                     };
