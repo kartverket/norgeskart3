@@ -172,6 +172,7 @@ angular
                             return tools[i];
                         }
                     }
+                    return undefined;
                 },
 
                 getSelectedTool: function(){
@@ -217,7 +218,9 @@ angular
                     }
                     selectTool(tool.id);
                     var mapElement = document.getElementById("mapDiv");
-                    mapElement.style.cursor = tool.cursorStyle;
+                    if(mapElement) {
+                        mapElement.style.cursor = tool.cursorStyle;
+                    }
                 },
 
                 deactivateTool: function(tool){
