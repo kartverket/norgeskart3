@@ -12,6 +12,7 @@ angular.module('moveableOverlay')
                     }
                     $scope.closeOverlay = function(){
                         moveableOverlayFactory.deactiveAllOverlay();
+                        $scope.deactivateDrawFeatureTool();
                     };
 
                     var startX = 0;
