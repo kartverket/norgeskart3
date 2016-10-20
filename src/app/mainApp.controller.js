@@ -141,6 +141,7 @@ angular.module('mainApp')
 
             $( document ).ready(function() {
                 $scope.initMainPage();
+                $scope.deactivateDrawFeatureTool();
             });
 
             $scope.showMapLayout = function () {
