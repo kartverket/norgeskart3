@@ -10,7 +10,11 @@ angular.module('menuDraw')
                      */
                     scope.snap=true;
                     scope.selectionActive=false;
-                    scope.pointTypes={ '●': 64,'▲': 3,'♦': 4};
+                    scope.pointTypes={
+                        'Circle': 64,
+                        'Triangle': 3,
+                        'Diamond': 4
+                    };
                     scope.geometryTypes={
                         Point:'Point',
                         LineString: 'LineString',
@@ -181,7 +185,8 @@ angular.module('menuDraw')
                         scope.activateDrawFeatureTool();
                     };
 
-                    scope.switchMode = function () {
+                    scope.switchMode = function (newMode) {
+                        scope.mode=newMode;
                         if(scope.mode=='draw'){
                             scope.selectedFeatureId=undefined;
                             scope.selectionActive=false;
@@ -189,10 +194,15 @@ angular.module('menuDraw')
                         scope.activateDrawFeatureTool();
                     };
 
-                    scope.switchType = function () {
+                    scope.switchType = function (newType) {
+                        scope.type=newType;
                         _colorDict[scope.type]=scope.color;
-                        scope.mode='draw';
-                        scope.switchMode();
+                        scope.switchMode('draw');
+                    };
+
+                    scope.switchSymbol = function (newSymbol) {
+                        scope.pointNumber=scope.pointTypes[newSymbol];
+                        scope.switchMode('draw');
                     };
 
                     scope.activateDrawFeatureTool = function () {
