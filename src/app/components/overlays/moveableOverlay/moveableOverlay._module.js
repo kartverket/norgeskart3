@@ -1,1 +1,1 @@
-angular.module('moveableOverlay', ['mapGetFeatures']);
+angular.module('moveableOverlay', ['menuDraw']);
