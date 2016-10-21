@@ -55,7 +55,7 @@ angular.module('menuDraw')
                         Text: scope.color
                     };
                     _firstLoad=true;
-                    _operation="";
+                    _deleteFeature=false;
                     _fontName='sans-serif,helvetica';
                     var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
 
@@ -226,14 +226,16 @@ angular.module('menuDraw')
                         }
 
                         drawFeatureTool.additionalOptions = {
-                            operation: _operation,
+                            deleteFeature: _deleteFeature,
                             type: scope.type,
                             style: scope.refreshStyle(),
                             snap: scope.snap,
                             mode: scope.mode,
                             selectedFeatureId: scope.selectedFeatureId,
-                            selectionActive: scope.selectionActive
+                            selectionActive: scope.selectionActive,
+                            onlyAddLayer: scope.onlyAddLayer
                         };
+
                         if(scope.GeoJSON){
                             drawFeatureTool.additionalOptions.GeoJSON=scope.GeoJSON;
                         }
@@ -245,6 +247,7 @@ angular.module('menuDraw')
                                 scope.selectedFeatureId=undefined;
                             }
                         }
+                        scope.onlyAddLayer=false;
                     };
 
                     scope.drawFeature = function () {
@@ -270,11 +273,11 @@ angular.module('menuDraw')
                     };
 
                     scope.deleteButtonClick = function(){
-                        _operation='delete';
+                        _deleteFeature=true;
                         scope.activateDrawFeatureTool();
                         scope.selectedFeatureId=undefined;
                         scope.selectionActive=false;
-                        _operation="";
+                        _deleteFeature=false;
                     };
 
                     scope.downloadButtonClick=function () {

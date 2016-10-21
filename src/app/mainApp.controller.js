@@ -170,7 +170,10 @@ angular.module('mainApp')
 
             $scope.drawActivated=false;
 
+            $scope.onlyAddLayer=true;
+
             $scope.initDrawFeatureTool = function(){
+                $scope.onlyAddLayer=false;
                 var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
                 toolsFactory.activateTool(drawFeatureTool);
             };
