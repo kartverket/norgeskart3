@@ -1,1 +1,1 @@
-angular.module('searchOptionsPanel', []);
+angular.module('searchOptionsPanel', ['mapGetFeatures']);

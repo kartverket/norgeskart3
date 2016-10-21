@@ -141,6 +141,17 @@ angular.module('mainMenuGroupLayers')
                         }
                     };
 
+                    function _resetGroups() {
+                        for (var i = 0; i < scope.groupLayers.length; i++){
+                            if (scope.groupLayers[i].isyLayers !== undefined){
+                                if (scope.groupLayers[i].isyLayers.length > 0){
+                                    scope.groupLayers[i].isyLayers = [];
+                                }
+                            }
+                        }
+                    }
+
+                    _resetGroups();
                     _initGroups();
                     // console.log(scope.groupLayers);
                 }
