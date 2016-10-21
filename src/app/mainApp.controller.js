@@ -178,9 +178,20 @@ angular.module('mainApp')
                 toolsFactory.activateTool(drawFeatureTool);
             };
 
-            $scope.deactivateDrawFeatureTool = function(){
+            $scope.deactivateDrawFeatureTool = function(GeoJSON){
+                $scope.onlyAddLayer=true;
                 var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
-                toolsFactory.deactivateTool(drawFeatureTool);
+                var url=$location.url();
+                if(url.indexOf('drawing=')>-1) {
+                    drawFeatureTool.additionalOptions = {
+                        GeoJSON: GeoJSON,
+                        onlyAddLayer: $scope.onlyAddLayer
+                    };
+                    toolsFactory.activateTool(drawFeatureTool);
+                }
+                else{
+                    toolsFactory.deactivateTool(drawFeatureTool);
+                }
             };
 
 
