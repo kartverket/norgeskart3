@@ -1,1 +1,1 @@
-angular.module('mainMenuPanel', ['toolMainMenu', 'mainMenuSections', 'mainMenuBaseLayers', 'mainMenuGroupLayers', 'mainMenuDraw']);
+angular.module('mainMenuPanel', ['toolMainMenu', 'mainMenuSections', 'mainMenuBaseLayers', 'mainMenuGroupLayers']);

@@ -3,22 +3,17 @@
         <!--<span class="fa fa-pencil"></span>-->
         <!--<span translate="Draw_title"></span>-->
     <!--</li>-->
-    <!--<li data-ng-click="measureLine()">-->
-        <!--<span class="flaticon-tool292"></span>-->
-        <!--<span translate="MeasureLine_title"></span>-->
-    <!--</li>-->
-    <!--<li data-ng-click="measurePolygon()">-->
-        <!--<span class="flaticon-triangular43"></span>-->
-        <!--<span translate="Measure_title"></span>-->
-    <!--</li>-->
-    <li data-ng-click="showMoveableDrawMenu()">
+    <li data-ng-click="showMoveableDrawMenu();closeNav();initDrawFeatureTool()">
         <span class="fa fa-pencil"></span>
         <span translate="MeasureAndDraw_title"></span>
     </li>
-    <li data-ng-click="showMainMenuDraw()">
-        <span class="fa fa-pencil"></span>
-        <span translate="MeasureAndDraw_title"></span>
-        <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+    <li data-ng-click="measureLine()">
+        <span class="flaticon-tool292"></span>
+        <span translate="MeasureLine_title"></span>
+    </li>
+    <li data-ng-click="measurePolygon()">
+        <span class="flaticon-triangular43"></span>
+        <span translate="Measure_title"></span>
     </li>
     <li>
         <span class="material-icons">transform</span>

@@ -1,5 +1,60 @@
 <div class="panel-body">
-    <div class="content">
-        <span>Menu draw</span>
+    <div>
+        <button data-ng-repeat="geometryType in geometryTypes" data-ng-click="switchType(geometryType)">{{geometryType}}</button>
+        <button data-ng-click="switchMode('modify')">Rediger</button>
+    </div>
+
+
+    <div>
+        <span>Farge</span>
+        <button ng-model="color" data-ng-click="setColor(val)" data-ng-repeat="(key, val) in colors" style="background-color:{{key}};border: none;font-size:1;line-height:9">clr</button>
+    </div>
+
+
+    <div data-ng-show="type=='Point'">
+        <span>Symbol</span>
+        <button data-ng-click="switchSymbol('Circle')">●</button>
+        <button data-ng-click="switchSymbol('Triangle')">▲</button>
+        <button data-ng-click="switchSymbol('Diamond')">♦</button>
+        <br/>
+        <span>Størrelse</span>
+        <input type="number" min="1" max="100" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/>
+    </div>
+
+
+    <div ng-show="type=='LineString'">
+        <span>Bredde</span>
+        <input type="number" min="0" max="100" ng-model="lineWidth" ng-change="activateDrawFeatureTool()"/>
+        <br/>
+        <span>Lengde</span>
+        <input type="number" min="0" max="100" ng-model="lineLength" ng-change="activateDrawFeatureTool()"/>
+        <br/>
+        <span>Mellomrom</span>
+        <input type="number" min="0" max="100" ng-model="lineSpace" ng-change="activateDrawFeatureTool()"/>
+    </div>
+
+
+    <div ng-show="type=='Polygon'">
+        <span>Gjennomsiktighet</span>
+        <input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="activateDrawFeatureTool()"/>
+    </div>
+
+
+    <div ng-show="type=='Text'">
+        <span>Størrelse</span>
+        <input type="number" min="1" max="100" ng-model="fontSize" ng-change="activateDrawFeatureTool()"/>
+        <br/>
+        <input type="text" ng-model="text" placeholder="Skriv inn tekst her" ng-change="activateDrawFeatureTool()"/>
+    </div>
+
+
+    <div>
+        <button data-ng-click="saveButtonClick()">Lagre</button>
+        <button data-ng-click="newButtonClick()">Slett alle objekter</button>
+        <button ng-show="selectionActive" data-ng-click="deleteButtonClick()">Slett valgt objekt</button>
+        <span>Snap</span>
+        <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()">
     </div>
 </div>
+
+

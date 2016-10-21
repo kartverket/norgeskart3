@@ -20,16 +20,19 @@ angular.module('mainMenuOverlay')
                     };
 
                     scope.closeNav = function() {
-                        document.getElementById("mySidenav").style.width = "0";
-                        document.getElementById("mySidenav").style.overflowY = "hidden";
-                        document.getElementById("main").style.backgroundColor = "transparent";
-                        document.getElementById("main").style.transition = "0.4s";
-                        // document.getElementById("sidemenupanel").style.transition = "0.5s";
-                        // document.getElementById("sidemenupanel").style.width = "0";
-                        // document.getElementById("sidemenupanel").style.position = "fixed";
-                        // document.getElementById("sidemenupanel").style.position = "absolute";
-                        localStorageFactory.set("mainMenuIsOpen", false);
-                        // document.body.style.backgroundColor = "white";
+                        if(document.getElementById("mySidenav") && document.getElementById("main")) {
+                            document.getElementById("mySidenav").style.width = "0";
+                            document.getElementById("mySidenav").style.overflowY = "hidden";
+
+                            document.getElementById("main").style.backgroundColor = "transparent";
+                            document.getElementById("main").style.transition = "0.4s";
+                            // document.getElementById("sidemenupanel").style.transition = "0.5s";
+                            // document.getElementById("sidemenupanel").style.width = "0";
+                            // document.getElementById("sidemenupanel").style.position = "fixed";
+                            // document.getElementById("sidemenupanel").style.position = "absolute";
+                            localStorageFactory.set("mainMenuIsOpen", false);
+                            // document.body.style.backgroundColor = "white";
+                        }
                     };
 
                     function _initMainMenuOverlay() {

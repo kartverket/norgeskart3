@@ -141,6 +141,7 @@ angular.module('mainApp')
 
             $( document ).ready(function() {
                 $scope.initMainPage();
+                $scope.deactivateDrawFeatureTool();
             });
 
             $scope.showMapLayout = function () {
@@ -152,6 +153,47 @@ angular.module('mainApp')
             };
 
             $scope.mapTypeLayout = "mapOverlaysLayout";
+
+            $scope.isDrawActivated = function () {
+                if($scope.drawActivated){
+                    return true;
+                }
+                else {
+                    $scope.drawActivated=true;
+                    return false;
+                }
+            };
+
+            $scope.setGeoJSON = function (GeoJSON) {
+                $scope.GeoJSON=GeoJSON;
+            };
+
+            $scope.drawActivated=false;
+
+            $scope.onlyAddLayer=true;
+
+            $scope.initDrawFeatureTool = function(){
+                $scope.onlyAddLayer=false;
+                var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                toolsFactory.activateTool(drawFeatureTool);
+            };
+
+            $scope.deactivateDrawFeatureTool = function(GeoJSON){
+                $scope.onlyAddLayer=true;
+                var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+                var url=$location.url();
+                if(url.indexOf('drawing=')>-1) {
+                    drawFeatureTool.additionalOptions = {
+                        GeoJSON: GeoJSON,
+                        onlyAddLayer: $scope.onlyAddLayer
+                    };
+                    toolsFactory.activateTool(drawFeatureTool);
+                }
+                else{
+                    toolsFactory.deactivateTool(drawFeatureTool);
+                }
+            };
+
 
         }
     ]);
