@@ -1,3 +1,9 @@
+@font-face {
+  font-family: MetaUnitSlab;
+  src: url("../assets/fonts/MetaWeb-Book.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 $shadow-color: rgba(0, 0, 0, 0.24);
 $shadow: $shadow-color 1px 1px 2px 1px;
 $backgroundColor: white;
@@ -16,8 +22,8 @@ $gray: #98989b;
 $gray-light: $color-1;
 
 // Font families
-$font-special-normal: 'Roboto Slab', arial, helvetica, sans-serif;
-$font-default: 'Open sans', Arial, Helvetica, sans-serif;
+$font-special-normal: 'MetaUnitSlab', 'Roboto Slab', arial, helvetica, sans-serif;
+$font-default: 'MetaUnitSlab', 'Open sans', Arial, Helvetica, sans-serif;
 $font-icon: ISYicons;
 
 // Font sizes
@@ -631,6 +637,8 @@ html{
   }
 }
 
+
+
 .default-list{
   li{
     border: 0;
@@ -695,15 +703,22 @@ input::-ms-clear {
   max-height: 800px;
   overflow-y: auto;
   overflow-x: hidden;
+
   li{
-    padding: 4px 6px 4px 6px;
+    padding: 8px 6px 4px 6px;
   }
 
   li:hover{
     background-color: #e8e6e6;
   }
+
+  .text-and-button{
+    li{
+      padding: 3px 6px 3px 6px;
+    }
+  }
   .move-up{
-    padding-top: 2px;
+    padding-top: 6px;
     padding-bottom: 2px;
   }
   .info-text{
@@ -730,12 +745,12 @@ input::-ms-clear {
     width: 100%;
     border-radius: 4px;
     border: 1px solid #b1b1b1;
-    padding: 2px 4px 2px 6px;
+    padding: 6px 4px 3px 6px;
     font-size: 15px;
   }
 
   .btn{
-    height: 26px;
+    height: 30px;
     padding: 2px 10px;
   }
 
@@ -746,7 +761,7 @@ input::-ms-clear {
   //}
 
   .checkbox{
-    margin-top:5px;
+    margin-top:2px;
     width: 15px;
   }
 
