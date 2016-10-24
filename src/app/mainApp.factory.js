@@ -414,7 +414,8 @@ angular.module('mainApp')
                                 "supportsGetFeature": true,
                                 "getFeatureBaseUrl": "",
                                 "getFeatureFormat": "application/json",
-                                "getFeatureCrs": "EPSG:4326"
+                                "getFeatureCrs": "EPSG:4326",
+                                "includedFields": source.includedfields
                             },
                             "tiled": source.options.singletile !== "true",
                             "crossOrigin": null,
