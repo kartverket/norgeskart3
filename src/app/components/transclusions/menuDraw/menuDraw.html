@@ -1,6 +1,6 @@
 <div class="panel-body">
     <div>
-        <button type="button" class="btn btn-default btn-content" data-ng-repeat="geometryType in geometryTypes" data-ng-click="switchType(geometryType)">{{geometryType}}</button>
+        <button type="button" class="btn btn-default btn-content" data-ng-class="{active: geometryType === type}" data-ng-repeat="geometryType in geometryTypes" data-ng-click="switchType(geometryType)">{{geometryType}}</button>
         <button type="button" class="btn btn-default btn-content pull-right" data-ng-click="switchMode('modify')">Rediger</button>
     </div>
 
@@ -84,7 +84,6 @@
         </div>
     </div>
 
-
     <div ng-show="type=='Text'">
         <div class="section-content">
             <div class="row no-margin">
@@ -106,15 +105,20 @@
     </div>
 
     <div class="content">
-        <div class="col-xs-5 lineWithDefaultButton">
-            <span>Snap</span>
-            <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()">
+        <div class="row no-margin">
+            <div class="col-xs-3">
+                <span>Snap</span>
+            </div>
+            <div class="col-xs-9 no-padding">
+                <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()">
+            </div>
         </div>
+    </div>
+
+    <div class="content">
         <button type="button" class="btn btn-default btn-content pull-right" data-ng-click="saveButtonClick()">Lagre</button>
-
-        <button type="button" class="btn btn-default btn-content pull-right" ng-show="selectionActive" data-ng-click="deleteButtonClick()">Slett valgt objekt</button>
+        <button type="button" class="btn btn-default btn-content pull-right" data-ng-disabled="!selectionActive" data-ng-click="deleteButtonClick()">Slett valgt objekt</button>
         <button type="button" class="btn btn-default btn-content pull-right" data-ng-click="newButtonClick()">Slett alle objekter</button>
-
     </div>
 </div>
 

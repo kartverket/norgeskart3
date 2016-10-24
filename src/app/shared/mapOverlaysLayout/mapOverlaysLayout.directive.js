@@ -4,6 +4,7 @@ angular.module('mapOverlaysLayout')
             return {
                 templateUrl: 'shared/mapOverlaysLayout/mapOverlaysLayout.html',
                 restrict: 'A',
+                controller: 'mapOverlaysLayoutController',
                 link: function(){
 
                 }
