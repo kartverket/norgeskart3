@@ -25,7 +25,7 @@
 
 .sidenav li {
   //padding: 8px 8px 8px 32px;
-  padding: 6px 8px 6px 15px;
+  padding: 10px 8px 5px 15px;
   text-decoration: none;
   font-size: 15px;
   color: #2f3940;
@@ -56,7 +56,7 @@
 }
 
 .closeable-content{
-  padding: 8px 5px 8px 6px;
+  padding: 10px 5px 5px 6px;
   background-color: #d9e8ec;
 }
 
@@ -79,7 +79,7 @@
     border: 0;
     //border-top: 1px solid #cccccc;
     border-radius: 0;
-    padding: 8px 5px 8px 6px;
+    padding: 10px 5px 5px 6px;
     margin: 0;
   }
   li:hover{
@@ -113,7 +113,7 @@
   float: right;
   //right: 26px;
   right: 16px;
-  padding-top: 4px;
+  //padding-top: 4px;
 }
 
 .backbtn{
@@ -121,7 +121,7 @@
   float: right;
   //right: 26px;
   margin-right: 16px;
-  padding-top: 4px;
+  //padding-top: 4px;
   span:first-child{
     left: 10px;
   }
@@ -134,7 +134,7 @@
   margin-right: 16px;
   //padding-top: 0px;
   span:first-child{
-    left: 33px;
+    left: 32px;
     top: 6px;
   }
 }
