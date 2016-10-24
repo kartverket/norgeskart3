@@ -1,6 +1,6 @@
 angular.module('moveableOverlay')
-    .directive('moveableOverlay', ['moveableOverlayFactory','$document',
-        function(moveableOverlayFactory, $document) {
+    .directive('moveableOverlay', ['moveableOverlayFactory','$document','mapOverlaysLayoutFactory',
+        function(moveableOverlayFactory, $document, mapOverlaysLayoutFactory) {
             return {
                 templateUrl: 'components/overlays/moveableOverlay/moveableOverlay.html',
                 controller: 'moveableOverlayController',
@@ -11,6 +11,10 @@ angular.module('moveableOverlay')
                         element = $(element);
                     }
                     $scope.closeOverlay = function(){
+                        var activeOverlay = moveableOverlayFactory.getActiveOverlay();
+                        if (activeOverlay.id === "DrawMenu"){
+                            mapOverlaysLayoutFactory.setShowSearchOverlay(true);
+                        }
                         moveableOverlayFactory.deactiveAllOverlay();
                         $scope.deactivateDrawFeatureTool($scope.GeoJSON);
                     };

@@ -170,8 +170,10 @@ a.active{
 }
 
 .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
-  background-color: #f9f9f9 !important;
+  background-color: white!important;
 }
+
+
 
 .btn-default:hover{
   background-color: #f9f9f9;
@@ -635,10 +637,25 @@ html{
   }
 }
 
+input::-ms-clear {
+  display: none;
+}
+
+
+.window-content{
+  border: 1px solid #3c8398;
+}
+
 .btn-content{
   background-color: rgb(93, 166, 187); //#2c98bb; //rgb(155, 201, 216);
   color: white;
   border-color: white;
+}
+
+.btn-content.active{
+  background-color: #3c8398  !important;
+  color: white !important;
+  border-color: white !important;
 }
 
 .btn-color-picker{
