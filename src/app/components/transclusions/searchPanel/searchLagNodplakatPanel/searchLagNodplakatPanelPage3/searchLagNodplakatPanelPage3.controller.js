@@ -107,6 +107,15 @@ angular.module('searchLagNodplakatPanelPage3')
             emergencyMapConfig.BBOX= minx + ',' + miny + ',' + maxx + ',' + maxy;
             emergencyPosterConfig.map = mainAppService.generateMapLinkServiceUrl(emergencyMapConfig);
             var emergencyPosterServiceUrl = mainAppService.generateEmergencyPosterServiceUrl(emergencyPosterConfig);
+
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C2%B0/g, '%B0'); // °
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%A6/g, '%E6'); // æ
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%B8/g, '%F8'); // ø
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%A5/g, '%E5'); // å
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%86/g, '%C6'); // Æ
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%98/g, '%D8'); // Ø
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%85/g, '%C5'); // Å
+
             return $sce.trustAsResourceUrl(emergencyPosterServiceUrl);
         };
     }]);
