@@ -2,6 +2,12 @@ angular.module('searchLagNodplakatPanelPage3')
     .controller('searchLagNodplakatPanelPage3Controller', ['mainAppService', 'ISY.MapAPI.Map', '$scope', '$sce',
     function(mainAppService, map, $scope, $sce) {
 
+        var pixels = {
+            width: 1145,
+            height: 660
+        };
+
+
         var _getUTMZoneFromGeographicPoint = function(lon, lat) {
             // From emergencyPoster.js
             var sone = "32V", localProj = "EPSG:32632";
@@ -70,7 +76,7 @@ angular.module('searchLagNodplakatPanelPage3')
             'place': $scope.lagNodplakatDict.elevationPoint,
             'matrikkel': $scope.lagNodplakatDict.emergencyPosterPoint.matrikkelnr,
             'utm': 'Sone ' + UTM.sone + ' Ø ' + _round(localUTMPoint[0], 0) + ' N ' + _round(localUTMPoint[1], 0),
-            'posDez': 'N' + _round($scope.activePosition.geographicPoint[1], 4) + '° - E' + _round($scope.activePosition.geographicPoint[0], 4) + '°',
+            'posDez': 'N' + _round($scope.activePosition.geographicPoint[1], 4) + '° - Ø' + _round($scope.activePosition.geographicPoint[0], 4) + '°',
             'map': ''
         };
 
@@ -83,14 +89,22 @@ angular.module('searchLagNodplakatPanelPage3')
             'TRANSPARENT': 'false',
             'LAYERS': 'topo2_WMS',
             'VERSION': '1.3.0',
-            'WIDTH': $(window).width(),
-            'HEIGHT': $(window).height(),
+            'WIDTH': pixels.width,
+            'HEIGHT': pixels.height,
             'BBOX': ''
         };
 
         $scope.generateEmergancyPoster = function () {
             var extent = map.GetExtent();
-            emergencyMapConfig.BBOX = extent[0] + "," + extent[1] + "," + extent[2] + "," + extent[3];
+            var meterWidth= extent[2]-extent[0];
+            var pixelWidthPerHeight=pixels.width/pixels.height;
+            var meterHeight=meterWidth/pixelWidthPerHeight;
+            var mapCenter=map.GetCenter();
+            var minx=mapCenter.lon-(meterWidth/2);
+            var miny=mapCenter.lat-(meterHeight/2);
+            var maxx=mapCenter.lon + (meterWidth/2);
+            var maxy=mapCenter.lat + (meterHeight/2);
+            emergencyMapConfig.BBOX= minx + ',' + miny + ',' + maxx + ',' + maxy;
             emergencyPosterConfig.map = mainAppService.generateMapLinkServiceUrl(emergencyMapConfig);
             var emergencyPosterServiceUrl = mainAppService.generateEmergencyPosterServiceUrl(emergencyPosterConfig);
             return $sce.trustAsResourceUrl(emergencyPosterServiceUrl);
