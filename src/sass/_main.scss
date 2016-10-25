@@ -364,6 +364,7 @@ a.active{
     box-shadow: rgba(0, 0, 0, 0.24) 1px 1px 3px 1px;
     min-width: 420px;
     font-size: 18px;
+    padding-top: 2px;
   }
   .login-input{
     height: 30px;
@@ -701,6 +702,7 @@ input::-ms-clear {
   padding: 15px 17px 15px 10px;
   margin-left: 10px;
   max-height: 800px;
+  //min-height: 280px;
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -821,7 +823,7 @@ input::-ms-clear {
     margin-right: 16px;
     //padding-top: 0px;
     span:first-child{
-      left: 23px;
+      left: 22px;
       top: 6px;
     }
   }
@@ -837,6 +839,9 @@ input::-ms-clear {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   font-size: 16px;
+  .header-icon{
+    padding-right: 8px;
+  }
 
   &.isClosed{
     border-bottom-left-radius: 2px;
@@ -853,7 +858,7 @@ input::-ms-clear {
   //border-bottom: 1px solid #929090;
   //margin: 0 0 10px;
   background-color: rgb(60, 131, 152); //#5da6bb;
-  padding: 10px 10px 0 20px;
+  padding: 10px 10px 0 18px;
   color: white;
   //border-radius: 4px;
   h4{
@@ -867,6 +872,9 @@ input::-ms-clear {
     margin-right: 16px;
     padding-top: 0;
     cursor: pointer;
+  }
+  .header-icon{
+    padding-right: 8px;
   }
 
 }
@@ -898,6 +906,7 @@ input::-ms-clear {
   max-width: 135px;
   max-height: 250px;
   overflow-x: auto;
+  position: inherit;
   li{
     padding: 0 3px 0 3px;
   }

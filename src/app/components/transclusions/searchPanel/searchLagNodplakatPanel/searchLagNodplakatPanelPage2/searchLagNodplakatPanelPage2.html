@@ -1,6 +1,9 @@
 <div class="search-panel window-content" ng-show="searchResults != undefined">
     <div class="header">
-        <h4 class="no-top title"><span>{{searchOptionsDict['lagNodplakat'].icon.value}} </span><span translate="Nodplakat"></span></h4>
+        <h4 class="no-top title">
+            <span class="header-icon">{{searchOptionsDict['lagNodplakat'].icon.value}} </span>
+            <span translate="Nodplakat"></span>
+        </h4>
         <div class="backbtn" data-ng-click="showSearchOptionsPanel()">
             <span class="glyphicon glyphicon-menu-left"></span>
         </div>
@@ -63,68 +66,4 @@
                 data-ng-click="showLagNodplakatPage3(lagNodplakatName)" translate="Next">
         </button>
     </div>
-
-    <!--<span>OLD code</span>-->
-
-    <!--<div class="content no-border search-content">-->
-        <!--<ul>-->
-            <!--<li>-->
-                <!--<span class="search-options">-->
-                    <!--{{searchOptionsDict['lagNodplakat'].icon.value}}-->
-                <!--</span>-->
-                <!--<span>Nødplakat</span>-->
-            <!--</li>-->
-            <!--<li ng-mousedown="showSearchOptionsPanel()">-->
-                <!--<span class="search-options pointer-cursor">-->
-                    <!--<b>←</b>-->
-                <!--</span>-->
-                <!--<span class="pointer-cursor">-->
-                    <!--<b>Returner til tjenester</b>-->
-                <!--</span>-->
-            <!--</li>-->
-        <!--</ul>-->
-        <!--<span>-->
-            <!--<b>Gi punktet ditt et navn:</b>-->
-        <!--</span>-->
-        <!--<br/>-->
-        <!--<input ng-show="lagNodplakatDict['elevationPoint']"-->
-               <!--type="text"-->
-               <!--placeholder="(F.eks. navn på hytta"-->
-               <!--ng-model="lagNodplakatName"-->
-               <!--data-ng-init="lagNodplakatName=lagNodplakatDict['elevationPoint']"/>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<span ng-show="lagNodplakatDict['elevationPoint']">-->
-            <!--<b>Stedet er</b>-->
-        <!--</span>-->
-        <!--<span ng-show="lagNodplakatDict['elevationPoint']">-->
-            <!--<b>{{lagNodplakatDict['elevationPoint']}}</b>-->
-        <!--</span>-->
-        <!--<select ng-model="alternativePlacename"-->
-                <!--ng-change="lagNodplakatDict['elevationPoint']=alternativePlacename.stedsnavn;lagNodplakatName=alternativePlacename.stedsnavn"-->
-                <!--ng-options="value.stedsnavn for (key, value) in lagNodplakatDict['placenamesByBbox']">-->
-            <!--<option selected disabled value="">-->
-                <!--Velg et annet stedsnavn i nærheten-->
-            <!--</option>-->
-        <!--</select>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<span ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">-->
-            <!--<b>Funnet veg er {{lagNodplakatDict['emergencyPosterPoint'].veg}} i {{lagNodplakatDict['emergencyPosterPoint'].kommune}} kommune</b>-->
-        <!--</span>-->
-        <!--<br/>-->
-        <!--<input type="checkbox"-->
-               <!--ng-model="lagNodplakatConfirmRoad"-->
-               <!--ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">-->
-        <!--<span ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">-->
-            <!--Dette er riktig veg-->
-        <!--</span>-->
-        <!--<br/>-->
-        <!--<br/>-->
-        <!--<button ng-show="lagNodplakatConfirmRoad && lagNodplakatName && lagNodplakatDict['emergencyPosterPoint'].veg"-->
-                <!--data-ng-click="showLagNodplakatPage3(lagNodplakatName)">-->
-            <!--Neste >-->
-        <!--</button>-->
-    <!--</div>-->
-
 </div>
