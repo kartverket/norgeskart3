@@ -152,6 +152,47 @@ angular.module('toolMainMenu')
                      Generate emergancy poster end
                      */
 
+                    function printMap(){
+                        var cnv = document.getElementsByClassName("print-mode")[0];
+                        var scrollHeight = cnv.scrollHeight;
+                        var scrollWidth = cnv.scrollWidth;
+
+                        //A4 aspect ratio is 0.707070:1
+                        var widthInRatio = scrollHeight * 0.707070;
+                        //cnv.style.width = scrollWidth+"px";
+                        if (scrollWidth > widthInRatio){
+                            cnv.style.width = (scrollWidth)+"px";
+                            cnv.style.height = scrollHeight+"px";
+                        }
+                    }
+
+                    function afterPrint(){
+                        var cnv = document.getElementsByClassName("print-mode")[0];
+                        cnv.style.height = 100+"%";
+                        cnv.style.width = 100+"%";
+                        map.RedrawMap();
+                    }
+
+                    scope.printMap = function () {
+                        printMap();
+                        window.print();
+                        afterPrint();
+                    };
+
+                    window.matchMedia('print').addListener(function () {
+                        printMap();
+                        setTimeout(function(){
+                            afterPrint();
+                        }, 1);
+                    });
+
+                    $(window).on('beforeprint', function(){
+                        printMap();
+                    });
+
+                    $(window).on('afterprint', function(){
+                        afterPrint();
+                    });
                 }
             };
         }]);
