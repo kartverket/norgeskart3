@@ -1,7 +1,7 @@
 <div class="search-panel window-content" data-ng-controller="searchKoordTransPanelController">
     <div class="header">
         <h4 class="no-top title">
-            <span class="header-icon">{{searchOptionsDict['koordTrans'].icon.value}} </span>
+            <span class="header-icon" data-ng-class="searchOptionsDict['koordTrans'].icon.value"></span>
             <span translate="Coordinates_text"></span>
         </h4>
         <div class="backbtn" data-ng-click="showSearchOptionsPanel();showSearchOptionsPanel()">

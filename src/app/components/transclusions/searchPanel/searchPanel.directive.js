@@ -438,17 +438,17 @@ angular.module('searchPanel')
 
                     var _addKoordTransToSearchOptions = function () {
                         var name = 'koordTrans';
-                        scope.searchOptionsDict[name] = _constructSearchOption(name, 'x,y', true, 'Se koordinater', {});
+                        scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-map-marker', true, 'Se koordinater', {});
                     };
 
                     var _addLagTurkartToSearchOptions = function () {
                         var name= 'lagTurkart';
-                        scope.searchOptionsDict[name] = _constructSearchOption(name, '🚶', true, 'Lage turkart', {});
+                        scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-blind', true, 'Lage turkart', {});
                     };
 
                     var _addEmergencyPosterToSearchOptions = function () {
                         var name='lagNodplakat';
-                        scope.searchOptionsDict[name] = _constructSearchOption(name, '🚑', true, 'Lage nødplakat', {});
+                        scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-ambulance', true, 'Lage nødplakat', {});
                     };
 
                     var _addElevationPointToSearchOptions = function (jsonRoot, name) {
@@ -457,7 +457,7 @@ angular.module('searchPanel')
                         var extra = {
                             url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
                         };
-                        scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', '⚑', true, text, extra);
+                        scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', 'fa fa-flag', true, text, extra);
                         if(scope.activeSearchResult && scope.activeSearchResult.source=='mouseClick'){
                             scope.searchBarModel=stedsnavn;
                         }
@@ -489,7 +489,7 @@ angular.module('searchPanel')
 
                         extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
                         var text = '' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
-                        scope.searchOptionsDict[name] = _constructSearchOption(name, '🏠', true, text, extra);
+                        scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-home', true, text, extra);
 
                     };
 

@@ -7,8 +7,8 @@ angular
                 {
                     "id": "norgeskart",
                     "title": "Friluft_title",
-                    "symbol": "material-icons",
-                    "symbol_text": "terrain",
+                    "symbol": "fa fa-tree",
+                    "symbol_text": "",
                     "isSelected" : false
                 },
                 {
@@ -28,14 +28,14 @@ angular
                 {
                     "id": "Fastmerker",
                     "title": "Fastmerker_title",
-                    "symbol": "material-icons",
-                    "symbol_text": "nature",
+                    "symbol": "fa fa-map-pin",
+                    "symbol_text": "",
                     "isSelected" : false
                 },
                 {
                     "id": "nrl",
                     "title": "Luftfartshindre_title",
-                    "symbol": "icon-airplane",
+                    "symbol": "fa fa-plane",
                     "symbol_text": "",
                     "isSelected" : false
                 }
