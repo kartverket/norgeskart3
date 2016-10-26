@@ -162,12 +162,7 @@ angular.module('toolMainMenu')
                         //cnv.style.width = scrollWidth+"px";
                         if (scrollWidth > widthInRatio){
                             cnv.style.width = (scrollWidth)+"px";
-                        }
-
-                        if (scrollHeight < 842){
                             cnv.style.height = scrollHeight+"px";
-                        }else{
-                            cnv.style.height = "";
                         }
                     }
 
