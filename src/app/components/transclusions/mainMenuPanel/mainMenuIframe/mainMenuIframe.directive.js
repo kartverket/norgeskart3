@@ -15,7 +15,7 @@ angular.module('mainMenuIframe')
                             url+='&marker_lat=' + scope.activePosition.lat + '&marker_lon=' + scope.activePosition.lon;
                         }
                         scope.iframe='<iframe src="' + url + '" width="134" height="108" title="" longdesc=""></iframe>';
-                        return url;
+                        scope.iframeUrl=url;
                     };
                 }
             };
