@@ -183,6 +183,21 @@ angular.module('toolMainMenu')
                         window.print();
                         afterPrint();
                     };
+
+                    window.matchMedia('print').addListener(function () {
+                        printMap();
+                        setTimeout(function(){
+                            afterPrint();
+                        }, 1);
+                    });
+
+                    $(window).on('beforeprint', function(){
+                        printMap();
+                    });
+
+                    $(window).on('afterprint', function(){
+                        afterPrint();
+                    });
                 }
             };
         }]);
