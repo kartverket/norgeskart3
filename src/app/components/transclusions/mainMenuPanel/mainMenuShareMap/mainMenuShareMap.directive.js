@@ -4,6 +4,7 @@ angular.module('mainMenuShareMap')
             return {
                 templateUrl: 'components/transclusions/mainMenuPanel/mainMenuShareMap/mainMenuShareMap.html',
                 restrict: 'A',
+                controller: 'mainMenuShareMapController',
                 link: function(){}
             };
         }]);

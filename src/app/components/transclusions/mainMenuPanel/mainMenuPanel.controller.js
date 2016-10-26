@@ -27,6 +27,10 @@ angular.module('mainMenuPanel')
                 moveableOverlayFactory.setActiveOverlay("DrawMenu");
             };
 
+            $scope.showShareMapMenu = function (){
+                $scope.mainMenuPanelLayout = "mainMenuShareMap";
+            };
+
             $scope.isDrawActivated = function () {
                 if($scope.drawActivated){
                     return true;
