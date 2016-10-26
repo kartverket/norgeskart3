@@ -23,8 +23,7 @@ angular.module('menuDraw')
                         'purple':'#800080',
                         'blue':'#0000FF',
                         'darkgreen':'#006400',
-                        'grey':'#808080',
-                        'white':'#FFFFFF'
+                        'grey':'#808080'
                     };
                     scope.geometryTypes=[
                         'Point',

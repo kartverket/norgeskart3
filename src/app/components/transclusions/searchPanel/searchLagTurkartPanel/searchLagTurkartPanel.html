@@ -1,7 +1,7 @@
 <div class="search-panel window-content" ng-show="searchResults != undefined">
     <div class="header">
         <h4 class="no-top title">
-            <span class="header-icon">{{searchOptionsDict['lagTurkart'].icon.value}} </span>
+            <span class="header-icon" data-ng-class="searchOptionsDict['lagTurkart'].icon.value"></span>
             <span translate="Turkart_title"></span>
         </h4>
         <div class="backbtn" data-ng-click="deactivatePrintBoxSelect();showSearchOptionsPanel()">

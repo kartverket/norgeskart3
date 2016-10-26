@@ -836,8 +836,8 @@ input::-ms-clear {
   padding: 6px 8px 6px 12px;
   //box-shadow: $shadow;
   border: $border;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
   font-size: 16px;
   .header-icon{
     padding-right: 8px;
@@ -858,7 +858,7 @@ input::-ms-clear {
   //border-bottom: 1px solid #929090;
   //margin: 0 0 10px;
   background-color: rgb(60, 131, 152); //#5da6bb;
-  padding: 10px 10px 0 18px;
+  padding: 10px 10px 0 13px;
   color: white;
   //border-radius: 4px;
   h4{

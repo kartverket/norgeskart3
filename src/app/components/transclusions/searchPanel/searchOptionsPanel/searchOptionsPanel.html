@@ -13,16 +13,22 @@
             </div>
             <div ng-show="searchOptionsDict['elevationPoint'].text.value">
                 <span translate="HeightEstimatedByInterpolation_text"></span>
-                <span ng-class="searchOptionsDict['elevationPoint'].text.class" ng-bind="searchOptionsDict['elevationPoint'].text.value"></span>
+                <span ng-class="searchOptionsDict['elevationPoint'].text.value"></span>
                 <span translate="MetersAboveSeaLevel"></span>
             </div>
         </div>
         <h4 translate="WhatDoYouWantToDo_text"></h4>
         <ul>
             <li data-ng-repeat="searchOption in searchOptionsOrder" ng-mousedown="mouseDown(searchOptionsDict[searchOption])">
-                <span ng-class="searchOptionsDict[searchOption].icon.class" ng-bind="searchOptionsDict[searchOption].icon.value"></span>
-                <span ng-class="searchOptionsDict[searchOption].text.class" translate="{{searchOptionsDict[searchOption].name}}"></span>
-                <span ng-if="searchOptionsDict[searchOption].name=='seEiendom' || searchOptionsDict[searchOption].name=='ssrFakta'" ng-bind="searchOptionsDict[searchOption].text.value"></span>
+                <div class="row no-margin pointer-cursor">
+                    <div class="col-xs-1">
+                        <span ng-class="searchOptionsDict[searchOption].icon.value"></span>
+                    </div>
+                    <div class="col-xs-11">
+                        <span ng-class="searchOptionsDict[searchOption].text.class" translate="{{searchOptionsDict[searchOption].name}}"></span>
+                        <span ng-if="searchOptionsDict[searchOption].name=='seEiendom' || searchOptionsDict[searchOption].name=='ssrFakta'" ng-bind="searchOptionsDict[searchOption].text.value"></span>
+                    </div>
+                </div>
             </li>
         </ul>
         <div map-get-features></div>
