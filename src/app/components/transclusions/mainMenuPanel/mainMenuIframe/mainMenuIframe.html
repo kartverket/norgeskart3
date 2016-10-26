@@ -10,16 +10,17 @@
 </ul>
 
 <div>
-    <a data-ng-click="getIframe()">Iframe</a>
+    <span data-ng-click="getIframe()">Iframe</span>
     <!--<input ng-model="navigable" type="checkbox"><span>Navigerbar</span>-->
     <!--<br/>-->
     <!--<input ng-model="showTools" type="checkbox"><span>Vis verktøy</span>-->
     <!--<br/>-->
-    <input ng-model="useMarker" type="checkbox" data-ng-click="addMarker()">Bruk markør</input>
+    <input ng-model="useMarker" type="checkbox">Bruk markør</input>
     <br/>
     <input ng-model="shortDescription" type="text" placeholder="Kort beskrivelse">
     <br/>
     <input ng-model="longDescription" type="text" placeholder="Lang beskrivelse">
     <br/>
     <span data-ng-bind="iframe"></span>
+    <iframe ng-src="{{getIframe()}}"></iframe>
 </div>
