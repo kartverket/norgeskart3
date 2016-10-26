@@ -37,6 +37,7 @@ angular.module('mainApp')
 
                 this.generateEmergencyPosterServiceUrl = function (config) {
 
+                    var locationName = encodeURIComponent(config.locationName);
                     var position1 = encodeURIComponent(config.position1);
                     var position2 = encodeURIComponent(config.position2);
                     var street = encodeURIComponent(config.street);
@@ -46,7 +47,7 @@ angular.module('mainApp')
                     var posDez = encodeURIComponent(config.posDez);
                     var map = encodeURIComponent(config.map);
 
-                    return urlGeonorge + "/fop/fop?locationName=" + config.locationName + "&position1=" + position1 + "&position2=" + position2 +
+                    return urlGeonorge + "/fop/fop?locationName=" + locationName + "&position1=" + position1 + "&position2=" + position2 +
                         "&street=" + street + "&place=" + place + "&matrikkel=" + matrikkel + "&utm=" + utm + "&posDez=" + posDez + "&map=" + map;
 
                 };
