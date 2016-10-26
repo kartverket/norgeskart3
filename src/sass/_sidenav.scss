@@ -13,7 +13,7 @@
 }
 
 /* The navigation menu links */
-.sidenav a {
+.sidenav-close-menu {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
@@ -35,6 +35,11 @@
     margin-right: 10px;
   }
 }
+
+.sidenav-link{
+  color: #2f3940;
+}
+
 
 .closeable{
   margin: 10px 10px 0px 10px;
@@ -90,8 +95,8 @@
 
 
 /* When you mouse over the navigation links, change their color */
-.sidenav a:hover, .offcanvas a:focus{
-  color: #f1f1f1;
+.sidenav a:hover, .sidenav a:visited, .sidenav a:focus, .offcanvas a:focus{
+  color: #262626;
 }
 
 /* Position and style the close button (top right corner) */
@@ -171,5 +176,5 @@
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  //.sidenav a {font-size: 18px;}
 }

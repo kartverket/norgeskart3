@@ -9,8 +9,47 @@
     </li>
 </ul>
 
-<div>
-    <a data-ng-click="getMailUrl()" data-ng-href="{{mailUrl}}">E-mail</a>
-    <a data-ng-click="getTwitterUrl()" data-ng-href="{{twitterUrl}}" target="_blank">Twitter</a>
-    <a data-ng-click="getFacebookUrl()" data-ng-href="{{facebookUrl}}" target="_blank">Facebook</a>
-</div>
+<ul class="sidenav-group">
+    <li data-ng-click="getMailUrl()">
+        <a class="sidenav-link" data-ng-href="{{mailUrl}}" target="_blank">
+            <div class="row">
+                <div class="col-xs-1">
+                    <span class="fa fa-envelope"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span>E-mail</span>
+                </div>
+            </div>
+        </a>
+    </li>
+    <li data-ng-click="getTwitterUrl()">
+        <a class="sidenav-link" data-ng-href="{{twitterUrl}}" target="_blank">
+            <div class="row">
+                <div class="col-xs-1">
+                    <span class="fa fa-twitter"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span>Twitter</span>
+                </div>
+            </div>
+        </a>
+    </li>
+    <li data-ng-click="getFacebookUrl()">
+        <a class="sidenav-link" data-ng-href="{{facebookUrl}}" target="_blank">
+            <div class="row">
+                <div class="col-xs-1">
+                    <span class="fa fa-facebook-official"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span>Facebook</span>
+                </div>
+            </div>
+        </a>
+    </li>
+</ul>
+
+<!--<div>-->
+    <!--<a data-ng-click="getMailUrl()" data-ng-href="{{mailUrl}}">E-mail</a>-->
+    <!--<a data-ng-click="getTwitterUrl()" data-ng-href="{{twitterUrl}}" target="_blank">Twitter</a>-->
+    <!--<a data-ng-click="getFacebookUrl()" data-ng-href="{{facebookUrl}}" target="_blank">Facebook</a>-->
+<!--</div>-->
