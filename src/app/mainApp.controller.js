@@ -128,6 +128,14 @@ angular.module('mainApp')
                 }
             }
 
+            function _showMapMarker () {
+                var parameters=$location.search();
+                var marker=parameters['marker_lon'] && parameters['marker_lat'] ? [parameters['marker_lon'], parameters['marker_lat']] : undefined;
+                if (marker) {
+                    map.ShowInfoMarker(marker);
+                }
+            }
+
             $scope.initMainPage = function () {
                 _registerEvents();
                 map.SetTranslateOptions(isyTranslateFactory.getTranslateOptionsByActiveLanguage());
@@ -137,6 +145,7 @@ angular.module('mainApp')
                 map.Init('mapDiv', mapConfig);
                 _initUrl();
                 _initMapLayers();
+                _showMapMarker();
             };
 
             $( document ).ready(function() {
