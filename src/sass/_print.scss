@@ -1,0 +1,32 @@
+@page {
+  /*
+    @page
+    Setter sidestørrelse til A4
+  */
+  size: 21cm 29.7cm;
+  /*margin: 30mm 45mm 30mm 45mm; /!* change the margins as you want them to be. *!/*/
+  /*top right bottom left*/
+  margin: 5mm 5mm 5mm 5mm;
+  //padding: 5mm 5mm 10cm 5mm;
+  /*size: auto A4 landscape;*/
+  /*margin: 3mm;*/
+}
+@media print{
+  /*
+    @media print
+    Brukes av browser ved utskrift
+    Print-ikon skjules ved utskrift, i tillegg må noen farger settes manuelt
+  */
+  .no-print{
+    display: none!important;
+  }
+
+  .ol-zoom{
+    display: none;
+  }
+
+}
+.print-icon{
+  position: relative;
+  top: 15px;
+}
