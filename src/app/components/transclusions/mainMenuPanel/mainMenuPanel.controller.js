@@ -31,6 +31,10 @@ angular.module('mainMenuPanel')
                 $scope.mainMenuPanelLayout = "mainMenuShareMap";
             };
 
+            $scope.showIframeMenu = function (){
+                $scope.mainMenuPanelLayout = "mainMenuIframe";
+            };
+
             $scope.isDrawActivated = function () {
                 if($scope.drawActivated){
                     return true;

@@ -21,9 +21,5 @@ angular.module('mainMenuShareMap')
             $scope.getFacebookUrl = function () {
                 $scope.facebookUrl='http://www.facebook.com/sharer.php?u=' + getEncodedUrl();
             };
-
-            $scope.getIframe = function () {
-                $scope.iframe='<iframe src="' + getUrl() + '&type=1' + '" width="134" height="108" title="" longdesc=""></iframe>';
-            };
         }
     ]);
