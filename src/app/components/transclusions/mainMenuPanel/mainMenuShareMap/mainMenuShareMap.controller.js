@@ -1,6 +1,6 @@
 angular.module('mainMenuShareMap')
-    .controller('mainMenuShareMapController',[ '$location', '$scope',
-        function($location, $scope){
+    .controller('mainMenuShareMapController',[ '$location', '$scope','$window',
+        function($location, $scope, $window){
 
             var getUrl = function () {
                 return $location.absUrl();
@@ -11,15 +11,18 @@ angular.module('mainMenuShareMap')
             };
 
             $scope.getMailUrl = function () {
-                $scope.mailUrl='mailto:?subject=norgeskart.no&body=' + getEncodedUrl();
+                var url='mailto:?subject=norgeskart.no&body=' + getEncodedUrl();
+                $window.open(url, '_self');
             };
 
             $scope.getTwitterUrl = function () {
-                $scope.twitterUrl='http://twitter.com/share?url=' + getEncodedUrl();
+                var url='http://twitter.com/share?url=' + getEncodedUrl();
+                $window.open(url, '_blank');
             };
 
             $scope.getFacebookUrl = function () {
-                $scope.facebookUrl='http://www.facebook.com/sharer.php?u=' + getEncodedUrl();
+                var url='http://www.facebook.com/sharer.php?u=' + getEncodedUrl();
+                $window.open(url, '_blank');
             };
         }
     ]);
