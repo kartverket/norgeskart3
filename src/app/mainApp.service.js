@@ -115,6 +115,10 @@ angular.module('mainApp')
                 this.generateGeoJSONSaveUrl = function () {
                     return url + 'ws/upload-json-test.py';
                 };
+
+                this.generateSearchMatrikkelNummerUrl = function (query) {
+                    return url + 'ws/eie.py?' + encodeURIComponent(query);
+                };
                 /*
                  // No CORS
                  this.generateSeHavnivaaUrl = function (lat, lon) {

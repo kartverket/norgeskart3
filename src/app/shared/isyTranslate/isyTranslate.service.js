@@ -32,6 +32,7 @@ angular
             "Adresse": "Adresse",
             "Vegnavn": "Veinavn",
             "Geografisk koordinat": "Geografisk koordinat",
+            "Gårds og bruksnummer": "Gårds og bruksnummer",
             "UTM-koordinat": "UTM-koordinat",
             "In": "i",
             "Municipality": " kommune",
@@ -87,7 +88,10 @@ angular
             "ED50_UTM_34": "ED50, UTM-sone 34",
             "ED50_UTM_35": "ED50, UTM-sone 35",
             "ED50_UTM_36": "ED50, UTM-sone 36",
-            "draw_menu": "Tegne"
+            "draw_menu": "Tegne",
+            "iframe_useMarker": "Bruk markør",
+            "iframe_shortDesc": "Kort beskrivelse",
+            "iframe_longDesc": "Lang beskrivelse"
         },
         'en': {
             "search_text": "Search Norgeskart",
@@ -120,6 +124,7 @@ angular
             "Adresse": "Address",
             "Vegnavn": "Road name",
             "Geografisk koordinat": "Geographical coordinate",
+            "Gårds og bruksnummer": "Cadastre identifier",
             "UTM-koordinat": "UTM-coordinate",
             "In": "in",
             "Municipality": " municipality",
@@ -175,6 +180,9 @@ angular
             "ED50_UTM_34": "ED50, UTM-zone 34",
             "ED50_UTM_35": "ED50, UTM-zone 35",
             "ED50_UTM_36": "ED50, UTM-zone 36",
-            "draw_menu": "Draw"
+            "draw_menu": "Draw",
+            "iframe_useMarker": "Use marker",
+            "iframe_shortDesc": "Short description",
+            "iframe_longDesc": "Long description"
         }
     });
