@@ -10,7 +10,7 @@
                 <span class="lineWithButton">Farge</span>
             </div>
             <div class="col-xs-9 no-padding">
-                <button type="button" class="btn btn-default btn-color-picker" ng-model="color" data-ng-click="setColor(val)" data-ng-repeat="(key, val) in colors" style="background-color:{{key}};border: none;font-size:1;line-height:9">clr</button>
+                <button type="button" class="btn btn-default btn-color-picker" ng-model="color" data-ng-click="setColor(val)" data-ng-repeat="(key, val) in colors" ng-style="{'background-color':key, 'border': 'none', 'font-size':1,'line-height':9}">clr</button>
             </div>
         </div>
     </div>

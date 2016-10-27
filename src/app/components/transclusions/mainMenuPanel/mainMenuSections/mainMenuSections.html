@@ -1,16 +1,28 @@
 <ul class="sidenav-group">
     <li data-ng-click="showMainMenuBaseLayers()">
-        <span class="icon-map2"></span>
-        <span translate="menu_select_baselayer"></span>
-        <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+        <div class="row">
+            <div class="col-xs-1">
+                <span class="fa fa-map-o"></span>
+            </div>
+            <div class="col-xs-11">
+                <span translate="menu_select_baselayer"></span>
+                <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+            </div>
+        </div>
     </li>
 </ul>
 
 <ul class="sidenav-group">
     <li data-ng-repeat="project in projects" data-ng-class="{activeMenu: project.isSelected}" data-ng-click="activateProject(project)">
-        <span data-ng-class="project.symbol" data-ng-bind="project.symbol_text"></span>
-        <span translate="{{project.title}}"></span>
-        <span data-ng-show="project.isSelected" class="nextbtn glyphicon glyphicon-menu-right"></span>
+        <div class="row">
+            <div class="col-xs-1">
+                <span data-ng-class="project.symbol" data-ng-bind="project.symbol_text"></span>
+            </div>
+            <div class="col-xs-11">
+                <span translate="{{project.title}}"></span>
+                <span data-ng-show="project.isSelected" class="nextbtn glyphicon glyphicon-menu-right"></span>
+            </div>
+        </div>
     </li>
 </ul>
 
@@ -18,14 +30,26 @@
 
 <ul class="sidenav-group">
     <li>
-        <span class="glyphicon glyphicon-question-sign"></span>
-        <span translate="FAQ_title"></span>
+        <div class="row">
+            <div class="col-xs-1">
+                <span class="glyphicon glyphicon-question-sign"></span>
+            </div>
+            <div class="col-xs-11">
+                <span translate="FAQ_title"></span>
+            </div>
+        </div>
     </li>
 </ul>
 
 <ul class="sidenav-group">
     <li data-ng-repeat="language in languages" data-ng-click="changeLanguage(language.id)">
-        <span data-ng-class="getSelectedLanguageStyle(language.active)"></span>
-        <span translate="{{language.title}}"></span>
+        <div class="row">
+            <div class="col-xs-1">
+                <span data-ng-class="getSelectedLanguageStyle(language.active)"></span>
+            </div>
+            <div class="col-xs-11">
+                <span translate="{{language.title}}"></span>
+            </div>
+        </div>
     </li>
 </ul>
