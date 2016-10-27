@@ -244,7 +244,7 @@ angular.module('searchPanel')
                     };
 
                     var _pushToUnifiedResults = function (result) {
-                        result.name = scope.fixNames(result.name);
+                        result.name = result.source!='matrikkelnummer' ? scope.fixNames(result.name) : result.name;
                         result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
                         // var resultID = result.name + result.kommune;
                         var resultID = _createID(result);

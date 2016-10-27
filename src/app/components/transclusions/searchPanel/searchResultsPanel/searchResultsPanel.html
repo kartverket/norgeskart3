@@ -41,6 +41,18 @@
                 </li>
             </ul>
         </div>
+        <div data-ng-show="searchResults['matrikkelnummer']">
+            <h4 class="no-top">Eiendommer:</h4>
+            <ul class="list-result">
+                <li ng-mouseover="mouseOver(searchResult)"
+                    class="pointer-cursor"
+                    ng-repeat="searchResult in searchResults['matrikkelnummer']">
+                <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
+                      ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+                    </select>
+                </li>
+            </ul>
+        </div>
         <div data-ng-show="searchResults['ssr']">
             <h4 class="no-top">Stedsnavn:</h4>
             <div class="search-pagination">

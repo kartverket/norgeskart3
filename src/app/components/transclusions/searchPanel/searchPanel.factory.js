@@ -9,7 +9,7 @@ angular
 
         var mapEpsg='EPSG:25833';
 
-        var initialSearchServices= ['ssr', 'matrikkelveg', 'matrikkeladresse'];
+        var initialSearchServices= ['ssr', 'matrikkelveg', 'matrikkeladresse', 'matrikkelnummer'];
 
         var availableUTMZones=['25832','25833','25834','25835','25836','32632','32633','32634','32635','32636'];
 
@@ -20,7 +20,8 @@ angular
                 'matrikkeladresse': 'Adresse',
                 'coordGeo': 'Geografisk koordinat',
                 'coordUtm': 'UTM-koordinat',
-                'mouseClick': 'Klikk i kartet'
+                'mouseClick': 'Klikk i kartet',
+                'matrikkelnummer': 'Gårds og bruksnummer'
             };
 
             var generateServiceDict = function (query) {
@@ -53,6 +54,18 @@ angular
                     url: mainAppService.generateSearchMatrikkelAdresseUrl(query),
                     format: 'json',
                     source: 'matrikkeladresse',
+                    epsg: 'EPSG:32632',
+                    nameID: 'NAVN',
+                    latID: 'LATITUDE',
+                    lonID: 'LONGITUDE',
+                    kommuneID: 'KOMMUNENAVN',
+                    husnummerID: false,
+                    navnetypeID: false
+                };
+                serviceDict['matrikkelnummer'] = {
+                    url: mainAppService.generateSearchMatrikkelNummerUrl(query),
+                    format: 'json',
+                    source: 'matrikkelnummer',
                     epsg: 'EPSG:32632',
                     nameID: 'NAVN',
                     latID: 'LATITUDE',
