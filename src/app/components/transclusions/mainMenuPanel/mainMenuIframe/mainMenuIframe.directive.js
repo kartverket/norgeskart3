@@ -9,12 +9,13 @@ angular.module('mainMenuIframe')
                         return $location.absUrl();
                     };
 
-                    scope.addMarker= function () {
-                        scope.marker= scope.useMarker ? scope.activePosition : undefined;
-                    };
-
                     scope.getIframe = function () {
-                        scope.iframe='<iframe src="' + getUrl() + '&type=1' + '" width="134" height="108" title="" longdesc=""></iframe>';
+                        var url=getUrl() + '&type=1';
+                        if (scope.useMarker){
+                            url+='&marker_lat=' + scope.activePosition.lat + '&marker_lon=' + scope.activePosition.lon;
+                        }
+                        scope.iframe='<iframe src="' + url + '" width="134" height="108" title="" longdesc=""></iframe>';
+                        scope.iframeUrl=url;
                     };
                 }
             };
