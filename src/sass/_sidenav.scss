@@ -143,6 +143,9 @@
     top: 6px;
   }
 }
+textarea{
+  width: 100%;
+}
 
 .sidenav-group{
   border-top: 1px solid #cccccc ;
@@ -158,6 +161,10 @@
   }
 }
 
+.sidenav-row{
+  padding: 10px 8px 5px 15px;
+}
+
 .glyphicon{
   padding-left: 5px;
 }
@@ -165,6 +172,25 @@
 .activeMenu{
   background-color: rgb(60, 131, 152);
   color: white!important;
+}
+
+input{
+  border-radius: 4px;
+  border: 1px solid #b1b1b1;
+  padding: 6px 4px 3px 6px;
+  font-size: 15px;
+}
+
+.row-input{
+  width: 100%;
+}
+
+textarea{
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #b1b1b1;
+  padding: 6px 4px 3px 6px;
+  font-size: 15px;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
