@@ -8,16 +8,29 @@
     </li>
 </ul>
 
-<div>
-    <!--<input ng-model="navigable" type="checkbox"><span>Navigerbar</span>-->
-    <!--<br/>-->
-    <!--<input ng-model="showTools" type="checkbox"><span>Vis verktøy</span>-->
-    <!--<br/>-->
-    <input ng-change="getIframe()" ng-model="useMarker" type="checkbox" data-ng-disabled="!activePosition"><span translate="iframe_useMarker"></span>
-    <br/>
-    <input ng-change="getIframe()" ng-model="shortDescription" type="text" placeholder="{{'iframe_shortDesc' | translate}}">
-    <br/>
-    <input ng-change="getIframe()" ng-model="longDescription" type="text" placeholder="{{'iframe_longDesc' | translate}}">
-    <br/>
-    <textarea readonly ng-model="iframe" cols="45" rows="10"></textarea>
+<div class="sidenav-group">
+    <div class="row sidenav-row">
+        <div class="col-xs-1">
+            <input ng-change="getIframe()" ng-model="useMarker" type="checkbox" data-ng-disabled="!activePosition">
+        </div>
+        <div class="col-xs-11">
+            <span translate="iframe_useMarker"></span>
+        </div>
+    </div>
+    <div class="row sidenav-row">
+        <div class="col-xs-12">
+            <input class="row-input" ng-change="getIframe()" ng-model="shortDescription" type="text" placeholder="{{'iframe_shortDesc' | translate}}">
+        </div>
+    </div>
+    <div class="row sidenav-row">
+        <div class="col-xs-12">
+            <input class="row-input" ng-change="getIframe()" ng-model="longDescription" type="text" placeholder="{{'iframe_longDesc' | translate}}">
+        </div>
+    </div>
+    <div class="row sidenav-row">
+        <div class="col-xs-12">
+            <textarea readonly ng-model="iframe" rows="10"></textarea>
+        </div>
+    </div>
+
 </div>
