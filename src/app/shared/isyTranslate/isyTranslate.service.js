@@ -91,7 +91,12 @@ angular
             "draw_menu": "Tegne",
             "iframe_useMarker": "Bruk markør",
             "iframe_shortDesc": "Kort beskrivelse",
-            "iframe_longDesc": "Lang beskrivelse"
+            "iframe_longDesc": "Lang beskrivelse",
+            "searchResult_roads": "Veger",
+            "searchResult_addresses": "Adresser",
+            "searchResult_cadastre": "Eiendommer",
+            "searchResult_placenames": "Stedsnavn",
+            "searchResult_houseNumber": "Husnummer"
         },
         'en': {
             "search_text": "Search Norgeskart",
@@ -183,6 +188,11 @@ angular
             "draw_menu": "Draw",
             "iframe_useMarker": "Use marker",
             "iframe_shortDesc": "Short description",
-            "iframe_longDesc": "Long description"
+            "iframe_longDesc": "Long description",
+            "searchResult_roads": "Roads",
+            "searchResult_addresses": "Addresses",
+            "searchResult_cadastre": "Properties",
+            "searchResult_placenames": "Placenames",
+            "searchResult_houseNumber": "Housenumber"
         }
     });
