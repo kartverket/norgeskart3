@@ -4,23 +4,20 @@
         <span translate="UseMapView_title"></span>
         <div class="backbtn">
             <span class="glyphicon glyphicon-menu-left"></span>
-            <!--<span class="glyphicon glyphicon-menu-left"></span>-->
         </div>
     </li>
 </ul>
 
 <div>
-    <span data-ng-click="getIframe()">Iframe</span>
     <!--<input ng-model="navigable" type="checkbox"><span>Navigerbar</span>-->
     <!--<br/>-->
     <!--<input ng-model="showTools" type="checkbox"><span>Vis verktøy</span>-->
     <!--<br/>-->
-    <input ng-model="useMarker" type="checkbox">Bruk markør</input>
+    <input ng-change="getIframe()" ng-model="useMarker" type="checkbox" data-ng-disabled="!activePosition">Bruk markør</input>
     <br/>
-    <input ng-model="shortDescription" type="text" placeholder="Kort beskrivelse">
+    <input ng-change="getIframe()" ng-model="shortDescription" type="text" placeholder="Kort beskrivelse">
     <br/>
-    <input ng-model="longDescription" type="text" placeholder="Lang beskrivelse">
+    <input ng-change="getIframe()" ng-model="longDescription" type="text" placeholder="Lang beskrivelse">
     <br/>
-    <span data-ng-bind="iframe"></span>
-    <iframe ng-src="{{iframeUrl}}"></iframe>
+    <textarea readonly ng-model="iframe" cols="45" rows="10"></textarea>
 </div>
