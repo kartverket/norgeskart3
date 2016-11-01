@@ -9,17 +9,24 @@ $shadow: $shadow-color 1px 1px 2px 1px;
 $backgroundColor: white;
 
 // Main colors
-$color-primary: #3c8398; // Norconsult-webfarge 2
-$color-contrast: #ea3d59; // Norconsult-webfarge 5
-$color-1: #e7e7dd; // Norconsult-webfarge 1
-$color-2: #c8dc3e; // Norconsult-webfarge 3
-
-$dark: #2f3940; // Norconsult-webfarge 4
+$color-important: #7da1c4;
+$color-focus: #5e7c99;
+$color-standard: #eaeaea;
+$color-inactive: #d2d2d2;
+$color-toggle-on: #e87722;
+$color-toggle-focus: #a06439;
+$color-toggle-off: #f7d3b8;
+$color-toggle-inactive: #d2d2d2;
+$dark: #2f3940;
 $white: white;
 
 $gray-dark: #4c4c4e;
 $gray: #98989b;
-$gray-light: $color-1;
+$gray-light: #e7e7dd;
+
+// Borders
+$btn-border: 1px solid;
+$btn-border-radius: 4px;
 
 // Font families
 $font-special-normal: 'MetaUnitSlab', 'Roboto Slab', arial, helvetica, sans-serif;
@@ -40,10 +47,7 @@ $line-height-medium: 22px;
 $line-height-large: 31px;
 $line-height-xlarge: 40px;
 
-// Borders
-$border-radius: 5px;
-$border: 1px solid $gray-light;
-$border: 1px solid $color-primary;
+
 
 h1 {
   font: {
@@ -126,14 +130,6 @@ body{
   overflow: hidden;
 }
 
-.main{
-  position: absolute;
-  top: 52px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
 .header-move{
   cursor: move;
 }
@@ -141,7 +137,7 @@ body{
 .overlayContent{
   max-height: 100%;
   overflow: auto;
-  border: $border;
+  border: 1px solid #3c8398;
   //box-shadow: $shadow;
   background-color: white;
   border-bottom-left-radius: 2px;
@@ -164,7 +160,7 @@ body{
 }
 
 a.active{
-  color: $color-contrast;
+  color: #ea3d59;//$ontrast;
 }
 
 .btn:focus{
@@ -179,8 +175,6 @@ a.active{
   background-color: white!important;
 }
 
-
-
 .btn-default:hover{
   background-color: #f9f9f9;
 }
@@ -189,42 +183,6 @@ a.active{
   border-color: rgb(93, 166, 187);
   color: black;
 }
-
-//.button{
-//  margin: 0;
-//}
-//
-//button{
-//  height: 30px;
-//}
-//button:focus{
-//  outline: 0!important;
-//}
-
-//.btn{
-//  padding: 4px 12px;
-//  background-color: #20aaac;
-//}
-//
-//.btn-default {
-//  background-color: $color-primary;
-//  color: white;
-//  height: 30px;
-//}
-//
-//.btn-default:hover{
-//  background-color: #229597;
-//  color: white;
-//}
-//
-//.btn-default[disabled]{
-//  background-color:grey;
-//}
-//
-//.btn-default[disabled]:hover{
-//  background-color:#6D6D6D;
-//  color:white;
-//}
 
 .section-content{
   margin-top: 10px;
@@ -245,39 +203,9 @@ a.active{
   padding-left: 0;
 }
 
-.login-icon{
-  color: $color-primary;
-}
-
-.login-icon:hover{
-  color: black;
-}
-
-.login-panel{
-  width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid $gray;
-  margin-top: 50px;
-  background-color: white;
-  border-radius: 4px;
-}
-
-.login-header{
-  padding: 10px 10px 25px 10px;
-  font-size: $font-large;
-  margin: 20px;
-  border-bottom: 1px solid $gray; //#e7e7dd;
-}
-
-.login-content{
-  background: white;
-  margin:25px 20px 20px 20px;
-}
-
 .field-group{
   .field-group-header{
-    background-color: $color-1;
+    background-color: #e7e7dd;
     margin:0 0 10px 0;
     padding: 5px;
     h2{
@@ -289,15 +217,6 @@ a.active{
       font-size: 14px;
       font-weight: bold;
     }
-  }
-
-  .move-right{
-    padding-left: 5px;
-    width: auto;
-  }
-
-  .clean-btn{
-    width: 780px;
   }
 
   box-sizing: border-box;
@@ -320,14 +239,6 @@ a.active{
       color: black;
       text-decoration: none;
     }
-  }
-
-  .max-width-button{
-    width: 100%;
-  }
-
-  .search-bar{
-    width:800px;
   }
 
   button{
@@ -354,76 +265,13 @@ a.active{
   input{
     border: 1px solid white;
     border-radius: 2px;
-    //box-sizing: border-box;
-    //font-size: inherit;
-    //margin: 0;
-    //vertical-align: baseline;
-    //width: 100%;
     height: 48px;
-    //padding-left: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 1px 1px 3px 1px;
     min-width: 420px;
     font-size: 18px;
     padding-top: 2px;
   }
-  .login-input{
-    height: 30px;
-    border: 1px solid #ccc;
-  }
-
-  .list-group-item{
-    border-top: 1px solid #ddd;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-  }
-
-  .list-group-item:first-child{
-    border-top: none;
-  }
-
-  .list-group-item-no-border{
-    border: 0;
-    padding: 5px;
-  }
-
 }
-
-.login-input{
-  height: 30px;
-  padding-left: 5px;
-}
-
-.login-img{
-  border-radius: 4px;
-  width: 40px;
-  height: 40px;
-  alignment: center;
-}
-
-
-.btn-default-login {
-  background-color: #e7e7dd;
-  text-shadow: 1px 1px 1px #021622;
-  margin-right: 6px;
-}
-
-.btn-group{
-  width: 100%;
-
-  .btn{
-    width: 100%;
-  }
-  input[type="radio"]{
-    display: none;
-  }
-}
-
-.btn-first{
-  margin-top: 5px;
-}
-
-// END CONFIGAPP
 
 html{
   font-size: 12px;
@@ -433,52 +281,12 @@ html{
   position: fixed;
 }
 
-.header-panel{
-  left: 0;
-  position: absolute;
-  width: 100%;
-  top: 0;
-  background-color: #20aaac;
-  color: #e7e7dd;
-  padding: 6px;
-}
-
-.header-title{
-  font-size: 22px;
-}
-
-.header-menu-icon{
-  display: inline-block;
-  padding: 0 10px;
-  margin:4px;
-  font-size: 17px;
-  cursor: pointer;
-}
-
-.header-pointer{
-  cursor: pointer;
-}
-
-.page-panel{
-  top:$configPageWrapperTop;
-  width: 100%;
-  position: absolute;
-  background-color: white;
-}
-
 .fullSizeMap{
   position: absolute;
   bottom: 0;
   top: 0;
   right: 0;
   left: 0;
-}
-
-.main-menu-overlay{
-  z-index: 10;
-  position: absolute;
-  top: 60px;
-  left: 30px;
 }
 
 .moveableOverlay{
@@ -502,13 +310,6 @@ html{
   .panel{
     margin-bottom: 0;
   }
-}
-
-.moveable-overlay{
-  z-index: 10;
-  position: absolute;
-  top: 20px;
-  left: 270px;
 }
 
 .search-bar-overlay{
@@ -572,16 +373,6 @@ html{
 
 /*Tooltip end*/
 
-.test-link {
-  a{
-    color: #000;
-  }
-}
-
-.test-name{
-    margin-top: 10px;
-}
-
 .searchbar-hover{
   color: blue;
 }
@@ -603,18 +394,6 @@ html{
   position: absolute;
 }
 
-.main-menu-panel{
-  z-index: 12;
-  position: absolute;
-  top: 15px;
-  left: 19px;
-  height: 800px;
-  min-width: 420px;
-  background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.24) 1px 1px 3px 1px;
-  border-radius: 2px;
-}
-
 .search-panel{
   box-shadow: rgba(0, 0, 0, 0.24) 1px 1px 3px 1px;
   background: white;
@@ -622,10 +401,6 @@ html{
   //padding: 10px 0 10px 5px;
   //padding: 10px;
   max-width: 420px;
-}
-
-.search-panel-border{
-  border: 1px solid #3c8398;
 }
 
 .list-result{
@@ -637,8 +412,6 @@ html{
     border-bottom: 0;
   }
 }
-
-
 
 .default-list{
   li{
@@ -756,12 +529,6 @@ input::-ms-clear {
     padding: 2px 10px;
   }
 
-  //.btn-content{
-  //  background-color: rgb(93, 166, 187); //#2c98bb; //rgb(155, 201, 216);
-  //  color: white;
-  //  border-color: white;
-  //}
-
   .checkbox{
     margin-top:2px;
     width: 15px;
@@ -819,9 +586,7 @@ input::-ms-clear {
   .rise-btn{
     font-size: 14px;
     float: right;
-    //right: 26px;
     margin-right: 16px;
-    //padding-top: 0px;
     span:first-child{
       left: 22px;
       top: 6px;
@@ -831,11 +596,10 @@ input::-ms-clear {
 }
 
 .header-moveable{
-  background-color: $color-primary;
+  background-color: #3c8398;
   color: white;
   padding: 6px 8px 6px 12px;
-  //box-shadow: $shadow;
-  border: $border;
+  border: 1px solid #3c8398;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   font-size: 16px;
@@ -855,12 +619,9 @@ input::-ms-clear {
 }
 
 .header{
-  //border-bottom: 1px solid #929090;
-  //margin: 0 0 10px;
-  background-color: rgb(60, 131, 152); //#5da6bb;
+  background-color: rgb(60, 131, 152);
   padding: 10px 10px 0 13px;
   color: white;
-  //border-radius: 4px;
   h4{
     display: inline-block;
     font-weight: normal;
@@ -876,7 +637,6 @@ input::-ms-clear {
   .header-icon{
     padding-right: 8px;
   }
-
 }
 
 .search-pagination{
@@ -999,16 +759,6 @@ input::-ms-clear {
   padding-left:0;
 }
 
-//.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
-//  background-color: #3C8398;
-//  border-color: #3C8398;
-//}
-//
-//.pagination>li>a, .pagination>li>span{
-//  background-color: #3C8398;
-//  border-color: #3C8398;
-//}
-
 /* align glyph */
 .left-addon .left-side  { left:  0px;}
 .right-addon .right-side { right: 32px;}
@@ -1020,7 +770,6 @@ input::-ms-clear {
 /* add padding  */
 .left-addon input  { padding-left:  50px; }
 .right-addon input { padding-right: 80px; }
-
 
 @import "dropdownmenu";
 @import "icomoon";
