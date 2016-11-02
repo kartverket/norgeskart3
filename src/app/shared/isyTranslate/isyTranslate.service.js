@@ -23,7 +23,7 @@ angular
             "ShareMap_title" : "Del kartet",
             "UseMapView_title" : "Bruk kartutsnitt",
             "FAQ_title" : "Ofte stilte spørsmål",
-            "menu_select_baselayer": "Bakgrunnskart",
+            "menu_select_baselayer": "BAKGRUNNSKART:",
             "North_text": "Nord:",
             "East_text": "Øst:",
             "Coordinates_text": "Koordinater",
@@ -65,6 +65,7 @@ angular
             "Next": "Neste >",
             "Back": "< Tilbake",
             "Print": "Skriv ut",
+            "ThematicMap_text" : "TEMAKART",
 
             "EU89_Lat_Lon": "EU89 - Geografiske grader (Lat/Lon)",
             "EU89_UTM_31": "EU89, UTM-sone 31",
@@ -120,7 +121,7 @@ angular
             "ShareMap_title" : "Share map",
             "UseMapView_title" : "Use map view",
             "FAQ_title" : "FAQ",
-            "menu_select_baselayer": "Base map layer",
+            "menu_select_baselayer": "BASE MAP LAYER:",
             "North_text": "North:",
             "East_text": "East:",
             "Coordinates_text": "Coordinates",
@@ -162,6 +163,7 @@ angular
             "Next": "Next >",
             "Back": "< Back",
             "Print": "Print",
+            "ThematicMap_text" : "THEMATIC MAP",
 
             "EU89_Lat_Lon": "EU89 - Geographical degrees (Lat/Lon)",
             "EU89_UTM_31": "EU89, UTM-zone 31",

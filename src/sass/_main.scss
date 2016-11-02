@@ -31,7 +31,6 @@ $btn-border-radius: 4px;
 // Font families
 $font-special-normal: 'MetaUnitSlab', 'Roboto Slab', arial, helvetica, sans-serif;
 $font-default: 'MetaUnitSlab', 'Open sans', Arial, Helvetica, sans-serif;
-$font-icon: ISYicons;
 
 // Font sizes
 $font-xsmall: 14px;
@@ -760,11 +759,11 @@ input::-ms-clear {
 }
 
 /* align glyph */
-.left-addon .left-side  { left:  0px;}
+.left-addon .left-side  { left:  0;}
 .right-addon .right-side { right: 32px;}
-.right-addon .absolute-right-side { right: 0px;}
+.right-addon .absolute-right-side { right: 0;}
 
-.left-addon .ajax-loader-search  { left:  0px;}
+.left-addon .ajax-loader-search  { left:  0;}
 .right-addon .ajax-loader-search { right: 32px; top: 4px;}
 
 /* add padding  */

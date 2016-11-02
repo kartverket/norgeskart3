@@ -6,6 +6,7 @@
             </div>
             <div class="col-xs-11">
                 <span translate="menu_select_baselayer"></span>
+                <span data-ng-bind="getSelectedBaseLayerName()"></span>
                 <span class="nextbtn glyphicon glyphicon-menu-right"></span>
             </div>
         </div>
@@ -13,6 +14,14 @@
 </ul>
 
 <ul class="sidenav-group">
+    <div class="sidenav-header-text row">
+        <div class="col-xs-1">
+            <span class="fa fa-map-o"></span>
+        </div>
+        <div class="col-xs-11">
+            <span translate="ThematicMap_text"></span>
+        </div>
+    </div>
     <li data-ng-repeat="project in projects" data-ng-class="{activeMenu: project.isSelected}" data-ng-click="activateProject(project)">
         <div class="row">
             <div class="col-xs-1">
@@ -20,7 +29,7 @@
             </div>
             <div class="col-xs-11">
                 <span translate="{{project.title}}"></span>
-                <span data-ng-show="project.isSelected" class="nextbtn glyphicon glyphicon-menu-right"></span>
+                <span class="nextbtn glyphicon glyphicon-menu-right"></span>
             </div>
         </div>
     </li>

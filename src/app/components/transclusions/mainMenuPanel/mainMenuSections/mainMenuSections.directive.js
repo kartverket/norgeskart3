@@ -45,6 +45,14 @@ angular.module('mainMenuSections')
                         $translate.use(langId);
                         localStorageFactory.set("activeLanguage", langId);
                     };
+
+                    // scope.getSelectedBaseLayerName = function () {
+                    //     if (map.GetFirstVisibleBaseLayer() !== undefined){
+                    //         return map.GetFirstVisibleBaseLayer().name;
+                    //     }else{
+                    //         return "";
+                    //     }
+                    // };
                 }
             };
         }]);

@@ -17,8 +17,10 @@
                 <span translate="MetersAboveSeaLevel"></span>
             </div>
         </div>
-        <h4 translate="WhatDoYouWantToDo_text"></h4>
-        <ul>
+        <div class="pointer-cursor" data-ng-click="optionsMenu.open = !optionsMenu.open">
+            <h4 translate="WhatDoYouWantToDo_text"></h4>
+        </div>
+        <ul data-ng-show="!optionsMenu.open">
             <li data-ng-repeat="searchOption in searchOptionsOrder" ng-mousedown="mouseDown(searchOptionsDict[searchOption])">
                 <div class="row no-margin pointer-cursor">
                     <div class="col-xs-1">
