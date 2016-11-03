@@ -24,25 +24,39 @@
 }
 
 .sidenav li {
-  //padding: 8px 8px 8px 32px;
   padding: 10px 8px 5px 15px;
   text-decoration: none;
   font-size: 15px;
   color: #2f3940;
   display: block;
   transition: 0.3s;
-  span:first-child{
-    margin-right: 10px;
-  }
+  margin-right: 10px;
+  margin-left: 10px;
+  //span:first-child{
+  //  margin-right: 10px;
+  //}
+}
+
+.margin-header-text{
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px 8px 5px 15px;
 }
 
 .sidenav-header-text{
-  padding: 10px 8px 5px 15px;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 17px;
   color: #2f3940;
   display: block;
   transition: 0.3s;
+}
+
+.sidenav-sections{
+  background-color: $color-standard;
+  margin-top: 4px;
+  .nextbtn{
+    color: $color-important;
+  }
 }
 
 .sidenav-link{
@@ -51,18 +65,13 @@
 
 
 .closeable{
-  margin: 10px 10px 0px 10px;
+  margin: 10px 10px 0 10px;
   border-top: 1px solid #cccccc;
   padding-top: 5px;
-
   .closeable{
     border-top: 0;
     margin: 2px 20px 0 25px;
   }
-  //li:hover{
-  //  background-color: lightgray;
-  //  color: #000;
-  //}
 }
 
 .closeable-content:hover{
@@ -120,14 +129,13 @@
     left:19px;
   }
   cursor: pointer;
+  color: grey!important;
 }
 
 .nextbtn{
   font-size: 14px;
   float: right;
-  //right: 26px;
   right: 16px;
-  //padding-top: 4px;
 }
 
 .backbtn{
@@ -158,9 +166,11 @@ textarea{
 
 .sidenav-group{
   border-top: 1px solid #cccccc ;
-  padding-top: 10px;
-  margin-right: 10px;
-  margin-left: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  ul{
+    margin-bottom: 0;
+  }
   li:hover{
     background-color: lightgray;
     color: #000!important;
@@ -179,7 +189,7 @@ textarea{
 }
 
 .activeMenu{
-  background-color: rgb(60, 131, 152);
+  background-color: $color-important;
   color: white!important;
 }
 

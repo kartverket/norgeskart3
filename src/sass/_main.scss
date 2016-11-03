@@ -187,6 +187,17 @@ a.active{
   margin-top: 10px;
 }
 
+.icon-toggle-on{
+  color: $color-toggle-on;
+}
+
+.icon-important{
+  color: $color-important;
+}
+
+.icon-focus{
+  color: $color-focus;
+}
 
 .no-border{
   border: 0;
@@ -733,13 +744,38 @@ input::-ms-clear {
 }
 
 .logo-img{
-  background-image:url('../assets/img/kartverket-attribution.png');
-  width:22px;
-  height: 32px;
+  background-image:url('../assets/img/Ikon_Kart_Norge_org36.png');
+  width:36px;
+  height: 36px;
   display: block;
   top: 0;
   position: absolute;
-  margin: 15px 15px 15px 28px;
+  margin: 15px 15px 15px 12px;
+}
+
+.logo-kartverket{
+  background-image:url('../assets/img/kartverket-attribution.png');
+  width: 55px;
+  height: 81px;
+  margin-left: 6px;
+}
+
+.row-logo-kartverket{
+  margin-right: 10px;
+  .col-xs-9{
+    padding-right: 0;
+  }
+}
+
+.logo-panel{
+  text-align: center;
+  padding-top: 20px;
+  p {
+    margin-top: 6px;
+    margin-bottom: 2px;
+    line-height: 1;
+    font-size: 13px;
+  }
 }
 
 .logo-text{
@@ -749,8 +785,21 @@ input::-ms-clear {
   display: block;
   top: 0;
   position: absolute;
-  left:62px;
-  margin-top: 22px;
+  left:58px;
+  margin-top: 12px;
+  color: grey;
+}
+
+.logo-sub-text{
+  font-size: 14px;
+  width:150px;
+  height: 32px;
+  display: block;
+  top: 0;
+  position: absolute;
+  left:58px;
+  margin-top: 38px;
+  color: grey;
 }
 
 .no-gutter > [class*='col-'] {
