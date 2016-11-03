@@ -12,6 +12,10 @@
   transition: 0.4s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
+.side-menu-position{
+  position: static;
+}
+
 /* The navigation menu links */
 .sidenav-close-menu {
   padding: 8px 8px 8px 32px;
