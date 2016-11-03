@@ -39,7 +39,17 @@ angular.module('mainMenuSections')
                         }
                     };
 
-                    scope.changeLanguage = function (langId) {
+                    scope.getUnselectLanguage = function () {
+                        for (var i = 0; i < scope.languages.length; i++){
+                            if (!scope.languages[i].active){
+                                return scope.languages[i];
+                            }
+                        }
+                        return "";
+                    };
+
+                    scope.changeLanguage = function () {
+                        var langId = scope.getUnselectLanguage().id;
                         isyTranslateFactory.setCurrentLanguage(langId);
                         map.SetTranslateOptions(isyTranslateFactory.getTranslateOptionsByActiveLanguage());
                         $translate.use(langId);

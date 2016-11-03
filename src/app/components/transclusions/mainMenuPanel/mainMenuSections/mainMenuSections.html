@@ -44,10 +44,10 @@
 <div class="sidenav-group">
     <div class="margin-header-text">
         <div class="sidenav-header-text pointer-cursor row" data-ng-click="sectionMenu.open = !sectionMenu.open">
-            <div class="col-xs-6">
+            <div class="col-xs-10">
                 <span translate="WhatDoYouWantToDo_text"></span>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-2">
                 <span data-ng-show="!sectionMenu.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
                 <span data-ng-show="sectionMenu.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
             </div>
@@ -105,20 +105,21 @@
     <div class="row row-logo-kartverket">
         <div class="col-xs-9">
             <ul>
-                <li>
-                    <span>Bytt til nynorsk</span>
+                <li data-ng-click="changeLanguage()">
+                    <span translate="ChangeTo_text"></span>
+                    <span translate="{{getUnselectLanguage().title}}"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
                 <li>
-                    <span>Få svar på ofte stilte spørsmål</span>
+                    <span translate="FAQ_title"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
                 <li>
-                    <span>Gå til kartverket.no</span>
+                    <span translate="GoToKartverket_text"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
                 <li>
-                    <span>Gi tilbakemelding</span>
+                    <span translate="GiveFeedback_text"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
             </ul>
