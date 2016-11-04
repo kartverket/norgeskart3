@@ -50,11 +50,35 @@ angular.module('mainMenuPanel')
             };
 
             $scope.getSelectedBaseLayerName = function () {
-                if (map.GetFirstVisibleBaseLayer() !== undefined){
-                    return map.GetFirstVisibleBaseLayer().name;
+                var firstVisBaseLayer = map.GetFirstVisibleBaseLayer();
+                if (firstVisBaseLayer !== undefined){
+                    return firstVisBaseLayer.name;
                 }else{
                     return "";
                 }
             };
+
+            // $scope.getVisibleSubLayersCount = function () {
+            //     var visSubLayers = map.GetVisibleSubLayers();
+            //     if (visSubLayers !== undefined){
+            //         // if (document.getElementById("countSubLayers").style !== undefined){
+            //         //     if (getLength(visSubLayers.length) === 1){
+            //         //         document.getElementById("countSubLayers").style.padding = "5px 8px 3px 8px";
+            //         //     }else{
+            //         //         document.getElementById("countSubLayers").style.padding = "7px 8px 4px 8px";
+            //         //     }
+            //         // }
+            //         return visSubLayers.length;
+            //     }else{
+            //         // if (document.getElementById("countSubLayers").style !== undefined) {
+            //         //     document.getElementById("countSubLayers").style.padding = "5px 8px 3px 8px";
+            //         // }
+            //         return 0;
+            //     }
+            // };
+            //
+            // // function getLength(number) {
+            // //     return number.toString().length;
+            // // }
         }
     ]);

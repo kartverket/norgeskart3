@@ -56,13 +56,31 @@ angular.module('mainMenuSections')
                         localStorageFactory.set("activeLanguage", langId);
                     };
 
-                    // scope.getSelectedBaseLayerName = function () {
-                    //     if (map.GetFirstVisibleBaseLayer() !== undefined){
-                    //         return map.GetFirstVisibleBaseLayer().name;
-                    //     }else{
-                    //         return "";
-                    //     }
-                    // };
+                    scope.getVisibleSubLayersCount = function () {
+                        var visSubLayers = map.GetVisibleSubLayers();
+                        var circleElements = document.getElementsByClassName("circle");
+                        if (visSubLayers !== undefined){
+
+                            var numLength = getLength(visSubLayers.length);
+                            for(var i = 0; i < circleElements.length; i++){
+                                if (numLength === 1){
+                                    circleElements[i].style.padding = "5px 8px 3px 8px";
+                                }else{
+                                    circleElements[i].style.padding = "7px 7px 4px 7px";
+                                }
+                            }
+                            return visSubLayers.length;
+                        }else{
+                            for (var j = 0; j < circleElements.length; j++){
+                                circleElements[j].style.padding = "5px 8px 3px 8px";
+                            }
+                            return 0;
+                        }
+                    };
+
+                    function getLength(number) {
+                        return number.toString().length;
+                    }
                 }
             };
         }]);

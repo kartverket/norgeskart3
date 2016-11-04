@@ -124,10 +124,22 @@ textarea{
   li:hover{
     background-color: lightgray;
     color: #000!important;
+    .circle{
+      color: #000;
+    }
   }
   li{
     cursor: pointer;
   }
+}
+
+.circle{
+  border-radius: 50%;
+  color: $color-important;
+  text-align: center;
+  background: #ffffff;
+  margin-left: 5px;
+  padding: 5px 8px 3px 8px;
 }
 
 .sidenav-row{
