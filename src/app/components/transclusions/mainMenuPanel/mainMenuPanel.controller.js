@@ -1,6 +1,6 @@
 angular.module('mainMenuPanel')
-    .controller('mainMenuPanelController', ['$scope', 'moveableOverlayFactory','mapOverlaysLayoutFactory',
-        function($scope, moveableOverlayFactory, mapOverlaysLayoutFactory){
+    .controller('mainMenuPanelController', ['$scope', 'moveableOverlayFactory','mapOverlaysLayoutFactory', 'ISY.MapAPI.Map',
+        function($scope, moveableOverlayFactory, mapOverlaysLayoutFactory, map){
 
             $scope.drawActivated=false;
 
@@ -47,6 +47,14 @@ angular.module('mainMenuPanel')
 
             $scope.setGeoJSON = function (GeoJSON) {
                 $scope.GeoJSON=GeoJSON;
+            };
+
+            $scope.getSelectedBaseLayerName = function () {
+                if (map.GetFirstVisibleBaseLayer() !== undefined){
+                    return map.GetFirstVisibleBaseLayer().name;
+                }else{
+                    return "";
+                }
             };
         }
     ]);

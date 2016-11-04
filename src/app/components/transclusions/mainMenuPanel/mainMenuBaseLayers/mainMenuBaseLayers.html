@@ -1,17 +1,33 @@
-<ul class="sidenav-group">
-    <li data-ng-click="showMainMenuSections()">
-        <span class="fa fa-map-o"></span>
-        <span translate="menu_select_baselayer"></span>
-        <div class="backbtn">
-            <span class="glyphicon glyphicon-menu-left"></span>
-            <!--<span class="glyphicon glyphicon-menu-left"></span>-->
-        </div>
-    </li>
-</ul>
+<div class="sidenav-group">
+    <ul>
+        <li data-ng-click="showMainMenuSections()">
+            <div class="sidenav-header-text row">
+                <div class="col-xs-1">
+                    <span class="icon-toggle-on fa fa-map"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span translate="menu_select_baselayer"></span>
+                    <span data-ng-bind="getSelectedBaseLayerName()"></span>
+                    <div class="backbtn">
+                        <span class="glyphicon glyphicon-menu-left"></span>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
 
-<ul class="sidenav-group">
-    <li data-ng-repeat="baseLayer in baseLayers | filter: {name: '!!' }" data-ng-click="setAsBaseLayer(baseLayer)">
-        <span data-ng-class="getBaseLayerStyle(baseLayer)"></span>
-        <span data-ng-bind="baseLayer.name"></span>
-    </li>
-</ul>
+<div class="sidenav-group">
+    <ul>
+        <li class="sidenav-sections" data-ng-repeat="baseLayer in baseLayers | filter: {name: '!!' }" data-ng-click="setAsBaseLayer(baseLayer)">
+            <div class="row">
+                <div class="col-xs-1">
+                    <span data-ng-class="getBaseLayerStyle(baseLayer)"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span data-ng-bind="baseLayer.name"></span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

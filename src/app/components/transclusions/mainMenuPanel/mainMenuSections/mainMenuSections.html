@@ -1,55 +1,164 @@
-<ul class="sidenav-group">
-    <li data-ng-click="showMainMenuBaseLayers()">
-        <div class="row">
+<div class="sidenav-group">
+    <ul>
+        <li data-ng-click="showMainMenuBaseLayers()">
+            <div class="sidenav-header-text row">
+                <div class="col-xs-1">
+                    <span class="icon-toggle-on fa fa-map"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span translate="menu_select_baselayer"></span>
+                    <span data-ng-bind="getSelectedBaseLayerName()"></span>
+                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="sidenav-group">
+    <div class="margin-header-text">
+        <div class="sidenav-header-text row">
             <div class="col-xs-1">
-                <span class="fa fa-map-o"></span>
+                <span class="icon-important fa fa-map"></span>
             </div>
             <div class="col-xs-11">
-                <span translate="menu_select_baselayer"></span>
-                <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                <span translate="ThematicMap_text"></span>
             </div>
         </div>
-    </li>
-</ul>
-
-<ul class="sidenav-group">
-    <li data-ng-repeat="project in projects" data-ng-class="{activeMenu: project.isSelected}" data-ng-click="activateProject(project)">
-        <div class="row">
-            <div class="col-xs-1">
-                <span data-ng-class="project.symbol" data-ng-bind="project.symbol_text"></span>
+    </div>
+    <ul>
+        <li data-ng-repeat="project in projects" data-ng-class="{activeMenu: project.isSelected}" data-ng-click="activateProject(project)">
+            <div class="row">
+                <div class="col-xs-1">
+                    <span data-ng-class="project.symbol" data-ng-bind="project.symbol_text"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span translate="{{project.title}}"></span>
+                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                </div>
             </div>
-            <div class="col-xs-11">
-                <span translate="{{project.title}}"></span>
-                <span data-ng-show="project.isSelected" class="nextbtn glyphicon glyphicon-menu-right"></span>
+        </li>
+    </ul>
+</div>
+
+<div class="sidenav-group">
+    <div class="margin-header-text">
+        <div class="sidenav-header-text pointer-cursor row" data-ng-click="sectionMenu.open = !sectionMenu.open">
+            <div class="col-xs-10">
+                <span translate="WhatDoYouWantToDo_text"></span>
+            </div>
+            <div class="col-xs-2">
+                <span data-ng-show="!sectionMenu.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+                <span data-ng-show="sectionMenu.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
             </div>
         </div>
-    </li>
-</ul>
-
-<div tool-main-menu></div>
-
-<ul class="sidenav-group">
-    <li>
-        <div class="row">
-            <div class="col-xs-1">
-                <span class="glyphicon glyphicon-question-sign"></span>
+    </div>
+    <ul data-ng-show="!sectionMenu.open">
+        <li class="sidenav-sections" data-ng-click="showMoveableDrawMenu();closeNav();initDrawFeatureTool()">
+            <div class="row">
+                <div class="col-xs-1">
+                    <span class="icon-important fa fa-pencil"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span translate="DrawAndMeasure_title"></span>
+                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                </div>
             </div>
-            <div class="col-xs-11">
-                <span translate="FAQ_title"></span>
+        </li>
+        <li class="sidenav-sections">
+            <div class="row">
+                <div class="col-xs-1">
+                    <span class="icon-important fa fa-share-alt"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span translate="ShareMap_title"></span>
+                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                </div>
+            </div>
+        </li>
+        <li class="sidenav-sections">
+            <div class="row">
+                <div class="col-xs-1">
+                    <span class="icon-important fa fa-print"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span translate="Print"></span>
+                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                </div>
+            </div>
+        </li>
+        <li class="sidenav-sections">
+            <div class="row">
+                <div class="col-xs-1">
+                    <span class="icon-important fa fa-area-chart"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span translate="HeightProfile_text"></span>
+                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="sidenav-group">
+    <div class="row row-logo-kartverket">
+        <div class="col-xs-9">
+            <ul>
+                <li data-ng-click="changeLanguage()">
+                    <span translate="ChangeTo_text"></span>
+                    <span translate="{{getUnselectLanguage().title}}"></span>
+                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                </li>
+                <li>
+                    <span translate="FAQ_title"></span>
+                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                </li>
+                <li>
+                    <span translate="GoToKartverket_text"></span>
+                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                </li>
+                <li>
+                    <span translate="GiveFeedback_text"></span>
+                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-2 no-padding">
+            <div class="logo-panel">
+                <div class="logo-kartverket"></div>
+                <p>Kartverket</p>
             </div>
         </div>
-    </li>
-</ul>
+    </div>
+</div>
 
-<ul class="sidenav-group">
-    <li data-ng-repeat="language in languages" data-ng-click="changeLanguage(language.id)">
-        <div class="row">
-            <div class="col-xs-1">
-                <span data-ng-class="getSelectedLanguageStyle(language.active)"></span>
-            </div>
-            <div class="col-xs-11">
-                <span translate="{{language.title}}"></span>
-            </div>
-        </div>
-    </li>
-</ul>
+<!--<div tool-main-menu></div>-->
+
+<!--<div class="sidenav-group">-->
+    <!--<ul>-->
+        <!--<li>-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-1">-->
+                    <!--<span class="glyphicon glyphicon-question-sign"></span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-11">-->
+                    <!--<span translate="FAQ_title"></span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
+<!--</div>-->
+
+<!--<ul class="sidenav-group">-->
+    <!--<li data-ng-repeat="language in languages" data-ng-click="changeLanguage(language.id)">-->
+        <!--<div class="row">-->
+            <!--<div class="col-xs-1">-->
+                <!--<span data-ng-class="getSelectedLanguageStyle(language.active)"></span>-->
+            <!--</div>-->
+            <!--<div class="col-xs-11">-->
+                <!--<span translate="{{language.title}}"></span>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</li>-->
+<!--</ul>-->

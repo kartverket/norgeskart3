@@ -10,7 +10,7 @@ angular.module('mainMenuBaseLayers')
 
                     scope.getBaseLayerStyle = function (baseLayer) {
                         if (baseLayer.isVisible){
-                            return 'glyphicon glyphicon-ok-sign pointer-cursor';
+                            return 'icon-radio-checked pointer-cursor';
                         }else{
                             return 'icon-radio-unchecked pointer-cursor';
                         }
