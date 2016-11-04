@@ -1,6 +1,6 @@
 <div class="search-panel" ng-show="searchResults != undefined" ng-controller="searchOptionsPanelController">
     <div class="search-content">
-        <div class="info-text">
+        <div class="info-text content-text-align">
             <div>
                 <span ng-if="activeSearchResult.source != 'mouseClick'" translate="{{sourceDict[activeSearchResult.source]}}"></span>
                 <span ng-if="activeSearchResult.kommune!=''">
@@ -9,7 +9,6 @@
                     <span> {{activeSearchResult.kommune}} </span>
                     <span translate="Municipality"></span>
                 </span>
-
             </div>
             <div ng-show="searchOptionsDict['elevationPoint'].text.value">
                 <span translate="HeightEstimatedByInterpolation_text"></span>
@@ -17,22 +16,69 @@
                 <span translate="MetersAboveSeaLevel"></span>
             </div>
         </div>
-        <div class="pointer-cursor" data-ng-click="optionsMenu.open = !optionsMenu.open">
-            <h4 translate="WhatDoYouWantToDo_text"></h4>
+
+        <div class="options-header-text">
+            <div class="sidenav-header-text pointer-cursor row" data-ng-click="optionsMenu.open = !optionsMenu.open">
+                <div class="col-xs-10">
+                    <span translate="WhatDoYouWantToDo_text"></span>
+                </div>
+                <div class="col-xs-2">
+                    <span data-ng-show="!optionsMenu.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+                    <span data-ng-show="optionsMenu.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
+                </div>
+            </div>
         </div>
+        <!--<ul data-ng-show="!optionsMenu.open">-->
+            <!--<li class="sidenav-sections" data-ng-click="showMoveableDrawMenu();closeNav();initDrawFeatureTool()">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-xs-1">-->
+                        <!--<span class="icon-important fa fa-pencil"></span>-->
+                    <!--</div>-->
+                    <!--<div class="col-xs-11">-->
+                        <!--<span translate="DrawAndMeasure_title"></span>-->
+                        <!--<span class="nextbtn glyphicon glyphicon-menu-right"></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</li>-->
+        <!--</ul>-->
+
+
+
         <ul data-ng-show="!optionsMenu.open">
-            <li data-ng-repeat="searchOption in searchOptionsOrder" ng-mousedown="mouseDown(searchOptionsDict[searchOption])">
-                <div class="row no-margin pointer-cursor">
+            <li class="sidenav-sections pointer-cursor" data-ng-repeat="searchOption in searchOptionsOrder" ng-mousedown="mouseDown(searchOptionsDict[searchOption])" data-ng-hide="searchOptionsDict[searchOption].name === ''">
+                <div class="row">
                     <div class="col-xs-1">
-                        <span ng-class="searchOptionsDict[searchOption].icon.value"></span>
+                        <span class="icon-important" ng-class="searchOptionsDict[searchOption].icon.value"></span>
                     </div>
                     <div class="col-xs-11">
                         <span ng-class="searchOptionsDict[searchOption].text.class" translate="{{searchOptionsDict[searchOption].name}}"></span>
                         <span ng-if="searchOptionsDict[searchOption].name=='seEiendom' || searchOptionsDict[searchOption].name=='ssrFakta'" ng-bind="searchOptionsDict[searchOption].text.value"></span>
+                        <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                     </div>
                 </div>
             </li>
         </ul>
-        <div map-get-features></div>
+
+        <!--<div map-get-features></div>-->
+
+
+        <!--<div class="pointer-cursor" data-ng-click="optionsMenu.open = !optionsMenu.open">-->
+            <!--<h4 translate="WhatDoYouWantToDo_text"></h4>-->
+        <!--</div>-->
+        <!--<ul data-ng-show="!optionsMenu.open">-->
+            <!--<li data-ng-repeat="searchOption in searchOptionsOrder" ng-mousedown="mouseDown(searchOptionsDict[searchOption])">-->
+                <!--<div class="row no-margin pointer-cursor">-->
+                    <!--<div class="col-xs-1">-->
+                        <!--<span ng-class="searchOptionsDict[searchOption].icon.value"></span>-->
+                    <!--</div>-->
+                    <!--<div class="col-xs-11">-->
+                        <!--<span ng-class="searchOptionsDict[searchOption].text.class" translate="{{searchOptionsDict[searchOption].name}}"></span>-->
+                        <!--<span ng-if="searchOptionsDict[searchOption].name=='seEiendom' || searchOptionsDict[searchOption].name=='ssrFakta'" ng-bind="searchOptionsDict[searchOption].text.value"></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</li>-->
+        <!--</ul>-->
+        <!--<div map-get-features></div>-->
+
     </div>
 </div>

@@ -395,7 +395,7 @@ html{
 /* style glyph */
 .inner-addon .glyphicon {
   position: absolute;
-  padding: 15px 20px;
+  padding: 15px 17px;
   cursor: pointer;
   //pointer-events: none;
 }
@@ -482,12 +482,37 @@ input::-ms-clear {
 }
 
 .search-content{
-  padding: 15px 17px 15px 10px;
-  margin-left: 10px;
+  //padding: 15px 17px 15px 10px;
+  //margin-left: 10px;
+  padding: 15px 18px;
   max-height: 800px;
   //min-height: 280px;
   overflow-y: auto;
   overflow-x: hidden;
+
+  .info-text{
+    //margin-bottom: 13px;
+    font-size: 15px;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+
+  .content-text-align{
+    padding-left: 29px;
+  }
+
+  .nextbtn{
+    right: 4px;
+  }
+
+  .options-header-text{
+    padding: 10px 8px 5px 1px;
+  }
+
+  ul{
+    margin-bottom: 0;
+  }
+
 
   li{
     padding: 8px 6px 4px 6px;
@@ -506,11 +531,7 @@ input::-ms-clear {
     padding-top: 6px;
     padding-bottom: 2px;
   }
-  .info-text{
-    margin-bottom: 13px;
-    font-size: 15px;
-    display: inline-block;
-  }
+
   .header-text{
     span{
       font-size: 15px;
@@ -813,14 +834,16 @@ input::-ms-clear {
 
 /* align glyph */
 .left-addon .left-side  { left:  0;}
-.right-addon .right-side { right: 32px;}
-.right-addon .absolute-right-side { right: 0;}
+//.right-addon .right-side { right: 32px;}
+.right-addon .right-side { right: 46px;}
+//.right-addon .absolute-right-side { right: 0;}
+.right-addon .absolute-right-side { right: 12px;}
 
 .left-addon .ajax-loader-search  { left:  0;}
 .right-addon .ajax-loader-search { right: 32px; top: 4px;}
 
 /* add padding  */
-.left-addon input  { padding-left:  50px; }
+.left-addon input  { padding-left:  45px; }
 .right-addon input { padding-right: 80px; }
 
 @import "dropdownmenu";
