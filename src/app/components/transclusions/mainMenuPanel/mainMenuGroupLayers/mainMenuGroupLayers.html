@@ -24,7 +24,7 @@
                     <span data-ng-class="getGroupStyleStatus(group)" data-ng-click="toggleGroup(group); $event.stopPropagation();"></span>
                 </div>
                 <div class="col-xs-11">
-                    <span data-ng-bind="group.name"></span>
+                    <span data-ng-bind="group.name | capitalize"></span>
                     <span class="backbtn glyphicon glyphicon-menu-down" data-ng-show="!group.isOpen"></span>
                     <div class="upbtn" data-ng-show="group.isOpen">
                         <span class="glyphicon glyphicon-menu-up"></span>
@@ -38,7 +38,7 @@
                             <span data-ng-class="getLayerStyleStatus(isyLayer)"></span>
                         </div>
                         <div class="col-xs-9">
-                            <span data-ng-bind="isyLayer.name"></span>
+                            <span data-ng-bind="isyLayer.name | capitalize"></span>
                         </div>
                     </div>
                 </li>
