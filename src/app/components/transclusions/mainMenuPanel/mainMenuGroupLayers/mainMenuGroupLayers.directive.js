@@ -75,19 +75,19 @@ angular.module('mainMenuGroupLayers')
 
                     scope.getGroupStyleStatus = function (group) {
                         if (group.groupIsVisible){
-                            return 'glyphicon glyphicon-ok-sign pointer-cursor';
+                            return 'fa fa-check-square pointer-cursor';
                         }else if(group.isPartiallyVisible){
-                            return 'glyphicon glyphicon-ok-circle pointer-cursor';
+                            return 'fa fa-check-square-o pointer-cursor';
                         }else{
-                            return 'icon-radio-unchecked pointer-cursor';
+                            return 'glyphicon glyphicon-unchecked pointer-cursor';
                         }
                     };
 
                     scope.getLayerStyleStatus = function (isyLayer) {
                         if (isyLayer.isVisible){
-                            return 'glyphicon glyphicon-ok-sign pointer-cursor';
+                            return 'fa fa-check-square pointer-cursor';
                         }else{
-                            return 'icon-radio-unchecked pointer-cursor';
+                            return 'glyphicon glyphicon-unchecked pointer-cursor';
                         }
                     };
 
