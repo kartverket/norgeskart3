@@ -88,6 +88,15 @@ angular.module('mapGetFeatures')
                         }
                     };
 
+                    scope.isAnyLayerToShow = function () {
+                        for (var i = 0; i < scope.layers.length; i++){
+                            if (scope.layers[i].show){
+                                return true;
+                            }
+                        }
+                        return false;
+                    };
+
                 }
             };
         }]);

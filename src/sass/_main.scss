@@ -505,22 +505,52 @@ input::-ms-clear {
     right: 4px;
   }
 
+  .backbtn{
+    margin-right: 5px;
+    color: $color-important;
+  }
+
+  .upbtn{
+    margin-right: 5px;
+    color: $color-important;
+  }
+
   .options-header-text{
     padding: 10px 8px 5px 1px;
   }
 
   ul{
     margin-bottom: 0;
+    ul{
+      margin: 5px -8px -5px -15px;
+      background-color: white;
+      padding-top: 1px;
+      padding-bottom: 1px;
+      li{
+        padding-left: 15px;
+        margin: 3px 0 0 30px;
+      }
+    }
   }
 
 
   li{
     padding: 8px 6px 4px 6px;
+    cursor: pointer;
+    transition: 0.3s;
   }
 
   li:hover{
-    background-color: #e8e6e6;
+    background-color: lightgray;
+    color: #000!important;
+    .circle{
+      color: #000;
+    }
   }
+
+  //li:hover{
+  //  background-color: #e8e6e6;
+  //}
 
   .text-and-button{
     li{

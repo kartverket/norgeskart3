@@ -1,41 +1,146 @@
-<div data-ng-repeat="layer in layers | filter:{show:'true'}">
-    <div class="closeable-content" data-ng-click="toggleLayer(layer); $event.stopPropagation()">
-        <div class="closeable-header">
-            <span data-ng-bind="layer.name"></span>
-            <span class="collapse-btn glyphicon glyphicon-menu-down" data-ng-show="!layer.open"></span>
-            <div class="rise-btn" data-ng-show="layer.open">
-                <span class="glyphicon glyphicon-menu-up"></span>
-                <span class="glyphicon glyphicon-menu-up"></span>
-            </div>
+<div class="options-header-text" data-ng-show="isAnyLayerToShow()">
+    <div class="sidenav-header-text pointer-cursor row" data-ng-click="foundLayersMenu.open = !foundLayersMenu.open">
+        <div class="col-xs-10">
+            <span translate="HereYouFind_text"></span>
+        </div>
+        <div class="col-xs-2">
+            <span data-ng-show="!foundLayersMenu.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+            <span data-ng-show="foundLayersMenu.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
         </div>
     </div>
-    <div data-ng-show="layer.open">
-        <ul>
-            <li class="closeable-subcontent" data-ng-repeat="feature in layer.features">
-                <div class="closeable-subcontent-header" data-ng-click="toggleFeature(layer, feature); $event.stopPropagation()">
-                    <span data-ng-bind="getFeatureName($index)"></span>
-                    <span class="collapse-btn glyphicon glyphicon-menu-down" data-ng-show="!feature.open"></span>
-                    <div class="rise-btn" data-ng-show="feature.open">
-                        <span class="glyphicon glyphicon-menu-up"></span>
-                        <span class="glyphicon glyphicon-menu-up"></span>
-                    </div>
-                </div>
-                <div data-ng-show="feature.open">
-                   <ul class="closeable-subcontent-content">
-                       <li data-ng-repeat="attribute in feature.attributes">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <span data-ng-bind="attribute[0]"></span>
-                                </div>
-                                <div class="col-xs-5">
-                                    <span data-ng-bind="attribute[1]"></span>
-                                </div>
-
-                            </div>
-                       </li>
-                   </ul>
-                </div>
-            </li>
-        </ul>
-    </div>
 </div>
+
+<!--<ul data-ng-show="!optionsMenu.open">-->
+    <!--<li class="sidenav-sections" data-ng-repeat="searchOption in searchOptionsOrder" ng-mousedown="mouseDown(searchOptionsDict[searchOption])" data-ng-hide="searchOptionsDict[searchOption].name === ''">-->
+        <!--<div class="row">-->
+            <!--<div class="col-xs-1">-->
+                <!--<span class="icon-important" ng-class="searchOptionsDict[searchOption].icon.value"></span>-->
+            <!--</div>-->
+            <!--<div class="col-xs-11">-->
+                <!--<span ng-class="searchOptionsDict[searchOption].text.class" translate="{{searchOptionsDict[searchOption].name}}"></span>-->
+                <!--<span ng-if="searchOptionsDict[searchOption].name=='seEiendom' || searchOptionsDict[searchOption].name=='ssrFakta'" ng-bind="searchOptionsDict[searchOption].text.value"></span>-->
+                <!--<span class="nextbtn glyphicon glyphicon-menu-right"></span>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</li>-->
+<!--</ul>-->
+
+
+<ul>
+    <li class="sidenav-sections" data-ng-show="!foundLayersMenu.open" data-ng-repeat="layer in layers | filter:{show:'true'}" data-ng-click="toggleLayer(layer); $event.stopPropagation()">
+        <div class="row">
+            <div class="col-xs-12">
+                <span data-ng-bind="layer.name"></span>
+                <span class="backbtn glyphicon glyphicon-menu-down" data-ng-show="!layer.open"></span>
+                <div class="upbtn" data-ng-show="layer.open">
+                    <span class="glyphicon glyphicon-menu-up"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<div class="closeable-content" data-ng-click="toggleLayer(layer); $event.stopPropagation()">-->
+            <!--<div class="closeable-header">-->
+                <!--<span data-ng-bind="layer.name"></span>-->
+                <!--<span class="collapse-btn glyphicon glyphicon-menu-down" data-ng-show="!layer.open"></span>-->
+                <!--<div class="rise-btn" data-ng-show="layer.open">-->
+                    <!--<span class="glyphicon glyphicon-menu-up"></span>-->
+                    <!--<span class="glyphicon glyphicon-menu-up"></span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+
+        <!--<div data-ng-show="layer.open">-->
+            <ul data-ng-show="layer.open">
+                <li data-ng-repeat="feature in layer.features">
+                    <div class="closeable-subcontent-header" data-ng-click="toggleFeature(layer, feature); $event.stopPropagation()">
+                        <span data-ng-bind="getFeatureName($index)"></span>
+                        <span class="collapse-btn glyphicon glyphicon-menu-down" data-ng-show="!feature.open"></span>
+                        <div class="rise-btn" data-ng-show="feature.open">
+                            <span class="glyphicon glyphicon-menu-up"></span>
+                            <span class="glyphicon glyphicon-menu-up"></span>
+                        </div>
+                    </div>
+                    <div data-ng-show="feature.open">
+                       <ul class="closeable-subcontent-content">
+                           <li data-ng-repeat="attribute in feature.attributes">
+                                <div class="row">
+                                    <div class="col-xs-5">
+                                        <span data-ng-bind="attribute[0]"></span>
+                                    </div>
+                                    <div class="col-xs-5">
+                                        <span data-ng-bind="attribute[1]"></span>
+                                    </div>
+
+                                </div>
+                           </li>
+                       </ul>
+                    </div>
+                </li>
+            </ul>
+        <!--</div>-->
+    </li>
+</ul>
+
+<!--<div data-ng-show="!foundLayersMenu.open" data-ng-repeat="layer in layers | filter:{show:'true'}">-->
+    <!--<ul data-ng-show="!optionsMenu.open">-->
+        <!--<li class="sidenav-sections" data-ng-repeat="searchOption in searchOptionsOrder" ng-mousedown="mouseDown(searchOptionsDict[searchOption])" data-ng-hide="searchOptionsDict[searchOption].name === ''">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-1">-->
+                    <!--<span class="icon-important" ng-class="searchOptionsDict[searchOption].icon.value"></span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-11">-->
+                    <!--<span ng-class="searchOptionsDict[searchOption].text.class" translate="{{searchOptionsDict[searchOption].name}}"></span>-->
+                    <!--<span ng-if="searchOptionsDict[searchOption].name=='seEiendom' || searchOptionsDict[searchOption].name=='ssrFakta'" ng-bind="searchOptionsDict[searchOption].text.value"></span>-->
+                    <!--<span class="nextbtn glyphicon glyphicon-menu-right"></span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
+
+
+    <!--<div class="closeable-content" data-ng-click="toggleLayer(layer); $event.stopPropagation()">-->
+        <!--<div class="closeable-header">-->
+            <!--<span data-ng-bind="layer.name"></span>-->
+            <!--<span class="collapse-btn glyphicon glyphicon-menu-down" data-ng-show="!layer.open"></span>-->
+            <!--<div class="rise-btn" data-ng-show="layer.open">-->
+                <!--<span class="glyphicon glyphicon-menu-up"></span>-->
+                <!--<span class="glyphicon glyphicon-menu-up"></span>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+
+    <!--<div data-ng-show="layer.open">-->
+        <!--<ul>-->
+            <!--<li class="closeable-subcontent" data-ng-repeat="feature in layer.features">-->
+                <!--<div class="closeable-subcontent-header" data-ng-click="toggleFeature(layer, feature); $event.stopPropagation()">-->
+                    <!--<span data-ng-bind="getFeatureName($index)"></span>-->
+                    <!--<span class="collapse-btn glyphicon glyphicon-menu-down" data-ng-show="!feature.open"></span>-->
+                    <!--<div class="rise-btn" data-ng-show="feature.open">-->
+                        <!--<span class="glyphicon glyphicon-menu-up"></span>-->
+                        <!--<span class="glyphicon glyphicon-menu-up"></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div data-ng-show="feature.open">-->
+                    <!--<ul class="closeable-subcontent-content">-->
+                        <!--<li data-ng-repeat="attribute in feature.attributes">-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-xs-5">-->
+                                    <!--<span data-ng-bind="attribute[0]"></span>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-5">-->
+                                    <!--<span data-ng-bind="attribute[1]"></span>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+<!--</div>-->
