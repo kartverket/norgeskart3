@@ -1,5 +1,5 @@
-<div class="options-header-text" data-ng-show="isAnyLayerToShow()">
-    <div class="sidenav-header-text pointer-cursor row" data-ng-click="foundLayersMenu.open = !foundLayersMenu.open">
+<div class="options-header-text" data-ng-show="isAnyLayerToShow()" data-ng-class="{isHeaderClose: foundLayersMenu.open}" data-ng-click="foundLayersMenu.open = !foundLayersMenu.open">
+    <div class="sidenav-header-text pointer-cursor row">
         <div class="col-xs-10">
             <span translate="HereYouFind_text"></span>
         </div>
@@ -25,7 +25,7 @@
             </div>
         </li>
     </ul>
-    <div data-ng-show="layer.open">
+    <div data-ng-show="layer.open && !foundLayersMenu.open">
         <div dir-paginate="feature in layer.features | itemsPerPage: 1" current-page="currentPage" pagination-id="layer.id">
             <ul class="closeable-subcontent">
                 <li data-ng-repeat="attribute in feature.attributes">

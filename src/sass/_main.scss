@@ -484,7 +484,7 @@ input::-ms-clear {
 .search-content{
   //padding: 15px 17px 15px 10px;
   //margin-left: 10px;
-  padding: 15px 18px;
+  padding: 15px 18px 12px 18px;
   max-height: 800px;
   //min-height: 280px;
   overflow-y: auto;
@@ -519,8 +519,14 @@ input::-ms-clear {
     padding: 10px 8px 5px 1px;
   }
 
+  .isHeaderClose{
+    margin: 0 -18px 4px -18px;
+    background-color: #eaeaea;
+    padding: 10px 26px 5px 19px;
+  }
+
   ul{
-    margin-bottom: 0;
+    margin-bottom: 4px;
     //ul{
     //  margin: 5px -6px -5px -6px;
     //  background-color: white;

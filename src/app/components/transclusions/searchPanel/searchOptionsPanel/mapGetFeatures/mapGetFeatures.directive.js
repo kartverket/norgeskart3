@@ -106,7 +106,7 @@ angular.module('mapGetFeatures')
                             if (numLength === 1){
                                 circleElement.style.padding = "5px 8px 3px 8px";
                             }else{
-                                circleElement.style.padding = "7px 7px 4px 7px";
+                                circleElement.style.padding = "7px 7px 5px 7px";
                             }
                             return layer.features.length;
                         }else{
