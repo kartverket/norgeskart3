@@ -1,11 +1,13 @@
 <div class="search-panel window-content" ng-show="searchResults != undefined">
     <div class="header">
-        <h4 class="no-top title">
-            <span class="header-icon" data-ng-class="searchOptionsDict['lagNodplakat'].icon.value"></span>
-            <span translate="Nodplakat"></span>
-        </h4>
-        <div class="backbtn" data-ng-click="showSearchOptionsPanel()">
-            <span class="glyphicon glyphicon-menu-left"></span>
+        <div class="row">
+            <div class="col-xs-10">
+                <span class="header-icon icon-important" data-ng-class="searchOptionsDict['lagNodplakat'].icon.value"></span>
+                <span translate="lagNodplakat"></span>
+            </div>
+            <div class="col-xs-2">
+                <span class="backbtn fa fa-times" data-ng-click="showSearchOptionsPanel()"></span>
+            </div>
         </div>
     </div>
 
@@ -62,7 +64,7 @@
             </div>
         </div>
 
-        <button class="btn btn-default btn-content pull-right" ng-show="lagNodplakatConfirmRoad && lagNodplakatName"
+        <button class="btn btn-default btn-content navigation-button pull-right" data-ng-disabled="!lagNodplakatConfirmRoad && !lagNodplakatName"
                 data-ng-click="showLagNodplakatPage3(lagNodplakatName)" translate="Next">
         </button>
     </div>

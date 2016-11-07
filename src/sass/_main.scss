@@ -167,20 +167,24 @@ a.active{
 }
 
 .btn-default.focus, .btn-default:focus{
-  background-color: #f9f9f9;
+  background-color: $color-focus;
+  color: white;
 }
 
 .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
-  background-color: white!important;
+  background-color: $color-focus;
+  color: white;
 }
 
 .btn-default:hover{
-  background-color: #f9f9f9;
+  background-color: $color-focus;
+  border-color: transparent;
+  color: white;
 }
 
 .btn-default.disabled.focus, .btn-default.disabled:focus, .btn-default.disabled:hover, .btn-default[disabled].focus, .btn-default[disabled]:focus, .btn-default[disabled]:hover, fieldset[disabled] .btn-default.focus, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:hover{
-  border-color: rgb(93, 166, 187);
-  color: black;
+  border-color: $color-inactive;
+  color: white;
 }
 
 .section-content{
@@ -438,11 +442,11 @@ input::-ms-clear {
 
 
 .window-content{
-  border: 1px solid #3c8398;
+  border: 1px solid $color-standard;
 }
 
 .btn-content{
-  background-color: rgb(93, 166, 187); //#2c98bb; //rgb(155, 201, 216);
+  background-color: $color-important; //#2c98bb; //rgb(155, 201, 216);
   color: white;
   border-color: white;
 }
@@ -705,24 +709,28 @@ input::-ms-clear {
 }
 
 .header{
-  background-color: rgb(60, 131, 152);
-  padding: 10px 10px 0 13px;
-  color: white;
+  background-color: $color-standard;
+  padding: 7px 10px 7px 13px;
+  color: black;
   h4{
     display: inline-block;
     font-weight: normal;
   }
 
   .backbtn{
-    font-size: 15px;
-    float: right;
-    margin-right: 16px;
-    padding-top: 0;
+    font-size: 17px;
+    margin-right: 6px;
     cursor: pointer;
+    color: $gray;
   }
   .header-icon{
     padding-right: 8px;
   }
+}
+
+.navigation-button{
+  margin-top:5px;
+  margin-bottom: 5px;
 }
 
 .search-pagination{
@@ -924,9 +932,9 @@ input::-ms-clear {
 /* align glyph */
 .left-addon .left-side  { left:  0;}
 //.right-addon .right-side { right: 32px;}
-.right-addon .right-side { right: 46px;}
+.right-addon .right-side { right: 33px;}
 //.right-addon .absolute-right-side { right: 0;}
-.right-addon .absolute-right-side { right: 12px;}
+.right-addon .absolute-right-side { right: 2px;}
 
 .left-addon .ajax-loader-search  { left:  0;}
 .right-addon .ajax-loader-search { right: 32px; top: 4px;}
