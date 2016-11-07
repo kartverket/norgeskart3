@@ -99,10 +99,10 @@ angular
             "iframe_useMarker": "Bruk markør",
             "iframe_shortDesc": "Kort beskrivelse",
             "iframe_longDesc": "Lang beskrivelse",
-            "searchResult_roads": "Veger",
-            "searchResult_addresses": "Adresser",
-            "searchResult_cadastre": "Eiendommer",
-            "searchResult_placenames": "Stedsnavn",
+            "searchResult_roads": "VEGER",
+            "searchResult_addresses": "ADRESSER",
+            "searchResult_cadastre": "EIENDOMMER",
+            "searchResult_placenames": "STEDSNAVN",
             "searchResult_houseNumber": "Husnummer"
         },
         'en': {
@@ -203,10 +203,10 @@ angular
             "iframe_useMarker": "Use marker",
             "iframe_shortDesc": "Short description",
             "iframe_longDesc": "Long description",
-            "searchResult_roads": "Roads",
-            "searchResult_addresses": "Addresses",
-            "searchResult_cadastre": "Properties",
-            "searchResult_placenames": "Placenames",
+            "searchResult_roads": "ROADS",
+            "searchResult_addresses": "ADDRESSES",
+            "searchResult_cadastre": "PROPERTIES",
+            "searchResult_placenames": "PLACENAMES",
             "searchResult_houseNumber": "Housenumber"
         }
     });

@@ -421,6 +421,9 @@ html{
   li:last-child{
     border-bottom: 0;
   }
+  li:hover{
+    background-color: transparent!important;
+  }
 }
 
 .default-list{
@@ -521,7 +524,7 @@ input::-ms-clear {
 
   .isHeaderClose{
     margin: 0 -18px 4px -18px;
-    background-color: #eaeaea;
+    background-color: $color-standard;
     padding: 10px 26px 5px 19px;
   }
 
@@ -767,6 +770,11 @@ input::-ms-clear {
 .no-top{
   margin-top: 0;
 }
+
+.no-padding-top{
+  padding-top: 0;
+}
+
 
 .dropdown-search{
   width: 135px;
