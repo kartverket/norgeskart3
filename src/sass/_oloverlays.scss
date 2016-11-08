@@ -1,0 +1,44 @@
+.ol-control button {
+  display: block;
+  //margin: 1px;
+  margin-bottom: 5px;
+  padding: 0;
+  color: #fff;
+  font-size: 1.14em;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  height: 34px;
+  width: 36px;
+  line-height: .4em;
+  background-color: $color-important;//rgba(0,60,136,.5);
+  opacity: 0.7;
+  border: none;
+  border-radius: 2px;
+  @extend .transitionBtn;
+
+}
+
+.ol-control button:focus{
+  outline: transparent;
+}
+
+.ol-zoom {
+  top: 12px;
+  left: auto;
+  right: 16px;
+  padding: 0;
+}
+
+.ol-control button:hover{
+  opacity: 0.9;
+  color: white;//#101010;//$gray-dark;//#000;
+}
+
+
+.ol-control {
+  position: absolute;
+  background: none;
+  border-radius: 4px;
+  padding: 2px;
+}
