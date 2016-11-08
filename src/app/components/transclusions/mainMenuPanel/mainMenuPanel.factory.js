@@ -41,7 +41,6 @@ angular
                 }
             ];
 
-
             return {
 
 
@@ -64,6 +63,7 @@ angular
                         }
                     }
                 }
+
             };
 
 

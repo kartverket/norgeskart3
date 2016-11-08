@@ -7,6 +7,7 @@ angular.module('mapGetFeatures')
                 link: function(scope){
 
                     scope.layers = [];
+                    scope.currentPage = 1;
 
                     function _handleLoadingLayers(loadingLayers){
                         scope.layers = [];
@@ -70,6 +71,7 @@ angular.module('mapGetFeatures')
                             }
                             layer.open = true;
                         }
+                        scope.currentPage = 1;
                     };
 
                     scope.getFeatureName = function (index) {
@@ -88,6 +90,44 @@ angular.module('mapGetFeatures')
                         }
                     };
 
+                    scope.isAnyLayerToShow = function () {
+                        for (var i = 0; i < scope.layers.length; i++){
+                            if (scope.layers[i].show){
+                                return true;
+                            }
+                        }
+                        return false;
+                    };
+
+                    scope.getVisibleFeatures = function (layer, index) {
+                        var circleElement = document.getElementById("circle"+index);
+                        if (layer !== undefined){
+                            var numLength = getLength(layer.features.length);
+                            if (numLength === 1){
+                                circleElement.style.padding = "5px 8px 3px 8px";
+                            }else{
+                                circleElement.style.padding = "7px 7px 5px 7px";
+                            }
+                            return layer.features.length;
+                        }else{
+                            circleElement.style.padding = "5px 8px 3px 8px";
+                            return 0;
+                        }
+
+                    };
+
+                    function getLength(number) {
+                        return number.toString().length;
+                    }
+
+                    scope.getIdByLayer = function (layer) {
+                        console.log(layer);
+                        return layer.id;
+                    };
+
+                    scope.pageChangeHandler = function (value) {
+                        scope.currentPage = value;
+                    };
                 }
             };
         }]);

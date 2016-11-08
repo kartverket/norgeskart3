@@ -1,11 +1,16 @@
-<div class="search-panel window-content" data-ng-controller="searchKoordTransPanelController">
+<div class="search-panel" data-ng-controller="searchKoordTransPanelController">
     <div class="header">
-        <h4 class="no-top title">
-            <span class="header-icon" data-ng-class="searchOptionsDict['koordTrans'].icon.value"></span>
-            <span translate="Coordinates_text"></span>
-        </h4>
-        <div class="backbtn" data-ng-click="showSearchOptionsPanel();showSearchOptionsPanel()">
-            <span class="glyphicon glyphicon-menu-left"></span>
+        <div class="row">
+            <div class="col-xs-8">
+                <span class="header-icon icon-important" data-ng-class="searchOptionsDict['koordTrans'].icon.value"></span>
+                <span translate="Coordinates_text"></span>
+            </div>
+            <div class="col-xs-4">
+                <div class="closebtn" data-ng-click="showSearchOptionsPanel()">
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                    <span class="glyphicon glyphicon-menu-left"></span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -26,30 +31,32 @@
                 <span data-ng-bind="activePosition.transLon"></span>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="dropdown">
-                    <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <span translate="{{getActiveCoorSystem()}}"></span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
-                        <li data-ng-repeat="(key, value) in coordinateSystems" data-ng-click="_fetchKoordTrans(key); $event.stopPropagation();" class="pointer-cursor">
-                            <!--<span data-ng-bind="coordinateSystems[key]"></span>--->
-                            <span translate="{{coordinateSystems[key]}}"></span>
-                        </li>
-                    </ul>
+
+        <div class="new-section">
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="checkbox" data-ng-click="generateCoordinateSystems()" ng-model="showAdvancedCoordinateSystems"/>
+                    <span translate="ShowAdvancedCoordinateSystems_text"></span>
                 </div>
             </div>
         </div>
-        <div class="row new-section">
-            <div class="col-xs-8">
-                <span class="info-text" translate="ShowAdvancedCoordinateSystems_text"></span>
-            </div>
-            <div class="col-xs-2 no-padding">
-                <input type="checkbox" class="checkbox"
-                       data-ng-click="generateCoordinateSystems()"
-                       ng-model="showAdvancedCoordinateSystems"/>
+
+        <div class="new-section">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="dropdown">
+                        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span translate="{{getActiveCoorSystem()}}"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
+                            <li data-ng-repeat="(key, value) in coordinateSystems" data-ng-click="_fetchKoordTrans(key); $event.stopPropagation();" class="pointer-cursor">
+                                <!--<span data-ng-bind="coordinateSystems[key]"></span>--->
+                                <span translate="{{coordinateSystems[key]}}"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

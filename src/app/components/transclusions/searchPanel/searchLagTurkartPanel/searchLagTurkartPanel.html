@@ -1,75 +1,83 @@
-<div class="search-panel window-content" ng-show="searchResults != undefined">
+<div class="search-panel" ng-show="searchResults != undefined">
     <div class="header">
-        <h4 class="no-top title">
-            <span class="header-icon" data-ng-class="searchOptionsDict['lagTurkart'].icon.value"></span>
-            <span translate="Turkart_title"></span>
-        </h4>
-        <div class="backbtn" data-ng-click="deactivatePrintBoxSelect();showSearchOptionsPanel()">
-            <span class="glyphicon glyphicon-menu-left"></span>
-        </div>
-    </div>
-    <div class="search-content">
-
-        <div class="info-text">
-            <span translate="Turkart_info"></span>
-        </div>
-
         <div class="row">
-            <div class="col-xs-6">
-                <span class="info-text" translate="Scale"></span>
+            <div class="col-xs-8">
+                <span class="header-icon icon-important" data-ng-class="searchOptionsDict['lagTurkart'].icon.value"></span>
+                <span translate="Turkart_title"></span>
             </div>
-            <div class="col-xs-6">
-                <div class="dropdown">
-                    <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <span data-ng-bind="scales[scale]"></span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li data-ng-repeat="(key, value) in scales" data-ng-click="applyScale(key); $event.stopPropagation();" class="pointer-cursor">
-                            <span data-ng-bind="scales[key]"></span>
-                        </li>
-                    </ul>
+            <div class="col-xs-4">
+                <div class="closebtn" data-ng-click="deactivatePrintBoxSelect(); showSearchOptionsPanel()">
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                    <span class="glyphicon glyphicon-menu-left"></span>
                 </div>
             </div>
         </div>
-        <h4 class="no-top" translate="Turkart_navn"></h4>
-        <div class="row">
-            <div class="col-xs-6">
-                <input type="text"
-                       placeholder="{{'Turkart_navn_eks' | translate}}"
-                       ng-model="tittel"
-                       ng-disabled="!createMapButtonOn"/>
+    </div>
+    <div class="search-content">
+        <div class="info-text">
+            <span translate="Turkart_info"></span>
+        </div>
+        <div class="new-section">
+            <div class="title-text">
+                <span translate="Scale"></span>
             </div>
-            <div class="col-xs-6">
-                <button class="btn btn-default btn-content" data-ng-click="orderMap()"
-                        ng-disabled="!createMapButtonOn" translate="lagTurkart">
-                </button>
-                <button class="btn btn-default btn-content" data-ng-click="downloadMap()"
-                        ng-show="mapAvailable" translate="DownloadMap">
-                </button>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="dropdown">
+                        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span data-ng-bind="scales[scale]"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
+                            <li data-ng-repeat="(key, value) in scales" data-ng-click="applyScale(key); $event.stopPropagation();" class="pointer-cursor">
+                                <span data-ng-bind="scales[key]"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row new-section">
-            <div class="col-xs-6 header-text">
-                <span translate="FremhevMerkedeStier"></span>
+        <div class="new-section">
+            <div class="title-text">
+                <span translate="Turkart_navn"></span>
             </div>
-            <div class="col-xs-2">
-                <input class="checkbox"
-                       type="checkbox"
-                       ng-model="showTrips"
-                       ng-disabled="!createMapButtonOn"/>
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="text"
+                           placeholder="{{'Turkart_navn_eks' | translate}}"
+                           ng-model="tittel"
+                           ng-disabled="!createMapButtonOn"
+                           class="full-width"
+                    />
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-6 header-text">
-                <span translate="AddLegend"></span>
+        <div class="new-section">
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="checkbox" ng-model="showTrips" ng-disabled="!createMapButtonOn"/>
+                    <span translate="FremhevMerkedeStier"></span>
+                </div>
             </div>
-            <div class="col-xs-2">
-                <input class="checkbox"
-                       type="checkbox"
-                       ng-model="showLegend"
-                       ng-disabled="!createMapButtonOn"/>
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="checkbox" ng-model="showLegend" ng-disabled="!createMapButtonOn"/>
+                    <span translate="AddLegend"></span>
+                </div>
             </div>
+        </div>
+        <div class="new-section">
+            <button class="btn btn-default btn-important navigation-button pull-right" data-ng-click="orderMap()"
+            ng-disabled="!createMapButtonOn" translate="lagTurkart">
+            </button>
+
+            <button class="btn btn-default btn-important navigation-button pull-right" data-ng-click="downloadMap()"
+                    ng-disabled="!mapAvailable" translate="DownloadMap">
+            </button>
+
+            <button class="btn btn-default btn-ordinary navigation-button pull-right"
+                    data-ng-click="deactivatePrintBoxSelect(); showSearchOptionsPanel()" translate="Cancel_txt">
+            </button>
         </div>
     </div>
 </div>

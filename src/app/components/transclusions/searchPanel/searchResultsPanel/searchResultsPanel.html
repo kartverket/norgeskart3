@@ -1,7 +1,10 @@
 <div class="search-panel" ng-show="searchResults != undefined">
-    <div class="search-content">
+    <div class="search-content no-padding-top">
+
         <div data-ng-show="searchResults['matrikkelveg']">
-            <h4 class="no-top"><span translate="searchResult_roads"></span></h4>
+            <div class="isHeaderClose">
+                <span translate="searchResult_roads"></span>
+            </div>
             <ul class="list-result text-and-button">
                 <li class="pointer-cursor"
                     ng-mouseover="mouseOver(searchResult)"
@@ -37,7 +40,9 @@
             </ul>
         </div>
         <div data-ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']">
-            <h4 class="no-top"><span translate="searchResult_addresses"></span></h4>
+            <div class="isHeaderClose">
+                <span translate="searchResult_addresses"></span>
+            </div>
             <ul class="list-result">
                 <li ng-mouseover="mouseOver(searchResult)"
                     class="pointer-cursor"
@@ -49,7 +54,9 @@
             </ul>
         </div>
         <div data-ng-show="searchResults['matrikkelnummer']">
-            <h4 class="no-top"><span translate="searchResult_cadastre"></span></h4>
+            <div class="isHeaderClose">
+                <span translate="searchResult_cadastre"></span>
+            </div>
             <ul class="list-result">
                 <li ng-mouseover="mouseOver(searchResult)"
                     class="pointer-cursor"
@@ -61,25 +68,28 @@
             </ul>
         </div>
         <div data-ng-show="searchResults['ssr']">
-            <h4 class="no-top"><span translate="searchResult_placenames"></span></h4>
+            <div class="isHeaderClose">
+                <span translate="searchResult_placenames"></span>
+            </div>
+            <ul class="list-result">
+                <li class="pointer-cursor"
+                    ng-repeat="searchResult in searchResults['ssr']"
+                    ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
+                    ng-mouseover="mouseOver(searchResult)">
+                    <span ng-if="searchResult.name.indexOf(searchResult.kommune) > -1 && searchResult.name.indexOf(searchResult.navnetype) > -1" ng-bind="searchResult.name"></span>
+                    <span ng-if="searchResult.name.indexOf(searchResult.kommune) > -1 && searchResult.name.indexOf(searchResult.navnetype) == -1" ng-bind="searchResult.name + ', '  + searchResult.navnetype"></span>
+                    <span ng-if="searchResult.name.indexOf(searchResult.kommune) == -1 && searchResult.name.indexOf(searchResult.navnetype) == -1" ng-bind="searchResult.name + ', '  + searchResult.navnetype + ' i ' + searchResult.kommune"></span>
+                </li>
+            </ul>
+            <div dir-paginate="obj in placenameItems | itemsPerPage: 15 track by $index"></div>
             <div class="search-pagination">
                 <dir-pagination-controls
                         max-size="6"
                         direction-links="true"
-                        boundary-links="true" on-page-change="pageChanged(newPageNumber)">
+                        on-page-change="pageChanged(newPageNumber)">
                 </dir-pagination-controls>
             </div>
-            <div dir-paginate="obj in placenameItems | itemsPerPage: 15 track by $index"></div>
         </div>
-        <ul class="list-result">
-            <li class="pointer-cursor"
-                ng-repeat="searchResult in searchResults['ssr']"
-                ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
-                ng-mouseover="mouseOver(searchResult)">
-                <span ng-if="searchResult.name.indexOf(searchResult.kommune) > -1 && searchResult.name.indexOf(searchResult.navnetype) > -1" ng-bind="searchResult.name"></span>
-                <span ng-if="searchResult.name.indexOf(searchResult.kommune) > -1 && searchResult.name.indexOf(searchResult.navnetype) == -1" ng-bind="searchResult.name + ', '  + searchResult.navnetype"></span>
-                <span ng-if="searchResult.name.indexOf(searchResult.kommune) == -1 && searchResult.name.indexOf(searchResult.navnetype) == -1" ng-bind="searchResult.name + ', '  + searchResult.navnetype + ' i ' + searchResult.kommune"></span>
-            </li>
-        </ul>
+
     </div>
 </div>

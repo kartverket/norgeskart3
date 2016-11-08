@@ -21,7 +21,6 @@
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  //color: #818181;
   color: #2f3940;
   display: block;
   transition: 0.3s
@@ -36,9 +35,6 @@
   transition: 0.3s;
   margin-right: 10px;
   margin-left: 10px;
-  //span:first-child{
-  //  margin-right: 10px;
-  //}
 }
 
 .margin-header-text{
@@ -66,55 +62,6 @@
 .sidenav-link{
   color: #2f3940;
 }
-
-
-.closeable{
-  margin: 10px 10px 0 10px;
-  border-top: 1px solid #cccccc;
-  padding-top: 5px;
-  .closeable{
-    border-top: 0;
-    margin: 2px 20px 0 25px;
-  }
-}
-
-.closeable-content:hover{
-  background-color: #cccccc;
-}
-
-.closeable-content{
-  padding: 10px 5px 5px 6px;
-  background-color: #d9e8ec;
-}
-
-.closeableIsOpen{
-  font-weight: bold;
-}
-
-.closeable li {
-  //margin: 4px 0 2px 0;
-  //padding: 8px 5px 8px 6px;
-  padding: 2px 4px 4px 7px;
-  border-radius: 0px;
-  cursor: pointer;
-  //border: 1px solid #d0d0d0;
-  //border-top:1px solid #BABABA;
-  //border-bottom: 1px solid #BABABA;
-  .closeable li {
-    background-color: white;
-    /* margin-bottom: 0px; */
-    border: 0;
-    //border-top: 1px solid #cccccc;
-    border-radius: 0;
-    padding: 10px 5px 5px 6px;
-    margin: 0;
-  }
-  li:hover{
-    background-color: #cccccc;
-    color: #000;
-  }
-}
-
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .sidenav a:visited, .sidenav a:focus, .offcanvas a:focus{
@@ -145,22 +92,13 @@
 .backbtn{
   font-size: 14px;
   float: right;
-  //right: 26px;
   margin-right: 16px;
-  //padding-top: 4px;
-
 }
 
 .upbtn{
   font-size: 14px;
   float: right;
-  //right: 26px;
   margin-right: 16px;
-  //padding-top: 0px;
-  span:first-child{
-    left: 32px;
-    top: 6px;
-  }
 }
 textarea{
   width: 100%;
@@ -172,14 +110,36 @@ textarea{
   padding-bottom: 7px;
   ul{
     margin-bottom: 0;
+    ul{
+      margin: 5px -8px -5px -15px;
+      background-color: white;
+      padding-top: 1px;
+      padding-bottom: 1px;
+      li{
+        padding-left: 15px;
+        margin: 3px 0 0 30px;
+      }
+    }
   }
   li:hover{
     background-color: lightgray;
     color: #000!important;
+    .circle{
+      color: #000;
+    }
   }
   li{
     cursor: pointer;
   }
+}
+
+.circle{
+  border-radius: 50%;
+  color: $color-important;
+  text-align: center;
+  background: #ffffff;
+  margin-left: 5px;
+  padding: 5px 8px 3px 8px;
 }
 
 .sidenav-row{

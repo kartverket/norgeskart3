@@ -1,30 +1,48 @@
-<ul class="sidenav-group">
-    <li data-ng-click="removeGroups(); showMainMenuSections()">
-        <span data-ng-class="selectedProject.symbol" data-ng-bind="selectedProject.symbol_text"></span>
-        <span translate="{{selectedProject.title}}"></span>
-        <div class="backbtn">
-            <span class="glyphicon glyphicon-menu-left"></span>
-            <!--<span class="glyphicon glyphicon-menu-left"></span>-->
-        </div>
-    </li>
-</ul>
-
-<ul class="closeable">
-    <li data-ng-repeat="group in groupLayers" data-ng-click="group.isOpen = !group.isOpen;">
-        <div class="closeable-content" data-ng-class="{closeableIsOpen: group.isOpen}">
-            <span data-ng-class="getGroupStyleStatus(group)" data-ng-click="toggleGroup(group); $event.stopPropagation();"></span>
-            <span data-ng-bind="group.name"></span>
-            <span class="backbtn glyphicon glyphicon-menu-down" data-ng-show="!group.isOpen"></span>
-            <div class="upbtn" data-ng-show="group.isOpen">
-                <span class="glyphicon glyphicon-menu-up"></span>
-                <span class="glyphicon glyphicon-menu-up"></span>
+<div class="sidenav-group">
+    <ul>
+        <li data-ng-click="removeGroups(); showMainMenuSections()">
+            <div class="sidenav-header-text row">
+                <div class="col-xs-1">
+                    <span data-ng-class="selectedProject.symbol" data-ng-bind="selectedProject.symbol_text"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span translate="{{selectedProject.title}}"></span>
+                    <div class="backbtn">
+                        <span class="glyphicon glyphicon-menu-left"></span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <ul class="closeable" data-ng-show="group.isOpen">
-            <li data-ng-repeat="isyLayer in group.isyLayers" data-ng-click="toggleLayer(isyLayer); $event.stopPropagation();">
-                <span data-ng-class="getLayerStyleStatus(isyLayer)"></span>
-                <span data-ng-bind="isyLayer.name"></span>
-            </li>
-        </ul>
-    </li>
-</ul>
+        </li>
+    </ul>
+</div>
+
+<div class="sidenav-group">
+    <ul>
+        <li class="sidenav-sections" data-ng-repeat="group in groupLayers" data-ng-click="group.isOpen = !group.isOpen;">
+            <div class="row">
+                <div class="col-xs-1">
+                    <span data-ng-class="getGroupStyleStatus(group)" data-ng-click="toggleGroup(group); $event.stopPropagation();"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span data-ng-bind="group.name | capitalize"></span>
+                    <span class="backbtn glyphicon glyphicon-menu-down" data-ng-show="!group.isOpen"></span>
+                    <div class="upbtn" data-ng-show="group.isOpen">
+                        <span class="glyphicon glyphicon-menu-up"></span>
+                    </div>
+                </div>
+            </div>
+            <ul data-ng-show="group.isOpen">
+                <li data-ng-repeat="isyLayer in group.isyLayers" data-ng-click="toggleLayer(isyLayer); $event.stopPropagation();">
+                    <div class="row">
+                        <div class="col-xs-1">
+                            <span data-ng-class="getLayerStyleStatus(isyLayer)"></span>
+                        </div>
+                        <div class="col-xs-9">
+                            <span data-ng-bind="isyLayer.name | capitalize"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

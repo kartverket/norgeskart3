@@ -1,41 +1,53 @@
-<div data-ng-repeat="layer in layers | filter:{show:'true'}">
-    <div class="closeable-content" data-ng-click="toggleLayer(layer); $event.stopPropagation()">
-        <div class="closeable-header">
-            <span data-ng-bind="layer.name"></span>
-            <span class="collapse-btn glyphicon glyphicon-menu-down" data-ng-show="!layer.open"></span>
-            <div class="rise-btn" data-ng-show="layer.open">
-                <span class="glyphicon glyphicon-menu-up"></span>
-                <span class="glyphicon glyphicon-menu-up"></span>
-            </div>
+<div class="options-header-text" data-ng-show="isAnyLayerToShow()" data-ng-class="{isHeaderClose: foundLayersMenu.open}" data-ng-click="foundLayersMenu.open = !foundLayersMenu.open">
+    <div class="sidenav-header-text pointer-cursor row">
+        <div class="col-xs-10">
+            <span translate="HereYouFind_text"></span>
+        </div>
+        <div class="col-xs-2">
+            <span data-ng-show="!foundLayersMenu.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+            <span data-ng-show="foundLayersMenu.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
         </div>
     </div>
-    <div data-ng-show="layer.open">
-        <ul>
-            <li class="closeable-subcontent" data-ng-repeat="feature in layer.features">
-                <div class="closeable-subcontent-header" data-ng-click="toggleFeature(layer, feature); $event.stopPropagation()">
-                    <span data-ng-bind="getFeatureName($index)"></span>
-                    <span class="collapse-btn glyphicon glyphicon-menu-down" data-ng-show="!feature.open"></span>
-                    <div class="rise-btn" data-ng-show="feature.open">
-                        <span class="glyphicon glyphicon-menu-up"></span>
+</div>
+
+<div data-ng-repeat="layer in layers | filter:{show:'true'}" >
+    <ul>
+        <li class="sidenav-sections" data-ng-show="!foundLayersMenu.open" data-ng-click="toggleLayer(layer); $event.stopPropagation()">
+            <div class="row">
+                <div class="col-xs-12">
+                    <span data-ng-bind="layer.name | capitalize"></span>
+                    <span class="backbtn glyphicon glyphicon-menu-down" data-ng-show="!layer.open"></span>
+                    <span id="circle{{$index}}" data-ng-bind="getVisibleFeatures(layer, $index)" class="circleLayers"></span>
+                    <div class="upbtn" data-ng-show="layer.open">
                         <span class="glyphicon glyphicon-menu-up"></span>
                     </div>
                 </div>
-                <div data-ng-show="feature.open">
-                   <ul class="closeable-subcontent-content">
-                       <li data-ng-repeat="attribute in feature.attributes">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <span data-ng-bind="attribute[0]"></span>
-                                </div>
-                                <div class="col-xs-5">
-                                    <span data-ng-bind="attribute[1]"></span>
-                                </div>
-
-                            </div>
-                       </li>
-                   </ul>
-                </div>
-            </li>
-        </ul>
+            </div>
+        </li>
+    </ul>
+    <div data-ng-show="layer.open && !foundLayersMenu.open">
+        <div dir-paginate="feature in layer.features | itemsPerPage: 1" current-page="currentPage" pagination-id="layer.id">
+            <ul class="closeable-subcontent">
+                <li data-ng-repeat="attribute in feature.attributes">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <span data-ng-bind="attribute[0] | capitalize"></span>
+                        </div>
+                        <div class="col-xs-5">
+                            <span data-ng-bind="attribute[1]"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="search-pagination">
+            <dir-pagination-controls
+                    max-size="6"
+                    direction-links="true"
+                    pagination-id="layer.id"
+                    on-page-change="pageChangeHandler(newPageNumber)"
+            >
+            </dir-pagination-controls>
+        </div>
     </div>
 </div>
