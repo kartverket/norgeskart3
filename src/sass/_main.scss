@@ -209,35 +209,35 @@ a.active{
 }
 
 
-//.btn-ordinary.focus, .btn-ordinary:focus{
-//  background-color: $color-focus;
-//  border-color: transparent;
-//  color: white;
-//}
-//
-//.btn-ordinary.active, .btn-ordinary:active, .open>.dropdown-toggle.btn-ordinary{
-//  background-color: $color-important;
-//  border-color: transparent;
-//  color: white;
-//}
-//
-//.btn-ordinary:hover{
-//  background-color: $color-focus;
-//  border-color: transparent;
-//  color: white;
-//}
-//
-//.btn-ordinary.disabled.focus, .btn-ordinary.disabled:focus, .btn-ordinary.disabled:hover, .btn-ordinary[disabled].focus, .btn-ordinary[disabled]:focus, .btn-ordinary[disabled]:hover, fieldset[disabled] .btn-ordinary.focus, fieldset[disabled] .btn-ordinary:focus, fieldset[disabled] .btn-ordinary:hover{
-//  border-color: $color-inactive;
-//  background-color: $color-inactive;
-//  color: white;
-//}
-//
-//.btn-ordinary.active.focus, .btn-ordinary.active:focus, .btn-ordinary.active:hover, .btn-ordinary:active.focus, .btn-ordinary:active:focus, .btn-ordinary:active:hover, .open>.dropdown-toggle.btn-ordinary.focus, .open>.dropdown-toggle.btn-ordinary:focus, .open>.dropdown-toggle.btn-ordinary:hover{
-//  color: white;
-//  border-color: transparent;
-//  background-color: $color-important;
-//}
+.btn-ordinary.focus, .btn-ordinary:focus{
+  background-color: $color-inactive;
+  border-color: transparent;
+  color: #333;
+}
+
+.btn-ordinary.active, .btn-ordinary:active, .open>.dropdown-toggle.btn-ordinary{
+  background-color: $color-standard;
+  border-color: transparent;
+  color: #333;
+}
+
+.btn-ordinary:hover{
+  background-color: $color-inactive;
+  border-color: transparent;
+  color: #333;
+}
+
+.btn-ordinary.disabled.focus, .btn-ordinary.disabled:focus, .btn-ordinary.disabled:hover, .btn-ordinary[disabled].focus, .btn-ordinary[disabled]:focus, .btn-ordinary[disabled]:hover, fieldset[disabled] .btn-ordinary.focus, fieldset[disabled] .btn-ordinary:focus, fieldset[disabled] .btn-ordinary:hover{
+  border-color: $color-inactive;
+  background-color: $color-inactive;
+  color: white;
+}
+
+.btn-ordinary.active.focus, .btn-ordinary.active:focus, .btn-ordinary.active:hover, .btn-ordinary:active.focus, .btn-ordinary:active:focus, .btn-ordinary:active:hover, .open>.dropdown-toggle.btn-ordinary.focus, .open>.dropdown-toggle.btn-ordinary:focus, .open>.dropdown-toggle.btn-ordinary:hover{
+  color: #333;
+  border-color: transparent;
+  background-color: $color-standard;
+}
 
 
 .btn-searchPanel:focus, .btn-searchPanel:hover{
