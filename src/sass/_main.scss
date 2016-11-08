@@ -120,6 +120,14 @@ ul {
   }
 }
 
+.transitionBtn{
+  transition: color 0.15s linear; /* vendorless fallback */
+  -o-transition: color 0.15s linear; /* opera */
+  -ms-transition: color 0.15s linear; /* IE 10 */
+  -moz-transition: color 0.15s linear; /* Firefox */
+  -webkit-transition: color 0.15s linear; /*safari and chrome */
+}
+
 body{
   position: absolute;
   top: 0;
@@ -973,6 +981,14 @@ input::-ms-clear {
   width: 100%;
 }
 
+.logo-overlay {
+  z-index: 12;
+  position: absolute;
+  bottom: 25px;
+  left: 19px;
+}
+
+
 
 
 /* align glyph */
@@ -997,3 +1013,4 @@ input::-ms-clear {
 @import "mobile";
 @import "flaticon";
 @import "print";
+@import "oloverlays";
