@@ -96,7 +96,7 @@ angular
             "ED50_UTM_34": "ED50, UTM-sone 34",
             "ED50_UTM_35": "ED50, UTM-sone 35",
             "ED50_UTM_36": "ED50, UTM-sone 36",
-            "draw_menu": "Tegne",
+            "draw_menu": "TEGNE",
             "iframe_useMarker": "Bruk markør",
             "iframe_shortDesc": "Kort beskrivelse",
             "iframe_longDesc": "Lang beskrivelse",
@@ -104,7 +104,15 @@ angular
             "searchResult_addresses": "ADRESSER",
             "searchResult_cadastre": "EIENDOMMER",
             "searchResult_placenames": "STEDSNAVN",
-            "searchResult_houseNumber": "Husnummer"
+            "searchResult_houseNumber": "Husnummer",
+            "point_txt": "PUNKT",
+            "line_txt": "LINJE",
+            "polygon_txt": "FLATE",
+            "text_txt": "TEKST",
+            "showMeasurements_txt" : "VIS MÅL PÅ KARTET",
+            "showCoordinates_txt" : "SHOW KOORDINATER PÅ KARTET",
+            "pointType_txt": "PUNKTTYPE:",
+            "size_txt": "STØRRELSE:"
         },
         'en': {
             "search_text": "Search Norgeskart",
@@ -201,7 +209,7 @@ angular
             "ED50_UTM_34": "ED50, UTM-zone 34",
             "ED50_UTM_35": "ED50, UTM-zone 35",
             "ED50_UTM_36": "ED50, UTM-zone 36",
-            "draw_menu": "Draw",
+            "draw_menu": "DRAW",
             "iframe_useMarker": "Use marker",
             "iframe_shortDesc": "Short description",
             "iframe_longDesc": "Long description",
@@ -209,6 +217,14 @@ angular
             "searchResult_addresses": "ADDRESSES",
             "searchResult_cadastre": "PROPERTIES",
             "searchResult_placenames": "PLACENAMES",
-            "searchResult_houseNumber": "Housenumber"
+            "searchResult_houseNumber": "Housenumber",
+            "point_txt": "POINT",
+            "line_txt": "LINE",
+            "polygon_txt": "POLYGON",
+            "text_txt": "TEXT",
+            "showMeasurements_txt" : "SHOW MEASUREMENTS ON THE MAP",
+            "showCoordinates_txt" : "SHOW COORDINATES ON THE MAP",
+            "pointType_txt": "POINT TYPE:",
+            "size_txt": "SIZE:"
         }
     });

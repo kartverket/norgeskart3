@@ -8,6 +8,24 @@ angular.module('menuDraw')
                      /*
                      Draw start
                      */
+
+
+                    $("#home").click(function() {
+                        $('#myTabs a[href="#point"]').tab('show');
+                    });
+
+                    $("#profile").click(function() {
+                        $('#myTabs a[href="#line"]').tab('show');
+                    });
+
+                    $("#messages").click(function() {
+                        $('#myTabs a[href="#polygon"]').tab('show');
+                    });
+
+                    $("#settings").click(function() {
+                        $('#myTabs a[href="#text"]').tab('show');
+                    });
+
                     scope.snap=true;
                     scope.selectionActive=false;
                     scope.pointTypes={
@@ -214,6 +232,7 @@ angular.module('menuDraw')
                     scope.switchSymbol = function (newSymbol) {
                         scope.pointNumber=scope.pointTypes[newSymbol];
                         scope.activateDrawFeatureTool();
+                        scope.pointSymbol = newSymbol;
                     };
 
                     scope.activateDrawFeatureTool = function () {

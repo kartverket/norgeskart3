@@ -1,4 +1,52 @@
 <div class="panel-body">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" id="myTabs">
+        <li role="presentation" class="active"><a href data-target="#point" aria-controls="point" role="tab" data-toggle="tab" translate="point_txt"></a></li>
+        <li role="presentation"><a href data-target="#line" aria-controls="line" role="tab" data-toggle="tab" translate="line_txt"></a></li>
+        <li role="presentation"><a href data-target="#polygon" aria-controls="polygon" role="tab" data-toggle="tab" translate="polygon_txt"></a></li>
+        <li role="presentation"><a href data-target="#text" aria-controls="text" role="tab" data-toggle="tab" translate="text_txt"></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content search-content">
+        <div role="tabpanel" class="tab-pane active" id="point">
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="checkbox"/>
+                    <span translate="showCoordinates_txt"></span>
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="title-text">
+                            <span translate="pointType_txt"></span>
+                        </div>
+                        <div class="btn-same-size navigation-button">
+                        <button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: pointSymbol==='Circle'}" data-ng-click="switchSymbol('Circle')">●</button>
+                        <button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: pointSymbol==='Triangle'}" data-ng-click="switchSymbol('Triangle')">▲</button>
+                        <button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: pointSymbol==='Diamond'}" data-ng-click="switchSymbol('Diamond')">♦</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="title-text">
+                            <span translate="size_txt"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="line">Profile tab active</div>
+        <div role="tabpanel" class="tab-pane" id="polygon">Messages tab active</div>
+        <div role="tabpanel" class="tab-pane" id="text">Settings tab active</div>
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
     <div>
         <button type="button" class="btn btn-default btn-content" data-ng-class="{active: geometryType === type}" data-ng-repeat="geometryType in geometryTypes" data-ng-click="switchType(geometryType)">{{geometryType}}</button>
         <button type="button" class="btn btn-default btn-content pull-right" data-ng-click="switchMode('modify')">Rediger</button>
