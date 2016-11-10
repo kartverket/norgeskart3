@@ -1,6 +1,6 @@
 angular.module('menuDraw')
-    .directive('menuDraw', [ 'toolsFactory', 'ISY.EventHandler', '$location','mainAppService', '$http','$filter',
-        function(toolsFactory, eventHandler, $location,mainAppService,$http,$filter) {
+    .directive('menuDraw', [ 'toolsFactory', 'ISY.EventHandler', '$location','mainAppService', '$http','$filter','mapOverlaysLayoutFactory','moveableOverlayFactory',
+        function(toolsFactory, eventHandler, $location,mainAppService,$http,$filter, mapOverlaysLayoutFactory, moveableOverlayFactory) {
             return {
                 templateUrl: 'components/transclusions/menuDraw/menuDraw.html',
                 restrict: 'A',
@@ -49,10 +49,104 @@ angular.module('menuDraw')
                         'Polygon',
                         'Text'
                     ];
+
+                    scope.pointRadiusSizes = [
+                        {
+                            "sizeType": "Small",
+                            "size": 7
+                        },
+                        {
+                            "sizeType": "Medium",
+                            "size": 10
+                        },
+                        {
+                            "sizeType": "Large",
+                            "size": 13
+                        }
+                    ];
+
+                    scope.lineTypes = [
+                        {
+                            "lineTypeId" : "line",
+                            "lineLength": 15,
+                            "lineSpace": 0,
+                            "lineType": "_______"
+                        },
+                        {
+                            "lineTypeId" : "dash",
+                            "lineLength": 15,
+                            "lineSpace": 15,
+                            "lineType": "__ __ __"
+                        },
+                        {
+                            "lineTypeId" : "dot",
+                            "lineLength": 2,
+                            "lineSpace": 15,
+                            "lineType": "..........."
+                        }
+                    ];
+
+                    scope.lineWidthSizes = [
+                        {
+                            "lineTypeId": 1,
+                            "lineWidth": 2
+                        },
+                        {
+                            "lineTypeId": 2,
+                            "lineWidth": 4
+                        },
+                        {
+                            "lineTypeId": 3,
+                            "lineWidth": 6
+                        },
+                        {
+                            "lineTypeId": 4,
+                            "lineWidth": 8
+                        }
+                    ];
+
+                    scope.polygonOpacities = [
+                        {
+                            "opacityType": "0%",
+                            "opacityValue": 0
+                        },
+                        {
+                            "opacityType": "25%",
+                            "opacityValue": 25
+                        },
+                        {
+                            "opacityType": "50%",
+                            "opacityValue": 50
+                        },
+                        {
+                            "opacityType": "75%",
+                            "opacityValue": 75
+                        },
+                        {
+                            "opacityType": "100%",
+                            "opacityValue": 100
+                        }
+                    ];
+
+                    scope.textHightSizes = [
+                        {
+                            "textType": "Small",
+                            "textHight": 10
+                        },
+                        {
+                            "textType": "Medium",
+                            "textHight": 15
+                        },
+                        {
+                            "textType": "Large",
+                            "textHight": 18
+                        }
+                    ];
+
                     scope.modeTypes=['draw', 'modify'];
                     scope.mode="draw";
                     scope.type='Point';
-                    scope.color='#ffcc33';
+                    scope.color='#FFA500';
                     scope.fillAlpha=50;
                     scope.pointNumber=64;
                     scope.pointRadius=7;
@@ -215,6 +309,9 @@ angular.module('menuDraw')
                     };
 
                     scope.switchMode = function (newMode) {
+                        // if (scope.mode === "modify"){
+                        //     newMode = 'draw';
+                        // }
                         scope.mode=newMode;
                         if(scope.mode=='draw'){
                             scope.selectedFeatureId=undefined;
@@ -394,6 +491,57 @@ angular.module('menuDraw')
                             a.dispatchEvent(e);
                         }
                     };
+
+                    scope.closeMenuDraw = function () {
+                        mapOverlaysLayoutFactory.setShowSearchOverlay(true);
+                        moveableOverlayFactory.deactiveAllOverlay();
+                        scope.deactivateDrawFeatureTool(scope.GeoJSON);
+                    };
+
+                    scope.setPointRadiusSize = function (type) {
+                        scope.pointRadius = type.size;
+                        scope.activePointType = type.sizeType;
+                        scope.activateDrawFeatureTool();
+                    };
+
+                    scope.setLineWidthSize = function (type) {
+                        scope.lineWidth = type.lineWidth;
+                        scope.activeLineWidthSize = type.lineTypeId;
+                        scope.activateDrawFeatureTool();
+                    };
+
+                    scope.setPolygonOpacity = function (type) {
+                        scope.fillAlpha = type.opacityValue;
+                        scope.activeOpacityType = type.opacityType;
+                        scope.activateDrawFeatureTool();
+                    };
+
+                    scope.setTextHight = function (type) {
+                        scope.fontSize = type.textHight;
+                        scope.activeTextHight = type.textType;
+                        scope.activateDrawFeatureTool();
+                    };
+
+                    scope.switchLineType = function (type) {
+                        scope.lineLength = type.lineLength;
+                        scope.lineSpace = type.lineSpace;
+                        scope.activeLineType = type.lineTypeId;
+                        scope.activateDrawFeatureTool();
+                    };
+
+                    function initMenuDraw(){
+                        scope.setPointRadiusSize(scope.pointRadiusSizes[0]);
+                        scope.setLineWidthSize(scope.lineWidthSizes[0]);
+                        scope.setPolygonOpacity(scope.polygonOpacities[0]);
+                        scope.setTextHight(scope.textHightSizes[1]);
+                        scope.switchLineType(scope.lineTypes[0]);
+                        // scope.pointRadius = scope.pointRadiusSizes[0].size;
+                        // scope.activePointType = scope.pointRadiusSizes[0].sizeType;
+                        scope.pointSymbol = 'Circle';
+                        // scope.setColor('#FFA500');
+                    }
+
+                    initMenuDraw();
                 }
             };
         }]);

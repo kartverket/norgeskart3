@@ -112,7 +112,21 @@ angular
             "showMeasurements_txt" : "VIS MÅL PÅ KARTET",
             "showCoordinates_txt" : "SHOW KOORDINATER PÅ KARTET",
             "pointType_txt": "PUNKTTYPE:",
-            "size_txt": "STØRRELSE:"
+            "size_txt": "STØRRELSE:",
+            "Small": "Liten",
+            "Medium": "Medium",
+            "Large": "Stor",
+            "color_txt": "FARGE:",
+            "snap_txt" : "SNAP",
+            "change_txt": "REDIGER",
+            "remove_txt": "SLETT",
+            "save_txt": "LAGRE",
+            "empty_txt": "TØM",
+            "lineType_txt": "LINJETYPE:",
+            "width_txt": "TYKKELSE:",
+            "opacity_txt": "GJENNOMSIKTIGHET:"
+
+
         },
         'en': {
             "search_text": "Search Norgeskart",
@@ -225,6 +239,18 @@ angular
             "showMeasurements_txt" : "SHOW MEASUREMENTS ON THE MAP",
             "showCoordinates_txt" : "SHOW COORDINATES ON THE MAP",
             "pointType_txt": "POINT TYPE:",
-            "size_txt": "SIZE:"
+            "size_txt": "SIZE:",
+            "Small": "Small",
+            "Medium": "Medium",
+            "Large": "Large",
+            "color_txt": "COLOR:",
+            "snap_txt" : "SNAP",
+            "change_txt": "CHANGE",
+            "remove_txt": "REMOVE",
+            "save_txt": "SAVE",
+            "empty_txt": "EMPTY",
+            "lineType_txt": "LINE TYPE:",
+            "width_txt": "WIDTH:",
+            "opacity_txt": "OPACITY:"
         }
     });

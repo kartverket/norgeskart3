@@ -447,8 +447,9 @@ html{
   }
 }
 
-.drawmenu{
+.movemenu{
   width: 420px;
+  overflow-x: hidden;
   .panel{
     margin-bottom: 0;
   }
@@ -584,7 +585,7 @@ input::-ms-clear {
 //}
 
 .btn-color-picker{
-  margin-left: 4px;
+  //margin-left: 4px;
   margin-right: 4px;
 }
 
@@ -596,6 +597,10 @@ input::-ms-clear {
 //    font-size: 15px;
 //  }
 //}
+
+.color-picker{
+  padding: 6px;
+}
 
 .lineWithDefaultButton{
   line-height: 2;
