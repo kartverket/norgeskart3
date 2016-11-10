@@ -66,17 +66,17 @@
                 </div>
             </div>
         </div>
-        <div class="new-section">
-            <button class="btn btn-default btn-important navigation-button pull-right" data-ng-click="orderMap()"
-            ng-disabled="!createMapButtonOn" translate="lagTurkart">
+        <div class="new-section navigation-button pull-right">
+            <button class="btn btn-default btn-ordinary"
+                    data-ng-click="deactivatePrintBoxSelect(); showSearchOptionsPanel()" translate="Cancel_txt">
             </button>
 
-            <button class="btn btn-default btn-important navigation-button pull-right" data-ng-click="downloadMap()"
+            <button class="btn btn-default btn-important" data-ng-click="downloadMap()"
                     ng-disabled="!mapAvailable" translate="DownloadMap">
             </button>
 
-            <button class="btn btn-default btn-ordinary navigation-button pull-right"
-                    data-ng-click="deactivatePrintBoxSelect(); showSearchOptionsPanel()" translate="Cancel_txt">
+            <button class="btn btn-default btn-important" data-ng-click="orderMap()"
+            ng-disabled="!createMapButtonOn" translate="lagTurkart">
             </button>
         </div>
     </div>

@@ -1,125 +1,423 @@
 <div class="panel-body">
-    <div>
-        <button type="button" class="btn btn-default btn-content" data-ng-class="{active: geometryType === type}" data-ng-repeat="geometryType in geometryTypes" data-ng-click="switchType(geometryType)">{{geometryType}}</button>
-        <button type="button" class="btn btn-default btn-content pull-right" data-ng-click="switchMode('modify')">Rediger</button>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" id="myTabs">
+        <li data-ng-click="switchType('Point')" role="presentation" class="active"><a href data-target="#point" aria-controls="point" role="tab" data-toggle="tab" translate="point_txt"></a></li>
+        <li data-ng-click="switchType('LineString')" role="presentation"><a href data-target="#line" aria-controls="line" role="tab" data-toggle="tab" translate="line_txt"></a></li>
+        <li data-ng-click="switchType('Polygon')" role="presentation"><a href data-target="#polygon" aria-controls="polygon" role="tab" data-toggle="tab" translate="polygon_txt"></a></li>
+        <li data-ng-click="switchType('Text')" role="presentation"><a href data-target="#text" aria-controls="text" role="tab" data-toggle="tab" translate="text_txt"></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content search-content">
+        <div role="tabpanel" class="tab-pane active" id="point">
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="checkbox"/>
+                    <span translate="showCoordinates_txt"></span>
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="title-text">
+                            <span translate="pointType_txt"></span>
+                        </div>
+                        <div class="btn-same-size navigation-button">
+                        <button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: pointSymbol==='Circle'}" data-ng-click="switchSymbol('Circle')">●</button>
+                        <button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: pointSymbol==='Triangle'}" data-ng-click="switchSymbol('Triangle')">▲</button>
+                        <button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: pointSymbol==='Diamond'}" data-ng-click="switchSymbol('Diamond')">♦</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="title-text">
+                            <span translate="size_txt"></span>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span translate="{{activePointType}}"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
+                                <li data-ng-repeat="pointRadiusSize in pointRadiusSizes" data-ng-click="setPointRadiusSize(pointRadiusSize); activateDrawFeatureTool()" class="pointer-cursor">
+                                    <span translate="{{pointRadiusSize.sizeType}}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="title-text">
+                            <span translate="color_txt"></span>
+                        </div>
+                        <div class="btn-same-size navigation-button">
+                            <button type="button" class="btn btn-default btn-toggle" ng-model="color" data-ng-class="{activeBtn: color === val}" data-ng-click="setColor(val)" data-ng-repeat="(key, val) in colors" >
+                                <div class="color-picker" data-ng-style="{'background-color':key, 'border': 'none'}">
+                                    <span></span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()">
+                        <span translate="snap_txt"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="new-section navigation-button">
+                <button class="btn btn-default btn-ordinary" translate="remove_txt" data-ng-disabled="!selectionActive" data-ng-click="deleteButtonClick()">
+                </button>
+                <button data-ng-show="mode === 'modify'" class="btn btn-default btn-toggle" data-ng-click="switchMode('draw')" data-ng-class="{activeBtn: mode === 'modify'}" translate="change_txt">
+                </button>
+                <button data-ng-show="mode !== 'modify'" class="btn btn-default btn-toggle" data-ng-click="switchMode('modify')" data-ng-class="{activeBtn: mode === 'modify'}" translate="change_txt">
+                </button>
+            </div>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="line">
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="checkbox"/>
+                    <span translate="showMeasurements_txt"></span>
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="title-text">
+                            <span translate="lineType_txt"></span>
+                        </div>
+                        <div class="navigation-button">
+                            <button data-ng-repeat="lineType in lineTypes" type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: lineType.lineTypeId === activeLineType}" data-ng-click="switchLineType(lineType)" data-ng-bind="lineType.lineType"></button>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="title-text">
+                            <span translate="width_txt"></span>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span translate="{{activeLineWidthSize}}"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu3">
+                                <li data-ng-repeat="lineWidthSize in lineWidthSizes" data-ng-click="setLineWidthSize(lineWidthSize);" class="pointer-cursor">
+                                    <span data-ng-bind="lineWidthSize.lineTypeId"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="title-text">
+                            <span translate="color_txt"></span>
+                        </div>
+                        <div class="btn-same-size navigation-button">
+                            <button type="button" class="btn btn-default btn-toggle" ng-model="color" data-ng-class="{activeBtn: color === val}" data-ng-click="setColor(val)" data-ng-repeat="(key, val) in colors" >
+                                <div class="color-picker" data-ng-style="{'background-color':key, 'border': 'none'}">
+                                    <span></span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()">
+                        <span translate="snap_txt"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="new-section navigation-button">
+                <button class="btn btn-default btn-ordinary" translate="remove_txt" data-ng-disabled="!selectionActive" data-ng-click="deleteButtonClick()">
+                </button>
+                <button data-ng-show="mode === 'modify'" class="btn btn-default btn-toggle" data-ng-click="switchMode('draw')" data-ng-class="{activeBtn: mode === 'modify'}" translate="change_txt">
+                </button>
+                <button data-ng-show="mode !== 'modify'" class="btn btn-default btn-toggle" data-ng-click="switchMode('modify')" data-ng-class="{activeBtn: mode === 'modify'}" translate="change_txt">
+                </button>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="polygon">
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="checkbox"/>
+                    <span translate="showMeasurements_txt"></span>
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="title-text">
+                            <span translate="opacity_txt"></span>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span translate="{{activeOpacityType}}"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu4">
+                                <li data-ng-repeat="polygonOpacity in polygonOpacities" data-ng-click="setPolygonOpacity(polygonOpacity);" class="pointer-cursor">
+                                    <span data-ng-bind="polygonOpacity.opacityType"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="title-text">
+                            <span translate="color_txt"></span>
+                        </div>
+                        <div class="btn-same-size navigation-button">
+                            <button type="button" class="btn btn-default btn-toggle" ng-model="color" data-ng-class="{activeBtn: color === val}" data-ng-click="setColor(val)" data-ng-repeat="(key, val) in colors" >
+                                <div class="color-picker" data-ng-style="{'background-color':key, 'border': 'none'}">
+                                    <span></span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()">
+                        <span translate="snap_txt"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="new-section navigation-button">
+                <button class="btn btn-default btn-ordinary" translate="remove_txt" data-ng-disabled="!selectionActive" data-ng-click="deleteButtonClick()">
+                </button>
+                <button data-ng-show="mode === 'modify'" class="btn btn-default btn-toggle" data-ng-click="switchMode('draw')" data-ng-class="{activeBtn: mode === 'modify'}" translate="change_txt">
+                </button>
+                <button data-ng-show="mode !== 'modify'" class="btn btn-default btn-toggle" data-ng-click="switchMode('modify')" data-ng-class="{activeBtn: mode === 'modify'}" translate="change_txt">
+                </button>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="text">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="title-text">
+                        <span translate="text_txt"></span>
+                    </div>
+                    <input type="text" ng-model="text" placeholder="Skriv inn tekst her" ng-change="activateDrawFeatureTool()"
+                           class="full-width"
+                    />
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="title-text">
+                            <span translate="size_txt"></span>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span translate="{{activeTextHight}}"></span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu5">
+                                <li data-ng-repeat="textHightSize in textHightSizes" data-ng-click="setTextHight(textHightSize);" class="pointer-cursor">
+                                    <span translate="{{textHightSize.textType}}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="title-text">
+                            <span translate="color_txt"></span>
+                        </div>
+                        <div class="btn-same-size navigation-button">
+                            <button type="button" class="btn btn-default btn-toggle" ng-model="color" data-ng-class="{activeBtn: color === val}" data-ng-click="setColor(val)" data-ng-repeat="(key, val) in colors" >
+                                <div class="color-picker" data-ng-style="{'background-color':key, 'border': 'none'}">
+                                    <span></span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="new-section navigation-button">
+                <button class="btn btn-default btn-ordinary" translate="remove_txt" data-ng-disabled="!selectionActive" data-ng-click="deleteButtonClick()">
+                </button>
+                <button data-ng-show="mode === 'modify'" class="btn btn-default btn-toggle" data-ng-click="switchMode('draw')" data-ng-class="{activeBtn: mode === 'modify'}" translate="change_txt">
+                </button>
+                <button data-ng-show="mode !== 'modify'" class="btn btn-default btn-toggle" data-ng-click="switchMode('modify')" data-ng-class="{activeBtn: mode === 'modify'}" translate="change_txt">
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div class="content">
-        <div class="row no-margin">
-            <div class="col-xs-3">
-                <span class="lineWithButton">Farge</span>
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="navigation-button">
+                <button class="btn btn-default btn-ordinary"
+                        data-ng-click="newButtonClick()" translate="empty_txt">
+                </button>
             </div>
-            <div class="col-xs-9 no-padding">
-                <button type="button" class="btn btn-default btn-color-picker" ng-model="color" data-ng-click="setColor(val)" data-ng-repeat="(key, val) in colors" ng-style="{'background-color':key, 'border': 'none', 'font-size':1,'line-height':9}">clr</button>
+        </div>
+        <div class="col-xs-8">
+            <div class="navigation-button pull-right">
+                <button class="btn btn-default btn-ordinary"
+                        data-ng-click="closeMenuDraw()" translate="Cancel_txt">
+                </button>
+                <button class="btn btn-default btn-important" data-ng-click="saveButtonClick()" translate="save_txt">
+                </button>
             </div>
         </div>
     </div>
 
-    <div data-ng-show="type=='Point'">
-        <div class="section-content">
-            <div class="row no-margin">
-                <div class="col-xs-3">
-                    <span class="lineWithDefaultButton">Symbol</span>
-                </div>
-                <div class="col-xs-9 no-padding">
-                    <button type="button" class="btn btn-default" data-ng-click="switchSymbol('Circle')">●</button>
-                    <button type="button" class="btn btn-default" data-ng-click="switchSymbol('Triangle')">▲</button>
-                    <button type="button" class="btn btn-default" data-ng-click="switchSymbol('Diamond')">♦</button>
-                </div>
-            </div>
-        </div>
-        <div class="section-content">
-            <div class="row no-margin">
-                <div class="col-xs-3">
-                    <span class="lineWithButton">Størrelse</span>
-                </div>
-                <div class="col-xs-9 no-padding">
-                    <input type="number" min="1" max="100" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div ng-show="type=='LineString'">
-        <div class="section-content">
-            <div class="row no-margin">
-                <div class="col-xs-3">
-                    <span class="lineWithButton">Bredde</span>
-                </div>
-                <div class="col-xs-9 no-padding">
-                    <input type="number" min="0" max="100" ng-model="lineWidth" ng-change="activateDrawFeatureTool()"/>
-                </div>
-            </div>
-        </div>
-        <div class="section-content">
-            <div class="row no-margin">
-                <div class="col-xs-3">
-                    <span class="lineWithButton">Lengde</span>
-                </div>
-                <div class="col-xs-9 no-padding">
-                    <input type="number" min="0" max="100" ng-model="lineLength" ng-change="activateDrawFeatureTool()"/>
-                </div>
-            </div>
-        </div>
-        <div class="section-content">
-            <div class="row no-margin">
-                <div class="col-xs-3">
-                    <span class="lineWithButton">Mellomrom</span>
-                </div>
-                <div class="col-xs-9 no-padding">
-                    <input type="number" min="0" max="100" ng-model="lineSpace" ng-change="activateDrawFeatureTool()"/>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="content" ng-show="type=='Polygon'">
-        <div class="row no-margin">
-            <div class="col-xs-5">
-                <span class="lineWithButton">Gjennomsiktighet</span>
-            </div>
-            <div class="col-xs-7 no-padding">
-                <input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="activateDrawFeatureTool()"/>
-            </div>
-        </div>
-    </div>
 
-    <div ng-show="type=='Text'">
-        <div class="section-content">
-            <div class="row no-margin">
-                <div class="col-xs-3">
-                    <span class="lineWithButton">Størrelse</span>
-                </div>
-                <div class="col-xs-9 no-padding">
-                    <input type="number" min="1" max="100" ng-model="fontSize" ng-change="activateDrawFeatureTool()"/>
-                </div>
-            </div>
-        </div>
-        <div class="section-content">
-            <div class="row no-margin">
-                <div class="col-xs-11">
-                    <input type="text" ng-model="text" placeholder="Skriv inn tekst her" ng-change="activateDrawFeatureTool()"/>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="content">
-        <div class="row no-margin">
-            <div class="col-xs-3">
-                <span>Snap</span>
-            </div>
-            <div class="col-xs-9 no-padding">
-                <input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()">
-            </div>
-        </div>
-    </div>
+    <!--<br/>-->
+    <!--<br/>-->
+    <!--<br/>-->
+    <!--<br/>-->
 
-    <div class="content">
-        <button type="button" class="btn btn-default btn-content pull-right" data-ng-click="saveButtonClick()">Lagre</button>
-        <button type="button" class="btn btn-default btn-content pull-right" data-ng-disabled="!selectionActive" data-ng-click="deleteButtonClick()">Slett valgt objekt</button>
-        <button type="button" class="btn btn-default btn-content pull-right" data-ng-click="newButtonClick()">Slett alle objekter</button>
-    </div>
+    <!--<div>-->
+        <!--<button type="button" class="btn btn-default btn-content" data-ng-class="{active: geometryType === type}" data-ng-repeat="geometryType in geometryTypes" data-ng-click="switchType(geometryType)">{{geometryType}}</button>-->
+        <!--<button type="button" class="btn btn-default btn-content pull-right" data-ng-click="switchMode('modify')">Rediger</button>-->
+    <!--</div>-->
+
+    <!--<div class="content">-->
+        <!--<div class="row no-margin">-->
+            <!--<div class="col-xs-3">-->
+                <!--<span class="lineWithButton">Farge</span>-->
+            <!--</div>-->
+            <!--<div class="col-xs-9 no-padding">-->
+                <!--<button type="button" class="btn btn-default btn-color-picker" ng-model="color" data-ng-click="setColor(val)" data-ng-repeat="(key, val) in colors" ng-style="{'background-color':key, 'border': 'none', 'font-size':1,'line-height':9}">clr</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div data-ng-show="type=='Point'">-->
+        <!--<div class="section-content">-->
+            <!--<div class="row no-margin">-->
+                <!--<div class="col-xs-3">-->
+                    <!--<span class="lineWithDefaultButton">Symbol</span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-9 no-padding">-->
+                    <!--<button type="button" class="btn btn-default" data-ng-click="switchSymbol('Circle')">●</button>-->
+                    <!--<button type="button" class="btn btn-default" data-ng-click="switchSymbol('Triangle')">▲</button>-->
+                    <!--<button type="button" class="btn btn-default" data-ng-click="switchSymbol('Diamond')">♦</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="section-content">-->
+            <!--<div class="row no-margin">-->
+                <!--<div class="col-xs-3">-->
+                    <!--<span class="lineWithButton">Størrelse</span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-9 no-padding">-->
+                    <!--<input type="number" min="1" max="100" ng-model="pointRadius" ng-change="activateDrawFeatureTool()"/>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div ng-show="type=='LineString'">-->
+        <!--<div class="section-content">-->
+            <!--<div class="row no-margin">-->
+                <!--<div class="col-xs-3">-->
+                    <!--<span class="lineWithButton">Bredde</span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-9 no-padding">-->
+                    <!--<input type="number" min="0" max="100" ng-model="lineWidth" ng-change="activateDrawFeatureTool()"/>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="section-content">-->
+            <!--<div class="row no-margin">-->
+                <!--<div class="col-xs-3">-->
+                    <!--<span class="lineWithButton">Lengde</span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-9 no-padding">-->
+                    <!--<input type="number" min="0" max="100" ng-model="lineLength" ng-change="activateDrawFeatureTool()"/>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="section-content">-->
+            <!--<div class="row no-margin">-->
+                <!--<div class="col-xs-3">-->
+                    <!--<span class="lineWithButton">Mellomrom</span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-9 no-padding">-->
+                    <!--<input type="number" min="0" max="100" ng-model="lineSpace" ng-change="activateDrawFeatureTool()"/>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="content" ng-show="type=='Polygon'">-->
+        <!--<div class="row no-margin">-->
+            <!--<div class="col-xs-5">-->
+                <!--<span class="lineWithButton">Gjennomsiktighet</span>-->
+            <!--</div>-->
+            <!--<div class="col-xs-7 no-padding">-->
+                <!--<input type="number" min="0" max="100" ng-model="fillAlpha" ng-change="activateDrawFeatureTool()"/>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div ng-show="type=='Text'">-->
+        <!--<div class="section-content">-->
+            <!--<div class="row no-margin">-->
+                <!--<div class="col-xs-3">-->
+                    <!--<span class="lineWithButton">Størrelse</span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-9 no-padding">-->
+                    <!--<input type="number" min="1" max="100" ng-model="fontSize" ng-change="activateDrawFeatureTool()"/>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="section-content">-->
+            <!--<div class="row no-margin">-->
+                <!--<div class="col-xs-11">-->
+                    <!--<input type="text" ng-model="text" placeholder="Skriv inn tekst her" ng-change="activateDrawFeatureTool()"/>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="content">-->
+        <!--<div class="row no-margin">-->
+            <!--<div class="col-xs-3">-->
+                <!--<span>Snap</span>-->
+            <!--</div>-->
+            <!--<div class="col-xs-9 no-padding">-->
+                <!--<input type="checkbox" ng-model="snap" ng-change="activateDrawFeatureTool()">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="content">-->
+        <!--<button type="button" class="btn btn-default btn-content pull-right" data-ng-click="saveButtonClick()">Lagre</button>-->
+        <!--<button type="button" class="btn btn-default btn-content pull-right" data-ng-disabled="!selectionActive" data-ng-click="deleteButtonClick()">Slett valgt objekt</button>-->
+        <!--<button type="button" class="btn btn-default btn-content pull-right" data-ng-click="newButtonClick()">Slett alle objekter</button>-->
+    <!--</div>-->
 </div>
 
 
