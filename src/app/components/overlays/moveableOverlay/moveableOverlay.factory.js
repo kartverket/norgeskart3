@@ -9,6 +9,14 @@ angular
                 show: false,
                 top: 12,
                 left: 19
+            },
+            {
+                id: "ElevationProfile",
+                headingTitle: 'elevationProfile_menu',
+                headingIcon: 'fa fa-pencil',
+                show: false,
+                top: 12,
+                left: 19
             }
         ];
 

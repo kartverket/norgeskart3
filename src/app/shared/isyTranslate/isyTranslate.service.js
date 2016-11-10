@@ -104,7 +104,8 @@ angular
             "searchResult_addresses": "ADRESSER",
             "searchResult_cadastre": "EIENDOMMER",
             "searchResult_placenames": "STEDSNAVN",
-            "searchResult_houseNumber": "Husnummer"
+            "searchResult_houseNumber": "Husnummer",
+            "elevationProfile_menu": "Høydeprofil"
         },
         'en': {
             "search_text": "Search Norgeskart",
@@ -209,6 +210,7 @@ angular
             "searchResult_addresses": "ADDRESSES",
             "searchResult_cadastre": "PROPERTIES",
             "searchResult_placenames": "PLACENAMES",
-            "searchResult_houseNumber": "Housenumber"
+            "searchResult_houseNumber": "Housenumber",
+            "elevationProfile_menu": "Elevation Profile"
         }
     });
