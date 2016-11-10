@@ -17,10 +17,11 @@
                 <div class="col-xs-12">
                     <span data-ng-bind="layer.name | capitalize"></span>
                     <span class="backbtn glyphicon glyphicon-menu-down" data-ng-show="!layer.open"></span>
-                    <span id="circle{{$index}}" data-ng-bind="getVisibleFeatures(layer, $index)" class="circleLayers"></span>
                     <div class="upbtn" data-ng-show="layer.open">
                         <span class="glyphicon glyphicon-menu-up"></span>
                     </div>
+                    <span id="circle{{$index}}" data-ng-bind="getVisibleFeatures(layer, $index)" class="circleLayers"></span>
+
                 </div>
             </div>
         </li>

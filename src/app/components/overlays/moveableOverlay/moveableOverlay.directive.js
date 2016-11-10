@@ -10,6 +10,7 @@ angular.module('moveableOverlay')
                     if (element.scope){
                         element = $(element);
                     }
+
                     $scope.closeOverlay = function(){
                         var activeOverlay = moveableOverlayFactory.getActiveOverlay();
                         if (activeOverlay.id === "DrawMenu"){
@@ -32,7 +33,8 @@ angular.module('moveableOverlay')
 
                     element.on('mousedown touchstart', function(event) {
                         updateElementsPosition(element);
-                        if (event.target.className !== 'header-moveable header-move ellipsis' && event.target.className !== 'header-text ng-scope'){
+                        if (event.target.className !== 'col-xs-8' && event.target.className !== 'ng-scope' &&
+                            event.target.className !== 'col-xs-4' && event.target.className !== 'header-icon icon-important fa fa-pencil'){
                             return event;
                         }
                         // Prevent default dragging of selected content

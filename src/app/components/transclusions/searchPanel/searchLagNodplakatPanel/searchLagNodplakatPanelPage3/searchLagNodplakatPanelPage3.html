@@ -19,13 +19,23 @@
                 width="377px"
                 height="570px"></iframe>
         <div class="new-section">
-            <button class="btn btn-default btn-ordinary navigation-button pull-left" data-ng-click="showLagNodplakatPage2()" translate="Back">
-            </button>
-            <button class="btn btn-default btn-important navigation-button pull-right" data-ng-click="printIframe()" translate="Print">
-            </button>
-            <button class="btn btn-default btn-ordinary navigation-button pull-right"
-                    data-ng-click="showSearchOptionsPanel()" translate="Cancel_txt">
-            </button>
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="navigation-button pull-left">
+                        <button class="btn btn-default btn-ordinary" data-ng-click="showLagNodplakatPage2()" translate="Back">
+                        </button>
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <div class="navigation-button pull-right">
+                        <button class="btn btn-default btn-ordinary"
+                                data-ng-click="showSearchOptionsPanel()" translate="Cancel_txt">
+                        </button>
+                        <button class="btn btn-default btn-important" data-ng-click="printIframe()" translate="Print">
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
