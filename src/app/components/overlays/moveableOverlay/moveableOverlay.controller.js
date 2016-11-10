@@ -5,17 +5,17 @@ angular.module('moveableOverlay')
                 $element = $($element);
             }
 
-            $scope.menuDrawShow = function(){
+            $scope.menuShowMoveableOverlay = function(id){
                 // $scope.overlay = moveableOverlayFactory.getActiveOverlay();
-                if (moveableOverlayFactory.getActiveOverlay() !== undefined){
+                var overlay = moveableOverlayFactory.getActiveOverlayById(id);
+                if (overlay !== undefined){
                     $element.css({
-                        left: moveableOverlayFactory.getActiveOverlay().left,
-                        top: moveableOverlayFactory.getActiveOverlay().top
+                        left: overlay.left,
+                        top: overlay.top
                     });
-                    $scope.header = moveableOverlayFactory.getActiveOverlay().headingTitle;
-                    $scope.headerIcon = moveableOverlayFactory.getActiveOverlay().headingIcon;
+                    $scope.header = overlay.headingTitle;
+                    $scope.headerIcon = overlay.headingIcon;
                 }
-                return moveableOverlayFactory.isOverlayVisible();
+                return moveableOverlayFactory.isOverlayVisibleById(id);
             };
-
         }]);

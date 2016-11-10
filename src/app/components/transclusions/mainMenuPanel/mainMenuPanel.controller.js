@@ -18,13 +18,18 @@ angular.module('mainMenuPanel')
                 $scope.mainMenuPanelLayout = "mainMenuGroupLayers";
             };
 
-            $scope.showMainMenuDraw = function () {
-                $scope.mainMenuPanelLayout = "mainMenuDraw";
-            };
+            // $scope.showMainMenuDraw = function () {
+            //     $scope.mainMenuPanelLayout = "mainMenuDraw";
+            // };
 
             $scope.showMoveableDrawMenu = function () {
                 mapOverlaysLayoutFactory.setShowSearchOverlay(false);
                 moveableOverlayFactory.setActiveOverlay("DrawMenu");
+            };
+
+            $scope.showMoveableElevationProfileMenu = function () {
+                mapOverlaysLayoutFactory.setShowSearchOverlay(false);
+                moveableOverlayFactory.setActiveOverlay("ElevationProfile");
             };
 
             $scope.showShareMapMenu = function (){
