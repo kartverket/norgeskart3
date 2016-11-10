@@ -1,11 +1,36 @@
 angular.module('menuElevationProfile')
-    .directive('menuElevationProfile', ['toolsFactory',
-        function(toolsFactory) {
+    .directive('menuElevationProfile', ['toolsFactory', 'ISY.EventHandler','toolsElevationProfileFactory',
+        function(toolsFactory,eventHandler, toolsElevationProfileFactory) {
             return {
                 templateUrl: 'components/transclusions/menuElevationProfile/menuElevationProfile.html',
                 restrict: 'A',
                 link: function(scope){
                     var _elevationProfileActive = false;
+
+                    /*
+                     Events start
+                     */
+                    function _addLayerFeatureEnd(feature){
+                        var multiLineString=new ol.geom.MultiLineString();
+                        multiLineString.appendLineString(feature.getGeometry());
+                        var newFeature = new ol.Feature({
+                            geometry: multiLineString
+                        });
+                        if (_elevationProfileActive){
+                            var gpxFormat=new ol.format.GPX();
+                            var gpx=gpxFormat.writeFeatures([newFeature],{
+                                featureProjection: 'EPSG:25833',
+                                dataProjection: 'EPSG:4326'
+                            });
+                            toolsElevationProfileFactory.generateElevationProfile(gpx);
+                        }
+                    }
+
+                    eventHandler.RegisterEvent(ISY.Events.EventTypes.AddLayerFeatureEnd, _addLayerFeatureEnd);
+
+                    /*
+                     Events end
+                     */
 
                     /*
                      Drawing tools start

@@ -3,16 +3,14 @@ angular
     .factory('toolsElevationProfileFactory', ['mainAppService',
         function(mainAppService) {
             var xmlFile, elevationImage, gpxUrl;
-            var serializer_ = new XMLSerializer();
             var coordinates = [];
 
-            var _uploadGpxFile = function () {
-                var serializerXml = serializer_.serializeToString(xmlFile);
+            var _uploadGpxFile = function (gpx) {
                 $.ajax({
                     type: "POST",
                     url: mainAppService.uploadGpxFileService(),
                     async: false,
-                    data: serializerXml,
+                    data: gpx,
                     success: function (gpxUrlResult) {
                         console.log("Generate elevation in the progress...");
                         elevationImage = undefined;
@@ -85,8 +83,8 @@ angular
                     });
                 },
 
-                generateElevationProfile: function () {
-                    _uploadGpxFile();
+                generateElevationProfile: function (gpx) {
+                    _uploadGpxFile(gpx);
                     _generateElevationChart();
                 },
 
