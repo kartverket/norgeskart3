@@ -174,7 +174,7 @@ angular
             "Cancel_txt": "CANCEL",
             "Print": "PRINT",
             "ThematicMap_text" : "THEMATIC MAP",
-            "HeightProfile_text": "HEIGHT PROFILE",
+            "HeightProfile_text": "ELEVATION PROFILE",
             "ChangeTo_text" : "Change to",
             "GoToKartverket_text": "Go to kartverket.no",
             "GiveFeedback_text": "Give feedback",
