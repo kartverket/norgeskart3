@@ -6,6 +6,7 @@ angular.module('menuElevationProfile')
                 restrict: 'A',
                 link: function(scope){
                     var _elevationProfileActive = false;
+                    var gpx;
 
                     /*
                      Events start
@@ -18,7 +19,7 @@ angular.module('menuElevationProfile')
                         });
                         if (_elevationProfileActive){
                             var gpxFormat=new ol.format.GPX();
-                            var gpx=gpxFormat.writeFeatures([newFeature],{
+                            gpx=gpxFormat.writeFeatures([newFeature],{
                                 featureProjection: 'EPSG:25833',
                                 dataProjection: 'EPSG:4326'
                             });
@@ -56,16 +57,37 @@ angular.module('menuElevationProfile')
                     };
 
                     scope.calculateElevationProfile = function () {
-                        if (!_elevationProfileActive){
-                            toolsElevationProfileFactory.loadXmlFile();
+                        if(scope.fileread){
+                            toolsElevationProfileFactory.generateElevationProfile(scope.fileread);
                         }
-                        toolsElevationProfileFactory.generateElevationProfile();
+                        else if(gpx) {
+                            toolsElevationProfileFactory.generateElevationProfile(gpx);
+                        }
                         scope.elevationImage = toolsElevationProfileFactory.getElevationImage();
                         _elevationProfileActive = false;
+                    };
+                    scope.uploadGpxFile = function () {
                     };
                     /*
                      Calculate elevation profile end
                      */
                 }
             };
-        }]);
+        }])
+
+    .directive("fileread", [function () {
+        return {
+            link: function (scope, element) {
+                element.bind("change", function (changeEvent) {
+                    var reader = new FileReader();
+                    reader.onload = function (loadEvent) {
+                        scope.$apply(function () {
+                            scope.fileread = loadEvent.target.result;
+                        });
+                    };
+                    var file=changeEvent.target.files[0];
+                    reader.readAsText(file);
+                });
+            }
+        };
+    }]);
