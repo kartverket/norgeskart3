@@ -1,6 +1,6 @@
 <button type="button"
         data-ng-click="drawLineElevation()">Draw elevation profile</button>
+<input type="file" fileread="uploadGpx">
 <button type="button"
         data-ng-click="calculateElevationProfile()">Generate elevation profile</button>
-<input type="file" fileread="uploadGpx">
-<img ng-src="elevationImage">
+<img ng-src="elevationImage" ng-show="elevationImage">

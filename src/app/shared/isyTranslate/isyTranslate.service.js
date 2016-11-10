@@ -104,8 +104,7 @@ angular
             "searchResult_addresses": "ADRESSER",
             "searchResult_cadastre": "EIENDOMMER",
             "searchResult_placenames": "STEDSNAVN",
-            "searchResult_houseNumber": "Husnummer",
-            "elevationProfile_menu": "Høydeprofil"
+            "elevationProfile_menu": "Høydeprofil",
             "searchResult_houseNumber": "Husnummer",
             "point_txt": "PUNKT",
             "line_txt": "LINJE",
@@ -233,8 +232,7 @@ angular
             "searchResult_addresses": "ADDRESSES",
             "searchResult_cadastre": "PROPERTIES",
             "searchResult_placenames": "PLACENAMES",
-            "searchResult_houseNumber": "Housenumber",
-            "elevationProfile_menu": "Elevation Profile"
+            "elevationProfile_menu": "Elevation Profile",
             "searchResult_houseNumber": "Housenumber",
             "point_txt": "POINT",
             "line_txt": "LINE",
