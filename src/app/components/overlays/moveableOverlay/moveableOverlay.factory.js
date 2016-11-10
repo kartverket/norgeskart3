@@ -51,17 +51,17 @@ angular
                 }
             },
 
-            getActiveOverlay: function () {
+            getActiveOverlayById: function (id) {
                 for (var i = 0; i < moveableOverlayList.length; i++){
-                    if (moveableOverlayList[i].show){
+                    if (moveableOverlayList[i].id === id){
                         return moveableOverlayList[i];
                     }
                 }
                 return undefined;
             },
 
-            isOverlayVisible: function () {
-                var activeOverlay = this.getActiveOverlay();
+            isOverlayVisibleById: function (id) {
+                var activeOverlay = this.getActiveOverlayById(id);
                 if (activeOverlay !== undefined){
                     return activeOverlay.show;
                 }else{
