@@ -15,7 +15,9 @@ angular.module('moveableOverlay')
                     });
                     $scope.header = overlay.headingTitle;
                     $scope.headerIcon = overlay.headingIcon;
+                    return moveableOverlayFactory.isOverlayVisibleById(id);
                 }
-                return moveableOverlayFactory.isOverlayVisibleById(id);
+                return false;
+
             };
         }]);
