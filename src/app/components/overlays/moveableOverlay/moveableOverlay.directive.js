@@ -18,6 +18,7 @@ angular.module('moveableOverlay')
                         // }
                         moveableOverlayFactory.deactiveAllOverlay();
                         $scope.deactivateDrawFeatureTool($scope.GeoJSON);
+                        $scope.deactivateAddLayerFeatureTool();
                     };
 
                     var startX = 0;
