@@ -9,23 +9,6 @@ angular.module('menuDraw')
                      Draw start
                      */
 
-
-                    $("#home").click(function() {
-                        $('#myTabs a[href="#point"]').tab('show');
-                    });
-
-                    $("#profile").click(function() {
-                        $('#myTabs a[href="#line"]').tab('show');
-                    });
-
-                    $("#messages").click(function() {
-                        $('#myTabs a[href="#polygon"]').tab('show');
-                    });
-
-                    $("#settings").click(function() {
-                        $('#myTabs a[href="#text"]').tab('show');
-                    });
-
                     scope.snap=true;
                     scope.selectionActive=false;
                     scope.pointTypes={
@@ -232,6 +215,7 @@ angular.module('menuDraw')
                         scope.type=feature.geometry.type;
                         switch(scope.type){
                             case('Point'):
+                                $('#myTabs a[data-target="#point"]').tab('show');
                                 if(featureStyle.text){
                                     scope.type='Text';
                                     scope.fontSize=parseInt(featureStyle.text.font.split('px')[0],10)||scope.fontSize;
@@ -250,6 +234,7 @@ angular.module('menuDraw')
                                 break;
 
                             case('LineString'):
+                                $('#myTabs a[data-target="#line"]').tab('show');
                                 scope.color=featureStyle.stroke.color;
                                 scope.lineWidth=featureStyle.stroke.width;
                                 scope.lineLength=featureStyle.stroke.lineDash[0];
@@ -257,6 +242,7 @@ angular.module('menuDraw')
                                 break;
 
                             case('Polygon'):
+                                $('#myTabs a[data-target="#polygon"]').tab('show');
                                 scope.color=rgba2hex(featureStyle.fill.color);
                                 scope.fillAlpha=100-parseInt(featureStyle.fill.color.split(',')[3].replace(')', '')*100,10)||scope.fillAlpha;
                                 break;
