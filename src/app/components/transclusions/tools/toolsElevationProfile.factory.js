@@ -24,7 +24,7 @@ angular
                     function (result) {
                         var dataXml=jQuery.parseXML(result.data);
                         var exception=dataXml.getElementsByTagName("Exception");
-                        if(exception){
+                        if(exception.length > 0){
                             console.log('ERROR: Exception from WPS-server "' + exception[0].getAttribute('exceptionCode') + '"');
                             return;
                         }
