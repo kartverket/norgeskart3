@@ -20,11 +20,6 @@ angular
             }
         ];
 
-        var defaultPosition = {
-            top: 12,
-            left: 19
-        };
-
         return {
 
             setActiveOverlay: function(overlayId){
@@ -36,8 +31,6 @@ angular
             deactiveAllOverlay: function(){
                 for (var i = 0; i < moveableOverlayList.length; i++){
                     moveableOverlayList[i].show = false;
-                    moveableOverlayList[i].top = defaultPosition.top;
-                    moveableOverlayList[i].left = defaultPosition.left;
                 }
             },
 
@@ -54,6 +47,15 @@ angular
             getActiveOverlayById: function (id) {
                 for (var i = 0; i < moveableOverlayList.length; i++){
                     if (moveableOverlayList[i].id === id && moveableOverlayList[i].show){
+                        return moveableOverlayList[i];
+                    }
+                }
+                return undefined;
+            },
+
+            getActiveOverlay: function () {
+                for (var i = 0; i < moveableOverlayList.length; i++){
+                    if (moveableOverlayList[i].show){
                         return moveableOverlayList[i];
                     }
                 }

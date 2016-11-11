@@ -57,11 +57,11 @@ angular.module('menuDraw')
                         },
                         {
                             "sizeType": "Medium",
-                            "size": 10
+                            "size": 14
                         },
                         {
                             "sizeType": "Large",
-                            "size": 13
+                            "size": 21
                         }
                     ];
 
@@ -532,7 +532,7 @@ angular.module('menuDraw')
                     function initMenuDraw(){
                         scope.setPointRadiusSize(scope.pointRadiusSizes[0]);
                         scope.setLineWidthSize(scope.lineWidthSizes[0]);
-                        scope.setPolygonOpacity(scope.polygonOpacities[0]);
+                        scope.setPolygonOpacity(scope.polygonOpacities[2]);
                         scope.setTextHight(scope.textHightSizes[1]);
                         scope.switchLineType(scope.lineTypes[0]);
                         // scope.pointRadius = scope.pointRadiusSizes[0].size;
