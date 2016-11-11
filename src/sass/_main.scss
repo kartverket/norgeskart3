@@ -429,6 +429,14 @@ html{
   left: 0;
 }
 
+.draw-content{
+  .dropdown{
+    position: absolute;
+    min-width: 105px;
+    margin-top:5px;
+  }
+}
+
 .moveableOverlay{
   @extend .clickThrough;
   position: absolute;
