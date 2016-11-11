@@ -215,8 +215,8 @@ angular.module('menuDraw')
                         scope.type=feature.geometry.type;
                         switch(scope.type){
                             case('Point'):
-                                $('#myTabs a[data-target="#point"]').tab('show');
                                 if(featureStyle.text){
+                                    $('#myTabs a[data-target="#text"]').tab('show');
                                     scope.type='Text';
                                     scope.fontSize=parseInt(featureStyle.text.font.split('px')[0],10)||scope.fontSize;
                                     scope.text=featureStyle.text.text||scope.text;
@@ -227,6 +227,7 @@ angular.module('menuDraw')
                                     }
                                 }
                                 else {
+                                    $('#myTabs a[data-target="#point"]').tab('show');
                                     scope.color = featureStyle.regularshape.fill.color;
                                     scope.pointNumber = featureStyle.regularshape.points;
                                     scope.pointRadius = featureStyle.regularshape.radius;
@@ -334,7 +335,8 @@ angular.module('menuDraw')
                             mode: scope.mode,
                             selectedFeatureId: scope.selectedFeatureId,
                             selectionActive: scope.selectionActive,
-                            onlyAddLayer: scope.onlyAddLayer
+                            onlyAddLayer: scope.onlyAddLayer,
+                            showMeasurements: scope.showMeasurements
                         };
 
                         if(scope.GeoJSON){
