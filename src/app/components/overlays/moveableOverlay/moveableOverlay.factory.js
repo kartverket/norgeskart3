@@ -53,7 +53,7 @@ angular
 
             getActiveOverlayById: function (id) {
                 for (var i = 0; i < moveableOverlayList.length; i++){
-                    if (moveableOverlayList[i].id === id){
+                    if (moveableOverlayList[i].id === id && moveableOverlayList[i].show){
                         return moveableOverlayList[i];
                     }
                 }

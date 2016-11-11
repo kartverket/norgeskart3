@@ -24,11 +24,13 @@ angular.module('mainMenuPanel')
 
             $scope.showMoveableDrawMenu = function () {
                 mapOverlaysLayoutFactory.setShowSearchOverlay(false);
+                moveableOverlayFactory.deactiveAllOverlay();
                 moveableOverlayFactory.setActiveOverlay("DrawMenu");
             };
 
             $scope.showMoveableElevationProfileMenu = function () {
                 mapOverlaysLayoutFactory.setShowSearchOverlay(false);
+                moveableOverlayFactory.deactiveAllOverlay();
                 moveableOverlayFactory.setActiveOverlay("ElevationProfile");
             };
 
