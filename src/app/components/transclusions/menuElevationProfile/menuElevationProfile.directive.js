@@ -1,30 +1,32 @@
 angular.module('menuElevationProfile')
-    .directive('menuElevationProfile', ['toolsFactory', 'ISY.EventHandler','toolsElevationProfileFactory',
-        function(toolsFactory,eventHandler, toolsElevationProfileFactory) {
+    .directive('menuElevationProfile', ['toolsFactory', 'ISY.EventHandler','toolsElevationProfileFactory','$timeout',
+        function(toolsFactory,eventHandler, toolsElevationProfileFactory,$timeout) {
             return {
                 templateUrl: 'components/transclusions/menuElevationProfile/menuElevationProfile.html',
                 restrict: 'A',
-                link: function(scope){
+                link: function (scope) {
+                    scope.allowGeneratingElevationProfile=false;
                     var _elevationProfileActive = false;
                     var gpx;
 
                     /*
                      Events start
                      */
-                    function _addLayerFeatureEnd(feature){
-                        var multiLineString=new ol.geom.MultiLineString();
+                    function _addLayerFeatureEnd(feature) {
+                        var multiLineString = new ol.geom.MultiLineString();
                         multiLineString.appendLineString(feature.getGeometry());
                         var newFeature = new ol.Feature({
                             geometry: multiLineString
                         });
-                        if (_elevationProfileActive){
-                            var gpxFormat=new ol.format.GPX();
-                            gpx=gpxFormat.writeFeatures([newFeature],{
+                        if (_elevationProfileActive) {
+                            var gpxFormat = new ol.format.GPX();
+                            gpx = gpxFormat.writeFeatures([newFeature], {
                                 featureProjection: 'EPSG:25833',
                                 dataProjection: 'EPSG:4326'
                             });
-                            toolsElevationProfileFactory.generateElevationProfile(gpx);
                         }
+                        scope.allowGeneratingElevationProfile=true;
+                        $timeout(scope.$apply(),0);
                     }
 
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.AddLayerFeatureEnd, _addLayerFeatureEnd);
@@ -36,11 +38,12 @@ angular.module('menuElevationProfile')
                     /*
                      Drawing tools start
                      */
-                    function _startDrawing (style) {
+                    function _startDrawing(style) {
                         var addFeatureTool = toolsFactory.getToolById("AddLayerFeature");
                         toolsFactory.setAddFeatureType(style, "AddLayerFeature");
                         toolsFactory.activateTool(addFeatureTool);
                     }
+
                     /*
                      Drawing tools end
                      */
@@ -50,20 +53,22 @@ angular.module('menuElevationProfile')
                      Calculate elevation profile start
                      */
 
-                    scope.drawLineElevation = function(){
+                    scope.drawLineElevation = function () {
                         _elevationProfileActive = true;
                         scope.elevationImage = undefined;
                         _startDrawing("Line");
                     };
 
                     scope.calculateElevationProfile = function () {
-                        if(scope.fileread){
-                            toolsElevationProfileFactory.generateElevationProfile(scope.fileread);
+                        if (scope.fileread) {
+                            gpx = scope.fileread;
                         }
-                        else if(gpx) {
-                            toolsElevationProfileFactory.generateElevationProfile(gpx);
+                        if (gpx) {
+                            toolsElevationProfileFactory.generateElevationProfile(gpx).then(
+                                function () {
+                                    scope.elevationImage = toolsElevationProfileFactory.getElevationImage();
+                                });
                         }
-                        scope.elevationImage = toolsElevationProfileFactory.getElevationImage();
                         _elevationProfileActive = false;
                     };
                     scope.uploadGpxFile = function () {
@@ -71,6 +76,9 @@ angular.module('menuElevationProfile')
                     /*
                      Calculate elevation profile end
                      */
+                    scope.viewElevationProfile = function () {
+                        scope.elevationImage = toolsElevationProfileFactory.getElevationImage();
+                    };
                 }
             };
         }])
@@ -83,6 +91,7 @@ angular.module('menuElevationProfile')
                     reader.onload = function (loadEvent) {
                         scope.$apply(function () {
                             scope.fileread = loadEvent.target.result;
+                            scope.allowGeneratingElevationProfile=true;
                         });
                     };
                     var file=changeEvent.target.files[0];
