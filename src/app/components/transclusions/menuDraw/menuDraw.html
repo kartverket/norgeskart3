@@ -27,7 +27,7 @@
                         <button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: pointSymbol==='Diamond'}" data-ng-click="switchSymbol('Diamond')">♦</button>
                         </div>
                     </div>
-                    <div class="col-xs-6">
+                    <div class="col-xs-6 draw-content">
                         <div class="title-text">
                             <span translate="size_txt"></span>
                         </div>
@@ -97,7 +97,7 @@
                             <button data-ng-repeat="lineType in lineTypes" type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: lineType.lineTypeId === activeLineType}" data-ng-click="switchLineType(lineType)" data-ng-bind="lineType.lineType"></button>
                         </div>
                     </div>
-                    <div class="col-xs-4">
+                    <div class="col-xs-4 draw-content">
                         <div class="title-text">
                             <span translate="width_txt"></span>
                         </div>
@@ -158,7 +158,7 @@
             </div>
             <div class="new-section">
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-xs-12">
                         <div class="title-text">
                             <span translate="opacity_txt"></span>
                         </div>
@@ -223,7 +223,7 @@
             </div>
             <div class="new-section">
                 <div class="row">
-                    <div class="col-xs-6">
+                    <div class="col-xs-12">
                         <div class="title-text">
                             <span translate="size_txt"></span>
                         </div>
