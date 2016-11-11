@@ -34,8 +34,9 @@ angular.module('moveableOverlay')
 
                     element.on('mousedown touchstart', function(event) {
                         updateElementsPosition(element);
-                        if (event.target.className !== 'col-xs-8' && event.target.className !== 'ng-scope' &&
-                            event.target.className !== 'col-xs-4' && event.target.className !== 'header-icon icon-important fa fa-pencil'){
+                        if (event.target.id !== 'header1' && event.target.id !== 'header2' &&
+                            event.target.id !== 'header3' && event.target.id !== 'header4' &&
+                            event.target.id !== 'header5' && event.target.id !== 'header6'){
                             return event;
                         }
                         // Prevent default dragging of selected content
