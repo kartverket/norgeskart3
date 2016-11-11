@@ -204,6 +204,11 @@ angular.module('mainApp')
                 }
             };
 
+            $scope.deactivateAddLayerFeatureTool = function(){
+                var addLayerFeature = toolsFactory.getToolById("AddLayerFeature");
+                toolsFactory.deactivateTool(addLayerFeature);
+            };
+
 
 
         }

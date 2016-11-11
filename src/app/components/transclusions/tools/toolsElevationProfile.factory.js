@@ -10,7 +10,7 @@ angular
                     function (gpxUrlResult) {
                         console.log("Generate elevation in the progress...");
                         elevationImage = undefined;
-                        gpxUrl = gpxUrlResult;
+                        gpxUrl = gpxUrlResult.data;
                         _generateElevationChart();
                     },
                     function (error) {
