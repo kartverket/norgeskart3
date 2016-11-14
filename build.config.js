@@ -114,9 +114,9 @@ module.exports = {
         'src/app/components/overlays/searchBarOverlay/**/*.js',
         'src/app/components/transclusions/mainMenuPanel/**/*.js',
         'src/app/components/transclusions/menuDraw/**/*.js',
+        'src/app/components/transclusions/menuShareMap/**/*.js',
         'src/app/components/transclusions/menuElevationProfile/**/*.js',
         'src/app/components/transclusions/searchPanel/**/*.js',
-        'src/app/components/transclusions/toolMenu/**/*.js',
         'src/app/components/transclusions/tools/**/*.js'
 
     ],
