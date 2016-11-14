@@ -467,7 +467,7 @@ html{
 }
 
 .search-bar-overlay{
-  z-index: 12;
+  z-index: 13;
   position: absolute;
   top: 12px;
   left: 19px;
@@ -1008,6 +1008,10 @@ input::-ms-clear {
   margin-left: 6px;
 }
 
+.text-kartverket{
+  font-size: 15px;
+}
+
 .row-logo-kartverket{
   margin-right: 10px;
   .col-xs-9{
@@ -1022,7 +1026,7 @@ input::-ms-clear {
     margin-top: 6px;
     margin-bottom: 2px;
     line-height: 1;
-    font-size: 13px;
+    font-size: 15px;
   }
 }
 
