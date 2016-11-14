@@ -17,6 +17,14 @@ angular
                 show: false,
                 top: 12,
                 left: 19
+            },
+            {
+                id: "ShareMap",
+                headingTitle: 'ShareMap_title',
+                headingIcon: 'fa fa-share-alt',
+                show: false,
+                top: 12,
+                left: 19
             }
         ];
 
