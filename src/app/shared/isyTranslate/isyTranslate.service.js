@@ -253,7 +253,7 @@ angular
             "empty_txt": "EMPTY",
             "lineType_txt": "LINE TYPE:",
             "width_txt": "WIDTH:",
-            "opacity_txt": "OPACITY:",
+            "opacity_txt": "TRANSPARENCY:",
             "from_text": "FROM KARTVERKET"
         }
     });
