@@ -292,6 +292,7 @@ angular.module('menuDraw')
 
                     var _setGeoJSONOnScope = function(result){
                         scope.setGeoJSON(result.data);
+                        scope.onlyAddLayer=true;
                         scope.activateDrawFeatureTool();
                     };
 
