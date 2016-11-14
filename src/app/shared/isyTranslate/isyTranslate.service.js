@@ -125,8 +125,8 @@ angular
             "empty_txt": "TØM",
             "lineType_txt": "LINJETYPE:",
             "width_txt": "TYKKELSE:",
-            "opacity_txt": "GJENNOMSIKTIGHET:"
-
+            "opacity_txt": "GJENNOMSIKTIGHET:",
+            "from_text": "FRA KARTVERKET"
 
         },
         'en': {
@@ -142,7 +142,7 @@ angular
             "Friluft_title" : "Outdoor life",
             "Stedsnavn_title" : "Placenames",
             "Tilgjengelighet_title" : "Availability",
-            "Fastmerker_title" : "Fastmerker",
+            "Fastmerker_title" : "Reference marks",
             "Luftfartshindre_title": "Aviation",
             "MeasureLine_title" : "Measure length",
             "Measure_title" : "Measure area",
@@ -253,6 +253,7 @@ angular
             "empty_txt": "EMPTY",
             "lineType_txt": "LINE TYPE:",
             "width_txt": "WIDTH:",
-            "opacity_txt": "OPACITY:"
+            "opacity_txt": "OPACITY:",
+            "from_text": "FROM KARTVERKET"
         }
     });
