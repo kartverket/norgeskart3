@@ -26,13 +26,13 @@ angular
                 $http.get(mainAppService.generateElevationChartServiceUrl(gpxUrl)).then(
                     function (result) {
                         var dataXml=jQuery.parseXML(result.data);
-                        var exception=dataXml.getElementsByTagName("wps:Exception");
-                        if(exception.length > 0){
-                            console.log('ERROR: Exception from WPS-server "' + exception[0].getAttribute('exceptionCode') + '"');
+                        var jsonObject=xml.xmlToJSON(dataXml);
+                        if(jsonObject.ExecuteResponse.Status.ProcessFailed){
+                            var exception=jsonObject.ExecuteResponse.Status.ProcessFailed.ExceptionReport.Exception["@exceptionCode"];
+                            console.log('ERROR: Exception from WPS-server "' + exception + '"');
                             return;
                         }
-                        var reference = dataXml.getElementsByTagName("wps:Reference")[0];
-                        elevationImage = reference.getAttribute("xlink:href");
+                        elevationImage = jsonObject.ExecuteResponse.ProcessOutputs.Output.Reference["@xlink:href"];
                         deferred.resolve(elevationImage);
                     },
                     function (error) {
