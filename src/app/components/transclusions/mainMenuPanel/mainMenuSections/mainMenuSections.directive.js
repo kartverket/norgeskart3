@@ -105,6 +105,20 @@ angular.module('mainMenuSections')
                     }
 
                     scope.printMap = function () {
+                        var objPrintPreview = '<object id="printPrev" width="0" height="0" classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></object>';
+                        document.body.insertAdjacentHTML('beforeEnd', objPrintPreview);
+                        try{
+                            printPrev.ExecWB(7, 2);
+                            printPrev.outerHTML = "";
+                        }catch(err){
+                            if (false){
+                                console.log(err);
+                            }
+                        }
+
+
+
+
                         printMap();
                         window.print();
                         afterPrint();
