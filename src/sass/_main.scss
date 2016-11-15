@@ -650,7 +650,7 @@ input::-ms-clear {
   }
 
   .content-text-align{
-    padding-left: 29px;
+    padding-left: 0;
   }
 
   .nextbtn{
@@ -1158,12 +1158,12 @@ input::-ms-clear {
 .left-addon input  { padding-left:  45px; }
 .right-addon input { padding-right: 80px; }
 
+@import "mobile";
 @import "dropdownmenu";
 @import "icomoon";
 @import "fontawesome";
 @import "vectoricon";
 @import "sidenav";
-@import "mobile";
 @import "flaticon";
 @import "print";
 @import "oloverlays";
