@@ -7,7 +7,7 @@
         <li data-ng-click="switchType('Text')" role="presentation"><a href data-target="#text" aria-controls="text" role="tab" data-toggle="tab" translate="text_txt"></a></li>
     </ul>
     <!-- Tab panes -->
-    <div class="tab-content search-content">
+    <div data-ng-show="!expandMenu.open" class="tab-content search-content">
         <div role="tabpanel" class="tab-pane active" id="point">
             <div class="row">
                 <div class="col-xs-12">
@@ -269,7 +269,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div data-ng-show="!expandMenu.open" class="row">
         <div class="col-xs-4">
             <div class="navigation-button">
                 <button class="btn btn-default btn-ordinary"

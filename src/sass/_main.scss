@@ -444,7 +444,7 @@ html{
   z-index: 14;
   top:12px;
   left: 19px;
-  min-width: 240px;
+  min-width: 380px;
 
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
@@ -458,6 +458,8 @@ html{
     cursor: pointer;
   }
 }
+
+
 
 .movemenu{
   width: 420px;
@@ -824,7 +826,7 @@ input::-ms-clear {
 
 .header{
   background-color: $color-standard;
-  padding: 7px 10px 7px 13px;
+  padding: 9px 10px 7px 13px;
   color: black;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
@@ -849,6 +851,16 @@ input::-ms-clear {
       span:first-child{
         left: 15px;
       }
+  }
+
+  .hide-button{
+    border: 1px solid #98989b;
+    padding: 2px 5px 1px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: -4px;
+    font-size: 14px;
+    color: #98989b;
   }
 
   .header-icon{
