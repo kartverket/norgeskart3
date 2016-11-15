@@ -854,13 +854,13 @@ input::-ms-clear {
   }
 
   .hide-button{
-    border: 1px solid #98989b;
+    border: 1px solid $gray;
     padding: 2px 5px 1px;
     border-radius: 3px;
     display: inline-block;
     margin-top: -4px;
     font-size: 14px;
-    color: #98989b;
+    color: $gray;
   }
 
   .header-icon{
@@ -1099,6 +1099,20 @@ input::-ms-clear {
 
 .nav-tabs {
   border-bottom: 1px solid $color-toggle-on;
+}
+
+.navTabsTransparent{
+  border-bottom: 1px solid transparent;
+  li>a{
+    border-color: $color-toggle-off !important;
+  }
+  li>a:hover{
+    border-color: $color-toggle-focus !important;
+  }
+  li.active>a, li.active>a:focus, li.active>a:hover {
+    background-color: $color-toggle-on !important;
+    border: 1px solid $color-toggle-on !important;
+  }
 }
 
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
