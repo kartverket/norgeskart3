@@ -127,7 +127,9 @@ angular
             "lineType_txt": "LINJETYPE:",
             "width_txt": "TYKKELSE:",
             "opacity_txt": "GJENNOMSIKTIGHET:",
-            "from_text": "FRA KARTVERKET"
+            "from_text": "FRA KARTVERKET",
+            "collapse_txt" : "SKJUL",
+            "expand_txt" : "VIS"
 
         },
         'en': {
@@ -256,6 +258,8 @@ angular
             "lineType_txt": "LINE TYPE:",
             "width_txt": "WIDTH:",
             "opacity_txt": "TRANSPARENCY:",
-            "from_text": "FROM KARTVERKET"
+            "from_text": "FROM KARTVERKET",
+            "collapse_txt" : "HIDE",
+            "expand_txt" : "SHOW"
         }
     });
