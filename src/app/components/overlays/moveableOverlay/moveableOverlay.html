@@ -1,23 +1,23 @@
 <div id="header1" class="header header-move">
     <div id="header2" class="row">
-        <div id="header3" class="col-xs-8">
+        <div id="header3" class="col-xs-7">
             <span id="header5" class="header-icon icon-important" data-ng-class="headerIcon"></span>
             <span id="header6" translate="{{header}}"></span>
         </div>
-        <div id="header4" class="col-xs-4">
-            <div class="closebtn" data-ng-click="closeOverlay()">
-                <span class="glyphicon glyphicon-menu-right"></span>
-                <span class="glyphicon glyphicon-menu-left"></span>
+        <div id="header4" class="col-xs-5">
+            <div class="pull-right">
+                <div class="hide-button" data-ng-click="expandMenu.open = !expandMenu.open">
+                    <span data-ng-show="!expandMenu.open" class="glyphicon glyphicon-menu-up"></span>
+                    <span data-ng-show="!expandMenu.open" translate="collapse_txt"></span>
+                    <span data-ng-show="expandMenu.open" class="glyphicon glyphicon-menu-down"></span>
+                    <span data-ng-show="expandMenu.open" translate="expand_txt"></span>
+                </div>
+                <div class="closebtn" data-ng-click="closeOverlay()">
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                    <span class="glyphicon glyphicon-menu-left"></span>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <div ng-transclude></div>
-<!--<div class="header-moveable header-move ellipsis">-->
-    <!--<span class="header-icon" data-ng-class="headerIcon"></span>-->
-    <!--<span class="header-text" translate="{{header}}"></span>-->
-    <!--<div class="backbtn" data-ng-click="closeOverlay()">-->
-        <!--<span class="glyphicon glyphicon-remove"></span>-->
-    <!--</div>-->
-<!--</div>-->
-<!--<div ng-transclude></div>-->
