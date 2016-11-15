@@ -1,6 +1,6 @@
 <div class="panel-body">
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist" id="myTabs">
+    <ul class="nav nav-tabs" data-ng-class="{navTabsTransparent: expandMenu.open}" role="tablist" id="myTabs">
         <li data-ng-click="switchType('Point')" role="presentation" class="active"><a href data-target="#point" aria-controls="point" role="tab" data-toggle="tab" translate="point_txt"></a></li>
         <li data-ng-click="switchType('LineString')" role="presentation"><a href data-target="#line" aria-controls="line" role="tab" data-toggle="tab" translate="line_txt"></a></li>
         <li data-ng-click="switchType('Polygon')" role="presentation"><a href data-target="#polygon" aria-controls="polygon" role="tab" data-toggle="tab" translate="polygon_txt"></a></li>
