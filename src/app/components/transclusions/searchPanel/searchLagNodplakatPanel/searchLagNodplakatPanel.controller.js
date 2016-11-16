@@ -21,7 +21,7 @@ angular.module('searchLagNodplakatPanel')
             var _fetchElevationPoint = function () {
                 var lat = $scope.activePosition.lat;
                 var lon = $scope.activePosition.lon;
-                var epsgNumber = $scope.activePosition.epsg.split(':')[1];
+                var epsgNumber = $scope.mapEpsg.split(':')[1];
                 var elevationPointUrl = mainAppService.generateElevationPointUrl(lat, lon, epsgNumber);
                 _downloadFromUrl(elevationPointUrl, 'elevationPoint');
             };

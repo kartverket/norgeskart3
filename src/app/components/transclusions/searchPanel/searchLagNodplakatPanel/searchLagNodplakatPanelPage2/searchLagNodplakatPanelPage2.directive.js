@@ -4,7 +4,6 @@ angular.module('searchLagNodplakatPanelPage2')
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchLagNodplakatPanel/searchLagNodplakatPanelPage2/searchLagNodplakatPanelPage2.html',
                 restrict: 'A',
-                // controller: 'searchLagNodplakatPanelPage3Controller',
                 link: function (scope) {
                     scope.downloadEmergencyPoster = function () {
                         $window.open(scope.generateEmergancyPoster());

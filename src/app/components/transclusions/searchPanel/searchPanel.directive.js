@@ -23,7 +23,7 @@ angular.module('searchPanel')
 
                     scope.sourceDict = searchPanelFactory.getSourceDict();
 
-                    _mapEpsg=searchPanelFactory.getMapEpsg();
+                    scope.mapEpsg=searchPanelFactory.getMapEpsg();
 
                     _searchResults = {};
 
@@ -63,7 +63,7 @@ angular.module('searchPanel')
                         if(((queryParts[0] > -2465220.60) && (queryParts[1] > 4102904.86)) && ((queryParts[0] < 771164.64) && (queryParts[1] < 9406031.63))){
                             epsg='EPSG:25833';
                             scope.showQueryPoint(scope.contructQueryPoint(queryParts[1], queryParts[0], epsg, 'coordUtm',''));
-                            scope.searchBarModel+='@' + _mapEpsg.split(':')[1];
+                            scope.searchBarModel+='@' + scope.mapEpsg.split(':')[1];
                             return true;
                         }
                         return false;
@@ -72,7 +72,7 @@ angular.module('searchPanel')
                     scope.contructQueryPoint = function (lat, lon, epsg, source, kommune) {
                         return {
                             name: '',
-                            point: searchPanelFactory.constructPoint(lat, lon, epsg, _mapEpsg),
+                            point: searchPanelFactory.constructPoint(lat, lon, epsg, scope.mapEpsg),
                             //format: _serviceDict[source].format,
                             source: source,
                             kommune: kommune
@@ -213,7 +213,7 @@ angular.module('searchPanel')
                         var lat = jsonObject[identifiersDict.latID] + '';
                         var lon = jsonObject[identifiersDict.lonID] + '';
                         var kommune = jsonObject[identifiersDict.kommuneID];
-                        var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, _mapEpsg);
+                        var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
                         var husnummer = jsonObject[identifiersDict.husnummerID];
                         var navnetype = jsonObject[identifiersDict.navnetypeID];
                         var result={
@@ -332,7 +332,7 @@ angular.module('searchPanel')
                         if(_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length==1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']){
                             var key=Object.keys(_unifiedResults[matrikkelKey])[0];
                             var result=_unifiedResults[matrikkelKey][key];
-                            scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], _mapEpsg, result.source, result.kommune));
+                            scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], scope.mapEpsg, result.source, result.kommune));
                             return false;
                         }
                         return true;
@@ -366,13 +366,13 @@ angular.module('searchPanel')
                     scope.activatePosition = function (searchResult){
                         var activePosition = {
                             lon: parseFloat(searchResult.point[0]),
-                            lat: parseFloat(searchResult.point[1]),
-                            epsg: _mapEpsg
+                            lat: parseFloat(searchResult.point[1])
+                            // epsg: scope.mapEpsg
                         };
                         if (searchResult.source=='matrikkeladresse'){
                             activePosition.zoom=parseFloat(16);
                         }
-                        activePosition.geographicPoint=searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, _mapEpsg, 'EPSG:4326');
+                        activePosition.geographicPoint=searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, scope.mapEpsg, 'EPSG:4326');
                         map.SetCenter(activePosition);
                         map.RemoveInfoMarkers();
                         scope.activePosition=activePosition;
@@ -398,7 +398,7 @@ angular.module('searchPanel')
                         scope.coordinate=true;
                         scope.showSearchResultPanel();
                         scope.cleanResults();
-                        scope.showQueryPoint(scope.contructQueryPoint(coordinates[1], coordinates[0], _mapEpsg, 'mouseClick',''));
+                        scope.showQueryPoint(scope.contructQueryPoint(coordinates[1], coordinates[0], scope.mapEpsg, 'mouseClick',''));
                     };
 
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.MapClickCoordinate, showQueryPointFromMouseClick);
@@ -424,7 +424,7 @@ angular.module('searchPanel')
                     var _fetchElevationPoint = function () {
                         var lat = scope.activePosition.lat;
                         var lon = scope.activePosition.lon;
-                        var epsgNumber = scope.activePosition.epsg.split(':')[1];
+                        var epsgNumber = scope.mapEpsg.split(':')[1];
                         var elevationPointUrl = mainAppService.generateElevationPointUrl(lat, lon, epsgNumber);
                         _downloadSearchOptionFromUrl(elevationPointUrl, 'elevationPoint');
                     };

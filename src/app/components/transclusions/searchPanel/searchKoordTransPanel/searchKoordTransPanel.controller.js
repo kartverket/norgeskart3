@@ -25,8 +25,8 @@ angular.module('searchKoordTransPanel')
 
             $scope._fetchKoordTrans = function (key) {
                 $scope.activePosition.resSosiKoordSys = key;
-                var lat = $scope.activePosition.lat;
-                var lon = $scope.activePosition.lon;
+                var lat = $scope.activePosition.geographicPoint[1];
+                var lon = $scope.activePosition.geographicPoint[0];
                 var koordTransUrl = mainAppService.generateKoordTransUrl(lon, lat, $scope.activePosition.resSosiKoordSys);
                 _downloadFromUrl(koordTransUrl);
             };

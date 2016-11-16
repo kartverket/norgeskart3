@@ -85,7 +85,7 @@ angular.module('mainApp')
                 };
 
                 this.generateKoordTransUrl = function (ost, nord, resSosiKoordSys) {
-                    return url + "/ws/trans.py?ost=" + ost + "&nord=" + nord + " &sosiKoordSys=23&resSosiKoordSys=" + resSosiKoordSys;
+                    return url + "/ws/trans.py?ost=" + ost + "&nord=" + nord + " &sosiKoordSys=84&resSosiKoordSys=" + resSosiKoordSys;
                 };
 
                 this.generateSeHavnivaaUrl = function (lat, lon) {
