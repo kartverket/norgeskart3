@@ -75,7 +75,7 @@
   }
 
   .navigation-button button{
-    margin-left: 0;
+    margin-left: 3px;
   }
 
   .moveableOverlay{
@@ -106,6 +106,14 @@
   }
   .movemenu{
     width: 100%!important;
+  }
+
+  .draw-content .dropdown{
+    min-width: 98px;
+  }
+
+  .dropdown-search{
+    width: 110px;
   }
 
 }

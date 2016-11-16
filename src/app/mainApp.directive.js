@@ -21,6 +21,7 @@ angular.module('mainApp')
                             toolsFactory.activateTool(pointSelectTool);
                         }
                     });
+
                 }
             };
         }
