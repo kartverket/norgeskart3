@@ -9,11 +9,6 @@ angular.module('searchLagNodplakatPanel')
                 map.SetCenter($scope.activePosition);
                 $scope.searchLagNodplakatPanelLayout = 'page2';
             };
-            $scope.showLagNodplakatPage3 = function (lagNodplakatName) {
-                $scope.lagNodplakatName = lagNodplakatName;
-                map.SetCenter($scope.activePosition);
-                $scope.searchLagNodplakatPanelLayout = 'page3';
-            };
 
             $scope.searchLagNodplakatPanelLayout = 'page1';
 
