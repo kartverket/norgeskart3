@@ -137,6 +137,9 @@ angular.module('searchLagNodplakatPanelPage2')
                     };
 
                     scope.generateEmergancyPoster = function () {
+                        if(!scope.lagNodplakatDict.emergencyPosterPoint){
+                            alert('Service returned error.');
+                        }
                         var emergencyPosterConfig = generateEmergencyPosterConfig();
                         var emergencyMapConfig = generateEmergencyMapConfig();
                         emergencyPosterConfig.map = mainAppService.generateMapLinkServiceUrl(emergencyMapConfig);
