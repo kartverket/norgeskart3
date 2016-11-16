@@ -100,15 +100,16 @@ angular.module('searchLagNodplakatPanelPage2')
                     };
 
                     var generateEmergencyMapConfig = function () {
+                        map.SetCenter(scope.activePosition);
                         var extent = map.GetExtent();
                         var meterWidth = extent[2] - extent[0];
                         var pixelWidthPerHeight = pixels.width / pixels.height;
                         var meterHeight = meterWidth / pixelWidthPerHeight;
-                        var UTM33Point = ol.proj.transform([scope.activePosition.geographicPoint[0], scope.activePosition.geographicPoint[1]], 'EPSG:4326', 'EPSG:32633');
-                        var minx = UTM33Point[0] - (meterWidth / 2);
-                        var miny = UTM33Point[1] - (meterHeight / 2);
-                        var maxx = UTM33Point[0] + (meterWidth / 2);
-                        var maxy = UTM33Point[1] + (meterHeight / 2);
+                        var mapCenter= map.GetCenter();
+                        var minx = mapCenter.lon - (meterWidth / 2);
+                        var miny = mapCenter.lat - (meterHeight / 2);
+                        var maxx = mapCenter.lon + (meterWidth / 2);
+                        var maxy = mapCenter.lat + (meterHeight / 2);
                         return {
                             'service': 'WMS',
                             'request': 'GetMap',
