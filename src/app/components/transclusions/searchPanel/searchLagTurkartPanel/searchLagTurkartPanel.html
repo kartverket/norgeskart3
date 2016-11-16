@@ -6,14 +6,20 @@
                 <span translate="Turkart_title"></span>
             </div>
             <div class="col-xs-4">
-                <div class="closebtn" data-ng-click="deactivatePrintBoxSelect(); showSearchOptionsPanel()">
-                    <span class="glyphicon glyphicon-menu-right"></span>
-                    <span class="glyphicon glyphicon-menu-left"></span>
+                <div class="pull-right">
+                    <div class="hide-button" data-ng-click="turMap.open = !turMap.open">
+                        <span data-ng-show="!turMap.open" class="glyphicon glyphicon-menu-up"></span>
+                        <span data-ng-show="turMap.open" class="glyphicon glyphicon-menu-down"></span>
+                    </div>
+                    <div class="closebtn" data-ng-click="deactivatePrintBoxSelect(); showSearchOptionsPanel()">
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                        <span class="glyphicon glyphicon-menu-left"></span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="search-content">
+    <div class="search-content" data-ng-show="!turMap.open">
         <div class="info-text">
             <span translate="Turkart_info"></span>
         </div>

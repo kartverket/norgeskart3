@@ -82,9 +82,9 @@ angular.module('moveableOverlay')
                         var elements = document.getElementsByClassName("moveableOverlay");
                         for(var i = 0; i<elements.length; i++){
                             if (elements[i] !== element[0]){
-                                elements[i].style.zIndex = 13;
-                            }else{
                                 elements[i].style.zIndex = 14;
+                            }else{
+                                elements[i].style.zIndex = 15;
                             }
                         }
                     }

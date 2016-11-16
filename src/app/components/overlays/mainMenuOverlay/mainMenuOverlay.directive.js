@@ -1,18 +1,26 @@
 angular.module('mainMenuOverlay')
-    .directive('mainMenuOverlay', ['localStorageFactory','$timeout',
-        function(localStorageFactory, $timeout) {
+    .directive('mainMenuOverlay', ['localStorageFactory','$timeout','$window',
+        function(localStorageFactory, $timeout, $window) {
             return {
                 templateUrl: 'components/overlays/mainMenuOverlay/mainMenuOverlay.html',
                 restrict: 'A',
                 link: function(scope){
 
                     scope.openNav = function() {
-                        document.getElementById("mySidenav").style.width = "395px";
+                        var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
+                        if (isMobile.matches) {
+                            document.getElementById("mySidenav").style.width = "320px";
+                            document.getElementById("sideMenuPosition").style.width = "320px";
+                        }else{
+                            document.getElementById("mySidenav").style.width = "395px";
+                            document.getElementById("sideMenuPosition").style.width = "395px";
+                        }
+                        // document.getElementById("mySidenav").style.width = "395px";
                         document.getElementById("mySidenav").style.overflowY = "auto";
                         document.getElementById("main").style.backgroundColor = "rgba(0,0,0,0.4)";
                         document.getElementById("main").style.transition = "0.4s";
 
-                        document.getElementById("sideMenuPosition").style.width = "395px";
+                        // document.getElementById("sideMenuPosition").style.width = "395px";
 
                         localStorageFactory.set("mainMenuIsOpen", true);
                     };

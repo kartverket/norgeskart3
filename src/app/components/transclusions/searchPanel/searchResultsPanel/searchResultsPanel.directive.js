@@ -35,6 +35,7 @@ angular.module('searchResultsPanel')
                         };
                         scope.showQueryPoint(queryPoint);
                     };
+
                 }
             };
         }]);

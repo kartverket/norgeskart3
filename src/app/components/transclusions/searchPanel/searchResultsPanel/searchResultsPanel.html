@@ -2,10 +2,12 @@
     <div class="search-content no-padding-top">
 
         <div data-ng-show="searchResults['matrikkelveg']">
-            <div class="isHeaderClose">
+            <div class="isHeaderClose" data-ng-click="roadsResult.open = !roadsResult.open">
                 <span translate="searchResult_roads"></span>
+                <span data-ng-show="!roadsResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+                <span data-ng-show="roadsResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
             </div>
-            <ul class="list-result text-and-button">
+            <ul class="list-result text-and-button" data-ng-show="!roadsResult.open">
                 <li class="pointer-cursor"
                     ng-mouseover="mouseOver(searchResult)"
                     ng-repeat="searchResult in searchResults['matrikkelveg']">
@@ -40,10 +42,12 @@
             </ul>
         </div>
         <div data-ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']">
-            <div class="isHeaderClose">
+            <div class="isHeaderClose" data-ng-click="addressResult.open = !addressResult.open">
                 <span translate="searchResult_addresses"></span>
+                <span data-ng-show="!addressResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+                <span data-ng-show="addressResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
             </div>
-            <ul class="list-result">
+            <ul class="list-result" data-ng-show="!addressResult.open">
                 <li ng-mouseover="mouseOver(searchResult)"
                     class="pointer-cursor"
                     ng-repeat="searchResult in searchResults['matrikkeladresse']"
@@ -54,10 +58,12 @@
             </ul>
         </div>
         <div data-ng-show="searchResults['matrikkelnummer']">
-            <div class="isHeaderClose">
+            <div class="isHeaderClose" data-ng-click="cadastreResult.open = !cadastreResult.open">
                 <span translate="searchResult_cadastre"></span>
+                <span data-ng-show="!cadastreResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+                <span data-ng-show="cadastreResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
             </div>
-            <ul class="list-result">
+            <ul class="list-result" data-ng-show="!cadastreResult.open">
                 <li ng-mouseover="mouseOver(searchResult)"
                     class="pointer-cursor"
                     ng-repeat="searchResult in searchResults['matrikkelnummer']"
@@ -68,10 +74,12 @@
             </ul>
         </div>
         <div data-ng-show="searchResults['ssr']">
-            <div class="isHeaderClose">
+            <div class="isHeaderClose" data-ng-click="placenamesResult.open = !placenamesResult.open">
                 <span translate="searchResult_placenames"></span>
+                <span data-ng-show="!placenamesResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+                <span data-ng-show="placenamesResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
             </div>
-            <ul class="list-result">
+            <ul class="list-result" data-ng-show="!placenamesResult.open">
                 <li class="pointer-cursor"
                     ng-repeat="searchResult in searchResults['ssr']"
                     ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
@@ -81,8 +89,8 @@
                     <span ng-if="searchResult.name.indexOf(searchResult.kommune) == -1 && searchResult.name.indexOf(searchResult.navnetype) == -1" ng-bind="searchResult.name + ', '  + searchResult.navnetype + ' i ' + searchResult.kommune"></span>
                 </li>
             </ul>
-            <div dir-paginate="obj in placenameItems | itemsPerPage: 15 track by $index"></div>
-            <div class="search-pagination">
+            <div data-ng-show="!placenamesResult.open" dir-paginate="obj in placenameItems | itemsPerPage: 15 track by $index"></div>
+            <div data-ng-show="!placenamesResult.open" class="search-pagination">
                 <dir-pagination-controls
                         max-size="6"
                         direction-links="true"
