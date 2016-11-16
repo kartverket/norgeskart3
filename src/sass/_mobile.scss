@@ -43,5 +43,69 @@
     left:31px!important;
   }
 
+  .logo-kartverket{
+    background-image:url('../assets/img/kartverket-attribution.svg');
+    width: 70%;
+    height: 0;
+    background-size: cover;
+    padding: 0;
+    padding-bottom: calc(70% * 3/2.07);
+    margin-left: 10px;
+  }
+
+  .text-kartverket {
+    font-size: 13px;
+  }
+
+  .search-content .new-section{
+    margin-top: 10px;
+  }
+  .search-content .btn{
+    padding: 2px 6px;
+  }
+
+  .search-content .btn-same-size{
+    button{
+      width: 30px;
+      margin-left: 5px;
+    }
+    button:first-child{
+      margin-left: 0;
+    }
+  }
+
+  .navigation-button button{
+    margin-left: 0;
+  }
+
+  .moveableOverlay{
+    left: 0!important;
+    right: 0!important;
+    top: 0!important;
+    bottom: 0!important;
+
+    -webkit-overflow-scrolling:touch;
+
+    .panel-group{
+      padding: 0;
+    }
+
+    & > div,
+    .overlayContent{
+      //height: 100%;
+    }
+  }
+
+  .sidenav .closebtn{
+    right: 17px!important;
+  }
+
+  .moveableOverlay{
+    width: 100% !important;
+    min-width: 0!important;
+  }
+  .movemenu{
+    width: 100%!important;
+  }
 
 }

@@ -9,8 +9,8 @@ angular.module('mainMenuOverlay')
                     scope.openNav = function() {
                         var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
                         if (isMobile.matches) {
-                            document.getElementById("mySidenav").style.width = "100%";
-                            document.getElementById("sideMenuPosition").style.width = "100%";
+                            document.getElementById("mySidenav").style.width = "320px";
+                            document.getElementById("sideMenuPosition").style.width = "320px";
                         }else{
                             document.getElementById("mySidenav").style.width = "395px";
                             document.getElementById("sideMenuPosition").style.width = "395px";

@@ -427,6 +427,7 @@ html{
   top: 0;
   right: 0;
   left: 0;
+  @extend .clickThrough;
 }
 
 .draw-content{
@@ -760,6 +761,18 @@ input::-ms-clear {
     margin-top: 15px;
   }
 
+  .h_iframe {
+    position:relative;
+    padding-top: 150%;
+  }
+  .h_iframe iframe {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+  }
+
   iframe{
     margin-left: 5px;
     border: 1px solid white;
@@ -855,12 +868,16 @@ input::-ms-clear {
 
   .hide-button{
     border: 1px solid $gray;
-    padding: 2px 5px 1px;
+    //padding: 2px 5px 1px;
+    padding: 2px 6px 3px 2px;
     border-radius: 3px;
     display: inline-block;
-    margin-top: -4px;
+    //margin-top: -4px;
+    margin-top: -2px;
+    margin-right: -8px;
     font-size: 14px;
     color: $gray;
+    cursor: pointer;
   }
 
   .header-icon{
@@ -1015,10 +1032,12 @@ input::-ms-clear {
 }
 
 .logo-kartverket{
-  background-image:url('../assets/img/kartverket-attribution.png');
-  width: 55px;
-  height: 81px;
-  margin-left: 6px;
+  background-image:url('../assets/img/kartverket-attribution.svg');
+  width: 100%;
+  height: 0;
+  background-size: cover;
+  padding: 0;
+  padding-bottom: calc(100% * 3/2.07);
 }
 
 .text-kartverket{
@@ -1105,6 +1124,7 @@ input::-ms-clear {
   border-bottom: 1px solid transparent;
   li>a{
     border-color: $color-toggle-off !important;
+    border-radius: 4px !important;
   }
   li>a:hover{
     border-color: $color-toggle-focus !important;

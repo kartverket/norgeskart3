@@ -1,6 +1,6 @@
 angular.module('searchPanel')
-    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler','$http','searchPanelFactory',
-        function($timeout, mainAppService, map, eventHandler, $http, searchPanelFactory) {
+    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler','$http','searchPanelFactory','$window',
+        function($timeout, mainAppService, map, eventHandler, $http, searchPanelFactory, $window) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchPanel.html',
                 restrict: 'A',
@@ -572,6 +572,30 @@ angular.module('searchPanel')
                         _addLagTurkartToSearchOptions();
                         _addEmergencyPosterToSearchOptions();
                     };
+
+                    var setMenuListMaxHeight = function () {
+                        $(document).ready(function() {
+                            var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
+                            if (isMobile.matches) {
+                                fixElementHeight(120);
+                            }else{
+                                fixElementHeight(220);
+                            }
+                        });
+                    };
+
+                    function fixElementHeight(moveUpFromBottom){
+                        var bodyHeight = $window.innerHeight;
+                        var menuListMaxHeight = Math.floor(bodyHeight - moveUpFromBottom);
+                        var searchContentElements = document.getElementsByClassName("search-content");
+                        for (var i = 0; i < searchContentElements.length; i++){
+                            var element = searchContentElements[i];
+                            element.style.maxHeight = menuListMaxHeight + 'px';
+                        }
+                    }
+
+                    $($window).resize(setMenuListMaxHeight);
+                    setMenuListMaxHeight();
 
                 }
             };
