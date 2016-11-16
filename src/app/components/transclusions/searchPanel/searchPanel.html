@@ -2,7 +2,12 @@
     <div class="inner-addon left-addon right-addon">
         <input caret type="text" ng-change="searchBarValueChanged()" ng-model="searchBarModel" name="searchBarName" id="searchBarId" placeholder="{{'search_text' | translate}}"  />
         <i class="left-side glyphicon glyphicon-menu-hamburger" data-ng-click="openNav()"></i>
-        <i ng-show="searchResults != undefined" class="right-side glyphicon glyphicon-remove" data-ng-click="cleanResults()"></i>
+        <i ng-show="searchResults != undefined" data-ng-click="cleanResults()">
+            <div class="cleanResults">
+                <span class="glyphicon glyphicon-menu-right"></span>
+                <span class="glyphicon glyphicon-menu-left"></span>
+            </div>
+        </i>
         <i class="absolute-right-side glyphicon glyphicon-search"></i>
     </div>
 </div>

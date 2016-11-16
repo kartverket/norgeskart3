@@ -594,8 +594,10 @@ angular.module('searchPanel')
                         }
                     }
 
-                    $($window).resize(setMenuListMaxHeight);
-                    setMenuListMaxHeight();
+                    $( document ).ready(function() {
+                        $($window).resize(setMenuListMaxHeight);
+                        setMenuListMaxHeight();
+                    });
 
                 }
             };

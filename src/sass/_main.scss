@@ -625,20 +625,11 @@ input::-ms-clear {
   line-height: 1.5;
 }
 
-//.content {
-//  input{
-//    border-radius: 4px;
-//    border: 1px solid #b1b1b1;
-//    padding: 2px 4px 2px 6px;
-//    font-size: 15px;
-//  }
-//}
-
 .search-content{
   //padding: 15px 17px 15px 10px;
   //margin-left: 10px;
   padding: 15px 18px 12px 18px;
-  max-height: 800px;
+  max-height: 600px;
   //min-height: 280px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -676,6 +667,7 @@ input::-ms-clear {
     margin: 0 -18px 4px -18px;
     background-color: $color-standard;
     padding: 10px 26px 5px 19px;
+    cursor: pointer;
   }
 
   ul{
@@ -834,6 +826,19 @@ input::-ms-clear {
   &.descriptionVisible{
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+  }
+}
+
+.cleanResults{
+  margin-right: 4px;
+  cursor: pointer;
+  font-size: 15px;
+  span:first-child{
+    right: 39px;
+  }
+  span{
+    right:31px;
+    margin-top:1px;
   }
 }
 
