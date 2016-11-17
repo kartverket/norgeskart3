@@ -61,6 +61,9 @@ angular.module('searchLagTurkartPanel')
                             function(response){_mapReadyForDownload(response, urlLagTurkart);},
                             function(response){_mapCreationFailed(response);}
                         );
+                        scope.showSpinner = true;
+                        document.getElementById("spinner1").style.backgroundColor = "rgba(0,0,0,0.4)";
+                        document.getElementById("spinner1").style.transition = "0.8s";
 
                     };
 
@@ -107,6 +110,9 @@ angular.module('searchLagTurkartPanel')
                     var _mapReadyForDownload = function (response, urlLagTurkart) {
                         scope.mapAvailable = true;
                         scope.createMapButtonOn = true;
+                        scope.showSpinner = false;
+                        document.getElementById("spinner1").style.backgroundColor = "transparent";
+                        document.getElementById("spinner1").style.transition = "0.8s";
                         mapLink=urlLagTurkart.replace('getprint2.py','') + response.data.linkPdf;
                     };
 
