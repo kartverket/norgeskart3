@@ -210,7 +210,5 @@ angular.module('mainApp')
                 toolsFactory.deactivateTool(addLayerFeature);
             };
 
-
-
         }
     ]);
