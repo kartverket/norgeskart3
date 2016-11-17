@@ -15,7 +15,7 @@
     </div>
 
     <div class="search-content">
-        <div ng-show="lagNodplakatDict['elevationPoint']">
+        <div ng-show="lagNodplakatDict['placenamesByBbox']">
             <div class="title-text">
                 <span translate="GiPunktetNavn"></span>
             </div>
@@ -30,17 +30,16 @@
             </div>
         </div>
 
-        <div class="new-section" ng-show="lagNodplakatDict['elevationPoint']">
+        <div class="new-section" ng-show="lagNodplakatDict['placenamesByBbox']">
             <div class="title-text">
                 <span translate="PlaceIs"></span>
-                <span>{{lagNodplakatDict['elevationPoint']}}</span>
             </div>
 
             <div class="row">
                 <div class="col-xs-12">
                     <div class="dropdown">
                         <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span data-ng-bind="lagNodplakatDict['elevationPoint']"></span>
+                            <span data-ng-bind="activePlaceName"></span>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">

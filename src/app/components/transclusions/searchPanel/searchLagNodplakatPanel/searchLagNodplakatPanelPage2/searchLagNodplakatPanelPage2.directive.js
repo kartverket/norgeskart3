@@ -90,7 +90,7 @@ angular.module('searchLagNodplakatPanelPage2')
                             'position1': geographicalText(scope.activePosition.geographicPoint[1]) + ' nord',
                             'position2': geographicalText(scope.activePosition.geographicPoint[0]) + ' øst',
                             'street': scope.lagNodplakatDict.emergencyPosterPoint.veg + ' i ' + scope.lagNodplakatDict.emergencyPosterPoint.kommune,
-                            'place': scope.lagNodplakatDict.elevationPoint,
+                            'place': scope.activePlaceName,
                             'matrikkel': scope.lagNodplakatDict.emergencyPosterPoint.matrikkelnr,
                             'utm': 'Sone ' + UTM.sone + ' Ø ' + _round(localUTMPoint[0], 0) + ' N ' + _round(localUTMPoint[1], 0),
                             'posDez': 'N' + _round(scope.activePosition.geographicPoint[1], 4) + '° - Ø' + _round(scope.activePosition.geographicPoint[0], 4) + '°',

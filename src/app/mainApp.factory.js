@@ -420,7 +420,8 @@ angular.module('mainApp')
                             },
                             "tiled": source.options.singletile !== "true",
                             "crossOrigin": null,
-                            "style": source.style
+                            "style": source.style,
+                            "topLeftCorner": source.topleftcorner
                         }
                     ],
                     "guid": source.guid,
