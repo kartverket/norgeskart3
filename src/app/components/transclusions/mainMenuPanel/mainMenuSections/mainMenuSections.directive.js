@@ -1,6 +1,6 @@
 angular.module('mainMenuSections')
-    .directive('mainMenuSections', ['mainMenuPanelFactory','$location','ISY.MapAPI.Map','isyTranslateFactory','$translate', 'localStorageFactory', '$timeout',
-        function(mainMenuPanelFactory, $location, map, isyTranslateFactory, $translate, localStorageFactory, $timeout) {
+    .directive('mainMenuSections', ['mainMenuPanelFactory','$location','ISY.MapAPI.Map','isyTranslateFactory','$translate', 'localStorageFactory', '$timeout', '$window',
+        function(mainMenuPanelFactory, $location, map, isyTranslateFactory, $translate, localStorageFactory, $timeout, $window) {
             return {
                 templateUrl: 'components/transclusions/mainMenuPanel/mainMenuSections/mainMenuSections.html',
                 restrict: 'A',
@@ -84,6 +84,15 @@ angular.module('mainMenuSections')
                     function getLength(number) {
                         return number.toString().length;
                     }
+
+                    scope.redirectKartverket = function () {
+                        $window.open("http://kartverket.no/");
+                    };
+
+                    scope.sendFeedback = function () {
+                        var url='mailto:post@kartverket.no?subject=norgeskart.no';
+                        $window.open(url, '_self');
+                    };
 
                     /*Print start*/
                     function printMap(){

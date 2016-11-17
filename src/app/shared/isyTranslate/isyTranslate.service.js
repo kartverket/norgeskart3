@@ -130,7 +130,8 @@ angular
             "from_text": "FRA KARTVERKET",
             "collapse_txt" : "SKJUL",
             "expand_txt" : "VIS",
-            "downloadEmergencyPoster" : "LAST NED"
+            "downloadEmergencyPoster" : "LAST NED",
+            "faq_header_txt": "OFTE STILTE SPØRSMÅL"
 
         },
         'en': {
@@ -262,6 +263,7 @@ angular
             "from_text": "FROM KARTVERKET",
             "collapse_txt" : "HIDE",
             "expand_txt" : "SHOW",
-            "downloadEmergencyPoster" : "DOWNLOAD"
+            "downloadEmergencyPoster" : "DOWNLOAD",
+            "faq_header_txt": "FAQ"
         }
     });

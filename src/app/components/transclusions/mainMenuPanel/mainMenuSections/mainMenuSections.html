@@ -113,15 +113,15 @@
                     <span translate="{{getUnselectLanguage().title}}"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
-                <li>
+                <li data-ng-click="showMainMenuFaq()">
                     <span translate="FAQ_title"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
-                <li>
+                <li data-ng-click="redirectKartverket()">
                     <span translate="GoToKartverket_text"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
-                <li>
+                <li data-ng-click="sendFeedback()">
                     <span translate="GiveFeedback_text"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
@@ -135,33 +135,3 @@
         </div>
     </div>
 </div>
-
-<!--<div tool-main-menu></div>-->
-
-<!--<div class="sidenav-group">-->
-    <!--<ul>-->
-        <!--<li>-->
-            <!--<div class="row">-->
-                <!--<div class="col-xs-1">-->
-                    <!--<span class="glyphicon glyphicon-question-sign"></span>-->
-                <!--</div>-->
-                <!--<div class="col-xs-11">-->
-                    <!--<span translate="FAQ_title"></span>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</li>-->
-    <!--</ul>-->
-<!--</div>-->
-
-<!--<ul class="sidenav-group">-->
-    <!--<li data-ng-repeat="language in languages" data-ng-click="changeLanguage(language.id)">-->
-        <!--<div class="row">-->
-            <!--<div class="col-xs-1">-->
-                <!--<span data-ng-class="getSelectedLanguageStyle(language.active)"></span>-->
-            <!--</div>-->
-            <!--<div class="col-xs-11">-->
-                <!--<span translate="{{language.title}}"></span>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</li>-->
-<!--</ul>-->

@@ -18,6 +18,10 @@ angular.module('mainMenuPanel')
                 $scope.mainMenuPanelLayout = "mainMenuGroupLayers";
             };
 
+            $scope.showMainMenuFaq = function () {
+                $scope.mainMenuPanelLayout = "mainMenuFaq";
+            };
+
             $scope.showMoveableDrawMenu = function () {
                 mapOverlaysLayoutFactory.setShowSearchOverlay(false);
                 moveableOverlayFactory.deactiveAllOverlay();
