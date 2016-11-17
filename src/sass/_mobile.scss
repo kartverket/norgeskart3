@@ -1,4 +1,4 @@
-@media screen and (max-device-width: 736px){
+@media screen and (max-width: 736px){
   .search-bar-overlay{
     z-index: 13;
     position: relative;
@@ -114,6 +114,10 @@
 
   .dropdown-search{
     width: 110px;
+  }
+
+  textarea, input[type="text"] {
+    -webkit-appearance: none;
   }
 
 }
