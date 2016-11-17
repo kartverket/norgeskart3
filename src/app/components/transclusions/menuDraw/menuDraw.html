@@ -89,15 +89,15 @@
             </div>
             <div class="new-section">
                 <div class="row">
-                    <div class="col-xs-8">
+                    <div class="col-sm-8 col-xs-6">
                         <div class="title-text">
                             <span translate="lineType_txt"></span>
                         </div>
                         <div class="navigation-button">
-                            <button data-ng-repeat="lineType in lineTypes" type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: lineType.lineTypeId === activeLineType}" data-ng-click="switchLineType(lineType)" data-ng-bind="lineType.lineType"></button>
+                            <button data-ng-repeat="lineType in lineTypes" type="button" class="btn btn-default btn-toggle btn-rectangle-same-size" data-ng-class="{activeBtn: lineType.lineTypeId === activeLineType}" data-ng-click="switchLineType(lineType)" data-ng-bind="lineType.lineType"></button>
                         </div>
                     </div>
-                    <div class="col-xs-4 draw-content">
+                    <div class="col-sm-4 col-xs-4 draw-content">
                         <div class="title-text">
                             <span translate="width_txt"></span>
                         </div>

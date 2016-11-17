@@ -749,6 +749,10 @@ input::-ms-clear {
     }
   }
 
+  .btn-rectangle-same-size{
+    width:66px;
+  }
+
   .new-section{
     margin-top: 15px;
   }
@@ -893,12 +897,15 @@ input::-ms-clear {
 .navigation-button{
   button{
     margin-top:5px;
-    margin-left: 5px;
+    //margin-left: 5px;
+    margin-right: 5px;
   }
-  button:first-child{
-    margin-left:0;
+  //button:first-child{
+  //  margin-left:0;
+  //}
+  button:last-child{
+    margin-right: 0;
   }
-
 
 }
 
