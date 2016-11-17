@@ -399,6 +399,7 @@ angular.module('mainApp')
                             "extent": mapConfig.extent,
                             "extentUnits": mapConfig.extentUnits,
                             "matrixPrefix": source.matrixprefix === "true",
+                            "matrixSet": source.matrixset,
                             "numZoomLevels": mapConfig.numZoomLevels,
                             "id": mapConfig.layers.length+1001,
                             "transparent": true,
