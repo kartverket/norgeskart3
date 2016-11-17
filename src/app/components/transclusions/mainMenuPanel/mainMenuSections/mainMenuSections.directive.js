@@ -1,6 +1,6 @@
 angular.module('mainMenuSections')
-    .directive('mainMenuSections', ['mainMenuPanelFactory','$location','ISY.MapAPI.Map','isyTranslateFactory','$translate', 'localStorageFactory', '$timeout',
-        function(mainMenuPanelFactory, $location, map, isyTranslateFactory, $translate, localStorageFactory, $timeout) {
+    .directive('mainMenuSections', ['mainMenuPanelFactory','$location','ISY.MapAPI.Map','isyTranslateFactory','$translate', 'localStorageFactory', '$timeout', '$window',
+        function(mainMenuPanelFactory, $location, map, isyTranslateFactory, $translate, localStorageFactory, $timeout, $window) {
             return {
                 templateUrl: 'components/transclusions/mainMenuPanel/mainMenuSections/mainMenuSections.html',
                 restrict: 'A',
@@ -65,14 +65,17 @@ angular.module('mainMenuSections')
                             for(var i = 0; i < circleElements.length; i++){
                                 if (numLength === 1){
                                     circleElements[i].style.padding = "5px 8px 3px 8px";
+                                    // circleElements[i].style.padding = "8px 12px 6px";
                                 }else{
                                     circleElements[i].style.padding = "7px 7px 5px 7px";
+                                    // circleElements[i].style.padding = "8px 10px 6px";
                                 }
                             }
                             return visSubLayers.length;
                         }else{
                             for (var j = 0; j < circleElements.length; j++){
                                 circleElements[j].style.padding = "5px 8px 3px 8px";
+                                // circleElements[j].style.padding = "8px 12px 6px";
                             }
                             return 0;
                         }
@@ -81,6 +84,15 @@ angular.module('mainMenuSections')
                     function getLength(number) {
                         return number.toString().length;
                     }
+
+                    scope.redirectKartverket = function () {
+                        $window.open("http://kartverket.no/");
+                    };
+
+                    scope.sendFeedback = function () {
+                        var url='mailto:post@kartverket.no?subject=norgeskart.no';
+                        $window.open(url, '_self');
+                    };
 
                     /*Print start*/
                     function printMap(){

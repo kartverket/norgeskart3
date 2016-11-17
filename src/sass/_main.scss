@@ -629,7 +629,7 @@ input::-ms-clear {
   //padding: 15px 17px 15px 10px;
   //margin-left: 10px;
   padding: 15px 18px 12px 18px;
-  max-height: 600px;
+  max-height: 750px;
   //min-height: 280px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -747,6 +747,10 @@ input::-ms-clear {
     button{
       width: 30px;
     }
+  }
+
+  .btn-rectangle-same-size{
+    width:66px;
   }
 
   .new-section{
@@ -893,12 +897,15 @@ input::-ms-clear {
 .navigation-button{
   button{
     margin-top:5px;
-    margin-left: 5px;
+    //margin-left: 5px;
+    margin-right: 5px;
   }
-  button:first-child{
-    margin-left:0;
+  //button:first-child{
+  //  margin-left:0;
+  //}
+  button:last-child{
+    margin-right: 0;
   }
-
 
 }
 
@@ -1184,6 +1191,7 @@ input::-ms-clear {
 .right-addon input { padding-right: 80px; }
 
 @import "mobile";
+@import "mobileLandscape";
 @import "dropdownmenu";
 @import "icomoon";
 @import "fontawesome";

@@ -1,4 +1,4 @@
-@media screen and (max-device-width: 736px){
+@media screen and (max-width: 736px){
   .search-bar-overlay{
     z-index: 13;
     position: relative;
@@ -39,6 +39,10 @@
     margin-right: 0!important;
   }
 
+  .upbtn{
+    margin-right: 0!important;
+  }
+
   .sidenav .closebtn span:first-child{
     left:31px!important;
   }
@@ -62,20 +66,6 @@
   }
   .search-content .btn{
     padding: 2px 6px;
-  }
-
-  .search-content .btn-same-size{
-    button{
-      width: 30px;
-      margin-left: 5px;
-    }
-    button:first-child{
-      margin-left: 0;
-    }
-  }
-
-  .navigation-button button{
-    margin-left: 3px;
   }
 
   .moveableOverlay{
@@ -114,6 +104,14 @@
 
   .dropdown-search{
     width: 110px;
+  }
+
+  textarea, input[type="text"] {
+    -webkit-appearance: none;
+  }
+
+  .circle{
+    margin-right: 10px!important;
   }
 
 }
