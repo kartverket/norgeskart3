@@ -129,7 +129,8 @@ angular
             "opacity_txt": "GJENNOMSIKTIGHET:",
             "from_text": "FRA KARTVERKET",
             "collapse_txt" : "SKJUL",
-            "expand_txt" : "VIS"
+            "expand_txt" : "VIS",
+            "downloadEmergencyPoster" : "LAST NED"
 
         },
         'en': {
@@ -260,6 +261,7 @@ angular
             "opacity_txt": "TRANSPARENCY:",
             "from_text": "FROM KARTVERKET",
             "collapse_txt" : "HIDE",
-            "expand_txt" : "SHOW"
+            "expand_txt" : "SHOW",
+            "downloadEmergencyPoster" : "DOWNLOAD"
         }
     });

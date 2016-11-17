@@ -1,1 +1,1 @@
-angular.module('searchLagNodplakatPanel', ['searchLagNodplakatPanelPage1', 'searchLagNodplakatPanelPage2', 'searchLagNodplakatPanelPage3']);
+angular.module('searchLagNodplakatPanel', ['searchLagNodplakatPanelPage1', 'searchLagNodplakatPanelPage2']);

@@ -9,11 +9,6 @@ angular.module('searchLagNodplakatPanel')
                 map.SetCenter($scope.activePosition);
                 $scope.searchLagNodplakatPanelLayout = 'page2';
             };
-            $scope.showLagNodplakatPage3 = function (lagNodplakatName) {
-                $scope.lagNodplakatName = lagNodplakatName;
-                map.SetCenter($scope.activePosition);
-                $scope.searchLagNodplakatPanelLayout = 'page3';
-            };
 
             $scope.searchLagNodplakatPanelLayout = 'page1';
 
@@ -26,7 +21,7 @@ angular.module('searchLagNodplakatPanel')
             var _fetchElevationPoint = function () {
                 var lat = $scope.activePosition.lat;
                 var lon = $scope.activePosition.lon;
-                var epsgNumber = $scope.activePosition.epsg.split(':')[1];
+                var epsgNumber = $scope.mapEpsg.split(':')[1];
                 var elevationPointUrl = mainAppService.generateElevationPointUrl(lat, lon, epsgNumber);
                 _downloadFromUrl(elevationPointUrl, 'elevationPoint');
             };
