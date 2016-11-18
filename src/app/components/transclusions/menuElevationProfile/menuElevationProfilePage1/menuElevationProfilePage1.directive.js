@@ -84,9 +84,9 @@ angular.module('menuElevationProfilePage1')
                     var reader = new FileReader();
                     reader.onload = function (loadEvent) {
                         scope.$apply(function () {
-                            scope.fileread = loadEvent.target.result;
+                            scope.updateGpx(loadEvent.target.result);
                             scope.setAllowGeneratingElevationProfile(true);
-                            scope.drawLineElevation(scope.fileread);
+                            scope.drawLineElevation(loadEvent.target.result);
                         });
                     };
                     var file=changeEvent.target.files[0];
