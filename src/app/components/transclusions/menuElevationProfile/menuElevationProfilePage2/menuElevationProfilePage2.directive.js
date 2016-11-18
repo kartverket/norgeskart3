@@ -1,15 +1,14 @@
 angular.module('menuElevationProfilePage2')
-    .directive('menuElevationProfilePage2', [ 'toolsElevationProfileFactory',
-        function(toolsElevationProfileFactory) {
+    .directive('menuElevationProfilePage2', [
+        function() {
             return {
                 templateUrl: 'components/transclusions/menuElevationProfile/menuElevationProfilePage2/menuElevationProfilePage2.html',
                 restrict: 'A',
-                link: function (scope) {
-                    scope.viewElevationProfile = function () {
-                        scope.elevationImage = toolsElevationProfileFactory.getElevationImage();
-                    };
-
-                    scope.viewElevationProfile();
+                controller: 'menuElevationProfilePage2Controller',
+                link: function () {
+                    // scope.viewElevationProfile = function () {
+                    //     scope.elevationImage = toolsElevationProfileFactory.getElevationImage();
+                    // };
                 }
             };
         }]

@@ -7,6 +7,6 @@
 <!--<img ng-src="{{elevationImage}}">-->
 
 <div ng-switch="menuElevationProfileLayout">
-    <div ng-switch-when="page1" menu-elevation-profile-page1></div>
-    <div ng-switch-when="page2" menu-elevation-profile-page2></div>
+    <div ng-switch-when="page1" menu-elevation-profile-page1 ng-init="drawLineElevation()">
+    <div ng-switch-when="page2" menu-elevation-profile-page2 ng-init="viewElevationProfile()"></div>
 </div>

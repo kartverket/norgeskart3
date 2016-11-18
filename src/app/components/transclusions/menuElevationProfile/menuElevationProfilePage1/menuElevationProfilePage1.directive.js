@@ -11,6 +11,7 @@ angular.module('menuElevationProfilePage1')
                      Events start
                      */
                     function _addLayerFeatureEnd(feature) {
+                        scope.setImageExits(false);
                         var multiLineString = new ol.geom.MultiLineString();
                         multiLineString.appendLineString(feature.getGeometry());
                         var newFeature = new ol.Feature({
