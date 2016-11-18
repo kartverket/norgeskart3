@@ -198,7 +198,8 @@ angular
                                 var activeTool = this.getActiveFeatureType("AddLayerFeature");
                                 options = {
                                     'toolType': activeTool,
-                                    'snappingFeatures': tool.snappingFeatures
+                                    'snappingFeatures': tool.snappingFeatures,
+                                    features: tool.additionalOptions.features
                                 };
                             }else if(tool.id === "ModifyFeature"){
                                 options = {
