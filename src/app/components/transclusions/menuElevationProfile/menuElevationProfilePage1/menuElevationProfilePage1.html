@@ -4,20 +4,35 @@
     </div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist" id="myElevationTabs">
-        <li role="presentation" class="active"><a href data-target="#drawProfile" aria-controls="point" role="tab" data-toggle="tab" translate="drawInMap_txt"></a></li>
-        <li role="presentation"><a href data-target="#uploadFile" aria-controls="line" role="tab" data-toggle="tab" translate="uploadFile_txt"></a></li>
+        <li role="presentation" class="active"><a href data-target="#drawProfile" aria-controls="drawProfile" role="tab" data-toggle="tab" translate="drawInMap_txt"></a></li>
+        <li role="presentation"><a href data-target="#uploadFile" aria-controls="uploadFile" role="tab" data-toggle="tab" translate="uploadFile_txt"></a></li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content search-content">
         <div role="tabpanel" class="tab-pane active" id="drawProfile">
             <span translate="profileInfo_txt"></span>
+            <div class="new-section navigation-button">
+                <button type="button" class="btn btn-default btn-toggle" data-ng-click="drawLineElevation()" translate="drawProfile_txt"></button>
+            </div>
         </div>
-        <div role="tabpanel" class="tab-pane active" id="uploadFile">
+        <div role="tabpanel" class="tab-pane" id="uploadFile">
             <span>Upload file</span>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="navigation-button pull-right">
+                <button class="btn btn-default btn-ordinary"
+                        data-ng-click="closeOverlay()" translate="Cancel_txt">
+                </button>
+                <button data-ng-disabled="!allowGeneratingElevationProfile" class="btn btn-default btn-important" data-ng-click="calculateElevationProfile()" translate="showElevationProfile_txt">
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 <button type="button"
 data-ng-click="drawLineElevation()">Draw elevation profile</button>

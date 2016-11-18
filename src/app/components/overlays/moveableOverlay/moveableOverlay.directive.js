@@ -14,7 +14,7 @@ angular.module('moveableOverlay')
                     $scope.closeOverlay = function(){
                         // var activeOverlay = moveableOverlayFactory.getActiveOverlay();
                         // if (activeOverlay.id === "DrawMenu"){
-                            mapOverlaysLayoutFactory.setShowSearchOverlay(true);
+                        mapOverlaysLayoutFactory.setShowSearchOverlay(true);
                         // }
                         moveableOverlayFactory.deactiveAllOverlay();
                         $scope.deactivateDrawFeatureTool($scope.GeoJSON);

@@ -134,7 +134,9 @@ angular
             "faq_header_txt": "OFTE STILTE SPØRSMÅL",
             "drawInMap_txt": "TEGN I KARTET",
             "uploadFile_txt": "LAST OPP FIL",
-            "profileInfo_txt": "Klikk på steder i kartet for å tegne opp en linje."
+            "profileInfo_txt": "Klikk på steder i kartet for å tegne opp en linje.",
+            "drawProfile_txt": "TEGNE HØYDEPROFIL",
+            "showElevationProfile_txt" : "VIS HØYDEPROFIL"
 
         },
         'en': {
@@ -270,6 +272,8 @@ angular
             "faq_header_txt": "FAQ",
             "drawInMap_txt": "DRAW IN THE MAP",
             "uploadFile_txt": "UPLOAD FILE",
-            "profileInfo_txt": "Click in the map and start draw the line."
+            "profileInfo_txt": "Click in the map and start draw the line.",
+            "drawProfile_txt": "DRAW ELEVATION PROFILE",
+            "showElevationProfile_txt" : "SHOW ELEVATION PROFILE"
         }
     });

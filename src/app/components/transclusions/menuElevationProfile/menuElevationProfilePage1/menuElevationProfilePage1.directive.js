@@ -6,6 +6,11 @@ angular.module('menuElevationProfilePage1')
                 restrict: 'A',
                 link: function (scope) {
                     scope.allowGeneratingElevationProfile=false;
+                    function _initTab() {
+                        $('#myElevationTabs a[data-target="#drawProfile"]').tab('show');
+                    }
+
+                    _initTab();
 
                     /*
                      Events start
