@@ -19,6 +19,7 @@ angular.module('moveableOverlay')
                         moveableOverlayFactory.deactiveAllOverlay();
                         $scope.deactivateDrawFeatureTool($scope.GeoJSON);
                         $scope.deactivateAddLayerFeatureTool();
+                        $scope.showElevationProfilePage1();
                     };
 
                     var startX = 0;

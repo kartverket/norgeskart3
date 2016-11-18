@@ -4,6 +4,15 @@ angular.module('moveableOverlay')
             if ($element.scope){
                 $element = $($element);
             }
+            $scope.showElevationProfilePage1 = function () {
+                $scope.menuElevationProfileLayout = 'page1';
+            };
+            $scope.showElevationProfilePage2 = function () {
+                $scope.menuElevationProfileLayout = 'page2';
+            };
+
+            $scope.menuElevationProfileLayout = 'page1';
+
 
             $scope.menuShowMoveableOverlay = function(id){
                 // $scope.overlay = moveableOverlayFactory.getActiveOverlay();
