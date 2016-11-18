@@ -131,7 +131,10 @@ angular
             "collapse_txt" : "SKJUL",
             "expand_txt" : "VIS",
             "downloadEmergencyPoster" : "LAST NED",
-            "faq_header_txt": "OFTE STILTE SPØRSMÅL"
+            "faq_header_txt": "OFTE STILTE SPØRSMÅL",
+            "drawInMap_txt": "TEGN I KARTET",
+            "uploadFile_txt": "LAST OPP FIL",
+            "profileInfo_txt": "Klikk på steder i kartet for å tegne opp en linje."
 
         },
         'en': {
@@ -264,6 +267,9 @@ angular
             "collapse_txt" : "HIDE",
             "expand_txt" : "SHOW",
             "downloadEmergencyPoster" : "DOWNLOAD",
-            "faq_header_txt": "FAQ"
+            "faq_header_txt": "FAQ",
+            "drawInMap_txt": "DRAW IN THE MAP",
+            "uploadFile_txt": "UPLOAD FILE",
+            "profileInfo_txt": "Click in the map and start draw the line."
         }
     });
