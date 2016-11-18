@@ -1,1 +1,1 @@
-angular.module('menuElevationProfile', []);
+angular.module('menuElevationProfile', ['menuElevationProfilePage1', 'menuElevationProfilePage2']);

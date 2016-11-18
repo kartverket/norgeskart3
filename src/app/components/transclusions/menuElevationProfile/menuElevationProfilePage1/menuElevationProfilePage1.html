@@ -1,0 +1,37 @@
+<div class="panel-body">
+    <div class="info-text">
+        <span translate="HeightProfile_text"></span>
+    </div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" id="myElevationTabs">
+        <li role="presentation" class="active"><a href data-target="#drawProfile" aria-controls="point" role="tab" data-toggle="tab" translate="drawInMap_txt"></a></li>
+        <li role="presentation"><a href data-target="#uploadFile" aria-controls="line" role="tab" data-toggle="tab" translate="uploadFile_txt"></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content search-content">
+        <div role="tabpanel" class="tab-pane active" id="drawProfile">
+            <span translate="profileInfo_txt"></span>
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="uploadFile">
+            <span>Upload file</span>
+        </div>
+    </div>
+
+</div>
+
+<button type="button"
+data-ng-click="drawLineElevation()">Draw elevation profile</button>
+<input type="file" fileread="uploadGpx">
+<button type="button"
+data-ng-click="calculateElevationProfile()" data-ng-disabled="!allowGeneratingElevationProfile">Generate elevation profile</button>
+<br/>
+<img ng-src="{{elevationImage}}">
+
+
+
+
+<span>Page 1</span>
+
+<div>
+    <span data-ng-click="showElevationProfilePage2()">Go to page 2</span>
+</div>

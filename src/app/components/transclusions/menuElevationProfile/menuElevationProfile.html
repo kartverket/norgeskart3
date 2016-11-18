@@ -1,7 +1,12 @@
-<button type="button"
-        data-ng-click="drawLineElevation()">Draw elevation profile</button>
-<input type="file" fileread="uploadGpx">
-<button type="button"
-        data-ng-click="calculateElevationProfile()" data-ng-disabled="!allowGeneratingElevationProfile">Generate elevation profile</button>
-<br/>
-<img ng-src="{{elevationImage}}">
+<!--<button type="button"-->
+        <!--data-ng-click="drawLineElevation()">Draw elevation profile</button>-->
+<!--<input type="file" fileread="uploadGpx">-->
+<!--<button type="button"-->
+        <!--data-ng-click="calculateElevationProfile()" data-ng-disabled="!allowGeneratingElevationProfile">Generate elevation profile</button>-->
+<!--<br/>-->
+<!--<img ng-src="{{elevationImage}}">-->
+
+<div ng-switch="menuElevationProfileLayout">
+    <div ng-switch-when="page1" menu-elevation-profile-page1></div>
+    <div ng-switch-when="page2" menu-elevation-profile-page2></div>
+</div>
