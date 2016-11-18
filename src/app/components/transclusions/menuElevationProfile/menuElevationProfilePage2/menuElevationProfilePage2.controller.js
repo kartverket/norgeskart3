@@ -3,11 +3,13 @@ angular.module('menuElevationProfilePage2')
         function(scope, toolsElevationProfileFactory) {
             scope.viewElevationProfile = function () {
                 scope.elevationImage = toolsElevationProfileFactory.getElevationImage();
+
+
             };
 
-            scope.getElevationImage = function () {
-              return scope.elevationImage;
-            };
+            // scope.getElevationImage = function () {
+            //   return scope.elevationImage;
+            // };
 
         }
     ]);
