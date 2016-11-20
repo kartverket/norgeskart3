@@ -78,6 +78,12 @@ angular.module('menuElevationProfilePage1')
                      Calculate elevation profile end
                      */
 
+                    $("#clickInput").click(function () {
+                        $("#files").click();
+                    });
+
+
+
                 }
             };
         }]

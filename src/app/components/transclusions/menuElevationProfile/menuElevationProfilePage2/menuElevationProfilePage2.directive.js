@@ -5,18 +5,18 @@ angular.module('menuElevationProfilePage2')
                 templateUrl: 'components/transclusions/menuElevationProfile/menuElevationProfilePage2/menuElevationProfilePage2.html',
                 restrict: 'A',
                 controller: 'menuElevationProfilePage2Controller',
-                link: function (scope) {
+                link: function () {
                     // scope.viewElevationProfile = function () {
                     //     scope.elevationImage = toolsElevationProfileFactory.getElevationImage();
                     // };
-                    $( document ).ready(function() {
-
-                        var imageString = "url('" + scope.elevationImage + "')";
-
-                        var elementImage = document.getElementById("elevationImage");
-                        elementImage.style.backgroundImage = imageString;
-                        // $('elevationImage').css('background-image', 'url(' + scope.elevationImage + ')');
-                    });
+                    // $( document ).ready(function() {
+                    //
+                    //     var imageString = "url('" + scope.elevationImage + "')";
+                    //
+                    //     var elementImage = document.getElementById("elevationImage");
+                    //     elementImage.style.backgroundImage = imageString;
+                    //     // $('elevationImage').css('background-image', 'url(' + scope.elevationImage + ')');
+                    // });
                 }
             };
         }]

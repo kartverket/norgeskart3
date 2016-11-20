@@ -136,7 +136,8 @@ angular
             "uploadFile_txt": "LAST OPP FIL",
             "profileInfo_txt": "Klikk på steder i kartet for å tegne opp en linje.",
             "drawProfile_txt": "TEGNE HØYDEPROFIL",
-            "showElevationProfile_txt" : "VIS HØYDEPROFIL"
+            "showElevationProfile_txt" : "VIS HØYDEPROFIL",
+            "chooseFile_txt" : "VELG FIL"
 
         },
         'en': {
@@ -274,6 +275,7 @@ angular
             "uploadFile_txt": "UPLOAD FILE",
             "profileInfo_txt": "Click in the map and start draw the line.",
             "drawProfile_txt": "DRAW ELEVATION PROFILE",
-            "showElevationProfile_txt" : "SHOW ELEVATION PROFILE"
+            "showElevationProfile_txt" : "SHOW ELEVATION PROFILE",
+            "chooseFile_txt" : "CHOOSE FILE"
         }
     });
