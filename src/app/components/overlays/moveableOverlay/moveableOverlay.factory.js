@@ -12,7 +12,7 @@ angular
             },
             {
                 id: "ElevationProfile",
-                headingTitle: 'elevationProfile_menu',
+                headingTitle: 'HeightProfile_text',
                 headingIcon: 'fa fa-pencil',
                 show: false,
                 top: 12,
