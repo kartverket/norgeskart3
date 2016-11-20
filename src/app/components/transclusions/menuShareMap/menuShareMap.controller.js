@@ -34,8 +34,33 @@ angular.module('menuShareMap')
                 setTimeout(function(){
                     $scope.$apply();
                 },10);
+            };
 
+            $scope.getAbsoluteUrl = function () {
+                return getUrl();
+            };
 
+            $scope.copyURL = function () {
+                // standard way of copying
+                var textArea = document.createElement('textarea');
+                textArea.setAttribute
+                ('style','width:1px;border:0;opacity:0;');
+                document.body.appendChild(textArea);
+                textArea.value = getUrl();
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            };
+
+            $scope.copyIFrame = function () {
+                var textArea = document.createElement('textarea');
+                textArea.setAttribute
+                ('style','width:1px;border:0;opacity:0;');
+                document.body.appendChild(textArea);
+                textArea.value = $scope.iframe;
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
             };
 
             eventHandler.RegisterEvent(ISY.Events.EventTypes.MapMoveend, $scope.getIframe);

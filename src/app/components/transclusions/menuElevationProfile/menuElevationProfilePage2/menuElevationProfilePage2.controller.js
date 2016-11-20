@@ -7,9 +7,9 @@ angular.module('menuElevationProfilePage2')
 
             };
 
-            // scope.getElevationImage = function () {
-            //   return scope.elevationImage;
-            // };
+            scope.getElevationImage = function () {
+              return scope.elevationImage;
+            };
 
         }
     ]);

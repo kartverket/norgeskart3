@@ -97,7 +97,7 @@ angular
             "ED50_UTM_35": "ED50, UTM-sone 35",
             "ED50_UTM_36": "ED50, UTM-sone 36",
             "draw_menu": "TEGNE OG MÅLE",
-            "iframe_useMarker": "Bruk markør",
+            "iframe_useMarker": "BRUK MARKØR",
             "iframe_shortDesc": "Kort beskrivelse",
             "iframe_longDesc": "Lang beskrivelse",
             "searchResult_roads": "VEGER",
@@ -134,7 +134,20 @@ angular
             "faq_header_txt": "OFTE STILTE SPØRSMÅL",
             "drawInMap_txt": "TEGN I KARTET",
             "uploadFile_txt": "LAST OPP FIL",
-            "profileInfo_txt": "Klikk på steder i kartet for å tegne opp en linje."
+            "profileInfo_txt": "Klikk på steder i kartet for å tegne opp en linje.",
+            "drawProfile_txt": "TEGNE HØYDEPROFIL",
+            "showElevationProfile_txt" : "VIS HØYDEPROFIL",
+            "chooseFile_txt" : "VELG FIL",
+            "shareOnline_txt" : "DELL PÅ NETTET",
+            "embedMap_txt" : "BYGG INN KART",
+            "facebook_txt" : "FACEBOOK",
+            "twitter_txt" : "TWITTER",
+            "email_txt" : "SEND SOM E-POST",
+            "copyLink_txt" : "KOPIER LENKE",
+            "copy_txt" : "KOPIER",
+            "heading_txt" : "OVERSKRIFT (VALGFRITT)",
+            "description_txt" : "BESKRIVELSE (VALGFRITT)",
+            "linkToEmbeddedMap_txt": "LENK TIL INNBYGGET KARTET"
 
         },
         'en': {
@@ -233,7 +246,7 @@ angular
             "ED50_UTM_35": "ED50, UTM-zone 35",
             "ED50_UTM_36": "ED50, UTM-zone 36",
             "draw_menu": "DRAW AND MEASEURE",
-            "iframe_useMarker": "Use marker",
+            "iframe_useMarker": "USE MARKER",
             "iframe_shortDesc": "Short description",
             "iframe_longDesc": "Long description",
             "searchResult_roads": "ROADS",
@@ -270,6 +283,19 @@ angular
             "faq_header_txt": "FAQ",
             "drawInMap_txt": "DRAW IN THE MAP",
             "uploadFile_txt": "UPLOAD FILE",
-            "profileInfo_txt": "Click in the map and start draw the line."
+            "profileInfo_txt": "Click in the map and start draw the line.",
+            "drawProfile_txt": "DRAW ELEVATION PROFILE",
+            "showElevationProfile_txt" : "SHOW ELEVATION PROFILE",
+            "chooseFile_txt" : "CHOOSE FILE",
+            "shareOnline_txt" : "SHARE ONLINE",
+            "embedMap_txt" : "EMBED MAP",
+            "facebook_txt" : "FACEBOOK",
+            "twitter_txt" : "TWITTER",
+            "email_txt" : "SEND AS E-MAIL",
+            "copyLink_txt" : "COPY LINK",
+            "copy_txt" : "COPY",
+            "heading_txt" : "OVERSKRIFT (VALGFRITT)",
+            "description_txt" : "DESCRIPTION (VALGFRITT)",
+            "linkToEmbeddedMap_txt": "LINK TO EMBEDDED MAP"
         }
     });

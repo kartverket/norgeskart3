@@ -1,66 +1,155 @@
-<div class="sidenav-group">
-    <div class="row sidenav-row">
-        <div class="col-xs-1">
-            <input ng-change="getIframe()" ng-model="useMarker" type="checkbox" data-ng-disabled="!activePosition">
+<div class="panel-body" data-ng-show="!expandMenu.open">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" id="myElevationTabs">
+        <li role="presentation" class="active"><a href data-target="#shareOnline" aria-controls="shareOnline" role="tab" data-toggle="tab" translate="shareOnline_txt"></a></li>
+        <li role="presentation"><a href data-target="#embedMap" aria-controls="embedMap" role="tab" data-toggle="tab" translate="embedMap_txt"></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content search-content">
+        <div role="tabpanel" class="tab-pane active" id="shareOnline">
+            <div class="new-section row">
+                <div class="col-xs-6">
+                    <div data-ng-click="getFacebookUrl()" class="pointer-cursor">
+                        <span class="fa fa-facebook-official"></span>
+                        <span translate="facebook_txt"></span>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div data-ng-click="getTwitterUrl()" class="pointer-cursor">
+                        <span class="fa fa-twitter"></span>
+                        <span translate="twitter_txt"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section row">
+                <div class="col-xs-12">
+                    <div data-ng-click="getMailUrl()" class="pointer-cursor">
+                        <span class="fa fa-envelope"></span>
+                        <span translate="email_txt"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section row">
+                <div class="col-xs-12">
+                    <div class="title-text">
+                        <span translate="copyLink_txt"></span>
+                    </div>
+                    <input type="text" class="full-width" data-ng-disabled="true" placeholder="{{getAbsoluteUrl()}}"/>
+                </div>
+            </div>
+            <div class="new-section pull-right">
+                <button class="btn btn-default btn-important" data-ng-click="copyURL()" translate="copy_txt"></button>
+            </div>
         </div>
-        <div class="col-xs-11">
-            <span translate="iframe_useMarker"></span>
+        <div role="tabpanel" class="tab-pane" id="embedMap">
+            <div class="new-section row">
+                <div class="col-xs-12">
+                    <div class="title-text">
+                        <span translate="heading_txt"></span>
+                    </div>
+                    <!--<input class="row-input" ng-change="getIframe()" ng-model="shortDescription" type="text" placeholder="{{'iframe_shortDesc' | translate}}">-->
+                    <input class="row-input" ng-change="getIframe()" ng-model="shortDescription" type="text">
+                </div>
+            </div>
+            <div class="new-section row">
+                <div class="col-xs-12">
+                    <div class="title-text">
+                        <span translate="description_txt"></span>
+                    </div>
+                    <!--<input class="row-input" ng-change="getIframe()" ng-model="longDescription" type="text" placeholder="{{'iframe_longDesc' | translate}}">-->
+                    <input class="row-input" ng-change="getIframe()" ng-model="longDescription" type="text">
+                </div>
+            </div>
+            <div class="new-section row">
+                <div class="col-xs-12">
+                    <input ng-change="getIframe()" type="checkbox" ng-model="useMarker" data-ng-disabled="!activePosition">
+                    <span translate="iframe_useMarker"></span>
+                </div>
+            </div>
+            <div class="new-section row">
+                <div class="col-xs-12">
+                    <textarea data-ng-disabled="true" readonly ng-model="iframe" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="new-section pull-right">
+                <button class="btn btn-default btn-important" data-ng-click="copyIFrame()" translate="copy_txt"></button>
+            </div>
         </div>
     </div>
-    <div class="row sidenav-row">
+    <div class="row">
         <div class="col-xs-12">
-            <input class="row-input" ng-change="getIframe()" ng-model="shortDescription" type="text" placeholder="{{'iframe_shortDesc' | translate}}">
+            <div class="navigation-button pull-right">
+                <button class="btn btn-default btn-ordinary"
+                        data-ng-click="closeOverlay()" translate="Cancel_txt">
+                </button>
+            </div>
         </div>
     </div>
-    <div class="row sidenav-row">
-        <div class="col-xs-12">
-            <input class="row-input" ng-change="getIframe()" ng-model="longDescription" type="text" placeholder="{{'iframe_longDesc' | translate}}">
-        </div>
-    </div>
-    <div class="row sidenav-row">
-        <div class="col-xs-12">
-            <textarea readonly ng-model="iframe" rows="10"></textarea>
-        </div>
-    </div>
-
 </div>
 
+<!--<div class="sidenav-group">-->
+    <!--<div class="row sidenav-row">-->
+        <!--<div class="col-xs-1">-->
+            <!--<input ng-change="getIframe()" ng-model="useMarker" type="checkbox" data-ng-disabled="!activePosition">-->
+        <!--</div>-->
+        <!--<div class="col-xs-11">-->
+            <!--<span translate="iframe_useMarker"></span>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row sidenav-row">-->
+        <!--<div class="col-xs-12">-->
+            <!--<input class="row-input" ng-change="getIframe()" ng-model="shortDescription" type="text" placeholder="{{'iframe_shortDesc' | translate}}">-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row sidenav-row">-->
+        <!--<div class="col-xs-12">-->
+            <!--<input class="row-input" ng-change="getIframe()" ng-model="longDescription" type="text" placeholder="{{'iframe_longDesc' | translate}}">-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row sidenav-row">-->
+        <!--<div class="col-xs-12">-->
+            <!--<textarea readonly ng-model="iframe" rows="10"></textarea>-->
+        <!--</div>-->
+    <!--</div>-->
 
-<ul class="sidenav-group">
-    <li data-ng-click="getMailUrl()">
-        <a class="sidenav-link">
-            <div class="row">
-                <div class="col-xs-1">
-                    <span class="fa fa-envelope"></span>
-                </div>
-                <div class="col-xs-11">
-                    <span>E-mail</span>
-                </div>
-            </div>
-        </a>
-    </li>
-    <li data-ng-click="getTwitterUrl()">
-        <a class="sidenav-link">
-            <div class="row">
-                <div class="col-xs-1">
-                    <span class="fa fa-twitter"></span>
-                </div>
-                <div class="col-xs-11">
-                    <span>Twitter</span>
-                </div>
-            </div>
-        </a>
-    </li>
-    <li data-ng-click="getFacebookUrl()">
-        <a class="sidenav-link">
-            <div class="row">
-                <div class="col-xs-1">
-                    <span class="fa fa-facebook-official"></span>
-                </div>
-                <div class="col-xs-11">
-                    <span>Facebook</span>
-                </div>
-            </div>
-        </a>
-    </li>
-</ul>
+<!--</div>-->
+
+
+<!--<ul class="sidenav-group">-->
+    <!--<li data-ng-click="getMailUrl()">-->
+        <!--<a class="sidenav-link">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-1">-->
+                    <!--<span class="fa fa-envelope"></span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-11">-->
+                    <!--<span>E-mail</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</a>-->
+    <!--</li>-->
+    <!--<li data-ng-click="getTwitterUrl()">-->
+        <!--<a class="sidenav-link">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-1">-->
+                    <!--<span class="fa fa-twitter"></span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-11">-->
+                    <!--<span>Twitter</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</a>-->
+    <!--</li>-->
+    <!--<li data-ng-click="getFacebookUrl()">-->
+        <!--<a class="sidenav-link">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-1">-->
+                    <!--<span class="fa fa-facebook-official"></span>-->
+                <!--</div>-->
+                <!--<div class="col-xs-11">-->
+                    <!--<span>Facebook</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</a>-->
+    <!--</li>-->
+<!--</ul>-->
