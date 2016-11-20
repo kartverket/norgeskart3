@@ -17,11 +17,16 @@ angular.module('menuElevationProfilePage1')
                      */
                     function _addLayerFeatureEnd(feature) {
                         scope.setImageExits(false);
-                        var multiLineString = new ol.geom.MultiLineString();
-                        multiLineString.appendLineString(feature.getGeometry());
-                        var newFeature = new ol.Feature({
-                            geometry: multiLineString
-                        });
+                        var multiLineString;
+                        var newFeature = feature;
+                        if(feature.getGeometry().getType() === 'LineString'){
+                                multiLineString = new ol.geom.MultiLineString();
+                                multiLineString.appendLineString(feature.getGeometry());
+                                newFeature = new ol.Feature({
+                                    geometry: multiLineString
+                                });
+                        }
+
                         if (scope.elevationProfileActive) {
                             var gpxFormat = new ol.format.GPX();
                             var gpx = gpxFormat.writeFeatures([newFeature], {
@@ -31,7 +36,7 @@ angular.module('menuElevationProfilePage1')
                             scope.updateGpx(gpx);
                         }
                         scope.allowGeneratingElevationProfile=true;
-                        $timeout(scope.$apply(),0);
+                        if(false){ $timeout(scope.$apply(),0);}
                     }
 
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.AddLayerFeatureEnd, _addLayerFeatureEnd);
@@ -43,8 +48,9 @@ angular.module('menuElevationProfilePage1')
                     /*
                      Drawing tools start
                      */
-                    function _startDrawing(style) {
+                    function _startDrawing(style, features) {
                         var addFeatureTool = toolsFactory.getToolById("AddLayerFeature");
+                        addFeatureTool.additionalOptions['features'] = features;
                         toolsFactory.setAddFeatureType(style, "AddLayerFeature");
                         toolsFactory.activateTool(addFeatureTool);
                     }
@@ -58,11 +64,11 @@ angular.module('menuElevationProfilePage1')
                      Calculate elevation profile start
                      */
 
-                    scope.drawLineElevation = function () {
+                    scope.drawLineElevation = function (features) {
                         scope.setElevationProfileActive(true);
 
                         scope.elevationImage = undefined;
-                        _startDrawing("Line");
+                        _startDrawing("Line", features);
                     };
 
 
@@ -75,6 +81,24 @@ angular.module('menuElevationProfilePage1')
                 }
             };
         }]
-    );
+    )
+    .directive("fileread", [function () {
+        return {
+            link: function (scope, element) {
+                element.bind("change", function (changeEvent) {
+                    var reader = new FileReader();
+                    reader.onload = function (loadEvent) {
+                        scope.$apply(function () {
+                            scope.updateGpx(loadEvent.target.result);
+                            scope.setAllowGeneratingElevationProfile(true);
+                            scope.drawLineElevation(loadEvent.target.result);
+                        });
+                    };
+                    var file=changeEvent.target.files[0];
+                    reader.readAsText(file);
+                });
+            }
+        };
+    }]);
 
 

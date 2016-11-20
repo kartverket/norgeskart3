@@ -1,14 +1,6 @@
 angular.module('menuElevationProfile')
     .controller('menuElevationProfileController', [ '$scope', 'toolsElevationProfileFactory',
         function(scope, toolsElevationProfileFactory) {
-            // scope.showElevationProfilePage1 = function () {
-            //     scope.menuElevationProfileLayout = 'page1';
-            // };
-            // scope.showElevationProfilePage2 = function () {
-            //     scope.menuElevationProfileLayout = 'page2';
-            // };
-            //
-            // scope.menuElevationProfileLayout = 'page1';
             scope.allowGeneratingElevationProfile=false;
             scope.elevationProfileActive = false;
             scope.gpx = false;
@@ -31,13 +23,6 @@ angular.module('menuElevationProfile')
             };
 
             scope.calculateElevationProfile = function () {
-                if(!scope.allowGeneratingElevationProfile && scope.imageExists ){
-                    scope.showElevationProfilePage2();
-                    return;
-                }
-                if (scope.fileread) {
-                    scope.gpx = scope.fileread;
-                }
                 if (scope.gpx) {
                     toolsElevationProfileFactory.generateElevationProfile(scope.gpx).then(
                         function () {
