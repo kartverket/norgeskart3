@@ -82,6 +82,11 @@ angular.module('menuElevationProfilePage1')
                         $("#files").click();
                     });
 
+                    scope.removeGeometry = function () {
+                        scope.deactivateDrawFeatureTool(scope.GeoJSON);
+                        scope.deactivateAddLayerFeatureTool();
+                        scope.setElevationProfileActive(false);
+                    };
 
 
                 }

@@ -147,7 +147,8 @@ angular
             "copy_txt" : "KOPIER",
             "heading_txt" : "OVERSKRIFT (VALGFRITT)",
             "description_txt" : "BESKRIVELSE (VALGFRITT)",
-            "linkToEmbeddedMap_txt": "LENK TIL INNBYGGET KARTET"
+            "linkToEmbeddedMap_txt": "LENK TIL INNBYGGET KARTET",
+            "download_txt" : "LAST NED"
 
         },
         'en': {
@@ -296,6 +297,7 @@ angular
             "copy_txt" : "COPY",
             "heading_txt" : "OVERSKRIFT (VALGFRITT)",
             "description_txt" : "DESCRIPTION (VALGFRITT)",
-            "linkToEmbeddedMap_txt": "LINK TO EMBEDDED MAP"
+            "linkToEmbeddedMap_txt": "LINK TO EMBEDDED MAP",
+            "download_txt" : "DOWNLOAD"
         }
     });
