@@ -24,8 +24,14 @@ angular.module('menuElevationProfile')
 
             scope.calculateElevationProfile = function () {
                 if (scope.gpx) {
+                    document.getElementById("spinner2").style.backgroundColor = "rgba(0,0,0,0.4)";
+                    document.getElementById("spinner2").style.transition = "0.8s";
+                    scope.showSpinner = true;
                     toolsElevationProfileFactory.generateElevationProfile(scope.gpx).then(
                         function () {
+                            document.getElementById("spinner2").style.backgroundColor = "transparent";
+                            document.getElementById("spinner2").style.transition = "0.8s";
+                            scope.showSpinner = false;
                             scope.imageExists=true;
                             scope.showElevationProfilePage2();
                         });

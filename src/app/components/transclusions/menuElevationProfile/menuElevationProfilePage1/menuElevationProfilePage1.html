@@ -1,3 +1,6 @@
+<div id="spinner2" class="serach-loading-overlay" data-ng-show="showSpinner">
+    <div class="spinner-loader"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+</div>
 <div class="panel-body">
     <!--<div class="info-text">-->
         <!--<span translate="HeightProfile_text"></span>-->
@@ -12,7 +15,7 @@
         <div role="tabpanel" class="tab-pane active" id="drawProfile">
             <span translate="profileInfo_txt"></span>
             <div class="new-section navigation-button">
-                <button class="btn btn-default btn-ordinary" translate="remove_txt" data-ng-disabled="!elevationProfileActive"></button>
+                <button class="btn btn-default btn-ordinary" data-ng-click="removeGeometry()" translate="remove_txt" data-ng-disabled="!elevationProfileActive"></button>
                 <button type="button" class="btn btn-default btn-toggle" data-ng-click="drawLineElevation()" translate="drawProfile_txt"></button>
             </div>
         </div>
