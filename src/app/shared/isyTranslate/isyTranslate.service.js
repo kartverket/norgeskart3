@@ -295,8 +295,8 @@ angular
             "email_txt" : "SEND AS E-MAIL",
             "copyLink_txt" : "COPY LINK",
             "copy_txt" : "COPY",
-            "heading_txt" : "OVERSKRIFT (VALGFRITT)",
-            "description_txt" : "DESCRIPTION (VALGFRITT)",
+            "heading_txt" : "HEADER (OPTIONAL)",
+            "description_txt" : "DESCRIPTION (OPTIONAL)",
             "linkToEmbeddedMap_txt": "LINK TO EMBEDDED MAP",
             "download_txt" : "DOWNLOAD"
         }

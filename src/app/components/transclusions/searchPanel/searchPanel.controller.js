@@ -4,10 +4,12 @@ angular.module('searchPanel')
 
             $scope.showSearchResultPanel = function () {
                 $scope.searchPanelLayout = "searchResultsPanel";
+
             };
 
             $scope.showSearchOptionsPanel = function () {
                 $scope.searchPanelLayout = "searchOptionsPanel";
+
             };
 
             $scope.searchPanelLayout = "searchResultsPanel";
@@ -16,6 +18,7 @@ angular.module('searchPanel')
                 $scope.activeSearchOptionOrder = ['kommunenr', 'gardsnr', 'bruksnr', 'festenr', 'seksjonsnr', 'eiendomstype', 'matrikkelnr'];
                 $scope.activeSearchOption = $scope.searchOptionsDict['seEiendom'];
                 $scope.searchPanelLayout = "searchSeEiendomPanel";
+
             };
 
             $scope.searchOptionsDict = {};
@@ -28,11 +31,13 @@ angular.module('searchPanel')
             $scope.showLagTurKartPanel = function () {
                 map.SetCenter($scope.activePosition);
                 $scope.searchPanelLayout = "searchLagTurkartPanel";
+
             };
 
             $scope.showLagNodplakatPanel = function () {
                 map.SetCenter($scope.activePosition);
                 $scope.searchPanelLayout = "searchLagNodplakatPanel";
+
             };
 
             $scope.setSearchBarText = function(text) {
@@ -43,5 +48,7 @@ angular.module('searchPanel')
                 var printBoxSelectTool = toolsFactory.getToolById("PrintBoxSelect");
                 toolsFactory.deactivateTool(printBoxSelectTool);
             };
+
+
         }
     ]);
