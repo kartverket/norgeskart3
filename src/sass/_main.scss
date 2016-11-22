@@ -584,6 +584,7 @@ html{
 }
 
 .list-result{
+  @extend .clickThrough;
   li{
     border-bottom: 1px solid #dedede;
     //position: relative;
@@ -600,6 +601,10 @@ html{
   li{
     border: 0;
   }
+}
+
+.clickThroughtOverlay{
+  @extend .clickThrough;
 }
 
 input::-ms-clear {
@@ -667,7 +672,6 @@ input::-ms-clear {
   //min-height: 280px;
   overflow-y: auto;
   overflow-x: hidden;
-  @extend .clickThrough;
 
   .info-text{
     //margin-bottom: 13px;
