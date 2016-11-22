@@ -1087,12 +1087,12 @@ input::-ms-clear {
 }
 
 .logo-kartverket{
-  background-image:url('../assets/img/kartverket-attribution.svg');
+  background-image:url('../assets/img/KV_logo_staa.svg');
   width: 100%;
   height: 0;
   background-size: cover;
   padding: 0;
-  padding-bottom: calc(100% * 3/2.07);
+  padding-bottom: calc(100% * 5/7);
 }
 
 .text-kartverket{
@@ -1159,6 +1159,7 @@ input::-ms-clear {
   position: absolute;
   bottom: 25px;
   left: 19px;
+  width:105px;
 }
 
 .tab-content{

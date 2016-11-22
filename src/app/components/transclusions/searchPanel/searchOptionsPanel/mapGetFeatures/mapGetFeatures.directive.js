@@ -50,9 +50,19 @@ angular.module('mapGetFeatures')
                             if(loadingLayer.hasFeatures){
                                 loadingLayer.show = true;
                             }
-
+                            var isFirstVisibleLayerOpen = false;
                             for (var j = 0; j < scope.layers.length; j++){
-                                scope.layers[j].open = false;
+                                if (scope.layers[j].show){
+                                    if (!isFirstVisibleLayerOpen){
+                                        scope.layers[j].open = true;
+                                        isFirstVisibleLayerOpen = true;
+                                    }else{
+                                        scope.layers[j].open = false;
+                                    }
+
+                                }else{
+                                    scope.layers[j].open = false;
+                                }
                             }
 
                             loadingLayer.isLoading = false;
@@ -100,27 +110,12 @@ angular.module('mapGetFeatures')
                     };
 
                     scope.getVisibleFeatures = function (layer) {
-                        // var circleElement = document.getElementById("circle"+index);
                         if (layer !== undefined){
-                            // var numLength = getLength(layer.features.length);
-                            // if (numLength === 1){
-                                // circleElement.style.padding = "5px 8px 3px 8px";
-                                // circleElement.style.padding = "4px 11px 0";
-                            // }else{
-                                // circleElement.style.padding = "7px 7px 5px 7px";
-                                // circleElement.style.padding = "4px 7px 0";
-                            // }
                             return layer.features.length;
                         }else{
-                            // circleElement.style.padding = "4px 11px 0";
                             return 0;
                         }
-
                     };
-
-                    // function getLength(number) {
-                    //     return number.toString().length;
-                    // }
 
                     scope.getIdByLayer = function (layer) {
                         console.log(layer);

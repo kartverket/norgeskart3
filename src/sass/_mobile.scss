@@ -23,7 +23,8 @@
   }
 
   .logo-overlay{
-    bottom: 10px;
+    bottom: 18px;
+    width: 70px;
   }
 
   .ol-zoom{
@@ -45,16 +46,6 @@
 
   .sidenav .closebtn span:first-child{
     left:31px!important;
-  }
-
-  .logo-kartverket{
-    background-image:url('../assets/img/kartverket-attribution.svg');
-    width: 70%;
-    height: 0;
-    background-size: cover;
-    padding: 0;
-    padding-bottom: calc(70% * 3/2.07);
-    margin-left: 10px;
   }
 
   .text-kartverket {
