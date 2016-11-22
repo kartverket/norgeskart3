@@ -651,6 +651,14 @@ input::-ms-clear {
   margin-bottom: 4px;
 }
 
+.badge{
+  margin-right: 20px;
+  background-color: white;
+  color: $color-important;
+  margin-top: -1px;
+  padding-top: 4px;
+}
+
 .search-content{
   //padding: 15px 17px 15px 10px;
   //margin-left: 10px;
@@ -666,6 +674,10 @@ input::-ms-clear {
     font-size: 15px;
     display: inline-block;
     margin-bottom: 4px;
+  }
+
+  .badge{
+    margin-right: 8px;
   }
 
   .content-text-align{
@@ -1225,6 +1237,8 @@ input::-ms-clear {
 .no-display{
   display: none !important;
 }
+
+
 
 /* align glyph */
 .left-addon .left-side  { left:  0;}
