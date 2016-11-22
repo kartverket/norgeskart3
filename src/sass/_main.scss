@@ -1154,6 +1154,15 @@ input::-ms-clear {
   width: 100%;
 }
 
+.husnum{
+  li{
+    border-bottom: none;
+  }
+  li:hover{
+    background-color: lightgray!important;
+  }
+}
+
 .logo-overlay {
   z-index: 12;
   position: absolute;
