@@ -50,9 +50,19 @@ angular.module('mapGetFeatures')
                             if(loadingLayer.hasFeatures){
                                 loadingLayer.show = true;
                             }
-
+                            var isFirstVisibleLayerOpen = false;
                             for (var j = 0; j < scope.layers.length; j++){
-                                scope.layers[j].open = false;
+                                if (scope.layers[j].show){
+                                    if (!isFirstVisibleLayerOpen){
+                                        scope.layers[j].open = true;
+                                        isFirstVisibleLayerOpen = true;
+                                    }else{
+                                        scope.layers[j].open = false;
+                                    }
+
+                                }else{
+                                    scope.layers[j].open = false;
+                                }
                             }
 
                             loadingLayer.isLoading = false;
