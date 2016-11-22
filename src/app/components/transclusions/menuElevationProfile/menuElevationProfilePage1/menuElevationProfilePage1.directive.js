@@ -106,6 +106,7 @@ angular.module('menuElevationProfilePage1')
                         });
                     };
                     var file=changeEvent.target.files[0];
+                    scope.filePath = changeEvent.target.value;
                     reader.readAsText(file);
                 });
             }

@@ -584,6 +584,7 @@ html{
 }
 
 .list-result{
+  @extend .clickThrough;
   li{
     border-bottom: 1px solid #dedede;
     //position: relative;
@@ -600,6 +601,10 @@ html{
   li{
     border: 0;
   }
+}
+
+.clickThroughtOverlay{
+  @extend .clickThrough;
 }
 
 input::-ms-clear {
@@ -1001,7 +1006,7 @@ input::-ms-clear {
 
 .dropdown-searchPanel {
   max-width: 135px;
-  max-height: 250px;
+  max-height: 150px;
   overflow-x: auto;
   position: inherit;
   li{
@@ -1029,7 +1034,7 @@ input::-ms-clear {
 
 .dropdown-menu-relative{
   position: relative;
-  max-height: 495px;
+  max-height: 150px;
   overflow-x: auto;
 }
 
