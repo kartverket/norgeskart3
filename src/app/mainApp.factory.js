@@ -11,6 +11,7 @@ angular.module('mainApp')
             var groupIds = [];
             var notDummyGroup = false;
             var projectNameUrl;
+            var mainMenuIsOpen = false;
             var mapConfig =
             {
                 "name": "default config",
@@ -478,7 +479,16 @@ angular.module('mainApp')
                 },
                 getInitLayersInUrl: function () {
                     return beginLayersInURL;
+                },
+
+                setMainMenuStatus: function (status) {
+                    mainMenuIsOpen = status;
+                },
+
+                isMainMenuOpen: function () {
+                    return mainMenuIsOpen;
                 }
+
             };
         }]
     );
