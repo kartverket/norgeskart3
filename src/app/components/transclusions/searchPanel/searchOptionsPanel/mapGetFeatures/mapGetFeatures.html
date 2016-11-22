@@ -13,17 +13,20 @@
 <div data-ng-repeat="layer in layers | filter:{show:'true'}" >
     <ul>
         <li class="sidenav-sections" data-ng-show="!foundLayersMenu.open" data-ng-click="toggleLayer(layer); $event.stopPropagation()">
-            <div class="row">
-                <div class="col-xs-12">
+            <!--<div class="row">-->
+                <!--<div class="col-xs-12">-->
                     <span data-ng-bind="layer.name | capitalize"></span>
+
                     <span class="backbtn glyphicon glyphicon-menu-down" data-ng-show="!layer.open"></span>
                     <div class="upbtn" data-ng-show="layer.open">
                         <span class="glyphicon glyphicon-menu-up"></span>
                     </div>
-                    <span id="circle{{$index}}" data-ng-bind="getVisibleFeatures(layer, $index)" class="circleLayers"></span>
+                    <span data-ng-bind="getVisibleFeatures(layer)" class="badge pull-right"></span>
+                    <!--<span id="circle{{$index}}" data-ng-bind="getVisibleFeatures(layer, $index)" class="circleLayers"></span>-->
 
-                </div>
-            </div>
+
+                <!--</div>-->
+            <!--</div>-->
         </li>
     </ul>
     <div data-ng-show="layer.open && !foundLayersMenu.open">
