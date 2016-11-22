@@ -659,6 +659,7 @@ input::-ms-clear {
   //min-height: 280px;
   overflow-y: auto;
   overflow-x: hidden;
+  @extend .clickThrough;
 
   .info-text{
     //margin-bottom: 13px;
