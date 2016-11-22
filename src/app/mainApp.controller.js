@@ -1,6 +1,6 @@
 angular.module('mainApp')
-    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','toolsFactory','ISY.EventHandler','isyTranslateFactory','$location','mainMenuPanelFactory', 'localStorageFactory','$translate','$timeout',
-        function($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory, $translate, $timeout){
+    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','toolsFactory','ISY.EventHandler','isyTranslateFactory','$location','mainMenuPanelFactory', 'localStorageFactory','$translate','$timeout', '$window',
+        function($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory, $translate, $timeout, $window){
 
             function _initToolbar() {
                 toolsFactory.initToolbar();
@@ -206,6 +206,41 @@ angular.module('mainApp')
             $scope.deactivateAddLayerFeatureTool = function(){
                 var addLayerFeature = toolsFactory.getToolById("AddLayerFeature");
                 toolsFactory.deactivateTool(addLayerFeature);
+            };
+
+            $scope.openNav = function() {
+                var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
+                if (isMobile.matches) {
+                    document.getElementById("mySidenav").style.width = "320px";
+                    document.getElementById("sideMenuPosition").style.width = "320px";
+                }else{
+                    document.getElementById("mySidenav").style.width = "395px";
+                    document.getElementById("sideMenuPosition").style.width = "395px";
+                }
+                // document.getElementById("mySidenav").style.width = "395px";
+                document.getElementById("mySidenav").style.overflowY = "auto";
+                document.getElementById("main").style.backgroundColor = "rgba(0,0,0,0.4)";
+                document.getElementById("main").style.transition = "0.4s";
+
+                // document.getElementById("sideMenuPosition").style.width = "395px";
+                mainAppFactory.setMainMenuStatus(true);
+                localStorageFactory.set("mainMenuIsOpen", true);
+            };
+
+            $scope.closeNav = function() {
+                if(document.getElementById("mySidenav") && document.getElementById("main")) {
+                    document.getElementById("mySidenav").style.width = "0";
+                    $timeout(function () {
+                        document.getElementById("sideMenuPosition").style.width = "0";
+                    }, 400);
+
+                    document.getElementById("mySidenav").style.overflowY = "hidden";
+                    document.getElementById("main").style.backgroundColor = "transparent";
+                    document.getElementById("main").style.transition = "0.4s";
+
+                    localStorageFactory.set("mainMenuIsOpen", false);
+                    mainAppFactory.setMainMenuStatus(false);
+                }
             };
 
         }
