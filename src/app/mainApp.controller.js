@@ -200,9 +200,7 @@ angular.module('mainApp')
                     };
                     toolsFactory.activateTool(drawFeatureTool);
                 }
-                else{
-                    toolsFactory.deactivateTool(drawFeatureTool);
-                }
+                toolsFactory.deactivateTool(drawFeatureTool);
             };
 
             $scope.deactivateAddLayerFeatureTool = function(){
