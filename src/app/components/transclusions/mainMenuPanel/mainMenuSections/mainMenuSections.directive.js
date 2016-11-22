@@ -58,32 +58,12 @@ angular.module('mainMenuSections')
 
                     scope.getVisibleSubLayersCount = function () {
                         var visSubLayers = map.GetVisibleSubLayers();
-                        // var circleElements = document.getElementsByClassName("circle");
                         if (visSubLayers !== undefined){
-
-                            // var numLength = getLength(visSubLayers.length);
-                            // for(var i = 0; i < circleElements.length; i++){
-                            //     if (numLength === 1){
-                            //         circleElements[i].style.padding = "5px 8px 3px 8px";
-                            //         // circleElements[i].style.padding = "8px 12px 6px";
-                            //     }else{
-                            //         circleElements[i].style.padding = "7px 7px 5px 7px";
-                            //         // circleElements[i].style.padding = "8px 10px 6px";
-                            //     }
-                            // }
                             return visSubLayers.length;
                         }else{
-                            // for (var j = 0; j < circleElements.length; j++){
-                            //     circleElements[j].style.padding = "5px 8px 3px 8px";
-                            //     // circleElements[j].style.padding = "8px 12px 6px";
-                            // }
                             return 0;
                         }
                     };
-
-                    // function getLength(number) {
-                    //     return number.toString().length;
-                    // }
 
                     scope.redirectKartverket = function () {
                         $window.open("http://kartverket.no/");
