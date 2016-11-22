@@ -603,6 +603,10 @@ html{
   }
 }
 
+.clickThroughtOverlay{
+  @extend .clickThrough;
+}
+
 input::-ms-clear {
   display: none;
 }

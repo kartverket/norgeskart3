@@ -17,7 +17,7 @@
                                   ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
                         </div>
                         <div class="col-xs-5 no-padding">
-                            <div class="dropdown dropdown-search">
+                            <div class="dropdown dropdown-search clickThroughtOverlay">
                                 <button class="btn btn-default btn-searchPanel dropdown-toggle"
                                         type="button" id="dropdownMenu2"
                                         data-toggle="dropdown"
@@ -28,7 +28,7 @@
                                     <span data-ng-show="searchResult.activeHusnum !== undefined" data-ng-bind="searchResult.activeHusnum"></span>
                                     <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu dropdown-searchPanel default-list"
+                                <ul class="dropdown-menu dropdown-searchPanel default-list clickThroughtOverlay"
                                     aria-labelledby="dropdownMenu2"
                                     ng-show="mouseHoverSearchResult == searchResult">
                                     <li data-ng-repeat="husnum in searchResult.husnummer" data-ng-click="husnummerChanged(searchResult, husnum);" class="pointer-cursor">
