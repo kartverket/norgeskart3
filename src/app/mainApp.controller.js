@@ -180,29 +180,16 @@ angular.module('mainApp')
 
             $scope.drawActivated=false;
 
-            $scope.onlyAddLayer=true;
-
             $scope.initDrawFeatureTool = function(){
-                $scope.onlyAddLayer=false;
                 var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
-                drawFeatureTool.additionalOptions.onlyAddLayer=$scope.onlyAddLayer;
                 toolsFactory.activateTool(drawFeatureTool);
+                toolsFactory.deactivateTool(drawFeatureTool);
             };
 
-            $scope.deactivateDrawFeatureTool = function(GeoJSON){
-                $scope.onlyAddLayer=true;
+            $scope.deactivateDrawFeatureTool = function(){
                 var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
-                var url=$location.url();
-                if(url.indexOf('drawing=')>-1) {
-                    drawFeatureTool.additionalOptions = {
-                        GeoJSON: GeoJSON,
-                        onlyAddLayer: $scope.onlyAddLayer
-                    };
-                    toolsFactory.activateTool(drawFeatureTool);
-                }
-                else{
-                    toolsFactory.deactivateTool(drawFeatureTool);
-                }
+                toolsFactory.deactivateTool(drawFeatureTool);
+                $scope.drawActivated = false;
             };
 
             $scope.deactivateAddLayerFeatureTool = function(){

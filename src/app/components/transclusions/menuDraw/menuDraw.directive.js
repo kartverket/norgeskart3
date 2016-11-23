@@ -292,8 +292,13 @@ angular.module('menuDraw')
 
                     var _setGeoJSONOnScope = function(result){
                         scope.setGeoJSON(result.data);
-                        scope.onlyAddLayer=true;
-                        scope.activateDrawFeatureTool();
+                        if(scope.drawActivated) {
+                            scope.activateDrawFeatureTool();
+                        }
+                        else{
+                            scope.activateDrawFeatureTool();
+                            scope.deactivateDrawFeatureTool();
+                        }
                     };
 
                     scope.switchMode = function (newMode) {
@@ -336,7 +341,6 @@ angular.module('menuDraw')
                             mode: scope.mode,
                             selectedFeatureId: scope.selectedFeatureId,
                             selectionActive: scope.selectionActive,
-                            onlyAddLayer: scope.onlyAddLayer,
                             showMeasurements: scope.showMeasurements
                         };
 
@@ -351,7 +355,7 @@ angular.module('menuDraw')
                                 scope.selectedFeatureId=undefined;
                             }
                         }
-                        scope.onlyAddLayer=false;
+                        scope.drawActivated=true;
                     };
 
                     scope.drawFeature = function () {
@@ -402,7 +406,7 @@ angular.module('menuDraw')
 
                     var _setDrawingInUrl = function (result) {
                         var drawingUrl=result.data;
-                        alert(drawingUrl);
+                        // alert(drawingUrl);
                         var hashIndex=drawingUrl.split('/').length-1;
                         var hash = drawingUrl.split('/')[hashIndex].split('.')[0];
                         _removeDrawingFromUrl();
@@ -417,7 +421,6 @@ angular.module('menuDraw')
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureEnd, getDrawing);
                         eventHandler.RegisterEvent(ISY.Events.EventTypes.DrawFeatureSelect, getSelectedFeatureId);
                     }
-                    _checkUrlForGeoJSON();
 
                     function hex2rgba(hexRGB, alpha){
                         var r = parseInt(hexRGB.slice(1,3), 16);
@@ -518,7 +521,7 @@ angular.module('menuDraw')
                         scope.activateDrawFeatureTool();
                     };
 
-                    function initMenuDraw(){
+                    function _initMenuDraw (){
                         scope.setPointRadiusSize(scope.pointRadiusSizes[0]);
                         scope.setLineWidthSize(scope.lineWidthSizes[0]);
                         scope.setPolygonOpacity(scope.polygonOpacities[2]);
@@ -528,9 +531,12 @@ angular.module('menuDraw')
                         // scope.activePointType = scope.pointRadiusSizes[0].sizeType;
                         scope.pointSymbol = 'Circle';
                         // scope.setColor('#FFA500');
+                        _checkUrlForGeoJSON();
+                        toolsFactory.deactivateTool(drawFeatureTool);
+                        scope.drawActivated=false;
                     }
 
-                    initMenuDraw();
+                    _initMenuDraw();
                 }
             };
         }]);
