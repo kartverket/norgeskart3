@@ -6,7 +6,7 @@ angular.module('mainApp')
                 var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
                 var urlGeonorge = 'https://ws.geonorge.no/';
                 var urlSeEiendom = 'http://www.seeiendom.no/';
-                var urlFaktaark = 'http://faktaark.statkart.no/';
+                var urlFaktaark = 'https://stadnamn.kartverket.no/fakta/';
                 var urlHavnivaa = "http://api.sehavniva.no/";
 
                 this.uploadGpxFileService = function () {
@@ -81,7 +81,7 @@ angular.module('mainApp')
                 };
 
                 this.generateFaktaarkUrl = function (stedsnummer) {
-                    return urlFaktaark + "?stedsnummer=" + stedsnummer;
+                    return urlFaktaark + stedsnummer;
                 };
 
                 this.generateKoordTransUrl = function (ost, nord, resSosiKoordSys) {
