@@ -581,7 +581,6 @@ html{
 }
 
 .list-result{
-  @extend .clickThrough;
   li{
     border-bottom: 1px solid #dedede;
   }
@@ -597,10 +596,6 @@ html{
   li{
     border: 0;
   }
-}
-
-.clickThroughtOverlay{
-  @extend .clickThrough;
 }
 
 input::-ms-clear {
