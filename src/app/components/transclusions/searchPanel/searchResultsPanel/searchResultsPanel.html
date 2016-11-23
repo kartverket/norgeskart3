@@ -12,30 +12,30 @@
                     ng-mouseover="mouseOver(searchResult)"
                     ng-repeat="searchResult in searchResults['matrikkelveg']">
                     <div class="row">
-                        <div class="col-xs-7 move-up">
+                        <div class="col-xs-8 move-up">
                             <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
                                   ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
                         </div>
-                        <div class="col-xs-5 no-padding">
-                            <div class="dropdown dropdown-search clickThroughtOverlay">
-                                <button class="btn btn-default btn-searchPanel dropdown-toggle"
-                                        type="button" id="dropdownMenu2"
-                                        data-toggle="dropdown"
-                                        aria-haspopup="true"
-                                        aria-expanded="true"
-                                        data-ng-show="mouseHoverSearchResult == searchResult">
-                                    <span data-ng-show="searchResult.activeHusnum === undefined" translate="searchResult_houseNumber"></span>
-                                    <span data-ng-show="searchResult.activeHusnum !== undefined" data-ng-bind="searchResult.activeHusnum"></span>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu dropdown-searchPanel default-list"
-                                    aria-labelledby="dropdownMenu2"
-                                    ng-show="mouseHoverSearchResult == searchResult">
-                                    <li data-ng-repeat="husnum in searchResult.husnummer" data-ng-click="husnummerChanged(searchResult, husnum);" class="pointer-cursor">
-                                        <span data-ng-bind="husnum"></span>
-                                    </li>
-                                </ul>
+                        <div class="col-xs-4">
+                            <div class="pull-right">
+                                <button data-ng-click="husnum.open = !husnum.open" type="button" class="btn btn-default btn-toggle activeBtn" data-ng-show="husnum.open"><span translate="houseNr_txt"></span></button>
+                                <button data-ng-click="husnum.open = !husnum.open" type="button" class="btn btn-default btn-toggle" data-ng-show="!husnum.open"><span translate="houseNr_txt"></span></button>
                             </div>
+                        </div>
+                        <div class="col-xs-12" data-ng-hide="!husnum.open">
+                            <ul class="husnum">
+                                <li data-ng-repeat="husnum in searchResult.husnummer" data-ng-click="husnummerChanged(searchResult, husnum)">
+
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <span translate="searchResult_houseNumber"></span>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <span data-ng-bind="husnum"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </li>

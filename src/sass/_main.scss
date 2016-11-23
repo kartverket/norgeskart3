@@ -567,7 +567,6 @@ html{
   position: absolute;
   padding: 15px 17px;
   cursor: pointer;
-  //pointer-events: none;
 }
 
 .inner-addon .ajax-loader-search{
@@ -578,8 +577,6 @@ html{
   box-shadow: rgba(0, 0, 0, 0.24) 1px 1px 3px 1px;
   background: white;
   border-radius: 2px;
-  //padding: 10px 0 10px 5px;
-  //padding: 10px;
   max-width: 420px;
 }
 
@@ -587,7 +584,6 @@ html{
   @extend .clickThrough;
   li{
     border-bottom: 1px solid #dedede;
-    //position: relative;
   }
   li:last-child{
     border-bottom: 0;
@@ -611,34 +607,9 @@ input::-ms-clear {
   display: none;
 }
 
-
-//.window-content{
-//  border: 1px solid $color-standard;
-//}
-
-
-
-
-
-//.btn-content.active{
-//  background-color: $color-focus  !important;
-//  color: white !important;
-//  border-color: transparent !important;
-//}
-
 .btn-color-picker{
-  //margin-left: 4px;
   margin-right: 4px;
 }
-
-//.section-content{
-//  input{
-//    border-radius: 4px;
-//    border: 1px solid #b1b1b1;
-//    padding: 2px 4px 2px 6px;
-//    font-size: 15px;
-//  }
-//}
 
 .color-picker{
   padding: 6px;
@@ -665,11 +636,8 @@ input::-ms-clear {
 }
 
 .search-content{
-  //padding: 15px 17px 15px 10px;
-  //margin-left: 10px;
   padding: 15px 18px 12px 18px;
   max-height: 750px;
-  //min-height: 280px;
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -768,27 +736,18 @@ input::-ms-clear {
     display: inline-block;
   }
 
-  //input{
-  //  width: 100%;
-  //  border-radius: 4px;
-  //  border: 1px solid #b1b1b1;
-  //  padding: 6px 4px 3px 6px;
-  //  font-size: 15px;
-  //}
-
   .btn{
-    height: 34px;
-    padding: 2px 8px 0;
+    height: 30px;
+    padding: 1px 8px 0;
   }
 
-  //.checkbox{
-  //  margin-top:2px;
-  //  width: 15px;
-  //}
+  .btn-group{
+    height: 30px;
+  }
 
   .btn-same-size{
     button{
-      width: 34px;
+      width: 30px;
     }
   }
 
@@ -828,7 +787,6 @@ input::-ms-clear {
   .collapse-btn{
     font-size: 14px;
     float: right;
-    //right: 26px;
     margin-right: 16px;
     padding-top: 1px;
 
@@ -920,11 +878,9 @@ input::-ms-clear {
 
   .hide-button{
     border: 1px solid $gray;
-    //padding: 2px 5px 1px;
     padding: 2px 6px 3px 2px;
     border-radius: 3px;
     display: inline-block;
-    //margin-top: -4px;
     margin-top: -2px;
     margin-right: -8px;
     font-size: 14px;
@@ -940,12 +896,8 @@ input::-ms-clear {
 .navigation-button{
   button{
     margin-top:5px;
-    //margin-left: 5px;
     margin-right: 5px;
   }
-  //button:first-child{
-  //  margin-left:0;
-  //}
   button:last-child{
     margin-right: 0;
   }
@@ -1152,6 +1104,18 @@ input::-ms-clear {
 
 .full-width{
   width: 100%;
+}
+
+.husnum{
+  padding-left: 15px;
+  margin-top: 4px;
+  li{
+    border-bottom: none;
+    padding: 6px 0 5px 6px!important
+  }
+  li:hover{
+    background-color: lightgray!important;
+  }
 }
 
 .logo-overlay {
