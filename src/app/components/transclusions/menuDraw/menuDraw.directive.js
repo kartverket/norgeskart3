@@ -72,19 +72,22 @@ angular.module('menuDraw')
                     scope.lineWidthSizes = [
                         {
                             "lineTypeId": 1,
-                            "lineWidth": 2
+                            "lineWidth": 2,
+                            "sizeType": "Small"
                         },
                         {
                             "lineTypeId": 2,
-                            "lineWidth": 4
+                            "lineWidth": 4,
+                            "sizeType": "Medium"
                         },
-                        {
-                            "lineTypeId": 3,
-                            "lineWidth": 6
-                        },
+                        // {
+                        //     "lineTypeId": 3,
+                        //     "lineWidth": 6
+                        // },
                         {
                             "lineTypeId": 4,
-                            "lineWidth": 8
+                            "lineWidth": 8,
+                            "sizeType": "Large"
                         }
                     ];
 
