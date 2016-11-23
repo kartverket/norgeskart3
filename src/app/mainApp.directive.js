@@ -22,6 +22,9 @@ angular.module('mainApp')
                         }
                         if (mainAppFactory.isMainMenuOpen()){
                             var elementsInPath = event.path;
+                            if (elementsInPath === undefined){
+                                elementsInPath = _generatePath();
+                            }
                             for (var i = 0; i < elementsInPath.length; i++){
                                 if (elementsInPath[i].id === "mapDiv"){
                                     scope.closeNav();
@@ -29,6 +32,24 @@ angular.module('mainApp')
                             }
                         }
                     });
+
+
+                    function _generatePath() {
+                        var path = [];
+                        var currentElem = event.target;
+                        while (currentElem) {
+                            path.push(currentElem);
+                            currentElem = currentElem.parentElement;
+                        }
+                        if (path.indexOf(window) === -1 && path.indexOf(document) === -1){
+                            path.push(document);
+                        }
+                        if (path.indexOf(window) === -1){
+                            path.push(window);
+                        }
+                        return path;
+                    }
+
 
                 }
             };

@@ -53,19 +53,19 @@ angular.module('menuDraw')
                             "lineTypeId" : "line",
                             "lineLength": 15,
                             "lineSpace": 0,
-                            "lineType": "_______"
+                            "lineType": "_____"
                         },
                         {
                             "lineTypeId" : "dash",
                             "lineLength": 15,
                             "lineSpace": 15,
-                            "lineType": "__ __ __"
+                            "lineType": "_ _ _ _"
                         },
                         {
                             "lineTypeId" : "dot",
                             "lineLength": 2,
                             "lineSpace": 15,
-                            "lineType": "..........."
+                            "lineType": "......."
                         }
                     ];
 
