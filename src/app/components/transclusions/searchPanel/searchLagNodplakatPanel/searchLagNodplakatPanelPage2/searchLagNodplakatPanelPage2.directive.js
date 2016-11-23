@@ -62,12 +62,20 @@ angular.module('searchLagNodplakatPanelPage2')
                     };
 
                     var geographicDecimalToSecondsMinutes = function (geographicOrdinal) {
-                        var degrees = geographicOrdinal.toString().split('.')[0];
+                        var degrees = parseInt(geographicOrdinal.toString().split('.')[0],10);
                         var decimals = geographicOrdinal - degrees;
                         var minutes = decimals * 60;
                         var minutesDecimals = minutes - minutes.toString().split('.')[0];
-                        minutes = minutes.toString().split('.')[0];
-                        var seconds = minutesDecimals * 60;
+                        minutes = _round(minutes.toString().split('.')[0], 0);
+                        var seconds = _round(minutesDecimals * 60,0);
+                        if(seconds == 60){
+                            minutes +=1;
+                            seconds=0;
+                        }
+                        if(minutes == 60){
+                            degrees+=1;
+                            minutes=0;
+                        }
                         return {
                             degrees: degrees,
                             minutes: minutes,
