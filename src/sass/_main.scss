@@ -777,8 +777,12 @@ input::-ms-clear {
   //}
 
   .btn{
-    height: 34px;
-    padding: 2px 8px 0;
+    height: 30px;
+    padding: 1px 8px 0;
+  }
+
+  .btn-group{
+    height: 30px;
   }
 
   //.checkbox{
@@ -788,7 +792,7 @@ input::-ms-clear {
 
   .btn-same-size{
     button{
-      width: 34px;
+      width: 30px;
     }
   }
 
@@ -1155,8 +1159,11 @@ input::-ms-clear {
 }
 
 .husnum{
+  padding-left: 15px;
+  margin-top: 4px;
   li{
     border-bottom: none;
+    padding: 6px 0 5px 6px!important
   }
   li:hover{
     background-color: lightgray!important;

@@ -37,12 +37,15 @@
                                 <!--</ul>-->
                             <!--</div>-->
                         <!--</div>-->
-                        <div class="col-xs-9 move-up">
+                        <div class="col-xs-8 move-up">
                             <span ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
                                   ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
                         </div>
-                        <div class="col-xs-3 move-up">
-                            <button data-ng-click="husnum.open = !husnum.open" type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: husnum.open}"><span translate="houseNr_txt"></span></button>
+                        <div class="col-xs-4">
+                            <div class="pull-right">
+                                <button data-ng-click="husnum.open = !husnum.open" type="button" class="btn btn-default btn-toggle activeBtn" data-ng-show="husnum.open"><span translate="houseNr_txt"></span></button>
+                                <button data-ng-click="husnum.open = !husnum.open" type="button" class="btn btn-default btn-toggle" data-ng-show="!husnum.open"><span translate="houseNr_txt"></span></button>
+                            </div>
                         </div>
                         <div class="col-xs-12" data-ng-hide="!husnum.open">
                             <ul class="husnum">
