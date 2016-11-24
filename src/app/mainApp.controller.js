@@ -183,7 +183,6 @@ angular.module('mainApp')
             $scope.initDrawFeatureTool = function(){
                 var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
                 toolsFactory.activateTool(drawFeatureTool);
-                toolsFactory.deactivateTool(drawFeatureTool);
             };
 
             $scope.deactivateDrawFeatureTool = function(){

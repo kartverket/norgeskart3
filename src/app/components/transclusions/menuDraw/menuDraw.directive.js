@@ -268,7 +268,7 @@ angular.module('menuDraw')
                         var drawingHash=_getValueFromUrl('drawing');
                         if(drawingHash){
                             _getGeoJSON(drawingHash);
-                            return;
+                            return true;
                         }
                         scope.activateDrawFeatureTool();
                     };
@@ -524,7 +524,7 @@ angular.module('menuDraw')
                         scope.activateDrawFeatureTool();
                     };
 
-                    function _initMenuDraw (){
+                    function _initMenuDraw () {
                         scope.setPointRadiusSize(scope.pointRadiusSizes[0]);
                         scope.setLineWidthSize(scope.lineWidthSizes[0]);
                         scope.setPolygonOpacity(scope.polygonOpacities[2]);
@@ -534,9 +534,10 @@ angular.module('menuDraw')
                         // scope.activePointType = scope.pointRadiusSizes[0].sizeType;
                         scope.pointSymbol = 'Circle';
                         // scope.setColor('#FFA500');
-                        _checkUrlForGeoJSON();
-                        toolsFactory.deactivateTool(drawFeatureTool);
-                        scope.drawActivated=false;
+                        if (_checkUrlForGeoJSON()) {
+                            toolsFactory.deactivateTool(drawFeatureTool);
+                            scope.drawActivated = false;
+                        }
                     }
 
                     _initMenuDraw();
