@@ -1,6 +1,6 @@
 angular.module('menuDraw')
-    .directive('menuDraw', [ 'toolsFactory', 'ISY.EventHandler', '$location','mainAppService', '$http','$filter','mapOverlaysLayoutFactory','moveableOverlayFactory',
-        function(toolsFactory, eventHandler, $location,mainAppService,$http,$filter, mapOverlaysLayoutFactory, moveableOverlayFactory) {
+    .directive('menuDraw', [ 'toolsFactory', 'ISY.EventHandler', '$location','mainAppService', '$http','$filter',
+        function(toolsFactory, eventHandler, $location,mainAppService,$http,$filter) {
             return {
                 templateUrl: 'components/transclusions/menuDraw/menuDraw.html',
                 restrict: 'A',
@@ -487,11 +487,11 @@ angular.module('menuDraw')
                         }
                     };
 
-                    scope.closeMenuDraw = function () {
-                        mapOverlaysLayoutFactory.setShowSearchOverlay(true);
-                        moveableOverlayFactory.deactiveAllOverlay();
-                        scope.deactivateDrawFeatureTool(scope.GeoJSON);
-                    };
+                    // scope.closeMenuDraw = function () {
+                    //     mapOverlaysLayoutFactory.setShowSearchOverlay(true);
+                    //     moveableOverlayFactory.deactiveAllOverlay();
+                    //     scope.deactivateDrawFeatureTool(scope.GeoJSON);
+                    // };
 
                     scope.setPointRadiusSize = function (type) {
                         scope.pointRadius = type.size;
