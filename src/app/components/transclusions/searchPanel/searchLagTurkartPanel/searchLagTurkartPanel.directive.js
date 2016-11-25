@@ -42,7 +42,7 @@ angular.module('searchLagTurkartPanel')
 
                     scope.scale='25000';
 
-                    scope.tittel="";
+                    scope.tittel="Turkart";
 
                     _activatePrintBoxSelect(scope.scale);
 
