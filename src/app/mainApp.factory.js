@@ -422,7 +422,8 @@ angular.module('mainApp')
                             "tiled": source.options.singletile !== "true",
                             "crossOrigin": null,
                             "style": source.style,
-                            "topLeftCorner": source.topleftcorner
+                            "wmtsExtent": source.wmtsextent
+
                         }
                     ],
                     "guid": source.guid,
