@@ -49,7 +49,7 @@ angular.module('mainApp')
                                         "tiled": true
                                     }
                                 ],
-                                "visibleOnLoad": true
+                                "visibleOnLoad": false
                             }
                 ],
                 "zoom": 3,
