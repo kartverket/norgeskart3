@@ -40,7 +40,7 @@ angular
             "HeightEstimatedByInterpolation_text": "Høyde (anslått ved interpolering): ",
             "MetersAboveSeaLevel": "moh",
             "WhatDoYouWantToDo_text": "HVA VIL DU GJØRE?",
-            "seEiendom": "SE EINDOMSINFORMASJON",
+            "seEiendom": "SE EIENDOMSINFORMASJON",
             "ssrFakta": "SE FAKTA OM STEDSNAVNET",
             "koordTrans": "SE KOORDINATER",
             "lagTurkart": "LAG TURKART",
