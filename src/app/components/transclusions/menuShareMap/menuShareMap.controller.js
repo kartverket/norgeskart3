@@ -30,7 +30,14 @@ angular.module('menuShareMap')
                 if ($scope.useMarker){
                     url+='&marker_lat=' + $scope.activePosition.lat + '&marker_lon=' + $scope.activePosition.lon;
                 }
-                $scope.iframe='<iframe src="' + url + '" width="134" height="108" title="' + $scope.shortDescription +'" longdesc="' + $scope.longDescription + '"></iframe>';
+                $scope.iframe='<iframe src="' + url + '" width="134" height="108"';
+                if( $scope.shortDescription){
+                    $scope.iframe+=' title="' + $scope.shortDescription + '"';
+                }
+                if($scope.longDescription){
+                    $scope.iframe+=' longdesc="' + $scope.longDescription + '"';
+                }
+                $scope.iframe+= '></iframe>';
                 setTimeout(function(){
                     $scope.$apply();
                 },10);
