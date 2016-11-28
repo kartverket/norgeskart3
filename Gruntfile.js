@@ -304,7 +304,7 @@ module.exports = function ( grunt ) {
             dev: {
                 options: {
                     outputStyle: 'compact',
-                    sassDir: 'src/sass/',
+                    sassDir: 'vendor/mapPortalStyling/sass/',
                     cssDir: '<%= build_dir %>/css/',
                     raw: "preferred_syntax = :scss\n"
                 }
@@ -526,7 +526,7 @@ module.exports = function ( grunt ) {
              * When the CSS files change, we need to compile and minify them.
              */
             sass: {
-                files: [ 'src/**/*.scss' ],
+                files: [ 'vendor/mapPortalStyling/**/*.scss' ],
                 tasks: [ 'compass:dev', 'concat:build_css' ]
             },
 
