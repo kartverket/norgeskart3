@@ -643,10 +643,10 @@ module.exports = function ( grunt ) {
     grunt.registerTask( 'compile', [
         'concat:compile_css',
         'copy:compile_assets',
-        'ngmin',
+        //'ngmin',
         'concat:compile_js',
-        'uglify',
-        'appcache',
+        //'uglify',
+        //'appcache',
         'index:compile'
     ]);
 
