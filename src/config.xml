@@ -1,4 +1,4 @@
 <config>
-    <configurl>http://localhost:81/api/v1/</configurl>
+    <configurl>http://www.norgeskart.no/config</configurl>
     <instance>norgeskart3</instance>
 </config>
