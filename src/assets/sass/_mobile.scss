@@ -1,0 +1,108 @@
+@media screen and (max-width: 736px){
+  .search-bar-overlay{
+    z-index: 13;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin:7px;
+  }
+
+  //.search-content{
+  //  max-height: 80%;
+  //}
+
+  .field-group{
+    input{
+      min-width: 0;
+      width: 100%;
+    }
+  }
+
+  .col-xs-11{
+    width: 88.666%;
+  }
+
+  .logo-overlay{
+    bottom: 18px;
+    width: 70px;
+  }
+
+  .ol-zoom{
+    bottom: 10px;
+    top: inherit!important;
+  }
+
+  .nextbtn{
+    right: 0!important;
+  }
+
+  .backbtn{
+    margin-right: 0!important;
+  }
+
+  .upbtn{
+    margin-right: 0!important;
+  }
+
+  .sidenav .closebtn span:first-child{
+    left:31px!important;
+  }
+
+  .text-kartverket {
+    font-size: 13px;
+  }
+
+  .search-content .new-section{
+    margin-top: 10px;
+  }
+  .search-content .btn{
+    padding: 2px 6px;
+  }
+
+  .moveableOverlay{
+    left: 0!important;
+    right: 0!important;
+    top: 0!important;
+    bottom: 0!important;
+
+    -webkit-overflow-scrolling:touch;
+
+    .panel-group{
+      padding: 0;
+    }
+
+    & > div,
+    .overlayContent{
+      //height: 100%;
+    }
+  }
+
+  .sidenav .closebtn{
+    right: 17px!important;
+  }
+
+  .moveableOverlay{
+    width: 100% !important;
+    min-width: 0!important;
+  }
+  .movemenu{
+    width: 100%!important;
+  }
+
+  .draw-content .dropdown{
+    min-width: 98px;
+  }
+
+  .dropdown-search{
+    width: 117px;
+  }
+
+  textarea, input[type="text"] {
+    -webkit-appearance: none;
+  }
+
+  .circle{
+    margin-right: 10px!important;
+  }
+
+}

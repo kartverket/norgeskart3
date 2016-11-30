@@ -28,7 +28,7 @@ module.exports = {
         ctpl: [ 'src/common/**/*.tpl.html' ],
 
         html: [ 'src/index.html'],
-        sass: 'vendor/mapPortalStyling/sass/main.scss'
+        sass: 'src/assets/sass/main.scss'
         // sass: 'src/sass/main.scss'
     },
 

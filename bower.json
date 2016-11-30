@@ -15,7 +15,6 @@
     "jquery": "*",
     "blob-util": "*",
     "maplib": "https://github.com/kartverket/MapLib.git",
-    "mapPortalStyling" : "https://github.com/kartverket/mapPortalStyling.git",
     "xml-to-json": "*",
     "angular-utils-pagination": "*"
   },
