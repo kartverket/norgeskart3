@@ -3,13 +3,14 @@ angular.module('searchPanel')
         function($scope, toolsFactory, map){
 
             $scope.showSearchResultPanel = function () {
+                $scope.deactivatePrintBoxSelect();
                 $scope.searchPanelLayout = "searchResultsPanel";
 
             };
 
             $scope.showSearchOptionsPanel = function () {
+                $scope.deactivatePrintBoxSelect();
                 $scope.searchPanelLayout = "searchOptionsPanel";
-
             };
 
             $scope.searchPanelLayout = "searchResultsPanel";
