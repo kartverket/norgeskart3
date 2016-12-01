@@ -12,6 +12,13 @@ angular
                     "isSelected" : false
                 },
                 {
+                    "id": "seeiendom",
+                    "title": "seEiendom_title",
+                    "symbol": "fa fa-home",
+                    "symbol_text": "",
+                    "isSelected" : false
+                },
+                {
                     "id": "ssr",
                     "title": "Stedsnavn_title",
                     "symbol": "fa fa-map-signs",

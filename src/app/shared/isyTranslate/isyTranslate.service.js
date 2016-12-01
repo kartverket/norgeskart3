@@ -149,7 +149,8 @@ angular
             "heading_txt" : "OVERSKRIFT (VALGFRITT)",
             "description_txt" : "BESKRIVELSE (VALGFRITT)",
             "linkToEmbeddedMap_txt": "LENK TIL INNBYGGET KARTET",
-            "download_txt" : "LAST NED"
+            "download_txt" : "LAST NED",
+            "seEiendom_title" : "Eiendom"
 
         },
         'en': {
@@ -300,6 +301,7 @@ angular
             "heading_txt" : "HEADER (OPTIONAL)",
             "description_txt" : "DESCRIPTION (OPTIONAL)",
             "linkToEmbeddedMap_txt": "LINK TO EMBEDDED MAP",
-            "download_txt" : "DOWNLOAD"
+            "download_txt" : "DOWNLOAD",
+            "seEiendom_title" : "Eiendom"
         }
     });
