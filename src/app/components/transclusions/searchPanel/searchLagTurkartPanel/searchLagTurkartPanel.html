@@ -80,12 +80,12 @@
                     data-ng-click="deactivatePrintBoxSelect(); showSearchOptionsPanel()" translate="Cancel_txt">
             </button>
 
-            <button class="btn btn-default btn-important" data-ng-click="downloadMap()"
-                    ng-disabled="!mapAvailable" translate="DownloadMap">
+            <button class="btn btn-default btn-important" data-ng-click="orderMap()"
+                    ng-disabled="!createMapButtonOn" translate="lagTurkart">
             </button>
 
-            <button class="btn btn-default btn-important" data-ng-click="orderMap()"
-            ng-disabled="!createMapButtonOn" translate="lagTurkart">
+            <button class="btn btn-default btn-important" data-ng-click="downloadMap()"
+                    ng-disabled="!mapAvailable" translate="DownloadMap">
             </button>
         </div>
     </div>
