@@ -9,6 +9,7 @@ angular.module('mainMenuSections')
                     scope.languages = isyTranslateFactory.getAllLanguages();
 
                     scope.activateProject = function (project) {
+                        scope.visibleLayersCount = 0;
                         if (project.isSelected){
                             scope.showMainMenuGroupLayers();
                         }else{
@@ -56,14 +57,9 @@ angular.module('mainMenuSections')
                         localStorageFactory.set("activeLanguage", langId);
                     };
 
-                    scope.getVisibleSubLayersCount = function () {
-                        var visSubLayers = map.GetVisibleSubLayers();
-                        if (visSubLayers !== undefined){
-                            return visSubLayers.length;
-                        }else{
-                            return 0;
-                        }
-                    };
+                    $( document ).ready(function() {
+                        scope.visibleLayersCount = map.GetVisibleSubLayers().length;
+                    });
 
                     scope.redirectKartverket = function () {
                         $window.open("http://kartverket.no/");
