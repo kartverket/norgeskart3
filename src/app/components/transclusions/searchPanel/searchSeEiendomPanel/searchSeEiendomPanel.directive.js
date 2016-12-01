@@ -1,14 +1,14 @@
 angular.module('searchSeEiendomPanel')
-    .directive('searchSeEiendomPanel', [
-        function() {
+    .directive('searchSeEiendomPanel', ['$window',
+        function($window) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchSeEiendomPanel/searchSeEiendomPanel.html',
                 restrict: 'A',
                 link: function(scope){
-                    scope._capitalizeFirstLetter = function (string) {
-                        return string.charAt(0).toUpperCase() + string.slice(1);
-                    };
+                    scope.openEindomInformasjon = function () {
+                        $window.open(scope.searchOptionsDict['seEiendom'].url, '_blank');
 
+                    };
                 }
             };
         }]);

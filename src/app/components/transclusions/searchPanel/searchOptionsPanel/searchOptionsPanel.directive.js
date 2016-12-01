@@ -7,9 +7,9 @@ angular.module('searchOptionsPanel')
                 link: function(scope){
                     scope.mouseDown= function (searchOption) {
                         switch (searchOption.name){
-                            // case ('seEiendom'):
-                            //     scope.showSearchSeEiendomPanel();
-                            //     break;
+                            case ('seEiendom'):
+                                scope.showSearchSeEiendomPanel();
+                                break;
                             case ('koordTrans'):
                                 scope.showKoordTransPanel();
                                 break;
