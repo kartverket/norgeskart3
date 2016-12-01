@@ -1,38 +1,20 @@
 <div class="search-panel">
-    <div class="content no-border search-content">
-        <ul>
-            <li>
-                <span class="search-options">
-                    {{searchOptionsDict['seEiendom'].icon.value}}
-                </span>
-                <span>Eiendomsinformasjon</span>
-            </li>
+    <div class="header">
+        <div class="row">
+            <div class="col-xs-8">
+                <span class="header-icon icon-important" data-ng-class="searchOptionsDict['seEiendom'].icon.value"></span>
+                <span translate="seEiendom"></span>
+            </div>
+            <div class="col-xs-4">
+                <div class="closebtn" data-ng-click="showSearchOptionsPanel()">
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                    <span class="glyphicon glyphicon-menu-left"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <li ng-mousedown="showSearchOptionsPanel()">
-                <span class="search-options pointer-cursor">
-                    <b>←</b>
-                </span>
-                <span class="pointer-cursor">
-                    <b>Returner til tjenester</b>
-                </span>
-            </li>
-        </ul>
-
-        <table>
-            <tr data-ng-repeat="property in activeSearchOptionOrder">
-                <td ng-bind="_capitalizeFirstLetter(property)"></td>
-                <td ng-bind="activeSearchOption[property]"></td>
-            </tr>
-            <tr>
-                <td>Mer informasjon</td>
-                <td>
-                    <a data-ng-href="{{activeSearchOption.url}}"
-                       target="_blank"
-                       class="searchbar-hover">
-                        Se eiendom
-                    </a>
-                </td>
-            </tr>
-        </table>
+    <div class="search-content">
+        <span data-ng-click="openEindomInformasjon()" translate="seEiendom"></span>
     </div>
 </div>
