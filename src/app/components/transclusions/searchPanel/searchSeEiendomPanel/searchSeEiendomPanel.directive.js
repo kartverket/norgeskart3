@@ -9,6 +9,8 @@ angular.module('searchSeEiendomPanel')
                         $window.open(scope.searchOptionsDict['seEiendom'].url, '_blank');
 
                     };
+
+
                 }
             };
         }]);

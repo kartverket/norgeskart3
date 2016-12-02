@@ -15,6 +15,72 @@
     </div>
 
     <div class="search-content">
+        <div class="new-section">
+            <div class="row">
+                <div class="col-xs-4">
+                    <span>Kommunenr.</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].kommunenr"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <span>Kommune</span>
+                </div>
+                <div class="col-xs-8">
+                    <span></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <span>Gårdsnr.</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].gardsnr"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <span>Bruksnr.</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].bruksnr"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <span>Festenr.</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].festenr"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <span>Seksjonsnr.</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].seksjonsnr"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <span>Type</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].eiendomstype"></span>
+                </div>
+            </div>
+        </div>
+
         <span data-ng-click="openEindomInformasjon()" translate="seEiendom"></span>
+
+
+        <div class="new-section navigation-button pull-right">
+            <button class="btn btn-default btn-ordinary"
+                    data-ng-click="showSearchOptionsPanel()" translate="close_txt">
+            </button>
+        </div>
     </div>
 </div>
