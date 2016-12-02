@@ -79,9 +79,9 @@ module.exports = {
             'vendor/es5-shim/es5-shim.js',
             'vendor/pouchdb/dist/pouchdb.js',
             'vendor/xml2json/xml2json.js',
-            'vendor/openlayers3/ol.js',
+            'vendor/openlayers3/ol-debug.js',
             'vendor/blob-util/dist/blob-util.min.js',
-            'vendor/maplib/dist/maplib-min.js',
+            'vendor/maplib/dist/maplib.js',
             'vendor/xml-to-json/xml.js',
             'vendor/xml-to-json/json2xml.js',
             'vendor/angular-utils-pagination/dirPagination.js'

@@ -423,7 +423,8 @@ angular.module('mainApp')
                             "crossOrigin": null,
                             "style": source.style,
                             "wmtsExtent": source.wmtsextent,
-                            "getCapabilities": (source.getcapabilities === 'true')
+                            "getCapabilities": (source.getcapabilities === 'true'),
+                            "styles": source.params.styles
 
                         }
                     ],
