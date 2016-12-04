@@ -15,6 +15,113 @@
     </div>
 
     <div class="search-content">
-        <span data-ng-click="openEindomInformasjon()" translate="seEiendom"></span>
+        <div class="new-section">
+            <div class="row no-margin line-zebra-grey">
+                <div class="col-xs-4 no-padding">
+                    <span>Kommunenr.</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].kommunenr"></span>
+                </div>
+            </div>
+            <div class="row no-margin">
+                <div class="col-xs-4 no-padding">
+                    <span>Kommune</span>
+                </div>
+                <div class="col-xs-8">
+                    <span></span>
+                </div>
+            </div>
+            <div class="row no-margin line-zebra-grey">
+                <div class="col-xs-4 no-padding">
+                    <span>Gårdsnr.</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].gardsnr"></span>
+                </div>
+            </div>
+            <div class="row no-margin">
+                <div class="col-xs-4 no-padding">
+                    <span>Bruksnr.</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].bruksnr"></span>
+                </div>
+            </div>
+            <div class="row no-margin line-zebra-grey">
+                <div class="col-xs-4 no-padding">
+                    <span>Festenr.</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].festenr"></span>
+                </div>
+            </div>
+            <div class="row no-margin">
+                <div class="col-xs-4 no-padding">
+                    <span>Seksjonsnr.</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].seksjonsnr"></span>
+                </div>
+            </div>
+            <div class="row no-margin line-zebra-grey">
+                <div class="col-xs-4 no-padding">
+                    <span>Type</span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-bind="searchOptionsDict['seEiendom'].eiendomstype"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="new-section">
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="checkbox"/>
+                    <span translate="showSelection_txt"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="new-section">
+            <ul>
+                <li class="sidenav-sections" data-ng-click="legend.open = !legend.open">
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <span translate="legend_txt"></span>
+                        </div>
+                        <div class="col-xs-2">
+                            <span data-ng-show="!legend.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+                            <span data-ng-show="legend.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="new-section">
+            <ul>
+                <li class="sidenav-sections" data-ng-click="openEindomInformasjon()">
+                    <div class="row">
+                        <div class="col-xs-1">
+                            <span class="icon-important" data-ng-class="searchOptionsDict['seEiendom'].icon.value"></span>
+                        </div>
+                        <div class="col-xs-11">
+                            <span translate="showMoreInformation"></span>
+                            <span class="nextbtn glyphicon glyphicon-menu-right"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+
+
+        <div class="new-section navigation-button pull-right">
+            <button class="btn btn-default btn-ordinary"
+                    data-ng-click="showSearchOptionsPanel()" translate="close_txt">
+            </button>
+        </div>
     </div>
 </div>
