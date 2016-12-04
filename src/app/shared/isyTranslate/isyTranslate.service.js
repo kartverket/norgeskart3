@@ -151,7 +151,10 @@ angular
             "linkToEmbeddedMap_txt": "LENK TIL INNBYGGET KARTET",
             "download_txt" : "LAST NED",
             "seEiendom_title" : "Eiendom",
-            "close_txt" : "LUKK"
+            "close_txt" : "LUKK",
+            "showSelection_txt" : "VIS MARKERING",
+            "legend_txt" : "Tegnforklaring",
+            "showMoreInformation" : "VIS MER INFORMASJON"
 
         },
         'en': {
@@ -304,6 +307,9 @@ angular
             "linkToEmbeddedMap_txt": "LINK TO EMBEDDED MAP",
             "download_txt" : "DOWNLOAD",
             "seEiendom_title" : "Eiendom",
-            "close_txt" : "CLOSE"
+            "close_txt" : "CLOSE",
+            "showSelection_txt" : "SHOW SELECTION",
+            "legend_txt" : "Tegnforklaring",
+            "showMoreInformation" : "SHOW MORE INFORMATION"
         }
     });
