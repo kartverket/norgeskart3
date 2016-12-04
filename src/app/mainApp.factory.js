@@ -424,7 +424,9 @@ angular.module('mainApp')
                             "style": source.style,
                             "wmtsExtent": source.wmtsextent,
                             "getCapabilities": (source.getcapabilities === 'true'),
-                            "styles": source.params.styles
+                            "styles": source.params.styles,
+                            "minResolution": source.minresolution,
+                            "maxResolution": source.maxresolution
 
                         }
                     ],
