@@ -57,10 +57,16 @@
   .nextbtn{
     color: $color-important;
   }
+  a{
+    color: $dark;
+  }
+  a:hover{
+    color: $dark;
+  }
 }
 
 .sidenav-link{
-  color: #2f3940;
+  color: $dark;
 }
 
 /* When you mouse over the navigation links, change their color */
