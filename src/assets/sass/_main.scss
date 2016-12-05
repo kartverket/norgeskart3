@@ -836,7 +836,7 @@ input::-ms-clear {
   border-top-right-radius: 2px;
   font-size: 16px;
   .header-icon{
-    padding-right: 8px;
+    padding-right: 10px;
   }
 
   &.isClosed{
@@ -1061,6 +1061,29 @@ input::-ms-clear {
   background-size: cover;
   padding: 0;
   padding-bottom: calc(100% * 5/7);
+}
+
+.legend1{
+  background-image:url('../assets/img/GetImage.png');
+  width: 60%;
+  height: 0;
+  background-size: cover;
+  padding: 0;
+  padding-bottom: calc(60% * 3/2.9);
+  margin-bottom: 10px;
+}
+
+.legend2{
+  background-image:url('../assets/img/GetImage.jpg');
+  width: 68%;
+  height: 0;
+  background-size: cover;
+  padding: 0;
+  padding-bottom: calc(58% * 5/1.4);
+}
+
+.legend-panel{
+  margin-left: 10px;
 }
 
 .text-kartverket{
