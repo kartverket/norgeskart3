@@ -9,8 +9,12 @@ angular.module('menuElevationProfilePage2')
               return scope.elevationImage;
             };
 
+            scope.showImage = function () {
+                $.featherlight(scope.elevationImage);
+            };
+
             scope.downloadImage = function () {
-                window.open(scope.elevationImage);
+                // window.open(scope.elevationImage);
                 var a = document.createElement('a');
                 a.href = scope.elevationImage;
                 a.download = scope.elevationImage;

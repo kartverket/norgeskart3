@@ -6,8 +6,23 @@ angular.module('searchSeEiendomPanel')
                 restrict: 'A',
                 link: function(scope){
                     scope.openEindomInformasjon = function () {
-                        $window.open(scope.searchOptionsDict['seEiendom'].url, '_blank');
+                        // $window.open(scope.searchOptionsDict['seEiendom'].url, '_blank');
+                        var eiendomUrl = scope.searchOptionsDict['seEiendom'].url;
+                        var iframeWidth = 0;
+                        var iframeHeight = 0;
+                        var bodyHeight = $window.innerHeight;
+                        var bodyWidth = $window.innerWidth;
+                        var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
+                        if (isMobile.matches) {
+                            iframeHeight = Math.floor(bodyHeight - 70);
+                            iframeWidth = Math.floor(bodyWidth - 50);
+                        }else{
+                            iframeHeight = Math.floor(bodyHeight - 300);
+                            iframeWidth = Math.floor(bodyWidth - 300);
+                        }
 
+                        $.featherlight({iframe: eiendomUrl, iframeMaxWidth: '100%', iframeWidth: iframeWidth,
+                            iframeHeight: iframeHeight});
                     };
 
                     var setMenuListMaxHeight = function () {

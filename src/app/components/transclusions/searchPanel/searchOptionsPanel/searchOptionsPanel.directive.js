@@ -31,11 +31,27 @@ angular.module('searchOptionsPanel')
                                 break;
                             default:
                                 if (searchOption.url){
-                                    $window.open(searchOption.url, '_blank');
+                                    var searchOptionUrl = searchOption.url;
+                                    var iframeWidth = 0;
+                                    var iframeHeight = 0;
+                                    var bodyHeight = $window.innerHeight;
+                                    var bodyWidth = $window.innerWidth;
+                                    var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
+                                    if (isMobile.matches) {
+                                        iframeHeight = Math.floor(bodyHeight - 70);
+                                        iframeWidth = Math.floor(bodyWidth - 50);
+                                    }else{
+                                        iframeHeight = Math.floor(bodyHeight - 300);
+                                        iframeWidth = Math.floor(bodyWidth - 300);
+                                    }
+
+                                    $.featherlight({iframe: searchOptionUrl, iframeMaxWidth: '100%', iframeWidth: iframeWidth,
+                                        iframeHeight: iframeHeight});
                                 }
                                 break;
                         }
                     };
+
                     var setMenuListMaxHeight = function () {
                         $(document).ready(function() {
                             var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
