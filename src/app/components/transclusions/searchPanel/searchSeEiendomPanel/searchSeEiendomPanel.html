@@ -1,11 +1,9 @@
 <div class="search-panel">
     <div class="header">
         <div class="row">
-            <div class="col-xs-9">
+            <div class="col-xs-12">
                 <span class="header-icon icon-important" data-ng-class="searchOptionsDict['seEiendom'].icon.value"></span>
                 <span translate="seEiendom"></span>
-            </div>
-            <div class="col-xs-3">
                 <div class="closebtn" data-ng-click="showSearchOptionsPanel()">
                     <span class="glyphicon glyphicon-menu-right"></span>
                     <span class="glyphicon glyphicon-menu-left"></span>
@@ -91,12 +89,16 @@
                             <span translate="legend_txt"></span>
                         </div>
                         <div class="col-xs-2">
-                            <span data-ng-show="!legend.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
-                            <span data-ng-show="legend.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
+                            <span data-ng-show="legend.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+                            <span data-ng-show="!legend.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
                         </div>
                     </div>
                 </li>
             </ul>
+            <div class="legend-panel" data-ng-show="legend.open">
+                <div class="legend1"></div>
+                <div class="legend2"></div>
+            </div>
         </div>
 
         <div class="new-section">
