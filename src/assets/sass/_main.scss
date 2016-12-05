@@ -1,6 +1,6 @@
 @font-face {
   font-family: MetaUnitSlab;
-  src: url("../fonts/MetaWeb-Book.woff") format("woff");
+  src: url("../assets/fonts/MetaWeb-Book.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -615,6 +615,9 @@ html{
 
 }
 
+input{
+  font-family: MetaUnitSlab;
+}
 
 input::-ms-clear {
   display: none;
