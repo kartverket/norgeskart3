@@ -21,11 +21,11 @@
                             <button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: pointSymbol==='Diamond'}" data-ng-click="switchSymbol('Diamond')">♦</button>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-xs-3 draw-content">
+                    <div class="col-sm-6 col-xs-6 draw-content">
                         <div class="title-text">
                             <span translate="size_txt"></span>
                         </div>
-                        <div class="navigation-button">
+                        <div class="navigation-button btn-same-size">
                             <button type="button" data-ng-repeat="pointRadiusSize in pointRadiusSizes" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: activePointType === pointRadiusSize.sizeType}" data-ng-click="setPointRadiusSize(pointRadiusSize); activateDrawFeatureTool()">
                                 <span translate="{{pointRadiusSize.sizeType}}"></span>
                             </button>
@@ -88,7 +88,7 @@
             </div>
             <div class="new-section">
                 <div class="row">
-                    <div class="col-sm-6 col-xs-4">
+                    <div class="col-sm-6 col-xs-6">
                         <div class="title-text">
                             <span translate="lineType_txt"></span>
                         </div>
@@ -96,11 +96,11 @@
                             <button data-ng-repeat="lineType in lineTypes" type="button" class="btn btn-default btn-toggle btn-rectangle-same-size" data-ng-class="{activeBtn: lineType.lineTypeId === activeLineType}" data-ng-click="switchLineType(lineType)" data-ng-bind="lineType.lineType"></button>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-xs-3 draw-content">
+                    <div class="col-sm-6 col-xs-6 draw-content">
                         <div class="title-text">
                             <span translate="width_txt"></span>
                         </div>
-                        <div class="navigation-button">
+                        <div class="navigation-button btn-same-size">
                             <button type="button" data-ng-repeat="lineWidthSize in lineWidthSizes" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: activeLineWidthSize === lineWidthSize.lineTypeId}" data-ng-click="setLineWidthSize(lineWidthSize);">
                                 <span translate="{{lineWidthSize.sizeType}}"></span>
                             </button>
@@ -236,7 +236,7 @@
                         <div class="title-text">
                             <span translate="size_txt"></span>
                         </div>
-                        <div class="navigation-button">
+                        <div class="navigation-button btn-same-size">
                             <button type="button" data-ng-repeat="textHightSize in textHightSizes" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: activeTextHight === textHightSize.textType}" data-ng-click="setTextHight(textHightSize);">
                                 <span translate="{{textHightSize.textType}}"></span>
                             </button>
