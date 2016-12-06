@@ -1246,6 +1246,10 @@ input::-ms-clear {
   display: none !important;
 }
 
+textarea, input[type="text"] {
+  -webkit-appearance: none;
+}
+
 
 
 /* align glyph */
