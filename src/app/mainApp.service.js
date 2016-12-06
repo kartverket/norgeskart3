@@ -119,6 +119,10 @@ angular.module('mainApp')
                 this.generateSearchMatrikkelNummerUrl = function (query) {
                     return url + 'ws/eie.py?' + encodeURIComponent(query);
                 };
+
+                this.generateEiendomAdress = function (kommunenr, gardsnr, bruksnr) {
+                    return url + 'ws/eie.py?' + kommunenr + "-" + gardsnr + "/" + bruksnr;
+                };
                 /*
                  // No CORS
                  this.generateSeHavnivaaUrl = function (lat, lon) {

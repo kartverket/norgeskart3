@@ -1,6 +1,6 @@
 angular.module('searchSeEiendomPanel')
-    .directive('searchSeEiendomPanel', ['$window',
-        function($window) {
+    .directive('searchSeEiendomPanel', ['$window', 'mainAppService','$http',
+        function($window, mainAppService, $http) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchSeEiendomPanel/searchSeEiendomPanel.html',
                 restrict: 'A',
@@ -46,9 +46,47 @@ angular.module('searchSeEiendomPanel')
                         }
                     }
 
+                    var _getEiendomAdresse = function () {
+                        var komunenr =scope.searchOptionsDict['seEiendom'].kommunenr;
+                        var gardsnr = scope.searchOptionsDict['seEiendom'].gardsnr;
+                        var bruksnr = scope.searchOptionsDict['seEiendom'].bruksnr;
+                        var url = mainAppService.generateEiendomAdress(komunenr, gardsnr, bruksnr);
+                        $http.get(url).then(function (response) {
+                            scope.vegaddresse = '';
+                            scope.kommuneNavn = '';
+                            scope.cityName = '';
+                            var addressNum = [];
+                            var responseData = response.data;
+                            for (var i = 0; i < responseData.length; i++){
+                                var adressWithNum = responseData[i].VEGADRESSE2.split(" ");
+                                if (scope.vegaddresse === ''){
+                                    scope.vegaddresse = adressWithNum[0];
+                                }
+                                if (scope.kommuneNavn === ''){
+                                    scope.kommuneNavn = responseData[i].KOMMUNENAVN;
+                                }
+                                if (scope.cityName === ''){
+                                    scope.cityName = responseData[i].VEGADRESSE[1];
+                                }
+                                addressNum.push(adressWithNum[adressWithNum.length - 1]);
+                            }
+
+                            for (var j = 0; j < addressNum.length; j++){
+                                if (j === 0){
+                                    scope.vegaddresse += " " + addressNum[j];
+                                }else{
+                                    if (addressNum[j] !== ""){
+                                        scope.vegaddresse += ", " + addressNum[j];
+                                    }
+                                }
+                            }
+                        });
+                    };
+
                     $( document ).ready(function() {
                         $($window).resize(setMenuListMaxHeight);
                         setMenuListMaxHeight();
+                        _getEiendomAdresse();
                     });
                 }
             };
