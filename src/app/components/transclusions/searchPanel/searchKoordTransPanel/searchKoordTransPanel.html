@@ -48,7 +48,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
-                            <li data-ng-repeat="(key, value) in coordinateSystems" data-ng-click="_fetchKoordTrans(key); $event.stopPropagation();" class="pointer-cursor">
+                            <li data-ng-repeat="(key, value) in coordinateSystems" data-ng-click="_fetchKoordTrans(key)" class="pointer-cursor">
                                 <!--<span data-ng-bind="coordinateSystems[key]"></span>--->
                                 <span translate="{{coordinateSystems[key]}}"></span>
                             </li>

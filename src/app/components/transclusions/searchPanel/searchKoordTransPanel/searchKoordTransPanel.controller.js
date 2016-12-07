@@ -113,6 +113,5 @@ angular.module('searchKoordTransPanel')
                 return  $scope.coordinateSystems[$scope.activePosition.resSosiKoordSys];
             };
 
-
         }
     ]);

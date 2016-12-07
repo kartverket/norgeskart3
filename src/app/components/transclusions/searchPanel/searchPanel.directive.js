@@ -397,8 +397,10 @@ angular.module('searchPanel')
                     var showQueryPointFromMouseClick = function (coordinates) {
                         scope.coordinate=true;
                         // scope.showSearchResultPanel();
+
                         scope.cleanResults();
                         scope.showQueryPoint(scope.contructQueryPoint(coordinates[1], coordinates[0], scope.mapEpsg, 'mouseClick',''));
+                        scope.initLastSearchPanel();
                     };
 
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.MapClickCoordinate, showQueryPointFromMouseClick);
