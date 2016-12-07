@@ -151,6 +151,10 @@ angular.module('mainApp')
                     return url + 'ws/wfs.teig.py?' + _constructMarkingFilter();
                 };
 
+
+                this.generateEiendomAdress = function (kommunenr, gardsnr, bruksnr) {
+                    return url + 'ws/eie.py?' + kommunenr + "-" + gardsnr + "/" + bruksnr;
+                };
                 /*
                  // No CORS
                  this.generateSeHavnivaaUrl = function (lat, lon) {

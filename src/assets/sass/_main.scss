@@ -481,7 +481,7 @@ html{
   left: 19px;
 }
 
-.serach-loading-overlay{
+.search-loading-overlay{
   //background-color: rgba(0,0,0,0.4);
   width: 100%;
   height: 100%;
@@ -1244,6 +1244,10 @@ input::-ms-clear {
 
 .no-display{
   display: none !important;
+}
+
+textarea, input[type="text"] {
+  -webkit-appearance: none;
 }
 
 

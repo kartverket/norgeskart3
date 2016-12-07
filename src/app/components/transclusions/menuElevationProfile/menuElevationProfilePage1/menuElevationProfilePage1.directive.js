@@ -69,6 +69,7 @@ angular.module('menuElevationProfilePage1')
 
                         scope.elevationImage = undefined;
                         _startDrawing("Line", features);
+                        scope.drawLine = "Active";
                     };
 
 
@@ -86,9 +87,8 @@ angular.module('menuElevationProfilePage1')
                         scope.deactivateDrawFeatureTool(scope.GeoJSON);
                         scope.deactivateAddLayerFeatureTool();
                         scope.setElevationProfileActive(false);
+                        scope.drawLine = "Deactive";
                     };
-
-
                 }
             };
         }]

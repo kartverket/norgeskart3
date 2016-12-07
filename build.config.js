@@ -84,10 +84,12 @@ module.exports = {
             'vendor/maplib/dist/maplib-min.js',
             'vendor/xml-to-json/xml.js',
             'vendor/xml-to-json/json2xml.js',
-            'vendor/angular-utils-pagination/dirPagination.js'
+            'vendor/angular-utils-pagination/dirPagination.js',
+            'vendor/featherlight/release/featherlight.min.js'
         ],
         css: [
-            'vendor/bootstrap/dist/css/bootstrap.min.css'
+            'vendor/bootstrap/dist/css/bootstrap.min.css',
+            'vendor/featherlight/release/featherlight.min.css'
         ],
         assets: [
             'src/assets/fonts/'
