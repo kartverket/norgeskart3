@@ -67,7 +67,9 @@ angular.module('searchSeEiendomPanel')
                         var komunenr =scope.searchOptionsDict['seEiendom'].kommunenr;
                         var gardsnr = scope.searchOptionsDict['seEiendom'].gardsnr;
                         var bruksnr = scope.searchOptionsDict['seEiendom'].bruksnr;
-                        var url = mainAppService.generateEiendomAdress(komunenr, gardsnr, bruksnr);
+                        var festenr = scope.searchOptionsDict['seEiendom'].festenr;
+                        var sectionsnr = scope.searchOptionsDict['seEiendom'].seksjonsnr;
+                        var url = mainAppService.generateEiendomAddress(komunenr, gardsnr, bruksnr, festenr, sectionsnr);
                         $http.get(url).then(function (response) {
                             scope.vegaddresse = '';
                             scope.kommuneNavn = '';
@@ -82,7 +84,7 @@ angular.module('searchSeEiendomPanel')
                                 if (scope.kommuneNavn === ''){
                                     scope.kommuneNavn = responseData[i].KOMMUNENAVN;
                                 }
-                                if (scope.cityName === ''){
+                                if (scope.cityName === '' && responseData[i].VEGADRESSE !== ""){
                                     scope.cityName = responseData[i].VEGADRESSE[1];
                                 }
                                 addressNum.push(adressWithNum[adressWithNum.length - 1]);
@@ -99,11 +101,10 @@ angular.module('searchSeEiendomPanel')
                             });
 
                             for (var j = 0; j < addressNum.length; j++){
-                                if (j === 0){
+                                if (addressNum[j] !== ""){
                                     scope.vegaddresse += " " + addressNum[j];
-                                }else{
-                                    if (addressNum[j] !== ""){
-                                        scope.vegaddresse += ", " + addressNum[j];
+                                    if (j !== addressNum.length - 1){
+                                        scope.vegaddresse += ",";
                                     }
                                 }
                             }
