@@ -87,7 +87,7 @@ angular.module('searchPanel')
                         scope.removeInfomarkers();
                         map.ShowInfoMarker(queryPoint.point);
                         scope.activatePosition(queryPoint);
-                        scope.showSearchOptionsPanel();
+                        // scope.showSearchOptionsPanel();
                     };
 
                     scope.removeInfomarkers = function () {
@@ -390,13 +390,13 @@ angular.module('searchPanel')
                         _init();
                         scope.removeInfomarkers();
                         scope.searchBarModel = "";
-                        scope.showSearchResultPanel();
+                        // scope.showSearchResultPanel();
                         scope.deactivatePrintBoxSelect();
                     };
 
                     var showQueryPointFromMouseClick = function (coordinates) {
                         scope.coordinate=true;
-                        scope.showSearchResultPanel();
+                        // scope.showSearchResultPanel();
                         scope.cleanResults();
                         scope.showQueryPoint(scope.contructQueryPoint(coordinates[1], coordinates[0], scope.mapEpsg, 'mouseClick',''));
                     };
