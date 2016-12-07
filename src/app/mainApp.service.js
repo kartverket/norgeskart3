@@ -120,8 +120,17 @@ angular.module('mainApp')
                     return url + 'ws/eie.py?' + encodeURIComponent(query);
                 };
 
-                this.generateEiendomAdress = function (kommunenr, gardsnr, bruksnr) {
-                    return url + 'ws/eie.py?' + kommunenr + "-" + gardsnr + "/" + bruksnr;
+                this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {
+                    if (festnr !== "0"){
+                        if (sectionsnr === "0"){
+                            return url + 'ws/eie.py?' + kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr;
+                        }else{
+                            return url + 'ws/eie.py?' + kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr + "/" + sectionsnr;
+                        }
+                    }else{
+                        return url + 'ws/eie.py?' + kommunenr + "-" + gardsnr + "/" + bruksnr;
+                    }
+
                 };
                 /*
                  // No CORS

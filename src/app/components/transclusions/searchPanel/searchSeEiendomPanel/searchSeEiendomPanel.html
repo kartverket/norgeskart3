@@ -13,14 +13,14 @@
     </div>
 
     <div class="search-content">
-        <div>
+        <div data-ng-show="vegaddresse !== ''">
             <span data-ng-bind="vegaddresse"></span>
         </div>
-        <div>
+        <div data-ng-show="cityName !== ''">
             <span data-ng-bind="cityName"></span>
         </div>
 
-        <div class="new-section">
+        <div class="new-section" data-ng-class="{noMarginTop: vegaddresse == ''}">
             <div class="row no-margin line-zebra-grey">
                 <div class="col-xs-4 no-padding">
                     <span>Kommunenr.</span>
