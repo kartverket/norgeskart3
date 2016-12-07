@@ -141,6 +141,16 @@ angular
                     "additionalOptions": {
                         scale: 25000
                     }
+                },
+                {
+                    "id": "AddLayerUrl",
+                    "title": "AddLayerUrl_title",
+                    "hover": "AddLayerUrl_hover",
+                    "symbol": "flaticon-triangular43",
+                    "sortOrder": 10,
+                    "isSelected": false,
+                    "cursorStyle": "default",
+                    "additionalOptions": {}
                 }
             ];
 
@@ -205,6 +215,13 @@ angular
                                 options = {
                                     'features': tool.features,
                                     'snappingFeatures': tool.snappingFeatures
+                                };
+                            }
+                            else if(tool.id === "AddLayerUrl"){
+                                options = {
+                                    url: tool.additionalOptions.url,
+                                    style: tool.additionalOptions.style,
+                                    geometryName: tool.additionalOptions.geometryName
                                 };
                             }
                             options['translate'] = isyTranslateFactory.getTranslateOptionsByActiveLanguage();

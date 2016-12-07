@@ -1,10 +1,10 @@
 angular.module('searchSeEiendomPanel')
-    .directive('searchSeEiendomPanel', ['$window', 'mainAppService','$http',
-        function($window, mainAppService, $http) {
+    .directive('searchSeEiendomPanel', ['$window', 'toolsFactory', 'mainAppService', '$http',
+        function($window, toolsFactory,mainAppService, $http) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchSeEiendomPanel/searchSeEiendomPanel.html',
                 restrict: 'A',
-                link: function(scope){
+                link: function (scope) {
                     scope.openEindomInformasjon = function () {
                         // $window.open(scope.searchOptionsDict['seEiendom'].url, '_blank');
                         var eiendomUrl = scope.searchOptionsDict['seEiendom'].url;
@@ -25,6 +25,23 @@ angular.module('searchSeEiendomPanel')
                             iframeHeight: iframeHeight});
                     };
 
+                    scope.showSelection = function () {
+                        var addLayerUrlTool = toolsFactory.getToolById("AddLayerUrl");
+                        if (!scope.showSelectionCheckbox) {
+                            toolsFactory.deactivateTool(addLayerUrlTool);
+                            return;
+                        }
+
+                        addLayerUrlTool.additionalOptions.url = mainAppService.generateMatrikkelWfsFilterUrl(scope.searchOptionsDict['seEiendom']);
+                        addLayerUrlTool.additionalOptions.geometryName = 'FLATE';
+                        addLayerUrlTool.additionalOptions.style = new ol.style.Style({
+                            fill: new ol.style.Fill({
+                                color: 'rgba(255,255,102,0.6)'
+                            })
+                        });
+
+                        toolsFactory.activateTool(addLayerUrlTool);
+                    };
                     var setMenuListMaxHeight = function () {
                         $(document).ready(function() {
                             var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
