@@ -472,6 +472,8 @@ angular.module('mainApp')
                 $translate.refresh();
             }
 
+            var lastSelectedSearchPanel = 'searchOptionsPanel';
+
             return {
                 getMapConfig: function () {
                     return mapConfig;
@@ -492,7 +494,17 @@ angular.module('mainApp')
 
                 isMainMenuOpen: function () {
                     return mainMenuIsOpen;
+                },
+
+                setActiveSearchPanel: function (id) {
+                    lastSelectedSearchPanel = id;
+                },
+
+                getLastActiveSearchPanel: function () {
+                    return lastSelectedSearchPanel;
                 }
+
+
 
             };
         }]
