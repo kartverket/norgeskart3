@@ -221,7 +221,8 @@ angular
                                 options = {
                                     url: tool.additionalOptions.url,
                                     style: tool.additionalOptions.style,
-                                    geometryName: tool.additionalOptions.geometryName
+                                    geometryName: tool.additionalOptions.geometryName,
+                                    show: tool.additionalOptions.show
                                 };
                             }
                             options['translate'] = isyTranslateFactory.getTranslateOptionsByActiveLanguage();

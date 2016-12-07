@@ -28,20 +28,22 @@ angular.module('searchSeEiendomPanel')
                     scope.showSelection = function () {
                         var addLayerUrlTool = toolsFactory.getToolById("AddLayerUrl");
                         if (!scope.showSelectionCheckbox) {
-                            toolsFactory.deactivateTool(addLayerUrlTool);
-                            return;
+                            addLayerUrlTool.additionalOptions.show = false;
                         }
-
-                        addLayerUrlTool.additionalOptions.url = mainAppService.generateMatrikkelWfsFilterUrl(scope.searchOptionsDict['seEiendom']);
-                        addLayerUrlTool.additionalOptions.geometryName = 'FLATE';
-                        addLayerUrlTool.additionalOptions.style = new ol.style.Style({
-                            fill: new ol.style.Fill({
-                                color: 'rgba(255,255,102,0.6)'
-                            })
-                        });
-
+                        else {
+                            addLayerUrlTool.additionalOptions.show = true;
+                            addLayerUrlTool.additionalOptions.url = mainAppService.generateMatrikkelWfsFilterUrl(scope.searchOptionsDict['seEiendom']);
+                            addLayerUrlTool.additionalOptions.geometryName = 'FLATE';
+                            addLayerUrlTool.additionalOptions.style = new ol.style.Style({
+                                fill: new ol.style.Fill({
+                                    color: 'rgba(255,255,102,0.6)'
+                                })
+                            });
+                        }
                         toolsFactory.activateTool(addLayerUrlTool);
+                        toolsFactory.deactivateTool(addLayerUrlTool);
                     };
+
                     var setMenuListMaxHeight = function () {
                         $(document).ready(function() {
                             var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
