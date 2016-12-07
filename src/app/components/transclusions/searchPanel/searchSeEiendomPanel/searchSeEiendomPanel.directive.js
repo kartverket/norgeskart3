@@ -71,6 +71,16 @@ angular.module('searchSeEiendomPanel')
                                 addressNum.push(adressWithNum[adressWithNum.length - 1]);
                             }
 
+                            addressNum.sort(function(a, b){
+                                if(a < b){
+                                    return -1;
+                                }
+                                if(a > b){
+                                    return 1;
+                                }
+                                return 0;
+                            });
+
                             for (var j = 0; j < addressNum.length; j++){
                                 if (j === 0){
                                     scope.vegaddresse += " " + addressNum[j];
