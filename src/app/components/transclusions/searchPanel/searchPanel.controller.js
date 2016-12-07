@@ -10,6 +10,7 @@ angular.module('searchPanel')
 
             $scope.showSearchOptionsPanel = function () {
                 $scope.deactivatePrintBoxSelect();
+                $scope.deactivateAddLayerUrl();
                 $scope.searchPanelLayout = "searchOptionsPanel";
             };
 
@@ -50,6 +51,11 @@ angular.module('searchPanel')
                 toolsFactory.deactivateTool(printBoxSelectTool);
             };
 
-
+            $scope.deactivateAddLayerUrl = function() {
+                var addLayerUrlTool = toolsFactory.getToolById("AddLayerUrl");
+                addLayerUrlTool.additionalOptions.show=false;
+                toolsFactory.activateTool(addLayerUrlTool);
+                toolsFactory.deactivateTool(addLayerUrlTool);
+            };
         }
     ]);
