@@ -1,1 +1,1 @@
-angular.module('searchSeEiendomPanel', []);
+angular.module('searchSeEiendomPanel', ['tools']);
