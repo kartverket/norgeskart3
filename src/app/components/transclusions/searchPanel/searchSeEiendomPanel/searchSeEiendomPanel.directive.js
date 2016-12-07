@@ -37,6 +37,10 @@ angular.module('searchSeEiendomPanel')
                             addLayerUrlTool.additionalOptions.style = new ol.style.Style({
                                 fill: new ol.style.Fill({
                                     color: 'rgba(255,255,102,0.6)'
+                                }),
+                                stroke: new ol.style.Stroke({
+                                    color: 'rgba(255,255,102,1)',
+                                    width: 1
                                 })
                             });
                         }
