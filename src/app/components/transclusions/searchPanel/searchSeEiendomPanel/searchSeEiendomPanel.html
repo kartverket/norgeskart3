@@ -2,17 +2,25 @@
     <div class="header">
         <div class="row">
             <div class="col-xs-12">
-                <span class="header-icon icon-important" data-ng-class="searchOptionsDict['seEiendom'].icon.value"></span>
-                <span translate="seEiendom"></span>
-                <div class="closebtn" data-ng-click="showSearchOptionsPanel()">
-                    <span class="glyphicon glyphicon-menu-right"></span>
-                    <span class="glyphicon glyphicon-menu-left"></span>
+                <div class="text-ellipsis display-inline">
+                    <span class="header-icon icon-important" data-ng-class="searchOptionsDict['seEiendom'].icon.value"></span>
+                    <span translate="seEiendom"></span>
+                </div>
+                <div class="pull-right">
+                    <div class="hide-button" data-ng-click="eiendom.open = !eiendom.open">
+                        <span data-ng-show="!eiendom.open" class="glyphicon glyphicon-menu-up"></span>
+                        <span data-ng-show="eiendom.open" class="glyphicon glyphicon-menu-down"></span>
+                    </div>
+                    <div class="closebtn" data-ng-click="showSearchOptionsPanel()">
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                        <span class="glyphicon glyphicon-menu-left"></span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="search-content">
+    <div class="search-content" data-ng-show="!eiendom.open">
         <div data-ng-show="vegaddresse !== ''">
             <span data-ng-bind="vegaddresse"></span>
         </div>

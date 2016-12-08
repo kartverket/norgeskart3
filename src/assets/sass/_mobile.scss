@@ -105,4 +105,13 @@
     margin-right: 10px!important;
   }
 
+  .text-ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 65%;
+    display: inline;
+    position: absolute;
+  }
+
 }
