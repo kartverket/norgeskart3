@@ -103,6 +103,9 @@ angular.module('searchKoordTransPanel')
                         '25': 'EU89_UTM_35',
                         '26': 'EU89_UTM_36'
                     };
+                    $scope.activePosition.transLat = _round($scope.activePosition.lat,2);
+                    $scope.activePosition.transLon = _round($scope.activePosition.lon,2);
+                    $scope.activePosition.resSosiKoordSys = '23';
                 }
             };
 
