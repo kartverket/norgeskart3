@@ -1,6 +1,6 @@
 angular.module('searchPanel')
-    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler','$http','searchPanelFactory','$window', 'toolsFactory',
-        function($timeout, mainAppService, map, eventHandler, $http, searchPanelFactory, $window, toolsFactory) {
+    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler','$http','searchPanelFactory','$window', 'toolsFactory', '$location',
+        function($timeout, mainAppService, map, eventHandler, $http, searchPanelFactory, $window, toolsFactory, $location) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchPanel.html',
                 restrict: 'A',
@@ -372,8 +372,10 @@ angular.module('searchPanel')
                             lat: parseFloat(searchResult.point[1])
                             // epsg: scope.mapEpsg
                         };
-                        if (searchResult.source=='matrikkeladresse'){
-                            activePosition.zoom=parseFloat(16);
+                        var zoomTo=parseFloat(13);
+                        var activeZoom=parseFloat($location.search().zoom);
+                        if (scope.searchPanelLayout != "searchSeEiendomPanel" && activeZoom < zoomTo){
+                            activePosition.zoom=zoomTo;
                         }
                         activePosition.geographicPoint=searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, scope.mapEpsg, 'EPSG:4326');
                         map.SetCenter(activePosition);
