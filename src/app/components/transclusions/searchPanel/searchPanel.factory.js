@@ -90,7 +90,7 @@ angular
             };
 
             var searchOptionsOrder=['seEiendom', 'ssrFakta',  'koordTrans', 'lagTurkart', 'lagNodplakat'];
-
+            var eiendomMarkering = false;
 
             return {
                 getSourceDict: function () {
@@ -138,6 +138,14 @@ angular
 
                 constructPoint : function (lat, lon, epsgFrom, epsgTo) {
                     return ol.proj.transform([lon, lat], epsgFrom, epsgTo);
+                },
+
+                setShowEiendomMarkering: function (value) {
+                    eiendomMarkering = value;
+                },
+
+                getShowEiendomMarkering: function () {
+                    return eiendomMarkering;
                 }
             };
 

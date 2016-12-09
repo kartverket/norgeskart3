@@ -1,6 +1,6 @@
 angular.module('searchSeEiendomPanel')
-    .directive('searchSeEiendomPanel', ['$window',
-        function($window) {
+    .directive('searchSeEiendomPanel', ['$window','searchPanelFactory',
+        function($window, searchPanelFactory) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchSeEiendomPanel/searchSeEiendomPanel.html',
                 restrict: 'A',
@@ -47,9 +47,17 @@ angular.module('searchSeEiendomPanel')
                         }
                     }
 
+                    scope.eiendomMarkering = function () {
+                        searchPanelFactory.setShowEiendomMarkering(scope.showSelectionCheckbox);
+                    };
 
 
+                    var initSeEiendom = function () {
+                        scope.showSelectionCheckbox = searchPanelFactory.getShowEiendomMarkering();
+                    };
 
+
+                    initSeEiendom();
                     // _getEiendomAdresse();
 
                     $( document ).ready(function() {

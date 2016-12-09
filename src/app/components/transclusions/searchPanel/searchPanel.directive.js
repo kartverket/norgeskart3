@@ -1,6 +1,6 @@
 angular.module('searchPanel')
-    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler','$http','searchPanelFactory','$window',
-        function($timeout, mainAppService, map, eventHandler, $http, searchPanelFactory, $window) {
+    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler','$http','searchPanelFactory','$window', 'toolsFactory',
+        function($timeout, mainAppService, map, eventHandler, $http, searchPanelFactory, $window, toolsFactory) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchPanel.html',
                 restrict: 'A',
@@ -87,7 +87,10 @@ angular.module('searchPanel')
                         scope.removeInfomarkers();
                         map.ShowInfoMarker(queryPoint.point);
                         scope.activatePosition(queryPoint);
-                        // scope.showSearchOptionsPanel();
+                        if (queryPoint.source === 'coordGeo' || queryPoint.source === 'coordUtm'){
+                            scope.showSearchOptionsPanel();
+                        }
+
                     };
 
                     scope.removeInfomarkers = function () {
@@ -569,7 +572,13 @@ angular.module('searchPanel')
                                 }
                                 jsonRoot = jsonObject.FeatureCollection.featureMembers.TEIGWFS;
                                 _addMatrikkelInfoToSearchOptions(jsonRoot, name);
-                                _fetchAddressInfoForMatrikkel();
+                                if(scope.searchPanelLayout == 'searchSeEiendomPanel') {
+                                    _fetchAddressInfoForMatrikkel();
+                                    if (searchPanelFactory.getShowEiendomMarkering()){
+                                        scope.showSelection();
+                                    }
+
+                                }
                                 break;
                         }
                     };
@@ -652,42 +661,65 @@ angular.module('searchPanel')
                         setMenuListMaxHeight();
                     });
 
-
+                    scope.showSelection = function () {
+                        var addLayerUrlTool = toolsFactory.getToolById("AddLayerUrl");
+                        if (!searchPanelFactory.getShowEiendomMarkering()) {
+                            addLayerUrlTool.additionalOptions.show = false;
+                        }
+                        else {
+                            addLayerUrlTool.additionalOptions.show = true;
+                            addLayerUrlTool.additionalOptions.url = mainAppService.generateMatrikkelWfsFilterUrl(scope.searchOptionsDict['seEiendom']);
+                            addLayerUrlTool.additionalOptions.geometryName = 'FLATE';
+                            addLayerUrlTool.additionalOptions.style = new ol.style.Style({
+                                fill: new ol.style.Fill({
+                                    color: 'rgba(255,255,102,0.6)'
+                                }),
+                                stroke: new ol.style.Stroke({
+                                    color: 'rgba(255,255,102,1)',
+                                    width: 1
+                                })
+                            });
+                        }
+                        toolsFactory.activateTool(addLayerUrlTool);
+                        toolsFactory.deactivateTool(addLayerUrlTool);
+                    };
 
                 }
             };
         }])
 
-    .directive('caret', function() {
-        function setCaretPosition(elem, caretPos) {
-            if (elem !== null) {
-                if (elem.createTextRange) {
-                    var range = elem.createTextRange();
-                    range.move('character', caretPos);
-                    range.select();
-                } else {
-                    if (elem.setSelectionRange) {
-                        elem.focus();
-                        elem.setSelectionRange(caretPos, caretPos);
-                    } else {
-                        elem.focus();
+    .directive('caret',[
+        function() {
+            return {
+                scope: {value: '=ngModel'},
+                link: function (scope, element) {
+                    function setCaretPosition(elem, caretPos) {
+                        if (elem !== null) {
+                            if (elem.createTextRange) {
+                                var range = elem.createTextRange();
+                                range.move('character', caretPos);
+                                range.select();
+                            } else {
+                                if (elem.setSelectionRange) {
+                                    elem.focus();
+                                    elem.setSelectionRange(caretPos, caretPos);
+                                } else {
+                                    elem.focus();
+                                }
+                            }
+                        }
                     }
-                }
-            }
-        }
+                    scope.$watch('value', function (newValue) {
+                        if (newValue && newValue.indexOf('@') > -1 && !scope.searchBarCoordinateSystemIndicator) {
+                            scope.searchBarCoordinateSystemIndicator = true;
+                            setCaretPosition(element[0], newValue.indexOf('@'));
+                        }
+                        else if (newValue && newValue.indexOf('@') < 0) {
+                            scope.searchBarCoordinateSystemIndicator = false;
+                        }
 
-        return {
-            scope: {value: '=ngModel'},
-            link: function (scope, element) {
-                scope.$watch('value', function (newValue) {
-                    if (newValue && newValue.indexOf('@') > -1 && !scope.searchBarCoordinateSystemIndicator) {
-                        scope.searchBarCoordinateSystemIndicator = true;
-                        setCaretPosition(element[0], newValue.indexOf('@'));
-                    }
-                    else if (newValue && newValue.indexOf('@') < 0) {
-                        scope.searchBarCoordinateSystemIndicator = false;
-                    }
-                });
-            }
-        };
-    });
+                    });
+                }
+            };
+        }]
+    );
