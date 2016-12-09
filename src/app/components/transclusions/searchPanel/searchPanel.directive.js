@@ -515,7 +515,7 @@ angular.module('searchPanel')
                         }
                     };
 
-                    var _fetchAddressInfoForMatrikkel = function(){
+                    scope.fetchAddressInfoForMatrikkel = function(){
                             var komunenr = scope.searchOptionsDict['seEiendom'].kommunenr;
                             var gardsnr = scope.searchOptionsDict['seEiendom'].gardsnr;
                             var bruksnr = scope.searchOptionsDict['seEiendom'].bruksnr;
@@ -588,7 +588,7 @@ angular.module('searchPanel')
                                 jsonRoot = jsonObject.FeatureCollection.featureMembers.TEIGWFS;
                                 _addMatrikkelInfoToSearchOptions(jsonRoot, name);
                                 if(scope.searchPanelLayout == 'searchSeEiendomPanel') {
-                                    _fetchAddressInfoForMatrikkel();
+                                    scope.fetchAddressInfoForMatrikkel();
                                     if (searchPanelFactory.getShowEiendomMarkering()){
                                         scope.showSelection();
                                     }
