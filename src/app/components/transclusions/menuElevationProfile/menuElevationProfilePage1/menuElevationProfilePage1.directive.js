@@ -1,6 +1,6 @@
 angular.module('menuElevationProfilePage1')
-    .directive('menuElevationProfilePage1', ['toolsFactory', 'ISY.EventHandler','$timeout',
-        function(toolsFactory,eventHandler, $timeout) {
+    .directive('menuElevationProfilePage1', ['toolsFactory', 'ISY.EventHandler','$timeout', 'menuElevationProfileFactory',
+        function(toolsFactory,eventHandler, $timeout, menuElevationProfileFactory) {
             return {
                 templateUrl: 'components/transclusions/menuElevationProfile/menuElevationProfilePage1/menuElevationProfilePage1.html',
                 restrict: 'A',
@@ -27,7 +27,7 @@ angular.module('menuElevationProfilePage1')
                                 });
                         }
 
-                        if (scope.elevationProfileActive) {
+                        if (menuElevationProfileFactory.getElevationProfileActive()) {
                             var gpxFormat = new ol.format.GPX();
                             var gpx = gpxFormat.writeFeatures([newFeature], {
                                 featureProjection: 'EPSG:25833',
@@ -69,7 +69,7 @@ angular.module('menuElevationProfilePage1')
 
                         scope.elevationImage = undefined;
                         _startDrawing("Line", features);
-                        scope.drawLine = "Active";
+                        menuElevationProfileFactory.setElevationBtnActivity(true);
                     };
 
 
@@ -87,7 +87,15 @@ angular.module('menuElevationProfilePage1')
                         scope.deactivateDrawFeatureTool(scope.GeoJSON);
                         scope.deactivateAddLayerFeatureTool();
                         scope.setElevationProfileActive(false);
-                        scope.drawLine = "Deactive";
+                        menuElevationProfileFactory.setElevationBtnActivity(false);
+                    };
+
+                    scope.isDrawActive = function () {
+                        return menuElevationProfileFactory.getElevationBtnActivity();
+                    };
+
+                    scope.isElevationProfileActive = function () {
+                        return menuElevationProfileFactory.getElevationProfileActive();
                     };
                 }
             };

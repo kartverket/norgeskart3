@@ -1,6 +1,6 @@
 angular.module('moveableOverlay')
-    .directive('moveableOverlay', ['moveableOverlayFactory','$document','mapOverlaysLayoutFactory','toolsFactory',
-        function(moveableOverlayFactory, $document, mapOverlaysLayoutFactory,toolsFactory) {
+    .directive('moveableOverlay', ['moveableOverlayFactory', '$document', 'mapOverlaysLayoutFactory', 'toolsFactory','menuElevationProfileFactory',
+        function(moveableOverlayFactory, $document, mapOverlaysLayoutFactory, toolsFactory, menuElevationProfileFactory) {
             return {
                 templateUrl: 'components/overlays/moveableOverlay/moveableOverlay.html',
                 controller: 'moveableOverlayController',
@@ -24,6 +24,8 @@ angular.module('moveableOverlay')
                         // }
                         _addUnsavedDrawings();
                         moveableOverlayFactory.deactiveAllOverlay();
+                        menuElevationProfileFactory.setElevationBtnActivity(false);
+                        menuElevationProfileFactory.setElevationProfileActive(false);
                         $scope.deactivateDrawFeatureTool($scope.GeoJSON);
                         $scope.deactivateAddLayerFeatureTool();
                         $scope.showElevationProfilePage1();
