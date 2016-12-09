@@ -103,9 +103,10 @@ angular.module('searchKoordTransPanel')
                         '25': 'EU89_UTM_35',
                         '26': 'EU89_UTM_36'
                     };
-                    $scope.activePosition.transLat = _round($scope.activePosition.lat,2);
-                    $scope.activePosition.transLon = _round($scope.activePosition.lon,2);
-                    $scope.activePosition.resSosiKoordSys = '23';
+
+                    // $scope.activePosition.transLat = _round($scope.activePosition.lat,2);
+                    // $scope.activePosition.transLon = _round($scope.activePosition.lon,2);
+                    // $scope.activePosition.resSosiKoordSys = '23';
                 }
             };
 
@@ -117,7 +118,7 @@ angular.module('searchKoordTransPanel')
             var initCoordSystem = function () {
                 var key = searchKoordTransPanelFactory.getLastSelectedCoorKey();
                 $scope.showAdvancedCoordinateSystems = searchKoordTransPanelFactory.getAdvancedCoordSystem();
-                if (key !== '' && $scope.showAdvancedCoordinateSystems !== false){
+                if (key !== ''){
                     $scope._fetchKoordTrans(key);
                 }else{
                     $scope.activePosition.transLat = _round($scope.activePosition.lat,2);
