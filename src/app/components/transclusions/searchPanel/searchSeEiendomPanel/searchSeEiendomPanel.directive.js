@@ -51,6 +51,12 @@ angular.module('searchSeEiendomPanel')
                         searchPanelFactory.setShowEiendomMarkering(scope.showSelectionCheckbox);
                     };
 
+                    scope.selectResult = function(result){
+                        var tmp=scope.searchOptionsDict.seEiendom.allResults;
+                        scope.searchOptionsDict.seEiendom = result;
+                        scope.searchOptionsDict.seEiendom.allResults=tmp;
+                        scope.showSelection();
+                    };
 
                     var initSeEiendom = function () {
                         scope.showSelectionCheckbox = searchPanelFactory.getShowEiendomMarkering();
