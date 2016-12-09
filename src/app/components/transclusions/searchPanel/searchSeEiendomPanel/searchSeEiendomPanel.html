@@ -49,7 +49,12 @@
                 <div class="col-xs-4 no-padding">
                     <span>Gårdsnr.</span>
                 </div>
-                <div class="col-xs-8">
+                <div class="col-xs-8"
+                    ng-if="searchOptionsDict['seEiendom'].allResults">
+                    <span>Multiple Results</span>
+                </div>
+                <div class="col-xs-8"
+                     ng-if="!searchOptionsDict['seEiendom'].allResults">
                     <span data-ng-bind="searchOptionsDict['seEiendom'].gardsnr"></span>
                 </div>
             </div>
