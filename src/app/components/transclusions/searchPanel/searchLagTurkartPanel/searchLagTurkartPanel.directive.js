@@ -1,11 +1,12 @@
 angular.module('searchLagTurkartPanel')
-    .directive('searchLagTurkartPanel', ['toolsFactory','ISY.EventHandler','$http','mainAppService','$window',
-        function(toolsFactory, eventHandler, $http, mainAppService,$window) {
+    .directive('searchLagTurkartPanel', ['toolsFactory','ISY.EventHandler','$http','mainAppService','$window','ISY.MapAPI.Map',
+        function(toolsFactory, eventHandler, $http, mainAppService,$window, map) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchLagTurkartPanel/searchLagTurkartPanel.html',
                 restrict: 'A',
                 link: function(scope){
-
+                    scope.activePosition.zoom=parseFloat(7);
+                    map.SetCenter( scope.activePosition);
                     var extent= {};
                     var mapLink = "";
                     var retryMapCreation=true;
