@@ -1,8 +1,8 @@
 angular.module('menuElevationProfile')
-    .controller('menuElevationProfileController', [ '$scope', 'toolsElevationProfileFactory',
-        function(scope, toolsElevationProfileFactory) {
+    .controller('menuElevationProfileController', [ '$scope', 'toolsElevationProfileFactory', 'menuElevationProfileFactory',
+        function(scope, toolsElevationProfileFactory, menuElevationProfileFactory) {
             scope.allowGeneratingElevationProfile=false;
-            scope.elevationProfileActive = false;
+            // scope.elevationProfileActive = false;
             scope.gpx = false;
             scope.imageExists = false;
 
@@ -11,7 +11,8 @@ angular.module('menuElevationProfile')
             };
 
             scope.setElevationProfileActive = function (value) {
-                scope.elevationProfileActive = value;
+                // scope.elevationProfileActive = value;
+                menuElevationProfileFactory.setElevationProfileActive(value);
             };
 
             scope.setImageExits = function (value) {
@@ -36,7 +37,8 @@ angular.module('menuElevationProfile')
                             scope.showElevationProfilePage2();
                         });
                 }
-                scope.elevationProfileActive = false;
+                menuElevationProfileFactory.setElevationBtnActivity(false);
+                // scope.elevationProfileActive = false;
             };
 
         }

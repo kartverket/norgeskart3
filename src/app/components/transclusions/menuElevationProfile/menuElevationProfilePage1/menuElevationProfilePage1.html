@@ -16,7 +16,7 @@
             <span translate="profileInfo_txt"></span>
             <div class="new-section navigation-button">
                 <button class="btn btn-default btn-ordinary" data-ng-click="removeGeometry()" translate="remove_txt" data-ng-disabled="!elevationProfileActive"></button>
-                <button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: drawLine==='Active'}" data-ng-click="drawLineElevation()" translate="drawProfile_txt"></button>
+                <button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: isDrawActive()}" data-ng-click="drawLineElevation()" translate="drawProfile_txt"></button>
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="uploadFile">
@@ -37,7 +37,7 @@
                 <button class="btn btn-default btn-ordinary"
                         data-ng-click="closeOverlay()" translate="Cancel_txt">
                 </button>
-                <button data-ng-disabled="!elevationProfileActive" class="btn btn-default btn-important" data-ng-click="calculateElevationProfile()" translate="showElevationProfile_txt">
+                <button data-ng-disabled="!isElevationProfileActive()" class="btn btn-default btn-important" data-ng-click="calculateElevationProfile()" translate="showElevationProfile_txt">
                 </button>
             </div>
         </div>
