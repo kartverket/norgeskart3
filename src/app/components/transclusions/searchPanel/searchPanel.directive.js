@@ -475,33 +475,38 @@ angular.module('searchPanel')
                     };
 
                     var _addMatrikkelInfoToSearchOptions = function (jsonRoot, name) {
-                        if (jsonRoot[0]){
-                            jsonRoot = jsonRoot[0];
+                        if(!jsonRoot[0]) {
+                            jsonRoot = [jsonRoot];
+                        }
+                        var matrikkelInfo = [];
+                        for (var i = 0; i < jsonRoot.length; i++) {
+                            if ((jsonRoot.MATRIKKELNR == 'Mnr mangler') || ( jsonRoot.MATRIKKELNR == 'Mnr vann mangler')) {
+                                continue;
+                            }
+
+                            var extra = {
+                                kommunenr: jsonRoot[i].KOMMUNENR,
+                                gardsnr: jsonRoot[i].GARDSNR,
+                                bruksnr: jsonRoot[i].BRUKSNR,
+                                festenr: jsonRoot[i].FESTENR,
+                                seksjonsnr: jsonRoot[i].SEKSJONSNR,
+                                eiendomstype: jsonRoot[i].EIENDOMSTYPE,
+                                matrikkelnr: jsonRoot[i].MATRIKKELNR
+                            };
+
+                            extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
+                            var text = '' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
+                            matrikkelInfo.push(_constructSearchOption(name, 'fa fa-home', true, text, extra));
                         }
 
-                        if ((jsonRoot.MATRIKKELNR == 'Mnr mangler') ||( jsonRoot.MATRIKKELNR == 'Mnr vann mangler')) {
-                            return;
+                        scope.searchOptionsDict[name] = matrikkelInfo[0];
+
+                        if (matrikkelInfo.length > 1) {
+                            scope.searchOptionsDict[name].allResults=matrikkelInfo;
                         }
-
-                        var extra = {
-                            kommunenr: jsonRoot.KOMMUNENR,
-                            gardsnr: jsonRoot.GARDSNR,
-                            bruksnr: jsonRoot.BRUKSNR,
-                            festenr: jsonRoot.FESTENR,
-                            seksjonsnr: jsonRoot.SEKSJONSNR,
-                            eiendomstype: jsonRoot.EIENDOMSTYPE,
-                            matrikkelnr: jsonRoot.MATRIKKELNR
-                        };
-
-
-                        extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
-                        var text = '' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
-                        scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-home', true, text, extra);
-
                     };
 
                     var _fetchAddressInfoForMatrikkel = function(){
-                        // var _getEiendomAdresse = function () {
                             var komunenr = scope.searchOptionsDict['seEiendom'].kommunenr;
                             var gardsnr = scope.searchOptionsDict['seEiendom'].gardsnr;
                             var bruksnr = scope.searchOptionsDict['seEiendom'].bruksnr;
@@ -547,7 +552,6 @@ angular.module('searchPanel')
                                     }
                                 }
                             });
-                        // };
                     };
 
 
