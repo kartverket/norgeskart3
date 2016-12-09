@@ -1,6 +1,6 @@
 angular.module('searchKoordTransPanel')
-    .controller('searchKoordTransPanelController', [ '$scope','mainAppService','$http',
-        function($scope, mainAppService,$http) {
+    .controller('searchKoordTransPanelController', [ '$scope','mainAppService','$http', 'searchKoordTransPanelFactory',
+        function($scope, mainAppService,$http, searchKoordTransPanelFactory) {
 
             var _round = function (value, decimals) {
                 return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
@@ -24,6 +24,7 @@ angular.module('searchKoordTransPanel')
             };
 
             $scope._fetchKoordTrans = function (key) {
+                searchKoordTransPanelFactory.setLastSelectedCoorKey(key);
                 $scope.activePosition.resSosiKoordSys = key;
                 var lat = $scope.activePosition.geographicPoint[1];
                 var lon = $scope.activePosition.geographicPoint[0];
@@ -32,6 +33,7 @@ angular.module('searchKoordTransPanel')
             };
 
             $scope.generateCoordinateSystems = function () {
+                searchKoordTransPanelFactory.setAdvancedCoordSystem($scope.showAdvancedCoordinateSystems);
                 if ($scope.showAdvancedCoordinateSystems) {
                     /*$scope.coordinateSystems = {
                         '84': 'EU89 - Geografisk grader (Lat/Lon)',
@@ -104,10 +106,30 @@ angular.module('searchKoordTransPanel')
                 }
             };
 
-            $scope.activePosition.transLat = _round($scope.activePosition.lat,2);
-            $scope.activePosition.transLon = _round($scope.activePosition.lon,2);
-            $scope.activePosition.resSosiKoordSys = '23';
-            $scope.generateCoordinateSystems();
+            // $scope.activePosition.transLat = _round($scope.activePosition.lat,2);
+            // $scope.activePosition.transLon = _round($scope.activePosition.lon,2);
+            // $scope.activePosition.resSosiKoordSys = '23';
+            // $scope.generateCoordinateSystems();
+
+            var initCoordSystem = function () {
+                var key = searchKoordTransPanelFactory.getLastSelectedCoorKey();
+                $scope.showAdvancedCoordinateSystems = searchKoordTransPanelFactory.getAdvancedCoordSystem();
+                if (key !== '' && $scope.showAdvancedCoordinateSystems !== false){
+                    $scope._fetchKoordTrans(key);
+                }else{
+                    $scope.activePosition.transLat = _round($scope.activePosition.lat,2);
+                    $scope.activePosition.transLon = _round($scope.activePosition.lon,2);
+                    $scope.activePosition.resSosiKoordSys = '23';
+                }
+
+                $scope.generateCoordinateSystems();
+
+
+
+
+            };
+
+            initCoordSystem();
 
             $scope.getActiveCoorSystem = function () {
                 return  $scope.coordinateSystems[$scope.activePosition.resSosiKoordSys];
