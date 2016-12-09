@@ -51,7 +51,12 @@
                 </div>
                 <div class="col-xs-8"
                     ng-if="searchOptionsDict['seEiendom'].allResults">
-                    <span>Multiple Results</span>
+                    <span data-ng-click="allResults.open = !allResults.open" data-ng-bind="searchOptionsDict['seEiendom'].gardsnr"></span>
+                    <ul data-ng-show="allResults.open">
+                        <li data-ng-repeat="result in searchOptionsDict['seEiendom'].allResults">
+                            <span data-ng-bind="result.gardsnr"></span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-xs-8"
                      ng-if="!searchOptionsDict['seEiendom'].allResults">
