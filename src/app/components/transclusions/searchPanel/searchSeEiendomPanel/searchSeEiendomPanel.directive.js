@@ -57,6 +57,7 @@ angular.module('searchSeEiendomPanel')
                         scope.searchOptionsDict.seEiendom.allResults=tmp;
                         scope.showSelection();
                         scope.fetchAddressInfoForMatrikkel();
+                        scope.allResults.open=false;
                     };
 
                     var initSeEiendom = function () {

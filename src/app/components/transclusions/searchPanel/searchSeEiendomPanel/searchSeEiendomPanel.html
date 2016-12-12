@@ -88,12 +88,13 @@
                 </div>
             </div>
             <div class="row no-margin"
-                 ng-if="searchOptionsDict['seEiendom'].allResults">
+                 ng-if="searchOptionsDict['seEiendom'].allResults"
+                 data-ng-click="allResults.open = !allResults.open">
                 <div class="col-xs-4 no-padding">
                     <span translate="property_moreResults"></span>
                 </div>
                 <div class="col-xs-8">
-                    <span data-ng-click="allResults.open = !allResults.open" data-ng-bind="searchOptionsDict['seEiendom'].matrikkeladresse"></span>
+                    <span  data-ng-bind="searchOptionsDict['seEiendom'].matrikkeladresse"></span>
                     <ul data-ng-show="allResults.open">
                         <li data-ng-repeat="result in searchOptionsDict['seEiendom'].allResults"
                             data-ng-click="selectResult(result)" >

@@ -155,7 +155,7 @@ angular
             "showSelection_txt" : "VIS MARKERING",
             "legend_txt" : "Tegnforklaring",
             "showMoreInformation" : "VIS MER INFORMASJON",
-            "property_moreResults" : "Andre eiendommer"
+            "property_moreResults" : "Andre eiend."
 
         },
         'en': {
