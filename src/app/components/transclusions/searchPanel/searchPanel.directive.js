@@ -508,10 +508,16 @@ angular.module('searchPanel')
                             matrikkelInfo.push(_constructSearchOption(name, 'fa fa-home', true, text, extra));
                         }
 
-                        scope.searchOptionsDict[name] = matrikkelInfo[0];
-
+                        var tmpResults;
                         if (matrikkelInfo.length > 1) {
-                            scope.searchOptionsDict[name].allResults=matrikkelInfo;
+                            tmpResults=matrikkelInfo.sort(function(a, b) {
+                                return a.matrikkeladresse.localeCompare(b.matrikkeladresse);
+                            });
+                        }
+
+                        scope.searchOptionsDict[name] = matrikkelInfo[0];
+                        if(tmpResults) {
+                            scope.searchOptionsDict[name].allResults = tmpResults;
                         }
                     };
 
