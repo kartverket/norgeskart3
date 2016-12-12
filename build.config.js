@@ -112,7 +112,7 @@ module.exports = {
         'src/app/apiController/**/*.js',
         'src/app/zISY.Angular/**/*.js',
         'src/app/components/overlays/mapOverlays/**/*.js',
-        'src/app/components/overlays/changeMapOverlay/**/*.js',
+        'src/app/components/overlays/changeBaseMapOverlay/**/*.js',
         'src/app/components/overlays/moveableOverlay/**/*.js',
         'src/app/components/overlays/mainMenuOverlay/**/*.js',
         'src/app/components/overlays/searchBarOverlay/**/*.js',

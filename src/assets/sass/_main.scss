@@ -1168,8 +1168,8 @@ input::-ms-clear {
   width:105px;
 }
 
-.change-map-overlay {
-  z-index: 12;
+.change-base-map-overlay {
+  z-index: 16;
   position: absolute;
   bottom: 25px;
   right: 19px;
@@ -1288,3 +1288,4 @@ textarea, input[type="text"] {
 @import "print";
 @import "oloverlays";
 @import "featherlight";
+@import "bottomsidenav";

@@ -231,5 +231,18 @@ angular.module('mainApp')
                 }
             };
 
+            $scope.openBaseMapNav = function () {
+                document.getElementById('mySideBaseMapNav').style.width="320px";
+                document.getElementById("sideBasMapPosition").style.width = "320px";
+
+            };
+
+            $scope.closeBaseMapNav = function () {
+                document.getElementById('mySideBaseMapNav').style.width="0";
+                $timeout(function () {
+                    document.getElementById("sideBasMapPosition").style.width = "0";
+                }, 400);
+            };
+
         }
     ]);
