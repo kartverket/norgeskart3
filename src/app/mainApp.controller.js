@@ -235,6 +235,7 @@ angular.module('mainApp')
                 document.getElementById('mySideBaseMapNav').style.width="320px";
                 document.getElementById("sideBasMapPosition").style.width = "320px";
 
+
             };
 
             $scope.closeBaseMapNav = function () {
@@ -242,6 +243,7 @@ angular.module('mainApp')
                 $timeout(function () {
                     document.getElementById("sideBasMapPosition").style.width = "0";
                 }, 400);
+
             };
 
         }

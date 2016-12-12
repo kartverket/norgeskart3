@@ -8,18 +8,44 @@
   //left: 0;
   background-color: white; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
+  //padding-top: 60px; /* Place content 60px from the top */
   transition: 0.4s; /* 0.5 second transition effect to slide in the sidenav */
 
   //z-index: 12;
   //position: absolute;
   bottom: 25px;
-  right: 124px;
+  right: 136px;
   //width:105px;
+}
+
+.baseMapIsOpen{
+  box-shadow: rgba(0, 0, 0, 0.24) 1px 1px 3px 1px;
 }
 
 .side-base-map-position{
   position: static;
+}
+
+.breadcrumbsMaps {
+  border-right: 1px solid $gray;
+}
+
+.baseMapPanel{
+  //border: 1px solid black;
+  padding-top: 10px;
+  background-color: white;
+  height: 76px;
+}
+
+.baseMap-land{
+  background-image:url('../assets/img/land.png');
+  width: 50%;
+  height: 0;
+  background-size: cover;
+  padding: 0;
+  padding-bottom: calc(50% * 4/4);
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /* The navigation menu links */

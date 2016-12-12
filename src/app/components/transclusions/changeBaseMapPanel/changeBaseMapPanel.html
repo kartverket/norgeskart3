@@ -1,9 +1,14 @@
-<div class="display-inline">
-    <span data-ng-click="openBaseMapNav()" class="glyphicon glyphicon-menu-left"></span>
+<div class="baseMapPanel">
+    <div class="display-inline">
+        <span data-ng-show="!baseMap.open" class="glyphicon glyphicon-menu-left"  data-ng-click="openBaseMapNav(); baseMap.open = !baseMap.open"></span>
+        <span data-ng-show="baseMap.open" class="glyphicon glyphicon-menu-right"  data-ng-click="closeBaseMapNav(); baseMap.open = !baseMap.open"></span>
+        <!--<span class="breadcrumbsMaps" data-ng-show="baseMap.open"></span>-->
+    </div>
+    <div class="baseMap-land"></div>
+    <span class="icon-toggle-on fa fa-map"></span>
 </div>
-<h1 class="display-inline">Test</h1>
-<div id="mySideBaseMapNav" class="sidebasemapnav">
-    <div id="sideBasMapPosition" class="side-base-map-position">
-        <h1 data-ng-click="closeBaseMapNav()">Expanded</h1>
+<div id="mySideBaseMapNav" class="sidebasemapnav baseMapPanel" data-ng-class="{baseMapIsOpen: baseMap.open === true}">
+    <div id="sideBasMapPosition" class="side-base-map-position" data-ng-click="closeBaseMapNav(); baseMap.open = !baseMap.open">
+        <span>Expanded</span>
     </div>
 </div>
