@@ -31,18 +31,6 @@
 
 
         <div class="new-section" data-ng-class="{noMarginTop: vegaddresse == ''}">
-            <div class="row no-margin">
-                <div class="col-xs-8"
-                     ng-if="searchOptionsDict['seEiendom'].allResults">
-                    <span data-ng-click="allResults.open = !allResults.open" data-ng-bind="searchOptionsDict['seEiendom'].matrikkeladresse"></span>
-                    <ul data-ng-show="allResults.open">
-                        <li data-ng-repeat="result in searchOptionsDict['seEiendom'].allResults"
-                            data-ng-click="selectResult(result)" >
-                            <span data-ng-bind="result.matrikkeladresse"></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
             <div class="row no-margin line-zebra-grey">
                 <div class="col-xs-4 no-padding">
                     <span>Kommunenr.</span>
@@ -97,6 +85,21 @@
                 </div>
                 <div class="col-xs-8">
                     <span data-ng-bind="searchOptionsDict['seEiendom'].eiendomstype"></span>
+                </div>
+            </div>
+            <div class="row no-margin"
+                 ng-if="searchOptionsDict['seEiendom'].allResults">
+                <div class="col-xs-4 no-padding">
+                    <span translate="property_moreResults"></span>
+                </div>
+                <div class="col-xs-8">
+                    <span data-ng-click="allResults.open = !allResults.open" data-ng-bind="searchOptionsDict['seEiendom'].matrikkeladresse"></span>
+                    <ul data-ng-show="allResults.open">
+                        <li data-ng-repeat="result in searchOptionsDict['seEiendom'].allResults"
+                            data-ng-click="selectResult(result)" >
+                            <span data-ng-bind="result.matrikkeladresse"></span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
