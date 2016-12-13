@@ -1,17 +1,21 @@
 <div class="baseMapPanel">
-    <div class="display-inline">
+    <div class="display-inline pointer-cursor">
         <span data-ng-show="!baseMap.open" class="glyphicon glyphicon-menu-left"  data-ng-click="openBaseMapNav(); baseMap.open = !baseMap.open"></span>
         <span data-ng-show="baseMap.open" class="glyphicon glyphicon-menu-right"  data-ng-click="closeBaseMapNav(); baseMap.open = !baseMap.open"></span>
         <!--<span class="breadcrumbsMaps" data-ng-show="baseMap.open"></span>-->
     </div>
-    <div class="baseMap-land baseMap"></div>
+    <div class="baseMap" data-ng-class="activeBaseMap().symbol"></div>
     <span class="icon-toggle-on fa fa-map"></span>
 </div>
 <div id="mySideBaseMapNav" class="sidebasemapnav baseMapPanel" data-ng-class="{baseMapIsOpen: baseMap.open === true}">
     <div id="sideBasMapPosition" class="side-base-map-position" data-ng-click="closeBaseMapNav(); baseMap.open = !baseMap.open">
         <div class="baseMaps">
-            <div class="baseMap-aerial baseMap"></div>
-            <div class="baseMap-raster baseMap"></div>
+            <div data-ng-repeat="baseMap in allBaseMaps() | filter:{isSelected: false}">
+                <div data-ng-click="toggleBaseMap(baseMap.id)" class="baseMap" data-ng-class="baseMap.symbol"></div>
+            </div>
+
+            <!--<div class="baseMap-aerial baseMap"></div>-->
+            <!--<div class="baseMap-raster baseMap"></div>-->
         </div>
     </div>
 </div>

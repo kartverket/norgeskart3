@@ -45,14 +45,16 @@
   padding-bottom: calc(58px * 4/4);
   display: inline-block;
   vertical-align: middle;
+  cursor: pointer;
 }
 
 .baseMaps{
-  div:first-child{
-    margin-left: 10px;
-  }
+  //div:first-child{
+  //  margin-left: 10px;
+  //}
   div{
     margin-left: 5px;
+    display: inline-block;
   }
 }
 

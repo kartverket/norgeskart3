@@ -440,7 +440,8 @@ angular.module('mainApp')
                     "opacity": 1,
                     "mapLayerIndex": -1,
                     "legendGraphicUrls": [],
-                    "selectedLayerOpen": false
+                    "selectedLayerOpen": false,
+                    "thumbnail": source.thumbnail
                 });
                 mapConfig.layers.push(newIsyLayer);
                 mapConfig.languages.en[newIsyLayer.id] = source.name;
