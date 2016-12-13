@@ -494,19 +494,34 @@ angular.module('searchPanel')
                                 matrikkelnr: jsonRoot[i].MATRIKKELNR
                             };
 
+                            extra.matrikkeladresse = extra.kommunenr + '-' + extra.gardsnr + '/' + extra.bruksnr;
+
+                            if (parseInt(extra.festenr, 10) > 0) {
+                                extra.matrikkeladresse += '/' + extra.festenr;
+                                if (parseInt(extra.seksjonsnr, 10) > 0) {
+                                    extra.matrikkeladresse += '/' + extra.seksjonsnr;
+                                }
+                            }
+
                             extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
                             var text = '' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
                             matrikkelInfo.push(_constructSearchOption(name, 'fa fa-home', true, text, extra));
                         }
 
-                        scope.searchOptionsDict[name] = matrikkelInfo[0];
-
+                        var tmpResults;
                         if (matrikkelInfo.length > 1) {
-                            scope.searchOptionsDict[name].allResults=matrikkelInfo;
+                            tmpResults=matrikkelInfo.sort(function(a, b) {
+                                return a.matrikkeladresse.localeCompare(b.matrikkeladresse);
+                            });
+                        }
+
+                        scope.searchOptionsDict[name] = matrikkelInfo[0];
+                        if(tmpResults) {
+                            scope.searchOptionsDict[name].allResults = tmpResults;
                         }
                     };
 
-                    var _fetchAddressInfoForMatrikkel = function(){
+                    scope.fetchAddressInfoForMatrikkel = function(){
                             var komunenr = scope.searchOptionsDict['seEiendom'].kommunenr;
                             var gardsnr = scope.searchOptionsDict['seEiendom'].gardsnr;
                             var bruksnr = scope.searchOptionsDict['seEiendom'].bruksnr;
@@ -579,7 +594,7 @@ angular.module('searchPanel')
                                 jsonRoot = jsonObject.FeatureCollection.featureMembers.TEIGWFS;
                                 _addMatrikkelInfoToSearchOptions(jsonRoot, name);
                                 if(scope.searchPanelLayout == 'searchSeEiendomPanel') {
-                                    _fetchAddressInfoForMatrikkel();
+                                    scope.fetchAddressInfoForMatrikkel();
                                     if (searchPanelFactory.getShowEiendomMarkering()){
                                         scope.showSelection();
                                     }

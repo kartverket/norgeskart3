@@ -154,7 +154,8 @@ angular
             "close_txt" : "LUKK",
             "showSelection_txt" : "VIS MARKERING",
             "legend_txt" : "Tegnforklaring",
-            "showMoreInformation" : "VIS MER INFORMASJON"
+            "showMoreInformation" : "VIS MER INFORMASJON",
+            "property_moreResults" : "Andre eiend."
 
         },
         'en': {
@@ -310,6 +311,7 @@ angular
             "close_txt" : "CLOSE",
             "showSelection_txt" : "SHOW SELECTION",
             "legend_txt" : "Tegnforklaring",
-            "showMoreInformation" : "SHOW MORE INFORMATION"
+            "showMoreInformation" : "SHOW MORE INFORMATION",
+            "property_moreResults" : "Other properties"
         }
     });

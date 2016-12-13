@@ -28,6 +28,8 @@
             <span data-ng-bind="cityName"></span>
         </div>
 
+
+
         <div class="new-section" data-ng-class="{noMarginTop: vegaddresse == ''}">
             <div class="row no-margin line-zebra-grey">
                 <div class="col-xs-4 no-padding">
@@ -49,17 +51,7 @@
                 <div class="col-xs-4 no-padding">
                     <span>Gårdsnr.</span>
                 </div>
-                <div class="col-xs-8"
-                    ng-if="searchOptionsDict['seEiendom'].allResults">
-                    <span data-ng-click="allResults.open = !allResults.open" data-ng-bind="searchOptionsDict['seEiendom'].gardsnr"></span>
-                    <ul data-ng-show="allResults.open">
-                        <li data-ng-repeat="result in searchOptionsDict['seEiendom'].allResults">
-                            <span data-ng-bind="result.gardsnr"></span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-xs-8"
-                     ng-if="!searchOptionsDict['seEiendom'].allResults">
+                <div class="col-xs-8">
                     <span data-ng-bind="searchOptionsDict['seEiendom'].gardsnr"></span>
                 </div>
             </div>
@@ -93,6 +85,22 @@
                 </div>
                 <div class="col-xs-8">
                     <span data-ng-bind="searchOptionsDict['seEiendom'].eiendomstype"></span>
+                </div>
+            </div>
+            <div class="row no-margin"
+                 ng-if="searchOptionsDict['seEiendom'].allResults"
+                 data-ng-click="allResults.open = !allResults.open">
+                <div class="col-xs-4 no-padding">
+                    <span translate="property_moreResults"></span>
+                </div>
+                <div class="col-xs-8">
+                    <span  data-ng-bind="searchOptionsDict['seEiendom'].matrikkeladresse"></span>
+                    <ul data-ng-show="allResults.open">
+                        <li data-ng-repeat="result in searchOptionsDict['seEiendom'].allResults"
+                            data-ng-click="selectResult(result)" >
+                            <span data-ng-bind="result.matrikkeladresse"></span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

@@ -51,6 +51,13 @@ angular.module('searchSeEiendomPanel')
                         searchPanelFactory.setShowEiendomMarkering(scope.showSelectionCheckbox);
                     };
 
+                    scope.selectResult = function(result){
+                        var tmp=scope.searchOptionsDict.seEiendom.allResults;
+                        scope.searchOptionsDict.seEiendom = result;
+                        scope.searchOptionsDict.seEiendom.allResults=tmp;
+                        scope.showSelection();
+                        scope.fetchAddressInfoForMatrikkel();
+                    };
 
                     var initSeEiendom = function () {
                         scope.showSelectionCheckbox = searchPanelFactory.getShowEiendomMarkering();
@@ -58,7 +65,6 @@ angular.module('searchSeEiendomPanel')
 
 
                     initSeEiendom();
-                    // _getEiendomAdresse();
 
                     $( document ).ready(function() {
                         $($window).resize(setMenuListMaxHeight);
