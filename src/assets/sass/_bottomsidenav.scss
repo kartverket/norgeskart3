@@ -37,16 +37,37 @@
   height: 76px;
 }
 
-.baseMap-land{
-  background-image:url('../assets/img/land.png');
-  width: 50%;
+.baseMap{
+  width: 58px;
   height: 0;
   background-size: cover;
   padding: 0;
-  padding-bottom: calc(50% * 4/4);
+  padding-bottom: calc(58px * 4/4);
   display: inline-block;
   vertical-align: middle;
 }
+
+.baseMaps{
+  div:first-child{
+    margin-left: 10px;
+  }
+  div{
+    margin-left: 5px;
+  }
+}
+
+.baseMap-land{
+  background-image:url('../assets/img/land.png');
+}
+.baseMap-raster{
+  background-image: url('../assets/img/raster.png');
+}
+.baseMap-aerial{
+  background-image: url('../assets/img/aerial.png');
+}
+
+
+
 
 /* The navigation menu links */
 .sidebasemapnav-close-menu {

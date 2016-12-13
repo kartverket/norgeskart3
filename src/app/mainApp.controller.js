@@ -232,8 +232,8 @@ angular.module('mainApp')
             };
 
             $scope.openBaseMapNav = function () {
-                document.getElementById('mySideBaseMapNav').style.width="320px";
-                document.getElementById("sideBasMapPosition").style.width = "320px";
+                document.getElementById('mySideBaseMapNav').style.width="146px";
+                document.getElementById("sideBasMapPosition").style.width = "146px";
 
 
             };

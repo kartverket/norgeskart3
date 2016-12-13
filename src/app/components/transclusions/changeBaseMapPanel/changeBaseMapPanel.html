@@ -4,11 +4,14 @@
         <span data-ng-show="baseMap.open" class="glyphicon glyphicon-menu-right"  data-ng-click="closeBaseMapNav(); baseMap.open = !baseMap.open"></span>
         <!--<span class="breadcrumbsMaps" data-ng-show="baseMap.open"></span>-->
     </div>
-    <div class="baseMap-land"></div>
+    <div class="baseMap-land baseMap"></div>
     <span class="icon-toggle-on fa fa-map"></span>
 </div>
 <div id="mySideBaseMapNav" class="sidebasemapnav baseMapPanel" data-ng-class="{baseMapIsOpen: baseMap.open === true}">
     <div id="sideBasMapPosition" class="side-base-map-position" data-ng-click="closeBaseMapNav(); baseMap.open = !baseMap.open">
-        <span>Expanded</span>
+        <div class="baseMaps">
+            <div class="baseMap-aerial baseMap"></div>
+            <div class="baseMap-raster baseMap"></div>
+        </div>
     </div>
 </div>
