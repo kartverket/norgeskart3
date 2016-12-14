@@ -383,7 +383,19 @@ angular.module('mainApp')
                 //}else{
                 //    wmsSource = "proxyWms";
                 //}
+                var thumbnailInfo = '';
+                var sourceName = source.name.toLocaleLowerCase();
+                if (sourceName.indexOf('raster') > -1 && source.options.isbaselayer === 'true'){
+                    thumbnailInfo = 'raster';
+                }
 
+                if (sourceName.indexOf('land') > -1 && source.options.isbaselayer === 'true'){
+                    thumbnailInfo = 'land';
+                }
+
+                if (sourceName.indexOf('fly') > -1 && source.options.isbaselayer === 'true'){
+                    thumbnailInfo = 'aerial';
+                }
 
 
                 var newIsyLayer = new ISY.Domain.Layer({
@@ -427,7 +439,6 @@ angular.module('mainApp')
                             "styles": source.params.styles,
                             "minResolution": source.minresolution,
                             "maxResolution": source.maxresolution
-
                         }
                     ],
                     "guid": source.guid,
@@ -440,7 +451,8 @@ angular.module('mainApp')
                     "opacity": 1,
                     "mapLayerIndex": -1,
                     "legendGraphicUrls": [],
-                    "selectedLayerOpen": false
+                    "selectedLayerOpen": false,
+                    "thumbnail": thumbnailInfo
                 });
                 mapConfig.layers.push(newIsyLayer);
                 mapConfig.languages.en[newIsyLayer.id] = source.name;

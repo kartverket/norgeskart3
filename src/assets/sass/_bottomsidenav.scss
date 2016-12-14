@@ -1,0 +1,85 @@
+/* The side navigation menu */
+.sidebasemapnav {
+  //height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 16; /* Stay on top */
+  //top: 0;
+  //left: 0;
+  background-color: white; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  //padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.4s; /* 0.5 second transition effect to slide in the sidenav */
+
+  //z-index: 12;
+  //position: absolute;
+  bottom: 25px;
+  right: 136px;
+  //width:105px;
+}
+
+.baseMapIsOpen{
+  box-shadow: rgba(0, 0, 0, 0.24) 1px 1px 3px 1px;
+}
+
+.side-base-map-position{
+  position: static;
+}
+
+.breadcrumbsMaps {
+  border-right: 1px solid $gray;
+}
+
+.baseMapPanel{
+  //border: 1px solid black;
+  padding-top: 10px;
+  background-color: white;
+  height: 76px;
+}
+
+.baseMap{
+  width: 58px;
+  height: 0;
+  background-size: cover;
+  padding: 0;
+  padding-bottom: calc(58px * 4/4);
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.baseMaps{
+  //div:first-child{
+  //  margin-left: 10px;
+  //}
+  div{
+    margin-left: 5px;
+    display: inline-block;
+  }
+}
+
+.baseMap-land{
+  background-image:url('../assets/img/land.png');
+}
+.baseMap-raster{
+  background-image: url('../assets/img/raster.png');
+}
+.baseMap-aerial{
+  background-image: url('../assets/img/aerial.png');
+}
+
+
+
+
+/* The navigation menu links */
+.sidebasemapnav-close-menu {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #2f3940;
+  display: block;
+  transition: 0.3s
+}
+
+
+
