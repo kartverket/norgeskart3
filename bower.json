@@ -16,10 +16,9 @@
     "blob-util": "*",
     "maplib": "https://github.com/kartverket/MapLib.git",
     "xml-to-json": "*",
-    "angular-utils-pagination": "*",
-    "featherlight": "^1.6.1"
+    "angular-utils-pagination": "*"
   },
   "resolutions": {
-    "angular": "1.3.3"
+    "angular": "1.5.9"
   }
 }
