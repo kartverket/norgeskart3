@@ -1,6 +1,6 @@
 angular.module('searchOptionsPanel')
-    .directive('searchOptionsPanel', ['$window','ISY.MapAPI.Map',
-        function($window, map) {
+    .directive('searchOptionsPanel', ['$window','ISY.MapAPI.Map','changeBaseLayerPanelFactory',
+        function($window, map, changeBaseLayerPanelFactory) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchOptionsPanel/searchOptionsPanel.html',
                 restrict: 'A',
@@ -20,6 +20,7 @@ angular.module('searchOptionsPanel')
                                     for (var baselayer in baselayers) {
                                         if (baselayers[baselayer].name == 'Rasterkart') {
                                             map.SetBaseLayer(baselayers[baselayer]);
+                                            changeBaseLayerPanelFactory.setBaseLayerById(baselayers[baselayer].thumbnail);
                                             mapSwitched=true;
                                         }
                                     }
