@@ -87,7 +87,7 @@ angular.module('searchPanel')
                         scope.removeInfomarkers();
                         map.ShowInfoMarker(queryPoint.point);
                         scope.activatePosition(queryPoint);
-                        if (queryPoint.source === 'coordGeo' || queryPoint.source === 'coordUtm'){
+                        if (queryPoint.source === 'coordGeo' || queryPoint.source === 'coordUtm' ){
                             scope.showSearchOptionsPanel();
                         }
 
@@ -336,6 +336,7 @@ angular.module('searchPanel')
                             var key=Object.keys(_unifiedResults[matrikkelKey])[0];
                             var result=_unifiedResults[matrikkelKey][key];
                             scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], scope.mapEpsg, result.source, result.kommune));
+                            scope.showSearchOptionsPanel();
                             return false;
                         }
                         return true;
