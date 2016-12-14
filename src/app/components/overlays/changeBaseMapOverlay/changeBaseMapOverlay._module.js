@@ -1,1 +1,1 @@
-angular.module('changeBaseMapOverlay', ['changeBaseMapPanel']);
+angular.module('changeBaseMapOverlay', ['changeBaseLayerPanel']);

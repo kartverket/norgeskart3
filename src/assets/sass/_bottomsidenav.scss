@@ -38,11 +38,11 @@
 }
 
 .baseMap{
-  width: 58px;
+  width: 50px;
   height: 0;
   background-size: cover;
   padding: 0;
-  padding-bottom: calc(58px * 4/4);
+  padding-bottom: calc(50px * 4/4);
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
@@ -71,6 +71,15 @@
   background-image: url('../assets/img/aerial.png');
 }
 
+.base-layer-panel{
+  padding: 5px;
+  button:first-child{
+    margin-left: 0;
+  }
+  button{
+    margin-left: 5px;
+  }
+}
 
 
 

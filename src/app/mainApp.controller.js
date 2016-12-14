@@ -1,6 +1,6 @@
 angular.module('mainApp')
-    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','toolsFactory','ISY.EventHandler','isyTranslateFactory','$location','mainMenuPanelFactory', 'localStorageFactory','$translate','$timeout', '$window','changeBaseMapPanelFactory',
-        function($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory, $translate, $timeout, $window, changeBaseMapPanelFactory){
+    .controller('mainAppController', ['$scope','ISY.MapAPI.Map','mainAppFactory','toolsFactory','ISY.EventHandler','isyTranslateFactory','$location','mainMenuPanelFactory', 'localStorageFactory','$translate','$timeout', '$window',
+        function($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory, $translate, $timeout, $window){
 
             function _initToolbar() {
                 toolsFactory.initToolbar();
@@ -231,27 +231,27 @@ angular.module('mainApp')
                 }
             };
 
-            $scope.openBaseMapNav = function () {
-                var lengthDeselectBaseMaps = changeBaseMapPanelFactory.lengthDeselectBaseMaps();
-                if (lengthDeselectBaseMaps === 3){
-                    document.getElementById('mySideBaseMapNav').style.minWidth="214px";
-                    document.getElementById("sideBasMapPosition").style.minWidth = "214px";
-                }else{
-                    document.getElementById('mySideBaseMapNav').style.minWidth="146px";
-                    document.getElementById("sideBasMapPosition").style.minWidth = "146px";
-                }
-
-
-
-            };
-
-            $scope.closeBaseMapNav = function () {
-                document.getElementById('mySideBaseMapNav').style.minWidth="0";
-                $timeout(function () {
-                    document.getElementById("sideBasMapPosition").style.minWidth = "0";
-                }, 400);
-
-            };
+            // $scope.openBaseMapNav = function () {
+            //     var lengthDeselectBaseMaps = changeBaseMapPanelFactory.lengthDeselectBaseMaps();
+            //     if (lengthDeselectBaseMaps === 3){
+            //         document.getElementById('mySideBaseMapNav').style.minWidth="214px";
+            //         document.getElementById("sideBasMapPosition").style.minWidth = "214px";
+            //     }else{
+            //         document.getElementById('mySideBaseMapNav').style.minWidth="146px";
+            //         document.getElementById("sideBasMapPosition").style.minWidth = "146px";
+            //     }
+            //
+            //
+            //
+            // };
+            //
+            // $scope.closeBaseMapNav = function () {
+            //     document.getElementById('mySideBaseMapNav').style.minWidth="0";
+            //     $timeout(function () {
+            //         document.getElementById("sideBasMapPosition").style.minWidth = "0";
+            //     }, 400);
+            //
+            // };
 
         }
     ]);
