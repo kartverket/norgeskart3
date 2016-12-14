@@ -1,6 +1,6 @@
 angular.module('mainMenuBaseLayers')
-    .directive('mainMenuBaseLayers', ['ISY.MapAPI.Map', 'changeBaseMapPanelFactory',
-        function(map, changeBaseMapPanelFactory) {
+    .directive('mainMenuBaseLayers', ['ISY.MapAPI.Map', 'changeBaseLayerPanelFactory',
+        function(map, changeBaseLayerPanelFactory) {
             return {
                 templateUrl: 'components/transclusions/mainMenuPanel/mainMenuBaseLayers/mainMenuBaseLayers.html',
                 restrict: 'A',
@@ -20,9 +20,9 @@ angular.module('mainMenuBaseLayers')
                         map.SetBaseLayer(baseLayer);
                         scope.baseLayers = map.GetBaseLayers();
                         if (baseLayer.thumbnail !== ""){
-                            changeBaseMapPanelFactory.setBaseMapById(baseLayer.thumbnail);
+                            changeBaseLayerPanelFactory.setBaseLayerById(baseLayer.thumbnail);
                         }else{
-                            changeBaseMapPanelFactory.deactivateAllBaseMaps();
+                            changeBaseLayerPanelFactory.deactivateAllBaseLayers();
                         }
                     };
 
