@@ -46,6 +46,9 @@
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius:2px;
+  -moz-border-radius:2px;
 }
 
 .baseMaps{
