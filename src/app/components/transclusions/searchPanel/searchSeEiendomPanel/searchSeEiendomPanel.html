@@ -87,28 +87,34 @@
                     <span data-ng-bind="searchOptionsDict['seEiendom'].eiendomstype"></span>
                 </div>
             </div>
-            <div class="row no-margin"
-                 ng-if="searchOptionsDict['seEiendom'].allResults"
-                 data-ng-click="allResults.open = !allResults.open">
-                <div class="col-xs-4 no-padding">
-                    <span translate="property_moreResults"></span>
-                </div>
-                <div class="col-xs-8">
-                    <span  data-ng-bind="searchOptionsDict['seEiendom'].matrikkeladresse"></span>
-                    <ul data-ng-show="allResults.open">
-                        <li data-ng-repeat="result in searchOptionsDict['seEiendom'].allResults"
-                            data-ng-click="selectResult(result)" >
-                            <span data-ng-bind="result.matrikkeladresse"></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        </div>
+
+        <div class="new-section" ng-if="searchOptionsDict['seEiendom'].allResults">
+            <ul>
+                <li class="sidenav-sections" data-ng-click="allResults.open = !allResults.open">
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <span translate="property_moreResults"></span>
+                        </div>
+                        <div class="col-xs-1">
+                            <span data-ng-show="allResults.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+                            <span data-ng-show="!allResults.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul data-ng-show="allResults.open">
+                <li class="sidenav-subsection" data-ng-repeat="result in searchOptionsDict['seEiendom'].allResults"
+                    data-ng-click="selectResult(result); allResults.open = !allResults.open">
+                    <span data-ng-bind="result.matrikkeladresse"></span>
+                </li>
+            </ul>
         </div>
 
         <div class="new-section">
             <div class="row">
                 <div class="col-xs-12">
-                    <input type="checkbox" ng-model="showSelectionCheckbox" data-ng-click="eiendomMarkering(); showSelection()"/>
+                    <input type="checkbox" ng-model="showSelectionCheckbox" data-ng-click="eiendomMarkering(); showSelection();"/>
                     <span translate="showSelection_txt"></span>
                 </div>
             </div>
