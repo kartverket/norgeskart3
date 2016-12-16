@@ -426,7 +426,9 @@ angular.module('searchPanel')
                     var _downloadSearchOptionFromUrl = function (url, name) {
                         $http.get(url).then(function (response) {
                             _addSearchOptionToPanel(name, response.data);
+                            scope.showMatrikelInfoSearch = false;
                         });
+
                     };
 
                     var _fetchElevationPoint = function () {
@@ -438,6 +440,7 @@ angular.module('searchPanel')
                     };
 
                     var _fetchMatrikkelInfo = function () {
+                        scope.showMatrikelInfoSearch = true;
                         var lat = scope.activePosition.geographicPoint[1];
                         var lon = scope.activePosition.geographicPoint[0];
                         var matrikkelInfoUrl = mainAppService.generateMatrikkelInfoUrl(lat, lon, lat, lon);
@@ -523,6 +526,7 @@ angular.module('searchPanel')
                     };
 
                     scope.fetchAddressInfoForMatrikkel = function(){
+                            scope.showFetchAdressSearch = true;
                             var komunenr = scope.searchOptionsDict['seEiendom'].kommunenr;
                             var gardsnr = scope.searchOptionsDict['seEiendom'].gardsnr;
                             var bruksnr = scope.searchOptionsDict['seEiendom'].bruksnr;
@@ -530,6 +534,7 @@ angular.module('searchPanel')
                             var sectionsnr = scope.searchOptionsDict['seEiendom'].seksjonsnr;
                             var url = mainAppService.generateEiendomAddress(komunenr, gardsnr, bruksnr, festenr, sectionsnr);
                             $http.get(url).then(function (response) {
+                                scope.showFetchAdressSearch = false;
                                 scope.vegaddresse = '';
                                 scope.kommuneNavn = '';
                                 scope.cityName = '';
@@ -702,10 +707,22 @@ angular.module('searchPanel')
                                 })
                             });
                         }
+                        if (addLayerUrlTool.additionalOptions.show === true){
+                            scope.showSelectedPolygon = true;
+                        }
+
                         toolsFactory.activateTool(addLayerUrlTool);
                         toolsFactory.deactivateTool(addLayerUrlTool);
                     };
 
+                    function showSelectedPolygonEnd() {
+                        scope.$apply(function () {
+                            scope.showSelectedPolygon = false;
+                        }, 0);
+
+                    }
+
+                    eventHandler.RegisterEvent(ISY.Events.EventTypes.AddLayerUrlEnd, showSelectedPolygonEnd);
                 }
             };
         }])
