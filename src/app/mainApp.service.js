@@ -152,15 +152,17 @@ angular.module('mainApp')
                 };
                 
                 this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {
-                    if (festnr !== "0"){
-                        if (sectionsnr === "0"){
-                            return url + 'ws/eie.py?' + kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr;
-                        }else{
-                            return url + 'ws/eie.py?' + kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr + "/" + sectionsnr;
+                    var baseUrl = url + 'ws/eiendom.py?';
+                    if (festnr !== "0") {
+                        if (sectionsnr === "0") {
+                            baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr;
+                        } else {
+                            baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr + "/" + sectionsnr;
                         }
-                    }else{
-                        return url + 'ws/eie.py?' + kommunenr + "-" + gardsnr + "/" + bruksnr;
+                    } else {
+                        baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr;
                     }
+                    return baseUrl + '&KILDE:Eiendom KOMMUNENR:' + kommunenr + ' GARDSNR:' + gardsnr + ' BRUKSNR:' + bruksnr + ' SEKSJONSNR:' + sectionsnr + ' FESTENR:' + festnr;
 
                 };
                 /*
