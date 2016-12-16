@@ -47,7 +47,7 @@ angular.module("ISY.Angular.MapImplementation", [])
     .service("ISY.MapImplementation.OL3.ModifyFeature", ["ISY.EventHandler", ISY.MapImplementation.OL3.ModifyFeature])
     .service("ISY.MapImplementation.OL3.AddFeatureGps", ["ISY.EventHandler", ISY.MapImplementation.OL3.AddFeatureGps])
     .service("ISY.MapImplementation.OL3.PrintBoxSelect", ["ISY.EventHandler", ISY.MapImplementation.OL3.PrintBoxSelect])
-    .service("ISY.MapImplementation.OL3.AddLayerUrl", [ISY.MapImplementation.OL3.AddLayerUrl]);
+    .service("ISY.MapImplementation.OL3.AddLayerUrl", ["ISY.EventHandler", ISY.MapImplementation.OL3.AddLayerUrl]);
 
 /*
  // Leaflet
