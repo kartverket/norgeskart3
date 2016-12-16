@@ -140,25 +140,12 @@
             </div>
         </div>
 
-        <div class="new-section">
-            <ul>
-                <li class="sidenav-sections" data-ng-click="openEindomInformasjon()">
-                    <div class="row">
-                        <div class="col-xs-1">
-                            <span class="icon-important" data-ng-class="searchOptionsDict['seEiendom'].icon.value"></span>
-                        </div>
-                        <div class="col-xs-11">
-                            <span translate="showMoreInformation"></span>
-                            <span class="nextbtn glyphicon glyphicon-menu-right"></span>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
         <div class="new-section navigation-button pull-right">
             <button class="btn btn-default btn-ordinary"
                     data-ng-click="showSearchOptionsPanel()" translate="close_txt">
+            </button>
+            <button type="button" class="btn btn-default btn-important" data-ng-click="openEindomInformasjon()">
+                <span translate="showMoreInformation"></span>
             </button>
         </div>
     </div>

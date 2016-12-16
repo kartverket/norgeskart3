@@ -39,7 +39,10 @@ angular
                         for (var i = 0; i < baseLayers.length; i++){
                             baseLayers[i].isSelected = baseLayers[i].id.toLowerCase() === id.toLowerCase();
                         }
+                    }else{
+                        this.deactivateAllBaseLayers();
                     }
+
                 },
 
                 deactivateAllBaseLayers: function () {
