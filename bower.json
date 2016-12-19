@@ -20,6 +20,6 @@
     "featherlight": "^1.6.1"
   },
   "resolutions": {
-    "angular": "1.5.9"
+    "angular": "1.6.0"
   }
 }
