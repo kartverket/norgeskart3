@@ -155,7 +155,7 @@ angular
             "showSelection_txt" : "VIS MARKERING",
             "legend_txt" : "Tegnforklaring",
             "showMoreInformation" : "VIS MER INFORMASJON",
-            "property_moreResults" : "Tilknytninger"
+            "property_moreResults" : "Sameiere"
 
         },
         'en': {
@@ -312,6 +312,6 @@ angular
             "showSelection_txt" : "SHOW SELECTION",
             "legend_txt" : "Tegnforklaring",
             "showMoreInformation" : "SHOW MORE INFORMATION",
-            "property_moreResults" : "Affiliations"
+            "property_moreResults" : "Other owners"
         }
     });
