@@ -375,7 +375,7 @@ angular.module('searchPanel')
                         };
                         var zoomTo=parseFloat(13);
                         var activeZoom=parseFloat($location.search().zoom);
-                        if (scope.searchPanelLayout != "searchSeEiendomPanel" && activeZoom < zoomTo){
+                        if (scope.searchPanelLayout != "searchSeEiendomPanel" && activeZoom < zoomTo && searchResult.source != 'mouseClick'){
                             activePosition.zoom=zoomTo;
                         }
                         activePosition.geographicPoint=searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, scope.mapEpsg, 'EPSG:4326');
