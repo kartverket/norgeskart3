@@ -599,12 +599,10 @@ angular.module('searchPanel')
                                 }
                                 jsonRoot = jsonObject.FeatureCollection.featureMembers.TEIGWFS;
                                 _addMatrikkelInfoToSearchOptions(jsonRoot, name);
-                                if(scope.searchPanelLayout == 'searchSeEiendomPanel') {
-                                    scope.fetchAddressInfoForMatrikkel();
-                                    if (searchPanelFactory.getShowEiendomMarkering()){
-                                        scope.showSelection();
-                                    }
 
+                                scope.fetchAddressInfoForMatrikkel();
+                                if (searchPanelFactory.getShowEiendomMarkering()) {
+                                    scope.showSelection();
                                 }
                                 break;
                         }
