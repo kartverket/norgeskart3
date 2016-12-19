@@ -11,6 +11,7 @@ angular
     .config(function ($translateProvider) {
         $translateProvider.useLoader('customLoader', {});
         $translateProvider.use('no');
+        $translateProvider.useSanitizeValueStrategy(null);
     })
     .factory('isyTranslateFactory', function() {
 
