@@ -33,6 +33,7 @@ angular.module('searchResultsPanel')
                             source: source,
                             kommune: scope.fixNames(kommune)
                         };
+                        scope.showSearchOptionsPanel();
                         scope.showQueryPoint(queryPoint);
                     };
 
