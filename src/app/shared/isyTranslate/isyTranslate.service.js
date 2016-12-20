@@ -155,6 +155,12 @@ angular
             "showSelection_txt" : "VIS MARKERING",
             "legend_txt" : "Tegnforklaring",
             "showMoreInformation" : "VIS MER INFORMASJON",
+            "municipality_number" : "Kommunenr.",
+            "municipality_name" : "Kommune",
+            "holding_number" : "Gårdsnr.",
+            "subholding_number" : "Bruksnr.",
+            "lease_number" : "Festenr.",
+            "section_number" : "Seksjonsnr.",
             "property_moreResults" : "Tilknyttede eiendommer"
 
         },
@@ -307,11 +313,17 @@ angular
             "description_txt" : "DESCRIPTION (OPTIONAL)",
             "linkToEmbeddedMap_txt": "LINK TO EMBEDDED MAP",
             "download_txt" : "DOWNLOAD",
-            "seEiendom_title" : "Eiendom",
+            "seEiendom_title" : "Property",
             "close_txt" : "CLOSE",
             "showSelection_txt" : "SHOW SELECTION",
-            "legend_txt" : "Tegnforklaring",
+            "legend_txt" : "Legend",
             "showMoreInformation" : "SHOW MORE INFORMATION",
+            "municipality_number" : "Municipality nr.",
+            "municipality_name" : "Municipality",
+            "holding_number" : "Holding nr.",
+            "subholding_number" : "Subholding nr.",
+            "lease_number" : "Lease nr.",
+            "section_number" : "Section nr.",
             "property_moreResults" : "Associated properties"
         }
     });
