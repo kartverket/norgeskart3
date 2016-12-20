@@ -9,11 +9,11 @@
             </div>
             <ul class="list-result text-and-button" data-ng-show="!roadsResult.open">
                 <li class="pointer-cursor"
+                    ng-mouseover="mouseOver(searchResult)"
                     ng-repeat="searchResult in searchResults['matrikkelveg']">
                     <div class="row">
-                        <div class="col-xs-8 move-up">
-                            <span ng-mousedown="mouseOver(searchResult); activatePosition(searchResult); showSearchOptionsPanel()"
-                                  ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+                        <div class="col-xs-8 move-up" ng-mousedown="mouseOver(searchResult); activatePosition(searchResult); showSearchOptionsPanel()">
+                            <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
                         </div>
                         <div class="col-xs-4">
                             <div class="pull-right">
