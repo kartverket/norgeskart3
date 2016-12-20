@@ -71,6 +71,10 @@ angular.module('searchSeEiendomPanel')
                         setMenuListMaxHeight();
 
                     });
+
+                    scope.isGardsnrGreaterThanZero = function () {
+                        return parseInt(scope.searchOptionsDict['seEiendom'].gardsnr, 10) > 0 ;
+                    };
                 }
             };
         }]);

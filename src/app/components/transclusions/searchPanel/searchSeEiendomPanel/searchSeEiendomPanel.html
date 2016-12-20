@@ -150,7 +150,7 @@
             <button class="btn btn-default btn-ordinary"
                     data-ng-click="showSearchOptionsPanel()" translate="close_txt">
             </button>
-            <button type="button" class="btn btn-default btn-important" data-ng-click="openEindomInformasjon()">
+            <button data-ng-disabled="!isGardsnrGreaterThanZero()" type="button" class="btn btn-default btn-important" data-ng-click="openEindomInformasjon()">
                 <span translate="showMoreInformation"></span>
             </button>
         </div>
