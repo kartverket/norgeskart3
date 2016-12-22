@@ -299,15 +299,6 @@ angular.module('mainApp')
             };
 
             var updateMapConfigWithImageLayers = function(project) {
-                if (project.config.wms !== undefined) {
-                    if (project.config.wms.length !== undefined) {
-                        project.config.wms.forEach(function (wms) {
-                            addWms(wms);
-                        });
-                    } else {
-                        addWms(project.config.wms);
-                    }
-                }
                 if (project.config.wmts !== undefined){
                     if (project.config.wmts.length !== undefined) {
                         project.config.wmts.forEach(function (wmts) {
@@ -315,6 +306,15 @@ angular.module('mainApp')
                         });
                     } else {
                         addWmts(project.config.wmts);
+                    }
+                }
+                if (project.config.wms !== undefined) {
+                    if (project.config.wms.length !== undefined) {
+                        project.config.wms.forEach(function (wms) {
+                            addWms(wms);
+                        });
+                    } else {
+                        addWms(project.config.wms);
                     }
                 }
                 if (project.config.vector !== undefined){
