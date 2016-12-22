@@ -17,16 +17,20 @@
 
 <div class="sidenav-group">
     <div class="margin-header-text">
-        <div class="sidenav-header-text row">
+        <div class="sidenav-header-text pointer-cursor row" data-ng-click="themaMenu.open = !themaMenu.open">
             <div class="col-xs-1">
                 <span class="icon-important fa fa-map"></span>
             </div>
-            <div class="col-xs-11">
+            <div class="col-xs-9">
                 <span translate="ThematicMap_text"></span>
+            </div>
+            <div class="col-xs-2">
+                <span data-ng-show="!themaMenu.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+                <span data-ng-show="themaMenu.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
             </div>
         </div>
     </div>
-    <ul>
+    <ul data-ng-show="!themaMenu.open">
         <li data-ng-repeat="project in projects" data-ng-class="{activeMenu: project.isSelected}" data-ng-click="activateProject(project)">
             <div class="row">
                 <div class="col-xs-1">
