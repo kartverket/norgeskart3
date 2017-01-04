@@ -400,6 +400,12 @@ angular.module('searchPanel')
                         scope.deactivatePrintBoxSelect();
                     };
 
+                    scope.resetSearchPanel = function () {
+                        scope.showSearchOptionsPanel();
+                        scope.searchPanelLayout = '';
+                        searchPanelFactory.setShowEiendomMarkering(false);
+                    };
+
                     var showQueryPointFromMouseClick = function (coordinates) {
                         scope.coordinate=true;
                         // scope.showSearchResultPanel();

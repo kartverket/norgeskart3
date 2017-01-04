@@ -63,6 +63,10 @@ angular.module('searchSeEiendomPanel')
                         scope.showSelectionCheckbox = searchPanelFactory.getShowEiendomMarkering();
                     };
 
+                    scope.hideEiendomMarkering = function () {
+                        searchPanelFactory.setShowEiendomMarkering(false);
+                    };
+
 
                     initSeEiendom();
 
