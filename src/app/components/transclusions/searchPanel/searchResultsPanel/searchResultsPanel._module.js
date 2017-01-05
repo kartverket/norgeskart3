@@ -1,1 +1,1 @@
-angular.module('searchResultsPanel', ['ngTouch']);
+angular.module('searchResultsPanel', []);
