@@ -7,12 +7,44 @@
                 <span data-ng-show="!roadsResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
                 <span data-ng-show="roadsResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
             </div>
-            <ul class="list-result text-and-button" data-ng-show="!roadsResult.open">
+            <ul class="list-result text-and-button" data-ng-show="!roadsResult.open" data-ng-if="!isIosDevice()">
+                <li class="pointer-cursor"
+                    ng-mouseover="mouseOver(searchResult)"
+                    ng-repeat="searchResult in searchResults['matrikkelveg']">
+                    <div class="row">
+                        <div class="col-xs-8 move-up" ng-mousedown="mouseOver(searchResult); activatePosition(searchResult); showSearchOptionsPanel()">
+                            <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="pull-right">
+                                <button data-ng-click="husnum.open = !husnum.open" type="button" class="btn btn-default btn-toggle activeBtn" data-ng-show="husnum.open"><span translate="houseNr_txt"></span></button>
+                                <button data-ng-click="husnum.open = !husnum.open" type="button" class="btn btn-default btn-toggle" data-ng-show="!husnum.open"><span translate="houseNr_txt"></span></button>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" data-ng-hide="!husnum.open">
+                            <ul class="husnum">
+                                <li data-ng-repeat="husnum in searchResult.husnummer" data-ng-click="husnummerChanged(searchResult, husnum)">
+
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <span translate="searchResult_houseNumber"></span>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <span data-ng-bind="husnum"></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="list-result text-and-button" data-ng-show="!roadsResult.open" data-ng-if="isIosDevice()">
                 <li class="pointer-cursor"
                     ng-repeat="searchResult in searchResults['matrikkelveg']">
                     <div class="row">
                         <div class="col-xs-8 move-up" ng-mousedown="mouseOver(searchResult); activatePosition(searchResult); showSearchOptionsPanel()">
-                            <span ng-mouseover="mouseOver(searchResult)" ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+                            <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
                         </div>
                         <div class="col-xs-4">
                             <div class="pull-right">

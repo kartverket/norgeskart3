@@ -58,6 +58,14 @@ angular.module('searchResultsPanel')
                         }
                     }
 
+                    scope.isIosDevice = function () {
+                        if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    };
+
                     $( document ).ready(function() {
                         $($window).resize(setMenuListMaxHeight);
                         setMenuListMaxHeight();
