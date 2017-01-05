@@ -9,7 +9,7 @@
             </div>
             <ul class="list-result text-and-button" data-ng-show="!roadsResult.open">
                 <li class="pointer-cursor"
-
+                    ng-mouseover="mouseOver(searchResult); $event.stopPropagation();"
                     ng-repeat="searchResult in searchResults['matrikkelveg']">
                     <div class="row">
                         <div class="col-xs-8 move-up" ng-mousedown="mouseOver(searchResult); activatePosition(searchResult); showSearchOptionsPanel()">
