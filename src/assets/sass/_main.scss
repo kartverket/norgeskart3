@@ -596,9 +596,9 @@ html{
   li:hover{
     background-color: transparent!important;
   }
-  ul{
+
     @extend .clickThrough;
-  }
+
 
 }
 
