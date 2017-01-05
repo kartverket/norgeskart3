@@ -77,12 +77,20 @@
                 <span data-ng-show="!addressResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
                 <span data-ng-show="addressResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
             </div>
-            <ul class="list-result" data-ng-show="!addressResult.open">
+            <ul class="list-result" data-ng-show="!addressResult.open" data-ng-if="!isIosDevice()">
                 <li ng-mouseover="mouseOver(searchResult)"
                     class="pointer-cursor"
                     ng-repeat="searchResult in searchResults['matrikkeladresse']"
                     ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
                         <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+                    </select>
+                </li>
+            </ul>
+            <ul class="list-result" data-ng-show="!addressResult.open" data-ng-if="isIosDevice()">
+                <li class="pointer-cursor"
+                    ng-repeat="searchResult in searchResults['matrikkeladresse']"
+                    ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
+                    <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
                     </select>
                 </li>
             </ul>
@@ -93,12 +101,20 @@
                 <span data-ng-show="!cadastreResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
                 <span data-ng-show="cadastreResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
             </div>
-            <ul class="list-result" data-ng-show="!cadastreResult.open">
+            <ul class="list-result" data-ng-show="!cadastreResult.open" data-ng-if="!isIosDevice()">
                 <li ng-mouseover="mouseOver(searchResult)"
                     class="pointer-cursor"
                     ng-repeat="searchResult in searchResults['matrikkelnummer']"
                     ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
                 <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+                    </select>
+                </li>
+            </ul>
+            <ul class="list-result" data-ng-show="!cadastreResult.open" data-ng-if="isIosDevice()">
+                <li class="pointer-cursor"
+                    ng-repeat="searchResult in searchResults['matrikkelnummer']"
+                    ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
+                    <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
                     </select>
                 </li>
             </ul>
@@ -109,11 +125,20 @@
                 <span data-ng-show="!placenamesResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
                 <span data-ng-show="placenamesResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
             </div>
-            <ul class="list-result" data-ng-show="!placenamesResult.open">
+            <ul class="list-result" data-ng-show="!placenamesResult.open" data-ng-if="!isIosDevice()">
                 <li class="pointer-cursor"
                     ng-repeat="searchResult in searchResults['ssr']"
                     ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
                     ng-mouseover="mouseOver(searchResult)">
+                    <span ng-if="searchResult.name.indexOf(searchResult.kommune) > -1 && searchResult.name.indexOf(searchResult.navnetype) > -1" ng-bind="searchResult.name"></span>
+                    <span ng-if="searchResult.name.indexOf(searchResult.kommune) > -1 && searchResult.name.indexOf(searchResult.navnetype) == -1" ng-bind="searchResult.name + ', '  + searchResult.navnetype"></span>
+                    <span ng-if="searchResult.name.indexOf(searchResult.kommune) == -1 && searchResult.name.indexOf(searchResult.navnetype) == -1" ng-bind="searchResult.name + ', '  + searchResult.navnetype + ' i ' + searchResult.kommune"></span>
+                </li>
+            </ul>
+            <ul class="list-result" data-ng-show="!placenamesResult.open" data-ng-if="isIosDevice()">
+                <li class="pointer-cursor"
+                    ng-repeat="searchResult in searchResults['ssr']"
+                    ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
                     <span ng-if="searchResult.name.indexOf(searchResult.kommune) > -1 && searchResult.name.indexOf(searchResult.navnetype) > -1" ng-bind="searchResult.name"></span>
                     <span ng-if="searchResult.name.indexOf(searchResult.kommune) > -1 && searchResult.name.indexOf(searchResult.navnetype) == -1" ng-bind="searchResult.name + ', '  + searchResult.navnetype"></span>
                     <span ng-if="searchResult.name.indexOf(searchResult.kommune) == -1 && searchResult.name.indexOf(searchResult.navnetype) == -1" ng-bind="searchResult.name + ', '  + searchResult.navnetype + ' i ' + searchResult.kommune"></span>
