@@ -9,7 +9,7 @@
             </div>
             <ul class="list-result text-and-button" data-ng-show="!roadsResult.open">
                 <li class="pointer-cursor"
-                    ng-mouseover="mouseOver(searchResult); $event.stopPropagation();"
+                    ng-mouseover="mouseOver(searchResult)"
                     ng-repeat="searchResult in searchResults['matrikkelveg']">
                     <div class="row">
                         <div class="col-xs-8 move-up" ng-mousedown="mouseOver(searchResult); activatePosition(searchResult); showSearchOptionsPanel()">
@@ -17,8 +17,8 @@
                         </div>
                         <div class="col-xs-4">
                             <div class="pull-right">
-                                <button data-ng-click="husnum.open = !husnum.open" type="button" class="btn btn-default btn-toggle activeBtn" data-ng-show="husnum.open"><span translate="houseNr_txt"></span></button>
-                                <button data-ng-click="husnum.open = !husnum.open" type="button" class="btn btn-default btn-toggle" data-ng-show="!husnum.open"><span translate="houseNr_txt"></span></button>
+                                <button ng-touchend="husnum.open = !husnum.open" data-ng-click="husnum.open = !husnum.open" type="button" class="btn btn-default btn-toggle activeBtn" data-ng-show="husnum.open"><span translate="houseNr_txt"></span></button>
+                                <button ng-touchend="husnum.open = !husnum.open" data-ng-click="husnum.open = !husnum.open" type="button" class="btn btn-default btn-toggle" data-ng-show="!husnum.open"><span translate="houseNr_txt"></span></button>
                             </div>
                         </div>
                         <div class="col-xs-12" data-ng-hide="!husnum.open">

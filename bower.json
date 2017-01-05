@@ -17,7 +17,8 @@
     "maplib": "https://github.com/kartverket/MapLib.git",
     "xml-to-json": "*",
     "angular-utils-pagination": "*",
-    "featherlight": "^1.6.1"
+    "featherlight": "^1.6.1",
+    "angular-touch": "^1.6.1"
   },
   "resolutions": {
     "angular": "1.6.1"

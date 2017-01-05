@@ -72,6 +72,7 @@ module.exports = {
         js: [
             'vendor/jquery/dist/jquery.js',
             'vendor/angular/angular.js',
+            'vendor/angular-touch/angular-touch.js',
             'vendor/angular-route/angular-route.js',
             'vendor/bootstrap/dist/js/bootstrap.min.js',
             'vendor/angular-translate/angular-translate.js',
