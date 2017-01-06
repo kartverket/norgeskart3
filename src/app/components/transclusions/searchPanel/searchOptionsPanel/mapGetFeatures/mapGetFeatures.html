@@ -38,7 +38,8 @@
                             <span data-ng-bind="attribute[0] | capitalize"></span>
                         </div>
                         <div data-ng-if="attribute[1].type=='picture'"
-                             class="col-xs-5">
+                             class="col-xs-5"
+                        data-ng-click="showImage(attribute[1].url)">
                             <img class="scale-image"
                                  data-ng-src="{{attribute[1].url}}">
                         </div>

@@ -4,7 +4,11 @@ angular.module('mapGetFeatures')
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchOptionsPanel/mapGetFeatures/mapGetFeatures.html',
                 restrict: 'A',
-                link: function(){
+                link: function(scope){
+                    scope.showImage = function (url) {
+                        $.featherlight(url);
+                    };
+
                 }
             };
         }]);
