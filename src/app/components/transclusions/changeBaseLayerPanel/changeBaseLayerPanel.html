@@ -1,16 +1,5 @@
 <div class="base-layer-panel">
-    <!--<div class="baseMap baseMap-land"></div>-->
-    <!--<div class="baseMap baseMap-aerial"></div>-->
-    <!--<button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: true}">-->
-        <!--<div class="baseMap baseMap-land"></div>-->
-    <!--</button>-->
-    <!--<button type="button" class="btn btn-default btn-toggle" data-ng-class="{activeBtn: false}">-->
-        <!--<div class="baseMap baseMap-aerial"></div>-->
-    <!--</button>-->
-
     <button type="button" class="btn btn-default btn-toggle" data-ng-repeat="baseLayer in allBaseLayers()" data-ng-class="{activeBtn: baseLayer.isSelected}" data-ng-click="toggleBaseLayer(baseLayer.id)">
         <div class="baseMap" data-ng-class="baseLayer.symbol"></div>
     </button>
-
-
 </div>
