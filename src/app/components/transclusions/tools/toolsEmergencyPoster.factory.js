@@ -18,7 +18,7 @@ angular
             var emergencyMapConfig = {
                 'service': 'WMS',
                 'request': 'GetMap',
-                'CRS': 'EPSG:32633',
+                'CRS': 'EPSG:25833',
                 'FORMAT': 'image/jpeg',
                 'BGCOLOR': '0xFFFFFF',
                 'TRANSPARENT': 'false',
