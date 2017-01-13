@@ -15,7 +15,6 @@
         </li>
     </ul>
 </div>
-
 <div class="sidenav-group">
     <ul>
         <li class="sidenav-sections" data-ng-repeat="group in groupLayers" data-ng-click="group.isOpen = !group.isOpen;">
@@ -45,4 +44,37 @@
             </ul>
         </li>
     </ul>
+</div>
+<div class="new-section">
+    <ul>
+        <li class="sidenav-sections" data-ng-click="legend.open = !legend.open">
+            <div class="row">
+                <div class="col-xs-11">
+                    <span translate="legend_txt"></span>
+                </div>
+                <div class="col-xs-1">
+                    <span data-ng-show="legend.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+                    <span data-ng-show="!legend.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="legend-panel" data-ng-show="legend.open">
+        <ul>
+            <li data-ng-repeat="group in groupLayers">
+                <ul>
+                    <li data-ng-repeat="isyLayer in group.isyLayers | filter: {isVisible:true}">
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <span data-ng-bind="isyLayer.name | capitalize"></span>
+                            </div>
+                            <div class="col-xs-10">
+                                <img class="legend" data-ng-src="{{GetLegendGraphicUrl(isyLayer)}}">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>

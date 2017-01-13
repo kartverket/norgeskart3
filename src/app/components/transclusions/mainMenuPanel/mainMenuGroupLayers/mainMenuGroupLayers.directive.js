@@ -91,6 +91,14 @@ angular.module('mainMenuGroupLayers')
                         }
                     };
 
+                    scope.GetLegendGraphicUrl = function (isyLayer) {
+                        if (isyLayer.isVisible){
+                            return isyLayer.subLayers[0].legendGraphicUrl; 
+                        } else {
+                            return '';
+                        }
+                    };
+
                     scope.toggleLayer = function(isyLayer){
                         if(!scope.onlyOneGroup || isyLayer.groupId.indexOf(999) > -1 ){
                             if(isyLayer.isVisible){
