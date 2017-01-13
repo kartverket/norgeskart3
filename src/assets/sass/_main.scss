@@ -977,6 +977,10 @@ input::-ms-clear {
   padding-top: 0;
 }
 
+.no-padding-left{
+  padding-left: 0;
+}
+
 .noMarginTop{
   margin-top: 0!important;
 }
@@ -1051,9 +1055,9 @@ input::-ms-clear {
   background-image:url('../assets/img/Ikon_Kart_Norge_org36.png');
   width:36px;
   height: 36px;
-  display: block;
+  //display: block;
   top: 0;
-  position: absolute;
+  //position: absolute;
   margin: 15px 15px 15px 12px;
 }
 
@@ -1113,25 +1117,25 @@ input::-ms-clear {
 
 .logo-text{
   font-size: 22px;
-  width:150px;
-  height: 32px;
+  //width:150px;
+  height: 26px;
   display: block;
   top: 0;
-  position: absolute;
-  left:58px;
-  margin-top: 12px;
+  //position: absolute;
+  //left:58px;
+  margin-top: 11px;
   color: grey;
 }
 
 .logo-sub-text{
   font-size: 14px;
-  width:150px;
+  //width:150px;
   height: 32px;
-  display: block;
+  //display: block;
   top: 0;
-  position: absolute;
+  //position: absolute;
   left:58px;
-  margin-top: 38px;
+  //margin-top: 38px;
   color: grey;
 }
 

@@ -82,6 +82,12 @@
 
   .sidenav .closebtn{
     right: 17px!important;
+    margin-right: 17px!important;
+  }
+
+  //if mobile set back padding-left to 15px
+  .no-padding-left{
+    padding-left: 15px;
   }
 
   .moveableOverlay{

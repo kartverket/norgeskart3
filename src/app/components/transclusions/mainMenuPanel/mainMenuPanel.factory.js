@@ -5,16 +5,16 @@ angular
 
             var projects = [
                 {
-                    "id": "norgeskart",
-                    "title": "Friluft_title",
-                    "symbol": "fa fa-tree",
+                    "id": "seeiendom",
+                    "title": "seEiendom_title",
+                    "symbol": "fa fa-home",
                     "symbol_text": "",
                     "isSelected" : false
                 },
                 {
-                    "id": "seeiendom",
-                    "title": "seEiendom_title",
-                    "symbol": "fa fa-home",
+                    "id": "norgeskart",
+                    "title": "Friluft_title",
+                    "symbol": "fa fa-tree",
                     "symbol_text": "",
                     "isSelected" : false
                 },
