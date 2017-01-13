@@ -13,7 +13,7 @@ angular
             {
                 id: "ElevationProfile",
                 headingTitle: 'HeightProfile_text',
-                headingIcon: 'fa fa-pencil',
+                headingIcon: 'fa fa-area-chart',
                 show: false,
                 top: 12,
                 left: 19
