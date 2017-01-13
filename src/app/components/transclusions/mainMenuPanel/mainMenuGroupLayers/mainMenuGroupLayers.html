@@ -63,7 +63,7 @@
         <ul>
             <li data-ng-repeat="group in groupLayers | filter:groupFilter">
                 <ul>
-                    <li data-ng-repeat="isyLayer in group.isyLayers | filter: {isVisible:true}">
+                    <li data-ng-repeat="isyLayer in group.isyLayers | filter:legendFilter">
                         <div class="row">
                             <div class="col-xs-9">
                                 <span data-ng-bind="isyLayer.name | capitalize"></span>
