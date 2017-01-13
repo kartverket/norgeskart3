@@ -91,6 +91,11 @@ angular.module('mainMenuGroupLayers')
                         }
                     };
 
+                    scope.groupFilter = function (group) { 
+                        if (group.groupIsVisible || group.isPartiallyVisible) {
+                            return group;
+                        }
+                    };
                     scope.GetLegendGraphicUrl = function (isyLayer) {
                         if (isyLayer.isVisible){
                             return isyLayer.subLayers[0].legendGraphicUrl; 

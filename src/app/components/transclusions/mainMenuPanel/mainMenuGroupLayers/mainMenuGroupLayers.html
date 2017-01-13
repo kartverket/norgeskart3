@@ -61,7 +61,7 @@
     </ul>
     <div class="legend-panel" data-ng-show="legend.open">
         <ul>
-            <li data-ng-repeat="group in groupLayers">
+            <li data-ng-repeat="group in groupLayers | filter:groupFilter">
                 <ul>
                     <li data-ng-repeat="isyLayer in group.isyLayers | filter: {isVisible:true}">
                         <div class="row">
