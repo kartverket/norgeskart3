@@ -64,7 +64,7 @@ angular.module('mainApp')
 
             var _setDeafultProject = function () {
                 var obj = $location.search();
-                obj.project = "norgeskart";
+                obj.project = "seeiendom";
                 var newSearch = angular.extend($location.search(), obj);
                 $location.search(newSearch);
                 $timeout(function () {
