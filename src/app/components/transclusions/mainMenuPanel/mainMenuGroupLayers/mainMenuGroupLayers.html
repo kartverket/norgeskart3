@@ -62,6 +62,10 @@
     <div class="legend-panel" data-ng-show="legend.open">
         <ul>
             <li data-ng-repeat="group in groupLayers | filter:groupFilter">
+                <div class="row" data-ng-show="checkMatrikkel(group)">
+                    <div class="legend1"></div>
+                    <div class="legend2"></div>
+                </div>
                 <ul>
                     <li data-ng-repeat="isyLayer in group.isyLayers | filter:legendFilter">
                         <div class="row">

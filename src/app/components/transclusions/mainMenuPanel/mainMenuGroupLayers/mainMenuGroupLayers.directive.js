@@ -91,6 +91,14 @@ angular.module('mainMenuGroupLayers')
                         }
                     };
 
+                    scope.checkMatrikkel = function (group) {
+                        if (group.name === 'Matrikkel-data'){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    };
+
                     scope.groupFilter = function (group) { 
                         if (group.groupIsVisible || group.isPartiallyVisible) {
                             return group;
