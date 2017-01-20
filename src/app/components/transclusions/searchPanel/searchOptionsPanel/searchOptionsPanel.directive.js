@@ -27,6 +27,9 @@ angular.module('searchOptionsPanel')
                                 }
                                 scope.showLagTurKartPanel();
                                 break;
+                            case ('lagFargeleggingskart'):
+                                scope.showLagFargeleggingskartPanel();
+                                break;
                             case ('lagNodplakat'):
                                 scope.showLagNodplakatPanel();
                                 break;

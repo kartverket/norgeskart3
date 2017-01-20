@@ -462,6 +462,11 @@ angular.module('searchPanel')
                         var name= 'lagTurkart';
                         scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-blind', true, 'Lage turkart', {});
                     };
+                    
+                    var _addLagFargeleggingskartToSearchOptions = function () {
+                        var name= 'lagFargeleggingskart';
+                        scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-blind', true, 'Lage fargeleggingskart', {});
+                    };
 
                     var _addEmergencyPosterToSearchOptions = function () {
                         var name='lagNodplakat';
@@ -663,6 +668,7 @@ angular.module('searchPanel')
                         _fetchMatrikkelInfo();
                         _addKoordTransToSearchOptions();
                         _addLagTurkartToSearchOptions();
+                        _addLagFargeleggingskartToSearchOptions();
                         _addEmergencyPosterToSearchOptions();
                     };
 
