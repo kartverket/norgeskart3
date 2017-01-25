@@ -417,7 +417,7 @@ angular.module('mainApp')
                             "id": sourceType=='VECTOR' ? mapConfig.layers.length+8001 : mapConfig.layers.length+1001,
                             "transparent": true,
                             "layerIndex": -1,
-                            //"legendGraphicUrl": source.layers.layer.legendurl,
+                            "legendGraphicUrl": source.legendurl,
                             "minScale": source.options.minscale,
                             "maxScale": source.options.maxscale,
                             "sortingIndex": -1,

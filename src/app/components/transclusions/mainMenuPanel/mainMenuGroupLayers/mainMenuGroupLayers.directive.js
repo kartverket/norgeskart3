@@ -91,6 +91,32 @@ angular.module('mainMenuGroupLayers')
                         }
                     };
 
+                    scope.checkMatrikkel = function (group) {
+                        if (group.name === 'Matrikkel-data'){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    };
+
+                    scope.groupFilter = function (group) { 
+                        if (group.groupIsVisible || group.isPartiallyVisible) {
+                            return group;
+                        }
+                    };
+                    scope.legendFilter = function (isyLayer) { 
+                        if (isyLayer.isVisible && isyLayer.subLayers[0].legendGraphicUrl) {
+                            return isyLayer;
+                        }
+                    };
+                    scope.GetLegendGraphicUrl = function (isyLayer) {
+                        if (isyLayer.isVisible){
+                            return isyLayer.subLayers[0].legendGraphicUrl; 
+                        } else {
+                            return '';
+                        }
+                    };
+
                     scope.toggleLayer = function(isyLayer){
                         if(!scope.onlyOneGroup || isyLayer.groupId.indexOf(999) > -1 ){
                             if(isyLayer.isVisible){

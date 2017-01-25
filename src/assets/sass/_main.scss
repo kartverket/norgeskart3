@@ -556,6 +556,33 @@ html{
 .tooltip-static:before {
   border-top-color: #ffcc33;
 }
+.tooltip-info {
+  opacity: 1;
+}
+.tooltip-info:before {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid rgba(0, 0, 0, 0.5);
+  content: "";
+  position: absolute;
+  margin-left: -6px;
+  left: 50%;
+  top: -6px;
+}
+.tooltip-absolute {
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.has-tooltip .tooltip {
+  display: none;
+}
+.has-tooltip:hover .tooltip {
+  display: block;
+}
 
 /*Tooltip end*/
 
@@ -585,7 +612,6 @@ html{
   border-radius: 2px;
   max-width: 420px;
 }
-
 .list-result{
   li{
     border-bottom: 1px solid #dedede;

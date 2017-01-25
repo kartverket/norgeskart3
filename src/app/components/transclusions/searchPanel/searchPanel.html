@@ -1,7 +1,9 @@
 <div class="field-group">
     <div class="inner-addon left-addon right-addon">
         <input caret type="text" ng-change="searchBarValueChanged()" ng-model="searchBarModel" name="searchBarName" id="searchBarId" placeholder="{{'search_text' | translate}}"  />
-        <i class="left-side glyphicon glyphicon-menu-hamburger" data-ng-click="openNav()"></i>
+        <i class="left-side glyphicon glyphicon-menu-hamburger has-tooltip" data-ng-click="openNav()">
+            <span class="tooltip tooltip-absolute tooltip-info" translate="menu"></span>
+        </i>
         <i ng-show="searchResults != undefined" data-ng-click="cleanResults(); resetSearchPanel()">
             <div class="cleanResults">
                 <span class="glyphicon glyphicon-menu-right"></span>
