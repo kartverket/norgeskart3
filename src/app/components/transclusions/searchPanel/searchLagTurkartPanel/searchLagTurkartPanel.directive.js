@@ -22,9 +22,11 @@ angular.module('searchLagTurkartPanel')
                         extent=newExtent;
                     }
 
-                    var _activatePrintBoxSelect = function(scale) {
+                    var _activatePrintBoxSelect = function(scale, cols, rows) {
                         var printBoxSelectTool = toolsFactory.getToolById("PrintBoxSelect");
                         printBoxSelectTool.additionalOptions.scale = scale;
+                        printBoxSelectTool.additionalOptions.cols = cols;
+                        printBoxSelectTool.additionalOptions.rows = rows;
                         toolsFactory.activateTool(printBoxSelectTool);
                     };
 
@@ -45,7 +47,7 @@ angular.module('searchLagTurkartPanel')
 
                     scope.tittel="Turkart";
 
-                    _activatePrintBoxSelect(scope.scale);
+                    _activatePrintBoxSelect(scope.scale, 4, 3);
 
 
 

@@ -5,7 +5,7 @@ angular.module('searchLagFargeleggingskartPanel')
                 templateUrl: 'components/transclusions/searchPanel/searchLagFargeleggingskartPanel/searchLagFargeleggingskartPanel.html',
                 restrict: 'A',
                 link: function(scope){
-                    scope.activePosition.zoom=parseFloat(7);
+                    scope.activePosition.zoom=parseFloat(12);
                     map.SetCenter( scope.activePosition);
                     var extent= {};
                     var mapLink = "";
@@ -22,9 +22,11 @@ angular.module('searchLagFargeleggingskartPanel')
                         extent=newExtent;
                     }
 
-                    var _activatePrintBoxSelect = function(scale) {
+                    var _activatePrintBoxSelect = function(scale, cols, rows) {
                         var printBoxSelectTool = toolsFactory.getToolById("PrintBoxSelect");
                         printBoxSelectTool.additionalOptions.scale = scale;
+                        printBoxSelectTool.additionalOptions.cols = cols;
+                        printBoxSelectTool.additionalOptions.rows = rows;
                         toolsFactory.activateTool(printBoxSelectTool);
                     };
 
@@ -37,15 +39,14 @@ angular.module('searchLagFargeleggingskartPanel')
                     };
 
                     scope.scales={
-                        '25000': '1: 25 000',
-                        '50000': '1: 50 000'
+                        '5000': '1: 5 000'
                     };
 
-                    scope.scale='25000';
+                    scope.scale='5000';
 
                     scope.tittel="Fargeleggingskart";
 
-                    _activatePrintBoxSelect(scope.scale);
+                    _activatePrintBoxSelect(scope.scale, 1, 1);
 
 
 
@@ -75,10 +76,10 @@ angular.module('searchLagFargeleggingskartPanel')
                                     center: extent.center,
                                     dpi: "300",
                                     layers: [{
-                                    baseURL: "http://wms.geonorge.no/skwms1/wms.toporaster3",
+                                    baseURL: "http://wms.geonorge.no/skwms1/wms.fargelegg",
                                     customParams: {"TRANSPARENT": "false"},
                                     imageFormat: "image/jpeg",
-                                    layers: ["toporaster"],
+                                    layers: ["fargeleggingskart"],
                                     opacity: 1,
                                     type: "WMS"
                                 }],
@@ -86,13 +87,11 @@ angular.module('searchLagFargeleggingskartPanel')
                                     sone: extent.sone,
                                     biSone: ""
                             },
-                            paging: 12,
+                            paging: 1,
                             layout: "A4 landscape",
                             scale: extent.scale,
                             titel: scope.tittel,
-                            legend: scope.showLegend,
-                            trips: scope.showTrips,
-                            link: "http://www.norgeskart.no/turkart/#9/238117/6674760"
+                            link: "http://www.norgeskart.no/turkart/"
                         };
                     };
 
@@ -114,7 +113,7 @@ angular.module('searchLagFargeleggingskartPanel')
                         scope.showSpinner = false;
                         document.getElementById("spinner1").style.backgroundColor = "transparent";
                         document.getElementById("spinner1").style.transition = "0.8s";
-                        mapLink=urlLagFargeleggingskart.replace('getprint2.py','') + response.data.linkPdf;
+                        mapLink=urlLagFargeleggingskart.replace('getprint_f.py','') + response.data.linkPdf;
                     };
 
                     scope.downloadMap=function () {
