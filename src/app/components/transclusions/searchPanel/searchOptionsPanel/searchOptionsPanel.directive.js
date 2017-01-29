@@ -14,20 +14,11 @@ angular.module('searchOptionsPanel')
                                 scope.showKoordTransPanel();
                                 break;
                             case ('lagTurkart'):
-                                var mapSwitched=false;
-                                var baselayers=map.GetBaseLayers();
-                                while (!mapSwitched) {
-                                    for (var baselayer in baselayers) {
-                                        if (baselayers[baselayer].name == 'Rasterkart') {
-                                            map.SetBaseLayer(baselayers[baselayer]);
-                                            changeBaseLayerPanelFactory.setBaseLayerById(baselayers[baselayer].thumbnail);
-                                            mapSwitched=true;
-                                        }
-                                    }
-                                }
+                                switchToLayer('Rasterkart');
                                 scope.showLagTurKartPanel();
                                 break;
                             case ('lagFargeleggingskart'):
+                                switchToLayer('Rasterkart');
                                 scope.showLagFargeleggingskartPanel();
                                 break;
                             case ('lagNodplakat'):
@@ -66,6 +57,20 @@ angular.module('searchOptionsPanel')
                             }
                         });
                     };
+                    
+                    function switchToLayer(layerName) {
+                        var mapSwitched=false;
+                        var baselayers=map.GetBaseLayers();
+                        while (!mapSwitched) {
+                            for (var baselayer in baselayers) {
+                                if (baselayers[baselayer].name == layerName) {
+                                    map.SetBaseLayer(baselayers[baselayer]);
+                                    changeBaseLayerPanelFactory.setBaseLayerById(baselayers[baselayer].thumbnail);
+                                    mapSwitched=true;
+                                }
+                            }
+                        }
+                    }
 
                     function fixElementHeight(moveUpFromBottom){
                         var bodyHeight = $window.innerHeight;
