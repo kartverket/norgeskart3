@@ -1,6 +1,6 @@
 <div class="sidenav-group">
     <ul>
-        <li data-ng-click="removeGroups(); showMainMenuSections()">
+        <li tabindex="0" data-ng-click="removeGroups(); showMainMenuSections()" ng-keypress="removeGroups(); showMainMenuSections()">
             <div class="sidenav-header-text row">
                 <div class="col-xs-1">
                     <span data-ng-class="selectedProject.symbol" data-ng-bind="selectedProject.symbol_text"></span>
@@ -17,7 +17,7 @@
 </div>
 <div class="sidenav-group">
     <ul>
-        <li class="sidenav-sections" data-ng-repeat="group in groupLayers" data-ng-click="group.isOpen = !group.isOpen;">
+        <li tabindex="0" class="sidenav-sections" data-ng-repeat="group in groupLayers" data-ng-click="group.isOpen = !group.isOpen;" ng-keypress="group.isOpen = !group.isOpen;">
             <div class="row">
                 <div class="col-xs-1">
                     <span data-ng-class="getGroupStyleStatus(group)" data-ng-click="toggleGroup(group); $event.stopPropagation();"></span>
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <ul data-ng-show="group.isOpen">
-                <li data-ng-repeat="isyLayer in group.isyLayers" data-ng-click="toggleLayer(isyLayer); $event.stopPropagation();">
+                <li tabindex="0" data-ng-repeat="isyLayer in group.isyLayers" data-ng-click="toggleLayer(isyLayer); $event.stopPropagation();" ng-keypress="toggleLayer(isyLayer); $event.stopPropagation();">
                     <div class="row">
                         <div class="col-xs-1">
                             <span data-ng-class="getLayerStyleStatus(isyLayer)"></span>
@@ -47,7 +47,7 @@
 </div>
 <div class="new-section">
     <ul>
-        <li class="sidenav-sections" data-ng-click="legend.open = !legend.open">
+        <li tabindex="0" class="sidenav-sections" data-ng-click="legend.open = !legend.open" ng-keypress="legend.open = !legend.open">
             <div class="row">
                 <div class="col-xs-11">
                     <span translate="legend_txt"></span>
