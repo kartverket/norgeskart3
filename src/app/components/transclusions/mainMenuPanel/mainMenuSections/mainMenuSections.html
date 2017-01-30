@@ -1,6 +1,6 @@
 <div class="sidenav-group">
     <ul>
-        <li data-ng-click="showMainMenuBaseLayers()">
+        <li tabindex="0" ng-keypress="showMainMenuBaseLayers()" data-ng-click="showMainMenuBaseLayers()">
             <div class="sidenav-header-text row">
                 <div class="col-xs-1">
                     <span class="icon-toggle-on fa fa-map"></span>
@@ -29,7 +29,7 @@
         </div>
     </div>
     <ul data-ng-show="!themaMenu.open">
-        <li data-ng-repeat="project in projects" data-ng-class="{activeMenu: project.isSelected}" data-ng-click="activateProject(project)">
+        <li tabindex="0" data-ng-repeat="project in projects" data-ng-class="{activeMenu: project.isSelected}" data-ng-click="activateProject(project)">
             <div class="row">
                 <div class="col-xs-1">
                     <span data-ng-class="project.symbol" data-ng-bind="project.symbol_text"></span>

@@ -1,6 +1,6 @@
 <div class="sidenav-group">
     <ul>
-        <li data-ng-click="showMainMenuSections()">
+        <li tabindex="0" ng-keypress="showMainMenuSections()" data-ng-click="showMainMenuSections()">
             <div class="sidenav-header-text row">
                 <div class="col-xs-1">
                     <span class="icon-toggle-on fa fa-map"></span>
@@ -19,7 +19,7 @@
 
 <div class="sidenav-group">
     <ul>
-        <li class="sidenav-sections" data-ng-repeat="baseLayer in baseLayers | filter: {name: '!!' }" data-ng-click="setAsBaseLayer(baseLayer)">
+        <li tabindex="0" class="sidenav-sections" data-ng-repeat="baseLayer in baseLayers | filter: {name: '!!' }" ng-keypress="setAsBaseLayer(baseLayer)" data-ng-click="setAsBaseLayer(baseLayer)">
             <div class="row">
                 <div class="col-xs-1">
                     <span data-ng-class="getBaseLayerStyle(baseLayer)"></span>
