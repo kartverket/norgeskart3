@@ -1,11 +1,11 @@
-angular.module('searchLagTurkartPanel')
-    .directive('searchLagTurkartPanel', ['toolsFactory','ISY.EventHandler','$http','mainAppService','$window','ISY.MapAPI.Map',
+angular.module('searchLagFargeleggingskartPanel')
+    .directive('searchLagFargeleggingskartPanel', ['toolsFactory','ISY.EventHandler','$http','mainAppService','$window','ISY.MapAPI.Map',
         function(toolsFactory, eventHandler, $http, mainAppService,$window, map) {
             return {
-                templateUrl: 'components/transclusions/searchPanel/searchLagTurkartPanel/searchLagTurkartPanel.html',
+                templateUrl: 'components/transclusions/searchPanel/searchLagFargeleggingskartPanel/searchLagFargeleggingskartPanel.html',
                 restrict: 'A',
                 link: function(scope){
-                    scope.activePosition.zoom=parseFloat(7);
+                    scope.activePosition.zoom=parseFloat(12);
                     map.SetCenter( scope.activePosition);
                     var extent= {};
                     var mapLink = "";
@@ -39,15 +39,14 @@ angular.module('searchLagTurkartPanel')
                     };
 
                     scope.scales={
-                        '25000': '1: 25 000',
-                        '50000': '1: 50 000'
+                        '5000': '1: 5 000'
                     };
 
-                    scope.scale='25000';
+                    scope.scale='5000';
 
-                    scope.tittel="Turkart";
+                    scope.tittel="Fargeleggingskart";
 
-                    _activatePrintBoxSelect(scope.scale, 4, 3);
+                    _activatePrintBoxSelect(scope.scale, 1, 1);
 
 
 
@@ -59,9 +58,9 @@ angular.module('searchLagTurkartPanel')
                         scope.mapAvailable = false;
                         var json = _createJson();
                         $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side
-                        var urlLagTurkart=mainAppService.generateLagTurkartUrl();
-                        $http.post(urlLagTurkart,json).then(
-                            function(response){_mapReadyForDownload(response, urlLagTurkart);},
+                        var urlLagFargeleggingskart=mainAppService.generateLagFargeleggingskartUrl();
+                        $http.post(urlLagFargeleggingskart,json).then(
+                            function(response){_mapReadyForDownload(response, urlLagFargeleggingskart);},
                             function(response){_mapCreationFailed(response);}
                         );
                         scope.showSpinner = true;
@@ -77,10 +76,10 @@ angular.module('searchLagTurkartPanel')
                                     center: extent.center,
                                     dpi: "300",
                                     layers: [{
-                                    baseURL: "http://wms.geonorge.no/skwms1/wms.toporaster3",
+                                    baseURL: "http://wms.geonorge.no/skwms1/wms.fargelegg",
                                     customParams: {"TRANSPARENT": "false"},
                                     imageFormat: "image/jpeg",
-                                    layers: ["toporaster"],
+                                    layers: ["fargeleggingskart"],
                                     opacity: 1,
                                     type: "WMS"
                                 }],
@@ -88,13 +87,11 @@ angular.module('searchLagTurkartPanel')
                                     sone: extent.sone,
                                     biSone: ""
                             },
-                            paging: 12,
+                            paging: 1,
                             layout: "A4 landscape",
                             scale: extent.scale,
                             titel: scope.tittel,
-                            legend: scope.showLegend,
-                            trips: scope.showTrips,
-                            link: "http://www.norgeskart.no/turkart/#9/238117/6674760"
+                            link: "http://www.norgeskart.no/turkart/"
                         };
                     };
 
@@ -110,13 +107,13 @@ angular.module('searchLagTurkartPanel')
                         }
                     };
 
-                    var _mapReadyForDownload = function (response, urlLagTurkart) {
+                    var _mapReadyForDownload = function (response, urlLagFargeleggingskart) {
                         scope.mapAvailable = true;
                         scope.createMapButtonOn = true;
                         scope.showSpinner = false;
                         document.getElementById("spinner1").style.backgroundColor = "transparent";
                         document.getElementById("spinner1").style.transition = "0.8s";
-                        mapLink=urlLagTurkart.replace('getprint2.py','') + response.data.linkPdf;
+                        mapLink=urlLagFargeleggingskart.replace('getprint_f.py','') + response.data.linkPdf;
                     };
 
                     scope.downloadMap=function () {

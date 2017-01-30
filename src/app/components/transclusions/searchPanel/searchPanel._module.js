@@ -1,1 +1,1 @@
-angular.module('searchPanel', ['searchOptionsPanel', 'searchResultsPanel', 'searchSeEiendomPanel', 'searchKoordTransPanel', 'searchSeHavnivaaPanel', 'searchLagTurkartPanel','searchLagNodplakatPanel']);
+angular.module('searchPanel', ['searchOptionsPanel', 'searchResultsPanel', 'searchSeEiendomPanel', 'searchKoordTransPanel', 'searchSeHavnivaaPanel', 'searchLagTurkartPanel', 'searchLagFargeleggingskartPanel', 'searchLagNodplakatPanel']);

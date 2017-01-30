@@ -1,0 +1,76 @@
+<div class="search-panel" ng-show="searchResults != undefined">
+    <div id="spinner1" class="search-loading-overlay" data-ng-show="showSpinner">
+        <div class="spinner-loader"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+    </div>
+    <div class="header">
+        <div class="row">
+            <div class="col-xs-12">
+                <span class="header-icon icon-important" data-ng-class="searchOptionsDict['lagFargeleggingskart'].icon.value"></span>
+                <span translate="Fargeleggingskart_title"></span>
+                <div class="pull-right">
+                    <div class="hide-button" data-ng-click="fargeleggingsMap.open = !fargeleggingsMap.open">
+                        <span data-ng-show="!fargeleggingsMap.open" class="glyphicon glyphicon-menu-up"></span>
+                        <span data-ng-show="fargeleggingsMap.open" class="glyphicon glyphicon-menu-down"></span>
+                    </div>
+                    <div class="closebtn" data-ng-click="deactivatePrintBoxSelect(); showSearchOptionsPanel()">
+                        <span class="glyphicon glyphicon-menu-right"></span>
+                        <span class="glyphicon glyphicon-menu-left"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="search-content" data-ng-show="!fargeleggingsMap.open">
+        <div class="info-text">
+            <span translate="Fargeleggingskart_info"></span>
+        </div>
+        <div class="new-section">
+            <div class="title-text">
+                <span translate="Scale"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="dropdown">
+                        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span data-ng-bind="scales[scale]"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
+                            <li data-ng-repeat="(key, value) in scales" data-ng-click="applyScale(key)" class="pointer-cursor">
+                                <span data-ng-bind="scales[key]"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="new-section">
+            <div class="title-text">
+                <span translate="Fargeleggingskart_navn"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="text"
+                           placeholder="{{'Fargeleggingskart_navn_eks' | translate}}"
+                           ng-model="tittel"
+                           ng-disabled="!createMapButtonOn"
+                           class="full-width"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="new-section navigation-button pull-right">
+            <button class="btn btn-default btn-ordinary"
+                    data-ng-click="deactivatePrintBoxSelect(); showSearchOptionsPanel()" translate="Cancel_txt">
+            </button>
+
+            <button class="btn btn-default btn-important" data-ng-click="orderMap()"
+                    ng-disabled="!createMapButtonOn" translate="lagFargeleggingskart">
+            </button>
+
+            <button class="btn btn-default btn-important" data-ng-click="downloadMap()"
+                    ng-disabled="!mapAvailable" translate="DownloadMap">
+            </button>
+        </div>
+    </div>
+</div>

@@ -95,6 +95,10 @@ angular.module('mainApp')
                 this.generateLagTurkartUrl = function () {
                     return urlGeonorge + "freeprint/getprint2.py";
                 };
+                
+                this.generateLagFargeleggingskartUrl = function () {
+                    return urlGeonorge + "freeprint/getprint_f.py";
+                };
 
                 this.generateEmergencyPosterPointUrl = function (lat, lon) {
                     return url + 'ws/emergencyPoster.py?&lon=' + lon + ',lat=' + lat;
