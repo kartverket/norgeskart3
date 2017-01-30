@@ -2,6 +2,7 @@ angular
     .module('isyTranslate')
     .constant('translations', {
         'no': {
+            "search": "Søk",
             "menu": "Meny",
             "search_text": "Søk i Norgeskart",
             "menu_selected_language": "Valgt språk",
@@ -171,6 +172,7 @@ angular
 
         },
         'en': {
+            "search": "Search",
             "menu": "Menu",
             "search_text": "Search Norgeskart",
             "menu_selected_language": "Selected Language",
