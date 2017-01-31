@@ -1,6 +1,6 @@
 <div class="sidenav-group">
     <ul>
-        <li data-ng-click="showMainMenuBaseLayers()">
+        <li tabindex="0" ng-keypress="showMainMenuBaseLayers()" data-ng-click="showMainMenuBaseLayers()">
             <div class="sidenav-header-text row">
                 <div class="col-xs-1">
                     <span class="icon-toggle-on fa fa-map"></span>
@@ -23,13 +23,13 @@
             </div>
             <div class="col-xs-11">
                 <span translate="ThematicMap_text"></span>
-                <span data-ng-show="!themaMenu.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
-                <span data-ng-show="themaMenu.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
+                <span data-ng-show="!themaMenu.open" class="upbtn glyphicon glyphicon-menu-up"></span>
+                <span data-ng-show="themaMenu.open" class="upbtn glyphicon glyphicon-menu-down"></span>
             </div>
         </div>
     </div>
     <ul data-ng-show="!themaMenu.open">
-        <li data-ng-repeat="project in projects" data-ng-class="{activeMenu: project.isSelected}" data-ng-click="activateProject(project)">
+        <li tabindex="0" data-ng-repeat="project in projects" data-ng-class="{activeMenu: project.isSelected}" data-ng-click="activateProject(project)" ng-keypress="activateProject(project)">
             <div class="row">
                 <div class="col-xs-1">
                     <span data-ng-class="project.symbol" data-ng-bind="project.symbol_text"></span>
@@ -54,13 +54,13 @@
                 <span translate="WhatDoYouWantToDo_text"></span>
             </div>
             <div class="col-xs-2">
-                <span data-ng-show="!sectionMenu.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
-                <span data-ng-show="sectionMenu.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
+                <span data-ng-show="!sectionMenu.open" class="upbtn glyphicon glyphicon-menu-up"></span>
+                <span data-ng-show="sectionMenu.open" class="upbtn glyphicon glyphicon-menu-down"></span>
             </div>
         </div>
     </div>
     <ul data-ng-show="!sectionMenu.open">
-        <li class="sidenav-sections" data-ng-click="showMoveableDrawMenu();closeNav();initDrawFeatureTool()">
+        <li tabindex="0" class="sidenav-sections" data-ng-click="showMoveableDrawMenu();closeNav();initDrawFeatureTool()" ng-keypress="showMoveableDrawMenu();closeNav();initDrawFeatureTool()">
             <div class="row">
                 <div class="col-xs-1">
                     <span class="icon-important fa fa-pencil"></span>
@@ -71,7 +71,7 @@
                 </div>
             </div>
         </li>
-        <li class="sidenav-sections" data-ng-click="showMoveableShareMapMenu(); closeNav()">
+        <li tabindex="0" class="sidenav-sections" data-ng-click="showMoveableShareMapMenu(); closeNav()" ng-keypress="showMoveableShareMapMenu(); closeNav()">
             <div class="row">
                 <div class="col-xs-1">
                     <span class="icon-important fa fa-share-alt"></span>
@@ -82,7 +82,7 @@
                 </div>
             </div>
         </li>
-        <li class="sidenav-sections" data-ng-click="printMap()">
+        <li tabindex="0" class="sidenav-sections" data-ng-click="printMap()" ng-keypress="printMap()">
             <div class="row">
                 <div class="col-xs-1">
                     <span class="icon-important fa fa-print"></span>
@@ -93,7 +93,7 @@
                 </div>
             </div>
         </li>
-        <li class="sidenav-sections" data-ng-click="showMoveableElevationProfileMenu();closeNav()">
+        <li tabindex="0" class="sidenav-sections" data-ng-click="showMoveableElevationProfileMenu();closeNav()" ng-keypress="showMoveableElevationProfileMenu();closeNav()">
             <div class="row">
                 <div class="col-xs-1">
                     <span class="icon-important fa fa-area-chart"></span>
@@ -111,20 +111,20 @@
     <div class="row">
         <div class="col-xs-12">
             <ul>
-                <li data-ng-click="changeLanguage()">
+                <li tabindex="0" data-ng-click="changeLanguage()" ng-keypress="changeLanguage()">
                     <span translate="ChangeTo_text"></span>
                     <span translate="{{getUnselectLanguage().title}}"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
-                <li data-ng-click="showMainMenuFaq()">
+                <li tabindex="0" data-ng-click="showMainMenuFaq()" ng-keypress="showMainMenuFaq()">
                     <span translate="FAQ_title"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
-                <li data-ng-click="redirectKartverket()">
+                <li tabindex="0" data-ng-click="redirectKartverket()" ng-keypress="redirectKartverket()">
                     <span translate="GoToKartverket_text"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
-                <li data-ng-click="sendFeedback()">
+                <li tabindex="0" data-ng-click="sendFeedback()" ng-keypress="sendFeedback()">
                     <span translate="GiveFeedback_text"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
