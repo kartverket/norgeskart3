@@ -1,18 +1,18 @@
 angular.module('searchPanel')
-    .directive('searchPanel', ['$timeout','mainAppService', 'ISY.MapAPI.Map','ISY.EventHandler','$http','searchPanelFactory','$window', 'toolsFactory', '$location',
-        function($timeout, mainAppService, map, eventHandler, $http, searchPanelFactory, $window, toolsFactory, $location) {
+    .directive('searchPanel', ['$timeout', 'mainAppService', 'ISY.MapAPI.Map', 'ISY.EventHandler', '$http', 'searchPanelFactory', '$window', 'toolsFactory', '$location',
+        function ($timeout, mainAppService, map, eventHandler, $http, searchPanelFactory, $window, toolsFactory, $location) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchPanel.html',
                 restrict: 'A',
                 controller: 'searchPanelController',
-                link: function(scope){
+                link: function (scope) {
                     scope.searchBarValueChanged = function () {
                         if (scope.searchBarModel === '') {
                             scope.cleanResults();
                             return;
                         }
                         var query = _getQuery();
-                        if (_checkQueryForCoordinates(query)){
+                        if (_checkQueryForCoordinates(query)) {
                             scope.initSearchOptions();
                             return;
                         }
@@ -23,7 +23,7 @@ angular.module('searchPanel')
 
                     scope.sourceDict = searchPanelFactory.getSourceDict();
 
-                    scope.mapEpsg=searchPanelFactory.getMapEpsg();
+                    scope.mapEpsg = searchPanelFactory.getMapEpsg();
 
                     _searchResults = {};
 
@@ -33,37 +33,167 @@ angular.module('searchPanel')
 
                     _queryDict = {};
 
-                    String.prototype.replaceAll = function(search, replacement) {
+                    String.prototype.replaceAll = function (search, replacement) {
                         var target = this;
                         return target.replace(new RegExp(search, 'g'), replacement);
                     };
 
-                    var _splitQuery = function (query) {
-                        query=query.replaceAll(',','.');
-                        return query.split(' ');
+                    var _parseInput = function (input) {
+                        var parsedInput = {},
+                            reResult,
+                            decimalPairComma,
+                            decimalPairDot,
+                            decimalCoordinatesNE,
+                            degMinNE,
+                            degMinEN,
+                            degMinSecNE,
+                            degMinSecEN;
+
+                        // matches two numbers using either . or , as decimal mark. Numbers using . as decimal mark are separated by , or , plus blankspace. Numbers using , as decimal mark are separated by blankspace
+                        decimalPairComma = /^[ \t]*([0-9]+,[0-9]+|[0-9]+)[ \t]+([0-9]+,[0-9]+|[0-9]+)(?:@([0-9]+))?[ \t]*$/;
+                        decimalPairDot = /^[ \t]*([0-9]+\.[0-9]+|[0-9]+)(?:[ \t]+,|,)[ \t]*([0-9]+\.[0-9]+|[0-9]+)(?:@([0-9]+))?[ \t]*$/;
+                        decimalCoordinatesNE = /^[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*[°]?[ \t]*[nN]?[ \t]*,?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*[°]?[ \t]*[eEøØoO]?[ \t]*$/;
+                        degMinNE = /^[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*[nN]?[ \t]*,?[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*[eEoOøØ]?[ \t]*?/;
+                        degMinEN = /^[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*[eEoOøØ][ \t]*,?[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*[nN][ \t]*?/;
+                        degMinSecNE = /^[ \t]*[nN]?[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*[nN]?[ \t]*,?[ \t]*[eEøØoO]?[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*[eEoOøØ]?[ \t]*?/;
+                        degMinSecEN = /^[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*[eEøØoO][ \t]*,?[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*[nN][ \t]*?/;
+                        degMinSecEN2 = /^[ \t]*[eEøØoO][ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*,?[ \t]*[nN][ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*?/;
+
+                        var interpretAsNorthEastOrXY = function (obj) {
+                            if (obj && typeof obj.first === 'number' && typeof obj.second === 'number') {
+                                obj.north = obj.first;
+                                delete obj.first;
+
+                                obj.east = obj.second;
+                                delete obj.second;
+                            }
+                            return obj;
+                        };
+
+                        if (typeof input === 'string') {
+                            if (decimalPairComma.test(input)) {
+                                reResult = decimalPairComma.exec(input);
+                                parsedInput.first = parseFloat(reResult[1]);
+                                parsedInput.second = parseFloat(reResult[2]);
+                                if (!!reResult[3]) {
+                                    parsedInput.projectionHint = parseInt(reResult[3]);
+                                }
+                                interpretAsNorthEastOrXY(parsedInput);
+
+                            } else if (decimalPairDot.test(input)) {
+                                reResult = decimalPairDot.exec(input);
+                                parsedInput.first = parseFloat(reResult[1]);
+                                parsedInput.second = parseFloat(reResult[2]);
+                                if (!!reResult[3]) {
+                                    parsedInput.projectionHint = parseInt(reResult[3]);
+                                }
+                                interpretAsNorthEastOrXY(parsedInput);
+
+                            } else if (decimalCoordinatesNE.test(input)) {
+                                reResult = decimalCoordinatesNE.exec(input);
+                                parsedInput.north = {};
+                                parsedInput.east = {};
+                                parsedInput.north.deg = parseFloat(reResult[1]);
+                                parsedInput.east.deg = parseFloat(reResult[2]);
+                            } else if (degMinNE.test(input)) {
+                                reResult = degMinNE.exec(input);
+                                parsedInput.north = {};
+                                parsedInput.east = {};
+                                parsedInput.north.deg = parseFloat(reResult[1]);
+                                parsedInput.north.min = parseFloat(reResult[2]);
+                                parsedInput.east.deg = parseFloat(reResult[3]);
+                                parsedInput.east.min = parseFloat(reResult[4]);
+                            } else if (degMinEN.test(input)) {
+                                reResult = degMinEN.exec(input);
+                                parsedInput.north = {};
+                                parsedInput.east = {};
+                                parsedInput.east.deg = parseFloat(reResult[1]);
+                                parsedInput.east.min = parseFloat(reResult[2]);
+                                parsedInput.north.deg = parseFloat(reResult[3]);
+                                parsedInput.north.min = parseFloat(reResult[4]);
+                            } else if (degMinSecNE.test(input)) {
+                                reResult = degMinSecNE.exec(input);
+                                parsedInput.north = {};
+                                parsedInput.east = {};
+                                parsedInput.north.deg = parseFloat(reResult[1]);
+                                parsedInput.north.min = parseFloat(reResult[2]);
+                                parsedInput.north.sec = parseFloat(reResult[3]);
+                                parsedInput.east.deg = parseFloat(reResult[4]);
+                                parsedInput.east.min = parseFloat(reResult[5]);
+                                parsedInput.east.sec = parseFloat(reResult[6]);
+                            } else if (degMinSecEN.test(input)) {
+                                reResult = degMinSecEN.exec(input);
+                                parsedInput.north = {};
+                                parsedInput.east = {};
+                                parsedInput.east.deg = parseFloat(reResult[1]);
+                                parsedInput.east.min = parseFloat(reResult[2]);
+                                parsedInput.east.sec = parseFloat(reResult[3]);
+                                parsedInput.north.deg = parseFloat(reResult[4]);
+                                parsedInput.north.min = parseFloat(reResult[5]);
+                                parsedInput.north.sec = parseFloat(reResult[6]);
+                            } else if (degMinSecEN2.test(input)) {
+                                reResult = degMinSecEN2.exec(input);
+                                parsedInput.north = {};
+                                parsedInput.east = {};
+                                parsedInput.east.deg = parseFloat(reResult[1]);
+                                parsedInput.east.min = parseFloat(reResult[2]);
+                                parsedInput.east.sec = parseFloat(reResult[3]);
+                                parsedInput.north.deg = parseFloat(reResult[4]);
+                                parsedInput.north.min = parseFloat(reResult[5]);
+                                parsedInput.north.sec = parseFloat(reResult[6]);
+                            }
+                            var degMinSec2Deg = function (dms) {
+                                if (typeof dms.sec === 'number') {
+                                    dms.min += dms.sec / 60;
+                                    delete dms.sec;
+                                }
+                                if (typeof dms.min === 'number') {
+                                    dms.deg += dms.min / 60;
+                                    delete dms.min;
+                                }
+                            };
+                            if (parsedInput.north) {
+                                degMinSec2Deg(parsedInput.north);
+                                if (typeof parsedInput.north.deg === 'number') {
+                                    parsedInput.north = parsedInput.north.deg;
+                                }
+                            }
+                            if (parsedInput.east) {
+                                degMinSec2Deg(parsedInput.east);
+                                if (typeof parsedInput.east.deg === 'number') {
+                                    parsedInput.east = parsedInput.east.deg;
+                                }
+                            }
+                            return parsedInput;
+                        }
+                        return null;
                     };
 
-                    var _checkQueryForCoordinates = function(query){
-                        scope.coordinate=true;
-                        var epsg=query.split('@')[1];
-                        var queryParts = _splitQuery(query);
-                        if (queryParts.length !=2){
+                    var _checkQueryForCoordinates = function (query) {
+                        scope.coordinate = true;
+                        var epsg = query.split('@')[1];
+                        var params = _parseInput(query);
+
+                        if (typeof params.phrase === 'string') {
                             return false;
                         }
-                        var availableUTMZones=searchPanelFactory.getAvailableUTMZones();
-                        if (availableUTMZones.indexOf(epsg) > -1){
-                            scope.showQueryPoint(scope.contructQueryPoint(queryParts[1].split('@')[0], queryParts[0], 'EPSG:' + epsg, 'coordUtm',''));
+                        var availableUTMZones = searchPanelFactory.getAvailableUTMZones();
+                        if (availableUTMZones.indexOf(epsg) > -1) {
+                            scope.showQueryPoint(scope.contructQueryPoint(params.east, params.north, 'EPSG:' + epsg, 'coordUtm', ''));
                             return true;
                         }
-                        if(((queryParts[0] > 32.88) && (queryParts[1] > -16.1)) && ((queryParts[0] < 84.17) && (queryParts[1] < 39.65))){
-                            epsg='EPSG:4258';
-                            scope.showQueryPoint(scope.contructQueryPoint(queryParts[0], queryParts[1], epsg, 'coordGeo',''));
+                        if (!!epsg) {
+                            return false;
+                        }
+                        if (((params.north > 32.88) && (params.east > -16.1)) && ((params.north < 84.17) && (params.east < 39.65))) {
+                            epsg = 'EPSG:4258';
+                            scope.showQueryPoint(scope.contructQueryPoint(params.north, params.east, epsg, 'coordGeo', ''));
                             return true;
                         }
-                        if(((queryParts[0] > -2465220.60) && (queryParts[1] > 4102904.86)) && ((queryParts[0] < 771164.64) && (queryParts[1] < 9406031.63))){
-                            epsg='EPSG:25833';
-                            scope.showQueryPoint(scope.contructQueryPoint(queryParts[1], queryParts[0], epsg, 'coordUtm',''));
-                            scope.searchBarModel+='@' + scope.mapEpsg.split(':')[1];
+                        if (((params.north > -2465220.60) && (params.east > 4102904.86)) && ((params.north < 771164.64) && (params.east < 9406031.63))) {
+                            epsg = 'EPSG:25833';
+                            scope.showQueryPoint(scope.contructQueryPoint(params.east, params.north, epsg, 'coordUtm', ''));
+                            scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
                             return true;
                         }
                         return false;
@@ -79,18 +209,17 @@ angular.module('searchPanel')
                         };
                     };
 
-                    scope.showQueryPoint = function(queryPoint){
-                        if(!scope.searchResults) {
-                            scope.searchResults= {};
+                    scope.showQueryPoint = function (queryPoint) {
+                        if (!scope.searchResults) {
+                            scope.searchResults = {};
                         }
                         scope.searchResults['searchBar'] = queryPoint;
                         scope.removeInfomarkers();
                         map.ShowInfoMarker(queryPoint.point);
                         scope.activatePosition(queryPoint);
-                        if (queryPoint.source === 'coordGeo' || queryPoint.source === 'coordUtm' ){
+                        if (queryPoint.source === 'coordGeo' || queryPoint.source === 'coordUtm') {
                             scope.showSearchOptionsPanel();
                         }
-
                     };
 
                     scope.removeInfomarkers = function () {
@@ -101,11 +230,11 @@ angular.module('searchPanel')
                     var _init = function (query) {
                         _resetResults();
                         scope.searchResults = undefined;
-                        scope.activeSearchResult=undefined;
+                        scope.activeSearchResult = undefined;
                         scope.populateServiceDict(query);
-                        scope.coordinate=false;
+                        scope.coordinate = false;
                         map.RemoveInfoMarker();
-                        scope.placenamePage=searchPanelFactory.resetPlacenamePage()+1;
+                        scope.placenamePage = searchPanelFactory.resetPlacenamePage() + 1;
                     };
 
                     var _getQuery = function () {
@@ -119,13 +248,13 @@ angular.module('searchPanel')
                     scope.getResults = function (searchServices) {
                         _cancelOldRequests();
                         scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
-                        for (var serviceIndex =0; serviceIndex < searchServices.length; serviceIndex++) {
+                        for (var serviceIndex = 0; serviceIndex < searchServices.length; serviceIndex++) {
                             _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
                         }
                     };
 
                     var _cancelOldRequests = function () {
-                        for (var service in _queryDict){
+                        for (var service in _queryDict) {
                             _queryDict[service].abort();
                         }
                     };
@@ -152,12 +281,18 @@ angular.module('searchPanel')
 
                     var _convertSearchResult2Json = function (document, source) {
                         switch (source) {
-                            case('ssr'):
-                                var jsonObject=xml.xmlToJSON(document);
+                            case ('ssr'):
+                                var jsonObject = xml.xmlToJSON(document);
                                 _getPlacenameHits(jsonObject);
                                 return jsonObject.sokRes.stedsnavn;
-                            case('adresse'):
+                            case ('adresse'):
                                 return document.adresser;
+                            case ('matrikkelveg'):
+                                return document;
+                            case ('matrikkeladresse'):
+                                return document;
+                            case ('matrikkelnummer'):
+                                return document;
                             default:
                                 return JSON.parse(document);
                         }
@@ -174,7 +309,7 @@ angular.module('searchPanel')
                     };
 
                     scope.getNextPlacenamePage = function () {
-                        scope.placenamePage=searchPanelFactory.increasePlacenamePage() + 1;
+                        scope.placenamePage = searchPanelFactory.increasePlacenamePage() + 1;
                         scope.resetResultsService('ssr');
                         map.RemoveInfoMarker();
                         scope.populateServiceDict(scope.searchBarModel);
@@ -182,7 +317,7 @@ angular.module('searchPanel')
                     };
 
                     scope.getPreviousPlacenamePage = function () {
-                        scope.placenamePage=searchPanelFactory.decreasePlacenamePage() + 1;
+                        scope.placenamePage = searchPanelFactory.decreasePlacenamePage() + 1;
                         scope.resetResultsService('ssr');
                         map.RemoveInfoMarker();
                         scope.populateServiceDict(scope.searchBarModel);
@@ -219,7 +354,7 @@ angular.module('searchPanel')
                         var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
                         var husnummer = jsonObject[identifiersDict.husnummerID];
                         var navnetype = jsonObject[identifiersDict.navnetypeID];
-                        var result={
+                        var result = {
                             name: name,
                             kommune: kommune,
                             point: point,
@@ -236,8 +371,7 @@ angular.module('searchPanel')
                         var matches = nameArray[nameArray.length - 1].match(/\d+/g);
                         if (matches != null) {
                             return name.replace(nameArray[nameArray.length - 1], '').trim();
-                        }
-                        else {
+                        } else {
                             return name.trim();
                         }
                     };
@@ -247,7 +381,7 @@ angular.module('searchPanel')
                     };
 
                     var _pushToUnifiedResults = function (result) {
-                        result.name = result.source!='matrikkelnummer' ? scope.fixNames(result.name) : result.name;
+                        result.name = result.source != 'matrikkelnummer' ? scope.fixNames(result.name) : result.name;
                         result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
                         // var resultID = result.name + result.kommune;
                         var resultID = _createID(result);
@@ -263,20 +397,17 @@ angular.module('searchPanel')
                             id: resultID
                         };
                         if (result.husnummer) {
-                            _unifiedResults[result.source][resultID]['husnummer']=result.husnummer;
+                            _unifiedResults[result.source][resultID]['husnummer'] = result.husnummer;
+                        } else if (result.navnetype) {
+                            _unifiedResults[result.source][resultID]['navnetype'] = result.navnetype;
                         }
-                        else if (result.navnetype){
-                            _unifiedResults[result.source][resultID]['navnetype']=result.navnetype;
-                        }
-
-
                     };
 
-                    var _createID= function (result) {
-                        return result.name + (result.point[0] + '').split('.')[0]+ (result.point[1] + '').split('.')[0];
+                    var _createID = function (result) {
+                        return result.name + (result.point[0] + '').split('.')[0] + (result.point[1] + '').split('.')[0];
                     };
 
-                    scope.capitalizeName= function (name) {
+                    scope.capitalizeName = function (name) {
                         name = name.trim();
                         name = _capitalizeNamePart(name, ' ');
                         name = _capitalizeNamePart(name, '-');
@@ -307,13 +438,14 @@ angular.module('searchPanel')
                             url: _serviceDict.url,
                             async: true,
                             success: function (document) {
-                                if ((( document.length && document.length > 3) || (document.childNodes && document.childNodes[0].childNodes.length)) && scope.searchTimestamp == timestamp) {
+                                if (((document.length && document.length > 0) || (document.childNodes && document.childNodes[0].childNodes.length)) && scope.searchTimestamp == timestamp) {
                                     _successFullSearch(_serviceDict, document);
                                 }
-                            }/*,
-                             error: function (searchError) {
-                             console.log("Error downloading from " + _serviceDict.url, searchError);
-                             }*/
+                            }
+                            /*,
+                                                         error: function (searchError) {
+                                                         console.log("Error downloading from " + _serviceDict.url, searchError);
+                                                         }*/
                         });
                     };
 
@@ -321,20 +453,20 @@ angular.module('searchPanel')
                         _searchResults[_serviceDict.source] = {
                             document: document,
                             format: _serviceDict.format,
-                            source:_serviceDict.source,
+                            source: _serviceDict.source,
                             epsg: _serviceDict.epsg
                         };
                         _readResults();
-                        if(_notSingleAddressHit()) {
+                        if (_notSingleAddressHit()) {
                             scope.addResultsToMap();
                         }
                     };
 
                     var _notSingleAddressHit = function () {
-                        var matrikkelKey='matrikkeladresse';
-                        if(_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length==1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']){
-                            var key=Object.keys(_unifiedResults[matrikkelKey])[0];
-                            var result=_unifiedResults[matrikkelKey][key];
+                        var matrikkelKey = 'matrikkeladresse';
+                        if (_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length == 1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']) {
+                            var key = Object.keys(_unifiedResults[matrikkelKey])[0];
+                            var result = _unifiedResults[matrikkelKey][key];
                             scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], scope.mapEpsg, result.source, result.kommune));
                             scope.showSearchOptionsPanel();
                             return false;
@@ -345,7 +477,7 @@ angular.module('searchPanel')
                     scope.addResultsToMap = function () {
                         var coordinates = [];
                         for (var source in _unifiedResults) {
-                            if (source == 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length>1){
+                            if (source == 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length > 1) {
                                 continue;
                             }
                             for (var result in _unifiedResults[source]) {
@@ -361,38 +493,38 @@ angular.module('searchPanel')
                         }
                     };
 
-                    scope.mouseOver = function (searchResult){
-                        scope.mouseHoverSearchResult=searchResult;
+                    scope.mouseOver = function (searchResult) {
+                        scope.mouseHoverSearchResult = searchResult;
                         map.RemoveInfoMarker();
                         map.ShowInfoMarker(searchResult.point);
                     };
 
-                    scope.activatePosition = function (searchResult){
+                    scope.activatePosition = function (searchResult) {
                         var activePosition = {
                             lon: parseFloat(searchResult.point[0]),
                             lat: parseFloat(searchResult.point[1])
                             // epsg: scope.mapEpsg
                         };
-                        var zoomTo=parseFloat(13);
-                        var activeZoom=parseFloat($location.search().zoom);
-                        if (scope.searchPanelLayout != "searchSeEiendomPanel" && activeZoom < zoomTo && searchResult.source != 'mouseClick'){
-                            activePosition.zoom=zoomTo;
+                        var zoomTo = parseFloat(13);
+                        var activeZoom = parseFloat($location.search().zoom);
+                        if (scope.searchPanelLayout != "searchSeEiendomPanel" && activeZoom < zoomTo && searchResult.source != 'mouseClick') {
+                            activePosition.zoom = zoomTo;
                         }
-                        activePosition.geographicPoint=searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, scope.mapEpsg, 'EPSG:4326');
+                        activePosition.geographicPoint = searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, scope.mapEpsg, 'EPSG:4326');
                         map.SetCenter(activePosition);
                         map.RemoveInfoMarkers();
-                        scope.activePosition=activePosition;
-                        scope.activeSearchResult=searchResult;
-                        if(scope.searchOptionsDict['elevationPoint'] ) {
+                        scope.activePosition = activePosition;
+                        scope.activeSearchResult = searchResult;
+                        if (scope.searchOptionsDict['elevationPoint']) {
                             scope.searchOptionsDict['elevationPoint'].text.value = undefined;
                         }
-                        if (scope.searchBarModel.length < searchResult.name.length && !scope.coordinate && scope.activeSearchResult.source != 'mouseClick'){
-                            scope.searchBarModel=searchResult.name;
+                        if (scope.searchBarModel.length < searchResult.name.length && !scope.coordinate && scope.activeSearchResult.source != 'mouseClick') {
+                            scope.searchBarModel = searchResult.name;
                         }
                         scope.initSearchOptions();
                     };
 
-                    scope.cleanResults = function (){
+                    scope.cleanResults = function () {
                         _init();
                         scope.removeInfomarkers();
                         scope.searchBarModel = "";
@@ -407,11 +539,11 @@ angular.module('searchPanel')
                     };
 
                     var showQueryPointFromMouseClick = function (coordinates) {
-                        scope.coordinate=true;
+                        scope.coordinate = true;
                         // scope.showSearchResultPanel();
 
                         scope.cleanResults();
-                        scope.showQueryPoint(scope.contructQueryPoint(coordinates[1], coordinates[0], scope.mapEpsg, 'mouseClick',''));
+                        scope.showQueryPoint(scope.contructQueryPoint(coordinates[1], coordinates[0], scope.mapEpsg, 'mouseClick', ''));
                         scope.initLastSearchPanel();
                     };
 
@@ -434,7 +566,6 @@ angular.module('searchPanel')
                             _addSearchOptionToPanel(name, response.data);
                             scope.showMatrikelInfoSearch = false;
                         });
-
                     };
 
                     var _fetchElevationPoint = function () {
@@ -459,29 +590,29 @@ angular.module('searchPanel')
                     };
 
                     var _addLagTurkartToSearchOptions = function () {
-                        var name= 'lagTurkart';
+                        var name = 'lagTurkart';
                         scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-blind', true, 'Lage turkart', {});
                     };
-                    
+
                     var _addLagFargeleggingskartToSearchOptions = function () {
                         var name= 'lagFargeleggingskart';
                         scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-paint-brush', true, 'Lage fargeleggingskart', {});
                     };
 
                     var _addEmergencyPosterToSearchOptions = function () {
-                        var name='lagNodplakat';
+                        var name = 'lagNodplakat';
                         scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-ambulance', true, 'Lage nødplakat', {});
                     };
 
                     var _addElevationPointToSearchOptions = function (jsonRoot, name) {
-                        var stedsnavn=jsonRoot.Output[0].Data.LiteralData.Text;
+                        var stedsnavn = jsonRoot.Output[0].Data.LiteralData.Text;
                         var text = '"' + stedsnavn + '"';
                         var extra = {
                             url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
                         };
                         scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', 'fa fa-flag', true, text, extra);
-                        if(scope.activeSearchResult && scope.activeSearchResult.source=='mouseClick'){
-                            scope.searchBarModel=stedsnavn;
+                        if (scope.activeSearchResult && scope.activeSearchResult.source == 'mouseClick') {
+                            scope.searchBarModel = stedsnavn;
                         }
 
                         text = jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' ';
@@ -490,12 +621,12 @@ angular.module('searchPanel')
                     };
 
                     var _addMatrikkelInfoToSearchOptions = function (jsonRoot, name) {
-                        if(!jsonRoot[0]) {
+                        if (!jsonRoot[0]) {
                             jsonRoot = [jsonRoot];
                         }
                         var matrikkelInfo = [];
                         for (var i = 0; i < jsonRoot.length; i++) {
-                            if ((jsonRoot.MATRIKKELNR == 'Mnr mangler') || ( jsonRoot.MATRIKKELNR == 'Mnr vann mangler')) {
+                            if ((jsonRoot.MATRIKKELNR == 'Mnr mangler') || (jsonRoot.MATRIKKELNR == 'Mnr vann mangler')) {
                                 continue;
                             }
 
@@ -525,65 +656,65 @@ angular.module('searchPanel')
 
                         var tmpResults;
                         if (matrikkelInfo.length > 1) {
-                            tmpResults=matrikkelInfo.sort(function(a, b) {
+                            tmpResults = matrikkelInfo.sort(function (a, b) {
                                 return a.matrikkeladresse.localeCompare(b.matrikkeladresse);
                             });
                         }
 
                         scope.searchOptionsDict[name] = matrikkelInfo[0];
-                        if(tmpResults) {
+                        if (tmpResults) {
                             scope.searchOptionsDict[name].allResults = tmpResults;
                         }
                     };
 
-                    scope.fetchAddressInfoForMatrikkel = function(){
-                            scope.showFetchAdressSearch = true;
-                            var komunenr = scope.searchOptionsDict['seEiendom'].kommunenr;
-                            var gardsnr = scope.searchOptionsDict['seEiendom'].gardsnr;
-                            var bruksnr = scope.searchOptionsDict['seEiendom'].bruksnr;
-                            var festenr = scope.searchOptionsDict['seEiendom'].festenr;
-                            var sectionsnr = scope.searchOptionsDict['seEiendom'].seksjonsnr;
-                            var url = mainAppService.generateEiendomAddress(komunenr, gardsnr, bruksnr, festenr, sectionsnr);
-                            $http.get(url).then(function (response) {
-                                scope.showFetchAdressSearch = false;
-                                scope.vegaddresse = '';
-                                scope.kommuneNavn = '';
-                                scope.cityName = '';
-                                var addressNum = [];
-                                var responseData = response.data;
-                                for (var i = 0; i < responseData.length; i++){
-                                    var adressWithNum = responseData[i].VEGADRESSE2.split(" ");
-                                    if (scope.vegaddresse === ''){
-                                        scope.vegaddresse = adressWithNum[0];
-                                    }
-                                    if (scope.kommuneNavn === ''){
-                                        scope.kommuneNavn = responseData[i].KOMMUNENAVN;
-                                    }
-                                    if (scope.cityName === '' && responseData[i].VEGADRESSE !== ""){
-                                        scope.cityName = responseData[i].VEGADRESSE[1];
-                                    }
-                                    addressNum.push(adressWithNum[adressWithNum.length - 1]);
+                    scope.fetchAddressInfoForMatrikkel = function () {
+                        scope.showFetchAdressSearch = true;
+                        var komunenr = scope.searchOptionsDict['seEiendom'].kommunenr;
+                        var gardsnr = scope.searchOptionsDict['seEiendom'].gardsnr;
+                        var bruksnr = scope.searchOptionsDict['seEiendom'].bruksnr;
+                        var festenr = scope.searchOptionsDict['seEiendom'].festenr;
+                        var sectionsnr = scope.searchOptionsDict['seEiendom'].seksjonsnr;
+                        var url = mainAppService.generateEiendomAddress(komunenr, gardsnr, bruksnr, festenr, sectionsnr);
+                        $http.get(url).then(function (response) {
+                            scope.showFetchAdressSearch = false;
+                            scope.vegaddresse = '';
+                            scope.kommuneNavn = '';
+                            scope.cityName = '';
+                            var addressNum = [];
+                            var responseData = response.data;
+                            for (var i = 0; i < responseData.length; i++) {
+                                var adressWithNum = responseData[i].VEGADRESSE2.split(" ");
+                                if (scope.vegaddresse === '') {
+                                    scope.vegaddresse = adressWithNum[0];
                                 }
-
-                                addressNum.sort(function(a, b){
-                                    if(a < b){
-                                        return -1;
-                                    }
-                                    if(a > b){
-                                        return 1;
-                                    }
-                                    return 0;
-                                });
-
-                                for (var j = 0; j < addressNum.length; j++){
-                                    if (addressNum[j] !== ""){
-                                        scope.vegaddresse += " " + addressNum[j];
-                                        if (j !== addressNum.length - 1){
-                                            scope.vegaddresse += ",";
-                                        }
-                                    }
+                                if (scope.kommuneNavn === '') {
+                                    scope.kommuneNavn = responseData[i].KOMMUNENAVN;
                                 }
+                                if (scope.cityName === '' && responseData[i].VEGADRESSE !== "") {
+                                    scope.cityName = responseData[i].VEGADRESSE[1];
+                                }
+                                addressNum.push(adressWithNum[adressWithNum.length - 1]);
+                            }
+
+                            addressNum.sort(function (a, b) {
+                                if (a < b) {
+                                    return -1;
+                                }
+                                if (a > b) {
+                                    return 1;
+                                }
+                                return 0;
                             });
+
+                            for (var j = 0; j < addressNum.length; j++) {
+                                if (addressNum[j] !== "") {
+                                    scope.vegaddresse += " " + addressNum[j];
+                                    if (j !== addressNum.length - 1) {
+                                        scope.vegaddresse += ",";
+                                    }
+                                }
+                            }
+                        });
                     };
 
 
@@ -591,7 +722,7 @@ angular.module('searchPanel')
                         var jsonObject;
                         var jsonRoot;
                         switch (name) {
-                            case('elevationPoint'):
+                            case ('elevationPoint'):
                                 jsonObject = xml.xmlToJSON(data);
                                 jsonRoot = jsonObject.ExecuteResponse.ProcessOutputs;
                                 if (!jsonRoot.Output[0].Data.LiteralData) {
@@ -600,7 +731,7 @@ angular.module('searchPanel')
                                 _addElevationPointToSearchOptions(jsonRoot, name);
                                 break;
 
-                            case('seEiendom'):
+                            case ('seEiendom'):
                                 jsonObject = xml.xmlToJSON(data);
                                 if (!jsonObject.FeatureCollection) {
                                     return;
@@ -661,7 +792,7 @@ angular.module('searchPanel')
                     scope.initSearchOptions = function () {
 
                         scope.searchOptionsOrder = searchPanelFactory.getSearchOptionsOrder();
-                        for (var searchOption in scope.searchOptionsOrder){
+                        for (var searchOption in scope.searchOptionsOrder) {
                             scope.searchOptionsDict[scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
                         }
                         _fetchElevationPoint();
@@ -673,27 +804,27 @@ angular.module('searchPanel')
                     };
 
                     var setMenuListMaxHeight = function () {
-                        $(document).ready(function() {
+                        $(document).ready(function () {
                             var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
                             if (isMobile.matches) {
                                 fixElementHeight(120);
-                            }else{
+                            } else {
                                 fixElementHeight(220);
                             }
                         });
                     };
 
-                    function fixElementHeight(moveUpFromBottom){
+                    function fixElementHeight(moveUpFromBottom) {
                         var bodyHeight = $window.innerHeight;
                         var menuListMaxHeight = Math.floor(bodyHeight - moveUpFromBottom);
                         var searchContentElements = document.getElementsByClassName("search-content");
-                        for (var i = 0; i < searchContentElements.length; i++){
+                        for (var i = 0; i < searchContentElements.length; i++) {
                             var element = searchContentElements[i];
                             element.style.maxHeight = menuListMaxHeight + 'px';
                         }
                     }
 
-                    $( document ).ready(function() {
+                    $(document).ready(function () {
                         $($window).resize(setMenuListMaxHeight);
                         setMenuListMaxHeight();
                     });
@@ -702,8 +833,7 @@ angular.module('searchPanel')
                         var addLayerUrlTool = toolsFactory.getToolById("AddLayerUrl");
                         if (!searchPanelFactory.getShowEiendomMarkering()) {
                             addLayerUrlTool.additionalOptions.show = false;
-                        }
-                        else {
+                        } else {
                             addLayerUrlTool.additionalOptions.show = true;
                             addLayerUrlTool.additionalOptions.url = mainAppService.generateMatrikkelWfsFilterUrl(scope.searchOptionsDict['seEiendom']);
                             addLayerUrlTool.additionalOptions.geometryName = 'FLATE';
@@ -717,7 +847,7 @@ angular.module('searchPanel')
                                 })
                             });
                         }
-                        if (addLayerUrlTool.additionalOptions.show === true){
+                        if (addLayerUrlTool.additionalOptions.show === true) {
                             scope.showSelectedPolygon = true;
                         }
 
@@ -739,18 +869,18 @@ angular.module('searchPanel')
                     scope.layers = [];
                     scope.currentPage = 1;
 
-                    function _handleLoadingLayers(loadingLayers){
+                    function _handleLoadingLayers(loadingLayers) {
                         scope.layers = [];
-                        for(var i = 0; i < loadingLayers.length; i++){
+                        for (var i = 0; i < loadingLayers.length; i++) {
                             loadingLayers[i].show = false;
                             _addLoadingLayer(loadingLayers[i]);
                         }
                     }
 
-                    function _getLoadingLayer(id){
-                        for(var i = 0; i < scope.layers.length; i++){
+                    function _getLoadingLayer(id) {
+                        for (var i = 0; i < scope.layers.length; i++) {
                             var loadingLayer = scope.layers[i];
-                            if(loadingLayer.id === id){
+                            if (loadingLayer.id === id) {
                                 return loadingLayer;
                             }
                         }
@@ -763,34 +893,33 @@ angular.module('searchPanel')
 
                     function _loadResult(resultSet) {
                         var loadingLayer = _getLoadingLayer(resultSet.id);
-                        if (loadingLayer !== null){
-                            if(resultSet.exception){
+                        if (loadingLayer !== null) {
+                            if (resultSet.exception) {
                                 loadingLayer.exception = resultSet.exception;
                                 loadingLayer.hasException = true;
-                            }
-                            else {
-                                if (resultSet.features !== undefined){
-                                    if(resultSet.features.length > 0) {
+                            } else {
+                                if (resultSet.features !== undefined) {
+                                    if (resultSet.features.length > 0) {
                                         loadingLayer.features = resultSet.features;
                                         loadingLayer.hasFeatures = resultSet.showDialog;
                                     }
                                 }
                             }
 
-                            if(loadingLayer.hasFeatures){
+                            if (loadingLayer.hasFeatures) {
                                 loadingLayer.show = true;
                             }
                             var isFirstVisibleLayerOpen = false;
-                            for (var j = 0; j < scope.layers.length; j++){
-                                if (scope.layers[j].show){
-                                    if (!isFirstVisibleLayerOpen){
+                            for (var j = 0; j < scope.layers.length; j++) {
+                                if (scope.layers[j].show) {
+                                    if (!isFirstVisibleLayerOpen) {
                                         scope.layers[j].open = true;
                                         isFirstVisibleLayerOpen = true;
-                                    }else{
+                                    } else {
                                         scope.layers[j].open = false;
                                     }
 
-                                }else{
+                                } else {
                                     scope.layers[j].open = false;
                                 }
                             }
@@ -803,10 +932,10 @@ angular.module('searchPanel')
                     eventHandler.RegisterEvent(ISY.Events.EventTypes.FeatureInfoEnd, _loadResult);
 
                     scope.toggleLayer = function (layer) {
-                        if (layer.open){
+                        if (layer.open) {
                             layer.open = false;
-                        }else{
-                            for (var i = 0; i < scope.layers.length; i++){
+                        } else {
+                            for (var i = 0; i < scope.layers.length; i++) {
                                 scope.layers[i].open = false;
                             }
                             layer.open = true;
@@ -820,10 +949,10 @@ angular.module('searchPanel')
                     };
 
                     scope.toggleFeature = function (layer, feature) {
-                        if (feature.open){
+                        if (feature.open) {
                             feature.open = false;
-                        }else{
-                            for (var i = 0; i < layer.features.length; i++){
+                        } else {
+                            for (var i = 0; i < layer.features.length; i++) {
                                 layer.features[i].open = false;
                             }
                             feature.open = true;
@@ -831,8 +960,8 @@ angular.module('searchPanel')
                     };
 
                     scope.isAnyLayerToShow = function () {
-                        for (var i = 0; i < scope.layers.length; i++){
-                            if (scope.layers[i].show){
+                        for (var i = 0; i < scope.layers.length; i++) {
+                            if (scope.layers[i].show) {
                                 return true;
                             }
                         }
@@ -840,9 +969,9 @@ angular.module('searchPanel')
                     };
 
                     scope.getVisibleFeatures = function (layer) {
-                        if (layer !== undefined){
+                        if (layer !== undefined) {
                             return layer.features.length;
-                        }else{
+                        } else {
                             return 0;
                         }
                     };
@@ -859,12 +988,15 @@ angular.module('searchPanel')
                     /*Map get feature info end*/
                 }
             };
-        }])
+        }
+    ])
 
-    .directive('caret',[
-        function() {
+    .directive('caret', [
+        function () {
             return {
-                scope: {value: '=ngModel'},
+                scope: {
+                    value: '=ngModel'
+                },
                 link: function (scope, element) {
                     function setCaretPosition(elem, caretPos) {
                         if (elem !== null) {
@@ -886,13 +1018,12 @@ angular.module('searchPanel')
                         if (newValue && newValue.indexOf('@') > -1 && !scope.searchBarCoordinateSystemIndicator) {
                             scope.searchBarCoordinateSystemIndicator = true;
                             setCaretPosition(element[0], newValue.indexOf('@'));
-                        }
-                        else if (newValue && newValue.indexOf('@') < 0) {
+                        } else if (newValue && newValue.indexOf('@') < 0) {
                             scope.searchBarCoordinateSystemIndicator = false;
                         }
 
                     });
                 }
             };
-        }]
-    );
+        }
+    ]);
