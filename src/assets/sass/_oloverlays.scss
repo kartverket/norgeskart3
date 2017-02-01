@@ -42,3 +42,21 @@
   border-radius: 4px;
   padding: 2px;
 }
+
+.ol-scale-line {
+  bottom: 25px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  .ol-scale-line-inner {
+    background-color: rgba(255,255,255,0.35);
+    border-color: black;
+    border-style: solid;
+    border-width: 0px 2px 2px 2px;
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 0;
+    text-align: center;
+  }
+}
