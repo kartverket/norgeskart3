@@ -144,6 +144,7 @@ angular.module('mainApp')
                 var mapConfig = mainAppFactory.getMapConfig();
                 map.Init('mapDiv', mapConfig);
                 map.AddZoom();
+                map.AddScaleLine();
                 _initUrl();
                 _initMapLayers();
                 _showMapMarker();

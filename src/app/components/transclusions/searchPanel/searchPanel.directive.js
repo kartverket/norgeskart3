@@ -595,8 +595,8 @@ angular.module('searchPanel')
                     };
 
                     var _addLagFargeleggingskartToSearchOptions = function () {
-                        var name = 'lagFargeleggingskart';
-                        scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-blind', true, 'Lage fargeleggingskart', {});
+                        var name= 'lagFargeleggingskart';
+                        scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-paint-brush', true, 'Lage fargeleggingskart', {});
                     };
 
                     var _addEmergencyPosterToSearchOptions = function () {
