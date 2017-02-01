@@ -76,7 +76,7 @@ angular.module('searchPanel')
                                 parsedInput.first = parseFloat(reResult[1]);
                                 parsedInput.second = parseFloat(reResult[2]);
                                 if (!!reResult[3]) {
-                                    parsedInput.projectionHint = parseInt(reResult[3]);
+                                    parsedInput.projectionHint = parseInt(reResult[3], 10);
                                 }
                                 interpretAsNorthEastOrXY(parsedInput);
 
@@ -85,7 +85,7 @@ angular.module('searchPanel')
                                 parsedInput.first = parseFloat(reResult[1]);
                                 parsedInput.second = parseFloat(reResult[2]);
                                 if (!!reResult[3]) {
-                                    parsedInput.projectionHint = parseInt(reResult[3]);
+                                    parsedInput.projectionHint = parseInt(reResult[3], 10);
                                 }
                                 interpretAsNorthEastOrXY(parsedInput);
 
