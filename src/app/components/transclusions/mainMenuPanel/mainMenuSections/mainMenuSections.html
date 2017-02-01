@@ -111,11 +111,6 @@
     <div class="row">
         <div class="col-xs-12">
             <ul>
-                <li tabindex="0" data-ng-click="changeLanguage()" ng-keypress="changeLanguage()">
-                    <span translate="ChangeTo_text"></span>
-                    <span translate="{{getUnselectLanguage().title}}"></span>
-                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
-                </li>
                 <li tabindex="0" data-ng-click="showMainMenuFaq()" ng-keypress="showMainMenuFaq()">
                     <span translate="FAQ_title"></span>
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
@@ -129,6 +124,18 @@
                     <span class="nextbtn glyphicon glyphicon-menu-right"></span>
                 </li>
             </ul>
+        </div>
+    </div>
+</div>
+
+<div class="sidenav-group">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="tab-group">
+                <span class="tab-group-item" data-ng-class="{active: language.active}" data-ng-click="changeLanguage(language.id)" data-ng-repeat="language in languages" ng-keypress="changeLanguage(language.id)">
+                    {{language.title}}
+                </span>
+            </div>
         </div>
     </div>
 </div>

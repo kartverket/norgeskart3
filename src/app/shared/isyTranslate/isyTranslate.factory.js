@@ -18,12 +18,12 @@ angular
         var languages = [
             {
                 "id": "no",
-                "title": "norwegian_txt",
+                "title": "Bokmål",
                 "active": true
             },
             {
                 "id": "en",
-                "title": "english_txt",
+                "title": "English",
                 "active": false
             }
         ];
