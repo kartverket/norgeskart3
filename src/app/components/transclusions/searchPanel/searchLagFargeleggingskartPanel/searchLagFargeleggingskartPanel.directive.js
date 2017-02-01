@@ -30,18 +30,6 @@ angular.module('searchLagFargeleggingskartPanel')
                         toolsFactory.activateTool(printBoxSelectTool);
                     };
 
-
-
-                    scope.applyScale = function (scale) {
-                        scope.deactivatePrintBoxSelect();
-                        _activatePrintBoxSelect(scale);
-                        scope.scale = scale;
-                    };
-
-                    scope.scales={
-                        '5000': '1: 5 000'
-                    };
-
                     scope.scale='5000';
 
                     scope.tittel="Fargeleggingskart";
