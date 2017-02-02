@@ -287,12 +287,6 @@ angular.module('searchPanel')
                                 return jsonObject.sokRes.stedsnavn;
                             case ('adresse'):
                                 return document.adresser;
-                            case ('matrikkelveg'):
-                                return document;
-                            case ('matrikkeladresse'):
-                                return document;
-                            case ('matrikkelnummer'):
-                                return document;
                             default:
                                 return JSON.parse(document);
                         }
