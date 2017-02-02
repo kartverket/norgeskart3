@@ -77,7 +77,6 @@ angular
             "ThematicMap_text" : "TEMAKART",
             "HeightProfile_text": "LAG HØYDEPROFIL",
             "ChangeTo_text" : "Bytt til",
-            "GoToKartverket_text": "Gå til kartverket.no",
             "GiveFeedback_text": "Gi tilbakemelding",
             "HereYouFind_text": "HER FINNER DU: ",
 
@@ -135,7 +134,6 @@ angular
             "lineType_txt": "LINJETYPE:",
             "width_txt": "TYKKELSE:",
             "opacity_txt": "GJENNOMSIKTIGHET:",
-            "from_text": "FRA KARTVERKET",
             "collapse_txt" : "SKJUL",
             "expand_txt" : "VIS",
             "downloadEmergencyPoster" : "LAST NED",
@@ -247,7 +245,6 @@ angular
             "ThematicMap_text" : "THEMATIC MAP",
             "HeightProfile_text": "ELEVATION PROFILE",
             "ChangeTo_text" : "Change to",
-            "GoToKartverket_text": "Go to kartverket.no",
             "GiveFeedback_text": "Give feedback",
             "HereYouFind_text": "HERE YOU FIND: ",
 
@@ -305,7 +302,6 @@ angular
             "lineType_txt": "LINE TYPE:",
             "width_txt": "WIDTH:",
             "opacity_txt": "TRANSPARENCY:",
-            "from_text": "FROM KARTVERKET",
             "collapse_txt" : "HIDE",
             "expand_txt" : "SHOW",
             "downloadEmergencyPoster" : "DOWNLOAD",

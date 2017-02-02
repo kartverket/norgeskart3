@@ -61,10 +61,6 @@ angular.module('mainMenuSections')
                         scope.visibleLayersCount = map.GetVisibleSubLayers().length;
                     });
 
-                    scope.redirectKartverket = function () {
-                        $window.open("http://kartverket.no/");
-                    };
-
                     scope.sendFeedback = function () {
                         var url='mailto:post@kartverket.no?subject=norgeskart.no';
                         $window.open(url, '_self');
