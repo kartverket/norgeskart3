@@ -5,6 +5,12 @@ angular.module('mainMenuPanel')
             $scope.drawActivated=false;
 
             $scope.mainMenuPanelLayout = "mainMenuSections";
+            
+            $scope.resetApplication = function ($event) {
+                $event.preventDefault();
+                location.hash = '';
+                location.reload($event.shiftKey);
+            };
 
             $scope.showMainMenuBaseLayers = function () {
                 $scope.mainMenuPanelLayout = "mainMenuBaseLayers";
