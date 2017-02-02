@@ -22,6 +22,11 @@ angular
                 "active": true
             },
             {
+                "id": "nn",
+                "title": "Nynorsk",
+                "active": false
+            },
+            {
                 "id": "en",
                 "title": "English",
                 "active": false
