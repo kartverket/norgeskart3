@@ -1,17 +1,15 @@
 <div id="mySidenav" class="sidenav">
     <div id="sideMenuPosition" class="side-menu-position">
-        <div class="row">
-            <div class="col-xs-2">
-                <h3 class="logo-img"></h3>
-            </div>
-            <div class="col-xs-10 no-padding-left">
-                <span class="logo-text">Norgeskart</span>
-                <span class="logo-sub-text" translate="from_text"></span>
-                <a class="sidenav-close-menu closebtn pull-right" data-ng-click="closeNav(); removeInfomarkers(); addResultsToMap(); showMainMenuSections()">
-                    <span class="glyphicon glyphicon-menu-left"></span>
-                    <span class="glyphicon glyphicon-menu-left"></span>
+        <div class="norgeskart-logo">
+            <button class="close" data-ng-click="closeNav(); removeInfomarkers(); addResultsToMap(); showMainMenuSections()" type="button">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+            <h1>
+                <a data-ng-click="resetApplication($event)" href=".">
+                    <img alt="" class="norgeskart-logo-image" src="assets/img/Ikon_Kart_Norge_org36.png">
+                    Norgeskart
                 </a>
-            </div>
+            </h1>
         </div>
 
 

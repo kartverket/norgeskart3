@@ -85,11 +85,6 @@
     margin-right: 17px!important;
   }
 
-  //if mobile set back padding-left to 15px
-  .no-padding-left{
-    padding-left: 15px;
-  }
-
   .moveableOverlay{
     width: 100% !important;
     min-width: 0!important;
@@ -129,6 +124,10 @@
 
   .ol-scale-line {
     bottom: 18px !important;
+  }
+
+  .norgeskart-logo {
+    padding-right: 30px;
   }
 
 }
