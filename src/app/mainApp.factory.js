@@ -80,15 +80,12 @@ angular.module('mainApp')
                     instance = '';
                 }
                 var projectsListUrl = projectUrl;
-                projectsListUrl += '/listprojects.py?application=' + instance;
-                projectUrl += '/project.py?application=' + instance + '&name=';
+                projectsListUrl += '/listprojects.json';
+                projectUrl += '/';
                 var nameProject = projectName();
                 if (nameProject.length > 0){
-
-
                     projectNameUrl = nameProject;
-
-                    projectUrl += nameProject.toLowerCase();
+                    projectUrl += nameProject.toLowerCase() + '.json';
                 }
 
                 // map.GetResource(projectUrl, 'application/json', getProjectCallback);
@@ -466,7 +463,7 @@ angular.module('mainApp')
                     case "boolean":
                         return value;
                 }
-                return false;
+                return false;                
             };
 
             var getWmsUrl = function(url){

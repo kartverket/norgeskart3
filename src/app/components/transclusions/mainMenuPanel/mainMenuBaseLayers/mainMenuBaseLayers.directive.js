@@ -18,6 +18,7 @@ angular.module('mainMenuBaseLayers')
 
                     scope.setAsBaseLayer = function (baseLayer) {
                         map.SetBaseLayer(baseLayer);
+                        map.ZoomToLayer(baseLayer);
                         scope.baseLayers = map.GetBaseLayers();
                         if (baseLayer.thumbnail !== ""){
                             changeBaseLayerPanelFactory.setBaseLayerById(baseLayer.thumbnail);

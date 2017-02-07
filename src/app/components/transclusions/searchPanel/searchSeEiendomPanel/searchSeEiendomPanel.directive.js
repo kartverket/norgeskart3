@@ -7,7 +7,8 @@ angular.module('searchSeEiendomPanel')
                 controller: 'searchSeEiendomPanelController',
                 link: function (scope) {
                     scope.openEindomInformasjon = function () {
-                        // $window.open(scope.searchOptionsDict['seEiendom'].url, '_blank');
+                        $window.open(scope.searchOptionsDict['seEiendom'].url, '_blank');
+/*
                         var eiendomUrl = scope.searchOptionsDict['seEiendom'].url;
                         var iframeWidth = 0;
                         var iframeHeight = 0;
@@ -24,6 +25,7 @@ angular.module('searchSeEiendomPanel')
 
                         $.featherlight({iframe: eiendomUrl, iframeMaxWidth: '100%', iframeWidth: iframeWidth,
                             iframeHeight: iframeHeight});
+*/                            
                     };
 
                     var setMenuListMaxHeight = function () {
