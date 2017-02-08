@@ -2,7 +2,6 @@ angular.module('mainApp')
     .service('mainAppService', ['$http',
             function() {
                 var url = 'http://www.norgeskart.no/';
-                var urlTest = 'http://nnrite540.statkart.no';
                 var urlOpenWps = 'http://openwps.statkart.no/skwms1/';
                 var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
                 var urlGeonorge = 'https://ws.geonorge.no/';
@@ -58,11 +57,11 @@ angular.module('mainApp')
                 };
 
                 this.generateSearchMatrikkelVegUrl = function (query) {
-                    return urlTest + "/search/veg/" + encodeURIComponent(query);
+                    return url + "ws/veg.py?" + encodeURIComponent(query);
                 };
 
                 this.generateSearchMatrikkelAdresseUrl = function (query) {
-                    return urlTest + "/search/adr/" + encodeURIComponent(query);
+                    return url + "ws/adr.py?" + encodeURIComponent(query);
                 };
 
                 this.generateSearchStedsnavnUrl = function (query, side, antall) {
@@ -126,7 +125,7 @@ angular.module('mainApp')
                 };
 
                 this.generateSearchMatrikkelNummerUrl = function (query) {
-                    return urlTest + '/search/eie/' + encodeURIComponent(query);
+                    return url + 'ws/eie.py?' + encodeURIComponent(query);
                 };
 
                 this.generateMatrikkelWfsFilterUrl = function(property){
@@ -161,18 +160,17 @@ angular.module('mainApp')
                 };
                 
                 this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {
-                    var matrikkel;
+                    var baseUrl = url + 'ws/eiendom.py?';
                     if (festnr !== "0") {
                         if (sectionsnr === "0") {
-                            matrikkel = kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr;
+                            baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr;
                         } else {
-                            matrikkel = kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr + "/" + sectionsnr;
+                            baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr + "/" + sectionsnr;
                         }
                     } else {
-                        matrikkel = kommunenr + "-" + gardsnr + "/" + bruksnr;
+                        baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr;
                     }
-                    
-                    return urlTest + '/search/matrikkel_ws/' + encodeURIComponent(matrikkel) + '/parametre/' + 'KILDE:Eiendom KOMMUNENR:' + kommunenr + ' GARDSNR:' + gardsnr + ' BRUKSNR:' + bruksnr + ' SEKSJONSNR:' + sectionsnr + ' FESTENR:' + festnr;
+                    return baseUrl + '&KILDE:Eiendom KOMMUNENR:' + kommunenr + ' GARDSNR:' + gardsnr + ' BRUKSNR:' + bruksnr + ' SEKSJONSNR:' + sectionsnr + ' FESTENR:' + festnr;
 
                 };
                 /*
