@@ -34,7 +34,7 @@ angular.module('searchLagTurkartPanel')
 
                     scope.applyScale = function (scale) {
                         scope.deactivatePrintBoxSelect();
-                        _activatePrintBoxSelect(scale);
+                        _activatePrintBoxSelect(scale, 4, 3);
                         scope.scale = scale;
                     };
 
