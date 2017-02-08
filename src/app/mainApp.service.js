@@ -2,12 +2,17 @@ angular.module('mainApp')
     .service('mainAppService', ['$http',
             function() {
                 var url = 'http://www.norgeskart.no/';
+                var urlTest = 'http://nnrite540.statkart.no';
                 var urlOpenWps = 'http://openwps.statkart.no/skwms1/';
                 var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
                 var urlGeonorge = 'https://ws.geonorge.no/';
                 var urlSeEiendom = 'http://www.seeiendom.no/';
                 var urlFaktaark = 'https://stadnamn.kartverket.no/fakta/';
                 var urlHavnivaa = "http://api.sehavniva.no/";
+
+                this.generateWhat3WordsServiceUrl = function () {
+                    return url + 'ws/w3w.py';
+                };
 
                 this.uploadGpxFileService = function () {
                     return url + 'ws/upload-gpx.py';
@@ -53,11 +58,11 @@ angular.module('mainApp')
                 };
 
                 this.generateSearchMatrikkelVegUrl = function (query) {
-                    return url + "ws/veg.py?" + encodeURIComponent(query);
+                    return urlTest + "/search/veg/" + encodeURIComponent(query);
                 };
 
                 this.generateSearchMatrikkelAdresseUrl = function (query) {
-                    return url + "ws/adr.py?" + encodeURIComponent(query);
+                    return urlTest + "/search/adr/" + encodeURIComponent(query);
                 };
 
                 this.generateSearchStedsnavnUrl = function (query, side, antall) {
@@ -121,7 +126,7 @@ angular.module('mainApp')
                 };
 
                 this.generateSearchMatrikkelNummerUrl = function (query) {
-                    return url + 'ws/eie.py?' + encodeURIComponent(query);
+                    return urlTest + '/search/eie/' + encodeURIComponent(query);
                 };
 
                 this.generateMatrikkelWfsFilterUrl = function(property){
@@ -156,17 +161,18 @@ angular.module('mainApp')
                 };
                 
                 this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {
-                    var baseUrl = url + 'ws/eiendom.py?';
+                    var matrikkel;
                     if (festnr !== "0") {
                         if (sectionsnr === "0") {
-                            baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr;
+                            matrikkel = kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr;
                         } else {
-                            baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr + "/" + sectionsnr;
+                            matrikkel = kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr + "/" + sectionsnr;
                         }
                     } else {
-                        baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr;
+                        matrikkel = kommunenr + "-" + gardsnr + "/" + bruksnr;
                     }
-                    return baseUrl + '&KILDE:Eiendom KOMMUNENR:' + kommunenr + ' GARDSNR:' + gardsnr + ' BRUKSNR:' + bruksnr + ' SEKSJONSNR:' + sectionsnr + ' FESTENR:' + festnr;
+                    
+                    return urlTest + '/search/matrikkel_ws/' + encodeURIComponent(matrikkel) + '/parametre/' + 'KILDE:Eiendom KOMMUNENR:' + kommunenr + ' GARDSNR:' + gardsnr + ' BRUKSNR:' + bruksnr + ' SEKSJONSNR:' + sectionsnr + ' FESTENR:' + festnr;
 
                 };
                 /*
