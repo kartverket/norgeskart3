@@ -172,29 +172,28 @@ angular.module('searchPanel')
                         }
                         return null;
                     };
-                    var _w3wSearch = {
-                        url: 'http://norgeskart.no/ws/w3w.py',
-                        run: function (params, search) {
-                            var request = $.ajax({
-                                url: this.url,
-                                data: params.phrase,
-                                dataType: 'JSON'
-                            });
-                            request.done(function (r) {
+
+                    var _w3wSearch = function (query) {
+                        $.ajax({
+                            url: mainAppService.generateWhat3WordsServiceUrl(),
+                            data: query,
+                            dataType: 'JSON',
+                            success: function (r) {
                                 if (!r.position) {
                                     return;
                                 }
                                 scope.showQueryPoint(scope.contructQueryPoint(parseFloat(r.position[0]), parseFloat(r.position[1]), 'EPSG:4326', 'coordGeo', ''));
-                            });
-                        }
+                            }
+                        });
                     };
+                    
                     var _checkQueryForCoordinates = function (query) {
                         scope.coordinate = true;
                         var epsg = query.split('@')[1];
                         var params = _parseInput(query);
 
                         if (!!params.w3w) {
-                            _w3wSearch.run(params, this);
+                            _w3wSearch(params.phrase);
                         } else if (typeof params.phrase === 'string') {
                             return false;
                         }
@@ -308,12 +307,6 @@ angular.module('searchPanel')
                                 return jsonObject.sokRes.stedsnavn;
                             case ('adresse'):
                                 return document.adresser;
-                            case ('matrikkelveg'):
-                                return document;
-                            case ('matrikkeladresse'):
-                                return document;
-                            case ('matrikkelnummer'):
-                                return document;
                             default:
                                 return JSON.parse(document);
                         }
