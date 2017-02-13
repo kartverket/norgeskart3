@@ -1,6 +1,6 @@
 angular.module('mainMenuPanel')
-    .controller('mainMenuPanelController', ['$scope', 'moveableOverlayFactory','mapOverlaysLayoutFactory', 'ISY.MapAPI.Map',
-        function($scope, moveableOverlayFactory, mapOverlaysLayoutFactory, map){
+    .controller('mainMenuPanelController', ['$scope', 'moveableOverlayFactory','mapOverlaysLayoutFactory', 'localStorageFactory', 'ISY.MapAPI.Map',
+        function($scope, moveableOverlayFactory, mapOverlaysLayoutFactory, localStorageFactory, map){
 
             $scope.drawActivated=false;
 
@@ -8,6 +8,10 @@ angular.module('mainMenuPanel')
             
             $scope.resetApplication = function ($event) {
                 $event.preventDefault();
+                localStorageFactory.remove('lat');
+                localStorageFactory.remove('lon');
+                localStorageFactory.remove('zoom');
+                localStorageFactory.set('mainMenuIsOpen', false);
                 location.hash = '';
                 location.reload($event.shiftKey);
             };
