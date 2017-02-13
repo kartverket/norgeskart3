@@ -24,6 +24,7 @@ module.exports = function ( karma ) {
     [
         'karma-jasmine',
         'karma-firefox-launcher',
+        'karma-ng-html2js-preprocessor',
         'karma-chrome-launcher',
         'karma-phantomjs-launcher',
         'karma-ie-launcher',
