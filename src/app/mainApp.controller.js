@@ -208,8 +208,6 @@ angular.module('mainApp')
                 }
                 // document.getElementById("mySidenav").style.width = "395px";
                 document.getElementById("mySidenav").style.overflowY = "auto";
-                document.getElementById("main").style.backgroundColor = "rgba(0,0,0,0.4)";
-                document.getElementById("main").style.transition = "0.4s";
 
                 // document.getElementById("sideMenuPosition").style.width = "395px";
                 mainAppFactory.setMainMenuStatus(true);
@@ -224,8 +222,6 @@ angular.module('mainApp')
                     }, 400);
 
                     document.getElementById("mySidenav").style.overflowY = "hidden";
-                    document.getElementById("main").style.backgroundColor = "transparent";
-                    document.getElementById("main").style.transition = "0.4s";
 
                     localStorageFactory.set("mainMenuIsOpen", false);
                     mainAppFactory.setMainMenuStatus(false);
