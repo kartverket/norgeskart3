@@ -2,5 +2,14 @@
     "extends": "airbnb-base",
     "plugins": [
         "import"
-    ]
+    ],
+    "rules": {
+        "no-undef":"off",
+        "linebreak-style":"off",
+        "max-len": [1, 120, 2, {"ignoreComments": true}],
+        "quote-props": [1, "consistent-as-needed"],
+        "no-cond-assign": [2, "except-parens"],
+        "no-unused-vars": [1, {"vars": "local", "args": "none"}],
+        "no-param-reassign": 0
+    }
 }
