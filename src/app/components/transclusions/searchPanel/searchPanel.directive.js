@@ -9,7 +9,6 @@ angular.module('searchPanel')
 
           var _getValueFromUrl = function (key) {
             if (!$location.url()) {
-              console.log("URL not found");
               return false;
             }
             var url = $location.url();
@@ -21,6 +20,7 @@ angular.module('searchPanel')
               }
             }
           };
+
           var _removeSearchFromUrl = function () {
             var hash = _getValueFromUrl('sok');
             var oldUrl = $location.url();
@@ -78,20 +78,18 @@ angular.module('searchPanel')
                 reResult = decimalPairComma.exec(input);
                 parsedInput.first = parseFloat(reResult[1]);
                 parsedInput.second = parseFloat(reResult[2]);
-                if (!!reResult[3]) {
+                if (reResult[3]) {
                   parsedInput.projectionHint = parseInt(reResult[3], 10);
                 }
                 interpretAsNorthEastOrXY(parsedInput);
-
               } else if (decimalPairDot.test(input)) {
                 reResult = decimalPairDot.exec(input);
                 parsedInput.first = parseFloat(reResult[1]);
                 parsedInput.second = parseFloat(reResult[2]);
-                if (!!reResult[3]) {
+                if (reResult[3]) {
                   parsedInput.projectionHint = parseInt(reResult[3], 10);
                 }
                 interpretAsNorthEastOrXY(parsedInput);
-
               } else if (decimalCoordinatesNE.test(input)) {
                 reResult = decimalCoordinatesNE.exec(input);
                 parsedInput.north = {};
@@ -187,7 +185,7 @@ angular.module('searchPanel')
               scope.showQueryPoint(scope.contructQueryPoint(params.east, params.north, 'EPSG:' + epsg, 'coordUtm', ''));
               return true;
             }
-            if (!!epsg) {
+            if (epsg) {
               return false;
             }
             if (((params.north > 32.88) && (params.east > -16.1)) && ((params.north < 84.17) && (params.east < 39.65))) {

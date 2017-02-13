@@ -14,14 +14,14 @@ angular
       var availableUTMZones = ['25832', '25833', '25834', '25835', '25836', '32632', '32633', '32634', '32635', '32636'];
 
       var sourceDict = {
-        'ssr': 'Stedsnavn',
-        'adresse': 'Adresse',
-        'matrikkelveg': 'Vegnavn',
-        'matrikkeladresse': 'Adresse',
-        'coordGeo': 'Geografisk koordinat',
-        'coordUtm': 'UTM-koordinat',
-        'mouseClick': 'Klikk i kartet',
-        'matrikkelnummer': 'Gårds og bruksnummer'
+        ssr: 'Stedsnavn',
+        adresse: 'Adresse',
+        matrikkelveg: 'Vegnavn',
+        matrikkeladresse: 'Adresse',
+        coordGeo: 'Geografisk koordinat',
+        coordUtm: 'UTM-koordinat',
+        mouseClick: 'Klikk i kartet',
+        matrikkelnummer: 'Gårds og bruksnummer'
       };
 
       var parseInput = function (input) {
