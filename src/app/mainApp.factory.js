@@ -3,7 +3,6 @@ angular.module('mainApp')
         function(map, $location, repository, $translate, translations, $timeout){
 
             var instance = "";
-            var configUrl;
             var projectUrl;
             var beginLayersInURL;
             var projectsList;
@@ -64,7 +63,6 @@ angular.module('mainApp')
             };
 
             var getConfigCallback = function(configJson){
-                configUrl = configJson.configurl;
                 projectUrl = configJson.configurl;
                 if ($location.search().application !== undefined || $location.search().instance !== undefined){
                     if ($location.search().application !== undefined){
@@ -79,7 +77,7 @@ angular.module('mainApp')
                 if (instance === undefined){
                     instance = '';
                 }
-                var projectsListUrl = projectUrl;
+                var projectsListUrl = configJson.configurl;
                 projectsListUrl += '/listprojects.json';
                 projectUrl += '/';
                 var nameProject = projectName();
@@ -88,7 +86,6 @@ angular.module('mainApp')
                     projectUrl += nameProject.toLowerCase() + '.json';
                 }
 
-                // map.GetResource(projectUrl, 'application/json', getProjectCallback);
                 map.GetResourceFromJson(projectsListUrl, 'application/json', getProjectsListCallback);
 
             };
@@ -141,8 +138,18 @@ angular.module('mainApp')
                 getConfigCallback($.ajax({
                     type: "GET",
                     url: "config.json",
-                    async: false
+                    async: false,
+                    done: function(responseJSON){
+                        return responseJSON;
+                    },
+                    fail:  function(){
+                        return {
+                            "instance": "norgeskart3",
+                            "configurl": "http://www.norgeskart.no/config"
+                        };
+                    }
                 }).responseJSON);
+
             };
 
             function getProjectCallback(project, isOffline) {
