@@ -180,7 +180,7 @@ module.exports = function ( grunt ) {
             compile_assets: {
                 files: [
                     {
-                        src: [ 'fonts/**', '**/*.json', '**/*.ico', '**/*.png', '**/*.svg', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.ttf', '**/*.woff', '**/*.woff2', 'config.xml' ],
+                        src: [ 'fonts/**', '**/*.json', '**/*.ico', '**/*.png', '**/*.svg', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.ttf', '**/*.woff', '**/*.woff2', 'config.json' ],
                         dest: '<%= compile_dir %>',
                         cwd: '<%= build_dir %>',
                         expand: true
@@ -720,7 +720,7 @@ module.exports = function ( grunt ) {
         };
 
         grunt.file.copy('src/index.html', this.data.dir + '/index.html', copyOptions);
-        grunt.file.copy('src/config.xml', this.data.dir + '/config.xml', copyOptions);
+        grunt.file.copy('src/config.json', this.data.dir + '/config.json', copyOptions);
         grunt.file.copy('src/elevationProfile.xml', this.data.dir + '/elevationProfile.xml', copyOptions);
     });
 
