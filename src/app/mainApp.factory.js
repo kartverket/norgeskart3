@@ -64,8 +64,8 @@ angular.module('mainApp')
             };
 
             var getConfigCallback = function(configJson){
-                configUrl = configJson.config.configurl;
-                projectUrl = configJson.config.configurl;
+                configUrl = configJson.configurl;
+                projectUrl = configJson.configurl;
                 if ($location.search().application !== undefined || $location.search().instance !== undefined){
                     if ($location.search().application !== undefined){
                         instance = $location.search().application;
@@ -74,7 +74,7 @@ angular.module('mainApp')
                     }
 
                 }else{
-                    instance = configJson.config.instance;
+                    instance = configJson.instance;
                 }
                 if (instance === undefined){
                     instance = '';
@@ -138,13 +138,11 @@ angular.module('mainApp')
             };
 
             var getProject = function() {
-                //map.GetResource('config.xml', 'application/json', getConfigCallback);
-                //map.GetConfigResource('config.xml', 'application/json', getConfigCallback);
-                getConfigCallback(xml2json.parser($.ajax({
+                getConfigCallback($.ajax({
                     type: "GET",
-                    url: "config.xml",
+                    url: "config.json",
                     async: false
-                }).responseText));
+                }).responseJSON);
             };
 
             function getProjectCallback(project, isOffline) {
