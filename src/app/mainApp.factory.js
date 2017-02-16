@@ -3,6 +3,7 @@ angular.module('mainApp')
         function(map, $location, repository, $translate, translations, $timeout){
 
             var instance = "";
+            var configUrl;
             var projectUrl;
             var beginLayersInURL;
             var projectsList;
@@ -63,6 +64,8 @@ angular.module('mainApp')
             };
 
             var getConfigCallback = function(configJson){
+                configUrl = configJson.configurl;
+                projectUrl = configJson.configurl;
                 if ($location.search().application !== undefined || $location.search().instance !== undefined){
                     if ($location.search().application !== undefined){
                         instance = $location.search().application;
@@ -76,7 +79,7 @@ angular.module('mainApp')
                 if (instance === undefined){
                     instance = '';
                 }
-                var projectsListUrl = configJson.configurl;
+                var projectsListUrl = projectUrl;
                 projectsListUrl += '/listprojects.json';
                 projectUrl += '/';
                 var nameProject = projectName();
@@ -135,19 +138,11 @@ angular.module('mainApp')
             };
 
             var getProject = function() {
-                $.ajax({
+                getConfigCallback($.ajax({
                     type: "GET",
                     url: "config.json",
-                    async: false,
-                    done: function(responseJSON){
-                        getConfigCallback(responseJSON);
-                    },
-                    fail:  function(){
-                        getConfigCallback({
-                            "instance": "norgeskart3",
-                            "configurl": "http://www.norgeskart.no/config"});
-                    },
-                });
+                    async: false
+                }).responseJSON);
             };
 
             function getProjectCallback(project, isOffline) {
