@@ -289,7 +289,7 @@ angular.module('searchPanel')
 
           _queryDict = {};
 
-          if ($location.search().sok !== '') {
+          if (typeof $location.search().sok !== 'undefined') {
             scope.searchBarModel = $location.search().sok;
             scope.searchBarValueChanged();
           }
@@ -821,20 +821,16 @@ angular.module('searchPanel')
             return searchOption;
           };
 
-          var _emptySearchOption = function () {
-            var searchOption = {
-              icon: {
-                value: '',
-                class: ''
-              },
-              text: {
-                value: '',
-                class: ''
-              },
-              name: ''
-            };
-
-            return searchOption;
+          var _emptySearchOption = {
+            icon: {
+              value: '',
+              class: ''
+            },
+            text: {
+              value: '',
+              class: ''
+            },
+            name: ''
           };
 
           scope.initSearchOptions = function () {
