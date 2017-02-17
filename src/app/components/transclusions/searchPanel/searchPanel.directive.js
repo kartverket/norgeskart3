@@ -6,12 +6,41 @@ angular.module('searchPanel')
         restrict: 'A',
         controller: 'searchPanelController',
         link: function (scope) {
+
+          var _getValueFromUrl = function (key) {
+            if (!$location.url()) {
+              console.log("URL not found");
+              return false;
+            }
+            var url = $location.url();
+            var params = url.split('?')[1].split('&');
+            for (var i = 0; i < params.length; i++) {
+              var param = params[i].split('=');
+              if (param[0] == key) {
+                return param[1];
+              }
+            }
+          };
+          var _removeSearchFromUrl = function () {
+            var hash = _getValueFromUrl('sok');
+            var oldUrl = $location.url();
+            $location.url(oldUrl.replace('sok=' + hash, ''));
+          };
+
+          var _setSearchInUrl = function (query) {
+            _removeSearchFromUrl();
+            var oldUrl = $location.url();
+            $location.url(oldUrl + '&sok=' + query);
+          };
+
           scope.searchBarValueChanged = function () {
             if (scope.searchBarModel === '') {
               scope.cleanResults();
               return;
             }
             var query = _getQuery();
+            _setSearchInUrl(query);
+
             if (_checkQueryForCoordinates(query)) {
               scope.initSearchOptions();
               return;
