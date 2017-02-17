@@ -359,7 +359,11 @@ angular.module('searchPanel')
               case ('adresse'):
                 return document.adresser;
               default:
-                return JSON.parse(document);
+                try {
+                  return JSON.parse(document);
+                } catch (e) {
+                  return;
+                }
             }
           };
 
