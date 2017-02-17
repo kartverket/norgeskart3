@@ -26,6 +26,7 @@ angular
 
       var parseInput = function (input) {
         var parsedInput = {};
+        var parsedQuery;
         gbrnr = /^[ \t]*([A-Za-zæøåÆØÅ ]+[A-Za-zæøåÆØÅ]|[\d]+)[ \t]*[-/][ \t]*([\d]+)[ \t]*[/][ \t]*([\d]+)[ \t]*$/;
         gbrnr2 = /^[ \t]*([A-Za-zæøåÆØÅ ]+[A-Za-zæøåÆØÅ]|[\d]+)[ \t]*[-/][ \t]*([\d]+)[ \t]*[/][ \t]*([\d]+)[ \t]*[/][ \t]*([\d]+)[ \t]*$/;
         gbrnr3 = /^[ \t]*([A-Za-zæøåÆØÅ ]+[A-Za-zæøåÆØÅ]|[\d]+)[ \t]*[-/][ \t]*([\d]+)[ \t]*[/][ \t]*([\d]+)[ \t]*[/][ \t]*([\d]+)[ \t]*[/][ \t]*([\d]+)[ \t]*$/;
@@ -38,6 +39,7 @@ angular
           parsedInput.gnr = reResult[2];
           parsedInput.bnr = reResult[3];
           parsedInput.numbers = [parsedInput.gnr, parsedInput.bnr];
+          parsedQuery = parsedInput.municipality + '-' + parsedInput.numbers.join('/');
         } else if (gbrnr2.test(input)) {
           reResult = gbrnr2.exec(input);
           parsedInput.municipality = reResult[1].trim();
@@ -45,6 +47,7 @@ angular
           parsedInput.bnr = reResult[3];
           parsedInput.fnr = reResult[4];
           parsedInput.numbers = [parsedInput.gnr, parsedInput.bnr, parsedInput.fnr];
+          parsedQuery = parsedInput.municipality + '-' + parsedInput.numbers.join('/');
         } else if (gbrnr3.test(input)) {
           reResult = gbrnr3.exec(input);
           parsedInput.municipality = reResult[1].trim();
@@ -53,28 +56,29 @@ angular
           parsedInput.fnr = reResult[4];
           parsedInput.snr = reResult[5];
           parsedInput.numbers = [parsedInput.gnr, parsedInput.bnr, parsedInput.fnr]; // snr confuses search engine not to output coordinates
+          parsedQuery = parsedInput.municipality + '-' + parsedInput.numbers.join('/');
         } else if (gbrnr4.test(input)) {
           reResult = gbrnr4.exec(input);
           parsedInput.gnr = reResult[1];
           parsedInput.bnr = reResult[2];
           parsedInput.municipality = reResult[3].trim();
           parsedInput.numbers = [parsedInput.gnr, parsedInput.bnr];
+          parsedQuery = parsedInput.municipality + '-' + parsedInput.numbers.join('/');
         } else if (gbrnr5.test(input)) {
           reResult = gbrnr5.exec(input);
           parsedInput.gnr = reResult[1];
           parsedInput.bnr = reResult[2];
           parsedInput.municipality = '';
           parsedInput.numbers = [parsedInput.gnr, parsedInput.bnr];
+          parsedQuery = input;
         } else {
-          parsedInput.phrase = input;
+          parsedQuery = input;
         }
-        return parsedInput;
+        return parsedQuery;
       };
 
       var generateServiceDict = function (query) {
-        console.log(query);
-        var parsedQuery = parseInput(query);
-        console.log(parsedQuery);
+        query = parseInput(query);
         var serviceDict = {};
         serviceDict['ssr'] = {
           url: mainAppService.generateSearchStedsnavnUrl(query, placenamePage, placenameHitsPerPage),
