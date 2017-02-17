@@ -33,38 +33,8 @@ angular.module('searchPanel')
             $location.url(oldUrl + '&sok=' + query);
           };
 
-          scope.searchBarValueChanged = function () {
-            if (scope.searchBarModel === '') {
-              scope.cleanResults();
-              return;
-            }
-            var query = _getQuery();
-            _setSearchInUrl(query);
-
-            if (_checkQueryForCoordinates(query)) {
-              scope.initSearchOptions();
-              return;
-            }
-            _init(query);
-            scope.showSearchResultPanel();
-            scope.getResults(searchPanelFactory.getInitialSearchServices());
-          };
-
-          scope.sourceDict = searchPanelFactory.getSourceDict();
-
-          scope.mapEpsg = searchPanelFactory.getMapEpsg();
-
-          _searchResults = {};
-
-          _unifiedResults = {};
-
-          _serviceDict = {};
-
-          _queryDict = {};
-
-          String.prototype.replaceAll = function (search, replacement) {
-            var target = this;
-            return target.replace(new RegExp(search, 'g'), replacement);
+          var _getQuery = function () {
+            return scope.searchBarModel + '';
           };
 
           var _parseInput = function (input) {
@@ -202,20 +172,6 @@ angular.module('searchPanel')
             return null;
           };
 
-          var _w3wSearch = function (query) {
-            $.ajax({
-              url: mainAppService.generateWhat3WordsServiceUrl(),
-              data: query,
-              dataType: 'JSON',
-              success: function (r) {
-                if (!r.position) {
-                  return;
-                }
-                scope.showQueryPoint(scope.contructQueryPoint(parseFloat(r.position[0]), parseFloat(r.position[1]), 'EPSG:4326', 'coordGeo', ''));
-              }
-            });
-          };
-
           var _checkQueryForCoordinates = function (query) {
             scope.coordinate = true;
             var epsg = query.split('@')[1];
@@ -248,6 +204,115 @@ angular.module('searchPanel')
             return false;
           };
 
+          var _resetResults = function () {
+            _unifiedResults = {};
+            _searchResults = {};
+          };
+
+          scope.resetResultsService = function (service) {
+            _unifiedResults[service] = {};
+            _searchResults[service] = {};
+            scope.searchResults[service] = {};
+          };
+
+          scope.populateServiceDict = function (query) {
+            _serviceDict = searchPanelFactory.getServiceDict(query);
+          };
+
+          var _init = function (query) {
+            _resetResults();
+            scope.searchResults = undefined;
+            scope.activeSearchResult = undefined;
+            scope.populateServiceDict(query);
+            scope.coordinate = false;
+            map.RemoveInfoMarker();
+            scope.placenamePage = searchPanelFactory.resetPlacenamePage() + 1;
+          };
+
+          var _downloadSearchBarFromUrl = function (_serviceDict, timestamp) {
+            _queryDict[_serviceDict.source] = $.ajax({
+              type: "GET",
+              url: _serviceDict.url,
+              async: true,
+              success: function (document) {
+                if (((document.length && document.length > 0) || (document.childNodes && document.childNodes[0].childNodes.length)) && scope.searchTimestamp == timestamp) {
+                  _successFullSearch(_serviceDict, document);
+                }
+              }
+              /*,
+              error: function (searchError) {
+                console.log("Error downloading from " + _serviceDict.url, searchError);
+              }*/
+            });
+          };
+
+          scope.getResults = function (searchServices) {
+            _cancelOldRequests();
+            scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
+            for (var serviceIndex = 0; serviceIndex < searchServices.length; serviceIndex++) {
+              _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
+            }
+          };
+
+          var _cancelOldRequests = function () {
+            for (var service in _queryDict) {
+              _queryDict[service].abort();
+            }
+          };
+
+          scope.searchBarValueChanged = function () {
+            if (scope.searchBarModel === '') {
+              scope.cleanResults();
+              return;
+            }
+            var query = _getQuery();
+            _setSearchInUrl(query);
+
+            if (_checkQueryForCoordinates(query)) {
+              scope.initSearchOptions();
+              return;
+            }
+            _init(query);
+            scope.showSearchResultPanel();
+            scope.getResults(searchPanelFactory.getInitialSearchServices());
+          };
+
+          scope.sourceDict = searchPanelFactory.getSourceDict();
+
+          scope.mapEpsg = searchPanelFactory.getMapEpsg();
+
+          _searchResults = {};
+
+          _unifiedResults = {};
+
+          _serviceDict = {};
+
+          _queryDict = {};
+
+          if ($location.search().sok !== '') {
+            scope.searchBarModel = $location.search().sok;
+            scope.searchBarValueChanged();
+          }
+
+          String.prototype.replaceAll = function (search, replacement) {
+            var target = this;
+            return target.replace(new RegExp(search, 'g'), replacement);
+          };
+
+          var _w3wSearch = function (query) {
+            $.ajax({
+              url: mainAppService.generateWhat3WordsServiceUrl(),
+              data: query,
+              dataType: 'JSON',
+              success: function (r) {
+                if (!r.position) {
+                  return;
+                }
+                scope.showQueryPoint(scope.contructQueryPoint(parseFloat(r.position[0]), parseFloat(r.position[1]), 'EPSG:4326', 'coordGeo', ''));
+              }
+            });
+          };
+
           scope.contructQueryPoint = function (lat, lon, epsg, source, kommune) {
             return {
               name: '',
@@ -274,49 +339,6 @@ angular.module('searchPanel')
           scope.removeInfomarkers = function () {
             map.RemoveInfoMarkers();
             map.RemoveInfoMarker();
-          };
-
-          var _init = function (query) {
-            _resetResults();
-            scope.searchResults = undefined;
-            scope.activeSearchResult = undefined;
-            scope.populateServiceDict(query);
-            scope.coordinate = false;
-            map.RemoveInfoMarker();
-            scope.placenamePage = searchPanelFactory.resetPlacenamePage() + 1;
-          };
-
-          var _getQuery = function () {
-            return scope.searchBarModel + '';
-          };
-
-          scope.populateServiceDict = function (query) {
-            _serviceDict = searchPanelFactory.getServiceDict(query);
-          };
-
-          scope.getResults = function (searchServices) {
-            _cancelOldRequests();
-            scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
-            for (var serviceIndex = 0; serviceIndex < searchServices.length; serviceIndex++) {
-              _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
-            }
-          };
-
-          var _cancelOldRequests = function () {
-            for (var service in _queryDict) {
-              _queryDict[service].abort();
-            }
-          };
-
-          var _resetResults = function () {
-            _unifiedResults = {};
-            _searchResults = {};
-          };
-
-          scope.resetResultsService = function (service) {
-            _unifiedResults[service] = {};
-            _searchResults[service] = {};
-            scope.searchResults[service] = {};
           };
 
           var _readResults = function () {
@@ -473,23 +495,6 @@ angular.module('searchPanel')
 
           var _rtrim = function (str, length) {
             return str.substr(0, str.length - length);
-          };
-
-          var _downloadSearchBarFromUrl = function (_serviceDict, timestamp) {
-            _queryDict[_serviceDict.source] = $.ajax({
-              type: "GET",
-              url: _serviceDict.url,
-              async: true,
-              success: function (document) {
-                if (((document.length && document.length > 0) || (document.childNodes && document.childNodes[0].childNodes.length)) && scope.searchTimestamp == timestamp) {
-                  _successFullSearch(_serviceDict, document);
-                }
-              }
-              /*,
-                                           error: function (searchError) {
-                                           console.log("Error downloading from " + _serviceDict.url, searchError);
-                                           }*/
-            });
           };
 
           var _successFullSearch = function (_serviceDict, document) {
