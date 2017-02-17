@@ -837,7 +837,7 @@ angular.module('searchPanel')
 
             scope.searchOptionsOrder = searchPanelFactory.getSearchOptionsOrder();
             for (var searchOption in scope.searchOptionsOrder) {
-              scope.searchOptionsDict[scope.searchOptionsOrder[searchOption]] = _emptySearchOption();
+              scope.searchOptionsDict[scope.searchOptionsOrder[searchOption]] = _emptySearchOption;
             }
             _fetchElevationPoint();
             _fetchMatrikkelInfo();
