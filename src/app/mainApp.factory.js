@@ -133,7 +133,7 @@ angular.module('mainApp')
       var getProject = function () {
         $.ajax({
           type: "GET",
-          url: "config1.json",
+          url: "config.json",
           async: false,
           success: function (responseJSON) {
             getConfigCallback(responseJSON);
