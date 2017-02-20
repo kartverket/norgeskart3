@@ -32,7 +32,7 @@ module.exports = function ( karma ) {
         'karma-coverage'],
 
     preprocessors: {
-            'src/**/*.js': ['coverage'],
+            'src/!(bower_components)/**/*.js': ['coverage'],
             'src/**/*.html': 'ng-html2js'
     },
 
@@ -57,7 +57,7 @@ module.exports = function ( karma ) {
     runnerPort: 9100,
     urlRoot: '/',
 
-    /** 
+    /**
      * Disable file watching by default.
      */
     autoWatch: false,
