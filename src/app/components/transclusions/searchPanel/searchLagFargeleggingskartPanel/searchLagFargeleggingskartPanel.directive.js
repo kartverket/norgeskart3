@@ -65,7 +65,7 @@ angular.module('searchLagFargeleggingskartPanel')
                                     dpi: "300",
                                     layers: [{
                                     baseURL: "http://wms.geonorge.no/skwms1/wms.fargelegg",
-                                    customParams: {"TRANSPARENT": "false"},
+                                    customParams: {TRANSPARENT: "false"},
                                     imageFormat: "image/jpeg",
                                     layers: ["fargeleggingskart"],
                                     opacity: 1,

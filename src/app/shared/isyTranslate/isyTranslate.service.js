@@ -1,5 +1,5 @@
 angular.module('isyTranslate').constant('translations', {
-    "no": {
+    no: {
         "AcceptAndContinue": "FORSTÅR OG AKSEPTERER",
         "AddLegend": "TA MED TEGNFORKLARINGER",
         "Adresse": "Adresse",
@@ -162,7 +162,7 @@ angular.module('isyTranslate').constant('translations', {
         "username": "Brukernavn",
         "width_txt": "TYKKELSE:"
     },
-    "nn": {
+    nn: {
         "AcceptAndContinue": "EG SKJØNAR OG GODTAR",
         "AddLegend": "TA MED TEIKNFORKLARINGAR",
         "Adresse": "Adresse",
@@ -325,7 +325,7 @@ angular.module('isyTranslate').constant('translations', {
         "username": "Brukarnamn",
         "width_txt": "TJUKKLEIK:"
     },
-    "en": {
+    en: {
         "AcceptAndContinue": "ACCEPT AND CONTINUE",
         "AddLegend": "ADD LEGEND",
         "Adresse": "Address",

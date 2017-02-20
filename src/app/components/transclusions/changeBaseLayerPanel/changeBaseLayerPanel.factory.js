@@ -5,16 +5,16 @@ angular
 
             var baseLayers = [
                 {
-                    "id": "land",
-                    "title": "Land",
-                    "symbol": "baseMap-land",
-                    "isSelected" : false
+                    id: "land",
+                    title: "Land",
+                    symbol: "baseMap-land",
+                    isSelected : false
                 },
                 {
-                    "id": "aerial",
-                    "title": "Flybilder",
-                    "symbol": "baseMap-aerial",
-                    "isSelected" : false
+                    id: "aerial",
+                    title: "Flybilder",
+                    symbol: "baseMap-aerial",
+                    isSelected : false
                 }
             ];
 

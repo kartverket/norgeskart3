@@ -12,49 +12,49 @@ angular.module('mainApp')
       var projectNameUrl;
       var mainMenuIsOpen = false;
       var mapConfig = {
-        "name": "default config",
-        "useCategories": true,
-        "showProgressBar": true,
-        "showMousePosition": true,
-        "comment": "",
-        "numZoomLevels": 18,
-        "newMaxRes": 21664,
-        "extent": [-2000000, 3500000, 3545984, 9045984],
-        "extentUnits": "m",
-        "proxyHost": "",
-        "searchHost": "",
-        "tokenHost": "",
-        "searchpointzoom": 12,
-        "groups": [],
-        "languages": {
-          "no": {},
-          "en": {}
+        name: "default config",
+        useCategories: true,
+        showProgressBar: true,
+        showMousePosition: true,
+        comment: "",
+        numZoomLevels: 18,
+        newMaxRes: 21664,
+        extent: [-2000000, 3500000, 3545984, 9045984],
+        extentUnits: "m",
+        proxyHost: "",
+        searchHost: "",
+        tokenHost: "",
+        searchpointzoom: 12,
+        groups: [],
+        languages: {
+          no: {},
+          en: {}
         },
-        "layers": [{
-          "id": "1992",
-          "isBaseLayer": true,
-          "subLayers": [{
-            "title": "norges_grunnkart",
-            "source": "WMS",
-            "url": ["http://opencache.statkart.no/gatekeeper/gk/gk.open?LAYERS=norges_grunnkart"],
-            "gatekeeper": true,
-            "name": "norges_grunnkart",
-            "format": "image/png",
-            "coordinate_system": "EPSG:32632",
-            "id": "1992",
-            "tiled": true
+        layers: [{
+          id: "1992",
+          isBaseLayer: true,
+          subLayers: [{
+            title: "norges_grunnkart",
+            source: "WMS",
+            url: ["http://opencache.statkart.no/gatekeeper/gk/gk.open?LAYERS=norges_grunnkart"],
+            gatekeeper: true,
+            name: "norges_grunnkart",
+            format: "image/png",
+            coordinate_system: "EPSG:32632",
+            id: "1992",
+            tiled: true
           }],
-          "visibleOnLoad": false
+          visibleOnLoad: false
         }],
-        "zoom": 3,
-        "center": [570130, 7032300],
-        "hoverOptions": {
-          "multiSelect": true,
-          "mmultiSelect": false
+        zoom: 3,
+        center: [570130, 7032300],
+        hoverOptions: {
+          multiSelect: true,
+          mmultiSelect: false
         },
-        "coordinate_system": "EPSG:32632",
-        "onlyOneGroup": false,
-        "isOffline": false
+        coordinate_system: "EPSG:32632",
+        onlyOneGroup: false,
+        isOffline: false
       };
 
       var getConfigCallback = function (configJson) {
@@ -140,8 +140,8 @@ angular.module('mainApp')
           },
           error: function () {
             getConfigCallback({
-              "instance": "norgeskart3",
-              "configurl": "http://www.norgeskart.no/config"
+              instance: "norgeskart3",
+              configurl: "http://www.norgeskart.no/config"
             });
           }
         });
@@ -284,10 +284,10 @@ angular.module('mainApp')
 
       var createGroup = function (groupId, groupNameLng1, groupNameLng2, visibleOnLoad) {
         var newGroup = new ISY.Repository.Category({
-          "groupId": groupId,
-          "name": groupNameLng1,
-          "parentId": groupNameLng2,
-          "visibleOnLoad": _getBoolean(visibleOnLoad)
+          groupId: groupId,
+          name: groupNameLng1,
+          parentId: groupNameLng2,
+          visibleOnLoad: _getBoolean(visibleOnLoad)
         });
         groupIds.push(groupId);
         mapConfig.groups.push(newGroup);
@@ -396,58 +396,58 @@ angular.module('mainApp')
 
 
         var newIsyLayer = new ISY.Domain.Layer({
-          "subLayers": [{
-            "title": source.name,
-            "name": source.params.layers || source.name,
-            "providerName": source.params.layers || source.name,
-            "source": sourceType,
-            "gatekeeper": source.gatekeeper === "true",
-            "url": getWmsUrl(source.url),
-            "format": source.params.format,
-            "coordinate_system": source.epsg || mapConfig.coordinate_system,
-            "extent": mapConfig.extent,
-            "extentUnits": mapConfig.extentUnits,
-            "matrixPrefix": source.matrixprefix === "true",
-            "matrixSet": source.matrixset,
-            "numZoomLevels": mapConfig.numZoomLevels,
-            "id": sourceType == 'VECTOR' ? mapConfig.layers.length + 8001 : mapConfig.layers.length + 1001,
-            "transparent": true,
-            "layerIndex": -1,
-            "legendGraphicUrl": source.legendurl,
-            "minScale": source.options.minscale,
-            "maxScale": source.options.maxscale,
-            "sortingIndex": -1,
-            "featureInfo": {
-              "supportsGetFeatureInfo": true,
-              "getFeatureInfoFormat": "application/vnd.ogc.gml",
-              "getFeatureInfoCrs": "",
-              "supportsGetFeature": true,
-              "getFeatureBaseUrl": "",
-              "getFeatureFormat": "application/json",
-              "getFeatureCrs": "EPSG:4326",
-              "includedFields": source.includedfields
+          subLayers: [{
+            title: source.name,
+            name: source.params.layers || source.name,
+            providerName: source.params.layers || source.name,
+            source: sourceType,
+            gatekeeper: source.gatekeeper === "true",
+            url: getWmsUrl(source.url),
+            format: source.params.format,
+            coordinate_system: source.epsg || mapConfig.coordinate_system,
+            extent: mapConfig.extent,
+            extentUnits: mapConfig.extentUnits,
+            matrixPrefix: source.matrixprefix === "true",
+            matrixSet: source.matrixset,
+            numZoomLevels: mapConfig.numZoomLevels,
+            id: sourceType == 'VECTOR' ? mapConfig.layers.length + 8001 : mapConfig.layers.length + 1001,
+            transparent: true,
+            layerIndex: -1,
+            legendGraphicUrl: source.legendurl,
+            minScale: source.options.minscale,
+            maxScale: source.options.maxscale,
+            sortingIndex: -1,
+            featureInfo: {
+              supportsGetFeatureInfo: true,
+              getFeatureInfoFormat: "application/vnd.ogc.gml",
+              getFeatureInfoCrs: "",
+              supportsGetFeature: true,
+              getFeatureBaseUrl: "",
+              getFeatureFormat: "application/json",
+              getFeatureCrs: "EPSG:4326",
+              includedFields: source.includedfields
             },
-            "tiled": source.options.singletile !== "true",
-            "crossOrigin": null,
-            "style": source.style,
-            "wmtsExtent": source.wmtsextent,
-            "getCapabilities": (source.getcapabilities === 'true'),
-            "styles": source.params.styles,
-            "minResolution": source.minresolution,
-            "maxResolution": source.maxresolution
+            tiled: source.options.singletile !== "true",
+            crossOrigin: null,
+            style: source.style,
+            wmtsExtent: source.wmtsextent,
+            getCapabilities: (source.getcapabilities === 'true'),
+            styles: source.params.styles,
+            minResolution: source.minresolution,
+            maxResolution: source.maxresolution
           }],
-          "guid": source.guid,
-          "name": source.name,
-          "groupId": cat_ids,
-          "visibleOnLoad": (source.options.visibility === 'true'),
-          "id": sourceType == 'VECTOR' ? mapConfig.layers.length + 8001 : mapConfig.layers.length + 1001,
-          "isBaseLayer": (source.options.isbaselayer === 'true'),
-          "previewActive": false,
-          "opacity": 1,
-          "mapLayerIndex": -1,
-          "legendGraphicUrls": [],
-          "selectedLayerOpen": false,
-          "thumbnail": source.thumbnail
+          guid: source.guid,
+          name: source.name,
+          groupId: cat_ids,
+          visibleOnLoad: (source.options.visibility === 'true'),
+          id: sourceType == 'VECTOR' ? mapConfig.layers.length + 8001 : mapConfig.layers.length + 1001,
+          isBaseLayer: (source.options.isbaselayer === 'true'),
+          previewActive: false,
+          opacity: 1,
+          mapLayerIndex: -1,
+          legendGraphicUrls: [],
+          selectedLayerOpen: false,
+          thumbnail: source.thumbnail
         });
         mapConfig.layers.push(newIsyLayer);
         mapConfig.languages.en[newIsyLayer.id] = source.name;

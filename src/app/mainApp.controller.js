@@ -47,9 +47,9 @@ angular.module('mainApp')
                 if (obj.zoom !== undefined && obj.lat !== undefined && obj.lon !== undefined){
                     if (localStorageFactory.get("zoom") !== null && localStorageFactory.get("lat") !== null && localStorageFactory.get("lon") !== null){
                         var center = {
-                            "lon": localStorageFactory.get("lon"),
-                            "lat": localStorageFactory.get("lat"),
-                            "zoom": localStorageFactory.get("zoom")
+                            lon: localStorageFactory.get("lon"),
+                            lat: localStorageFactory.get("lat"),
+                            zoom: localStorageFactory.get("zoom")
                         };
                         map.SetCenter(center);
                     }

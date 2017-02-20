@@ -54,7 +54,7 @@ angular.module('searchLagNodplakatPanelPage2')
                                 localProj = "EPSG:32633";
                             }
                         }
-                        return {'sone': sone, 'localProj': localProj};
+                        return {sone: sone, localProj: localProj};
                     };
 
                     var _round = function (value, decimals) {
@@ -94,15 +94,15 @@ angular.module('searchLagNodplakatPanelPage2')
                         var UTM = _getUTMZoneFromGeographicPoint(scope.activePosition.geographicPoint[0], scope.activePosition.geographicPoint[1]);
                         var localUTMPoint = ol.proj.transform([scope.activePosition.geographicPoint[0], scope.activePosition.geographicPoint[1]], 'EPSG:4326', UTM.localProj);
                         return {
-                            'locationName': scope.lagNodplakatName,
-                            'position1': geographicalText(scope.activePosition.geographicPoint[1]) + ' nord',
-                            'position2': geographicalText(scope.activePosition.geographicPoint[0]) + ' øst',
-                            'street': scope.lagNodplakatDict.emergencyPosterPoint.veg + ' i ' + scope.lagNodplakatDict.emergencyPosterPoint.kommune,
-                            'place': scope.activePlaceName,
-                            'matrikkel': scope.lagNodplakatDict.emergencyPosterPoint.matrikkelnr,
-                            'utm': 'Sone ' + UTM.sone + ' Ø ' + _round(localUTMPoint[0], 0) + ' N ' + _round(localUTMPoint[1], 0),
-                            'posDez': 'N' + _round(scope.activePosition.geographicPoint[1], 4) + '° - Ø' + _round(scope.activePosition.geographicPoint[0], 4) + '°',
-                            'map': ''
+                            locationName: scope.lagNodplakatName,
+                            position1: geographicalText(scope.activePosition.geographicPoint[1]) + ' nord',
+                            position2: geographicalText(scope.activePosition.geographicPoint[0]) + ' øst',
+                            street: scope.lagNodplakatDict.emergencyPosterPoint.veg + ' i ' + scope.lagNodplakatDict.emergencyPosterPoint.kommune,
+                            place: scope.activePlaceName,
+                            matrikkel: scope.lagNodplakatDict.emergencyPosterPoint.matrikkelnr,
+                            utm: 'Sone ' + UTM.sone + ' Ø ' + _round(localUTMPoint[0], 0) + ' N ' + _round(localUTMPoint[1], 0),
+                            posDez: 'N' + _round(scope.activePosition.geographicPoint[1], 4) + '° - Ø' + _round(scope.activePosition.geographicPoint[0], 4) + '°',
+                            map: ''
                         };
                     };
 
@@ -118,17 +118,17 @@ angular.module('searchLagNodplakatPanelPage2')
                         var maxx = mapCenter.lon + (meterWidth / 2);
                         var maxy = mapCenter.lat + (meterHeight / 2);
                         return {
-                            'service': 'WMS',
-                            'request': 'GetMap',
-                            'CRS': 'EPSG:32633',
-                            'FORMAT': 'image/jpeg',
-                            'BGCOLOR': '0xFFFFFF',
-                            'TRANSPARENT': 'false',
-                            'LAYERS': 'topo2_WMS',
-                            'VERSION': '1.3.0',
-                            'WIDTH': pixels.width,
-                            'HEIGHT': pixels.height,
-                            'BBOX': minx + ',' + miny + ',' + maxx + ',' + maxy
+                            service: 'WMS',
+                            request: 'GetMap',
+                            CRS: 'EPSG:32633',
+                            FORMAT: 'image/jpeg',
+                            BGCOLOR: '0xFFFFFF',
+                            TRANSPARENT: 'false',
+                            LAYERS: 'topo2_WMS',
+                            VERSION: '1.3.0',
+                            WIDTH: pixels.width,
+                            HEIGHT: pixels.height,
+                            BBOX: minx + ',' + miny + ',' + maxx + ',' + maxy
 
                         };
                     };
