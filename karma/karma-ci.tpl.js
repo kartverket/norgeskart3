@@ -32,7 +32,7 @@ module.exports = function ( karma ) {
 
 
     preprocessors: {
-        'src/!(bower_components)/**/*.js': ['coverage']
+        'src/**/*.js': ['coverage']
     },
 
     /**

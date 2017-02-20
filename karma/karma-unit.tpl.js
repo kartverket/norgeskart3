@@ -32,7 +32,7 @@ module.exports = function ( karma ) {
         'karma-coverage'],
 
     preprocessors: {
-            'src/!(bower_components)/**/*.js': ['coverage'],
+            'src/**/*.js': ['coverage'],
             'src/**/*.html': 'ng-html2js'
     },
 
