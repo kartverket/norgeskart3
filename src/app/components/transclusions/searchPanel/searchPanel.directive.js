@@ -1023,7 +1023,7 @@ angular.module('searchPanel')
           };
 
           scope.getIdByLayer = function (layer) {
-            console.log(layer);
+            // console.log(layer);
             return layer.id;
           };
 

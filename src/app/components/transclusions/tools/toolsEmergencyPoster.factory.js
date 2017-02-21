@@ -4,29 +4,29 @@ angular
         function(mainAppService, map) {
 
             var emergencyPosterConfig = {
-                'locationName': '',
-                'position1': '',
-                'position2': '',
-                'street': '',
-                'place':'',
-                'matrikkel':'',
-                'utm':'',
-                'posDez':'',
-                'map':''
+                locationName: '',
+                position1: '',
+                position2: '',
+                street: '',
+                place:'',
+                matrikkel:'',
+                utm:'',
+                posDez:'',
+                map:''
             };
 
             var emergencyMapConfig = {
-                'service': 'WMS',
-                'request': 'GetMap',
-                'CRS': 'EPSG:25833',
-                'FORMAT': 'image/jpeg',
-                'BGCOLOR': '0xFFFFFF',
-                'TRANSPARENT': 'false',
-                'LAYERS': 'topo2_WMS',
-                'VERSION': '1.3.0',
-                'WIDTH': '1145',
-                'HEIGHT': '660',
-                'BBOX': ''
+                service: 'WMS',
+                request: 'GetMap',
+                CRS: 'EPSG:25833',
+                FORMAT: 'image/jpeg',
+                BGCOLOR: '0xFFFFFF',
+                TRANSPARENT: 'false',
+                LAYERS: 'topo2_WMS',
+                VERSION: '1.3.0',
+                WIDTH: '1145',
+                HEIGHT: '660',
+                BBOX: ''
             };
 
             var posterPosition;
@@ -36,9 +36,9 @@ angular
 
                 generateEmergancyPoster: function () {
                     map.SetCenter({
-                        'lon': posterPosition[0],
-                        'lat':posterPosition[1],
-                        'zoom': 10
+                        lon: posterPosition[0],
+                        lat:posterPosition[1],
+                        zoom: 10
                     });
 
                     var extent = map.GetExtent();

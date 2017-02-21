@@ -39,8 +39,8 @@ angular.module('searchLagTurkartPanel')
                     };
 
                     scope.scales={
-                        '25000': '1: 25 000',
-                        '50000': '1: 50 000'
+                        25000: '1: 25 000',
+                        50000: '1: 50 000'
                     };
 
                     scope.scale='25000';
@@ -78,7 +78,7 @@ angular.module('searchLagTurkartPanel')
                                     dpi: "300",
                                     layers: [{
                                     baseURL: "http://wms.geonorge.no/skwms1/wms.toporaster3",
-                                    customParams: {"TRANSPARENT": "false"},
+                                    customParams: {TRANSPARENT: "false"},
                                     imageFormat: "image/jpeg",
                                     layers: ["toporaster"],
                                     opacity: 1,

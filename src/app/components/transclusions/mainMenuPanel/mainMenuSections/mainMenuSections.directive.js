@@ -24,7 +24,7 @@ angular.module('mainMenuSections')
                     var setSearch = function (obj, layers) {
                         if (!angular.equals(obj, $location.search())) {
                             var newSearch = angular.extend($location.search(), obj);
-                            newSearch.layers = layers;
+                                     newSearch.layers = layers;
                             $location.search(newSearch);
                             $timeout(function () {
                                 window.location.reload();

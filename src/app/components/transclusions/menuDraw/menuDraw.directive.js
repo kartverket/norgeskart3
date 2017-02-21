@@ -12,19 +12,19 @@ angular.module('menuDraw')
                     scope.snap=true;
                     scope.selectionActive=false;
                     scope.pointTypes={
-                        'Circle': 64,
-                        'Triangle': 3,
-                        'Diamond': 4
+                        Circle: 64,
+                        Triangle: 3,
+                        Diamond: 4
                     };
                     scope.colors= {
-                        'black': '#000000',
-                        'yellow':'#FFFF00',
-                        'orange':'#FFA500',
-                        'red':'#FF0000',
-                        'purple':'#800080',
-                        'blue':'#0000FF',
-                        'darkgreen':'#006400',
-                        'grey':'#808080'
+                        black: '#000000',
+                        yellow:'#FFFF00',
+                        orange:'#FFA500',
+                        red:'#FF0000',
+                        purple:'#800080',
+                        blue:'#0000FF',
+                        darkgreen:'#006400',
+                        grey:'#808080'
                     };
                     scope.geometryTypes=[
                         'Point',
@@ -35,97 +35,97 @@ angular.module('menuDraw')
 
                     scope.pointRadiusSizes = [
                         {
-                            "sizeType": "Small",
-                            "size": 7
+                            sizeType: "Small",
+                            size: 7
                         },
                         {
-                            "sizeType": "Medium",
-                            "size": 14
+                            sizeType: "Medium",
+                            size: 14
                         },
                         {
-                            "sizeType": "Large",
-                            "size": 21
+                            sizeType: "Large",
+                            size: 21
                         }
                     ];
 
                     scope.lineTypes = [
                         {
-                            "lineTypeId" : "line",
-                            "lineLength": 15,
-                            "lineSpace": 0,
-                            "lineType": "_____"
+                            lineTypeId : "line",
+                            lineLength: 15,
+                            lineSpace: 0,
+                            lineType: "_____"
                         },
                         {
-                            "lineTypeId" : "dash",
-                            "lineLength": 15,
-                            "lineSpace": 15,
-                            "lineType": "_ _ _ _"
+                            lineTypeId : "dash",
+                            lineLength: 15,
+                            lineSpace: 15,
+                            lineType: "_ _ _ _"
                         },
                         {
-                            "lineTypeId" : "dot",
-                            "lineLength": 2,
-                            "lineSpace": 15,
-                            "lineType": "......."
+                            lineTypeId : "dot",
+                            lineLength: 2,
+                            lineSpace: 15,
+                            lineType: "......."
                         }
                     ];
 
                     scope.lineWidthSizes = [
                         {
-                            "lineTypeId": 1,
-                            "lineWidth": 2,
-                            "sizeType": "Small"
+                            lineTypeId: 1,
+                            lineWidth: 2,
+                            sizeType: "Small"
                         },
                         {
-                            "lineTypeId": 2,
-                            "lineWidth": 4,
-                            "sizeType": "Medium"
+                            lineTypeId: 2,
+                            lineWidth: 4,
+                            sizeType: "Medium"
                         },
                         // {
                         //     "lineTypeId": 3,
                         //     "lineWidth": 6
                         // },
                         {
-                            "lineTypeId": 4,
-                            "lineWidth": 8,
-                            "sizeType": "Large"
+                            lineTypeId: 4,
+                            lineWidth: 8,
+                            sizeType: "Large"
                         }
                     ];
 
                     scope.polygonOpacities = [
                         {
-                            "opacityType": "0%",
-                            "opacityValue": 0
+                            opacityType: "0%",
+                            opacityValue: 0
                         },
                         {
-                            "opacityType": "25%",
-                            "opacityValue": 25
+                            opacityType: "25%",
+                            opacityValue: 25
                         },
                         {
-                            "opacityType": "50%",
-                            "opacityValue": 50
+                            opacityType: "50%",
+                            opacityValue: 50
                         },
                         {
-                            "opacityType": "75%",
-                            "opacityValue": 75
+                            opacityType: "75%",
+                            opacityValue: 75
                         },
                         {
-                            "opacityType": "100%",
-                            "opacityValue": 100
+                            opacityType: "100%",
+                            opacityValue: 100
                         }
                     ];
 
                     scope.textHightSizes = [
                         {
-                            "textType": "Small",
-                            "textHight": 10
+                            textType: "Small",
+                            textHight: 10
                         },
                         {
-                            "textType": "Medium",
-                            "textHight": 15
+                            textType: "Medium",
+                            textHight: 15
                         },
                         {
-                            "textType": "Large",
-                            "textHight": 18
+                            textType: "Large",
+                            textHight: 18
                         }
                     ];
 
