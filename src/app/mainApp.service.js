@@ -99,7 +99,7 @@ angular.module('mainApp')
                 this.generateLagTurkartUrl = function () {
                     return urlGeonorge + "freeprint/getprint2.py";
                 };
-                
+
                 this.generateLagFargeleggingskartUrl = function () {
                     return urlGeonorge + "freeprint/getprint_f.py";
                 };
@@ -158,7 +158,7 @@ angular.module('mainApp')
 
                     return url + 'ws/wfs.teig.py?' + _constructMarkingFilter();
                 };
-                
+
                 this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {
                     var baseUrl = url + 'ws/eiendom.py?';
                     if (festnr !== "0") {

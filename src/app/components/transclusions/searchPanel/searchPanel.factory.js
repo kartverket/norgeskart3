@@ -55,7 +55,7 @@ angular
           parsedInput.bnr = reResult[3];
           parsedInput.fnr = reResult[4];
           parsedInput.snr = reResult[5];
-          parsedInput.numbers = [parsedInput.gnr, parsedInput.bnr, parsedInput.fnr]; // snr confuses search engine not to output coordinates
+          parsedInput.numbers = [parsedInput.gnr, parsedInput.bnr, parsedInput.fnr, parsedInput.snr]; // snr confuses search engine not to output coordinates
           parsedQuery = parsedInput.municipality + '-' + parsedInput.numbers.join('/');
         } else if (gbrnr4.test(input)) {
           reResult = gbrnr4.exec(input);
