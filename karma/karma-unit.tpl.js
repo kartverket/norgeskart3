@@ -5,6 +5,8 @@ module.exports = function ( karma ) {
      */
     basePath: '../',
     browserNoActivityTimeout: 3600000,
+    browserDisconnectTolerance: 5,
+
 
     /**
      * This is the list of file patterns to load into the browser during testing.
