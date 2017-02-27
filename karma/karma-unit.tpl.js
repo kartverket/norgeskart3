@@ -4,7 +4,7 @@ module.exports = function ( karma ) {
      * From where to look for files, starting with the location of this file.
      */
     basePath: '../',
-    browserNoActivityTimeout: 3600000,
+    browserNoActivityTimeout: 120000,
     browserDisconnectTolerance: 5,
 
 
