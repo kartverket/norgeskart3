@@ -6,7 +6,7 @@ describe ('mainApp test', function(){
 
     beforeEach(inject(function($rootScope, $compile) {
         $scope = $rootScope.$new(true);
-        element = $compile('<div main-app></div>')($scope);
+        element = $compile('<div mainApp></div>')($scope);
         $scope.$digest();
     }));
 
