@@ -25,7 +25,7 @@ angular.module('searchSeEiendomPanel')
 
                         $.featherlight({iframe: eiendomUrl, iframeMaxWidth: '100%', iframeWidth: iframeWidth,
                             iframeHeight: iframeHeight});
-*/                            
+*/
                     };
 
                     var setMenuListMaxHeight = function () {
