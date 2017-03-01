@@ -292,11 +292,6 @@ angular.module('searchPanel')
             scope.searchBarValueChanged();
           }
 
-          String.prototype.replaceAll = function (search, replacement) {
-            var target = this;
-            return target.replace(new RegExp(search, 'g'), replacement);
-          };
-
           var _w3wSearch = function (query) {
             $.ajax({
               url: mainAppService.generateWhat3WordsServiceUrl(),
@@ -356,6 +351,12 @@ angular.module('searchPanel')
                 return jsonObject.sokRes.stedsnavn;
               case ('adresse'):
                 return document.adresser;
+              case ('matrikkelveg'):
+                return document;
+              case ('matrikkeladresse'):
+                return document;
+              case ('matrikkelnummer'):
+                return document;
               default:
                 try {
                   return JSON.parse(document);
@@ -408,6 +409,18 @@ angular.module('searchPanel')
               for (var i = 0; i < jsonObject.length; i++) {
                 if (jsonObject[i][_serviceDict[searchResult.source].latID]) {
                   _getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]);
+                } else {
+                  _getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]);
+                  var extra = {
+                    kommunenr: jsonObject[i].KOMMUNENR,
+                    gardsnr: jsonObject[i].GARDSNR,
+                    bruksnr: jsonObject[i].BRUKSNR,
+                    festenr: jsonObject[i].FESTENR,
+                    seksjonsnr: jsonObject[i].SEKSJONSNR,
+                    eiendomstype: jsonObject[i].EIENDOMSTYPE,
+                    matrikkelnr: jsonObject[i].MATRIKKELNR
+                  };
+                  extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
                 }
               }
             }
