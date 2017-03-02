@@ -403,7 +403,7 @@ angular.module('searchPanel')
               for (var i = 0; i < jsonObject.length; i++) {
                 if (jsonObject[i][_serviceDict[searchResult.source].latID]) {
                   _pushToUnifiedResults(_getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]));
-                } else {
+                } else if (searchResult.source === 'matrikkelnummer'){
                   var extra = {
                     kommunenr: jsonObject[i].KOMMUNENR,
                     gardsnr: jsonObject[i].GARDSNR,
