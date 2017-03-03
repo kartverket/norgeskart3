@@ -1,8 +1,7 @@
 describe ('mainApp test', function(){
 
     beforeEach(module('mainApp', 'mainAppBody.html'));
-    var element,
-        $scope;
+    var $scope;
 
     beforeEach(inject(function($rootScope, $compile) {
         $scope = $rootScope.$new(true);

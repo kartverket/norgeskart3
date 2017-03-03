@@ -1,5 +1,17 @@
 angular.module('mainApp')
-  .controller('mainAppController', ['$scope', 'ISY.MapAPI.Map', 'mainAppFactory', 'toolsFactory', 'ISY.EventHandler', 'isyTranslateFactory', '$location', 'mainMenuPanelFactory', 'localStorageFactory', '$translate', '$timeout', '$window',
+  .controller('mainAppController', [
+    '$scope',
+    'ISY.MapAPI.Map',
+    'mainAppFactory',
+    'toolsFactory',
+    'ISY.EventHandler',
+    'isyTranslateFactory',
+    '$location',
+    'mainMenuPanelFactory',
+    'localStorageFactory',
+    '$translate',
+    '$timeout',
+    '$window',
     function ($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory, $translate, $timeout, $window) {
 
       function _initToolbar() {

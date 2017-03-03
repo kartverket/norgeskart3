@@ -239,7 +239,7 @@ angular.module('searchPanel')
               }
               /*,
               error: function (searchError) {
-                console.log("Error downloading from " + _serviceDict.url, searchError);
+                console.error("Error downloading from " + _serviceDict.url, searchError);
               }*/
             });
           };
@@ -403,7 +403,7 @@ angular.module('searchPanel')
               for (var i = 0; i < jsonObject.length; i++) {
                 if (jsonObject[i][_serviceDict[searchResult.source].latID]) {
                   _pushToUnifiedResults(_getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]));
-                } else if (searchResult.source === 'matrikkelnummer'){
+                } else if (searchResult.source === 'matrikkelnummer') {
                   var extra = {
                     kommunenr: jsonObject[i].KOMMUNENR,
                     gardsnr: jsonObject[i].GARDSNR,
@@ -411,7 +411,8 @@ angular.module('searchPanel')
                     festenr: jsonObject[i].FESTENR,
                     seksjonsnr: jsonObject[i].SEKSJONSNR
                   };
-                  jsonObject[i].url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
+                  jsonObject[i].url = mainAppService
+                    .generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
                   _pushToUnifiedResults(_getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]));
                 }
               }

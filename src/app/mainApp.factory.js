@@ -1,7 +1,6 @@
 angular.module('mainApp')
   .factory('mainAppFactory', ['ISY.MapAPI.Map', '$location', 'ISY.Repository', '$translate', 'translations', '$timeout',
     function (map, $location, repository, $translate, translations, $timeout) {
-
       var instance = "";
       var projectUrl;
       var beginLayersInURL;
@@ -65,7 +64,6 @@ angular.module('mainApp')
           } else {
             instance = $location.search().instance;
           }
-
         } else {
           instance = configJson.instance;
         }
@@ -80,9 +78,7 @@ angular.module('mainApp')
           projectNameUrl = nameProject;
           projectUrl += nameProject.toLowerCase() + '.json';
         }
-
         map.GetResourceFromJson(projectsListUrl, 'application/json', getProjectsListCallback);
-
       };
 
       // var setSearch = function (obj) {
@@ -150,7 +146,7 @@ angular.module('mainApp')
       function getProjectCallback(project, isOffline) {
         projectConfig = project;
         if (projectConfig === undefined || project.config === undefined || project.config.mapbounds === undefined) {
-          console.log("project and/or coordinateExtend is undefined. Check project config");
+          console.error("project and/or coordinateExtend is undefined. Check project config");
           // headerAppFactory.setShowSimpleHeader(true);
           // giAppFactory.setErrorBody();
           // $rootScope.$apply();
@@ -242,16 +238,13 @@ angular.module('mainApp')
 
       var getBound = function (coordinateAndExtent) {
         var bound;
-
         for (var i = 0; i < coordinateAndExtent.mapbound.length; i++) {
           bound = coordinateAndExtent.mapbound[i];
           if (bound.epsg === mapConfig.coordinate_system) {
             return bound;
           }
         }
-
         return undefined;
-
       };
 
       var updateMapConfigWithCoordinateAndExtend = function (coordinateAndExtend) {
@@ -261,7 +254,7 @@ angular.module('mainApp')
 
         var bound = getBound(coordinateAndExtend);
         if (bound === undefined) {
-          console.log("Coordinatesystem is not defined. Maybe missing in file app.config");
+          console.error("Coordinatesystem is not defined. Maybe missing in file app.config");
         } else {
           mapConfig.extent = bound.extent.toString().split(',').map(function (item) {
             return parseInt(item, 10);
@@ -510,9 +503,6 @@ angular.module('mainApp')
         getLastActiveSearchPanel: function () {
           return lastSelectedSearchPanel;
         }
-
-
-
       };
     }
   ]);
