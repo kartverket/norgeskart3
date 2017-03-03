@@ -4,7 +4,7 @@ angular
         var moveableOverlayList = [
             {
                 id: "DrawMenu",
-                headingTitle: 'draw_menu',
+                headingTitle: 'tegne_og_male',
                 headingIcon: 'fa fa-pencil',
                 show: false,
                 top: 12,
@@ -12,7 +12,7 @@ angular
             },
             {
                 id: "ElevationProfile",
-                headingTitle: 'HeightProfile_text',
+                headingTitle: 'lag_hoydeprofil',
                 headingIcon: 'fa fa-area-chart',
                 show: false,
                 top: 12,
@@ -20,7 +20,7 @@ angular
             },
             {
                 id: "ShareMap",
-                headingTitle: 'ShareMap_title',
+                headingTitle: 'dele_kartet',
                 headingIcon: 'fa fa-share-alt',
                 show: false,
                 top: 12,
