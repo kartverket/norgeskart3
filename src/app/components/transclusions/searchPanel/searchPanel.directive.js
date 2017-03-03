@@ -409,7 +409,7 @@ angular.module('searchPanel')
                     gardsnr: jsonObject[i].GARDSNR,
                     bruksnr: jsonObject[i].BRUKSNR,
                     festenr: jsonObject[i].FESTENR,
-                    seksjonsnr: jsonObject[i].SEKSJONSNR,
+                    seksjonsnr: jsonObject[i].SEKSJONSNR
                   };
                   jsonObject[i].url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
                   _pushToUnifiedResults(_getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]));
