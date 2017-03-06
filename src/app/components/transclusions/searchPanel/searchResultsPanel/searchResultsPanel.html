@@ -97,7 +97,7 @@
       <ul class="list-result" data-ng-show="!cadastreResult.open" data-ng-if="!isIosDevice()">
         <div ng-repeat="searchResult in searchResults['matrikkelnummer']">
           <div ng-if="searchResult.url">
-            <li ng-mouseover="mouseOver(searchResult)" class="pointer-cursor list-group-item-danger" ng-mousedown="openShowEiendom(searchResult);">
+            <li ng-mouseover="mouseOver(searchResult)" class="pointer-cursor list-group-item-danger"  data-ng-click="openShowEiendom(searchResult);">
               <span>Matrikkelenheten har ingen kjente teiger. Klikk her får å se informasjon om eiendommen</span>
               <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
               </select>
