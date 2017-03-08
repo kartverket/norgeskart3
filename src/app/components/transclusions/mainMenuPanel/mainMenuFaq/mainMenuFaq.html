@@ -1,21 +1,30 @@
 <div class="sidenav-group">
-    <ul>
-        <li tabindex="0" data-ng-click="showMainMenuSections()" ng-keypress="showMainMenuSections()">
-            <div class="sidenav-header-text row">
-                <div class="col-xs-1">
-                    <span class="fa fa-question"></span>
-                </div>
-                <div class="col-xs-11">
-                    <span class="text-uppercase" translate="tips_og_triks"></span>
-                    <div class="backbtn">
-                        <span class="glyphicon glyphicon-menu-left"></span>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
+  <ul>
+    <li tabindex="0" data-ng-click="showMainMenuSections()" ng-keypress="showMainMenuSections()">
+      <div class="sidenav-header-text row">
+        <div class="col-xs-1">
+          <span class="fa fa-question"></span>
+        </div>
+        <div class="col-xs-11">
+          <span class="text-uppercase" translate="tips_og_triks"></span>
+          <div class="backbtn">
+            <span class="glyphicon glyphicon-menu-left"></span>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>
-
 <div class="sidenav-group">
-
+  <div class="faq-items">
+    <dl data-ng-class="faqExpand == $index ? 'expanded' : ''" data-ng-repeat="faqItem in faqItems">
+      <dt>
+        <a data-ng-click="faqToggle($event, $index)" href="#">
+          <i class="pull-right fa fa-fw" data-ng-class="faqExpand == $index ? 'fa-angle-up' : 'fa-angle-down'"></i>
+          {{faqItem.question}}
+        </a>
+      </dt>
+      <dd>{{faqItem.answer}}</dd>
+    </dl>
+  </div>
 </div>

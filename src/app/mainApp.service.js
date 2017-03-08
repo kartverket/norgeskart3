@@ -173,6 +173,11 @@ angular.module('mainApp')
         return baseUrl + '&KILDE:Eiendom KOMMUNENR:' + kommunenr + ' GARDSNR:' + gardsnr + ' BRUKSNR:' + bruksnr + ' SEKSJONSNR:' + sectionsnr + ' FESTENR:' + festnr;
 
       };
+
+      this.generateFaqUrl = function (code) {
+        return url + 'ws/faq.py?code=' + code;
+      };
+
       /*
        // No CORS
        this.generateSeHavnivaaUrl = function (lat, lon) {
