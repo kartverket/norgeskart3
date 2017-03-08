@@ -131,7 +131,7 @@ angular.module('mainApp')
                 break;
 */
               case 'l':
-                obj.drawing = hash[index + 2]
+                obj.drawing = hash[index + 2];
                 index += 2;
                 break;
                 /*
@@ -143,7 +143,7 @@ angular.module('mainApp')
             }
           }
           $location.url($location.$$url.replace('#' + encodeURIComponent($location.hash()), ''));
-          $location.search(obj)
+          $location.search(obj);
         }
         if (obj.type !== undefined) {
           if (obj.type === "1") {
