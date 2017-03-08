@@ -24,7 +24,7 @@
           <span data-ng-class="getGroupStyleStatus(group)" data-ng-click="toggleGroup(group); $event.stopPropagation();"></span>
         </div>
         <div class="col-xs-11">
-          <span data-ng-bind="group.name | capitalize"></span>
+          <span translate="{{group.name}}"></span>
           <span class="backbtn glyphicon glyphicon-menu-down" data-ng-show="!group.isOpen"></span>
           <div class="backbtn" data-ng-show="group.isOpen">
             <span class="glyphicon glyphicon-menu-up"></span>
@@ -39,7 +39,7 @@
               <span data-ng-class="getLayerStyleStatus(isyLayer)"></span>
             </div>
             <div class="col-xs-9">
-              <span data-ng-bind="isyLayer.name | capitalize"></span>
+              <span class="text-uppercase" translate="{{isyLayer.name}}"></span>
             </div>
           </div>
         </li>
@@ -72,7 +72,7 @@
           <li data-ng-repeat="isyLayer in group.isyLayers | filter:legendFilter">
             <div class="row">
               <div class="col-xs-9">
-                <span data-ng-bind="isyLayer.name | capitalize"></span>
+                <span translate="{{isyLayer.name}}"></span>
               </div>
               <div class="col-xs-10">
                 <img class="legend" data-ng-src="{{GetLegendGraphicUrl(isyLayer)}}">
