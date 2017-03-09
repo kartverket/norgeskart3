@@ -1336,6 +1336,22 @@ textarea, input[type="text"] {
   }
 }
 
+.faq-items {
+  margin: 15px 30px 15px 15px;
+  a {
+    display: block;
+  }
+  dd {
+    display: none;
+    white-space: pre-line;
+  }
+  .expanded {
+    dd {
+      display: block;
+    }
+  }
+}
+
 @import "spacing";
 @import "mobile";
 @import "mobileLandscape";

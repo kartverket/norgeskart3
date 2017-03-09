@@ -92,7 +92,7 @@ angular.module('mainMenuGroupLayers')
           };
 
           scope.checkMatrikkel = function (group) {
-            if (group.name === 'Matrikkel-data') {
+            if (group.name === 'matrikkel_data') {
               return true;
             } else {
               return false;
