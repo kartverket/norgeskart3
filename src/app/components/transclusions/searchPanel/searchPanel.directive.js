@@ -504,7 +504,7 @@ angular.module('searchPanel')
                 case 'Bruk (gardsbruk)':
                   break;
                 default:
-              } // switch              
+              } // switch
             }
           };
 
@@ -697,17 +697,23 @@ angular.module('searchPanel')
           };
 
           var _addElevationPointToSearchOptions = function (jsonRoot, name) {
-            var stedsnavn = jsonRoot.Output[0].Data.LiteralData.Text;
+            var stedsnavn = jsonRoot.Output.filter(function (v) {
+              return v.Identifier === "placename";
+            })[0].Data.LiteralData.Text;
             var text = '"' + stedsnavn + '"';
             var extra = {
-              url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
+              url: mainAppService.generateFaktaarkUrl(jsonRoot.Output.filter(function (v) {
+                return v.Identifier === "stedsnummer";
+              })[0].Data.LiteralData.Text)
             };
             scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', 'fa fa-flag', true, text, extra);
             if (scope.activeSearchResult && scope.activeSearchResult.source == 'mouseClick') {
               scope.searchBarModel = stedsnavn;
             }
 
-            text = jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' ';
+            text = jsonRoot.Output.filter(function (v) {
+              return v.Identifier === "elevation";
+            })[0].Data.LiteralData.Text.split('.')[0] + ' ';
             extra = {};
             scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, text, extra);
           };
