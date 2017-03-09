@@ -87,6 +87,64 @@ angular.module('mainApp')
       $scope.initMapLayout = function () {
         _initActiveLanguage();
         var obj = $location.search();
+        var hash = $location.hash().split('/');
+        if (hash.length >= 3) {
+          obj.zoom = hash[0];
+          obj.lon = hash[1];
+          obj.lat = hash[2];
+          for (index = 3; index < hash.length; index += 1) {
+            switch (hash[index].charAt(0)) {
+              /*
+              case '+':
+                // AddLayer named
+                showLayerNamed(extra.slice(1), layerIndex);
+                layerIndex += 1;
+                break;
+              case '-':
+                hideLayerNamed(extra.slice(1));
+                break;
+              case '*':
+                var lid = extra.slice(1);
+                if (lid.length) {
+                  makeLayerAvailable(lid);
+                } else {
+                  //NK.compactMode = true;
+                  NK.compactMode = false;
+                }
+                break;
+              case '!':
+                highlight(extra);
+                break;
+              case 'o':
+                setOpacity(extra.slice(1));
+                break;
+              case 'm':
+                setTimeout(
+                  (function (boundParameters, boundCounter) {
+                    return function () {
+                      NK.functions.addLabeledMarker(boundParameters, boundCounter);
+                    };
+                  }(parms.slice(index + 1, index + 4), ++labeledMarkerCount)),
+                  500
+                );
+                index += 3;
+                break;
+*/
+              case 'l':
+                obj.drawing = hash[index + 2];
+                index += 2;
+                break;
+                /*
+              case 'd':
+                NK.functions.setDataLayer(parms.slice(index + 1, index + 3))
+                index += 2;
+                break;
+                */
+            }
+          }
+          $location.url($location.$$url.replace('#' + encodeURIComponent($location.hash()), ''));
+          $location.search(obj);
+        }
         if (obj.type !== undefined) {
           if (obj.type === "1") {
             $scope.showMapLayout();

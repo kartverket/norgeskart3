@@ -458,6 +458,7 @@ angular.module('searchPanel')
             if (!_unifiedResults[result.source]) {
               _unifiedResults[result.source] = {};
             }
+
             _unifiedResults[result.source][resultID] = {
               name: result.name,
               point: result.point,
@@ -471,6 +472,39 @@ angular.module('searchPanel')
               _unifiedResults[result.source][resultID]['husnummer'] = result.husnummer;
             } else if (result.navnetype) {
               _unifiedResults[result.source][resultID]['navnetype'] = result.navnetype;
+              switch (result.navnetype) {
+                case 'Nasjon':
+                  _unifiedResults[result.source][resultID]['kommune'] = '';
+                  break;
+                case 'Fylke':
+                  _unifiedResults[result.source][resultID]['kommune'] = '';
+                  break;
+                case 'Kommune':
+                  _unifiedResults[result.source][resultID]['kommune'] = '';
+                  break;
+                case 'By':
+                case 'Adm. bydel':
+                case 'Bydel':
+                case 'Tettsted':
+                case 'Tettbebyggelse':
+                case 'Grend':
+                case 'Fjellområde':
+                case 'Bygdelag (bygd)':
+                case 'Tettsteddel':
+                  break;
+                case 'Adressenavn (veg/gate)':
+                  break;
+                case 'Flyplass':
+                case 'Fengsel':
+                case 'Annen kulturdetalj':
+                case 'Stasjon':
+                case 'Kirke':
+                case 'Bru':
+                case 'Skole':
+                case 'Bruk (gardsbruk)':
+                  break;
+                default:
+              } // switch              
             }
           };
 
