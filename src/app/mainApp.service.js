@@ -117,11 +117,11 @@ angular.module('mainApp')
       };
 
       this.generateGeoJSONUrl = function (hash) {
-        return url + 'user/json-test/' + hash + '.json';
+        return url + 'ws/get-json.py?hash=' + hash;
       };
 
       this.generateGeoJSONSaveUrl = function () {
-        return url + 'ws/upload-json-test.py';
+        return url + 'ws/upload-json.py';
       };
 
       this.generateSearchMatrikkelNummerUrl = function (query) {
