@@ -38,45 +38,24 @@ angular.module('searchLagNodplakatPanel')
                 var placenamesByBboxUrl = mainAppService.generateSearchStedsnavnBboxUrl(extent[0], extent[1], extent[2], extent[3]);
                 _downloadFromUrl(placenamesByBboxUrl, 'placenamesByBbox');
             };
-            var _parseElevationPointData = function (jsonRoot) {
-                $scope.activePlaceName = jsonRoot.Output[0].Data.LiteralData.Text;
-                $scope.setSearchBarText($scope.activePlaceName);
-                $scope.lagNodplakatName = $scope.activePlaceName;
-            };
-
-            var _parseEmergencyPosterPointData = function (jsonRoot, name) {
-                $scope.lagNodplakatDict[name] = jsonRoot;
-            };
-
-            var _parsePlacenamesByBboxData = function (jsonRoot, name) {
-                $scope.lagNodplakatDict[name] = jsonRoot;
-                if (!$scope.activePlaceName) {
-                    $scope.activePlaceName = jsonRoot[0].stedsnavn;
-                    $scope.setSearchBarText($scope.activePlaceName);
-                    $scope.lagNodplakatName = $scope.activePlaceName;
-                }
-            };
 
             var _retrieveDataFromResponse = function (name, data) {
-                var jsonObject;
-                var jsonRoot;
                 switch (name) {
                     case('elevationPoint'):
-                        jsonObject = xml.xmlToJSON(data);
-                        jsonRoot = jsonObject.ExecuteResponse.ProcessOutputs;
-                        if (!jsonRoot.Output[0].Data.LiteralData) {
-                            return;
-                        }
-                        _parseElevationPointData(jsonRoot, name);
+                        $scope.activePlaceName = data.placename;
+                        $scope.setSearchBarText($scope.activePlaceName);
+                        $scope.lagNodplakatName = $scope.activePlaceName;
                         break;
                     case('emergencyPosterPoint'):
-                        jsonRoot = data;
-                        _parseEmergencyPosterPointData(jsonRoot, name);
+                        $scope.lagNodplakatDict[name] = data;
                         break;
                     case('placenamesByBbox'):
-                        jsonObject = data;
-                        jsonRoot = jsonObject.stedsnavn;
-                        _parsePlacenamesByBboxData(jsonRoot, name);
+                        $scope.lagNodplakatDict[name] = data.stedsnavn;
+                        if (!$scope.activePlaceName) {
+                            $scope.activePlaceName = data.stedsnavn[0].stedsnavn;
+                            $scope.setSearchBarText($scope.activePlaceName);
+                            $scope.lagNodplakatName = $scope.activePlaceName;
+                        }
                         break;
                 }
             };

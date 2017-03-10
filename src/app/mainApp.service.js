@@ -77,7 +77,7 @@ angular.module('mainApp')
       };
 
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
-        return urlOpenWps + "wps.elevation?request=Execute&service=WPS&version=1.0.0&identifier=elevation&datainputs=[lat=" + lat + ";lon=" + lon + ";epsg=" + epsgNumber + "]";
+        return url + 'ws/elev.py?lat=' + lat + '&lon=' + lon + '&epsg=' + epsgNumber;
       };
 
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {

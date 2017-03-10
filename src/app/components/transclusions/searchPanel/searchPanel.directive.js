@@ -696,22 +696,6 @@ angular.module('searchPanel')
             scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-ambulance', true, 'Lage nødplakat', {});
           };
 
-          var _addElevationPointToSearchOptions = function (jsonRoot, name) {
-            var stedsnavn = jsonRoot.Output[0].Data.LiteralData.Text;
-            var text = '"' + stedsnavn + '"';
-            var extra = {
-              url: mainAppService.generateFaktaarkUrl(jsonRoot.Output[3].Data.LiteralData.Text)
-            };
-            scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', 'fa fa-flag', true, text, extra);
-            if (scope.activeSearchResult && scope.activeSearchResult.source == 'mouseClick') {
-              scope.searchBarModel = stedsnavn;
-            }
-
-            text = jsonRoot.Output[2].Data.LiteralData.Text.split('.')[0] + ' ';
-            extra = {};
-            scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, text, extra);
-          };
-
           var _addMatrikkelInfoToSearchOptions = function (jsonRoot, name) {
             if (!jsonRoot[0]) {
               jsonRoot = [jsonRoot];
@@ -811,27 +795,26 @@ angular.module('searchPanel')
 
 
           var _addSearchOptionToPanel = function (name, data) {
-            var jsonObject;
-            var jsonRoot;
             switch (name) {
               case ('elevationPoint'):
-                jsonObject = xml.xmlToJSON(data);
-                jsonRoot = jsonObject.ExecuteResponse.ProcessOutputs;
-                if (!jsonRoot.Output[0].Data.LiteralData) {
-                  return;
+                scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', 'fa fa-flag', true, '"'+data.placename+'"', {
+                  url: mainAppService.generateFaktaarkUrl(data.stedsnummer)
+                });
+                if (scope.activeSearchResult && scope.activeSearchResult.source == 'mouseClick') {
+                  scope.searchBarModel = data.placename;
                 }
-                _addElevationPointToSearchOptions(jsonRoot, name);
+                scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, data.elevation.toFixed(1), {});
                 break;
 
               case ('seEiendom'):
-                jsonObject = xml.xmlToJSON(data);
+                var jsonObject = xml.xmlToJSON(data);
                 if (!jsonObject.FeatureCollection) {
                   return;
                 }
                 if (!jsonObject.FeatureCollection.featureMembers) {
                   return;
                 }
-                jsonRoot = jsonObject.FeatureCollection.featureMembers.TEIGWFS;
+                var jsonRoot = jsonObject.FeatureCollection.featureMembers.TEIGWFS;
                 _addMatrikkelInfoToSearchOptions(jsonRoot, name);
 
                 scope.fetchAddressInfoForMatrikkel();
