@@ -65,7 +65,11 @@ angular.module('mainApp')
       };
 
       this.generateSearchStedsnavnUrl = function (query, side, antall) {
-        return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + encodeURIComponent(query) + "*&eksakteForst=true&antPerSide=" + antall + "&epsgKode=32633&side=" + side;
+        var testquery = query.split(',');
+        if (testquery.length >= 2) {
+          query = testquery[0] + "*&fylkeKommuneNavnListe=+" + testquery[1].trim();
+        }
+        return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + query + "&eksakteForst=true&antPerSide=" + antall + "&epsgKode=32633&side=" + side;
       };
 
       this.generateSearchAdresseUrl = function (query) {
