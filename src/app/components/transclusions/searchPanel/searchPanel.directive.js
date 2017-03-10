@@ -451,60 +451,60 @@ angular.module('searchPanel')
           };
 
           var _pushToUnifiedResults = function (result) {
-            result.name = result.source != 'matrikkelnummer' ? scope.fixNames(result.name) : result.name;
-            result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
-            // var resultID = result.name + result.kommune;
-            var resultID = _createID(result);
-            if (!_unifiedResults[result.source]) {
-              _unifiedResults[result.source] = {};
-            }
-
-            _unifiedResults[result.source][resultID] = {
-              name: result.name,
-              point: result.point,
-              format: result.format,
-              source: result.source,
-              kommune: result.kommune,
-              id: resultID,
-              url: result.url
-            };
-            if (result.husnummer) {
-              _unifiedResults[result.source][resultID]['husnummer'] = result.husnummer;
-            } else if (result.navnetype) {
-              _unifiedResults[result.source][resultID]['navnetype'] = result.navnetype;
-              switch (result.navnetype) {
-                case 'Nasjon':
-                  _unifiedResults[result.source][resultID]['kommune'] = '';
-                  break;
-                case 'Fylke':
-                  _unifiedResults[result.source][resultID]['kommune'] = '';
-                  break;
-                case 'Kommune':
-                  _unifiedResults[result.source][resultID]['kommune'] = '';
-                  break;
-                case 'By':
-                case 'Adm. bydel':
-                case 'Bydel':
-                case 'Tettsted':
-                case 'Tettbebyggelse':
-                case 'Grend':
-                case 'Fjellområde':
-                case 'Bygdelag (bygd)':
-                case 'Tettsteddel':
-                  break;
-                case 'Adressenavn (veg/gate)':
-                  break;
-                case 'Flyplass':
-                case 'Fengsel':
-                case 'Annen kulturdetalj':
-                case 'Stasjon':
-                case 'Kirke':
-                case 'Bru':
-                case 'Skole':
-                case 'Bruk (gardsbruk)':
-                  break;
-                default:
-              } // switch              
+            if (result.kommune && result.name) {
+              result.name = result.source != 'matrikkelnummer' ? scope.fixNames(result.name) : result.name;
+              result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
+              var resultID = _createID(result);
+              if (!_unifiedResults[result.source]) {
+                _unifiedResults[result.source] = {};
+              }
+              _unifiedResults[result.source][resultID] = {
+                name: result.name,
+                point: result.point,
+                format: result.format,
+                source: result.source,
+                kommune: result.kommune,
+                id: resultID,
+                url: result.url
+              };
+              if (result.husnummer) {
+                _unifiedResults[result.source][resultID]['husnummer'] = result.husnummer;
+              } else if (result.navnetype) {
+                _unifiedResults[result.source][resultID]['navnetype'] = result.navnetype;
+                switch (result.navnetype) {
+                  case 'Nasjon':
+                    _unifiedResults[result.source][resultID]['kommune'] = '';
+                    break;
+                  case 'Fylke':
+                    _unifiedResults[result.source][resultID]['kommune'] = '';
+                    break;
+                  case 'Kommune':
+                    _unifiedResults[result.source][resultID]['kommune'] = '';
+                    break;
+                  case 'By':
+                  case 'Adm. bydel':
+                  case 'Bydel':
+                  case 'Tettsted':
+                  case 'Tettbebyggelse':
+                  case 'Grend':
+                  case 'Fjellområde':
+                  case 'Bygdelag (bygd)':
+                  case 'Tettsteddel':
+                    break;
+                  case 'Adressenavn (veg/gate)':
+                    break;
+                  case 'Flyplass':
+                  case 'Fengsel':
+                  case 'Annen kulturdetalj':
+                  case 'Stasjon':
+                  case 'Kirke':
+                  case 'Bru':
+                  case 'Skole':
+                  case 'Bruk (gardsbruk)':
+                    break;
+                  default:
+                } // switch
+              }
             }
           };
 
@@ -797,7 +797,7 @@ angular.module('searchPanel')
           var _addSearchOptionToPanel = function (name, data) {
             switch (name) {
               case ('elevationPoint'):
-                scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', 'fa fa-flag', true, '"'+data.placename+'"', {
+                scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', 'fa fa-flag', true, '"' + data.placename + '"', {
                   url: mainAppService.generateFaktaarkUrl(data.stedsnummer)
                 });
                 if (scope.activeSearchResult && scope.activeSearchResult.source == 'mouseClick') {
