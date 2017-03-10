@@ -17,14 +17,14 @@ angular.module('mainApp')
           var drawFeature = toolsFactory.getToolById('DrawFeature');
           var addLayerUrl = toolsFactory.getToolById('AddLayerUrl');
 
-          element.on('mousedown touchstart', function () {
+          element.on('mousedown touchstart', function (event) {
             if (!addFeatureTool.isSelected && !measureLine.isSelected && !measure.isSelected && !printBoxSelect.isSelected && !drawFeature.isSelected && !addLayerUrl.isSelected) {
               toolsFactory.activateTool(pointSelectTool);
             }
             if (mainAppFactory.isMainMenuOpen()) {
               var elementsInPath = event.path;
               if (elementsInPath === undefined) {
-                elementsInPath = _generatePath();
+                elementsInPath = _generatePath(event);
               }
               for (var i = 0; i < elementsInPath.length; i++) {
                 if (elementsInPath[i].id === "mapDiv") {
@@ -35,7 +35,7 @@ angular.module('mainApp')
           });
 
 
-          function _generatePath() {
+          function _generatePath(event) {
             var path = [];
             var currentElem = event.target;
             while (currentElem) {
