@@ -803,7 +803,8 @@ angular.module('searchPanel')
                 if (scope.activeSearchResult && scope.activeSearchResult.source == 'mouseClick') {
                   scope.searchBarModel = data.placename;
                 }
-                scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, data.elevation.toFixed(1), {});
+                var elevationValue = data.elevation === false ? '-' : data.elevation.toFixed(1);
+                scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, elevationValue, {});
                 break;
 
               case ('seEiendom'):
