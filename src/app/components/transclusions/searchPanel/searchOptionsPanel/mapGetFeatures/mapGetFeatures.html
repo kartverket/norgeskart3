@@ -25,9 +25,13 @@
   <div data-ng-show="layer.open && !foundLayersMenu.open">
     <div dir-paginate="feature in layer.features | itemsPerPage: 1" current-page="currentPage" pagination-id="layer.id">
       <ul class="closeable-subcontent">
-        <div class="symbols col-xs-5">
-            <img data-ng-repeat="attribute in feature.attributes" data-ng-if="attribute[1].type=='symbol'" class="image" data-ng-src="{{attribute[1].url}}">
-        </div>
+        <li>
+          <div class="row">
+            <div class="col-xs-4"></div>
+            <img data-ng-repeat="attribute in feature.attributes | limitTo:3" data-ng-if="attribute[1].type=='symbol'" class="image"
+              data-ng-src="{{attribute[1].url}}">
+          </div>
+        </li>
         <li data-ng-repeat="attribute in feature.attributes">
           <div class="row">
             <div class="col-xs-5">
