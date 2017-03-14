@@ -1,31 +1,28 @@
 angular
-    .module('searchKoordTransPanel')
-    .factory('searchKoordTransPanelFactory', [
-        function() {
+  .module('searchKoordTransPanel')
+  .factory('searchKoordTransPanelFactory', [
+    function () {
+      var keyCoord = '';
+      var advancedCoordSystem = false;
 
-            var keyCoord = '';
-            var advancedCoordSystem = false;
+      return {
 
+        setLastSelectedCoorKey: function (key) {
+          keyCoord = key;
+        },
 
-            return {
+        getLastSelectedCoorKey: function () {
+          return keyCoord;
+        },
 
-                setLastSelectedCoorKey: function(key){
-                    keyCoord = key;
-                },
+        setAdvancedCoordSystem: function (value) {
+          advancedCoordSystem = value;
+        },
 
-                getLastSelectedCoorKey: function () {
-                    return keyCoord;
-                },
+        getAdvancedCoordSystem: function () {
+          return advancedCoordSystem;
+        }
 
-                setAdvancedCoordSystem: function (value) {
-                    advancedCoordSystem = value;
-                },
-
-                getAdvancedCoordSystem: function () {
-                    return advancedCoordSystem;
-                }
-
-            };
-
-
-        }]);
+      };
+    }
+  ]);

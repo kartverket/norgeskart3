@@ -1,72 +1,76 @@
 <div class="search-panel" data-ng-controller="searchKoordTransPanelController">
-    <div class="header">
-        <div class="row">
-            <div class="col-xs-12">
-                <span class="header-icon icon-important" data-ng-class="searchOptionsDict['koordTrans'].icon.value"></span>
-                <span class="text-uppercase" translate="koord_tittel"></span>
-                <div class="closebtn" data-ng-click="showSearchOptionsPanel()">
-                    <span class="glyphicon glyphicon-menu-right"></span>
-                    <span class="glyphicon glyphicon-menu-left"></span>
-                </div>
-            </div>
+  <div class="header">
+    <div class="row">
+      <div class="col-xs-12">
+        <span class="header-icon icon-important" data-ng-class="searchOptionsDict['koordTrans'].icon.value"></span>
+        <span class="text-uppercase" translate="koord_tittel"></span>
+        <div class="closebtn" data-ng-click="showSearchOptionsPanel()">
+          <span class="glyphicon glyphicon-menu-right"></span>
+          <span class="glyphicon glyphicon-menu-left"></span>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-content">
+    <div>
+      <span translate="koord_info"></span>
     </div>
 
-    <div class="search-content">
-        <div>
-            <span translate="koord_info"></span>
-        </div>
-
-        <div class="new-section">
-            <div class="dropdown">
-                <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span translate="{{getActiveCoorSystem()}}"></span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
-                    <li data-ng-repeat="(key, value) in coordinateSystems" data-ng-click="_fetchKoordTrans(key)" class="pointer-cursor">
-                        <span translate="{{coordinateSystems[key]}}"></span>
-                    </li>
-                </ul>
-            </div>
-            <div class="checkbox checkbox-below">
-                <label>
-                    <input type="checkbox" data-ng-click="generateCoordinateSystems()" ng-model="showAdvancedCoordinateSystems" /> <span translate="koord_vis_flere"></span>
-                </label>
-            </div>
-        </div>
-
-        <div class="new-section">
-            <table class="table table-condensed table-borderless mb-0">
-                <colgroup>
-                    <col width="25%">
-                    <col width="75%">
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th>
-                            <span class="text-uppercase" translate="koord_nord"></span>
-                        </th>
-                        <td>
-                            <span data-ng-bind="activePosition.transLat"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <span class="text-uppercase" translate="koord_ost"></span>
-                        </th>
-                        <td>
-                            <span data-ng-bind="activePosition.transLon"></span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="new-section navigation-button pull-right">
-            <button class="btn btn-default btn-ordinary"
-                    data-ng-click="showSearchOptionsPanel()" translate="Cancel_txt">
+    <div class="new-section">
+      <div class="dropdown">
+        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="true">
+                <span translate="{{getActiveCoorSystem()}}"></span>
+                <span class="caret"></span>
             </button>
-        </div>
+        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
+          <li data-ng-repeat="(key, value) in coordinateSystems" data-ng-click="_fetchKoordTrans(key)" class="pointer-cursor">
+            <span translate="{{coordinateSystems[key]}}"></span>
+          </li>
+        </ul>
+      </div>
+      <div class="checkbox checkbox-below">
+        <label>
+          <input type="checkbox" data-ng-click="generateCoordinateSystems()" ng-model="showAdvancedCoordinateSystems" /> <span translate="koord_vis_flere"></span>
+        </label>
+      </div>
     </div>
+
+    <div class="new-section">
+      <table class="table table-condensed table-borderless mb-0">
+        <colgroup>
+          <col width="25%">
+          <col width="75%">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th>
+              <span class="text-uppercase" translate="koord_nord"></span>
+            </th>
+            <td>
+              <div><span data-ng-bind="activePosition.transLat"></span></div>
+              <div><span data-ng-bind="activePosition.transLat2"></span></div>
+              <div><span data-ng-bind="activePosition.transLat3"></span></div>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <span class="text-uppercase" translate="koord_ost"></span>
+            </th>
+            <td>
+              <div><span data-ng-bind="activePosition.transLon"></span></div>
+              <div><span data-ng-bind="activePosition.transLon2"></span></div>
+              <div><span data-ng-bind="activePosition.transLon3"></span></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="new-section navigation-button pull-right">
+      <button class="btn btn-default btn-ordinary" data-ng-click="showSearchOptionsPanel()" translate="Cancel_txt">
+            </button>
+    </div>
+  </div>
 </div>
