@@ -3,6 +3,7 @@ angular.module('mainApp')
     function () {
       var url = 'https://www.norgeskart.no/';
       var urlOpenWps = 'https://openwps.statkart.no/skwms1/';
+      var urlTest = 'http://nnrite540/';
       var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
       var urlGeonorge = 'https://ws.geonorge.no/';
       var urlSeEiendom = 'http://www.seeiendom.no/';
@@ -10,7 +11,7 @@ angular.module('mainApp')
       var urlHavnivaa = "http://api.sehavniva.no/";
 
       this.generateWhat3WordsServiceUrl = function () {
-        return url + 'ws/w3w.py';
+        return urlTest + 'search/w3w/';
       };
 
       this.uploadGpxFileService = function () {
@@ -57,11 +58,11 @@ angular.module('mainApp')
       };
 
       this.generateSearchMatrikkelVegUrl = function (query) {
-        return url + "ws/veg.py?" + encodeURIComponent(query);
+        return urlTest + "search/veg/" + encodeURIComponent(query);
       };
 
       this.generateSearchMatrikkelAdresseUrl = function (query) {
-        return url + "ws/adr.py?" + encodeURIComponent(query);
+        return urlTest + "search/adr/" + encodeURIComponent(query);
       };
 
       this.generateSearchStedsnavnUrl = function (query, side, antall) {
@@ -84,7 +85,7 @@ angular.module('mainApp')
       };
 
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
-        return url + "ws/wfs.teig.py?bbox=" + minx + "," + miny + "," + maxx + "," + maxy;
+        return urlTest + "search/teigwfs/bbox=" + minx + "," + miny + "," + maxx + "," + maxy;
       };
 
       this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
@@ -96,7 +97,7 @@ angular.module('mainApp')
       };
 
       this.generateKoordTransUrl = function (ost, nord, resSosiKoordSys) {
-        return url + "/ws/trans.py?ost=" + ost + "&nord=" + nord + " &sosiKoordSys=84&resSosiKoordSys=" + resSosiKoordSys;
+        return url + "/api/v1/transform/" + ost + "/" + nord + "/84/" + resSosiKoordSys;
       };
 
       this.generateSeHavnivaaUrl = function (lat, lon) {
@@ -132,7 +133,7 @@ angular.module('mainApp')
       };
 
       this.generateSearchMatrikkelNummerUrl = function (query) {
-        return url + 'ws/eie.py?' + encodeURIComponent(query);
+        return urlTest + 'search/eie/' + encodeURIComponent(query);
       };
 
       this.generateMatrikkelWfsFilterUrl = function (property) {
@@ -167,7 +168,7 @@ angular.module('mainApp')
       };
 
       this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {
-        var baseUrl = url + 'ws/eiendom.py?';
+        var baseUrl = urlTest + 'search/eiendom/';
         if (festnr !== "0") {
           if (sectionsnr === "0") {
             baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr;
