@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-xs-11">
                     <span class="text-uppercase"><span translate="bakgrunnskart"></span>:</span>
-                    <span data-ng-bind="getSelectedBaseLayerName()"></span>
+                    <span translate="{{getSelectedBaseLayerName()}}"></span>
                     <div class="backbtn">
                         <span class="glyphicon glyphicon-menu-left"></span>
                     </div>
@@ -25,7 +25,7 @@
                     <span data-ng-class="getBaseLayerStyle(baseLayer)"></span>
                 </div>
                 <div class="col-xs-11">
-                    <span data-ng-bind="baseLayer.name"></span>
+                    <span translate="{{baseLayer.name}}"></span>
                 </div>
             </div>
         </li>
