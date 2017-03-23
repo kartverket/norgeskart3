@@ -51,7 +51,7 @@ angular.module('searchKoordTransPanel')
         searchKoordTransPanelFactory.setAdvancedCoordSystem($scope.showAdvancedCoordinateSystems);
         var standard = mainAppService.getCoordinateSystems('standard');
         var extended = mainAppService.getCoordinateSystems('extended');
-        Object.assign(extended, standard);
+        angular.extend(extended, standard);
         if ($scope.showAdvancedCoordinateSystems) {
           $scope.coordinateSystems = extended;
         } else {
