@@ -95,8 +95,10 @@ angular.module('mainApp')
         return urlFaktaark + stedsnummer;
       };
 
-      this.generateKoordTransUrl = function (ost, nord, resSosiKoordSys) {
-        return url + "/ws/trans.py?ost=" + ost + "&nord=" + nord + " &sosiKoordSys=84&resSosiKoordSys=" + resSosiKoordSys;
+      this.generateKoordTransUrl = function (ost, nord, resSosiKoordSys, sosiKoordSys) {
+        resSosiKoordSys = resSosiKoordSys || 84;
+        sosiKoordSys = sosiKoordSys || 84;
+        return url + "/ws/trans.py?ost=" + ost + "&nord=" + nord + " &sosiKoordSys=" + sosiKoordSys + "&resSosiKoordSys=" + resSosiKoordSys;
       };
 
       this.generateSeHavnivaaUrl = function (lat, lon) {
@@ -194,5 +196,264 @@ angular.module('mainApp')
        return "http://eiendom.statkart.no/Search.ashx?filter=KILDE:sted,matreiendom,SITEURLKEY:httpwwwseeiendomno,LESEGRUPPER:guests&term=" + query;
        };
        */
+
+      this.sosiCodes = [{
+          ESRI: null,
+          EPSG: 4326,
+          SOSI: 84,
+          name: 'EU89 - Geografisk, grader (Lat/Lon)',
+          viewable: false,
+          key: 'EU89_Lat_Lon',
+          type: 'standard',
+          bbox: []
+        }, //viewable, but not necessary in selectors
+        {
+          ESRI: 25831,
+          EPSG: 25831,
+          SOSI: 21,
+          name: 'EU89, UTM-sone 31',
+          viewable: true,
+          key: 'EU89_UTM_31',
+          type: 'standard',
+          bbox: []
+        },
+        {
+          ESRI: 25832,
+          EPSG: 25832,
+          SOSI: 22,
+          name: 'EU89, UTM-sone 32',
+          viewable: true,
+          key: 'EU89_UTM_32',
+          type: 'standard',
+          bbox: []
+        },
+        {
+          ESRI: 25833,
+          EPSG: 25833,
+          SOSI: 23,
+          name: 'EU89, UTM-sone 33',
+          viewable: true,
+          key: 'EU89_UTM_33',
+          type: 'standard',
+          bbox: []
+        },
+        {
+          ESRI: 25834,
+          EPSG: 25834,
+          SOSI: 24,
+          name: 'EU89, UTM-sone 34',
+          viewable: true,
+          key: 'EU89_UTM_34',
+          type: 'standard',
+          bbox: []
+        },
+        {
+          ESRI: 25835,
+          EPSG: 25835,
+          SOSI: 25,
+          name: 'EU89, UTM-sone 35',
+          viewable: true,
+          key: 'EU89_UTM_35',
+          type: 'standard',
+          bbox: []
+        },
+        {
+          ESRI: 25836,
+          EPSG: 25836,
+          SOSI: 26,
+          name: 'EU89, UTM-sone 36',
+          viewable: true,
+          key: 'EU89_UTM_36',
+          type: 'standard',
+          bbox: []
+        },
+        {
+          ESRI: 27391,
+          EPSG: 27391,
+          SOSI: 1,
+          name: 'NGO1948, Gauss-K. Akse 1',
+          viewable: false,
+          key: 'NGO1948_GaussK_1',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 27392,
+          EPSG: 27392,
+          SOSI: 2,
+          name: 'NGO1948, Gauss-K. Akse 2',
+          viewable: false,
+          key: 'NGO1948_GaussK_2',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 27393,
+          EPSG: 27393,
+          SOSI: 3,
+          name: 'NGO1948, Gauss-K. Akse 3',
+          viewable: false,
+          key: 'NGO1948_GaussK_3',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 27394,
+          EPSG: 27394,
+          SOSI: 4,
+          name: 'NGO1948, Gauss-K. Akse 4',
+          viewable: false,
+          key: 'NGO1948_GaussK_4',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 27395,
+          EPSG: 27395,
+          SOSI: 5,
+          name: 'NGO1948, Gauss-K. Akse 5',
+          viewable: false,
+          key: 'NGO1948_GaussK_5',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 27396,
+          EPSG: 27396,
+          SOSI: 6,
+          name: 'NGO1948, Gauss-K. Akse 6',
+          viewable: false,
+          key: 'NGO1948_GaussK_6',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 27397,
+          EPSG: 27397,
+          SOSI: 7,
+          name: 'NGO1948, Gauss-K. Akse 7',
+          viewable: false,
+          key: 'NGO1948_GaussK_7',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 27398,
+          EPSG: 27398,
+          SOSI: 8,
+          name: 'NGO1948, Gauss-K. Akse 8',
+          viewable: false,
+          key: 'NGO1948_GaussK_8',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: null,
+          EPSG: null,
+          SOSI: 50,
+          name: 'ED50 - Geografisk, grader',
+          viewable: false,
+          key: 'ED50',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 23031,
+          EPSG: 23031,
+          SOSI: 31,
+          name: 'ED50, UTM-sone 31',
+          viewable: false,
+          key: 'ED50_UTM_31',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 23032,
+          EPSG: 23032,
+          SOSI: 32,
+          name: 'ED50, UTM-sone 32',
+          viewable: false,
+          key: 'ED50_UTM_32',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 23033,
+          EPSG: 23033,
+          SOSI: 33,
+          name: 'ED50, UTM-sone 33',
+          viewable: false,
+          key: 'ED50_UTM_33',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 23034,
+          EPSG: 23034,
+          SOSI: 34,
+          name: 'ED50, UTM-sone 34',
+          viewable: false,
+          key: 'ED50_UTM_34',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 23035,
+          EPSG: 23035,
+          SOSI: 35,
+          name: 'ED50, UTM-sone 35',
+          viewable: false,
+          key: 'ED50_UTM_35',
+          type: 'extended',
+          bbox: []
+        },
+        {
+          ESRI: 23036,
+          EPSG: 23036,
+          SOSI: 36,
+          name: 'ED50, UTM-sone 36',
+          viewable: false,
+          key: 'ED50_UTM_36',
+          type: 'extended',
+          bbox: []
+        }
+        //{ESRI: null,EPSG: null,SOSI: null,name: 'what3words',viewable: false,forward: true,key: 'w3w',type: 'extended',bbox: []}
+        //{'ESRI': null, 'EPSG': null, 'SOSI': null, 'name': 'Geohash', 'viewable': false, 'forward': true}
+        //{'ESRI': null, 'EPSG': null, 'SOSI': 53, 'name': 'Møre-A'},
+        //{'ESRI': null, 'EPSG': null, 'SOSI': 54, 'name': 'Møre-B'},
+        //{'ESRI': null, 'EPSG': null, 'SOSI': 84, 'name': 'EU89, Geografisk, sekunder'}
+        //{'ESRI': 4230, 'EPSG': 4230, 'SOSI': 4230, 'name': 'ED50 Geografisk, grader'},
+        //{'ESRI': 4231, 'EPSG': null, 'SOSI': 4231, 'name': 'ED87 Geografisk, grader'},
+        //{'ESRI': 4273, 'EPSG': 4273, 'SOSI': 4273, 'name': 'NGO1948 Geografisk, grader'},
+        //{'ESRI': null, 'EPSG': 4322, 'SOSI': 4322, 'name': 'WGS72 Geografisk, grader'},
+        //{'ESRI': 4326, 'EPSG': 4326, 'SOSI': 4326, 'name': 'EU89/WGS84 Geografisk, grader'}
+      ];
+      this.getSOSIfromEPSG = function (epsg) {
+        return this.sosiCodes
+          .filter(function (el) {
+            return el.EPSG == epsg;
+          })
+          .map(function (obj) {
+            return obj.SOSI;
+          })[0];
+      };
+      this.getCoordinateSystems = function (type) {
+        var result = {};
+        this.sosiCodes
+          .filter(function (el) {
+            return el.type == type;
+          })
+          .filter(Boolean)
+          .map(function (obj) {
+            var rObj = {};
+            rObj[obj.SOSI] = obj.key;
+            return rObj;
+          }).forEach(function (element) {
+            for (var i in element) {
+              result[i] = element[i];
+            }
+          });
+        return result;
+      };
     }
   ]);
