@@ -6,6 +6,58 @@ angular.module('searchPanel')
         restrict: 'A',
         controller: 'searchPanelController',
         link: function (scope) {
+          scope.sourceDict = searchPanelFactory.getSourceDict();
+          scope.mapEpsg = searchPanelFactory.getMapEpsg();
+
+          _searchResults = {};
+          _unifiedResults = {};
+          _serviceDict = {};
+          _queryDict = {};
+
+          var _clickableLinkClass = {
+            icon: 'search-options pointer-cursor',
+            text: 'pointer-cursor'
+          };
+
+          var _defaultClass = {
+            icon: 'search-options',
+            text: ''
+          };
+
+          var _constructSearchOption = function (name, icon, clickable, text, extra) {
+            var searchOption = {
+              icon: {
+                value: icon,
+                class: _defaultClass.icon
+              },
+              text: {
+                value: text,
+                class: _defaultClass.text
+              },
+              name: name
+            };
+
+            if (clickable) {
+              searchOption.icon.class = _clickableLinkClass.icon;
+              searchOption.text.class = _clickableLinkClass.text;
+            }
+            for (var key in extra) {
+              searchOption[key] = extra[key];
+            }
+            return searchOption;
+          };
+
+          var _emptySearchOption = {
+            icon: {
+              value: '',
+              class: ''
+            },
+            text: {
+              value: '',
+              class: ''
+            },
+            name: ''
+          };
 
           var _getValueFromUrl = function (key) {
             if (!$location.url()) {
@@ -31,6 +83,11 @@ angular.module('searchPanel')
             _removeSearchFromUrl();
             var oldUrl = $location.url();
             $location.url(oldUrl + '&sok=' + query);
+          };
+
+          var _resetResults = function () {
+            _unifiedResults = {};
+            _searchResults = {};
           };
 
           var _getQuery = function () {
@@ -170,6 +227,243 @@ angular.module('searchPanel')
             return null;
           };
 
+          scope.contructQueryPoint = function (lat, lon, epsg, source, kommune) {
+            return {
+              name: '',
+              point: searchPanelFactory.constructPoint(lat, lon, epsg, scope.mapEpsg),
+              //format: _serviceDict[source].format,
+              source: source,
+              kommune: kommune
+            };
+          };
+
+          scope.removeInfomarkers = function () {
+            map.RemoveInfoMarkers();
+            map.RemoveInfoMarker();
+          };
+
+          var _addMatrikkelInfoToSearchOptions = function (jsonRoot, name) {
+            if (!jsonRoot[0]) {
+              jsonRoot = [jsonRoot];
+            }
+            var matrikkelInfo = [];
+            for (var i = 0; i < jsonRoot.length; i++) {
+              if ((jsonRoot.MATRIKKELNR == 'Mnr mangler') || (jsonRoot.MATRIKKELNR == 'Mnr vann mangler')) {
+                continue;
+              }
+
+              var extra = {
+                kommunenr: jsonRoot[i].KOMMUNENR,
+                gardsnr: jsonRoot[i].GARDSNR,
+                bruksnr: jsonRoot[i].BRUKSNR,
+                festenr: jsonRoot[i].FESTENR,
+                seksjonsnr: jsonRoot[i].SEKSJONSNR,
+                eiendomstype: jsonRoot[i].EIENDOMSTYPE,
+                matrikkelnr: jsonRoot[i].MATRIKKELNR
+              };
+
+              extra.matrikkeladresse = extra.kommunenr + '-' + extra.gardsnr + '/' + extra.bruksnr;
+
+              if (parseInt(extra.festenr, 10) > 0) {
+                extra.matrikkeladresse += '/' + extra.festenr;
+                if (parseInt(extra.seksjonsnr, 10) > 0) {
+                  extra.matrikkeladresse += '/' + extra.seksjonsnr;
+                }
+              }
+
+              extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
+              var text = '' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
+              matrikkelInfo.push(_constructSearchOption(name, 'fa fa-home', true, text, extra));
+            }
+
+            var tmpResults;
+            if (matrikkelInfo.length > 1) {
+              tmpResults = matrikkelInfo.sort(function (a, b) {
+                return a.matrikkeladresse.localeCompare(b.matrikkeladresse);
+              });
+            }
+
+            scope.searchOptionsDict[name] = matrikkelInfo[0];
+            if (tmpResults) {
+              scope.searchOptionsDict[name].allResults = tmpResults;
+            }
+          };
+
+          scope.fetchAddressInfoForMatrikkel = function () {
+            scope.showFetchAdressSearch = true;
+            var komunenr = scope.searchOptionsDict['seEiendom'].kommunenr;
+            var gardsnr = scope.searchOptionsDict['seEiendom'].gardsnr;
+            var bruksnr = scope.searchOptionsDict['seEiendom'].bruksnr;
+            var festenr = scope.searchOptionsDict['seEiendom'].festenr;
+            var sectionsnr = scope.searchOptionsDict['seEiendom'].seksjonsnr;
+            var url = mainAppService.generateEiendomAddress(komunenr, gardsnr, bruksnr, festenr, sectionsnr);
+            $http.get(url).then(function (response) {
+              scope.showFetchAdressSearch = false;
+              scope.vegaddresse = '';
+              scope.kommuneNavn = '';
+              scope.cityName = '';
+              var addressNum = [];
+              var responseData = response.data;
+              for (var i = 0; i < responseData.length; i++) {
+                var adressWithNum = responseData[i].VEGADRESSE2.split(" ");
+                if (scope.vegaddresse === '') {
+                  scope.vegaddresse = adressWithNum[0];
+                }
+                if (scope.kommuneNavn === '') {
+                  scope.kommuneNavn = responseData[i].KOMMUNENAVN;
+                }
+                if (scope.cityName === '' && responseData[i].VEGADRESSE !== "") {
+                  scope.cityName = responseData[i].VEGADRESSE[1];
+                }
+                addressNum.push(adressWithNum[adressWithNum.length - 1]);
+              }
+
+              addressNum.sort(function (a, b) {
+                if (a < b) {
+                  return -1;
+                }
+                if (a > b) {
+                  return 1;
+                }
+                return 0;
+              });
+
+              for (var j = 0; j < addressNum.length; j++) {
+                if (addressNum[j] !== "") {
+                  scope.vegaddresse += " " + addressNum[j];
+                  if (j !== addressNum.length - 1) {
+                    scope.vegaddresse += ",";
+                  }
+                }
+              }
+            });
+          };
+          var _addSearchOptionToPanel = function (name, data) {
+            switch (name) {
+              case ('elevationPoint'):
+                scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', 'fa fa-flag', true, '"' + data.placename + '"', {
+                  url: mainAppService.generateFaktaarkUrl(data.stedsnummer)
+                });
+                if (scope.activeSearchResult && scope.activeSearchResult.source == 'mouseClick') {
+                  scope.searchBarModel = data.placename;
+                }
+                var elevationValue = data.elevation === false ? '-' : data.elevation.toFixed(1);
+                scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, elevationValue, {});
+                break;
+
+              case ('seEiendom'):
+                var jsonObject = xml.xmlToJSON(data);
+                if (!jsonObject.FeatureCollection) {
+                  return;
+                }
+                if (!jsonObject.FeatureCollection.featureMembers) {
+                  return;
+                }
+                var jsonRoot = jsonObject.FeatureCollection.featureMembers.TEIGWFS;
+                _addMatrikkelInfoToSearchOptions(jsonRoot, name);
+
+                scope.fetchAddressInfoForMatrikkel();
+                if (searchPanelFactory.getShowEiendomMarkering()) {
+                  scope.showSelection();
+                }
+                break;
+            }
+          };
+
+          var _downloadSearchOptionFromUrl = function (url, name) {
+            $http.get(url).then(function (response) {
+              _addSearchOptionToPanel(name, response.data);
+              scope.showMatrikelInfoSearch = false;
+            });
+          };
+
+          var _fetchElevationPoint = function () {
+            var lat = scope.activePosition.lat;
+            var lon = scope.activePosition.lon;
+            var epsgNumber = scope.mapEpsg.split(':')[1];
+            var elevationPointUrl = mainAppService.generateElevationPointUrl(lat, lon, epsgNumber);
+            _downloadSearchOptionFromUrl(elevationPointUrl, 'elevationPoint');
+          };
+
+          var _fetchMatrikkelInfo = function () {
+            scope.showMatrikelInfoSearch = true;
+            var lat = scope.activePosition.geographicPoint[1];
+            var lon = scope.activePosition.geographicPoint[0];
+            var matrikkelInfoUrl = mainAppService.generateMatrikkelInfoUrl(lat, lon, lat, lon);
+            _downloadSearchOptionFromUrl(matrikkelInfoUrl, 'seEiendom');
+          };
+
+          var _addKoordTransToSearchOptions = function () {
+            var name = 'koordTrans';
+            scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-map-marker', true, 'Se koordinater', {});
+          };
+
+          var _addLagTurkartToSearchOptions = function () {
+            var name = 'lagTurkart';
+            scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-blind', true, 'Lage turkart', {});
+          };
+
+          var _addLagFargeleggingskartToSearchOptions = function () {
+            var name = 'lagFargeleggingskart';
+            scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-paint-brush', true, 'Lage fargeleggingskart', {});
+          };
+
+          var _addEmergencyPosterToSearchOptions = function () {
+            var name = 'lagNodplakat';
+            scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-ambulance', true, 'Lage nødplakat', {});
+          };
+
+          scope.initSearchOptions = function () {
+            scope.searchOptionsOrder = searchPanelFactory.getSearchOptionsOrder();
+            for (var searchOption in scope.searchOptionsOrder) {
+              scope.searchOptionsDict[scope.searchOptionsOrder[searchOption]] = _emptySearchOption;
+            }
+            _fetchElevationPoint();
+            _fetchMatrikkelInfo();
+            _addKoordTransToSearchOptions();
+            _addLagTurkartToSearchOptions();
+            _addLagFargeleggingskartToSearchOptions();
+            _addEmergencyPosterToSearchOptions();
+          };
+
+          scope.activatePosition = function (searchResult) {
+            var activePosition = {
+              lon: parseFloat(searchResult.point[0]),
+              lat: parseFloat(searchResult.point[1])
+              // epsg: scope.mapEpsg
+            };
+            var zoomTo = parseFloat(13);
+            var activeZoom = parseFloat($location.search().zoom);
+            if (scope.searchPanelLayout != "searchSeEiendomPanel" && activeZoom < zoomTo && searchResult.source != 'mouseClick') {
+              activePosition.zoom = zoomTo;
+            }
+            activePosition.geographicPoint = searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, scope.mapEpsg, 'EPSG:4326');
+            map.SetCenter(activePosition);
+            map.RemoveInfoMarkers();
+            scope.activePosition = activePosition;
+            scope.activeSearchResult = searchResult;
+            if (scope.searchOptionsDict['elevationPoint']) {
+              scope.searchOptionsDict['elevationPoint'].text.value = undefined;
+            }
+            if (scope.searchBarModel.length < searchResult.name.length && !scope.coordinate && scope.activeSearchResult.source != 'mouseClick') {
+              scope.searchBarModel = searchResult.name;
+            }
+            scope.initSearchOptions();
+          };
+
+          scope.showQueryPoint = function (queryPoint) {
+            if (!scope.searchResults) {
+              scope.searchResults = {};
+            }
+            scope.searchResults['searchBar'] = queryPoint;
+            scope.removeInfomarkers();
+            map.ShowInfoMarker(queryPoint.point);
+            scope.activatePosition(queryPoint);
+            if (queryPoint.source === 'coordGeo' || queryPoint.source === 'coordUtm') {
+              scope.showSearchOptionsPanel();
+            }
+          };
+
           var _checkQueryForCoordinates = function (query) {
             scope.coordinate = true;
             var epsg = query.split('@')[1];
@@ -186,25 +480,35 @@ angular.module('searchPanel')
               return true;
             }
             if (epsg) {
-              return false;
-            }
-            if (((params.north > 32.88) && (params.east > -16.1)) && ((params.north < 84.17) && (params.east < 39.65))) {
-              epsg = 'EPSG:4258';
-              scope.showQueryPoint(scope.contructQueryPoint(params.north, params.east, epsg, 'coordGeo', ''));
-              return true;
-            }
-            if (((params.north > -2465220.60) && (params.east > 4102904.86)) && ((params.north < 771164.64) && (params.east < 9406031.63))) {
-              epsg = 'EPSG:25833';
-              scope.showQueryPoint(scope.contructQueryPoint(params.east, params.north, epsg, 'coordUtm', ''));
-              scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
-              return true;
+              var sosi = mainAppService.getSOSIfromEPSG(epsg);
+              if (sosi) {
+                var koordTransUrl = mainAppService.generateKoordTransUrl(params.north, params.east, '', sosi);
+                $http.get(koordTransUrl).then(function (response) {
+                  if (response.data.hasOwnProperty('errKode') && response.data.errKode !== 0) {
+                    console.error(response.data);
+                    return false;
+                  } else {
+                    scope.showQueryPoint(scope.contructQueryPoint(response.data.nord, response.data.ost, 'EPSG:4326', 'coordGeo', ''));
+                    return true;
+                  }
+                });
+              } else {
+                return false;
+              }
+            } else {
+              if (((params.north > 32.88) && (params.east > -16.1)) && ((params.north < 84.17) && (params.east < 39.65))) {
+                epsg = 'EPSG:4258';
+                scope.showQueryPoint(scope.contructQueryPoint(params.north, params.east, epsg, 'coordGeo', ''));
+                return true;
+              }
+              if (((params.north > -2465220.60) && (params.east > 4102904.86)) && ((params.north < 771164.64) && (params.east < 9406031.63))) {
+                epsg = 'EPSG:25833';
+                scope.showQueryPoint(scope.contructQueryPoint(params.east, params.north, epsg, 'coordUtm', ''));
+                scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
+                return true;
+              }
             }
             return false;
-          };
-
-          var _resetResults = function () {
-            _unifiedResults = {};
-            _searchResults = {};
           };
 
           scope.resetResultsService = function (service) {
@@ -225,6 +529,76 @@ angular.module('searchPanel')
             scope.coordinate = false;
             map.RemoveInfoMarker();
             scope.placenamePage = searchPanelFactory.resetPlacenamePage() + 1;
+          };
+
+          var _notSingleAddressHit = function () {
+            var matrikkelKey = 'matrikkeladresse';
+            if (_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length == 1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']) {
+              var key = Object.keys(_unifiedResults[matrikkelKey])[0];
+              var result = _unifiedResults[matrikkelKey][key];
+              scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], scope.mapEpsg, result.source, result.kommune));
+              scope.showSearchOptionsPanel();
+              return false;
+            }
+            return true;
+          };
+
+          scope.addResultsToMap = function () {
+            var coordinates = [];
+            for (var source in _unifiedResults) {
+              if (source == 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length > 1) {
+                continue;
+              }
+              for (var result in _unifiedResults[source]) {
+                coordinates.push(_unifiedResults[source][result].point);
+              }
+            }
+            if (coordinates.length > 0) {
+              map.RemoveInfoMarkers();
+              map.ShowInfoMarkers(coordinates);
+              $timeout(function () {
+                scope.searchResults = _unifiedResults;
+              }, 0);
+            }
+          };
+
+          var _convertSearchResult2Json = function (document, source) {
+            switch (source) {
+              case ('ssr'):
+                var jsonObject = xml.xmlToJSON(document);
+                _getPlacenameHits(jsonObject);
+                return jsonObject.sokRes.stedsnavn;
+              case ('adresse'):
+                return document.adresser;
+              default:
+                try {
+                  return JSON.parse(document);
+                } catch (e) {
+                  return;
+                }
+            }
+          };
+
+          var _readResults = function () {
+            var jsonObject;
+            for (var service in _searchResults) {
+              var searchResult = _searchResults[service];
+              jsonObject = _convertSearchResult2Json(searchResult.document, searchResult.source);
+              _iterateJsonObject(jsonObject, searchResult);
+            }
+          };
+
+          var _successFullSearch = function (_serviceDict, document) {
+            _searchResults[_serviceDict.source] = {
+              document: document,
+              format: _serviceDict.format,
+              source: _serviceDict.source,
+              epsg: _serviceDict.epsg
+            };
+            _readResults();
+            if (_notSingleAddressHit()) {
+              scope.addResultsToMap();
+            }
           };
 
           var _downloadSearchBarFromUrl = function (_serviceDict, timestamp) {
@@ -275,18 +649,6 @@ angular.module('searchPanel')
             scope.getResults(searchPanelFactory.getInitialSearchServices());
           };
 
-          scope.sourceDict = searchPanelFactory.getSourceDict();
-
-          scope.mapEpsg = searchPanelFactory.getMapEpsg();
-
-          _searchResults = {};
-
-          _unifiedResults = {};
-
-          _serviceDict = {};
-
-          _queryDict = {};
-
           if (typeof $location.search().sok !== 'undefined') {
             scope.searchBarModel = $location.search().sok;
             scope.searchBarValueChanged();
@@ -304,60 +666,6 @@ angular.module('searchPanel')
                 scope.showQueryPoint(scope.contructQueryPoint(parseFloat(r.position[0]), parseFloat(r.position[1]), 'EPSG:4326', 'coordGeo', ''));
               }
             });
-          };
-
-          scope.contructQueryPoint = function (lat, lon, epsg, source, kommune) {
-            return {
-              name: '',
-              point: searchPanelFactory.constructPoint(lat, lon, epsg, scope.mapEpsg),
-              //format: _serviceDict[source].format,
-              source: source,
-              kommune: kommune
-            };
-          };
-
-          scope.showQueryPoint = function (queryPoint) {
-            if (!scope.searchResults) {
-              scope.searchResults = {};
-            }
-            scope.searchResults['searchBar'] = queryPoint;
-            scope.removeInfomarkers();
-            map.ShowInfoMarker(queryPoint.point);
-            scope.activatePosition(queryPoint);
-            if (queryPoint.source === 'coordGeo' || queryPoint.source === 'coordUtm') {
-              scope.showSearchOptionsPanel();
-            }
-          };
-
-          scope.removeInfomarkers = function () {
-            map.RemoveInfoMarkers();
-            map.RemoveInfoMarker();
-          };
-
-          var _readResults = function () {
-            var jsonObject;
-            for (var service in _searchResults) {
-              var searchResult = _searchResults[service];
-              jsonObject = _convertSearchResult2Json(searchResult.document, searchResult.source);
-              _iterateJsonObject(jsonObject, searchResult);
-            }
-          };
-
-          var _convertSearchResult2Json = function (document, source) {
-            switch (source) {
-              case ('ssr'):
-                var jsonObject = xml.xmlToJSON(document);
-                _getPlacenameHits(jsonObject);
-                return jsonObject.sokRes.stedsnavn;
-              case ('adresse'):
-                return document.adresser;
-              default:
-                try {
-                  return JSON.parse(document);
-                } catch (e) {
-                  return;
-                }
-            }
           };
 
           var _generateArrayWithValues = function (values) {
@@ -537,50 +845,6 @@ angular.module('searchPanel')
             return str.substr(0, str.length - length);
           };
 
-          var _successFullSearch = function (_serviceDict, document) {
-            _searchResults[_serviceDict.source] = {
-              document: document,
-              format: _serviceDict.format,
-              source: _serviceDict.source,
-              epsg: _serviceDict.epsg
-            };
-            _readResults();
-            if (_notSingleAddressHit()) {
-              scope.addResultsToMap();
-            }
-          };
-
-          var _notSingleAddressHit = function () {
-            var matrikkelKey = 'matrikkeladresse';
-            if (_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length == 1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']) {
-              var key = Object.keys(_unifiedResults[matrikkelKey])[0];
-              var result = _unifiedResults[matrikkelKey][key];
-              scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], scope.mapEpsg, result.source, result.kommune));
-              scope.showSearchOptionsPanel();
-              return false;
-            }
-            return true;
-          };
-
-          scope.addResultsToMap = function () {
-            var coordinates = [];
-            for (var source in _unifiedResults) {
-              if (source == 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length > 1) {
-                continue;
-              }
-              for (var result in _unifiedResults[source]) {
-                coordinates.push(_unifiedResults[source][result].point);
-              }
-            }
-            if (coordinates.length > 0) {
-              map.RemoveInfoMarkers();
-              map.ShowInfoMarkers(coordinates);
-              $timeout(function () {
-                scope.searchResults = _unifiedResults;
-              }, 0);
-            }
-          };
-
           scope.mouseOver = function (searchResult) {
             scope.mouseHoverSearchResult = searchResult;
             map.RemoveInfoMarker();
@@ -589,31 +853,6 @@ angular.module('searchPanel')
 
           scope.openShowEiendom = function (searchResult) {
             $window.open(searchResult.url, '_blank');
-          };
-
-          scope.activatePosition = function (searchResult) {
-            var activePosition = {
-              lon: parseFloat(searchResult.point[0]),
-              lat: parseFloat(searchResult.point[1])
-              // epsg: scope.mapEpsg
-            };
-            var zoomTo = parseFloat(13);
-            var activeZoom = parseFloat($location.search().zoom);
-            if (scope.searchPanelLayout != "searchSeEiendomPanel" && activeZoom < zoomTo && searchResult.source != 'mouseClick') {
-              activePosition.zoom = zoomTo;
-            }
-            activePosition.geographicPoint = searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, scope.mapEpsg, 'EPSG:4326');
-            map.SetCenter(activePosition);
-            map.RemoveInfoMarkers();
-            scope.activePosition = activePosition;
-            scope.activeSearchResult = searchResult;
-            if (scope.searchOptionsDict['elevationPoint']) {
-              scope.searchOptionsDict['elevationPoint'].text.value = undefined;
-            }
-            if (scope.searchBarModel.length < searchResult.name.length && !scope.coordinate && scope.activeSearchResult.source != 'mouseClick') {
-              scope.searchBarModel = searchResult.name;
-            }
-            scope.initSearchOptions();
           };
 
           scope.cleanResults = function () {
@@ -642,238 +881,6 @@ angular.module('searchPanel')
           eventHandler.RegisterEvent(ISY.Events.EventTypes.MapClickCoordinate, showQueryPointFromMouseClick);
 
           // Start searchOptions
-
-          var _clickableLinkClass = {
-            icon: 'search-options pointer-cursor',
-            text: 'pointer-cursor'
-          };
-
-          var _defaultClass = {
-            icon: 'search-options',
-            text: ''
-          };
-
-          var _downloadSearchOptionFromUrl = function (url, name) {
-            $http.get(url).then(function (response) {
-              _addSearchOptionToPanel(name, response.data);
-              scope.showMatrikelInfoSearch = false;
-            });
-          };
-
-          var _fetchElevationPoint = function () {
-            var lat = scope.activePosition.lat;
-            var lon = scope.activePosition.lon;
-            var epsgNumber = scope.mapEpsg.split(':')[1];
-            var elevationPointUrl = mainAppService.generateElevationPointUrl(lat, lon, epsgNumber);
-            _downloadSearchOptionFromUrl(elevationPointUrl, 'elevationPoint');
-          };
-
-          var _fetchMatrikkelInfo = function () {
-            scope.showMatrikelInfoSearch = true;
-            var lat = scope.activePosition.geographicPoint[1];
-            var lon = scope.activePosition.geographicPoint[0];
-            var matrikkelInfoUrl = mainAppService.generateMatrikkelInfoUrl(lat, lon, lat, lon);
-            _downloadSearchOptionFromUrl(matrikkelInfoUrl, 'seEiendom');
-          };
-
-          var _addKoordTransToSearchOptions = function () {
-            var name = 'koordTrans';
-            scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-map-marker', true, 'Se koordinater', {});
-          };
-
-          var _addLagTurkartToSearchOptions = function () {
-            var name = 'lagTurkart';
-            scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-blind', true, 'Lage turkart', {});
-          };
-
-          var _addLagFargeleggingskartToSearchOptions = function () {
-            var name = 'lagFargeleggingskart';
-            scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-paint-brush', true, 'Lage fargeleggingskart', {});
-          };
-
-          var _addEmergencyPosterToSearchOptions = function () {
-            var name = 'lagNodplakat';
-            scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-ambulance', true, 'Lage nødplakat', {});
-          };
-
-          var _addMatrikkelInfoToSearchOptions = function (jsonRoot, name) {
-            if (!jsonRoot[0]) {
-              jsonRoot = [jsonRoot];
-            }
-            var matrikkelInfo = [];
-            for (var i = 0; i < jsonRoot.length; i++) {
-              if ((jsonRoot.MATRIKKELNR == 'Mnr mangler') || (jsonRoot.MATRIKKELNR == 'Mnr vann mangler')) {
-                continue;
-              }
-
-              var extra = {
-                kommunenr: jsonRoot[i].KOMMUNENR,
-                gardsnr: jsonRoot[i].GARDSNR,
-                bruksnr: jsonRoot[i].BRUKSNR,
-                festenr: jsonRoot[i].FESTENR,
-                seksjonsnr: jsonRoot[i].SEKSJONSNR,
-                eiendomstype: jsonRoot[i].EIENDOMSTYPE,
-                matrikkelnr: jsonRoot[i].MATRIKKELNR
-              };
-
-              extra.matrikkeladresse = extra.kommunenr + '-' + extra.gardsnr + '/' + extra.bruksnr;
-
-              if (parseInt(extra.festenr, 10) > 0) {
-                extra.matrikkeladresse += '/' + extra.festenr;
-                if (parseInt(extra.seksjonsnr, 10) > 0) {
-                  extra.matrikkeladresse += '/' + extra.seksjonsnr;
-                }
-              }
-
-              extra.url = mainAppService.generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
-              var text = '' + extra.kommunenr + '-' + extra.matrikkelnr.replace(new RegExp(' ', 'g'), '');
-              matrikkelInfo.push(_constructSearchOption(name, 'fa fa-home', true, text, extra));
-            }
-
-            var tmpResults;
-            if (matrikkelInfo.length > 1) {
-              tmpResults = matrikkelInfo.sort(function (a, b) {
-                return a.matrikkeladresse.localeCompare(b.matrikkeladresse);
-              });
-            }
-
-            scope.searchOptionsDict[name] = matrikkelInfo[0];
-            if (tmpResults) {
-              scope.searchOptionsDict[name].allResults = tmpResults;
-            }
-          };
-
-          scope.fetchAddressInfoForMatrikkel = function () {
-            scope.showFetchAdressSearch = true;
-            var komunenr = scope.searchOptionsDict['seEiendom'].kommunenr;
-            var gardsnr = scope.searchOptionsDict['seEiendom'].gardsnr;
-            var bruksnr = scope.searchOptionsDict['seEiendom'].bruksnr;
-            var festenr = scope.searchOptionsDict['seEiendom'].festenr;
-            var sectionsnr = scope.searchOptionsDict['seEiendom'].seksjonsnr;
-            var url = mainAppService.generateEiendomAddress(komunenr, gardsnr, bruksnr, festenr, sectionsnr);
-            $http.get(url).then(function (response) {
-              scope.showFetchAdressSearch = false;
-              scope.vegaddresse = '';
-              scope.kommuneNavn = '';
-              scope.cityName = '';
-              var addressNum = [];
-              var responseData = response.data;
-              for (var i = 0; i < responseData.length; i++) {
-                var adressWithNum = responseData[i].VEGADRESSE2.split(" ");
-                if (scope.vegaddresse === '') {
-                  scope.vegaddresse = adressWithNum[0];
-                }
-                if (scope.kommuneNavn === '') {
-                  scope.kommuneNavn = responseData[i].KOMMUNENAVN;
-                }
-                if (scope.cityName === '' && responseData[i].VEGADRESSE !== "") {
-                  scope.cityName = responseData[i].VEGADRESSE[1];
-                }
-                addressNum.push(adressWithNum[adressWithNum.length - 1]);
-              }
-
-              addressNum.sort(function (a, b) {
-                if (a < b) {
-                  return -1;
-                }
-                if (a > b) {
-                  return 1;
-                }
-                return 0;
-              });
-
-              for (var j = 0; j < addressNum.length; j++) {
-                if (addressNum[j] !== "") {
-                  scope.vegaddresse += " " + addressNum[j];
-                  if (j !== addressNum.length - 1) {
-                    scope.vegaddresse += ",";
-                  }
-                }
-              }
-            });
-          };
-
-
-          var _addSearchOptionToPanel = function (name, data) {
-            switch (name) {
-              case ('elevationPoint'):
-                scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', 'fa fa-flag', true, '"' + data.placename + '"', {
-                  url: mainAppService.generateFaktaarkUrl(data.stedsnummer)
-                });
-                if (scope.activeSearchResult && scope.activeSearchResult.source == 'mouseClick') {
-                  scope.searchBarModel = data.placename;
-                }
-                var elevationValue = data.elevation === false ? '-' : data.elevation.toFixed(1);
-                scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, elevationValue, {});
-                break;
-
-              case ('seEiendom'):
-                var jsonObject = xml.xmlToJSON(data);
-                if (!jsonObject.FeatureCollection) {
-                  return;
-                }
-                if (!jsonObject.FeatureCollection.featureMembers) {
-                  return;
-                }
-                var jsonRoot = jsonObject.FeatureCollection.featureMembers.TEIGWFS;
-                _addMatrikkelInfoToSearchOptions(jsonRoot, name);
-
-                scope.fetchAddressInfoForMatrikkel();
-                if (searchPanelFactory.getShowEiendomMarkering()) {
-                  scope.showSelection();
-                }
-                break;
-            }
-          };
-
-          var _constructSearchOption = function (name, icon, clickable, text, extra) {
-            var searchOption = {
-              icon: {
-                value: icon,
-                class: _defaultClass.icon
-              },
-              text: {
-                value: text,
-                class: _defaultClass.text
-              },
-              name: name
-            };
-
-            if (clickable) {
-              searchOption.icon.class = _clickableLinkClass.icon;
-              searchOption.text.class = _clickableLinkClass.text;
-            }
-            for (var key in extra) {
-              searchOption[key] = extra[key];
-            }
-            return searchOption;
-          };
-
-          var _emptySearchOption = {
-            icon: {
-              value: '',
-              class: ''
-            },
-            text: {
-              value: '',
-              class: ''
-            },
-            name: ''
-          };
-
-          scope.initSearchOptions = function () {
-
-            scope.searchOptionsOrder = searchPanelFactory.getSearchOptionsOrder();
-            for (var searchOption in scope.searchOptionsOrder) {
-              scope.searchOptionsDict[scope.searchOptionsOrder[searchOption]] = _emptySearchOption;
-            }
-            _fetchElevationPoint();
-            _fetchMatrikkelInfo();
-            _addKoordTransToSearchOptions();
-            _addLagTurkartToSearchOptions();
-            _addLagFargeleggingskartToSearchOptions();
-            _addEmergencyPosterToSearchOptions();
-          };
 
           var setMenuListMaxHeight = function () {
             $(document).ready(function () {
@@ -931,7 +938,6 @@ angular.module('searchPanel')
             scope.$apply(function () {
               scope.showSelectedPolygon = false;
             }, 0);
-
           }
 
           eventHandler.RegisterEvent(ISY.Events.EventTypes.AddLayerUrlEnd, showSelectedPolygonEnd);
@@ -990,12 +996,10 @@ angular.module('searchPanel')
                   } else {
                     scope.layers[j].open = false;
                   }
-
                 } else {
                   scope.layers[j].open = false;
                 }
               }
-
               loadingLayer.isLoading = false;
             }
           }
