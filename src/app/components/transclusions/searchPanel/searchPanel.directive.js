@@ -307,7 +307,7 @@ angular.module('searchPanel')
               for (var i = 0; i < responseData.length; i++) {
                 var adressWithNum = responseData[i].VEGADRESSE2.split(" ");
                 if (scope.vegaddresse === '') {
-                  scope.vegaddresse = adressWithNum[0];
+                  scope.vegaddresse = responseData[i].VEGADRESSE2.split(adressWithNum[adressWithNum.length - 1])[0];
                 }
                 if (scope.kommuneNavn === '') {
                   scope.kommuneNavn = responseData[i].KOMMUNENAVN;
