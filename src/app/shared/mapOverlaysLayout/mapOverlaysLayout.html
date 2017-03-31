@@ -1,6 +1,16 @@
 <div id="main" class="body-overlay no-print"></div>
 <div class="no-print" map-overlays></div>
 <div class="logo-overlay no-print">
-    <a class="logo-kartverket" href="http://kartverket.no/"></a>
+  <div ng-switch="getSelectedBaseLayerName()">
+    <div ng-switch-when="svalbard">
+      <a class="logo-kartverket" href="http://www.npolar.no/no/"><img src="http://www.npolar.no/system/modules/no.npolar.site.npweb/resources/style/np-logo.svg"></a>
+    </div>
+    <div ng-switch-when="jan_mayen">
+      <a class="logo-kartverket" href="http://www.npolar.no/no/"><img src="http://www.npolar.no/system/modules/no.npolar.site.npweb/resources/style/np-logo.svg"></a>
+    </div>
+    <div ng-switch-default>
+      <a class="logo-kartverket" href="http://kartverket.no/"><img src="/assets/img/KV_logo_staa.svg"></a>
+    </div>
+  </div>
 </div>
 <div id="mapDiv" class="fullSizeMap"></div>
