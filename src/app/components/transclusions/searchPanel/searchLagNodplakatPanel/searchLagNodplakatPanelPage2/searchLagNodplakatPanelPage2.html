@@ -49,6 +49,7 @@
                 </div>
             </div>
         </div>
+
         <div class="new-section">
             <span ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">
                 <span translate="FoundRoadIs"></span>
@@ -57,12 +58,22 @@
                 <span> {{lagNodplakatDict['emergencyPosterPoint'].kommune}}</span>
                 <span translate="Municipality"></span>
             </span>
-        </div>
-        <div class="new-section">
             <div class="row">
                 <div class="col-xs-12">
-                    <input type="checkbox" ng-model="lagNodplakatConfirmRoad" />
-                    <span translate="CorrectRoad"></span>
+                    <div class="dropdown">
+                        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span translate="CorrectRoad"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu3">
+                            <li data-ng-click="setlagNodplakatConfirmRoad(true)" class="pointer-cursor">
+                                <span>Ja</span>
+                            </li>
+                            <li data-ng-click="setlagNodplakatConfirmRoad(true)" class="pointer-cursor">
+                                <span>Nei</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
