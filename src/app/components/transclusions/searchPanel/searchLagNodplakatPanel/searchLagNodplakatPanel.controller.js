@@ -50,6 +50,9 @@ angular.module('searchLagNodplakatPanel')
                         break;
                     case('emergencyPosterPoint'):
                         $scope.lagNodplakatDict[name] = data;
+                        if (data.veg === ""){
+                          $scope.nodplakatConfirmRoad = true;
+                        }
                         break;
                     case('placenamesByBbox'):
                         $scope.lagNodplakatDict[name] = data.stedsnavn;
@@ -96,6 +99,7 @@ angular.module('searchLagNodplakatPanel')
 
             $scope.setlagNodplakatConfirmRoad = function (value) {
                 $scope.lagNodplakatConfirmRoad = value;
+                $scope.nodplakatConfirmRoad = true;
             };
 
         }

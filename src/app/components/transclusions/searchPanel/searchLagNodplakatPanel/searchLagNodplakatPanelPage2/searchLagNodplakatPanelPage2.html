@@ -50,8 +50,8 @@
             </div>
         </div>
 
-        <div class="new-section">
-            <span ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">
+        <div class="new-section" ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">
+            <span>
                 <span translate="FoundRoadIs"></span>
                 <span> {{lagNodplakatDict['emergencyPosterPoint'].veg}} </span>
                 <span translate="In"></span>
@@ -69,7 +69,7 @@
                             <li data-ng-click="setlagNodplakatConfirmRoad(true)" class="pointer-cursor">
                                 <span>Ja</span>
                             </li>
-                            <li data-ng-click="setlagNodplakatConfirmRoad(true)" class="pointer-cursor">
+                            <li data-ng-click="setlagNodplakatConfirmRoad(false)" class="pointer-cursor">
                                 <span>Nei</span>
                             </li>
                         </ul>
@@ -82,7 +82,7 @@
                     data-ng-click="showSearchOptionsPanel()" translate="Cancel_txt">
             </button>
 
-            <button class="btn btn-default btn-important" data-ng-disabled="!lagNodplakatConfirmRoad"
+            <button class="btn btn-default btn-important" data-ng-disabled="!nodplakatConfirmRoad"
                     data-ng-click="downloadEmergencyPoster()" translate="downloadEmergencyPoster">
             </button>
         </div>
