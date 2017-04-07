@@ -1,7 +1,8 @@
 angular.module('searchLagNodplakatPanel')
-    .controller('searchLagNodplakatPanelController', [ '$scope','mainAppService','$http','ISY.MapAPI.Map',
-        function($scope, mainAppService,$http, map) {
+    .controller('searchLagNodplakatPanelController', [ '$scope', 'mainAppService', '$http', 'ISY.MapAPI.Map',
+        function ($scope, mainAppService, $http, map) {
             $scope.lagNodplakatConfirmRoad = false;
+            $scope.valgtTekst = 'CorrectRoad';
 
             $scope.showLagNodplakatPage1 = function () {
                 map.SetCenter($scope.activePosition);
@@ -43,18 +44,18 @@ angular.module('searchLagNodplakatPanel')
 
             var _retrieveDataFromResponse = function (name, data) {
                 switch (name) {
-                    case('elevationPoint'):
+                    case ('elevationPoint'):
                         $scope.activePlaceName = data.placename;
                         $scope.setSearchBarText($scope.activePlaceName);
                         $scope.lagNodplakatName = $scope.activePlaceName;
                         break;
-                    case('emergencyPosterPoint'):
+                    case ('emergencyPosterPoint'):
                         $scope.lagNodplakatDict[name] = data;
-                        if (data.veg === ""){
+                        if (data.veg === "") {
                           $scope.nodplakatConfirmRoad = true;
                         }
                         break;
-                    case('placenamesByBbox'):
+                    case ('placenamesByBbox'):
                         $scope.lagNodplakatDict[name] = data.stedsnavn;
                         if (!$scope.activePlaceName) {
                             $scope.activePlaceName = data.stedsnavn[0].stedsnavn;
@@ -100,7 +101,11 @@ angular.module('searchLagNodplakatPanel')
             $scope.setlagNodplakatConfirmRoad = function (value) {
                 $scope.lagNodplakatConfirmRoad = value;
                 $scope.nodplakatConfirmRoad = true;
+                if (value) {
+                  $scope.valgtTekst = 'Ja';
+                } else {
+                  $scope.valgtTekst = 'Nei';
+                }
             };
-
-        }
-    ]);
+          }
+  ]);
