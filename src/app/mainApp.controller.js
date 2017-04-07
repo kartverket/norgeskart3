@@ -63,6 +63,12 @@ angular.module('mainApp')
               lat: localStorageFactory.get("lat"),
               zoom: localStorageFactory.get("zoom")
             };
+            if (((center.lon > 32.88) && (center.lat > -16.1)) && ((center.lon < 84.17) && (center.lat < 39.65))) {
+              var tmp = center.lon;
+              center.lon = center.lat;
+              center.lat = tmp;
+              center.epsg = 'EPSG:4258';
+            }
             map.SetCenter(center);
           }
         }
