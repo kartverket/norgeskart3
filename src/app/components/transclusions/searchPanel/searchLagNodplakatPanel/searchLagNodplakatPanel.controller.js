@@ -102,9 +102,9 @@ angular.module('searchLagNodplakatPanel')
                 $scope.lagNodplakatConfirmRoad = value;
                 $scope.nodplakatConfirmRoad = true;
                 if (value) {
-                  $scope.valgtTekst = 'Ja';
+                  $scope.valgtTekst = 'ja';
                 } else {
-                  $scope.valgtTekst = 'Nei';
+                  $scope.valgtTekst = 'nei';
                 }
             };
           }
