@@ -1077,6 +1077,18 @@ input::-ms-clear {
   width: 100%;
   height: 0;
   padding-bottom: calc(100% * 5/7);
+  position: relative;
+  bottom:25px;
+}
+.logo-kartverket img{
+  height: 75.20px;
+}
+.logo-polar{
+  width: 100%;
+  height: 0;
+  padding-bottom: calc(100% * 5/7);
+  position: relative;
+  bottom:25px;
 }
 
 .legend1{
@@ -1179,7 +1191,7 @@ input::-ms-clear {
 .logo-overlay {
   z-index: 12;
   position: absolute;
-  bottom: 25px;
+  bottom: 0px;
   left: 19px;
   width:105px;
 }
