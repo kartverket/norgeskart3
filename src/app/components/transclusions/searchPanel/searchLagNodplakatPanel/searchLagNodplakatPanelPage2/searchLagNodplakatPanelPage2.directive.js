@@ -148,10 +148,12 @@ angular.module('searchLagNodplakatPanelPage2')
             emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%86/g, '%C6'); // Æ
             emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%98/g, '%D8'); // Ø
             emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%85/g, '%C5'); // Å
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%A9/g, '%E9'); // é
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%89/g, '%C9'); // É
             return emergencyPosterServiceUrl;
           };
 
-          scope.generateEmergancyPoster = function () {
+            scope.generateEmergancyPoster = function () {
             if (!scope.lagNodplakatDict.emergencyPosterPoint) {
               alert('Service returned error.');
             }
