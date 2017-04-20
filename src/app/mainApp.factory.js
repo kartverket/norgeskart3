@@ -213,6 +213,7 @@ angular.module('mainApp')
         mapConfig.headerTitle = project.config.project.headertitle;
         mapConfig.siteTitle = project.config.project.sitetitle;
         mapConfig.isy3dflyurl = project.config.project.isy3dflyurl;
+        mapConfig.featureDict = project.config.featureDict;
         // if (project.config.project.isy3dflyurl === undefined){
         //     mainMenuButtonsOverlayFactory.showButton('3DView', false);
         // }else{
@@ -418,7 +419,8 @@ angular.module('mainApp')
               getFeatureBaseUrl: "",
               getFeatureFormat: "application/json",
               getFeatureCrs: "EPSG:4326",
-              includedFields: source.includedfields
+              includedFields: source.includedfields,
+              featureDict:mapConfig.featureDict
             },
             tiled: source.options.singletile !== "true",
             crossOrigin: null,
