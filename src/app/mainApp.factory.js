@@ -23,6 +23,7 @@ angular.module('mainApp')
         proxyHost: "",
         searchHost: "",
         tokenHost: "",
+        ticketHost: "",
         searchpointzoom: 12,
         groups: [],
         languages: {
@@ -179,6 +180,9 @@ angular.module('mainApp')
         }
         if (project.config.project.isygatekeeper !== undefined) {
           mapConfig.tokenHost = project.config.project.isygatekeeper;
+        }
+        if (project.config.project.tickethost !== undefined) {
+          mapConfig.ticketHost = project.config.project.tickethost;
         }
         if (project.config.project.isysearch !== undefined) {
           mapConfig.searchHost = project.config.project.isysearch;
@@ -396,6 +400,7 @@ angular.module('mainApp')
             providerName: source.params.layers || source.name,
             source: sourceType,
             gatekeeper: source.gatekeeper === "true",
+            ticket: source.ticket || false,
             url: getWmsUrl(source.url),
             format: source.params.format,
             coordinate_system: source.epsg || mapConfig.coordinate_system,
