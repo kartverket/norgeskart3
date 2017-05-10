@@ -12,16 +12,16 @@ angular.module('searchKoordTransPanel')
           $scope.activePosition.transLon = _round(data.ost, 7);
           var deg = Math.floor(data.ost);
           var rest = (data.ost - deg) * 60;
-          $scope.activePosition.transLon2 = deg + '° ' + _round(rest, 7);
+          $scope.activePosition.transLon2 = deg + '° ' + _round(rest, 7) + '\'';
           var min = Math.floor(rest);
           var sec = (rest - min) * 60;
-          $scope.activePosition.transLon3 = deg + '° ' + min + '\' ' + _round(sec, 5);
+          $scope.activePosition.transLon3 = deg + '° ' + min + '\' ' + _round(sec, 5) + '\'\'';
           deg = Math.floor(data.nord);
           rest = (data.nord - deg) * 60;
-          $scope.activePosition.transLat2 = deg + '° ' + _round(rest, 7);
+          $scope.activePosition.transLat2 = deg + '° ' + _round(rest, 7) + '\'';
           min = Math.floor(rest);
           sec = (rest - min) * 60;
-          $scope.activePosition.transLat3 = deg + '° ' + min + '\' ' + _round(sec, 5);
+          $scope.activePosition.transLat3 = deg + '° ' + min + '\' ' + _round(sec, 5) + '\'\'';
         } else {
           $scope.activePosition.transLat = _round(data.nord, 2);
           $scope.activePosition.transLat2 = '';
