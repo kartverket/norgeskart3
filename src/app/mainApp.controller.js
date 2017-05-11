@@ -212,17 +212,6 @@ angular.module('mainApp')
         }
       }
 
-      function _currentPosition(position) {
-        var fromEpsg = 'EPSG:4326';
-        var toEpsg = map.GetEpsgCode();
-        var geolocation = map.TransformCoordinates(fromEpsg, toEpsg, [position.coords.longitude, position.coords.latitude]);
-        map.SetCenter({
-          lon: geolocation[0],
-          lat: geolocation[1]
-        });
-        map.SetZoom(13);
-      }
-
       $scope.initMainPage = function () {
         _registerEvents();
         map.SetTranslateOptions(isyTranslateFactory.getTranslateOptionsByActiveLanguage());
@@ -235,9 +224,6 @@ angular.module('mainApp')
         _initUrl();
         _initMapLayers();
         _showMapMarker();
-        if ('geolocation' in navigator) {
-          navigator.geolocation.getCurrentPosition(_currentPosition);
-        }
       };
 
       $(document).ready(function () {
