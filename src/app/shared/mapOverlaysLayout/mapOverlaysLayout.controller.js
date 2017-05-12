@@ -6,5 +6,11 @@ angular.module('mapOverlaysLayout')
                 return mapOverlaysLayoutFactory.getShowSearchOverlay();
             };
 
+            $scope.isGeolocationDisabled = 'geolocation' in navigator === false || location.protocol !== 'https:' ? true : false;
+
+            $scope.getGeolocation = function () {
+              navigator.geolocation.getCurrentPosition(mapOverlaysLayoutFactory.currentPosition);
+            };
+
         }
     ]);
