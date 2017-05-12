@@ -24,6 +24,9 @@ angular.module('searchOptionsPanel')
                             case ('lagNodplakat'):
                                 scope.showLagNodplakatPanel();
                                 break;
+                            case ('ssrFakta'):
+                                window.open(searchOption.url, '_blank');
+                                break;
                             default:
                                 if (searchOption.url){
                                     var searchOptionUrl = searchOption.url;
