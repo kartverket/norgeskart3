@@ -23,7 +23,22 @@ angular.module('searchPanel')
             icon: 'search-options',
             text: ''
           };
-
+          var _coordinate = function (value, min, sec) {
+            var coordinate = {};
+            if (typeof min !== "undefined") {
+              coordinate = {
+                deg: Number.parseInt(deg),
+                min: Number.parseFloat(min),
+                sec: Number.parseFloat(sec),
+                value: Number.parseInt(deg) + Number.parseFloat(min) / 60.0 + Number.parseFloat(sec) / 3600.0
+              };
+            } else {
+              coordinate = {
+                value: value
+              };
+            }
+            return coordinate;
+          };
           var _constructSearchOption = function (name, icon, clickable, text, extra) {
             var searchOption = {
               icon: {
@@ -176,38 +191,14 @@ angular.module('searchPanel')
               nondigits.push(match[0]);
             }
             if (alldigits.length === 6) {
-              parsedInput.north = {
-                deg: Number.parseInt(alldigits[0]),
-                min: Number.parseFloat(alldigits[1]),
-                sec: Number.parseFloat(alldigits[2]),
-                value: Number.parseInt(alldigits[0]) + Number.parseFloat(alldigits[1]) / 60.0 + Number.parseFloat(alldigits[2]) / 3600.0
-              };
-              parsedInput.east = {
-                deg: Number.parseInt(alldigits[3]),
-                min: Number.parseFloat(alldigits[4]),
-                sec: Number.parseFloat(alldigits[5]),
-                value: Number.parseInt(alldigits[3]) + Number.parseFloat(alldigits[4]) / 60.0 + Number.parseFloat(alldigits[5]) / 3600.0
-              };
+              parsedInput.north = _coordinate(alldigits[0], alldigits[1], alldigits[2]);
+              parsedInput.east = _coordinate(alldigits[3], alldigits[4], alldigits[5]);
             } else if (alldigits.length === 4) {
-              parsedInput.north = {
-                deg: Number.parseInt(alldigits[0]),
-                min: Number.parseFloat(alldigits[1]),
-                sec: 0,
-                value: Number.parseInt(alldigits[0]) + Number.parseFloat(alldigits[1]) / 60.0 + 0 / 3600.0
-              };
-              parsedInput.east = {
-                deg: Number.parseInt(alldigits[2]),
-                min: Number.parseFloat(alldigits[3]),
-                sec: 0,
-                value: Number.parseInt(alldigits[2]) + Number.parseFloat(alldigits[3]) / 60.0 + 0 / 3600.0
-              };
+              parsedInput.north = _coordinate(alldigits[0], alldigits[1], 0);
+              parsedInput.east = _coordinate(alldigits[2], alldigits[3], 0);
             } else if (alldigits.length === 2) {
-              parsedInput.north = {
-                value: Number.parseFloat(alldigits[0])
-              };
-              parsedInput.east = {
-                value: Number.parseFloat(alldigits[1])
-              };
+              parsedInput.north = _coordinate(alldigits[0]);
+              parsedInput.east = _coordinate(alldigits[1]);
               if (nondigits[0] === 'N' && Math.round(parsedInput.north.value).toString().length > 6) {
                 parsedInput = flipCoordinates(parsedInput);
               }
