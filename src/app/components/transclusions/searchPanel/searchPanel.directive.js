@@ -455,7 +455,7 @@ angular.module('searchPanel')
               _w3wSearch(params.phrase);
             } else if (typeof params.phrase === 'string') {
               return false;
-            } else if(typeof params.north === 'undefined') {
+            } else if (typeof params.north === 'undefined') {
               return false;
             }
             // var possibleProjections = mainAppService.isNotOutOfBounds(params);
@@ -734,13 +734,17 @@ angular.module('searchPanel')
             var lat = jsonObject[identifiersDict.latID] + '';
             var lon = jsonObject[identifiersDict.lonID] + '';
             var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
+            var husnummer = identifiersDict.husnummerID !== false ? jsonObject[identifiersDict.husnummerID] : '';
+            if (identifiersDict.husnummerBokstav && typeof jsonObject[identifiersDict.husnummerBokstav] === 'string') {
+              husnummer += jsonObject[identifiersDict.husnummerBokstav];
+            }
             var result = {
               name: jsonObject[identifiersDict.nameID],
               kommune: jsonObject[identifiersDict.kommuneID],
               point: point,
               format: identifiersDict.format,
               source: identifiersDict.source,
-              husnummer: jsonObject[identifiersDict.husnummerID],
+              husnummer: husnummer,
               navnetype: jsonObject[identifiersDict.navnetypeID],
               url: jsonObject.url
             };
