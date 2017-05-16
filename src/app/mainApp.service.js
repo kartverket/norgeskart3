@@ -205,12 +205,12 @@ angular.module('mainApp')
           viewable: false,
           key: 'EU89_Lat_Lon',
           type: 'standard',
-          bbox: [ // WGS84
-            MinX = 3.844925191,
-            MaxX = 31.95907717,
-            MinY = 57.69458922, // Norway
-            MaxY = 71.45477563 // Norway
-          ]
+          bbox: { // WGS84
+            MinX: 3.844925191,
+            MaxX: 31.95907717,
+            MinY: 57.69458922, // Norway
+            MaxY: 71.45477563 // Norway
+          }
         }, //viewable, but not necessary in selectors
         {
           ESRI: 25831,
@@ -220,7 +220,7 @@ angular.module('mainApp')
           viewable: true,
           key: 'EU89_UTM_31',
           type: 'standard',
-          bbox: []
+          bbox: {}
         },
         {
           ESRI: 25832,
@@ -230,12 +230,12 @@ angular.module('mainApp')
           viewable: true,
           key: 'EU89_UTM_32',
           type: 'standard',
-          bbox: [ // UTM zone 32
-            MinX = 229614.1053,
-            MaxX = 751898.5673,
-            MinY = 6401682.026, // Norway
-            MaxY = 7231445.376 // Norway
-          ]
+          bbox: { // UTM zone 32
+            MinX: 229614.1053,
+            MaxX: 751898.5673,
+            MinY: 6401682.026, // Norway
+            MaxY: 7231445.376 // Norway
+          }
         },
         {
           ESRI: 25833,
@@ -245,20 +245,20 @@ angular.module('mainApp')
           viewable: true,
           key: 'EU89_UTM_33',
           type: 'standard',
-          bbox: [ // UTM zone 33
-            MinX = 288889.7639,
-            MaxX = 804809.936,
-            MinY = 7211211.98, // Norway
-            MaxY = 7866186.306 // Norway
+          bbox: { // UTM zone 33
+            MinX: 288889.7639,
+            MaxX: 804809.936,
+            MinY: 7211211.98, // Norway
+            MaxY: 7866186.306 // Norway
             // alternative
             // UTM zone 33 for all of Norway
             /*
-            MinX = -128551.4542,
-            MaxX = 1148218.099,
-            MinY = 6404024.705, // Norway
-            MaxY = 8010780.591 // Norway
+            MinX : -128551.4542,
+            MaxX : 1148218.099,
+            MinY : 6404024.705, // Norway
+            MaxY : 8010780.591 // Norway
             */
-          ]
+          }
         },
         {
           ESRI: 25834,
@@ -268,12 +268,12 @@ angular.module('mainApp')
           viewable: true,
           key: 'EU89_UTM_34',
           type: 'standard',
-          bbox: [ // UTM zone 34
-            MinX = 389363.4613,
-            MaxX = 624301.8048,
-            MinY = 7565200.998, // Norway
-            MaxY = 7930309.032 // Norway
-          ]
+          bbox: { // UTM zone 34
+            MinX: 389363.4613,
+            MaxX: 624301.8048,
+            MinY: 7565200.998, // Norway
+            MaxY: 7930309.032 // Norway
+          }
         },
         {
           ESRI: 25835,
@@ -283,12 +283,12 @@ angular.module('mainApp')
           viewable: true,
           key: 'EU89_UTM_35',
           type: 'standard',
-          bbox: [ // UTM zone 35
-            MinX = 253177.3653,
-            MaxX = 683621.7167,
-            MinY = 7603094.00, // Norway
-            MaxY = 7924929.221 // Norway
-          ]
+          bbox: { // UTM zone 35
+            MinX: 253177.3653,
+            MaxX: 683621.7167,
+            MinY: 7603094.00, // Norway
+            MaxY: 7924929.221 // Norway
+          }
         },
         {
           ESRI: 25836,
@@ -298,7 +298,7 @@ angular.module('mainApp')
           viewable: true,
           key: 'EU89_UTM_36',
           type: 'standard',
-          bbox: []
+          bbox: {}
         },
         {
           ESRI: 27391,
@@ -308,12 +308,12 @@ angular.module('mainApp')
           viewable: false,
           key: 'NGO1948_GaussK_1',
           type: 'extended',
-          bbox: [ // NGO1948 Axis 1-4
-            MinX = -368207.9294,
-            MaxX = 172305.8,
-            MinY = -28995.15926, // Norway
-            MaxY = 808453.3338 // Norway
-          ]
+          bbox: { // NGO1948 Axis 1-4
+            MinX: -368207.9294,
+            MaxX: 172305.8,
+            MinY: -28995.15926, // Norway
+            MaxY: 808453.3338 // Norway
+          }
         },
         {
           ESRI: 27392,
@@ -323,12 +323,12 @@ angular.module('mainApp')
           viewable: false,
           key: 'NGO1948_GaussK_2',
           type: 'extended',
-          bbox: [ // NGO1948 Axis 1-4
-            MinX = -368207.9294,
-            MaxX = 172305.8,
-            MinY = -28995.15926, // Norway
-            MaxY = 808453.3338 // Norway
-          ]
+          bbox: { // NGO1948 Axis 1-4
+            MinX: -368207.9294,
+            MaxX: 172305.8,
+            MinY: -28995.15926, // Norway
+            MaxY: 808453.3338 // Norway
+          }
         },
         {
           ESRI: 27393,
@@ -338,12 +338,12 @@ angular.module('mainApp')
           viewable: false,
           key: 'NGO1948_GaussK_3',
           type: 'extended',
-          bbox: [ // NGO1948 Axis 1-4
-            MinX = -368207.9294,
-            MaxX = 172305.8,
-            MinY = -28995.15926, // Norway
-            MaxY = 808453.3338 // Norway
-          ]
+          bbox: { // NGO1948 Axis 1-4
+            MinX: -368207.9294,
+            MaxX: 172305.8,
+            MinY: -28995.15926, // Norway
+            MaxY: 808453.3338 // Norway
+          }
         },
         {
           ESRI: 27394,
@@ -353,12 +353,12 @@ angular.module('mainApp')
           viewable: false,
           key: 'NGO1948_GaussK_4',
           type: 'extended',
-          bbox: [ // NGO1948 Axis 1-4
-            MinX = -368207.9294,
-            MaxX = 172305.8,
-            MinY = -28995.15926, // Norway
-            MaxY = 808453.3338 // Norway
-          ]
+          bbox: { // NGO1948 Axis 1-4
+            MinX: -368207.9294,
+            MaxX: 172305.8,
+            MinY: -28995.15926, // Norway
+            MaxY: 808453.3338 // Norway
+          }
         },
         {
           ESRI: 27395,
@@ -368,12 +368,12 @@ angular.module('mainApp')
           viewable: false,
           key: 'NGO1948_GaussK_5',
           type: 'extended',
-          bbox: [ // NGO1948 Axis 5-8
-            MinX = -312424.3471,
-            MaxX = 410629.5171,
-            MinY = 808453.3338, // Norway
-            MaxY = 1507978.752 // Norway
-          ]
+          bbox: { // NGO1948 Axis 5-8
+            MinX: -312424.3471,
+            MaxX: 410629.5171,
+            MinY: 808453.3338, // Norway
+            MaxY: 1507978.752 // Norway
+          }
         },
         {
           ESRI: 27396,
@@ -383,12 +383,12 @@ angular.module('mainApp')
           viewable: false,
           key: 'NGO1948_GaussK_6',
           type: 'extended',
-          bbox: [ // NGO1948 Axis 5-8
-            MinX = -312424.3471,
-            MaxX = 410629.5171,
-            MinY = 808453.3338, // Norway
-            MaxY = 1507978.752 // Norway
-          ]
+          bbox: { // NGO1948 Axis 5-8
+            MinX: -312424.3471,
+            MaxX: 410629.5171,
+            MinY: 808453.3338, // Norway
+            MaxY: 1507978.752 // Norway
+          }
         },
         {
           ESRI: 27397,
@@ -398,12 +398,12 @@ angular.module('mainApp')
           viewable: false,
           key: 'NGO1948_GaussK_7',
           type: 'extended',
-          bbox: [ // NGO1948 Axis 5-8
-            MinX = -312424.3471,
-            MaxX = 410629.5171,
-            MinY = 808453.3338, // Norway
-            MaxY = 1507978.752 // Norway
-          ]
+          bbox: { // NGO1948 Axis 5-8
+            MinX: -312424.3471,
+            MaxX: 410629.5171,
+            MinY: 808453.3338, // Norway
+            MaxY: 1507978.752 // Norway
+          }
         },
         {
           ESRI: 27398,
@@ -413,12 +413,12 @@ angular.module('mainApp')
           viewable: false,
           key: 'NGO1948_GaussK_8',
           type: 'extended',
-          bbox: [ // NGO1948 Axis 5-8
-            MinX = -312424.3471,
-            MaxX = 410629.5171,
-            MinY = 808453.3338, // Norway
-            MaxY = 1507978.752 // Norway
-          ]
+          bbox: { // NGO1948 Axis 5-8
+            MinX: -312424.3471,
+            MaxX: 410629.5171,
+            MinY: 808453.3338, // Norway
+            MaxY: 1507978.752 // Norway
+          }
         },
         {
           ESRI: null,
@@ -428,7 +428,7 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50',
           type: 'extended',
-          bbox: []
+          bbox: {}
         },
         {
           ESRI: 23031,
@@ -438,7 +438,7 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_31',
           type: 'extended',
-          bbox: []
+          bbox: {}
         },
         {
           ESRI: 23032,
@@ -448,7 +448,7 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_32',
           type: 'extended',
-          bbox: []
+          bbox: {}
         },
         {
           ESRI: 23033,
@@ -458,7 +458,7 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_33',
           type: 'extended',
-          bbox: []
+          bbox: {}
         },
         {
           ESRI: 23034,
@@ -468,7 +468,7 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_34',
           type: 'extended',
-          bbox: []
+          bbox: {}
         },
         {
           ESRI: 23035,
@@ -478,7 +478,7 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_35',
           type: 'extended',
-          bbox: []
+          bbox: {}
         },
         {
           ESRI: 23036,
@@ -488,21 +488,21 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_36',
           type: 'extended',
-          bbox: []
+          bbox: {}
         }
         /*
                 ,{
                   Name: "Lokalt nett, Oslo",
                   SOSI: 101,
-                  bbox: [
-                    MinX = -13231.52378,
-                    MaxX = 13557.59229,
-                    MinY = -11742.49708,
-                    MaxY = 25100.80578
-                  ]
+                  bbox: {
+                    MinX : -13231.52378,
+                    MaxX : 13557.59229,
+                    MinY : -11742.49708,
+                    MaxY : 25100.80578
+                  }
                 }
         */
-        //{ESRI: null,EPSG: null,SOSI: null,name: 'what3words',viewable: false,forward: true,key: 'w3w',type: 'extended',bbox: []}
+        //{ESRI: null,EPSG: null,SOSI: null,name: 'what3words',viewable: false,forward: true,key: 'w3w',type: 'extended',bbox: {}}
         //{'ESRI': null, 'EPSG': null, 'SOSI': null, 'name': 'Geohash', 'viewable': false, 'forward': true}
         //{'ESRI': null, 'EPSG': null, 'SOSI': 53, 'name': 'Møre-A'},
         //{'ESRI': null, 'EPSG': null, 'SOSI': 54, 'name': 'Møre-B'},
@@ -540,5 +540,26 @@ angular.module('mainApp')
           });
         return result;
       };
+      this.isOutOfBounds = function (coordinates) {
+        return this.sosiCodes
+          .filter(function (el) {
+            return (coordinates.north.value < el.bbox.MinX) || (coordinates.north.value > el.bbox.MaxX) ||
+              (coordinates.east.value < el.bbox.MinY) || (coordinates.east.value > el.bbox.MaxY);
+          })
+          .map(function (obj) {
+            return obj;
+          });
+      };
+      this.isNotOutOfBounds = function (coordinates) {
+        return this.sosiCodes
+          .filter(function (el) {
+            return (coordinates.north.value > el.bbox.MinX) && (coordinates.north.value < el.bbox.MaxX) &&
+              (coordinates.east.value > el.bbox.MinY) && (coordinates.east.value < el.bbox.MaxY);
+          })
+          .map(function (obj) {
+            return obj;
+          });
+      };
+
     }
   ]);
