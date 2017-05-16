@@ -27,10 +27,10 @@ angular.module('searchPanel')
             var coordinate = {};
             if (typeof min !== "undefined") {
               coordinate = {
-                deg: Number.parseInt(deg),
+                deg: Number.parseInt(value),
                 min: Number.parseFloat(min),
                 sec: Number.parseFloat(sec),
-                value: Number.parseInt(deg) + Number.parseFloat(min) / 60.0 + Number.parseFloat(sec) / 3600.0
+                value: Number.parseInt(value) + Number.parseFloat(min) / 60.0 + Number.parseFloat(sec) / 3600.0
               };
             } else {
               coordinate = {
@@ -455,7 +455,12 @@ angular.module('searchPanel')
               _w3wSearch(params.phrase);
             } else if (typeof params.phrase === 'string') {
               return false;
+            } else if(typeof params.north === 'undefined') {
+              return false;
             }
+            // var possibleProjections = mainAppService.isNotOutOfBounds(params);
+            // console.error(JSON.stringify(possibleProjections));
+
             var availableUTMZones = searchPanelFactory.getAvailableUTMZones();
             if (availableUTMZones.indexOf(epsg) > -1) {
               scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, 'EPSG:' + epsg, 'coordUtm', ''));
@@ -552,6 +557,11 @@ angular.module('searchPanel')
               }, 0);
             }
           };
+          var _getPlacenameHits = function (jsonObject) {
+            scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
+            scope.placenameItems = _generateArrayWithValues(parseInt(scope.placenameHits, 10));
+            scope.placenamePageTotal = Math.ceil(scope.placenameHits / searchPanelFactory.getPlacenameHitsPerPage());
+          };
 
           var _convertSearchResult2Json = function (document, source) {
             switch (source) {
@@ -623,6 +633,14 @@ angular.module('searchPanel')
             }
           };
 
+          scope.cleanResults = function () {
+            _init();
+            scope.removeInfomarkers();
+            scope.searchBarModel = "";
+            // scope.showSearchResultPanel();
+            scope.deactivatePrintBoxSelect();
+          };
+
           scope.searchBarValueChanged = function () {
             if (scope.searchBarModel === '') {
               scope.cleanResults();
@@ -661,12 +679,6 @@ angular.module('searchPanel')
 
           var _generateArrayWithValues = function (values) {
             return new Array(values);
-          };
-
-          var _getPlacenameHits = function (jsonObject) {
-            scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
-            scope.placenameItems = _generateArrayWithValues(parseInt(scope.placenameHits, 10));
-            scope.placenamePageTotal = Math.ceil(scope.placenameHits / searchPanelFactory.getPlacenameHitsPerPage());
           };
 
           scope.getNextPlacenamePage = function () {
@@ -844,14 +856,6 @@ angular.module('searchPanel')
 
           scope.openShowEiendom = function (searchResult) {
             $window.open(searchResult.url, '_blank');
-          };
-
-          scope.cleanResults = function () {
-            _init();
-            scope.removeInfomarkers();
-            scope.searchBarModel = "";
-            // scope.showSearchResultPanel();
-            scope.deactivatePrintBoxSelect();
           };
 
           scope.resetSearchPanel = function () {
