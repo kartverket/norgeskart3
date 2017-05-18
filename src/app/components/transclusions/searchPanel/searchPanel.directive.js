@@ -23,7 +23,22 @@ angular.module('searchPanel')
             icon: 'search-options',
             text: ''
           };
-
+          var _coordinate = function (value, min, sec) {
+            var coordinate = {};
+            if (typeof min !== "undefined") {
+              coordinate = {
+                deg: Number.parseInt(value),
+                min: Number.parseFloat(min),
+                sec: Number.parseFloat(sec),
+                value: Number.parseInt(value) + Number.parseFloat(min) / 60.0 + Number.parseFloat(sec) / 3600.0
+              };
+            } else {
+              coordinate = {
+                value: value
+              };
+            }
+            return coordinate;
+          };
           var _constructSearchOption = function (name, icon, clickable, text, extra) {
             var searchOption = {
               icon: {
@@ -94,137 +109,104 @@ angular.module('searchPanel')
             return scope.searchBarModel + '';
           };
 
+          var flipCoordinates = function (obj) {
+            var tmp = obj.north;
+            obj.north = obj.east;
+            obj.east = tmp;
+            return obj;
+          };
+
           var _parseInput = function (input) {
             var parsedInput = {},
               reResult, what3words,
               decimalPairComma,
-              decimalPairDot,
-              decimalCoordinatesNE,
-              degMinNE,
-              degMinEN,
-              degMinSecNE,
-              degMinSecEN;
+              decimalPairDot;
 
             // matches two numbers using either . or , as decimal mark. Numbers using . as decimal mark are separated by , or , plus blankspace. Numbers using , as decimal mark are separated by blankspace
             what3words = /^[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/;
             decimalPairComma = /^[ \t]*([0-9]+,[0-9]+|[0-9]+)[ \t]+([0-9]+,[0-9]+|[0-9]+)(?:@([0-9]+))?[ \t]*$/;
             decimalPairDot = /^[ \t]*([0-9]+\.[0-9]+|[0-9]+)(?:[ \t]+,|,)[ \t]*([0-9]+\.[0-9]+|[0-9]+)(?:@([0-9]+))?[ \t]*$/;
-            decimalCoordinatesNE = /^[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*[°]?[ \t]*[nN]?[ \t]*,?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*[°]?[ \t]*[eEøØoO]?[ \t]*$/;
-            degMinNE = /^[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*[nN]?[ \t]*,?[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*[eEoOøØ]?[ \t]*?/;
-            degMinEN = /^[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*[eEoOøØ][ \t]*,?[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*[nN][ \t]*?/;
-            degMinSecNE = /^[ \t]*[nN]?[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*[nN]?[ \t]*,?[ \t]*[eEøØoO]?[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*[eEoOøØ]?[ \t]*?/;
-            degMinSecEN = /^[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*[eEøØoO][ \t]*,?[ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*[nN][ \t]*?/;
-            degMinSecEN2 = /^[ \t]*[eEøØoO][ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*,?[ \t]*[nN][ \t]*([0-9]+)[ \t]*[°]?[ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*['′][ \t]*([0-9]+[,\.][0-9]+|[0-9]+)[ \t]*(?:"||''||′′)[ \t]*?/;
+
+            input = input.replace(new RegExp(/Nord|NORD|North|NORTH|[nN]/, 'g'), 'N');
+            input = input.replace(new RegExp(/Øst|ØST|East|EAST|[eEøØoO]/, 'g'), 'E');
 
             var interpretAsNorthEastOrXY = function (obj) {
-              if (obj && typeof obj.first === 'number' && typeof obj.second === 'number') {
+              if (obj && typeof obj.first.value === 'number' && typeof obj.second.value === 'number') {
                 obj.north = obj.first;
                 delete obj.first;
-
                 obj.east = obj.second;
                 delete obj.second;
               }
               return obj;
             };
-
             if (typeof input === 'string') {
               if (what3words.test(input)) {
                 parsedInput.phrase = input;
                 parsedInput.w3w = true;
+                return parsedInput;
               } else if (decimalPairComma.test(input)) {
                 reResult = decimalPairComma.exec(input);
-                parsedInput.first = parseFloat(reResult[1]);
-                parsedInput.second = parseFloat(reResult[2]);
+                parsedInput.first = {
+                  value: parseFloat(reResult[1])
+                };
+                parsedInput.second = {
+                  value: parseFloat(reResult[2])
+                };
                 if (reResult[3]) {
                   parsedInput.projectionHint = parseInt(reResult[3], 10);
                 }
-                interpretAsNorthEastOrXY(parsedInput);
+                return interpretAsNorthEastOrXY(parsedInput);
               } else if (decimalPairDot.test(input)) {
                 reResult = decimalPairDot.exec(input);
-                parsedInput.first = parseFloat(reResult[1]);
-                parsedInput.second = parseFloat(reResult[2]);
+                parsedInput.first = {
+                  value: parseFloat(reResult[1])
+                };
+                parsedInput.second = {
+                  value: parseFloat(reResult[2])
+                };
                 if (reResult[3]) {
                   parsedInput.projectionHint = parseInt(reResult[3], 10);
                 }
-                interpretAsNorthEastOrXY(parsedInput);
-              } else if (decimalCoordinatesNE.test(input)) {
-                reResult = decimalCoordinatesNE.exec(input);
-                parsedInput.north = {};
-                parsedInput.east = {};
-                parsedInput.north.deg = parseFloat(reResult[1]);
-                parsedInput.east.deg = parseFloat(reResult[2]);
-              } else if (degMinNE.test(input)) {
-                reResult = degMinNE.exec(input);
-                parsedInput.north = {};
-                parsedInput.east = {};
-                parsedInput.north.deg = parseFloat(reResult[1]);
-                parsedInput.north.min = parseFloat(reResult[2]);
-                parsedInput.east.deg = parseFloat(reResult[3]);
-                parsedInput.east.min = parseFloat(reResult[4]);
-              } else if (degMinEN.test(input)) {
-                reResult = degMinEN.exec(input);
-                parsedInput.north = {};
-                parsedInput.east = {};
-                parsedInput.east.deg = parseFloat(reResult[1]);
-                parsedInput.east.min = parseFloat(reResult[2]);
-                parsedInput.north.deg = parseFloat(reResult[3]);
-                parsedInput.north.min = parseFloat(reResult[4]);
-              } else if (degMinSecNE.test(input)) {
-                reResult = degMinSecNE.exec(input);
-                parsedInput.north = {};
-                parsedInput.east = {};
-                parsedInput.north.deg = parseFloat(reResult[1]);
-                parsedInput.north.min = parseFloat(reResult[2]);
-                parsedInput.north.sec = parseFloat(reResult[3]);
-                parsedInput.east.deg = parseFloat(reResult[4]);
-                parsedInput.east.min = parseFloat(reResult[5]);
-                parsedInput.east.sec = parseFloat(reResult[6]);
-              } else if (degMinSecEN.test(input)) {
-                reResult = degMinSecEN.exec(input);
-                parsedInput.north = {};
-                parsedInput.east = {};
-                parsedInput.east.deg = parseFloat(reResult[1]);
-                parsedInput.east.min = parseFloat(reResult[2]);
-                parsedInput.east.sec = parseFloat(reResult[3]);
-                parsedInput.north.deg = parseFloat(reResult[4]);
-                parsedInput.north.min = parseFloat(reResult[5]);
-                parsedInput.north.sec = parseFloat(reResult[6]);
-              } else if (degMinSecEN2.test(input)) {
-                reResult = degMinSecEN2.exec(input);
-                parsedInput.north = {};
-                parsedInput.east = {};
-                parsedInput.east.deg = parseFloat(reResult[1]);
-                parsedInput.east.min = parseFloat(reResult[2]);
-                parsedInput.east.sec = parseFloat(reResult[3]);
-                parsedInput.north.deg = parseFloat(reResult[4]);
-                parsedInput.north.min = parseFloat(reResult[5]);
-                parsedInput.north.sec = parseFloat(reResult[6]);
+                return interpretAsNorthEastOrXY(parsedInput);
               }
-              var degMinSec2Deg = function (dms) {
-                if (typeof dms.sec === 'number') {
-                  dms.min += dms.sec / 60;
-                  delete dms.sec;
-                }
-                if (typeof dms.min === 'number') {
-                  dms.deg += dms.min / 60;
-                  delete dms.min;
-                }
-              };
-              if (parsedInput.north) {
-                degMinSec2Deg(parsedInput.north);
-                if (typeof parsedInput.north.deg === 'number') {
-                  parsedInput.north = parsedInput.north.deg;
-                }
-              }
-              if (parsedInput.east) {
-                degMinSec2Deg(parsedInput.east);
-                if (typeof parsedInput.east.deg === 'number') {
-                  parsedInput.east = parsedInput.east.deg;
-                }
-              }
-              return parsedInput;
             }
-            return null;
+
+            var digitsRegEx = /(\d*\.?)\d+/g;
+            var nondigitsRegEx = /[nN]|[eEøØoO]+/g; //   /\D+/g;
+            var separatorRegEx = /[,]+/g;
+            var match;
+            var alldigits = [];
+            var nondigits = [];
+            var separators = [];
+            while ((match = separatorRegEx.exec(input)) !== null) {
+              separators.push(match[0]);
+            }
+            if (separators.length > 1) {
+              input = input.replace(new RegExp(/[,]/, 'g'), '.');
+            }
+            while ((match = digitsRegEx.exec(input)) !== null) {
+              alldigits.push(match[0]);
+            }
+            while ((match = nondigitsRegEx.exec(input)) !== null) {
+              nondigits.push(match[0]);
+            }
+            if (alldigits.length === 6) {
+              parsedInput.north = _coordinate(alldigits[0], alldigits[1], alldigits[2]);
+              parsedInput.east = _coordinate(alldigits[3], alldigits[4], alldigits[5]);
+            } else if (alldigits.length === 4) {
+              parsedInput.north = _coordinate(alldigits[0], alldigits[1], 0);
+              parsedInput.east = _coordinate(alldigits[2], alldigits[3], 0);
+            } else if (alldigits.length === 2) {
+              parsedInput.north = _coordinate(alldigits[0]);
+              parsedInput.east = _coordinate(alldigits[1]);
+              if (nondigits[0] === 'N' && Math.round(parsedInput.north.value).toString().length > 6) {
+                parsedInput = flipCoordinates(parsedInput);
+              }
+            }
+            if (nondigits[0] === 'E') {
+              parsedInput = flipCoordinates(parsedInput);
+            }
+            return parsedInput;
           };
 
           scope.contructQueryPoint = function (lat, lon, epsg, source, kommune) {
@@ -467,22 +449,27 @@ angular.module('searchPanel')
           var _checkQueryForCoordinates = function (query) {
             scope.coordinate = true;
             var epsg = query.split('@')[1];
-            var params = _parseInput(query);
+            var params = _parseInput(query.split('@')[0]);
 
             if (params.w3w) {
               _w3wSearch(params.phrase);
             } else if (typeof params.phrase === 'string') {
               return false;
+            } else if (typeof params.north === 'undefined') {
+              return false;
             }
+            // var possibleProjections = mainAppService.isNotOutOfBounds(params);
+            // console.error(JSON.stringify(possibleProjections));
+
             var availableUTMZones = searchPanelFactory.getAvailableUTMZones();
             if (availableUTMZones.indexOf(epsg) > -1) {
-              scope.showQueryPoint(scope.contructQueryPoint(params.east, params.north, 'EPSG:' + epsg, 'coordUtm', ''));
+              scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, 'EPSG:' + epsg, 'coordUtm', ''));
               return true;
             }
             if (epsg) {
               var sosi = mainAppService.getSOSIfromEPSG(epsg);
               if (sosi) {
-                var koordTransUrl = mainAppService.generateKoordTransUrl(params.north, params.east, '', sosi);
+                var koordTransUrl = mainAppService.generateKoordTransUrl(params.north.value, params.east.value, '', sosi);
                 $http.get(koordTransUrl).then(function (response) {
                   if (response.data.hasOwnProperty('errKode') && response.data.errKode !== 0) {
                     console.error(response.data);
@@ -496,14 +483,23 @@ angular.module('searchPanel')
                 return false;
               }
             } else {
-              if (((params.north > 32.88) && (params.east > -16.1)) && ((params.north < 84.17) && (params.east < 39.65))) {
+              if (((params.north.value > 32.88) && (params.east.value > -16.1)) && ((params.north.value < 84.17) && (params.east.value < 39.65))) {
                 epsg = 'EPSG:4258';
-                scope.showQueryPoint(scope.contructQueryPoint(params.north, params.east, epsg, 'coordGeo', ''));
+                scope.showQueryPoint(scope.contructQueryPoint(params.north.value, params.east.value, epsg, 'coordGeo', ''));
                 return true;
-              }
-              if (((params.north > -2465220.60) && (params.east > 4102904.86)) && ((params.north < 771164.64) && (params.east < 9406031.63))) {
+              } else if (((params.east.value > 32.88) && (params.north.value > -16.1)) && ((params.east.value < 84.17) && (params.north.value < 39.65))) {
+                epsg = 'EPSG:4258';
+                scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, epsg, 'coordGeo', ''));
+                return true;
+              } else if (((params.north.value > -2465220.60) && (params.east.value > 4102904.86)) && ((params.north.value < 771164.64) && (params.east.value < 9406031.63))) {
                 epsg = 'EPSG:25833';
-                scope.showQueryPoint(scope.contructQueryPoint(params.east, params.north, epsg, 'coordUtm', ''));
+                scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, epsg, 'coordUtm', ''));
+                scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
+                return true;
+              } else if (((params.north.value > -128551.4542) && (params.east.value > 6404024.705)) && ((params.north.value < 1148218.099) && (params.east.value < 8010780.591))) {
+                epsg = 'EPSG:25833';
+                SosiCode = 23;
+                scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, epsg, 'coordUtm', ''));
                 scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
                 return true;
               }
@@ -560,6 +556,11 @@ angular.module('searchPanel')
                 scope.searchResults = _unifiedResults;
               }, 0);
             }
+          };
+          var _getPlacenameHits = function (jsonObject) {
+            scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
+            scope.placenameItems = _generateArrayWithValues(parseInt(scope.placenameHits, 10));
+            scope.placenamePageTotal = Math.ceil(scope.placenameHits / searchPanelFactory.getPlacenameHitsPerPage());
           };
 
           var _convertSearchResult2Json = function (document, source) {
@@ -632,6 +633,14 @@ angular.module('searchPanel')
             }
           };
 
+          scope.cleanResults = function () {
+            _init();
+            scope.removeInfomarkers();
+            scope.searchBarModel = "";
+            // scope.showSearchResultPanel();
+            scope.deactivatePrintBoxSelect();
+          };
+
           scope.searchBarValueChanged = function () {
             if (scope.searchBarModel === '') {
               scope.cleanResults();
@@ -670,12 +679,6 @@ angular.module('searchPanel')
 
           var _generateArrayWithValues = function (values) {
             return new Array(values);
-          };
-
-          var _getPlacenameHits = function (jsonObject) {
-            scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
-            scope.placenameItems = _generateArrayWithValues(parseInt(scope.placenameHits, 10));
-            scope.placenamePageTotal = Math.ceil(scope.placenameHits / searchPanelFactory.getPlacenameHitsPerPage());
           };
 
           scope.getNextPlacenamePage = function () {
@@ -731,13 +734,17 @@ angular.module('searchPanel')
             var lat = jsonObject[identifiersDict.latID] + '';
             var lon = jsonObject[identifiersDict.lonID] + '';
             var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
+            var husnummer = identifiersDict.husnummerID !== false ? jsonObject[identifiersDict.husnummerID] : '';
+            if (identifiersDict.husnummerBokstav && typeof jsonObject[identifiersDict.husnummerBokstav] === 'string') {
+              husnummer += jsonObject[identifiersDict.husnummerBokstav];
+            }
             var result = {
               name: jsonObject[identifiersDict.nameID],
               kommune: jsonObject[identifiersDict.kommuneID],
               point: point,
               format: identifiersDict.format,
               source: identifiersDict.source,
-              husnummer: jsonObject[identifiersDict.husnummerID],
+              husnummer: husnummer,
               navnetype: jsonObject[identifiersDict.navnetypeID],
               url: jsonObject.url
             };
@@ -853,14 +860,6 @@ angular.module('searchPanel')
 
           scope.openShowEiendom = function (searchResult) {
             $window.open(searchResult.url, '_blank');
-          };
-
-          scope.cleanResults = function () {
-            _init();
-            scope.removeInfomarkers();
-            scope.searchBarModel = "";
-            // scope.showSearchResultPanel();
-            scope.deactivatePrintBoxSelect();
           };
 
           scope.resetSearchPanel = function () {
