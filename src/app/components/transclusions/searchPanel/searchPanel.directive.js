@@ -27,10 +27,10 @@ angular.module('searchPanel')
             var coordinate = {};
             if (typeof min !== "undefined") {
               coordinate = {
-                deg: Number.parseInt(value),
-                min: Number.parseFloat(min),
-                sec: Number.parseFloat(sec),
-                value: Number.parseInt(value) + Number.parseFloat(min) / 60.0 + Number.parseFloat(sec) / 3600.0
+                deg: parseInt(value),
+                min: parseFloat(min),
+                sec: parseFloat(sec),
+                value: parseInt(value) + parseFloat(min) / 60.0 + parseFloat(sec) / 3600.0
               };
             } else {
               coordinate = {
