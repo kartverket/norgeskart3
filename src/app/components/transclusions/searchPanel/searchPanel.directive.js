@@ -127,8 +127,8 @@ angular.module('searchPanel')
             decimalPairComma = /^[ \t]*([0-9]+,[0-9]+|[0-9]+)[ \t]+([0-9]+,[0-9]+|[0-9]+)(?:@([0-9]+))?[ \t]*$/;
             decimalPairDot = /^[ \t]*([0-9]+\.[0-9]+|[0-9]+)(?:[ \t]+,|,)[ \t]*([0-9]+\.[0-9]+|[0-9]+)(?:@([0-9]+))?[ \t]*$/;
 
-            input = input.replace(new RegExp(/Nord|NORD|North|NORTH|[nN]/, 'g'), 'N');
-            input = input.replace(new RegExp(/Øst|ØST|East|EAST|[eEøØoO]/, 'g'), 'E');
+            input = input.replace(/Nord|NORD|North|NORTH|[nN]/g, 'N');
+            input = input.replace(/Øst|ØST|East|EAST|[eEøØoO]/g, 'E');
 
             var interpretAsNorthEastOrXY = function (obj) {
               if (obj && typeof obj.first.value === 'number' && typeof obj.second.value === 'number') {
