@@ -150,6 +150,12 @@ angular.module('searchLagNodplakatPanelPage2')
             emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%85/g, '%C5'); // Å
             emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%A9/g, '%E9'); // é
             emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%89/g, '%C9'); // É
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%84/g, '%C4'); // Ä
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%A4/g, '%E4'); // ä
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%96/g, '%D6'); // Ö
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%B6/g, '%F6'); // ö
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%9C/g, '%DC'); // Ü
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%BC/g, '%FC'); // ü
             return emergencyPosterServiceUrl;
           };
 
