@@ -829,7 +829,7 @@ angular.module('searchPanel')
 
           scope.capitalizeName = function (name) {
             name = name.trim();
-            name = _capitalizeNamePart(name, ' ');
+            //name = _capitalizeNamePart(name, ' ');
             name = _capitalizeNamePart(name, '-');
             return name;
           };
