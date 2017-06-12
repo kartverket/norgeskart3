@@ -85,7 +85,7 @@ angular.module('searchLagTurkartPanel')
                 }],
                 projection: extent.projection,
                 sone: extent.sone,
-                biSone: ""
+                biSone: extent.biSone
               },
               paging: 12,
               layout: "A4 landscape",
