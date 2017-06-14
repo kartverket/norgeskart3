@@ -106,7 +106,7 @@ angular.module('mainApp')
       };
 
       this.generateLagTurkartUrl = function () {
-        return urlGeonorge + "freeprint/getprint2.py";
+        return urlGeonorge + "freeprint/getprint_sverige.py";
       };
 
       this.generateLagFargeleggingskartUrl = function () {
