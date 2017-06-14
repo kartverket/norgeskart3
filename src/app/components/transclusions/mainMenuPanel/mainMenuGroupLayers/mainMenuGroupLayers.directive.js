@@ -145,9 +145,19 @@ angular.module('mainMenuGroupLayers')
                     }
                   });
                 }
-                for (var i = 0; i < group.isyLayers.length; i++) {
-                  map.ShowLayer(group.isyLayers[i]);
-                  _updateGroupStateByLayer(group.isyLayers[i], scope.groupLayers);
+                var sortedLayers = JSON.parse(JSON.stringify(group.isyLayers));
+                sortedLayers.sort(function (a, b) {
+                  return a.order - b.order;
+                });
+                var getSortedLayer = function(id) {
+                  return group.isyLayers.filter(function (el) {
+                    return el.id == id;
+                  })[0];
+                };
+                for (var i = 0; i < sortedLayers.length; i++) {
+                  var tmpLayer = getSortedLayer(sortedLayers[i].id);
+                  map.ShowLayer(tmpLayer);
+                  _updateGroupStateByLayer(tmpLayer, scope.groupLayers);
                 }
               }
               // if (group.subCategories !== undefined) {

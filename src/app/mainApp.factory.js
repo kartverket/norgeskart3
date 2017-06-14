@@ -439,6 +439,7 @@ angular.module('mainApp')
           guid: source.guid,
           name: source.name,
           groupId: cat_ids,
+          order: source.order,
           visibleOnLoad: (source.options.visibility === 'true'),
           id: sourceType == 'VECTOR' ? mapConfig.layers.length + 8001 : mapConfig.layers.length + 1001,
           isBaseLayer: (source.options.isbaselayer === 'true'),
