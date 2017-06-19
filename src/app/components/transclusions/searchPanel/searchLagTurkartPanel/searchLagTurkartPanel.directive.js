@@ -14,6 +14,7 @@ angular.module('searchLagTurkartPanel')
           scope.createMapButtonOn = true;
           scope.showLegend = false;
           scope.showTrips = false;
+          scope.showSweden = false;
 
           eventHandler.RegisterEvent(ISY.Events.EventTypes.PrintBoxSelectReturnValue, _boxExtent);
 
@@ -93,6 +94,7 @@ angular.module('searchLagTurkartPanel')
               titel: scope.tittel,
               legend: scope.showLegend,
               trips: scope.showTrips,
+              sweden: scope.showSweden,
               link: "http://www.norgeskart.no/turkart/#9/238117/6674760"
             };
           };
@@ -114,7 +116,7 @@ angular.module('searchLagTurkartPanel')
             scope.showSpinner = false;
             document.getElementById("spinner1").style.backgroundColor = "transparent";
             document.getElementById("spinner1").style.transition = "0.8s";
-            mapLink = urlLagTurkart.replace('getprint2.py', '') + response.data.linkPdf;
+            mapLink = urlLagTurkart.replace('getprint_sverige.py', '') + response.data.linkPdf;
           };
 
           scope.downloadMap = function () {
