@@ -171,7 +171,7 @@ angular.module('searchPanel')
               }
             }
 
-            var digitsRegEx = /(\d*\.?)\d+/g;
+            var digitsRegEx = /(-?\d*\.?)\d+/g;
             var nondigitsRegEx = /[nN]|[eEøØoO]+/g; //   /\D+/g;
             var separatorRegEx = /[,]+/g;
             var match;
