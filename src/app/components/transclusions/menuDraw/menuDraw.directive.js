@@ -9,6 +9,7 @@ angular.module('menuDraw')
           Draw start
           */
 
+          scope.drawingHash = '';
           scope.snap = true;
           scope.selectionActive = false;
           scope.pointTypes = {
@@ -281,7 +282,8 @@ angular.module('menuDraw')
           };
 
           var _getGeoJSON = function (hash) {
-            var drawingUrl = mainAppService.generateGeoJSONUrl(hash);
+            scope.drawingHash = hash;
+            var drawingUrl = mainAppService.generateGeoJSONUrl(hash, false);
             $http.get(drawingUrl).then(function (result) {
               _setGeoJSONOnScope(result);
             });
@@ -374,6 +376,7 @@ angular.module('menuDraw')
             var hash = _getValueFromUrl('drawing');
             var oldUrl = $location.url();
             $location.url(oldUrl.replace('drawing=' + hash, ''));
+            scope.drawingHash = '';
           };
 
           scope.deleteButtonClick = function () {
@@ -384,7 +387,7 @@ angular.module('menuDraw')
             _deleteFeature = false;
           };
 
-          scope.downloadButtonClick = function () {
+          scope.saveToPCButtonClick = function () {
             if (scope.GeoJSON == 'remove') {
               alert('Empty drawing');
             } else {
@@ -392,6 +395,13 @@ angular.module('menuDraw')
             }
           };
 
+          scope.downloadButtonClick = function () {
+            if (scope.drawingHash !== '') {
+              var downloadUrl = mainAppService.generateGeoJSONUrl(scope.drawingHash, true);
+              window.open(downloadUrl);
+            }
+          };
+          
           scope.saveButtonClick = function () {
             var saveUrl = mainAppService.generateGeoJSONSaveUrl();
             $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side

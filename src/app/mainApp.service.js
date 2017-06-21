@@ -125,8 +125,13 @@ angular.module('mainApp')
         return urlOpenWms + 'wms.topo2?service=WMS&request=GetMap&CRS=EPSG:32633&FORMAT=image%2Fjpeg&BGCOLOR=0xFFFFFF&TRANSPARENT=false&LAYERS=topo2_WMS&VERSION=1.3.0&WIDTH=' + $(window).width() + '&HEIGHT=' + $(window).height() + '&BBOX=' + minx + ',' + miny + ',' + maxx + ',' + maxy;
       };
 
-      this.generateGeoJSONUrl = function (hash) {
-        return url + 'ws/get-json.py?hash=' + hash;
+      this.generateGeoJSONUrl = function (hash, save) {
+        var params = {};
+        params.hash = hash;
+        if (save) {
+          params.save = true;
+        }
+        return url + 'ws/get-json.py?' + $.param(params);
       };
 
       this.generateGeoJSONSaveUrl = function () {
