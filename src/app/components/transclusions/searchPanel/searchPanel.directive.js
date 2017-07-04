@@ -156,21 +156,27 @@ angular.module('searchPanel')
             if (alldigits.length === 6) {
               parsedInput.north = _coordinate(alldigits[0], alldigits[1], alldigits[2]);
               parsedInput.east = _coordinate(alldigits[3], alldigits[4], alldigits[5]);
+              if (nondigits[0] === 'E') {
+                parsedInput = flipCoordinates(parsedInput);
+              }
             } else if (alldigits.length === 4) {
               parsedInput.north = _coordinate(alldigits[0], alldigits[1], 0);
               parsedInput.east = _coordinate(alldigits[2], alldigits[3], 0);
+              if (nondigits[0] === 'E') {
+                parsedInput = flipCoordinates(parsedInput);
+              }
             } else if (alldigits.length === 2) {
               parsedInput.north = _coordinate(alldigits[0]);
               parsedInput.east = _coordinate(alldigits[1]);
-              /*
-              if (nondigits[0] === 'N' && Math.round(parsedInput.north.value).toString().length > 6) {
+              if (nondigits[0] === 'N' && Math.round(parsedInput.north.value).toString().length >= 6) {
                 parsedInput = flipCoordinates(parsedInput);
               }
-              */
             }
+            /*
             if (nondigits[0] === 'E') {
-              parsedInput = flipCoordinates(parsedInput);
+               parsedInput = flipCoordinates(parsedInput);
             }
+            */
             return parsedInput;
           };
 
@@ -428,7 +434,7 @@ angular.module('searchPanel')
 
             var availableUTMZones = searchPanelFactory.getAvailableUTMZones();
             if (availableUTMZones.indexOf(epsg) > -1) {
-              scope.showQueryPoint(scope.contructQueryPoint(params.north.value, params.east.value, 'EPSG:' + epsg, 'coordUtm', ''));
+              scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, 'EPSG:' + epsg, 'coordUtm', ''));
               return true;
             }
             if (epsg) {
