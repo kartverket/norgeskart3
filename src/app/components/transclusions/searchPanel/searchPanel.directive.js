@@ -110,16 +110,15 @@ angular.module('searchPanel')
           };
 
           var flipCoordinates = function (obj) {
-            var tmp = obj.north;
-            obj.north = obj.east;
-            obj.east = tmp;
-            return obj;
+            var tmpObj = {};
+            tmpObj.second = obj.first;
+            tmpObj.first = obj.second;
+            return tmpObj;
           };
 
           var _parseInput = function (input) {
             var parsedInput = {},
               what3words;
-
             // matches two numbers using either . or , as decimal mark. Numbers using . as decimal mark are separated by , or , plus blankspace. Numbers using , as decimal mark are separated by blankspace
             what3words = /^[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/;
 
@@ -153,37 +152,32 @@ angular.module('searchPanel')
             while ((match = nondigitsRegEx.exec(input)) !== null) {
               nondigits.push(match[0]);
             }
+            parsedInput.nondigits = nondigits;
             if (alldigits.length === 6) {
-              parsedInput.north = _coordinate(alldigits[0], alldigits[1], alldigits[2]);
-              parsedInput.east = _coordinate(alldigits[3], alldigits[4], alldigits[5]);
-              if (nondigits[0] === 'E') {
-                parsedInput = flipCoordinates(parsedInput);
-              }
+              parsedInput.first = _coordinate(alldigits[0], alldigits[1], alldigits[2]);
+              parsedInput.second = _coordinate(alldigits[3], alldigits[4], alldigits[5]);
             } else if (alldigits.length === 4) {
-              parsedInput.north = _coordinate(alldigits[0], alldigits[1], 0);
-              parsedInput.east = _coordinate(alldigits[2], alldigits[3], 0);
-              if (nondigits[0] === 'E') {
-                parsedInput = flipCoordinates(parsedInput);
-              }
+              parsedInput.first = _coordinate(alldigits[0], alldigits[1], 0);
+              parsedInput.second = _coordinate(alldigits[2], alldigits[3], 0);
             } else if (alldigits.length === 2) {
-              parsedInput.north = _coordinate(alldigits[0]);
-              parsedInput.east = _coordinate(alldigits[1]);
-              if (nondigits[0] === 'N' && Math.round(parsedInput.north.value).toString().length >= 6) {
-                parsedInput = flipCoordinates(parsedInput);
-              }
+              parsedInput.first = _coordinate(alldigits[0]);
+              parsedInput.second = _coordinate(alldigits[1]);
+            }
+            if (nondigits[0] === 'N') {
+              parsedInput = flipCoordinates(parsedInput);
             }
             /*
             if (nondigits[0] === 'E') {
-               parsedInput = flipCoordinates(parsedInput);
+              parsedInput = flipCoordinates(parsedInput);
             }
             */
             return parsedInput;
           };
 
-          scope.contructQueryPoint = function (lat, lon, epsg, source, kommune) {
+          scope.constructQueryPoint = function (x, y, epsg, source, kommune) {
             return {
               name: '',
-              point: searchPanelFactory.constructPoint(lat, lon, epsg, scope.mapEpsg),
+              point: searchPanelFactory.constructPoint(x, y, epsg, scope.mapEpsg),
               //format: _serviceDict[source].format,
               source: source,
               kommune: kommune
@@ -390,7 +384,7 @@ angular.module('searchPanel')
             if (scope.searchPanelLayout != "searchSeEiendomPanel" && activeZoom < zoomTo && searchResult.source != 'mouseClick') {
               activePosition.zoom = zoomTo;
             }
-            activePosition.geographicPoint = searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, scope.mapEpsg, 'EPSG:4326');
+            activePosition.geographicPoint = searchPanelFactory.constructPoint(activePosition.lon, activePosition.lat, scope.mapEpsg, 'EPSG:4326');
             map.SetCenter(activePosition);
             map.RemoveInfoMarkers();
             scope.activePosition = activePosition;
@@ -419,74 +413,68 @@ angular.module('searchPanel')
 
           var _checkQueryForCoordinates = function (query) {
             scope.coordinate = true;
-            var epsg = query.split('@')[1];
+            var epsg = parseInt(query.split('@')[1]);
             var params = _parseInput(query.split('@')[0]);
-
             if (params.w3w) {
               _w3wSearch(params.phrase);
             } else if (typeof params.phrase === 'string') {
               return false;
-            } else if (typeof params.north === 'undefined') {
+            } else if (typeof params.first === 'undefined') {
               return false;
             }
-            // var possibleProjections = mainAppService.isNotOutOfBounds(params);
-            // console.error(JSON.stringify(possibleProjections));
 
-            var availableUTMZones = searchPanelFactory.getAvailableUTMZones();
-            if (availableUTMZones.indexOf(epsg) > -1) {
-              scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, 'EPSG:' + epsg, 'coordUtm', ''));
+            var possibleProjections = mainAppService.isNotOutOfBounds(params);
+            var positions = [];
+
+            if (mainAppService.availableUTMZones.indexOf(epsg) > -1) {
+              scope.showQueryPoint(scope.constructQueryPoint(params.north.value, params.east.value, 'EPSG:' + epsg, 'coordUtm', ''));
+              // scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
               return true;
-            }
-            if (epsg) {
+            } else if (epsg) {
               var sosi = mainAppService.getSOSIfromEPSG(epsg);
               if (sosi) {
                 var koordTransUrl = mainAppService.generateKoordTransUrl(params.north.value, params.east.value, '', sosi);
                 $http.get(koordTransUrl).then(function (response) {
                   if (response.data.hasOwnProperty('errKode') && response.data.errKode !== 0) {
                     console.error(response.data);
-                    return false;
+                    scope.showQueryPoint(scope.constructQueryPoint(params.east.value, params.north.value, 'EPSG:' + epsg, 'coordUtm', ''));
+                    return true;
                   } else {
-                    scope.showQueryPoint(scope.contructQueryPoint(response.data.nord, response.data.ost, 'EPSG:4326', 'coordGeo', ''));
+                    scope.showQueryPoint(scope.constructQueryPoint(response.data.nord, response.data.ost, 'EPSG:4326', 'coordGeo', ''));
                     return true;
                   }
                 });
               } else {
                 return false;
               }
-            } else {
-              if (((params.east.value > 32.88) && (params.north.value > -16.1)) && ((params.east.value < 84.17) && (params.north.value < 39.65))) {
-                epsg = 'EPSG:4258';
-                scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, epsg, 'coordGeo', ''));
-                return true;
-              } else if (((params.north.value > 32.88) && (params.east.value > -16.1)) && ((params.north.value < 84.17) && (params.east.value < 39.65))) {
-                epsg = 'EPSG:4258';
-                scope.showQueryPoint(scope.contructQueryPoint(params.north.value, params.east.value, epsg, 'coordGeo', ''));
-                return true;
-              } else if (((params.east.value > -2465220.60) && (params.north.value > 4102904.86)) && ((params.east.value < 771164.64) && (params.north.value < 9406031.63))) {
-                epsg = 'EPSG:25833';
-                scope.showQueryPoint(scope.contructQueryPoint(params.north.value, params.east.value, epsg, 'coordUtm', ''));
-                scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
-                return true;
-              } else if (((params.east.value > -128551.4542) && (params.north.value > 6404024.705)) && ((params.east.value < 1148218.099) && (params.north.value < 8010780.591))) {
-                epsg = 'EPSG:25833';
-                SosiCode = 23;
-                scope.showQueryPoint(scope.contructQueryPoint(params.north.value, params.east.value, epsg, 'coordUtm', ''));
-                scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
-                return true;
-              } else if (((params.north.value > -2465220.60) && (params.east.value > 4102904.86)) && ((params.north.value < 771164.64) && (params.east.value < 9406031.63))) {
-                epsg = 'EPSG:25833';
-                scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, epsg, 'coordUtm', ''));
-                scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
-                return true;
-              } else if (((params.north.value > -128551.4542) && (params.east.value > 6404024.705)) && ((params.north.value < 1148218.099) && (params.east.value < 8010780.591))) {
-                epsg = 'EPSG:25833';
-                SosiCode = 23;
-                scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, epsg, 'coordUtm', ''));
-                scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
-                return true;
-              }
             }
-            return false;
+
+            possibleProjections.forEach(function (zone) {
+              if (mainAppService.availableUTMZones.indexOf(zone.EPSG) === -1) {
+                mainAppService.setProj4def(zone.EPSG);
+              }
+              var pos = {};
+              if (zone.orientation === 'EN') {
+                params = flipCoordinates(params);
+              }
+              var point = searchPanelFactory.constructPoint(parseFloat(params.first.value), parseFloat(params.second.value), 'EPSG:' + zone.EPSG, scope.mapEpsg);
+              pos['point'] = point;
+              pos['queryPoint'] = {
+                name: zone.name,
+                point: point,
+                // format: identifiersDict.format,
+                source: 'coordinate',
+              };
+              pos.name = 'Coord. orientation: ' + zone.orientation + 'for : ' + zone.name;
+              pos.EPSG = zone.EPSG;
+              positions.push(pos);
+              scope.showQueryPoint(pos.queryPoint);
+            });
+            var coordinateResults = {};
+            coordinateResults['coordinate'] = positions;
+            scope.searchResults = coordinateResults;
+
+            return true;
           };
 
           scope.resetResultsService = function (service) {
@@ -514,7 +502,7 @@ angular.module('searchPanel')
             if (_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length == 1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']) {
               var key = Object.keys(_unifiedResults[matrikkelKey])[0];
               var result = _unifiedResults[matrikkelKey][key];
-              scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], scope.mapEpsg, result.source, result.kommune));
+              scope.showQueryPoint(scope.constructQueryPoint(result.point[0], result.point[1], scope.mapEpsg, result.source, result.kommune));
               scope.showSearchOptionsPanel();
               return false;
             }
@@ -633,6 +621,7 @@ angular.module('searchPanel')
 
             if (_checkQueryForCoordinates(query)) {
               scope.initSearchOptions();
+              scope.showSearchResultPanel();
               return;
             }
             _init(query);
@@ -654,7 +643,7 @@ angular.module('searchPanel')
                 if (!r.position) {
                   return;
                 }
-                scope.showQueryPoint(scope.contructQueryPoint(parseFloat(r.position[0]), parseFloat(r.position[1]), 'EPSG:4326', 'coordGeo', ''));
+                scope.showQueryPoint(scope.constructQueryPoint(parseFloat(r.position[1]), parseFloat(r.position[0]), 'EPSG:4326', 'coordGeo', ''));
               }
             });
           };
@@ -715,7 +704,7 @@ angular.module('searchPanel')
           var _getValuesFromJson = function (identifiersDict, jsonObject) {
             var lat = jsonObject[identifiersDict.latID] + '';
             var lon = jsonObject[identifiersDict.lonID] + '';
-            var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
+            var point = searchPanelFactory.constructPoint(lon, lat, identifiersDict.epsg, scope.mapEpsg);
             var husnummer = identifiersDict.husnummerID !== false ? jsonObject[identifiersDict.husnummerID] : '';
             if (identifiersDict.husnummerBokstav && typeof jsonObject[identifiersDict.husnummerBokstav] === 'string') {
               husnummer += jsonObject[identifiersDict.husnummerBokstav];
@@ -744,13 +733,12 @@ angular.module('searchPanel')
           };
 
           scope.fixNames = function (name) {
-            return _removeNumberFromName(scope.capitalizeName(name.toLowerCase()));
+            return _removeNumberFromName(name);
           };
 
           var _pushToUnifiedResults = function (result) {
             if (result.kommune && result.name) {
               result.name = result.source != 'matrikkelnummer' ? scope.fixNames(result.name) : result.name;
-              result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
               var resultID = _createID(result);
               if (!_unifiedResults[result.source]) {
                 _unifiedResults[result.source] = {};
@@ -810,28 +798,7 @@ angular.module('searchPanel')
           };
 
           scope.capitalizeName = function (name) {
-            name = name.trim();
-            //name = _capitalizeNamePart(name, ' ');
-            name = _capitalizeNamePart(name, '-');
-            return name;
-          };
-
-          var _capitalizeNamePart = function (name, separator) {
-            var nameArray = name.split(separator);
-            var newName = '';
-            for (var i = 0; i < nameArray.length; i++) {
-              newName += _capitalizeFirstLetter(nameArray[i]) + separator;
-            }
-            newName = _rtrim(newName, 1);
-            return newName;
-          };
-
-          var _capitalizeFirstLetter = function (string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-          };
-
-          var _rtrim = function (str, length) {
-            return str.substr(0, str.length - length);
+            return name.trim();
           };
 
           scope.mouseOver = function (searchResult) {
@@ -855,7 +822,7 @@ angular.module('searchPanel')
             // scope.showSearchResultPanel();
 
             scope.cleanResults();
-            scope.showQueryPoint(scope.contructQueryPoint(coordinates[1], coordinates[0], scope.mapEpsg, 'mouseClick', ''));
+            scope.showQueryPoint(scope.constructQueryPoint(coordinates[0], coordinates[1], scope.mapEpsg, 'mouseClick', ''));
             scope.initLastSearchPanel();
           };
 

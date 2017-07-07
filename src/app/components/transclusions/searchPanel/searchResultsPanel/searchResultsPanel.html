@@ -1,5 +1,29 @@
 <div class="search-panel" ng-show="searchResults != undefined">
   <div class="search-content no-padding-top">
+    <div data-ng-show="searchResults['coordinate']">
+      <div class="isHeaderClose" data-ng-click="coordinatesResult.open = !coordinatesResult.open">
+        <span translate="searchResult_coordinates"></span>
+        <span data-ng-show="!coordinatesResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+        <span data-ng-show="coordinatesResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
+      </div>
+      <ul class="list-result" data-ng-show="!coordinatesResult.open" data-ng-if="!isIosDevice()">
+        <li class="pointer-cursor" ng-repeat="searchResult in searchResults['coordinate']" ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()"
+          ng-mouseover="mouseOver(searchResult)">
+          <span ng-bind="searchResult.name + ', ' + searchResult.EPSG"></span>
+        </li>
+      </ul>
+      <ul class="list-result" data-ng-show="!coordinatesResult.open" data-ng-if="isIosDevice()">
+        <li class="pointer-cursor" ng-repeat="searchResult in searchResults['coordinate']" ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
+          <span ng-bind="searchResult.name + ', ' + searchResult.EPSG"></span>
+        </li>
+      </ul>
+      <div data-ng-show="!coordinatesResult.open" dir-paginate="obj in coordinateItems | itemsPerPage: 15 track by $index"></div>
+      <div data-ng-show="!coordinatesResult.open" class="search-pagination">
+        <dir-pagination-controls max-size="6" direction-links="true" on-page-change="pageChanged(newPageNumber)">
+        </dir-pagination-controls>
+      </div>
+    </div>
+
     <div data-ng-show="searchResults['ssr']">
       <div class="isHeaderClose" data-ng-click="placenamesResult.open = !placenamesResult.open">
         <span translate="searchResult_placenames"></span>

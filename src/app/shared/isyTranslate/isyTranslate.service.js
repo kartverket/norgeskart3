@@ -257,6 +257,7 @@ angular.module('isyTranslate').constant('translations', {
     "searchResult_houseNumber": "Husnummer",
     "searchResult_placenames": "STEDSNAVN",
     "searchResult_roads": "VEGER",
+    "searchResult_coordinates": "Mulige koordinater",
     "search_text": "Søk i Norgeskart",
     "section_number": "Seksjonsnr.",
     "shareOnline_txt": "DEL PÅ NETTET",
@@ -999,4 +1000,3 @@ angular.module('isyTranslate').constant('translations', {
     "width_txt": "WIDTH:"
   }
 });
-

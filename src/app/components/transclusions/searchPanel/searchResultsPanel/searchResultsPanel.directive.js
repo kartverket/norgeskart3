@@ -25,9 +25,9 @@ angular.module('searchResultsPanel')
             var kommune = jsonObject[identifiersDict.kommuneID];
             var name = jsonObject[identifiersDict.nameID];
             var mapEpsg = searchPanelFactory.getMapEpsg();
-            var point = searchPanelFactory.constructPoint(lat, lon, epsg, mapEpsg);
+            var point = searchPanelFactory.constructPoint(lon, lat, epsg, mapEpsg);
             var queryPoint = {
-              name: scope.capitalizeName(name.toLowerCase()),
+              name: scope.capitalizeName(name),
               point: point,
               format: identifiersDict.format,
               source: source,

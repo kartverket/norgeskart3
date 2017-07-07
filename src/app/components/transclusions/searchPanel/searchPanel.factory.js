@@ -11,13 +11,12 @@ angular
 
       var initialSearchServices = ['ssr', 'matrikkelveg', 'matrikkeladresse', 'matrikkelnummer'];
 
-      var availableUTMZones = ['25832', '25833', '25834', '25835', '25836', '32632', '32633', '32634', '32635', '32636'];
-
       var sourceDict = {
         ssr: 'Stedsnavn',
         adresse: 'Adresse',
         matrikkelveg: 'Vegnavn',
         matrikkeladresse: 'Adresse',
+        coordinate:'Koordinat',
         coordGeo: 'Geografisk koordinat',
         coordUtm: 'UTM-koordinat',
         mouseClick: 'Klikk i kartet',
@@ -158,9 +157,6 @@ angular
         getServiceDict: function (query) {
           return generateServiceDict(query);
         },
-        getAvailableUTMZones: function () {
-          return availableUTMZones;
-        },
         getSearchOptionsOrder: function () {
           return searchOptionsOrder;
         },
@@ -195,8 +191,8 @@ angular
           placenamePage = value - 1;
         },
 
-        constructPoint: function (lat, lon, epsgFrom, epsgTo) {
-          return ol.proj.transform([lon, lat], epsgFrom, epsgTo);
+        constructPoint: function (x, y, epsgFrom, epsgTo) {
+          return ol.proj.transform([x, y], epsgFrom, epsgTo);
         },
 
         setShowEiendomMarkering: function (value) {

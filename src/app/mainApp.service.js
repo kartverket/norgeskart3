@@ -201,11 +201,11 @@ angular.module('mainApp')
        return "http://eiendom.statkart.no/Search.ashx?filter=KILDE:sted,matreiendom,SITEURLKEY:httpwwwseeiendomno,LESEGRUPPER:guests&term=" + query;
        };
        */
-
+      // E,N as standard unless epsg between 4000 and 5000, then its N,E
       this.sosiCodes = [{
-          ESRI: null,
+          ESRI: 4326,
           EPSG: 4326,
-          SOSI: 84,
+          SOSI: 84, // 184
           name: 'EU89 - Geografisk, grader (Lat/Lon)',
           viewable: false,
           key: 'EU89_Lat_Lon',
@@ -215,7 +215,9 @@ angular.module('mainApp')
             MaxX: 31.95907717,
             MinY: 57.69458922, // Norway
             MaxY: 71.45477563 // Norway
-          }
+          },
+          proj4: '+proj=longlat +datum=WGS84 +no_defs',
+          orientation: 'NE'
         }, //viewable, but not necessary in selectors
         {
           ESRI: 25831,
@@ -225,7 +227,38 @@ angular.module('mainApp')
           viewable: true,
           key: 'EU89_UTM_31',
           type: 'standard',
-          bbox: {}
+          bbox: {},
+          proj4: '+proj=utm +zone=31 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
+        },
+        {
+          ESRI: 25833,
+          EPSG: 25833,
+          SOSI: 23,
+          name: 'EU89, UTM-sone 33',
+          viewable: true,
+          key: 'EU89_UTM_33',
+          type: 'standard',
+          bbox: { // UTM zone 33
+            MinX: -2465220.60,
+            MinY: 4102904.86,
+            MaxX: 771164.64,
+            MaxY: 9406031.63
+            /*
+            MinX: 288889.7639,
+            MaxX: 804809.936,
+            MinY: 7211211.98, // Norway
+            MaxY: 7866186.306 // Norway
+            // alternative
+            // UTM zone 33 for all of Norway
+            MinX : -128551.4542,
+            MaxX : 1148218.099,
+            MinY : 6404024.705, // Norway
+            MaxY : 8010780.591 // Norway
+            */
+          },
+          proj4: '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 25832,
@@ -240,30 +273,9 @@ angular.module('mainApp')
             MaxX: 751898.5673,
             MinY: 6401682.026, // Norway
             MaxY: 7231445.376 // Norway
-          }
-        },
-        {
-          ESRI: 25833,
-          EPSG: 25833,
-          SOSI: 23,
-          name: 'EU89, UTM-sone 33',
-          viewable: true,
-          key: 'EU89_UTM_33',
-          type: 'standard',
-          bbox: { // UTM zone 33
-            MinX: 288889.7639,
-            MaxX: 804809.936,
-            MinY: 7211211.98, // Norway
-            MaxY: 7866186.306 // Norway
-            // alternative
-            // UTM zone 33 for all of Norway
-            /*
-            MinX : -128551.4542,
-            MaxX : 1148218.099,
-            MinY : 6404024.705, // Norway
-            MaxY : 8010780.591 // Norway
-            */
-          }
+          },
+          proj4: '+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 25834,
@@ -278,7 +290,9 @@ angular.module('mainApp')
             MaxX: 624301.8048,
             MinY: 7565200.998, // Norway
             MaxY: 7930309.032 // Norway
-          }
+          },
+          proj4: '+proj=utm +zone=34 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 25835,
@@ -293,7 +307,9 @@ angular.module('mainApp')
             MaxX: 683621.7167,
             MinY: 7603094.00, // Norway
             MaxY: 7924929.221 // Norway
-          }
+          },
+          proj4: '+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 25836,
@@ -303,9 +319,102 @@ angular.module('mainApp')
           viewable: true,
           key: 'EU89_UTM_36',
           type: 'standard',
-          bbox: {}
+          bbox: {},
+          proj4: '+proj=utm +zone=36 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
         },
         {
+          ESRI: 32631,
+          EPSG: 32631,
+          SOSI: 21, //61
+          name: 'WGS84, UTM-sone 31',
+          viewable: true,
+          key: 'WGS84_UTM_31',
+          type: 'extended',
+          bbox: {},
+          proj4: '+proj=utm +zone=31 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
+        },
+        {
+          ESRI: 32633,
+          EPSG: 32633,
+          SOSI: 23, // 63
+          name: 'WGS84 UTM-sone 33',
+          viewable: false,
+          key: 'WGS84_UTM_33',
+          type: 'extended',
+          bbox: { // UTM zone 33
+            MinX: -2465220.60,
+            MinY: 4102904.86,
+            MaxX: 771164.64,
+            MaxY: 9406031.63
+          },
+          proj4: '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
+        },
+        {
+          ESRI: 32632,
+          EPSG: 32632,
+          SOSI: 22, // 62
+          name: 'WGS84, UTM-sone 32',
+          viewable: false,
+          key: 'WGS84_UTM_32',
+          type: 'extended',
+          bbox: { // UTM zone 32
+            MinX: 229614.1053,
+            MaxX: 751898.5673,
+            MinY: 6401682.026, // Norway
+            MaxY: 7231445.376 // Norway
+          },
+          proj4: '+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
+        },
+        {
+          ESRI: 32634,
+          EPSG: 32634,
+          SOSI: 24, // 64
+          name: 'WGS84 , UTM-sone 34',
+          viewable: false,
+          key: 'WGS84_UTM_34',
+          type: 'extended',
+          bbox: { // UTM zone 34
+            MinX: 389363.4613,
+            MaxX: 624301.8048,
+            MinY: 7565200.998, // Norway
+            MaxY: 7930309.032 // Norway
+          },
+          proj4: '+proj=utm +zone=34 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
+        },
+        {
+          ESRI: 32635,
+          EPSG: 32635,
+          SOSI: 25, //65
+          name: 'WGS84 , UTM-sone 35',
+          viewable: false,
+          key: 'WGS84_UTM_35',
+          type: 'extended',
+          bbox: { // UTM zone 35
+            MinX: 253177.3653,
+            MaxX: 683621.7167,
+            MinY: 7603094.00, // Norway
+            MaxY: 7924929.221 // Norway
+          },
+          proj4: '+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
+        },
+        {
+          ESRI: 32636,
+          EPSG: 32636,
+          SOSI: 26, // 66
+          name: 'WGS84, UTM-sone 36',
+          viewable: false,
+          key: 'WGS84_UTM_36',
+          type: 'extended',
+          bbox: {},
+          proj4: '+proj=utm +zone=36 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
+        }, {
           ESRI: 27391,
           EPSG: 27391,
           SOSI: 1,
@@ -318,7 +427,9 @@ angular.module('mainApp')
             MaxX: 172305.8,
             MinY: -28995.15926, // Norway
             MaxY: 808453.3338 // Norway
-          }
+          },
+          proj4: '+proj=tmerc +lat_0=58 +lon_0=-4.666666666666667 +k=1 +x_0=0 +y_0=0 +a=6377492.018 +b=6356173.508712696 +towgs84=278.3,93,474.5,7.889,0.05,-6.61,6.21 +pm=oslo +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 27392,
@@ -333,7 +444,9 @@ angular.module('mainApp')
             MaxX: 172305.8,
             MinY: -28995.15926, // Norway
             MaxY: 808453.3338 // Norway
-          }
+          },
+          proj4: '+proj=tmerc +lat_0=58 +lon_0=-2.333333333333333 +k=1 +x_0=0 +y_0=0 +a=6377492.018 +b=6356173.508712696 +towgs84=278.3,93,474.5,7.889,0.05,-6.61,6.21 +pm=oslo +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 27393,
@@ -348,7 +461,9 @@ angular.module('mainApp')
             MaxX: 172305.8,
             MinY: -28995.15926, // Norway
             MaxY: 808453.3338 // Norway
-          }
+          },
+          proj4: '+proj=tmerc +lat_0=58 +lon_0=0 +k=1 +x_0=0 +y_0=0 +a=6377492.018 +b=6356173.508712696 +towgs84=278.3,93,474.5,7.889,0.05,-6.61,6.21 +pm=oslo +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 27394,
@@ -363,7 +478,9 @@ angular.module('mainApp')
             MaxX: 172305.8,
             MinY: -28995.15926, // Norway
             MaxY: 808453.3338 // Norway
-          }
+          },
+          proj4: '+proj=tmerc +lat_0=58 +lon_0=2.5 +k=1 +x_0=0 +y_0=0 +a=6377492.018 +b=6356173.508712696 +towgs84=278.3,93,474.5,7.889,0.05,-6.61,6.21 +pm=oslo +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 27395,
@@ -378,7 +495,9 @@ angular.module('mainApp')
             MaxX: 410629.5171,
             MinY: 808453.3338, // Norway
             MaxY: 1507978.752 // Norway
-          }
+          },
+          proj4: '+proj=tmerc +lat_0=58 +lon_0=6.166666666666667 +k=1 +x_0=0 +y_0=0 +a=6377492.018 +b=6356173.508712696 +towgs84=278.3,93,474.5,7.889,0.05,-6.61,6.21 +pm=oslo +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 27396,
@@ -393,7 +512,9 @@ angular.module('mainApp')
             MaxX: 410629.5171,
             MinY: 808453.3338, // Norway
             MaxY: 1507978.752 // Norway
-          }
+          },
+          proj4: '+proj=tmerc +lat_0=58 +lon_0=10.16666666666667 +k=1 +x_0=0 +y_0=0 +a=6377492.018 +b=6356173.508712696 +towgs84=278.3,93,474.5,7.889,0.05,-6.61,6.21 +pm=oslo +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 27397,
@@ -408,7 +529,9 @@ angular.module('mainApp')
             MaxX: 410629.5171,
             MinY: 808453.3338, // Norway
             MaxY: 1507978.752 // Norway
-          }
+          },
+          proj4: '+proj=tmerc +lat_0=58 +lon_0=14.16666666666667 +k=1 +x_0=0 +y_0=0 +a=6377492.018 +b=6356173.508712696 +towgs84=278.3,93,474.5,7.889,0.05,-6.61,6.21 +pm=oslo +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 27398,
@@ -423,7 +546,9 @@ angular.module('mainApp')
             MaxX: 410629.5171,
             MinY: 808453.3338, // Norway
             MaxY: 1507978.752 // Norway
-          }
+          },
+          proj4: '+proj=tmerc +lat_0=58 +lon_0=18.33333333333333 +k=1 +x_0=0 +y_0=0 +a=6377492.018 +b=6356173.508712696 +towgs84=278.3,93,474.5,7.889,0.05,-6.61,6.21 +pm=oslo +units=m +no_defs ',
+          orientation: 'EN'
         },
         {
           ESRI: null,
@@ -443,7 +568,9 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_31',
           type: 'extended',
-          bbox: {}
+          bbox: {},
+          proj4: '+proj=utm +zone=31 +ellps=intl +towgs84=-87,-98,-121,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 23032,
@@ -453,7 +580,9 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_32',
           type: 'extended',
-          bbox: {}
+          bbox: {},
+          proj4: '+proj=utm +zone=32 +ellps=intl +towgs84=-87,-98,-121,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 23033,
@@ -463,7 +592,9 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_33',
           type: 'extended',
-          bbox: {}
+          bbox: {},
+          proj4: '+proj=utm +zone=33 +ellps=intl +towgs84=-87,-98,-121,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 23034,
@@ -473,7 +604,9 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_34',
           type: 'extended',
-          bbox: {}
+          bbox: {},
+          proj4: '+proj=utm +zone=34 +ellps=intl +towgs84=-87,-98,-121,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 23035,
@@ -483,7 +616,9 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_35',
           type: 'extended',
-          bbox: {}
+          bbox: {},
+          proj4: '+proj=utm +zone=35 +ellps=intl +towgs84=-87,-98,-121,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
         },
         {
           ESRI: 23036,
@@ -493,8 +628,28 @@ angular.module('mainApp')
           viewable: false,
           key: 'ED50_UTM_36',
           type: 'extended',
-          bbox: {}
+          bbox: {},
+          proj4: '+proj=utm +zone=36 +ellps=intl +towgs84=-87,-98,-121,0,0,0,0 +units=m +no_defs',
+          orientation: 'EN'
+        },
+        {
+          ESRI: null,
+          EPSG: 4258,
+          SOSI: 84,
+          name: '4258',
+          viewable: false,
+          key: '4258',
+          type: 'extended',
+          bbox: { // WGS84
+            MinX: -16.1,
+            MinY: 32.88,
+            MaxX: 39.65,
+            MaxY: 84.17
+          },
+          proj4: '+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs',
+          orientation: 'NE'
         }
+
         /*
                 ,{
                   Name: "Lokalt nett, Oslo",
@@ -504,7 +659,8 @@ angular.module('mainApp')
                     MaxX : 13557.59229,
                     MinY : -11742.49708,
                     MaxY : 25100.80578
-                  }
+                  },
+          proj4:''
                 }
         */
         //{ESRI: null,EPSG: null,SOSI: null,name: 'what3words',viewable: false,forward: true,key: 'w3w',type: 'extended',bbox: {}}
@@ -516,8 +672,17 @@ angular.module('mainApp')
         //{'ESRI': 4231, 'EPSG': null, 'SOSI': 4231, 'name': 'ED87 Geografisk, grader'},
         //{'ESRI': 4273, 'EPSG': 4273, 'SOSI': 4273, 'name': 'NGO1948 Geografisk, grader'},
         //{'ESRI': null, 'EPSG': 4322, 'SOSI': 4322, 'name': 'WGS72 Geografisk, grader'},
-        //{'ESRI': 4326, 'EPSG': 4326, 'SOSI': 4326, 'name': 'EU89/WGS84 Geografisk, grader'}
       ];
+      this.setProj4def = function (epsg) {
+        return this.sosiCodes
+          .filter(function (el) {
+            return el.EPSG == epsg;
+          })
+          .map(function (obj) {
+            proj4.defs("EPSG:" + obj.EPSG, obj.proj4);
+            return true;
+          })[0];
+      };
       this.getSOSIfromEPSG = function (epsg) {
         return this.sosiCodes
           .filter(function (el) {
@@ -558,13 +723,18 @@ angular.module('mainApp')
       this.isNotOutOfBounds = function (coordinates) {
         return this.sosiCodes
           .filter(function (el) {
-            return (coordinates.north.value > el.bbox.MinX) && (coordinates.north.value < el.bbox.MaxX) &&
-              (coordinates.east.value > el.bbox.MinY) && (coordinates.east.value < el.bbox.MaxY);
+            return ((coordinates.first.value > el.bbox.MinX) && (coordinates.first.value < el.bbox.MaxX) &&
+                (coordinates.second.value > el.bbox.MinY) && (coordinates.second.value < el.bbox.MaxY)) ||
+              ((coordinates.second.value > el.bbox.MinX) && (coordinates.second.value < el.bbox.MaxX) &&
+                (coordinates.first.value > el.bbox.MinY) && (coordinates.first.value < el.bbox.MaxY));
           })
           .map(function (obj) {
             return obj;
           });
       };
+      // availableUTMZones are defined in MapLib whith _loadCustomCrs(),wich means proj.defs are loaded for them
+      this.availableUTMZones = [25832, 25833, 25834, 25835, 25836, 32632, 32633, 32634, 32635, 32636, 4258];
+      this.prefferredZones = [4258, 25833];
 
     }
   ]);
