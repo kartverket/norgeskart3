@@ -1,6 +1,6 @@
 angular.module('mainApp')
-  .factory('mainAppFactory', ['ISY.MapAPI.Map', '$location', 'ISY.Repository', '$translate', 'translations', '$timeout',
-    function (map, $location, repository, $translate, translations, $timeout) {
+  .factory('mainAppFactory', ['ISY.MapAPI.Map', '$location', 'ISY.Repository', '$translate', 'translations',
+    function (map, $location, repository, $translate, translations) {
       var instance = "";
       var projectUrl;
       var beginLayersInURL;
@@ -411,7 +411,9 @@ angular.module('mainApp')
 
       function getProjectsListCallback(project) {
         projectsList = project ? project : undefined;
-        if (projectsList === undefined || projectNameUrl !== undefined) {
+        if (projectNameUrl === 'seeiendom') {
+          getProjectCallback(defaultProjectConfig, false);
+        } else if (projectsList === undefined || projectNameUrl !== undefined) {
           map.GetConfigResource(projectUrl, 'application/json', getProjectCallback);
         }
         // else{
@@ -422,12 +424,9 @@ angular.module('mainApp')
 
       var _setDeafultProject = function () {
         var obj = $location.search();
-        obj.project = "norgeskart";
+        obj.project = "seeiendom";
         var newSearch = angular.extend($location.search(), obj);
         $location.search(newSearch);
-        $timeout(function () {
-          window.location.reload();
-        }, 0);
       };
 
       var projectName = function () {
@@ -443,7 +442,7 @@ angular.module('mainApp')
           return decodeURIComponent(projectName[1]);
         } else {
           _setDeafultProject();
-          return "norgeskart";
+          return 'seeiendom';
         }
       };
 
@@ -808,6 +807,9 @@ angular.module('mainApp')
         },
         updateMapConfig: function () {
           getProject();
+        },
+        projectName: function () {
+          projectName();
         },
         setInitLayersInUrl: function (url) {
           beginLayersInURL = url;
