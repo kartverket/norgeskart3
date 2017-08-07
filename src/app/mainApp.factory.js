@@ -1,6 +1,6 @@
 angular.module('mainApp')
-  .factory('mainAppFactory', ['ISY.MapAPI.Map', '$location', 'ISY.Repository', '$translate', 'translations', '$timeout',
-    function (map, $location, repository, $translate, translations, $timeout) {
+  .factory('mainAppFactory', ['ISY.MapAPI.Map', '$location', 'ISY.Repository', '$translate', 'translations',
+    function (map, $location, repository, $translate, translations) {
       var instance = "";
       var projectUrl;
       var beginLayersInURL;
@@ -56,6 +56,326 @@ angular.module('mainApp')
         onlyOneGroup: false,
         isOffline: false
       };
+      var defaultProjectConfig = {
+        config: {
+          project: {
+            lat: 7197864,
+            lon: 396722,
+            mapepsg: "EPSG:25833",
+            zoom: 4,
+            mapbackgroundcolor: "#FFFFFF",
+            displaycenterepsgcode: "EPSG:25833",
+            displayCenter: "396722,7197864",
+            displayprojectionepsgcode: "EPSG:25833",
+            isygatekeeper: "https://www.norgeskart.no/ws/gkt.py",
+            tickethost: "https://www.norgeskart.no/ws/esk.py?wms.ecc_enc",
+            name: "seeiendom"
+          },
+          wmts: [{
+            type: "map",
+            gatekeeper: "true",
+            name: "landkart",
+            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            params: {
+              layers: "norgeskart_bakgrunn",
+              format: "image/png"
+            },
+            matrixprefix: "true",
+            guid: "0.norgeskart_bakgrunn",
+            options: {
+              isbaselayer: "true",
+              singletile: "false",
+              visibility: "true"
+            },
+            thumbnail: "land"
+          }, {
+            type: "map",
+            gatekeeper: "true",
+            name: "flybilder",
+            url: "http://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?|http://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?",
+            params: {
+              layers: "Nibcache_UTM33_EUREF89",
+              format: "image/png"
+            },
+            matrixset: "default028mm",
+            guid: "0.ortofoto",
+            options: {
+              isbaselayer: "true",
+              singletile: "false",
+              visibility: "false"
+            },
+            thumbnail: "aerial"
+          }, {
+            type: "map",
+            gatekeeper: "true",
+            name: "rasterkart",
+            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            params: {
+              layers: "toporaster3",
+              format: "image/png"
+            },
+            matrixprefix: "true",
+            guid: "0.toporaster3",
+            options: {
+              isbaselayer: "true",
+              singletile: "false",
+              visibility: "false"
+            },
+            thumbnail: "raster"
+          }, {
+            type: "map",
+            gatekeeper: "true",
+            name: "gratone",
+            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            params: {
+              layers: "norges_grunnkart_graatone",
+              format: "image/png"
+            },
+            matrixprefix: "true",
+            guid: "0.norges_grunnkart_graatone",
+            options: {
+              isbaselayer: "true",
+              singletile: "false",
+              visibility: "false"
+            }
+          }, {
+            type: "map",
+            gatekeeper: "true",
+            name: "enkel",
+            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            params: {
+              layers: "norges_grunnkart",
+              format: "image/png"
+            },
+            matrixprefix: "true",
+            guid: "0.norges_grunnkart",
+            options: {
+              isbaselayer: "true",
+              singletile: "false",
+              visibility: "false"
+            }
+          }, {
+            type: "map",
+            gatekeeper: "true",
+            name: "terreng",
+            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            params: {
+              layers: "terreng_norgeskart",
+              format: "image/png"
+            },
+            matrixprefix: "true",
+            guid: "0.terreng_norgeskart",
+            options: {
+              isbaselayer: "true",
+              singletile: "false",
+              visibility: "false"
+            }
+          }, {
+            type: "map",
+            gatekeeper: "true",
+            name: "sjokart",
+            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            params: {
+              layers: "sjokartraster",
+              format: "image/png"
+            },
+            matrixprefix: "true",
+            guid: "0.sjokartraster",
+            options: {
+              isbaselayer: "true",
+              singletile: "false",
+              visibility: "false"
+            }
+          }, {
+            type: "map",
+            name: "jan_mayen",
+            url: "https://geodata.npolar.no/arcgis/rest/services/Basisdata/NP_Basiskart_JanMayen_WMTS_25833/MapServer/WMTS?",
+            params: {
+              layers: "Basisdata_NP_Basiskart_JanMayen_WMTS_25833",
+              format: "image/png"
+            },
+            matrixset: "default028mm",
+            wmtsextent: "-393783.2540000008,7978220.98008712,-276963.7430000013,8084965.524000007",
+            getcapabilities: "true",
+            guid: "2.Basisdata_NP_Basiskart_JanMayen_WMTS_25833",
+            options: {
+              isbaselayer: "true",
+              singletile: "false",
+              visibility: "false"
+            }
+          }, {
+            type: "map",
+            name: "svalbard",
+            url: "https://geodata.npolar.no/arcgis/rest/services/Basisdata/NP_Basiskart_Svalbard_WMTS_25833/MapServer/WMTS?",
+            params: {
+              layers: "Basisdata_NP_Basiskart_Svalbard_WMTS_25833",
+              format: "image/png"
+            },
+            matrixset: "default028mm",
+            wmtsextent: "369976.3899489096,8221306.539890718,878234.7199568129,9010718.76990194",
+            getcapabilities: "true",
+            guid: "2.Basisdata_NP_Basiskart_Svalbard_WMTS_25833",
+            options: {
+              isbaselayer: "true",
+              singletile: "false",
+              visibility: "false"
+            }
+          }],
+          wms: [{
+            type: "overlay",
+            Layers: {
+              Layer: {
+                name: "cells",
+                queryable: "false",
+                title: "Elektron. Sjøkart"
+              }
+            },
+            ticket: "true",
+            name: "elektron_sjokart",
+            url: "https://wms.geonorge.no/skwms1/wms.ecc_enc",
+            params: {
+              layers: "cells",
+              format: "image/png"
+            },
+            guid: "0.cells",
+            options: {
+              isbaselayer: "true",
+              singletile: "true",
+              visibility: "false"
+            }
+          }, {
+            type: "overlay",
+            gatekeeper: "true",
+            name: "adresser",
+            url: "//wms.geonorge.no/skwms1/wms.matrikkel.seeiendom2",
+            groupid: 1,
+            maxResolution: 2,
+            params: {
+              layers: "matrikkel:MATRIKKELADRESSEWFS,matrikkel:VEGADRESSEWFS",
+              format: "image/png"
+            },
+            guid: "1.matrikkeladresse",
+            options: {
+              isbaselayer: "false",
+              singletile: "true",
+              visibility: "false"
+            }
+          }, {
+            type: "overlay",
+            gatekeeper: "true",
+            name: "bygninger",
+            url: "//wms.geonorge.no/skwms1/wms.matrikkel.seeiendom2",
+            groupid: 1,
+            maxResolution: 2,
+            params: {
+              layers: "matrikkel:BYGNINGWFS",
+              format: "image/png"
+            },
+            guid: "1.bygning",
+            options: {
+              isbaselayer: "false",
+              singletile: "true",
+              visibility: "false"
+            }
+          }, {
+            type: "overlay",
+            gatekeeper: "true",
+            name: "teiger_og_grenser",
+            url: "//wms.geonorge.no/skwms1/wms.matrikkel.seeiendom2",
+            groupid: 1,
+            maxResolution: 2,
+            params: {
+              layers: "matrikkel:TEIGGRENSEWFS,matrikkel:TEIGWFS",
+              format: "image/png",
+              styles: ",Matrikkelnummer"
+            },
+            guid: "1.teiggrense",
+            options: {
+              isbaselayer: "false",
+              singletile: "true",
+              visibility: "true"
+            }
+          }],
+          maplayer: {
+            index: 1,
+            name: "matrikkel_data",
+            groupid: 1
+          },
+          mapbounds: {
+            mapbound: [{
+              epsg: "EPSG:23031",
+              extent: "-1500000.0, 3500000.0, 4045984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:23032",
+              extent: "-2000000.0, 3500000.0, 3545984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:23033",
+              extent: "-2500000.0, 3500000.0, 3045984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:23034",
+              extent: "-3000000.0, 3500000.0, 2545984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:23035",
+              extent: "-3500000.0, 3500000.0, 2045984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:23036",
+              extent: "-4000000.0, 3500000.0, 1545984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:25831",
+              extent: "-1500000.0, 3500000.0, 4045984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:25832",
+              extent: "-2000000.0, 3500000.0, 3545984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:25833",
+              extent: "-2500000.0, 3500000.0, 3045984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:25834",
+              extent: "-3000000.0, 3500000.0, 2545984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:25835",
+              extent: "-3500000.0, 3500000.0, 2045984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:25836",
+              extent: "-4000000.0, 3500000.0, 1545984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:32631",
+              extent: "-1500000.0, 3500000.0, 4045984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:32632",
+              extent: "-2000000.0, 3500000.0, 3545984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:25833",
+              extent: "-2500000.0, 3500000.0, 3045984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:32634",
+              extent: "-3000000.0, 3500000.0, 2545984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:32635",
+              extent: "-3500000.0, 3500000.0, 2045984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:32636",
+              extent: "-4000000.0, 3500000.0, 1545984.0, 9045984.0"
+            }, {
+              epsg: "EPSG:4326",
+              extent: "-180, -90, 180, 90"
+            }, {
+              epsg: "EPSG:3857",
+              extent: "-20037508.34, -20037508.34, 20037508.34, 20037508.34"
+            }, {
+              epsg: "EPSG:900913",
+              extent: "-20037508.34, -20037508.34, 20037508.34, 20037508.34"
+            }, {
+              epsg: "EPSG:54009",
+              extent: "-18000000.0, -9000000.0, 18000000.0, 9000000.0"
+            }, {
+              epsg: "EPSG:3006",
+              extent: "-1200000.0, 4700000.0, 2600000.0, 8500000.0"
+            }]
+          }
+        }
+      };
+
 
       var getConfigCallback = function (configJson) {
         projectUrl = configJson.configurl;
@@ -91,7 +411,9 @@ angular.module('mainApp')
 
       function getProjectsListCallback(project) {
         projectsList = project ? project : undefined;
-        if (projectsList === undefined || projectNameUrl !== undefined) {
+        if (projectNameUrl === 'seeiendom') {
+          getProjectCallback(defaultProjectConfig, false);
+        } else if (projectsList === undefined || projectNameUrl !== undefined) {
           map.GetConfigResource(projectUrl, 'application/json', getProjectCallback);
         }
         // else{
@@ -102,12 +424,9 @@ angular.module('mainApp')
 
       var _setDeafultProject = function () {
         var obj = $location.search();
-        obj.project = "norgeskart";
+        obj.project = "seeiendom";
         var newSearch = angular.extend($location.search(), obj);
         $location.search(newSearch);
-        $timeout(function () {
-          window.location.reload();
-        }, 0);
       };
 
       var projectName = function () {
@@ -123,7 +442,7 @@ angular.module('mainApp')
           return decodeURIComponent(projectName[1]);
         } else {
           _setDeafultProject();
-          return "norgeskart";
+          return 'seeiendom';
         }
       };
 
@@ -488,6 +807,9 @@ angular.module('mainApp')
         },
         updateMapConfig: function () {
           getProject();
+        },
+        projectName: function () {
+          projectName();
         },
         setInitLayersInUrl: function (url) {
           beginLayersInURL = url;
