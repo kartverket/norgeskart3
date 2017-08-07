@@ -294,13 +294,14 @@ module.exports = function ( grunt ) {
         },
 
         compass: {
-            /*dist: {
-             options: {
-             sassDir: 'src/sass/',
-             cssDir: '<%= compile_dir %>/',
-             raw: "preferred_syntax = :scss\n"
+            dist: {
+              options: {
+                outputStyle: 'compressed',
+                sassDir: 'src/assets/sass/',
+                cssDir: '<%= build_dir %>/css/',
+                raw: "preferred_syntax = :scss\n"
              }
-             },*/
+            },
             dev: {
                 options: {
                     outputStyle: 'compact',
@@ -621,7 +622,7 @@ module.exports = function ( grunt ) {
         'clean',
         'html2js',
         'jshint',
-        'compass:dev',
+        'compass:dist',
         'concat:build_css',
         //'appcache',
         'copy:build_app_assets',
