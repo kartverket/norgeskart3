@@ -13,7 +13,6 @@ angular.module('moveableOverlay')
 
             $scope.menuElevationProfileLayout = 'page1';
 
-
             $scope.menuShowMoveableOverlay = function(id){
                 // $scope.overlay = moveableOverlayFactory.getActiveOverlay();
                 var overlay = moveableOverlayFactory.getActiveOverlayById(id);

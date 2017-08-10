@@ -59,11 +59,7 @@ angular.module('searchResultsPanel')
           }
 
           scope.isIosDevice = function () {
-            if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
-              return true;
-            } else {
-              return false;
-            }
+            return !!(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i));
           };
 
           $(document).ready(function () {

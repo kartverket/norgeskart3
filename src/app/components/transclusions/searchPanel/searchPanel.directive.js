@@ -720,7 +720,7 @@ angular.module('searchPanel')
             if (identifiersDict.husnummerBokstav && typeof jsonObject[identifiersDict.husnummerBokstav] === 'string') {
               husnummer += jsonObject[identifiersDict.husnummerBokstav];
             }
-            var result = {
+            return {
               name: jsonObject[identifiersDict.nameID],
               kommune: jsonObject[identifiersDict.kommuneID],
               point: point,
@@ -730,7 +730,6 @@ angular.module('searchPanel')
               navnetype: jsonObject[identifiersDict.navnetypeID],
               url: jsonObject.url
             };
-            return result;
           };
 
           var _removeNumberFromName = function (name) {

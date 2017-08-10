@@ -10,7 +10,7 @@ angular.module('mainApp')
       var notDummyGroup = false;
       var projectNameUrl;
       var mainMenuIsOpen = false;
-      var config={
+      var config = {
         instance: "norgeskart3",
         configurl: "http://www.norgeskart.no/config"
       };
@@ -796,7 +796,7 @@ angular.module('mainApp')
       var _getBoolean = function (value) {
         switch (typeof value) {
           case "string":
-            return value === "true" ? true : false;
+            return value === "true";
           case "boolean":
             return value;
         }
@@ -805,8 +805,7 @@ angular.module('mainApp')
 
       var getWmsUrl = function (url) {
         if (url.indexOf('|')) {
-          var urls = url.split('|');
-          return urls;
+          return url.split('|');
         } else {
           return url;
         }

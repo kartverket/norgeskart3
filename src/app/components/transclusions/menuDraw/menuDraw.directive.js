@@ -147,7 +147,6 @@ angular.module('menuDraw')
             Polygon: scope.color,
             Text: scope.color
           };
-          _firstLoad = true;
           _deleteFeature = false;
           _fontName = 'sans-serif,helvetica';
           var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
@@ -300,9 +299,6 @@ angular.module('menuDraw')
           };
 
           scope.switchMode = function (newMode) {
-            // if (scope.mode === "modify"){
-            //     newMode = 'draw';
-            // }
             scope.mode = newMode;
             if (scope.mode == 'draw') {
               scope.selectedFeatureId = undefined;
@@ -401,7 +397,7 @@ angular.module('menuDraw')
               window.open(downloadUrl);
             }
           };
-          
+
           scope.saveButtonClick = function () {
             var saveUrl = mainAppService.generateGeoJSONSaveUrl();
             $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side
@@ -430,8 +426,8 @@ angular.module('menuDraw')
 
           function hex2rgba(hexRGB, alpha) {
             var r = parseInt(hexRGB.slice(1, 3), 16);
-            g = parseInt(hexRGB.slice(3, 5), 16);
-            b = parseInt(hexRGB.slice(5, 7), 16);
+            var g = parseInt(hexRGB.slice(3, 5), 16);
+            var b = parseInt(hexRGB.slice(5, 7), 16);
             //a = parseInt(hexRGB.slice(7,9), 16)/255;
             return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
           }
