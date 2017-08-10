@@ -722,7 +722,6 @@ module.exports = function ( grunt ) {
         };
 
         grunt.file.copy('src/index.html', this.data.dir + '/index.html', copyOptions);
-        grunt.file.copy('src/config.json', this.data.dir + '/config.json', copyOptions);
         grunt.file.copy('src/elevationProfile.xml', this.data.dir + '/elevationProfile.xml', copyOptions);
     });
 
