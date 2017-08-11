@@ -10,6 +10,41 @@ angular.module('mainApp')
       var notDummyGroup = false;
       var projectNameUrl;
       var mainMenuIsOpen = false;
+      var config = {
+        instance: "norgeskart3",
+        configurl: "http://www.norgeskart.no/config"
+      };
+      var listprojects = [{
+        SiteTitle: "tilgjengelighet",
+        ProjectName: "tilgjengelighet",
+        HeaderIcon: "",
+        HeaderTitle: "tilgjengelighet"
+      }, {
+        SiteTitle: "fastmerker",
+        ProjectName: "fastmerker",
+        HeaderIcon: "",
+        HeaderTitle: "fastmerker"
+      }, {
+        SiteTitle: "nrl",
+        ProjectName: "nrl",
+        HeaderIcon: "",
+        HeaderTitle: "nrl"
+      }, {
+        SiteTitle: "norgeskart",
+        ProjectName: "norgeskart",
+        HeaderIcon: "",
+        HeaderTitle: "norgeskart"
+      }, {
+        SiteTitle: "ssr",
+        ProjectName: "ssr",
+        HeaderIcon: "",
+        HeaderTitle: "ssr"
+      }, {
+        SiteTitle: "dekning",
+        ProjectName: "dekning",
+        HeaderIcon: "",
+        HeaderTitle: "dekning"
+      }];
       var mapConfig = {
         name: "default config",
         useCategories: true,
@@ -376,7 +411,6 @@ angular.module('mainApp')
         }
       };
 
-
       var getConfigCallback = function (configJson) {
         projectUrl = configJson.configurl;
         if ($location.search().application !== undefined || $location.search().instance !== undefined) {
@@ -391,15 +425,13 @@ angular.module('mainApp')
         if (instance === undefined) {
           instance = '';
         }
-        var projectsListUrl = configJson.configurl;
-        projectsListUrl += '/listprojects.json';
         projectUrl += '/';
         var nameProject = projectName();
         if (nameProject.length > 0) {
           projectNameUrl = nameProject;
           projectUrl += nameProject.toLowerCase() + '.json';
         }
-        map.GetResourceFromJson(projectsListUrl, 'application/json', getProjectsListCallback);
+        getProjectsListCallback(listprojects);
       };
 
       // var setSearch = function (obj) {
@@ -447,20 +479,7 @@ angular.module('mainApp')
       };
 
       var getProject = function () {
-        $.ajax({
-          type: "GET",
-          url: "config.json",
-          async: false,
-          success: function (responseJSON) {
-            getConfigCallback(responseJSON);
-          },
-          error: function () {
-            getConfigCallback({
-              instance: "norgeskart3",
-              configurl: "http://www.norgeskart.no/config"
-            });
-          }
-        });
+        getConfigCallback(config);
       };
 
       function getProjectCallback(project, isOffline) {
@@ -744,7 +763,7 @@ angular.module('mainApp')
               getFeatureFormat: "application/json",
               getFeatureCrs: "EPSG:4326",
               includedFields: source.includedfields,
-              featureDict:mapConfig.featureDict
+              featureDict: mapConfig.featureDict
             },
             tiled: source.options.singletile !== "true",
             crossOrigin: null,
@@ -777,7 +796,7 @@ angular.module('mainApp')
       var _getBoolean = function (value) {
         switch (typeof value) {
           case "string":
-            return value === "true" ? true : false;
+            return value === "true";
           case "boolean":
             return value;
         }
@@ -786,8 +805,7 @@ angular.module('mainApp')
 
       var getWmsUrl = function (url) {
         if (url.indexOf('|')) {
-          var urls = url.split('|');
-          return urls;
+          return url.split('|');
         } else {
           return url;
         }

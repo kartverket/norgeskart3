@@ -11,9 +11,7 @@ ISY.CustomMapConfig = function(location, $window){
         for(var i in params){
             var param = params[i];
             var kvPair = param.split('=');
-            var name = kvPair[0];
-            var val = kvPair[1];
-            returnObject[name] = val;
+            returnObject[kvPair[0]] = kvPair[1];
         }
         return returnObject;
     }

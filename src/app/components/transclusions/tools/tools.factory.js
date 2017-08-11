@@ -157,11 +157,7 @@ angular
 
       var selectTool = function (toolId) {
         for (var i = 0; i < tools.length; i++) {
-          if (tools[i].id === toolId) {
-            tools[i].isSelected = true;
-          } else {
-            tools[i].isSelected = false;
-          }
+          tools[i].isSelected = tools[i].id === toolId;
         }
       };
 

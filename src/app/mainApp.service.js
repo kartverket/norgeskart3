@@ -142,35 +142,34 @@ angular.module('mainApp')
         return url + 'ws/eie.py?' + encodeURIComponent(query);
       };
 
+      this._constructMarkingFilter = function (property) {
+        return 'FILTER=' + encodeURIComponent('<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml">' +
+          '<And>' +
+          '<ogc:PropertyIsEqualTo>' +
+          '<ogc:PropertyName>KOMMUNENR</ogc:PropertyName>' +
+          '<ogc:Literal>' + property.kommunenr + '</ogc:Literal>' +
+          '</ogc:PropertyIsEqualTo>' +
+          '<ogc:PropertyIsEqualTo>' +
+          '<ogc:PropertyName>GARDSNR</ogc:PropertyName>' +
+          '<ogc:Literal>' + property.gardsnr + '</ogc:Literal>' +
+          '</ogc:PropertyIsEqualTo>' +
+          '<ogc:PropertyIsEqualTo>' +
+          '<ogc:PropertyName>BRUKSNR</ogc:PropertyName>' +
+          '<ogc:Literal>' + property.bruksnr + '</ogc:Literal>' +
+          '</ogc:PropertyIsEqualTo>' +
+          '<ogc:PropertyIsEqualTo>' +
+          '<ogc:PropertyName>FESTENR</ogc:PropertyName>' +
+          '<ogc:Literal>' + property.festenr + '</ogc:Literal>' +
+          '</ogc:PropertyIsEqualTo>' +
+          '<ogc:PropertyIsEqualTo>' +
+          '<ogc:PropertyName>SEKSJONSNR</ogc:PropertyName>' +
+          '<ogc:Literal>' + property.seksjonsnr + '</ogc:Literal>' +
+          '</ogc:PropertyIsEqualTo>' +
+          '</And>' +
+          '</ogc:Filter>');
+      };
       this.generateMatrikkelWfsFilterUrl = function (property) {
-        _constructMarkingFilter = function () {
-          return 'FILTER=' + encodeURIComponent('<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml">' +
-            '<And>' +
-            '<ogc:PropertyIsEqualTo>' +
-            '<ogc:PropertyName>KOMMUNENR</ogc:PropertyName>' +
-            '<ogc:Literal>' + property.kommunenr + '</ogc:Literal>' +
-            '</ogc:PropertyIsEqualTo>' +
-            '<ogc:PropertyIsEqualTo>' +
-            '<ogc:PropertyName>GARDSNR</ogc:PropertyName>' +
-            '<ogc:Literal>' + property.gardsnr + '</ogc:Literal>' +
-            '</ogc:PropertyIsEqualTo>' +
-            '<ogc:PropertyIsEqualTo>' +
-            '<ogc:PropertyName>BRUKSNR</ogc:PropertyName>' +
-            '<ogc:Literal>' + property.bruksnr + '</ogc:Literal>' +
-            '</ogc:PropertyIsEqualTo>' +
-            '<ogc:PropertyIsEqualTo>' +
-            '<ogc:PropertyName>FESTENR</ogc:PropertyName>' +
-            '<ogc:Literal>' + property.festenr + '</ogc:Literal>' +
-            '</ogc:PropertyIsEqualTo>' +
-            '<ogc:PropertyIsEqualTo>' +
-            '<ogc:PropertyName>SEKSJONSNR</ogc:PropertyName>' +
-            '<ogc:Literal>' + property.seksjonsnr + '</ogc:Literal>' +
-            '</ogc:PropertyIsEqualTo>' +
-            '</And>' +
-            '</ogc:Filter>');
-        };
-
-        return url + 'ws/wfs.teig.py?' + _constructMarkingFilter();
+        return url + 'ws/wfs.teig.py?' + _constructMarkingFilter(property);
       };
 
       this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {

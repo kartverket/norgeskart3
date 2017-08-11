@@ -92,11 +92,7 @@ angular.module('mainMenuGroupLayers')
           };
 
           scope.checkMatrikkel = function (group) {
-            if (group.name === 'matrikkel_data') {
-              return true;
-            } else {
-              return false;
-            }
+            return group.name === 'matrikkel_data';
           };
 
           scope.groupFilter = function (group) {
@@ -149,7 +145,7 @@ angular.module('mainMenuGroupLayers')
                 sortedLayers.sort(function (a, b) {
                   return a.order - b.order;
                 });
-                var getSortedLayer = function(id) {
+                var getSortedLayer = function (id) {
                   return group.isyLayers.filter(function (el) {
                     return el.id == id;
                   })[0];
