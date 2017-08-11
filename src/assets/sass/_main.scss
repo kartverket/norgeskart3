@@ -1361,6 +1361,17 @@ textarea, input[type="text"] {
   }
 }
 
+.content {
+  margin: 15px 30px 15px 15px;
+  a {
+    color: $color-important;
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
 @import "spacing";
 @import "mobile";
 @import "mobileLandscape";
