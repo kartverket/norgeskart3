@@ -96,7 +96,8 @@ module.exports = {
         fonts: [
             'vendor/bootstrap/fonts/glyphicons-halflings-regular.woff',
             'vendor/bootstrap/fonts/glyphicons-halflings-regular.woff2',
-            'vendor/bootstrap/fonts/glyphicons-halflings-regular.ttf'
+            'vendor/bootstrap/fonts/glyphicons-halflings-regular.ttf',
+            'vendor/bootstrap/fonts/glyphicons-halflings-regular.eot'
         ]
     },
     vendor_nuget_excludes: [

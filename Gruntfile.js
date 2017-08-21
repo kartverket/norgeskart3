@@ -180,7 +180,7 @@ module.exports = function ( grunt ) {
             compile_assets: {
                 files: [
                     {
-                        src: [ 'fonts/**', '**/*.json', '**/*.ico', '**/*.png', '**/*.svg', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.ttf', '**/*.woff', '**/*.woff2', 'config.json' ],
+                        src: [ 'fonts/**', '**/*.json', '**/*.ico', '**/*.png', '**/*.svg', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.ttf', '**/*.eot', '**/*.woff', '**/*.woff2', 'config.json' ],
                         dest: '<%= compile_dir %>',
                         cwd: '<%= build_dir %>',
                         expand: true
