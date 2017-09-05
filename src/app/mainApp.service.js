@@ -169,7 +169,7 @@ angular.module('mainApp')
           '</ogc:Filter>');
       };
       this.generateMatrikkelWfsFilterUrl = function (property) {
-        return url + 'ws/wfs.teig.py?' + _constructMarkingFilter(property);
+        return url + 'ws/wfs.teig.py?' + this._constructMarkingFilter(property);
       };
 
       this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {
