@@ -442,7 +442,7 @@ angular.module('searchPanel')
               if (sosi) {
                 var koordTransUrl = mainAppService.generateKoordTransUrl(params.north.value, params.east.value, '', sosi);
                 $http.get(koordTransUrl).then(function (response) {
-                  if (response.data.hasOwnProperty('errKode') && response.data.errKode !== 0) {
+                  if (response.data.hasOwnProperty('kode') && response.data.kode !== 0) {
                     console.error(response.data);
                     return false;
                   } else {

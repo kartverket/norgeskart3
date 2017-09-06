@@ -98,7 +98,7 @@ angular.module('mainApp')
       this.generateKoordTransUrl = function (ost, nord, resSosiKoordSys, sosiKoordSys) {
         resSosiKoordSys = resSosiKoordSys || 84;
         sosiKoordSys = sosiKoordSys || 84;
-        return url + "/ws/trans.py?ost=" + ost + "&nord=" + nord + " &sosiKoordSys=" + sosiKoordSys + "&resSosiKoordSys=" + resSosiKoordSys;
+        return urlGeonorge + 'transApi?ost=' + ost + '&nord=' + nord + '&fra=' + sosiKoordSys + '&til=' + resSosiKoordSys;
       };
 
       this.generateSeHavnivaaUrl = function (lat, lon) {
