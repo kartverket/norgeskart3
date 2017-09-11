@@ -49,20 +49,31 @@
                 </div>
             </div>
         </div>
-        <div class="new-section">
-            <span ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">
+
+        <div class="new-section" ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">
+            <span>
                 <span translate="FoundRoadIs"></span>
                 <span> {{lagNodplakatDict['emergencyPosterPoint'].veg}} </span>
                 <span translate="In"></span>
                 <span> {{lagNodplakatDict['emergencyPosterPoint'].kommune}}</span>
                 <span translate="Municipality"></span>
             </span>
-        </div>
-        <div class="new-section">
             <div class="row">
                 <div class="col-xs-12">
-                    <input type="checkbox" ng-model="lagNodplakatConfirmRoad" />
-                    <span translate="CorrectRoad"></span>
+                    <div class="dropdown">
+                        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span>{{ valgtTekst | translate }}</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu3">
+                            <li data-ng-click="setlagNodplakatConfirmRoad(true)" class="pointer-cursor">
+                                <span translate="ja"></span>
+                            </li>
+                            <li data-ng-click="setlagNodplakatConfirmRoad(false)" class="pointer-cursor">
+                                <span translate="nei"></span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,7 +82,7 @@
                     data-ng-click="showSearchOptionsPanel()" translate="Cancel_txt">
             </button>
 
-            <button class="btn btn-default btn-important" data-ng-disabled="!lagNodplakatConfirmRoad"
+            <button class="btn btn-default btn-important" data-ng-disabled="!nodplakatConfirmRoad"
                     data-ng-click="downloadEmergencyPoster()" translate="downloadEmergencyPoster">
             </button>
         </div>

@@ -240,14 +240,17 @@
     </div>
 
     <div data-ng-show="!expandMenu.open" class="row">
-        <div class="col-xs-4">
+        <div class="col-sm-6">
             <div class="navigation-button">
                 <button class="btn btn-default btn-ordinary"
                         data-ng-click="newButtonClick()" translate="empty_txt">
                 </button>
+                <button class="btn btn-default btn-ordinary" ng-hide="drawingHash == ''"
+                        data-ng-click="downloadButtonClick()" translate="download_txt">
+                </button>
             </div>
         </div>
-        <div class="col-xs-8">
+        <div class="col-sm-6">
             <div class="navigation-button pull-right">
                 <button class="btn btn-default btn-ordinary"
                         data-ng-click="closeOverlay()" translate="Cancel_txt">

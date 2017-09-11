@@ -28,6 +28,10 @@ angular.module('mainMenuPanel')
                 $scope.mainMenuPanelLayout = "mainMenuGroupLayers";
             };
 
+            $scope.showMainMenuContact = function () {
+              $scope.mainMenuPanelLayout = "mainMenuContact";
+            };
+
             // FAQ
             var _faqResponse = function (response) {
               if (response.status == 200) {

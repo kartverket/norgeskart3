@@ -180,7 +180,7 @@ module.exports = function ( grunt ) {
             compile_assets: {
                 files: [
                     {
-                        src: [ 'fonts/**', '**/*.json', '**/*.ico', '**/*.png', '**/*.svg', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.ttf', '**/*.woff', '**/*.woff2', 'config.json' ],
+                        src: [ 'fonts/**', '**/*.json', '**/*.ico', '**/*.png', '**/*.svg', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.ttf', '**/*.eot', '**/*.woff', '**/*.woff2', 'config.json' ],
                         dest: '<%= compile_dir %>',
                         cwd: '<%= build_dir %>',
                         expand: true
@@ -294,13 +294,14 @@ module.exports = function ( grunt ) {
         },
 
         compass: {
-            /*dist: {
-             options: {
-             sassDir: 'src/sass/',
-             cssDir: '<%= compile_dir %>/',
-             raw: "preferred_syntax = :scss\n"
+            dist: {
+              options: {
+                outputStyle: 'compressed',
+                sassDir: 'src/assets/sass/',
+                cssDir: '<%= build_dir %>/css/',
+                raw: "preferred_syntax = :scss\n"
              }
-             },*/
+            },
             dev: {
                 options: {
                     outputStyle: 'compact',
@@ -621,7 +622,7 @@ module.exports = function ( grunt ) {
         'clean',
         'html2js',
         'jshint',
-        'compass:dev',
+        'compass:dist',
         'concat:build_css',
         //'appcache',
         'copy:build_app_assets',
@@ -721,7 +722,6 @@ module.exports = function ( grunt ) {
         };
 
         grunt.file.copy('src/index.html', this.data.dir + '/index.html', copyOptions);
-        grunt.file.copy('src/config.json', this.data.dir + '/config.json', copyOptions);
         grunt.file.copy('src/elevationProfile.xml', this.data.dir + '/elevationProfile.xml', copyOptions);
     });
 

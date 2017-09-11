@@ -30,6 +30,28 @@
   padding: 0;
 }
 
+.ol-noembed {
+  bottom: 10px;
+  left: auto;
+  right: 16px;
+  top: auto;
+  z-index: 12;
+  .fa {
+    padding: 0;
+  }
+}
+
+.ol-geolocation {
+  bottom: auto;
+  left: auto;
+  right: 16px;
+  top: 100px;
+  z-index: 13;
+  .fa {
+    padding: 0;
+  }
+}
+
 .ol-control button:hover{
   opacity: 0.9;
   color: white;//#101010;//$gray-dark;//#000;

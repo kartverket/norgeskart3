@@ -1074,13 +1074,21 @@ input::-ms-clear {
 }
 
 .logo-kartverket{
-  background-image:url('../assets/img/KV_logo_staa.svg');
-  display: block;
   width: 100%;
   height: 0;
-  background-size: cover;
-  padding: 0;
   padding-bottom: calc(100% * 5/7);
+  position: relative;
+  bottom:25px;
+}
+.logo-kartverket img{
+  height: 75.20px;
+}
+.logo-polar{
+  width: 100%;
+  height: 0;
+  padding-bottom: calc(100% * 5/7);
+  position: relative;
+  bottom:25px;
 }
 
 .legend1{
@@ -1183,7 +1191,7 @@ input::-ms-clear {
 .logo-overlay {
   z-index: 12;
   position: absolute;
-  bottom: 25px;
+  bottom: 0px;
   left: 19px;
   width:105px;
 }
@@ -1329,7 +1337,7 @@ textarea, input[type="text"] {
 .checkbox-below {
   margin-left: 5px;
   margin-top: 5px;
-  
+
   span {
     font-size: 13px;
     line-height: 20px;
@@ -1339,6 +1347,7 @@ textarea, input[type="text"] {
 .faq-items {
   margin: 15px 30px 15px 15px;
   a {
+    color: #262626 !important;
     display: block;
   }
   dd {
@@ -1348,6 +1357,17 @@ textarea, input[type="text"] {
   .expanded {
     dd {
       display: block;
+    }
+  }
+}
+
+.content {
+  margin: 15px 30px 15px 15px;
+  a {
+    color: $color-important;
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
     }
   }
 }

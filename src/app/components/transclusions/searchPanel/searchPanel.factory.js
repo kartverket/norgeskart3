@@ -90,6 +90,7 @@ angular
           lonID: 'aust',
           kommuneID: 'kommunenavn',
           husnummerID: 'HUSNR',
+          husnummerBokstav: false,
           navnetypeID: 'navnetype'
         };
         serviceDict['matrikkelveg'] = {
@@ -102,6 +103,7 @@ angular
           lonID: 'LONGITUDE',
           kommuneID: 'KOMMUNENAVN',
           husnummerID: 'HUSNUMMER',
+          husnummerBokstav: false,
           navnetypeID: false
         };
         serviceDict['matrikkeladresse'] = {
@@ -113,7 +115,8 @@ angular
           latID: 'LATITUDE',
           lonID: 'LONGITUDE',
           kommuneID: 'KOMMUNENAVN',
-          husnummerID: false,
+          husnummerID: 'HUSNR',
+          husnummerBokstav: 'BOKSTAV',
           navnetypeID: false
         };
         serviceDict['matrikkelnummer'] = {
@@ -126,6 +129,7 @@ angular
           lonID: 'LONGITUDE',
           kommuneID: 'KOMMUNENAVN',
           husnummerID: false,
+          husnummerBokstav: false,
           navnetypeID: false
         };
         serviceDict['adresse'] = {
@@ -138,12 +142,14 @@ angular
           lonID: 'aust',
           kommuneID: false,
           husnummerID: false,
+          husnummerBokstav: false,
           navnetypeID: false
         };
         return serviceDict;
       };
 
-      var searchOptionsOrder = ['seEiendom', 'ssrFakta', 'koordTrans', 'lagTurkart', 'lagFargeleggingskart', 'lagNodplakat'];
+      //var searchOptionsOrder = ['seEiendom', 'ssrFakta', 'koordTrans', 'lagTurkart', 'lagFargeleggingskart', 'lagNodplakat'];
+      var searchOptionsOrder = ['koordTrans'];
       var eiendomMarkering = false;
 
       return {

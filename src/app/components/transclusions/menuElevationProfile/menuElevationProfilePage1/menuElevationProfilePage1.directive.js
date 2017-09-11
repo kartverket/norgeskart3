@@ -7,12 +7,6 @@ angular.module('menuElevationProfilePage1')
         link: function (scope) {
           scope.allowGeneratingElevationProfile = false;
 
-          function _initTab() {
-            $('#myElevationTabs a[data-target="#drawProfile"]').tab('show');
-          }
-
-          _initTab();
-
           /*
            Events start
            */
@@ -37,11 +31,6 @@ angular.module('menuElevationProfilePage1')
               scope.updateGpx(gpx);
             }
             scope.allowGeneratingElevationProfile = true;
-            /*
-            if (false) {
-              $timeout(scope.$apply(), 0);
-            }
-            */
           }
 
           eventHandler.RegisterEvent(ISY.Events.EventTypes.AddLayerFeatureEnd, _addLayerFeatureEnd);

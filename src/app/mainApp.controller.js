@@ -63,6 +63,12 @@ angular.module('mainApp')
               lat: localStorageFactory.get("lat"),
               zoom: localStorageFactory.get("zoom")
             };
+            if (((center.lon > 32.88) && (center.lat > -16.1)) && ((center.lon < 84.17) && (center.lat < 39.65))) {
+              var tmp = center.lon;
+              center.lon = center.lat;
+              center.lat = tmp;
+              center.epsg = 'EPSG:4258';
+            }
             map.SetCenter(center);
           }
         }
@@ -73,16 +79,6 @@ angular.module('mainApp')
         var newSearch = angular.extend($location.search(), obj);
         $location.search(newSearch);
       }
-
-      var _setDeafultProject = function () {
-        var obj = $location.search();
-        obj.project = "seeiendom";
-        var newSearch = angular.extend($location.search(), obj);
-        $location.search(newSearch);
-        $timeout(function () {
-          window.location.reload();
-        }, 0);
-      };
 
       $scope.initMapLayout = function () {
         _initActiveLanguage();
@@ -151,19 +147,7 @@ angular.module('mainApp')
             return;
           }
         }
-        var absUrl = $location.$$absUrl;
-        if (absUrl.indexOf("project=") > -1) {
-          var projectName = /project=([^&]+)&/.exec(absUrl);
-          if (projectName === null) {
-            projectName = /project=([^]+)/.exec(absUrl);
-            if (projectName === null) {
-              _setDeafultProject();
-            }
-          }
-          return decodeURIComponent(projectName[1]);
-        } else {
-          _setDeafultProject();
-        }
+        mainAppFactory.projectName();
         $scope.showMapOverlaysLayout();
       };
 

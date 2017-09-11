@@ -102,13 +102,13 @@
       <ul class="list-result" data-ng-show="!addressResult.open" data-ng-if="!isIosDevice()">
         <li ng-mouseover="mouseOver(searchResult)" class="pointer-cursor" ng-repeat="searchResult in searchResults['matrikkeladresse']"
           ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
-          <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+          <span ng-bind="searchResult.name + ' ' + searchResult.husnummer + ', ' + searchResult.kommune"></span>
           </select>
         </li>
       </ul>
       <ul class="list-result" data-ng-show="!addressResult.open" data-ng-if="isIosDevice()">
         <li class="pointer-cursor" ng-repeat="searchResult in searchResults['matrikkeladresse']" ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
-          <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+          <span ng-bind="searchResult.name + ' ' + searchResult.husnummer + ', ' + searchResult.kommune"></span>
           </select>
         </li>
       </ul>

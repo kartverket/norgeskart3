@@ -97,13 +97,17 @@ angular.module('searchLagNodplakatPanelPage2')
           var generateEmergencyPosterConfig = function () {
             var UTM = _getUTMZoneFromGeographicPoint(scope.activePosition.geographicPoint[0], scope.activePosition.geographicPoint[1]);
             var localUTMPoint = ol.proj.transform([scope.activePosition.geographicPoint[0], scope.activePosition.geographicPoint[1]], 'EPSG:4326', UTM.localProj);
+            var street = '';
+            if (!!scope.lagNodplakatDict.emergencyPosterPoint.matrikkelnr && scope.lagNodplakatConfirmRoad) {
+              street = scope.lagNodplakatDict.emergencyPosterPoint.veg + ' i ' + scope.lagNodplakatDict.emergencyPosterPoint.kommune;
+            }
             return {
               locationName: scope.lagNodplakatName,
               position1: geographicalText(scope.activePosition.geographicPoint[1]) + ' nord',
               position2: geographicalText(scope.activePosition.geographicPoint[0]) + ' øst',
-              street: scope.lagNodplakatDict.emergencyPosterPoint.veg + ' i ' + scope.lagNodplakatDict.emergencyPosterPoint.kommune,
+              street: street,
               place: scope.activePlaceName,
-              matrikkel: scope.lagNodplakatDict.emergencyPosterPoint.matrikkelnr,
+              matrikkel: scope.lagNodplakatDict.emergencyPosterPoint.matrikkelnr + ' i ' + scope.lagNodplakatDict.emergencyPosterPoint.kommune,
               utm: 'Sone ' + UTM.sone + ' Ø ' + _round(localUTMPoint[0], 0) + ' N ' + _round(localUTMPoint[1], 0),
               posDez: 'N' + _round(scope.activePosition.geographicPoint[1], 4) + '° - Ø' + _round(scope.activePosition.geographicPoint[0], 4) + '°',
               map: ''
@@ -133,7 +137,6 @@ angular.module('searchLagNodplakatPanelPage2')
               WIDTH: pixels.width,
               HEIGHT: pixels.height,
               BBOX: minx + ',' + miny + ',' + maxx + ',' + maxy
-
             };
           };
 
@@ -145,10 +148,18 @@ angular.module('searchLagNodplakatPanelPage2')
             emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%86/g, '%C6'); // Æ
             emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%98/g, '%D8'); // Ø
             emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%85/g, '%C5'); // Å
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%A9/g, '%E9'); // é
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%89/g, '%C9'); // É
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%84/g, '%C4'); // Ä
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%A4/g, '%E4'); // ä
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%96/g, '%D6'); // Ö
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%B6/g, '%F6'); // ö
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%9C/g, '%DC'); // Ü
+            emergencyPosterServiceUrl = emergencyPosterServiceUrl.replace(/%C3%BC/g, '%FC'); // ü
             return emergencyPosterServiceUrl;
           };
 
-          scope.generateEmergancyPoster = function () {
+            scope.generateEmergancyPoster = function () {
             if (!scope.lagNodplakatDict.emergencyPosterPoint) {
               alert('Service returned error.');
             }

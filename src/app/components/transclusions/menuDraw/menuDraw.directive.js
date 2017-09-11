@@ -9,6 +9,7 @@ angular.module('menuDraw')
           Draw start
           */
 
+          scope.drawingHash = '';
           scope.snap = true;
           scope.selectionActive = false;
           scope.pointTypes = {
@@ -146,7 +147,6 @@ angular.module('menuDraw')
             Polygon: scope.color,
             Text: scope.color
           };
-          _firstLoad = true;
           _deleteFeature = false;
           _fontName = 'sans-serif,helvetica';
           var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
@@ -281,7 +281,8 @@ angular.module('menuDraw')
           };
 
           var _getGeoJSON = function (hash) {
-            var drawingUrl = mainAppService.generateGeoJSONUrl(hash);
+            scope.drawingHash = hash;
+            var drawingUrl = mainAppService.generateGeoJSONUrl(hash, false);
             $http.get(drawingUrl).then(function (result) {
               _setGeoJSONOnScope(result);
             });
@@ -298,9 +299,6 @@ angular.module('menuDraw')
           };
 
           scope.switchMode = function (newMode) {
-            // if (scope.mode === "modify"){
-            //     newMode = 'draw';
-            // }
             scope.mode = newMode;
             if (scope.mode == 'draw') {
               scope.selectedFeatureId = undefined;
@@ -374,6 +372,7 @@ angular.module('menuDraw')
             var hash = _getValueFromUrl('drawing');
             var oldUrl = $location.url();
             $location.url(oldUrl.replace('drawing=' + hash, ''));
+            scope.drawingHash = '';
           };
 
           scope.deleteButtonClick = function () {
@@ -384,11 +383,18 @@ angular.module('menuDraw')
             _deleteFeature = false;
           };
 
-          scope.downloadButtonClick = function () {
+          scope.saveToPCButtonClick = function () {
             if (scope.GeoJSON == 'remove') {
               alert('Empty drawing');
             } else {
               scope.saveToPc(scope.GeoJSON);
+            }
+          };
+
+          scope.downloadButtonClick = function () {
+            if (scope.drawingHash !== '') {
+              var downloadUrl = mainAppService.generateGeoJSONUrl(scope.drawingHash, true);
+              window.open(downloadUrl);
             }
           };
 
@@ -420,8 +426,8 @@ angular.module('menuDraw')
 
           function hex2rgba(hexRGB, alpha) {
             var r = parseInt(hexRGB.slice(1, 3), 16);
-            g = parseInt(hexRGB.slice(3, 5), 16);
-            b = parseInt(hexRGB.slice(5, 7), 16);
+            var g = parseInt(hexRGB.slice(3, 5), 16);
+            var b = parseInt(hexRGB.slice(5, 7), 16);
             //a = parseInt(hexRGB.slice(7,9), 16)/255;
             return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
           }
