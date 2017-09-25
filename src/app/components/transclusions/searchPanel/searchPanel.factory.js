@@ -196,7 +196,7 @@ angular
         },
 
         constructPoint: function (lat, lon, epsgFrom, epsgTo) {
-          return ol.proj.transform([lon, lat], epsgFrom, epsgTo);
+          return ol.proj.transform([Number(lon), Number(lat)], epsgFrom, epsgTo);
         },
 
         setShowEiendomMarkering: function (value) {

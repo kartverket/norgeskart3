@@ -640,10 +640,12 @@ angular.module('searchPanel')
             scope.getResults(searchPanelFactory.getInitialSearchServices());
           };
 
-          if (typeof $location.search().sok !== 'undefined') {
-            scope.searchBarModel = $location.search().sok;
-            scope.searchBarValueChanged();
-          }
+          $timeout(function () {
+            if (typeof $location.search().sok !== 'undefined') {
+              scope.searchBarModel = $location.search().sok;
+              scope.searchBarValueChanged();
+            }
+          });
 
           var _w3wSearch = function (query) {
             $.ajax({
