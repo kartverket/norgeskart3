@@ -51,7 +51,15 @@ angular
           symbol: "fa fa-map",
           symbol_text: "",
           isSelected: false
+        },
+        {
+          id: "sjo",
+          title: "Sjo_title",
+          symbol: "fa fa-ship",
+          symbol_text: "",
+          isSelected: false
         }
+
       ];
 
       return {

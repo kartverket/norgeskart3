@@ -12,7 +12,7 @@ angular.module('mainApp')
       var mainMenuIsOpen = false;
       var config = {
         instance: "norgeskart3",
-        configurl: "//www.norgeskart.no/config"
+        configurl: "//nnrite540/api/v1/config"
       };
       var listprojects = [{
         SiteTitle: "tilgjengelighet",
@@ -44,6 +44,11 @@ angular.module('mainApp')
         ProjectName: "dekning",
         HeaderIcon: "",
         HeaderTitle: "dekning"
+      }, {
+        SiteTitle: "sjo",
+        ProjectName: "sjo",
+        HeaderIcon: "",
+        HeaderTitle: "sjo"
       }];
       var mapConfig = {
         name: "default config",
