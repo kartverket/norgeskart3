@@ -34,7 +34,6 @@ angular.module('mainApp')
             }
           });
 
-
           function _generatePath(event) {
             var path = [];
             var currentElem = event.target;

@@ -72,6 +72,29 @@ angular.module('mainApp')
             map.SetCenter(center);
           }
         }
+        if (obj.geojson !== undefined) {
+          console.error(obj.geojson);
+          //addGeoJsonLayer(url, "4326", null, true); //defaults to WGS84 as per standard definition
+        }
+        if (obj.sosi !== undefined) {
+          console.error(obj.sosi);
+          //addSOSILayer(url, true);
+        }
+        if (obj.bbox !== undefined) {
+          console.error(obj.bbox);
+          //addBboxLayer(url);
+        }
+        if (obj.wms !== undefined) {
+          console.error(obj.wms);
+          //addWMSLayer(url);
+        }
+        if (obj.wfs !== undefined) {
+          console.error(obj.wfs);
+          //addWFSLayer(url);
+        }
+        if (obj.wcs !== undefined) {
+          console.error("Cannot display WCS directly. Use a Portrayal Service WMS with WCS as data layer.<br/>Syntax: /l/wms/[URL to portrayal]/d/wcs/[URL to data]");
+        }
 
         if (obj.layers !== undefined) {
           mainAppFactory.setInitLayersInUrl(obj.layers);

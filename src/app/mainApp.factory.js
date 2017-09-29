@@ -15,31 +15,6 @@ angular.module('mainApp')
         configurl: "http://www.norgeskart.no/config"
       };
       var listprojects = [{
-        SiteTitle: "tilgjengelighet",
-        ProjectName: "tilgjengelighet",
-        HeaderIcon: "",
-        HeaderTitle: "tilgjengelighet"
-      }, {
-        SiteTitle: "fastmerker",
-        ProjectName: "fastmerker",
-        HeaderIcon: "",
-        HeaderTitle: "fastmerker"
-      }, {
-        SiteTitle: "nrl",
-        ProjectName: "nrl",
-        HeaderIcon: "",
-        HeaderTitle: "nrl"
-      }, {
-        SiteTitle: "norgeskart",
-        ProjectName: "norgeskart",
-        HeaderIcon: "",
-        HeaderTitle: "norgeskart"
-      }, {
-        SiteTitle: "ssr",
-        ProjectName: "ssr",
-        HeaderIcon: "",
-        HeaderTitle: "ssr"
-      }, {
         SiteTitle: "dekning",
         ProjectName: "dekning",
         HeaderIcon: "",

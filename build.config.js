@@ -85,8 +85,15 @@ module.exports = {
             'vendor/xml-to-json/json2xml.min.js',
             'vendor/angular-utils-pagination/dirPagination.js',
             'vendor/featherlight/release/featherlight.min.js',
-            'vendor/jsonix/jsonix.js',
-            'vendor/jsonix/lib/*.js'
+
+            'vendor/jsonix/*.js',
+            'vendor/jsonix/lib/*.js',
+
+            'vendor/angular-gettext/dist/angular-gettext.min.js',
+            'vendor/angular-ui-date/dist/date.js',
+            'vendor/floatThead/dist/jquery.floatThead.min.js',
+            'vendor/angular.ext/angular-floatThead.js',
+            'vendor/ngeo/ngeo.js'
         ],
         css: [
             'vendor/bootstrap/dist/css/bootstrap.min.css',
@@ -131,8 +138,16 @@ module.exports = {
         'src/app/components/transclusions/searchPanel/searchResultsPanel/*.js',
 
         'src/app/components/transclusions/tools/tools.*.js',
-        'src/app/components/transclusions/tools/toolsElevationProfile.factory.js'
+        'src/app/components/transclusions/tools/toolsElevationProfile.factory.js',
 
+        'src/app/components/catalog/*.js',
+        'src/app/components/common/ows/**/*.js',
+        'src/app/components/common/popup/**/*.js',
+        'src/app/components/utility/*.js',
+        'src/app/components/search/searchmanager/*.js',
+        'src/app/components/common/map/**/*.js',
+        'src/app/components/common/alert/**/*.js',
+        'src/app/components/viewer/**/*.js',
     ],
     source_css: [
         '*.css'

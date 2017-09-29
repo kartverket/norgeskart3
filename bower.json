@@ -17,7 +17,15 @@
     "maplib": "https://github.com/kartverket/MapLib.git",
     "xml-to-json": "*",
     "angular-utils-pagination": "*",
-    "featherlight": "^1.6.1"
+    "featherlight": "^1.6.1",
+    "angular-animate": "1.6.6",
+    "angular-dynamic-locale": "0.1.32",
+    "angular-float-thead": "0.1.2",
+    "angular-gettext": "2.3.10",
+    "angular-sanitize": "1.6.6",
+    "angular-touch": "1.6.6",
+    "angular-ui-date": "*",
+    "angular-ui-slider": "0.4.0"
   },
   "resolutions": {
     "angular": "1.6.*"
