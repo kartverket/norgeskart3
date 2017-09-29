@@ -46,7 +46,7 @@
         element.addClass('gn-draggable');
         element.css({position: 'absolute'});
 
-        var dragZone = (attr['gnDraggable'] != '') ?
+        var dragZone = (attr['gnDraggable'] !== '') ?
             element.find(attr['gnDraggable']) :
             element;
 

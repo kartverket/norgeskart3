@@ -51,7 +51,7 @@ module.directive('gnWmsDownload', ['gnWmsService', 'gnGlobalSettings', 'gnSearch
             scope.checkWmsUrl().then(
               function () {
                 if (scope.capabilities.layers &&
-                  scope.capabilities.layers.length != 0) {
+                  scope.capabilities.layers.length !== 0) {
                   scope.isWmsAvailable = true;
                   //here check wms/wmts
 

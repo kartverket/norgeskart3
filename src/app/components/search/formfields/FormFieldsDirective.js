@@ -154,7 +154,7 @@
 
               // model -> ui
               scope.$watch('gnValues', function() {
-                if (angular.isDefined(scope.gnValues) && scope.gnValues != '') {
+                if (angular.isDefined(scope.gnValues) && scope.gnValues !== '') {
                   stringValues = scope.gnValues.split(' or ');
                 }
                 else {
@@ -201,7 +201,7 @@
               resetElt.hide();
 
               $(element).on('change', function() {
-                resetElt.toggle($(element).val() != '');
+                resetElt.toggle($(element).val() !== '');
               });
             };
 
@@ -568,7 +568,7 @@
 
               var addBlankValueAndSetDefault = function() {
                 var blank = {label: '', code: ''};
-                if (scope.infos != null && scope.infos.length &&
+                if (scope.infos !== null && scope.infos.length &&
                     scope.allowBlank !== undefined) {
                   scope.infos.unshift(blank);
                 }

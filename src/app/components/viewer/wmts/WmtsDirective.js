@@ -51,7 +51,7 @@ module.directive('gnWmtsDownload', ['gnWmtsService', 'gnGlobalSettings', 'gnSear
             scope.checkWmtsUrl().then(
               function () {
                 if (scope.capabilities.Layer &&
-                  scope.capabilities.Layer.length != 0) {
+                  scope.capabilities.Layer.length !== 0) {
                   scope.isWmtsAvailable = true;
                   scope.isLayerInCapabilities =
                     gnWmtsService.isLayerInCapabilities(

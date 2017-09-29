@@ -128,8 +128,8 @@
           scope.$watch(
               'toggle',
               function(newVal, oldVal) {
-                if (newVal != oldVal ||
-                    (newVal != (element.css('display') == 'block'))) {
+                if (newVal !== oldVal ||
+                    (newVal !== (element.css('display') == 'block'))) {
                   element.toggle(newVal);
                   scope.moveToOriginalPosition();
                 }

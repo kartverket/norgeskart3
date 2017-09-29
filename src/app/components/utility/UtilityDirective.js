@@ -146,11 +146,11 @@
             'partials/batchreport.html',
         link: function(scope, element, attrs) {
           scope.$watch('processReport', function(n, o) {
-            if (n && n != o) {
-              scope.processReportWarning = n.notFound != 0 ||
-                  n.notOwner != 0 ||
-                  n.notProcessFound != 0 ||
-                  n.metadataErrorReport.metadataErrorReport.length != 0;
+            if (n && n !== o) {
+              scope.processReportWarning = n.notFound !== 0 ||
+                  n.notOwner !== 0 ||
+                  n.notProcessFound !== 0 ||
+                  n.metadataErrorReport.metadataErrorReport.length !== 0;
             }
           });
         }
@@ -710,7 +710,7 @@
       restrict: 'A',
       link: function($scope, $element, $attr) {
         $scope.$watch($attr.gnFocusOn, function(o, n) {
-          if (o != n) {
+          if (o !== n) {
             $timeout(function() {
               o ? $element.focus() :
                   $element.blur();
@@ -831,7 +831,7 @@
                   if (scope.dates[date.getFullYear()] &&
                       scope.dates[date.getFullYear()][date.getMonth()] &&
                       $.inArray(date.getDate(),
-                      scope.dates[date.getFullYear()][date.getMonth()]) != -1) {
+                      scope.dates[date.getFullYear()][date.getMonth()]) !== -1) {
                     return true;
                   } else {
                     return false;
@@ -851,7 +851,7 @@
               },
               startDate: limits.min,
               endDate: limits.max,
-              container: typeof sxtSettings != 'undefined' ?
+              container: typeof sxtSettings !== 'undefined' ?
                   '.g' : 'body',
               autoclose: true,
               keepEmptyValues: true,
@@ -896,7 +896,7 @@
                   angular.isFunction(scope.onChangeFn)) {
                 scope.onChangeFn();
               }
-              if (v != o) {
+              if (v !== o) {
                 $(element).find('input')[0].value = v || '';
 
               }
@@ -908,7 +908,7 @@
                 scope.date = {};
                 return;
               }
-              if (v != o) {
+              if (v !== o) {
                 scope.onChangeFn();
                 $(element).find('input')[0].value = (v && v.from) || '';
                 $(element).find('input')[1].value = (v && v.to) || '';
@@ -993,7 +993,7 @@
               };
               scope.$watch('paginator.pageSize',
                   function(newValue, oldValue) {
-                    if (newValue != oldValue) {
+                    if (newValue !== oldValue) {
                       scope.firstPage();
                     }
                   });
@@ -1236,7 +1236,7 @@
                 '  <button type=button class="btn btn-link gn-btn-modal-img">' +
                 '<i class="fa fa-times text-danger"/></button>' +
                 '  <img src="' + (img.url || img.id) + '"/>' +
-                (label != '' ? labelDiv : '') +
+                (label !== '' ? labelDiv : '') +
                 '</div>' +
                 '</div>');
 
@@ -1264,7 +1264,7 @@
         var button = element.find('> .btn');
 
         $timeout(function() {
-          var className = (attrs['fixedHeight'] != 'false') ?
+          var className = (attrs['fixedHeight'] !== 'false') ?
               'popover-dropdown popover-dropdown-' + content.find('li').length :
               '';
           button.popover({
@@ -1299,7 +1299,7 @@
         // can’t use dismiss boostrap option: incompatible with opacity slider
         var onMousedown = function(e) {
           if ((button.data('bs.popover') && button.data('bs.popover').$tip) &&
-              (button[0] != e.target) &&
+              (button[0] !== e.target) &&
               (!$.contains(button[0], e.target)) &&
               (
               $(e.target).parents('.popover')[0] !=

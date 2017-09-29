@@ -98,7 +98,7 @@
         map.forEachFeatureAtPixel(pixel, function(feature, layer) {
           if (!layer || !layer.get('getinfo')) { return; }
           $timeout.cancel(hidetimer);
-          if (f != feature) {
+          if (f !== feature) {
             f = feature;
             var html = '';
             if (feature.getKeys().indexOf('description') >= 0) {

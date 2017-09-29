@@ -56,7 +56,7 @@
                 data.summary.dimension,
                 gnUtilityService.formatObjectPropertyAsArray,
                 'category');
-          } else if (facet != '@count' && facet != '@type') {
+          } else if (facet !== '@count' && facet !== '@type') {
             facets[facet] = data.summary[facet];
             facets[facet].name = facet;
           } else if (facet == '@count') {
@@ -76,7 +76,7 @@
             // when only one value returned.
             for (var property in metadata) {
               if (metadata.hasOwnProperty(property) &&
-                  listOfArrayFields.indexOf(property) != -1 &&
+                  listOfArrayFields.indexOf(property) !== -1 &&
                   typeof metadata[property] === 'string') {
                 metadata[property] = [metadata[property]];
               }

@@ -223,7 +223,7 @@
              }
              // TODO; stop loop when found
            });
-          return parameterValue != null ?
+          return parameterValue !== null ?
           decodeURIComponent(parameterValue) : undefined;
         };
 

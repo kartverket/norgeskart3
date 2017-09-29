@@ -104,7 +104,7 @@ module.service('gnMdView', [
      * at last search.
      */
     this.removeLocationUuid = function () {
-      if (gnMdViewObj.from && gnMdViewObj.from != gnSearchLocation.SEARCH) {
+      if (gnMdViewObj.from && gnMdViewObj.from !== gnSearchLocation.SEARCH) {
         gnSearchLocation.path(gnMdViewObj.from);
       } else {
         gnSearchLocation.restoreSearch();
@@ -124,7 +124,7 @@ module.service('gnMdView', [
         var uuid = gnSearchLocation.getUuid();
         if (uuid) {
           if (!gnMdViewObj.current.record ||
-            gnMdViewObj.current.record.getUuid() != uuid) {
+            gnMdViewObj.current.record.getUuid() !== uuid) {
 
             // Check if the md is in current search
             if (angular.isArray(gnMdViewObj.records)) {

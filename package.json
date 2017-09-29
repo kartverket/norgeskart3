@@ -18,17 +18,18 @@
   },
   "license": "SEE LICENSE IN README.md",
   "dependencies": {
+    "jsonix": "^2.4.1",
     "karma-es5-shim": "0.0.4"
   },
   "devDependencies": {
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
     "fs-readdir-recursive": "^1.0.0",
     "grunt": "^1.0.1",
     "grunt-appcache": "^0.2.0",
     "grunt-bump": "^0.8.0",
     "grunt-contrib-clean": "^1.0.0",
-    "eslint": "^3.15.0",
-    "eslint-config-airbnb-base": "^11.1.0",
-    "eslint-plugin-import": "^2.2.0",
     "grunt-contrib-compass": "*",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-copy": "^1.0.0",

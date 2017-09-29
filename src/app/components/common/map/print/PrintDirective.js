@@ -461,7 +461,7 @@
                 features: encFeatures
               },
               name: layer.bodId,
-              opacity: (layer.opacity != null) ? layer.opacity : 1.0
+              opacity: (layer.opacity !== null) ? layer.opacity : 1.0
             });
             return enc;
           },
@@ -541,7 +541,7 @@
         'legends' : {
           'ga_urllegend': function(layer, config) {
             var format = '.png';
-            if ($scope.options.pdfLegendList.indexOf(layer.bodId) != -1) {
+            if ($scope.options.pdfLegendList.indexOf(layer.bodId) !== -1) {
               format = pdfLegendString;
             }
             var enc = $scope.encoders.legends.base.call(this, config);

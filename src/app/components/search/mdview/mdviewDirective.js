@@ -166,7 +166,7 @@
             scope.mode = 'default';
           }
 
-          if (scope.mode != 'default') {
+          if (scope.mode !== 'default') {
             var groupByOrgAndMailOrName = function(resources) {
               return _.groupBy(resources,
                   function(contact) {

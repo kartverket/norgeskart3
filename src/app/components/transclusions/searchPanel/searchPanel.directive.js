@@ -388,7 +388,7 @@ angular.module('searchPanel')
             };
             var zoomTo = parseFloat(13);
             var activeZoom = parseFloat($location.search().zoom);
-            if (scope.searchPanelLayout != "searchSeEiendomPanel" && activeZoom < zoomTo && searchResult.source != 'mouseClick') {
+            if (scope.searchPanelLayout !== "searchSeEiendomPanel" && activeZoom < zoomTo && searchResult.source !== 'mouseClick') {
               activePosition.zoom = zoomTo;
             }
             activePosition.geographicPoint = searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, scope.mapEpsg, 'EPSG:4326');
@@ -399,7 +399,7 @@ angular.module('searchPanel')
             if (scope.searchOptionsDict['elevationPoint']) {
               scope.searchOptionsDict['elevationPoint'].text.value = undefined;
             }
-            if (scope.searchBarModel.length < searchResult.name.length && !scope.coordinate && scope.activeSearchResult.source != 'mouseClick') {
+            if (scope.searchBarModel.length < searchResult.name.length && !scope.coordinate && scope.activeSearchResult.source !== 'mouseClick') {
               scope.searchBarModel = searchResult.name;
             }
             scope.initSearchOptions();
@@ -741,7 +741,7 @@ angular.module('searchPanel')
           var _removeNumberFromName = function (name) {
             var nameArray = name.split(' ');
             var matches = nameArray[nameArray.length - 1].match(/\d+/g);
-            if (matches != null) {
+            if (matches !== null) {
               return name.replace(nameArray[nameArray.length - 1], '').trim();
             } else {
               return name.trim();
@@ -754,7 +754,7 @@ angular.module('searchPanel')
 
           var _pushToUnifiedResults = function (result) {
             if (result.kommune && result.name) {
-              result.name = result.source != 'matrikkelnummer' ? scope.fixNames(result.name) : result.name;
+              result.name = result.source !== 'matrikkelnummer' ? scope.fixNames(result.name) : result.name;
               result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
               var resultID = _createID(result);
               if (!_unifiedResults[result.source]) {

@@ -301,7 +301,6 @@
     lang: 'lang?_content_type=json&',
     removeThumbnail: 'md.thumbnail.remove?_content_type=json&',
     removeOnlinesrc: 'resource.del.and.detach', // TODO: CHANGE
-    suggest: 'suggest',
     facetConfig: 'search/facet/config',
     selectionLayers: 'selection.layers',
 
@@ -540,7 +539,9 @@
         if (angular.isDefined(record[field])) {
           try {
             record[field] = angular.fromJson(record[field]);
-          } catch (e) {}
+          } catch (e) {
+            console.error(e);
+          }
         }
       });
 
@@ -557,7 +558,7 @@
         }
       });
       this.linksTree = links;
-    };
+    }
 
     function formatLink(sLink) {
       var linkInfos = sLink.split('|');
@@ -574,7 +575,7 @@
     }
     function parseLink(sLink) {
 
-    };
+    }
 
     Metadata.prototype = {
       getUuid: function() {
@@ -679,7 +680,7 @@
             var insertFn = 'push';
             if (s[0] === 'thumbnail') {
               images.small = s[1];
-              var insertFn = 'unshift';
+              insertFn = 'unshift';
             } else if (s[0] === 'overview') {
               images.big = s[1];
             }
@@ -738,7 +739,6 @@
       },
       getBoxAsPolygon: function(i) {
         // Polygon((4.6810%2045.9170,5.0670%2045.9170,5.0670%2045.5500,4.6810%2045.5500,4.6810%2045.9170))
-        var bboxes = [];
         if (this.geoBox[i]) {
           var coords = this.geoBox[i].split('|');
           return 'Polygon((' +
@@ -776,12 +776,12 @@
         var st = this.mdStatus;
         var res = st &&
             //Status is unknown
-            (!isNaN(st) && st != '0');
+            (!isNaN(st) && st !== '0');
 
         //What if it is an array: gmd:MD_ProgressCode
         if (!res && Array.isArray(st)) {
           angular.forEach(st, function(s) {
-            if (!isNaN(s) && s != '0') {
+            if (!isNaN(s) && s !== '0') {
               res = true;
             }
           });

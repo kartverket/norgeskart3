@@ -1,8 +1,8 @@
-<div class="search-panel" ng-show="searchResults != undefined" ng-controller="searchOptionsPanelController">
+<div class="search-panel" ng-show="searchResults !== undefined" ng-controller="searchOptionsPanelController">
     <div class="search-content">
         <div class="info-text content-text-align">
             <div>
-                <span ng-if="activeSearchResult.source != 'mouseClick'" translate="{{sourceDict[activeSearchResult.source]}}"></span>
+                <span ng-if="activeSearchResult.source !== 'mouseClick'" translate="{{sourceDict[activeSearchResult.source]}}"></span>
                 <span ng-if="activeSearchResult.kommune!=''">
                     <span> </span>
                     <span translate="In"></span>

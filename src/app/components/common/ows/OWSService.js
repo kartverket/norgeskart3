@@ -148,7 +148,7 @@ module.provider('gnOwsCapabilities', function () {
 
           return xfsCap;
 
-          /* if (xfsCap.exception != undefined) {
+          /* if (xfsCap.exception !== undefined) {
             //defer.reject({msg: 'wfsGetCapabilitiesFailed',
             //  owsExceptionReport: xfsCap});
             return xfsCap;
@@ -188,7 +188,7 @@ module.provider('gnOwsCapabilities', function () {
         for (var p in urlParams) {
           defaultParams[p] = urlParams[p];
           if (defaultParams.hasOwnProperty(p.toLowerCase()) &&
-            p != p.toLowerCase()) {
+            p !== p.toLowerCase()) {
             delete defaultParams[p.toLowerCase()];
           }
         }
@@ -271,7 +271,7 @@ module.provider('gnOwsCapabilities', function () {
                 .then(function (result) {
                   var xfsCap = parseWFSCapabilities(result.data);
 
-                  if (!xfsCap || xfsCap.exception != undefined) {
+                  if (!xfsCap || xfsCap.exception !== undefined) {
                     defer.reject({
                       msg: 'wfsGetCapabilitiesFailed',
                       owsExceptionReport: xfsCap
@@ -365,7 +365,7 @@ module.provider('gnOwsCapabilities', function () {
             }
 
             //check dataset identifer match
-            if (uuid != null) {
+            if (uuid !== null) {
               if (angular.isArray(layers[i].Identifier)) {
                 angular.forEach(layers[i].Identifier, function (id) {
                   if (id == uuid) {
@@ -376,7 +376,7 @@ module.provider('gnOwsCapabilities', function () {
             }
 
             //check uuid from metadata url
-            if (uuid != null) {
+            if (uuid !== null) {
               if (angular.isArray(layers[i].MetadataURL)) {
                 angular.forEach(layers[i].MetadataURL, function (mdu) {
                   if (mdu && mdu.OnlineResource &&
@@ -419,7 +419,7 @@ module.provider('gnOwsCapabilities', function () {
             }
 
             //check dataset identifer match
-            if (uuid != null) {
+            if (uuid !== null) {
               if (angular.isArray(layers[i].Identifier)) {
                 angular.forEach(layers[i].Identifier, function (id) {
                   if (id == uuid) {
@@ -430,7 +430,7 @@ module.provider('gnOwsCapabilities', function () {
             }
 
             //check uuid from metadata url
-            if (uuid != null) {
+            if (uuid !== null) {
               if (angular.isArray(layers[i].MetadataURL)) {
                 angular.forEach(layers[i].MetadataURL, function (mdu) {
                   if (mdu && mdu.OnlineResource &&

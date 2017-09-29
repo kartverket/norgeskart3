@@ -34,7 +34,7 @@ module.factory('gnFacetConfigService', [
       return gnHttp.callService('facetConfig', {}, {
         cache: true
       }).then(function (data) {
-        if (data.status != 200) {
+        if (data.status !== 200) {
           return;
         }
         if (!data.data.hasOwnProperty(summaryType)) {

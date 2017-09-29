@@ -243,7 +243,7 @@
 
         this.activate = function(btnScope) {
           angular.forEach(buttonScopes, function(b) {
-            if (b != btnScope) {
+            if (b !== btnScope) {
               b.ngModelSet(b, false);
             }
           });
@@ -282,7 +282,7 @@
               if (buttonsCtrl && ngModelCtrl.$viewValue) {
                 buttonsCtrl.activate(scope);
               }
-              if (cls != '') {
+              if (cls !== '') {
                 element.toggleClass(cls, ngModelCtrl.$viewValue);
               }
             };

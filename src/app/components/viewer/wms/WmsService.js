@@ -63,12 +63,12 @@ module.service('gnWmsService', ['gnOwsCapabilities', '$q', 'gnUrlUtils', 'gnMap'
 
       var layersArray = layers.split(',');
       var capabilitiesLayers = capabilities.layers;
-      var allLayersFound = capabilitiesLayers.length != 0;
+      var allLayersFound = capabilitiesLayers.length !== 0;
       angular.forEach(layersArray, function (layerName, index) {
         var result = $.grep(capabilitiesLayers, function (capLayer) {
           return layerName === capLayer.Name;
         });
-        allLayersFound = allLayersFound && result.length != 0;
+        allLayersFound = allLayersFound && result.length !== 0;
       });
 
       return allLayersFound;

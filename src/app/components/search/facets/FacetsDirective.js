@@ -196,7 +196,7 @@
                             updateLabelFromInfo(facets, groups, scope.lang);
                             facets = $filter('orderBy')(facets, 'name');
                             facets = $filter('filter')(facets, function(i) {
-                              return i.name != 'INTERNET';
+                              return i.name !== 'INTERNET';
                             });
 
                           }

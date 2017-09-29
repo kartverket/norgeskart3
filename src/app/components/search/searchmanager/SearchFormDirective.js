@@ -172,7 +172,7 @@
 
               // Means the `from` and `to` params come from permalink
               if ((paging.currentPage - 1) *
-                  paging.hitsPerPage + 1 != params.from) {
+                  paging.hitsPerPage + 1 !== params.from) {
                 paging.currentPage = (params.from - 1) / paging.hitsPerPage + 1;
               }
 

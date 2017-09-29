@@ -72,7 +72,7 @@ module.directive('gnWmsImport', [
       }],
       link: function (scope, element, attrs) {
         scope.loading = false;
-        scope.format = attrs['gnWmsImport'] != '' ?
+        scope.format = attrs['gnWmsImport'] !== '' ?
           attrs['gnWmsImport'] : 'all';
         scope.serviceDesc = null;
         scope.servicesList = gnViewerSettings.servicesUrl[scope.format];

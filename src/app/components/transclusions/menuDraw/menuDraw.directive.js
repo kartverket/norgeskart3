@@ -320,7 +320,7 @@ angular.module('menuDraw')
           };
 
           scope.activateDrawFeatureTool = function () {
-            if (scope.type != 'Text') {
+            if (scope.type !== 'Text') {
               scope.text = "";
             }
             if (!drawFeatureTool) {

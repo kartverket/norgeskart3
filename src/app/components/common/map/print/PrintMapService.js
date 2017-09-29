@@ -218,7 +218,7 @@
               features: encFeatures
             },
             name: layer.bodId,
-            opacity: (layer.opacity != null) ? layer.opacity : 1.0
+            opacity: (layer.opacity !== null) ? layer.opacity : 1.0
           });
           return enc;
         },

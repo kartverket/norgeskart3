@@ -90,7 +90,7 @@ module.directive('gnWfsDownload', ['gnWfsService', 'gnSearchSettings',
          * Check if the WFS url provided return a response.
          */
         scope.checkWFSUrl = function () {
-          if (scope.url && scope.url != '') {
+          if (scope.url && scope.url !== '') {
             return gnWfsService.getCapabilities(scope.url)
               .then(function (capabilities) {
                 scope.isWfsAvailable = true;
@@ -181,7 +181,7 @@ module.directive('gnWFS', [
 
     var defaultValue = function (literalData) {
       var value = undefined;
-      if (literalData.defaultValue != undefined) {
+      if (literalData.defaultValue !== undefined) {
         value = literalData.defaultValue;
       }
       if (literalData.dataType.value == 'float') {
