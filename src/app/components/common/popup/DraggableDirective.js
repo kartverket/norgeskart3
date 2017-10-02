@@ -50,7 +50,7 @@
             element.find(attr['gnDraggable']) :
             element;
 
-        if (!dragZone || dragZone.length == 0) {
+        if (!dragZone || dragZone.length === 0) {
           dragZone = element;
         }
 

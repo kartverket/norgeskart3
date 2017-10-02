@@ -65,7 +65,7 @@
           scope.initialMaxItems = initialMaxItems;
           scope.maxItems = initialMaxItems;
           scope.toggle = function() {
-            scope.maxItems = (scope.maxItems == Infinity) ?
+            scope.maxItems = (scope.maxItems === Infinity) ?
                 initialMaxItems : Infinity;
           };
         }
@@ -134,7 +134,7 @@
         angular.forEach(facets, function(f) {
           for (var i = 0; i < groups.length; i++) {
             var o = groups[i];
-            if (o.name == f['@name']) {
+            if (o.name === f['@name']) {
               f['@label'] = o.label[lang];
             }
             f['name'] = f['@label'] || f['@name'];
@@ -159,7 +159,7 @@
 
               scope.name = attrs.gnFacetMultiselect;
               scope.contentCollapsed =
-                  attrs.gnFacetMultiselectCollapsed == 'true';
+                  attrs.gnFacetMultiselectCollapsed === 'true';
 
               gnFacetConfigService.loadConfig('hits').
 
@@ -167,7 +167,7 @@
                   then(function(data) {
                     if (angular.isArray(data)) {
                       for (var i = 0; i < data.length; i++) {
-                        if (data[i].name == scope.name) {
+                        if (data[i].name === scope.name) {
                           scope.facetConfig = data[i];
                           break;
                         }
@@ -177,7 +177,7 @@
                     var promises = [];
 
                     // Load groups label for 'publishedForGroup'
-                    if (scope.facetConfig.label == 'publishedForGroup') {
+                    if (scope.facetConfig.label === 'publishedForGroup') {
                       promises.push(gnHttp.callService('info', {
                         type: 'groupsAll'}).
                           success(function(data) {
@@ -192,7 +192,7 @@
                         if (v && scope.facetConfig && scope.facetConfig.label) {
                           var facets = v[scope.facetConfig.label];
 
-                          if (scope.facetConfig.label == 'publishedForGroup') {
+                          if (scope.facetConfig.label === 'publishedForGroup') {
                             updateLabelFromInfo(facets, groups, scope.lang);
                             facets = $filter('orderBy')(facets, 'name');
                             facets = $filter('filter')(facets, function(i) {
@@ -228,7 +228,7 @@
                   scope.searchObj.params[scope.facetConfig.key] = value;
                 }
                 else {
-                  if (search == '') {
+                  if (search === '') {
                     scope.searchObj.params[scope.facetConfig.key] = value;
                   }
                   else {

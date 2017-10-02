@@ -72,11 +72,11 @@ angular.module('searchLagNodplakatPanelPage2')
             var minutesDecimals = minutes - minutes.toString().split('.')[0];
             minutes = _round(minutes.toString().split('.')[0], 0);
             var seconds = _round(minutesDecimals * 60, 0);
-            if (seconds == 60) {
+            if (seconds === 60) {
               minutes += 1;
               seconds = 0;
             }
-            if (minutes == 60) {
+            if (minutes === 60) {
               degrees += 1;
               minutes = 0;
             }

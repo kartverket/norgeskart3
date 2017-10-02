@@ -21,7 +21,7 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-var module = angular.module('gnWmsImport', ['gn_ows', 'gn_alert','gn_map_service']);
+var module = angular.module('gnWmsImport', ['gn_ows', 'gn_alert','gn_map_service','gnConfig']);
 
 /**
  * @ngdoc directive
@@ -34,8 +34,8 @@ var module = angular.module('gnWmsImport', ['gn_ows', 'gn_alert','gn_map_service
 module.directive('gnWmsImport', [
   'gnOwsCapabilities',
   'gnMap',
-  '$timeout',
-  function (gnOwsCapabilities, gnMap, $timeout) {
+  '$timeout','gnViewerSettings',
+  function (gnOwsCapabilities, gnMap, $timeout,gnViewerSettings) {
     return {
       restrict: 'A',
       replace: true,
@@ -54,19 +54,18 @@ module.directive('gnWmsImport', [
          * @return {*}
          */
         this.addLayer = function (getCapLayer) {
+          var layer = '';
           getCapLayer.version = $scope.capability.version;
-          if ($scope.format == 'wms') {
-            var layer = gnMap.addWmsToMapFromCap($scope.map, getCapLayer);
+          if ($scope.format === 'wms') {
+            layer = gnMap.addWmsToMapFromCap($scope.map, getCapLayer);
             gnMap.feedLayerMd(layer);
             return layer;
-          } else if ($scope.format == 'wfs') {
-            var layer = gnMap.addWfsToMapFromCap($scope.map, getCapLayer,
-              $scope.url);
+          } else if ($scope.format === 'wfs') {
+            layer = gnMap.addWfsToMapFromCap($scope.map, getCapLayer, $scope.url);
             gnMap.feedLayerMd(layer);
             return layer;
-          } else if ($scope.format == 'wmts') {
-            return gnMap.addWmtsToMapFromCap($scope.map, getCapLayer,
-              $scope.capability);
+          } else if ($scope.format === 'wmts') {
+            return gnMap.addWmtsToMapFromCap($scope.map, getCapLayer, $scope.capability);
           }
         };
       }],
@@ -180,7 +179,7 @@ module.directive('gnKmlImport', [
            */
           this.addKml = function (url, map) {
 
-            if (url == '') {
+            if (url === '') {
               $scope.validUrl = true;
               return;
             }
@@ -251,7 +250,7 @@ module.directive('gnKmlImport', [
 
         scope.map.getInteractions().push(dragAndDropInteraction);
         dragAndDropInteraction.on('addfeatures', function (event) {
-          if (!event.features || event.features.length == 0) {
+          if (!event.features || event.features.length === 0) {
             onError();
             scope.$apply();
             return;
@@ -327,11 +326,13 @@ module.directive('gnKmlImport', [
             });
             var listenerKey = vector.getSource().on('change',
               function (evt) {
-                if (vector.getSource().getState() == 'ready') {
+                if (vector.getSource().getState() === 'ready') {
                   vector.getSource().unByKey(listenerKey);
                   scope.addToMap(vector, scope.map);
                   entry.loading = false;
-                } else if (vector.getSource().getState() == 'error') {}
+                } else if (vector.getSource().getState() === 'error') {
+                  console.error(vector.getSource().getState());
+                }
                 scope.$apply();
               });
           }, function (current, total) {

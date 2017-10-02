@@ -25,7 +25,7 @@
   var DEGREE_DECIMALS = 8;
 
   var getDigitNumber = function(proj) {
-    return proj == 'EPSG:4326' ? DEGREE_DECIMALS : METRIC_DECIMALS;
+    return proj === 'EPSG:4326' ? DEGREE_DECIMALS : METRIC_DECIMALS;
   };
 
   angular.module('gn_map_directive',
@@ -276,7 +276,7 @@
               var coordinates, geom;
 
               // no geometry
-              if (scope.extent.map == null) {
+              if (scope.extent.map === null) {
                 return;
               }
 

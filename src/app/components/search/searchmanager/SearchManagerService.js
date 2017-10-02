@@ -51,7 +51,7 @@
 
         // Cleaning facets
         for (var facet in data.summary) {
-          if (facet == 'dimension') {
+          if (facet === 'dimension') {
             dimension = gnUtilityService.traverse(
                 data.summary.dimension,
                 gnUtilityService.formatObjectPropertyAsArray,
@@ -59,7 +59,7 @@
           } else if (facet !== '@count' && facet !== '@type') {
             facets[facet] = data.summary[facet];
             facets[facet].name = facet;
-          } else if (facet == '@count') {
+          } else if (facet === '@count') {
             // Number of results
             results = data.summary[facet];
           }
@@ -84,7 +84,7 @@
 
             // Parse selected to boolean
             metadata['geonet:info'].selected =
-                metadata['geonet:info'].selected == 'true';
+                metadata['geonet:info'].selected === 'true';
           }
         }
 

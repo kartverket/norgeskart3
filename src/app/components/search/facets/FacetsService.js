@@ -39,8 +39,8 @@
           field: field
         };
         for (var i = 0; i < currentFacets.length; i++) {
-          if (currentFacets[i].field == facet.field &&
-              currentFacets[i].value == facet.value) return;
+          if (currentFacets[i].field === facet.field &&
+              currentFacets[i].value === facet.value) return;
         }
         currentFacets.push(facet);
       };
@@ -48,8 +48,8 @@
       var remove = function(facets, facet) {
         var index = -1;
         for (var i = 0; i < facets.length; ++i) {
-          if (facets[i].field == facet.field &&
-              facets[i].value == facet.value) {
+          if (facets[i].field === facet.field &&
+              facets[i].value === facet.value) {
             index = i;
           }
         }
@@ -85,8 +85,8 @@
         angular.forEach(facets, function(f) {
           var keep = false;
           for (p in params) {
-            if (p == f.field) {
-              if (params[p] == f.value || (angular.isArray(params[p]) &&
+            if (p === f.field) {
+              if (params[p] === f.value || (angular.isArray(params[p]) &&
                   params[p].indexOf(f.value) >= 0)) {
                 keep = true;
               }

@@ -70,7 +70,7 @@
             unRegister();
             // Do not close parent mdview
             if ($('[gn-metadata-display] ~ [gn-metadata-display]')
-                .length == 0) {
+                .length === 0) {
               gnMdView.removeLocationUuid();
             }
             element.remove();
@@ -162,7 +162,7 @@
         },
         link: function(scope, element, attrs, controller) {
 
-          if (['default', 'role', 'org-role'].indexOf(scope.mode) == -1) {
+          if (['default', 'role', 'org-role'].indexOf(scope.mode) === -1) {
             scope.mode = 'default';
           }
 
@@ -190,7 +190,7 @@
                   });
             };
 
-            if (scope.mode == 'role') {
+            if (scope.mode === 'role') {
               var contactsByOrgAndMailOrName =
                   groupByOrgAndMailOrName(scope.mdContacts);
 
@@ -210,7 +210,7 @@
                   _.groupBy(contactsWithAggregatedRoles, function(c) {
                     return c.roles;
                   });
-            } else if (scope.mode == 'org-role') {
+            } else if (scope.mode === 'org-role') {
               /**
                * Contacts format:
                *

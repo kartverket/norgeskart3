@@ -85,7 +85,7 @@
 
     var cleanSearchParams = function(params) {
       for (v in params) {
-        if (params[v] == '') {
+        if (params[v] === '') {
           delete params[v];
         }
       }
@@ -271,7 +271,7 @@
         if (!gnSearchLocation.isSearch()) return;
 
         // We are getting back to the search, no need to reload it
-        if (newUrl == gnSearchLocation.lastSearchUrl) return;
+        if (newUrl === gnSearchLocation.lastSearchUrl) return;
 
         var params = angular.copy($location.search());
         gnFacetService.removeFacetsFromParams($scope.currentFacets, params);

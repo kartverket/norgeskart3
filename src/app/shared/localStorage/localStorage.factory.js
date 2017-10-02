@@ -6,7 +6,7 @@ angular
        * Global Vars
        */
       var storage = (typeof window.localStorage === 'undefined') ? undefined : window.localStorage,
-        supported = !(typeof storage == 'undefined' || typeof window.JSON == 'undefined');
+        supported = !(typeof storage === 'undefined' || typeof window.JSON === 'undefined');
 
       var privateMethods = {
         /**
@@ -18,16 +18,16 @@ angular
           var val;
           try {
             val = JSON.parse(res);
-            if (typeof val == 'undefined') {
+            if (typeof val === 'undefined') {
               val = res;
             }
-            if (val == 'true') {
+            if (val === 'true') {
               val = true;
             }
-            if (val == 'false') {
+            if (val === 'false') {
               val = false;
             }
-            if (parseFloat(val) == val && !angular.isObject(val)) {
+            if (parseFloat(val) === val && !angular.isObject(val)) {
               val = parseFloat(val);
             }
           } catch (e) {

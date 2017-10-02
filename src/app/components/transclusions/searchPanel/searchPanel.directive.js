@@ -83,7 +83,7 @@ angular.module('searchPanel')
             var params = url.split('?')[1].split('&');
             for (var i = 0; i < params.length; i++) {
               var param = params[i].split('=');
-              if (param[0] == key) {
+              if (param[0] === key) {
                 return param[1];
               }
             }
@@ -202,7 +202,7 @@ angular.module('searchPanel')
             }
             var matrikkelInfo = [];
             for (var i = 0; i < jsonRoot.length; i++) {
-              if ((jsonRoot.MATRIKKELNR == 'Mnr mangler') || (jsonRoot.MATRIKKELNR == 'Mnr vann mangler')) {
+              if ((jsonRoot.MATRIKKELNR === 'Mnr mangler') || (jsonRoot.MATRIKKELNR === 'Mnr vann mangler')) {
                 continue;
               }
 
@@ -298,7 +298,7 @@ angular.module('searchPanel')
                 scope.searchOptionsDict['ssrFakta'] = _constructSearchOption('ssrFakta', 'fa fa-flag', true, '"' + data.placename + '"', {
                   url: mainAppService.generateFaktaarkUrl(data.stedsnummer)
                 });
-                if (scope.activeSearchResult && scope.activeSearchResult.source == 'mouseClick') {
+                if (scope.activeSearchResult && scope.activeSearchResult.source === 'mouseClick') {
                   scope.searchBarModel = data.placename;
                 }
                 var elevationValue = data.elevation === false ? '-' : data.elevation.toFixed(1);
@@ -512,7 +512,7 @@ angular.module('searchPanel')
 
           var _notSingleAddressHit = function () {
             var matrikkelKey = 'matrikkeladresse';
-            if (_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length == 1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']) {
+            if (_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length === 1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']) {
               var key = Object.keys(_unifiedResults[matrikkelKey])[0];
               var result = _unifiedResults[matrikkelKey][key];
               scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], scope.mapEpsg, result.source, result.kommune));
@@ -525,7 +525,7 @@ angular.module('searchPanel')
           scope.addResultsToMap = function () {
             var coordinates = [];
             for (var source in _unifiedResults) {
-              if (source == 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length > 1) {
+              if (source === 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length > 1) {
                 continue;
               }
               for (var result in _unifiedResults[source]) {
@@ -596,7 +596,7 @@ angular.module('searchPanel')
               url: _serviceDict.url,
               async: true,
               success: function (document) {
-                if (((document.length && document.length > 0) || (document.childNodes && document.childNodes[0].childNodes.length)) && scope.searchTimestamp == timestamp) {
+                if (((document.length && document.length > 0) || (document.childNodes && document.childNodes[0].childNodes.length)) && scope.searchTimestamp === timestamp) {
                   _successFullSearch(_serviceDict, document);
                 }
               }

@@ -130,7 +130,7 @@ module.service('gnMdView', [
             if (angular.isArray(gnMdViewObj.records)) {
               for (var i = 0; i < gnMdViewObj.records.length; i++) {
                 var md = gnMdViewObj.records[i];
-                if (md.getUuid() == uuid) {
+                if (md.getUuid() === uuid) {
                   that.feedMd(i, md, gnMdViewObj.records);
                   return;
                 }
@@ -144,7 +144,7 @@ module.service('gnMdView', [
               fast: 'index',
               _content_type: 'json'
             }).then(function (data) {
-              if (data.metadata.length == 1) {
+              if (data.metadata.length === 1) {
                 data.metadata[0] = new Metadata(data.metadata[0]);
                 that.feedMd(0, undefined, data.metadata);
               }
@@ -182,7 +182,7 @@ module.service('gnMdView', [
       if (!md && layer.get('metadataUrl')) {
 
         var mdUrl = gnUrlUtils.urlResolve(layer.get('metadataUrl'));
-        if (mdUrl.host == gnSearchLocation.host()) {
+        if (mdUrl.host === gnSearchLocation.host()) {
           gnSearchLocation.setUuid(layer.get('metadataUuid'));
         } else {
           window.open(layer.get('metadataUrl'), '_blank');

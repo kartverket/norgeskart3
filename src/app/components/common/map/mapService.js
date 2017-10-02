@@ -97,14 +97,14 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
           var l = map.getLayers().item(i);
           var source = l.getSource();
           if (source instanceof ol.source.WMTS &&
-            l.get('url') == url) {
-            if (l.get('name') == name) {
+            l.get('url') === url) {
+            if (l.get('name') === name) {
               return true;
             }
           } else if (source instanceof ol.source.TileWMS ||
             source instanceof ol.source.ImageWMS) {
-            if (source.getParams().LAYERS == name &&
-              l.get('url').split('?')[0] == url.split('?')[0]) {
+            if (source.getParams().LAYERS === name &&
+              l.get('url').split('?')[0] === url.split('?')[0]) {
               return true;
             }
           }
@@ -157,7 +157,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
          *
          */
         reprojExtent: function (extent, src, dest) {
-          if (src == dest || extent === null) {
+          if (src === dest || extent === null) {
             return extent;
           } else {
             return ol.proj.transformExtent(extent,
@@ -176,8 +176,8 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
          * @param {Object} extent to check
          */
         isPoint: function (extent) {
-          return (extent[0] == extent[2] &&
-            extent[1]) == extent[3];
+          return (extent[0] === extent[2] &&
+            extent[1]) === extent[3];
         },
 
         /**
@@ -221,7 +221,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
           var bboxes = [];
           angular.forEach(md.geoBox, function (bbox) {
             var c = bbox.split('|');
-            if (angular.isArray(c) && c.length == 4) {
+            if (angular.isArray(c) && c.length === 4) {
               bboxes.push([parseFloat(c[0]),
                 parseFloat(c[1]),
                 parseFloat(c[2]),
@@ -303,11 +303,11 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
             if (angular.isArray(coord[0])) {
               for (var i = 0; i < coord.length; ++i) {
                 var point = coord[i];
-                if (angular.isArray(point) && point.length == 2) {
+                if (angular.isArray(point) && point.length === 2) {
                   addPointToText(point);
                 }
               }
-            } else if (coord.length == 2) {
+            } else if (coord.length === 2) {
               addPointToText(coord);
             }
           }
@@ -377,7 +377,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
           var valid = true;
           if (extent && angular.isArray(extent)) {
             angular.forEach(extent, function (value, key) {
-              if (!value || value == Infinity || value == -Infinity) {
+              if (!value || value === Infinity || value === -Infinity) {
                 valid = false;
               }
             });
@@ -446,7 +446,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
          * @param {ol.Map} map object
          */
         addKmlToMap: function (name, url, map) {
-          if (!url || url == '') {
+          if (!url || url === '') {
             return;
           }
 
@@ -559,7 +559,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
             if (!uuid) {
               var res = new RegExp(/\#\/metadata\/(.*)/g).
               exec(options.metadata);
-              if (angular.isArray(res) && res.length == 2) {
+              if (angular.isArray(res) && res.length === 2) {
                 uuid = res[1];
               }
             }
@@ -683,7 +683,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
             var projCode = map.getView().getProjection().getCode();
             if (getCapLayer.CRS) {
               if (!getCapLayer.CRS.includes(projCode)) {
-                if (projCode == 'EPSG:3857' &&
+                if (projCode === 'EPSG:3857' &&
                   getCapLayer.CRS.includes('EPSG:900913')) {} else if (getCapLayer.CRS.includes('EPSG:4326')) {
                   projCode = 'EPSG:4326';
                 }
@@ -711,11 +711,11 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
 
             if (angular.isArray(getCapLayer.Dimension)) {
               for (var i = 0; i < getCapLayer.Dimension.length; i++) {
-                if (getCapLayer.Dimension[i].name == 'elevation') {
+                if (getCapLayer.Dimension[i].name === 'elevation') {
                   layer.set('elevation',
                     getCapLayer.Dimension[i].values.split(','));
                 }
-                if (getCapLayer.Dimension[i].name == 'time') {
+                if (getCapLayer.Dimension[i].name === 'time') {
                   layer.set('time',
                     getCapLayer.Dimension[i].values.split(','));
                 }
@@ -1317,7 +1317,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
             DCP.HTTP.Get;
 
             for (var i = 0; i < urls.length; i++) {
-              if (urls[i].Constraint[0].AllowedValues.Value[0].toLowerCase() == 'kvp') {
+              if (urls[i].Constraint[0].AllowedValues.Value[0].toLowerCase() === 'kvp') {
                 url = urls[i].href;
                 break;
               }
@@ -1345,7 +1345,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
 
             var matrixSet;
             for (var i = 0; i < capabilities.TileMatrixSet.length; i++) {
-              if (capabilities.TileMatrixSet[i].Identifier == matrixSetsId) {
+              if (capabilities.TileMatrixSet[i].Identifier === matrixSetsId) {
                 matrixSet = capabilities.TileMatrixSet[i];
               }
             }
@@ -1418,7 +1418,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
               if (!uuid) {
                 var res = new RegExp(/\#\/metadata\/(.*)/g).
                 exec(metadata);
-                if (angular.isArray(res) && res.length == 2) {
+                if (angular.isArray(res) && res.length === 2) {
                   uuid = res[1];
                 }
               }
@@ -1617,7 +1617,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
               fast: 'index',
               _content_type: 'json'
             }).then(function (data) {
-              if (data.metadata.length == 1) {
+              if (data.metadata.length === 1) {
                 var md = new Metadata(data.metadata[0]);
                 layer.set('md', md);
 
@@ -1626,7 +1626,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
 
                 angular.forEach(mdLinks, function (link) {
                   if (layer.get('url').indexOf(link.url) >= 0 &&
-                    link.name == layer.getSource().getParams().LAYERS) {
+                    link.name === layer.getSource().getParams().LAYERS) {
                     this.feedLayerWithRelated(layer, link.group);
                     return;
                   }
@@ -1656,7 +1656,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
 
           // We can bind layer and download/process
           if (md.getLinksByType(linkGroup, '#OGC:WMTS',
-              '#OGC:WMS', '#OGC:WMS-1.1.1-http-get-map').length == 1) {
+              '#OGC:WMS', '#OGC:WMS-1.1.1-http-get-map').length === 1) {
 
             var downloads = md && md.getLinksByType(linkGroup,
               'WWW:DOWNLOAD-1.0-link--download', 'FILE', 'DB',

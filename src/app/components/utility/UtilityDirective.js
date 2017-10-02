@@ -177,7 +177,7 @@
           if (attrs['gnRegionType']) {
             gnRegionService.loadList().then(function(data) {
               for (i = 0; i < data.length; ++i) {
-                if (attrs['gnRegionType'] == data[i].name) {
+                if (attrs['gnRegionType'] === data[i].name) {
                   scope.regionType = data[i];
                 }
               }
@@ -186,7 +186,7 @@
           scope.$watch('regionType', function(val) {
             if (scope.regionType) {
 
-              if (scope.regionType.id == 'geonames') {
+              if (scope.regionType.id === 'geonames') {
                 $(element).typeahead('destroy');
                 var url = 'http://api.geonames.org/searchJSON';
                 url = gnUrlUtils.append(url, gnUrlUtils.toKeyValue({
@@ -237,7 +237,7 @@
                           forEach(function(p) {
                             if (loc[p]) { props.push(loc[p]); }
                           });
-                      return loc.name + ((props.length == 0) ? '' :
+                      return loc.name + ((props.length === 0) ? '' :
                           ' — <em>' + props.join(', ') + '</em>');
                     }
                   }
@@ -636,7 +636,7 @@
               }
             });
           });
-          if (attrs['gnSlideToggle'] == 'true') {
+          if (attrs['gnSlideToggle'] === 'true') {
             element.click();
           }
         }
@@ -791,7 +791,7 @@
 
           var available, limits;
           var rendered = false;
-          var isRange = ($(element).find('input').length == 2);
+          var isRange = ($(element).find('input').length === 2);
           var highlight = attrs['dateOnlyHighlight'] === 'true';
 
           if (isRange && ! scope.date) {
@@ -960,7 +960,7 @@
                 gnPaginationListStateCache.put(cacheId, scope.paginator);
               }
               scope.isFirstPage = function() {
-                return scope.paginator.currentPage == 0;
+                return scope.paginator.currentPage === 0;
               };
               scope.isLastPage = function() {
                 if (scope.items()) {
@@ -1343,8 +1343,8 @@
           text: '@gnLynky'
         },
         link: function(scope, element, attrs) {
-          if ((scope.text.indexOf('link') == 0) &&
-              (scope.text.split('|').length == 3)) {
+          if ((scope.text.indexOf('link') === 0) &&
+              (scope.text.split('|').length === 3)) {
             scope.link = scope.text.split('|')[1];
             scope.value = scope.text.split('|')[2];
 

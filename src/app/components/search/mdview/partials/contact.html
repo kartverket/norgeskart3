@@ -1,5 +1,5 @@
 <div>
-  <div class="gn-contact" data-ng-if="mode == 'default'"
+  <div class="gn-contact" data-ng-if="mode === 'default'"
        data-ng-repeat="c in mdContacts track by $index">
     <h3>
       <i class="fa fa-envelope"></i>
@@ -38,7 +38,7 @@
 
 
   <!-- Group by role -->
-  <div class="gn-contact" data-ng-if="mode == 'role'"
+  <div class="gn-contact" data-ng-if="mode === 'role'"
        data-ng-repeat="(roles, contactByRole) in mdContactsByRole">
     <h3>
       <i class="fa fa-envelope"></i>
@@ -89,7 +89,7 @@
 
 
   <!-- Group by organisation/role -->
-  <div class="gn-contact" data-ng-if="mode == 'org-role'"
+  <div class="gn-contact" data-ng-if="mode === 'org-role'"
        data-ng-repeat="(org, contactByOrgRole) in mdContactsByOrgRole">
 
     <h3>

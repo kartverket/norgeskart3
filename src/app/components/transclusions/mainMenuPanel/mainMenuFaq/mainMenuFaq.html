@@ -17,10 +17,10 @@
 </div>
 <div class="sidenav-group">
   <div class="faq-items">
-    <dl data-ng-class="faqExpand == $index ? 'expanded' : ''" data-ng-repeat="faqItem in faqItems">
+    <dl data-ng-class="faqExpand === $index ? 'expanded' : ''" data-ng-repeat="faqItem in faqItems">
       <dt>
         <a data-ng-click="faqToggle($event, $index)" href="#">
-          <i class="pull-right fa fa-fw" data-ng-class="faqExpand == $index ? 'fa-angle-up' : 'fa-angle-down'"></i>
+          <i class="pull-right fa fa-fw" data-ng-class="faqExpand === $index ? 'fa-angle-up' : 'fa-angle-down'"></i>
           {{faqItem.question}}
         </a>
       </dt>

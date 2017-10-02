@@ -62,7 +62,7 @@
         </ul>
       </div>
       <button type="button" class="btn btn-default btn-sm pull-right"
-              ng-if="downloads.length == 1"
+              ng-if="downloads.length === 1"
               ng-click="resultviewFns.addMdLayerToPanier(downloads[0], md)">
         <span class="fa fa-download"></span>
         <span translate>download</span>
@@ -88,7 +88,7 @@
         </ul>
       </div>
       <button type="button" class="btn btn-default btn-sm pull-right"
-              ng-if="layers.length == 1" ng-click="resultviewFns.addMdLayerToMap(layers[0], md)">
+              ng-if="layers.length === 1" ng-click="resultviewFns.addMdLayerToMap(layers[0], md)">
         <span class="fa fa-globe"></span>
         <span translate>visualize</span>
       </button>

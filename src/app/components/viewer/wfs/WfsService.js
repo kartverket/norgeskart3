@@ -50,8 +50,8 @@ module.service('gnWfsService', [
           var name = capabilities.featureTypeList.
           featureType[i].name;
           if (
-            (name.localPart == localPart && prefix == null) ||
-            (name.localPart == localPart && name.prefix == prefix)
+            (name.localPart === localPart && prefix === null) ||
+            (name.localPart === localPart && name.prefix === prefix)
           ) {
             return capabilities.featureTypeList.featureType[i];
           }
@@ -63,10 +63,10 @@ module.service('gnWfsService', [
       if (capabilities.operationsMetadata) {
         for (var i = 0; i < capabilities.operationsMetadata.operation.length; i++) {
           var op = capabilities.operationsMetadata.operation[i];
-          if (op.name == operation || op.name == 'GetFeature') {
+          if (op.name === operation || op.name === 'GetFeature') {
             for (var j = 0; j < op.parameter.length; j++) {
               var f = op.parameter[j];
-              if (f.name == 'outputFormat') {
+              if (f.name === 'outputFormat') {
                 return f.value;
               }
             }
@@ -79,10 +79,10 @@ module.service('gnWfsService', [
       if (capabilities.operationsMetadata) {
         for (var i = 0; i < capabilities.operationsMetadata.operation.length; i++) {
           var op = capabilities.operationsMetadata.operation[i];
-          if (op.name == operation || op.name == 'GetFeature') {
+          if (op.name === operation || op.name === 'GetFeature') {
             for (var j = 0; j < op.parameter.length; j++) {
               var f = op.parameter[j];
-              if (f.name == 'projection') {
+              if (f.name === 'projection') {
                 return f.value;
               }
             }

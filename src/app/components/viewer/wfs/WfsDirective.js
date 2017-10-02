@@ -184,10 +184,10 @@ module.directive('gnWFS', [
       if (literalData.defaultValue !== undefined) {
         value = literalData.defaultValue;
       }
-      if (literalData.dataType.value == 'float') {
+      if (literalData.dataType.value === 'float') {
         value = parseFloat(value);
       }
-      if (literalData.dataType.value == 'string') {
+      if (literalData.dataType.value === 'string') {
         value = value || '';
       }
       return value;

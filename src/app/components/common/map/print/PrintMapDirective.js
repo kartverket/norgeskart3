@@ -181,7 +181,7 @@
     };
 
     $scope.downloadUrl = function(url) {
-      if (8 == 9) {
+      if (8 === 9) {
         $window.open(url);
       } else {
         $window.location = url;
@@ -217,7 +217,7 @@
         if (layer.getVisible()) {
           var attribution = layer.attribution;
           if (attribution !== undefined &&
-              attributions.indexOf(attribution) == -1) {
+              attributions.indexOf(attribution) === -1) {
             attributions.push(attribution);
           }
           if (layer instanceof ol.layer.Group) {

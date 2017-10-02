@@ -21,9 +21,8 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-var module = angular.module('gn_wmts_directive', ['gn_wmts_service']);
-
-module.directive('gnWmtsDownload', ['gnWmtsService', 'gnGlobalSettings', 'gnSearchSettings', '$rootScope', '$translate', 'gnSearchLocation',
+angular.module('gn_wmts_directive', ['gn_wmts_service'])
+.directive('gnWmtsDownload', ['gnWmtsService', 'gnGlobalSettings', 'gnSearchSettings', '$rootScope', '$translate', 'gnSearchLocation',
   function (gnWmtsService, gnGlobalSettings, gnSearchSettings,
     $rootScope, $translate, gnSearchLocation) {
     return {
@@ -34,7 +33,7 @@ module.directive('gnWmtsDownload', ['gnWmtsService', 'gnGlobalSettings', 'gnSear
         md: '='
       },
       templateUrl: '/components/viewer/wmts/partials/wmtsDownload.html',
-      link: function (scope, element, attrs, ctrls) {
+      link: function (scope, element, attrs) {
         scope.isMapViewerEnabled = gnGlobalSettings.isMapViewerEnabled;
         scope.capabilities = null;
         scope.layerSelected = null;

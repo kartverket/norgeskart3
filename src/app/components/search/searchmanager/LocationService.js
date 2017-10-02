@@ -51,25 +51,25 @@
       /** ---- **/
 
       this.isSearch = function() {
-        return $location.path() == this.SEARCH;
+        return $location.path() === this.SEARCH;
       };
 
       this.isMdView = function(path) {
         var p = path || $location.path();
-        return p.indexOf(this.METADATA) == 0;
+        return p.indexOf(this.METADATA) === 0;
       };
 
       this.isMap = function() {
-        return $location.path() == this.MAP;
+        return $location.path() === this.MAP;
       };
 
       this.isHome = function() {
-        return $location.path() == this.HOME;
+        return $location.path() === this.HOME;
       };
 
       this.isUndefined = function() {
         return angular.isUndefined($location.path()) ||
-            $location.path() == '';
+            $location.path() === '';
       };
 
       this.setUuid = function(uuid) {
@@ -143,13 +143,13 @@
           path: $location.path()
         };
         if (state.old.path !== that.SEARCH &&
-            state.current.path == that.SEARCH) {
+            state.current.path === that.SEARCH) {
           if (that.isMdView(state.old.path)) {
             $rootScope.$broadcast('locationBackToSearchFromMdview');
           }
           $rootScope.$broadcast('locationBackToSearch');
         }
-        if (state.old.path == that.SEARCH &&
+        if (state.old.path === that.SEARCH &&
             state.current.path !== that.SEARCH) {
           state.lastSearchParams = state.old.params;
           that.lastSearchUrl = oldUrl;

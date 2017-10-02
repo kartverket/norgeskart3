@@ -193,9 +193,9 @@ angular.module('menuDraw')
           };
 
           var getSelectedFeatureId = function (selectedFeatureId) {
-            var jsonObject = typeof scope.GeoJSON == 'object' ? scope.GeoJSON : JSON.parse(scope.GeoJSON);
+            var jsonObject = typeof scope.GeoJSON === 'object' ? scope.GeoJSON : JSON.parse(scope.GeoJSON);
             for (var i = 0; i < jsonObject.features.length; i++) {
-              if (jsonObject.features[i].id == selectedFeatureId) {
+              if (jsonObject.features[i].id === selectedFeatureId) {
                 scope.selectionActive = true;
                 scope.selectedFeatureId = selectedFeatureId;
                 _setDrawingPropertiesFromSelectedFeature(jsonObject.features[i]);
@@ -274,7 +274,7 @@ angular.module('menuDraw')
             var params = url.split('?')[1].split('&');
             for (var i = 0; i < params.length; i++) {
               var param = params[i].split('=');
-              if (param[0] == key) {
+              if (param[0] === key) {
                 return param[1];
               }
             }
@@ -300,7 +300,7 @@ angular.module('menuDraw')
 
           scope.switchMode = function (newMode) {
             scope.mode = newMode;
-            if (scope.mode == 'draw') {
+            if (scope.mode === 'draw') {
               scope.selectedFeatureId = undefined;
               scope.selectionActive = false;
             }
@@ -344,7 +344,7 @@ angular.module('menuDraw')
             toolsFactory.deactivateTool(drawFeatureTool);
             toolsFactory.activateTool(drawFeatureTool);
             if (scope.selectionActive) {
-              if (scope.mode == 'draw') {
+              if (scope.mode === 'draw') {
                 scope.selectionActive = false;
                 scope.selectedFeatureId = undefined;
               }
@@ -384,7 +384,7 @@ angular.module('menuDraw')
           };
 
           scope.saveToPCButtonClick = function () {
-            if (scope.GeoJSON == 'remove') {
+            if (scope.GeoJSON === 'remove') {
               alert('Empty drawing');
             } else {
               scope.saveToPc(scope.GeoJSON);

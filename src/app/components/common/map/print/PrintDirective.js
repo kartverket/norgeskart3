@@ -564,7 +564,7 @@
       var getNearestScale = function(target, scales) {
         var nearest = null;
         angular.forEach(scales, function(scale) {
-          if (nearest == null ||
+          if (nearest === null ||
               Math.abs(scale - target) < Math.abs(nearest - target)) {
             nearest = scale;
           }
@@ -592,7 +592,7 @@
           if (layer.visible) {
             var attribution = layer.attribution;
             if (attribution !== undefined &&
-                attributions.indexOf(attribution) == -1) {
+                attributions.indexOf(attribution) === -1) {
               attributions.push(attribution);
             }
             if (layer instanceof ol.layer.Group) {
@@ -714,7 +714,7 @@
         //The algo below assumes that scales are sorted from
         //biggest (1:500) to smallest (1:2500000)
         angular.forEach($scope.scales, function(scale) {
-          if (nextBiggest == null ||
+          if (nextBiggest === null ||
               testScale > scale.value) {
             nextBiggest = scale;
           }

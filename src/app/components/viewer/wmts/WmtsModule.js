@@ -22,7 +22,7 @@
  */
 
 
-  var module = angular.module('gn_wmts', [
+  angular.module('gn_wmts', [
     'gn_wmts_service',
     'gn_wmts_directive'
   ]);

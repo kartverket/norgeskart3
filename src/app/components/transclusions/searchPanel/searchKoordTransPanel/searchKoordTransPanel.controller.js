@@ -7,7 +7,7 @@ angular.module('searchKoordTransPanel')
       };
 
       var _addSearchOptionToPanel = function (data) {
-        if (($scope.activePosition.resSosiKoordSys == '50') || ($scope.activePosition.resSosiKoordSys == '84')) {
+        if (($scope.activePosition.resSosiKoordSys === '50') || ($scope.activePosition.resSosiKoordSys === '84')) {
           $scope.activePosition.transLat = _round(data.nord, 7);
           $scope.activePosition.transLon = _round(data.ost, 7);
           var deg = Math.floor(data.ost);

@@ -44,7 +44,7 @@
          */
         var findLabel = function(a, v) {
           for (var i = 0; i < a.length; i++) {
-            if (a[i].id == v) {
+            if (a[i].id === v) {
               return a[i].name;
             }
           }
@@ -205,11 +205,11 @@
               });
             };
 
-            if (scope.options.mode == 'prefetch') {
+            if (scope.options.mode === 'prefetch') {
               scope.options.promise.then(doLink);
-            } else if (scope.options.mode == 'remote') {
+            } else if (scope.options.mode === 'remote') {
               doLink(null, scope.options.remote);
-            } else if (scope.options.mode == 'local') {
+            } else if (scope.options.mode === 'local') {
               doLink(scope.options.data);
             }
 
@@ -602,14 +602,14 @@
                 var config = schema + '|' + attrs['gnSchemaInfo'] + '|||';
 
                 scope.type = attrs['schemaInfoCombo'];
-                if (scope.type == 'codelist') {
+                if (scope.type === 'codelist') {
                   gnSchemaManagerService.getCodelist(config).then(
                       function(data) {
                         scope.infos = data.entry;
                         addBlankValueAndSetDefault();
                       });
                 }
-                else if (scope.type == 'element') {
+                else if (scope.type === 'element') {
                   gnSchemaManagerService.getElementInfo(config).then(
                       function(data) {
                         scope.infos = data.helper ? data.helper.option : null;
@@ -757,7 +757,7 @@
 
               scope.updateMap = function() {
                 layer.getSource().clear();
-                if (scope.extent == ['', '', '', '']) {
+                if (scope.extent === ['', '', '', '']) {
                   return;
                 }
                 var coordinates, geom, f;

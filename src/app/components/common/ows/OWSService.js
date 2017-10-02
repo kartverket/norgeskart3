@@ -356,7 +356,7 @@ module.provider('gnOwsCapabilities', function () {
             }
 
             //either names match or non namespaced names
-            if (name == capName || nameNoNamespace == capNameNoNamespace) {
+            if (name === capName || nameNoNamespace === capNameNoNamespace) {
               layers[i].nameToUse = capName;
               if (capObj.version) {
                 layers[i].version = capObj.version;
@@ -368,7 +368,7 @@ module.provider('gnOwsCapabilities', function () {
             if (uuid !== null) {
               if (angular.isArray(layers[i].Identifier)) {
                 angular.forEach(layers[i].Identifier, function (id) {
-                  if (id == uuid) {
+                  if (id === uuid) {
                     needles.push(layers[i]);
                   }
                 });
@@ -406,15 +406,15 @@ module.provider('gnOwsCapabilities', function () {
 
           for (var i = 0, len = layers.length; i < len; i++) {
             //check layername
-            if (name == layers[i].name.localPart ||
-              name == layers[i].name.prefix + ':' +
+            if (name === layers[i].name.localPart ||
+              name === layers[i].name.prefix + ':' +
               layers[i].name.localPart ||
-              name == layers[i].Name) {
+              name === layers[i].Name) {
               return layers[i];
             }
 
             //check title
-            if (name == layers[i].title || name == layers[i].Title) {
+            if (name === layers[i].title || name === layers[i].Title) {
               return layers[i];
             }
 
@@ -422,7 +422,7 @@ module.provider('gnOwsCapabilities', function () {
             if (uuid !== null) {
               if (angular.isArray(layers[i].Identifier)) {
                 angular.forEach(layers[i].Identifier, function (id) {
-                  if (id == uuid) {
+                  if (id === uuid) {
                     needles.push(layers[i]);
                   }
                 });

@@ -34,7 +34,7 @@ angular.module('mainMenuPanel')
 
             // FAQ
             var _faqResponse = function (response) {
-              if (response.status == 200) {
+              if (response.status === 200) {
                 $scope.faqExpand = -1;
                 $scope.faqItems = response.data;
                 $scope.mainMenuPanelLayout = "mainMenuFaq";
@@ -42,7 +42,7 @@ angular.module('mainMenuPanel')
             };
             $scope.faqToggle = function ($event, $index) {
               $event.preventDefault();
-              $scope.faqExpand = $scope.faqExpand == $index ? -1 : $index;
+              $scope.faqExpand = $scope.faqExpand === $index ? -1 : $index;
             };
             $scope.showMainMenuFaq = function () {
               $scope.faqExpand = -1;

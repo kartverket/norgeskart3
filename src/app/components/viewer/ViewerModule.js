@@ -105,7 +105,7 @@
               html = feature.get('description');
             } else {
               $.each(feature.getKeys(), function(i, key) {
-                if (key == feature.getGeometryName() || key == 'styleUrl') {
+                if (key === feature.getGeometryName() || key === 'styleUrl') {
                   return;
                 }
                 html += '<dt>' + key + '</dt>';

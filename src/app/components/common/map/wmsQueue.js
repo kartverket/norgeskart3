@@ -45,7 +45,7 @@ module.service('gnWmsQueue', [function () {
     var idx = -1;
     for (var i = 0; i < a.length; i++) {
       var o = a[i];
-      if (o.name == layer.name && o.url == layer.url && o.map == layer.map) {
+      if (o.name === layer.name && o.url === layer.url && o.map === layer.map) {
         idx = i;
       }
     }

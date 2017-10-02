@@ -120,11 +120,11 @@
        */
         var parseBoolean = function(object) {
           angular.forEach(object, function(value, key) {
-            if (typeof value == 'string') {
-              if (value == 'true' || value == 'false') {
-                object[key] = (value == 'true');
-              } else if (value == 'on' || value == 'off') {
-                object[key] = (value == 'on');
+            if (typeof value === 'string') {
+              if (value === 'true' || value === 'false') {
+                object[key] = (value === 'true');
+              } else if (value === 'on' || value === 'off') {
+                object[key] = (value === 'on');
               }
             } else {
               parseBoolean(value);
@@ -287,7 +287,7 @@
         function traverse(o, func, args) {
           for (var i in o) {
             func.apply(this, [o, i, o[i], args]);
-            if (o[i] !== null && typeof(o[i]) == 'object') {
+            if (o[i] !== null && typeof(o[i]) === 'object') {
               //going on step down in the object tree!!
               traverse(o[i], func, args);
             }
@@ -299,7 +299,7 @@
           return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
            /[xy]/g,
            function(c) {
-             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+             var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
              return v.toString(16);
            });
         }
@@ -437,7 +437,7 @@
       if (node.nodes) {
         for (var i = 0; i < node.nodes.length; i++) {
           n = node.nodes[i];
-          if (name == n.name) {
+          if (name === n.name) {
             return n;
           }
         }

@@ -147,7 +147,7 @@ angular.module('mainMenuGroupLayers')
                 });
                 var getSortedLayer = function (id) {
                   return group.isyLayers.filter(function (el) {
-                    return el.id == id;
+                    return el.id === id;
                   })[0];
                 };
                 for (var i = 0; i < sortedLayers.length; i++) {

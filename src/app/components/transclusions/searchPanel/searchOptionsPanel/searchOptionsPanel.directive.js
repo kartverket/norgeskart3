@@ -72,7 +72,7 @@ angular.module('searchOptionsPanel')
             var baselayers = map.GetBaseLayers();
             while (!mapSwitched) {
               for (var baselayer in baselayers) {
-                if (baselayers[baselayer].name == layerName) {
+                if (baselayers[baselayer].name === layerName) {
                   map.SetBaseLayer(baselayers[baselayer]);
                   changeBaseLayerPanelFactory.setBaseLayerById(baselayers[baselayer].thumbnail);
                   mapSwitched = true;

@@ -521,7 +521,7 @@ angular.module('mainApp')
       this.getSOSIfromEPSG = function (epsg) {
         return this.sosiCodes
           .filter(function (el) {
-            return el.EPSG == epsg;
+            return el.EPSG === epsg;
           })
           .map(function (obj) {
             return obj.SOSI;
@@ -531,7 +531,7 @@ angular.module('mainApp')
         var result = {};
         this.sosiCodes
           .filter(function (el) {
-            return el.type == type;
+            return el.type === type;
           })
           .filter(Boolean)
           .map(function (obj) {

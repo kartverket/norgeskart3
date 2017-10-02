@@ -8,7 +8,7 @@
         title="{{layer.abstract}}"
         class="
             {{isSelected(layer.Name) ? 'success ' : ''}}
-            {{(layerHovered.Name == layer.Name) ? 'pending ' : ''}}">
+            {{(layerHovered.Name === layer.Name) ? 'pending ' : ''}}">
       <td class="add col-first">
         <div class="icon-zoom-in"></div>
       </td>

@@ -70,7 +70,7 @@
       var s = parseFloat(scale.value);
       var size = layout.map; // papersize in dot!
       var view = map.getView();
-      var ratio = map.getView().getProjection().getCode() == 'EPSG:4326' ?
+      var ratio = map.getView().getProjection().getCode() === 'EPSG:4326' ?
           METERS_PER_DEGREE : 1;
       var resolution = view.getResolution() * ratio;
       var w = size.width / DPI * MM_PER_INCHES / 1000.0 * s / resolution;
@@ -98,7 +98,7 @@
      */
     this.getOptimalScale = function(map, scales, layout) {
       var size = map.getSize();
-      var ratio = map.getView().getProjection().getCode() == 'EPSG:4326' ?
+      var ratio = map.getView().getProjection().getCode() === 'EPSG:4326' ?
           METERS_PER_DEGREE : 1;
       var resolution = map.getView().getResolution() * ratio;
       var width = resolution * (size[0] - (options.widthMargin * 2));
@@ -114,7 +114,7 @@
       //The algo below assumes that scales are sorted from
       //biggest (1:500) to smallest (1:2500000)
       angular.forEach(scales, function(scale) {
-        if (nextBiggest == null ||
+        if (nextBiggest === null ||
             testScale > scale.value) {
           nextBiggest = scale;
         }
@@ -411,7 +411,7 @@
       var textStyle = style.getText();
       var imageStyle = style.getImage();
 
-      if (imageStyle && type == 'Point') {
+      if (imageStyle && type === 'Point') {
         var size = imageStyle.getSize();
         var anchor = imageStyle.getAnchor();
         var scale = imageStyle.getScale();

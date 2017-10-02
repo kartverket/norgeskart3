@@ -85,7 +85,7 @@ module.directive('gnFacetDimensionList', [
             if (n !== o && scope.dimension.length > 0) {
               angular.forEach(scope.dimension, function (value) {
                 if (value['@name'] === scope.tabField) {
-                  if (scope.tabs == null) {
+                  if (scope.tabs === null) {
                     scope.initialValues = value.category;
                   } else {
                     angular.extend(value.category, scope.initialValues);
@@ -194,7 +194,7 @@ module.directive('gnFacetDimensionCategory', [
             scope.initialMaxItems = initialMaxItems;
             scope.maxItems = initialMaxItems;
             scope.toggleAll = function () {
-              scope.maxItems = (scope.maxItems == Infinity) ?
+              scope.maxItems = (scope.maxItems === Infinity) ?
                 initialMaxItems : Infinity;
             };
 
