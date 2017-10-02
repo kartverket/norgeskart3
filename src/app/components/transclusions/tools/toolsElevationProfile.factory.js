@@ -32,7 +32,7 @@ angular
                 // console.log('ERROR: Exception from WPS-server "' + jsonObject.ExecuteResponse.Status.ProcessFailed.ExceptionReport.Exception["@exceptionCode"] + '"');
                 return;
               }
-              elevationImage = jsonObject.ExecuteResponse.ProcessOutputs.Output.Reference["@xlink:href"];
+              elevationImage = jsonObject.ExecuteResponse.ProcessOutputs.Output.Data.ComplexData.Text;
               deferred.resolve(elevationImage);
             },
             function (error) {
