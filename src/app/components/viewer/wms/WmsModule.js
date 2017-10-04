@@ -21,7 +21,7 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-var module = angular.module('gn_wms', [
+angular.module('gn_wms', [
   'gn_wms_service',
   'gn_wms_directive'
 ]);

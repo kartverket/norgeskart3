@@ -29,7 +29,7 @@
    * Main module for map viewer.
    */
 
-  var module = angular.module('gn_viewer', [
+  angular.module('gn_viewer', [
     'gn_viewer_directive',
     'gn_viewer_service',
     'gn_wmsimport',
@@ -53,9 +53,8 @@
     'gn_featurestable',
     'gn_geometry',
     'gn_profile'
-  ]);
-
-  module.controller('gnViewerController', [
+  ])
+  .controller('gnViewerController', [
     '$scope',
     '$timeout',
     'gnViewerSettings',

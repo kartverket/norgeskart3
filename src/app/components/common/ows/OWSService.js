@@ -304,10 +304,8 @@ module.provider('gnOwsCapabilities', function () {
             });
 
           if (bboxProp) {
-            extent = ol.extent.containsExtent(proj.getWorldExtent(),
-                bboxProp) ?
-              ol.proj.transformExtent(bboxProp, 'EPSG:4326', proj) :
-              proj.getExtent();
+            extent =  ol.proj.transformExtent(bboxProp, 'EPSG:4326', proj);
+            //extent = ol.extent.containsExtent(proj.getWorldExtent(), bboxProp) ? ol.proj.transformExtent(bboxProp, 'EPSG:4326', proj) : proj.getExtent();
           } else if (angular.isArray(layer.BoundingBox)) {
             for (var i = 0; i < layer.BoundingBox.length; i++) {
               var bbox = layer.BoundingBox[i];

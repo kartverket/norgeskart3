@@ -226,12 +226,43 @@
     function(searchSettings, viewerSettings, gnMap, gnGlobalSettings, $location) {
 
       // Load the context defined in the configuration
-      viewerSettings.defaultContext = (viewerSettings.mapConfig.map || '../../map/config-viewer.xml');
+      //viewerSettings.defaultContext = (viewerSettings.mapConfig.map || '../map/config-viewer.xml');
+      viewerSettings.mapConfig = {
+        'enabled': true,
+        'appUrl': '../../srv/{{lang}}/catalog.search#/map',
+        'is3DModeAllowed': true,
+        'isSaveMapInCatalogAllowed': true,
+        'bingKey': 'AnElW2Zqi4fI-9cYx1LHiQfokQ9GrNzcjOh_p_0hkO1yo78ba8zTLARcLBIf8H6D',
+        'storage': 'sessionStorage',
+        'map': '../../map/config-viewer.xml',
+        'listOfServices': {
+          'wms': [],
+          'wmts': []
+        },
+        'useOSM': true,
+        'context': '',
+        'projection': 'EPSG:3857',
+        'projectionList': [{
+          'code': 'EPSG:4326',
+          'label': 'WGS84 (EPSG:4326)'
+        }, {
+          'code': 'EPSG:3857',
+          'label': 'Google mercator (EPSG:3857)'
+        }],
+        'searchMapLayers': [],
+        'viewerMapLayers': [],
+        'disabledTools': {
+          'processes': true
+        },
+        'graticuleOgcService': {},
+        'mapExtent': [0, 0, 0, 0],
+        'mapBackgroundLayer': {}
+      };
       viewerSettings.owsContext = $location.search().map;
 
       // these layers will be added along the default context
       // (transform settings to be usable by the OwsContextService)
-      var viewerMapLayers = viewerSettings.mapConfig.viewerMapLayers
+      var viewerMapLayers = viewerSettings.mapConfig.viewerMapLayers;
       viewerSettings.additionalMapLayers =
         viewerMapLayers && viewerMapLayers.map ?
         viewerMapLayers.map(function (layer) {

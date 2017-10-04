@@ -59,8 +59,8 @@ angular.module('mainApp')
         if (obj.zoom !== undefined && obj.lat !== undefined && obj.lon !== undefined) {
           if (localStorageFactory.get("zoom") !== null && localStorageFactory.get("lat") !== null && localStorageFactory.get("lon") !== null) {
             var center = {
-              lon: localStorageFactory.get("lon"),
-              lat: localStorageFactory.get("lat"),
+              lon: parseFloat(localStorageFactory.get("lon")),
+              lat: parseFloat(localStorageFactory.get("lat")),
               zoom: localStorageFactory.get("zoom")
             };
             if (((center.lon > 32.88) && (center.lat > -16.1)) && ((center.lon < 84.17) && (center.lat < 39.65))) {

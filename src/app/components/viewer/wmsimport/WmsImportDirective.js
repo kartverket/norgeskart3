@@ -55,17 +55,18 @@ module.directive('gnWmsImport', [
          */
         this.addLayer = function (getCapLayer) {
           var layer = '';
+          var map = ($scope.map || ISY.MapImplementation.OL3.olMap);
           getCapLayer.version = $scope.capability.version;
           if ($scope.format === 'wms') {
-            layer = gnMap.addWmsToMapFromCap($scope.map, getCapLayer);
+            layer = gnMap.addWmsToMapFromCap(map, getCapLayer);
             gnMap.feedLayerMd(layer);
             return layer;
           } else if ($scope.format === 'wfs') {
-            layer = gnMap.addWfsToMapFromCap($scope.map, getCapLayer, $scope.url);
+            layer = gnMap.addWfsToMapFromCap(map, getCapLayer, $scope.url);
             gnMap.feedLayerMd(layer);
             return layer;
           } else if ($scope.format === 'wmts') {
-            return gnMap.addWmtsToMapFromCap($scope.map, getCapLayer, $scope.capability);
+            return gnMap.addWmtsToMapFromCap(map, getCapLayer, $scope.capability);
           }
         };
       }],
@@ -242,6 +243,7 @@ module.directive('gnKmlImport', [
           });
 
         var onError = function (msg) {
+          console.warn(msg);
           gnAlertService.addAlert({
             msg: $translate.instant('mapImportFailure'),
             type: 'danger'
@@ -272,9 +274,9 @@ module.directive('gnKmlImport', [
           scope.$apply();
         });
 
-
         var requestFileSystem = window.webkitRequestFileSystem ||
-          window.mozRequestFileSystem || window.requestFileSystem;
+        window.mozRequestFileSystem || window.requestFileSystem;
+
         var unzipProgress = document.createElement('progress');
         var fileInput = element.find('input[type="file"]')[0];
 

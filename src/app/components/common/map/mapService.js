@@ -622,6 +622,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
          * @return {ol.Layer} the created layer
          */
         createOlWMSFromCap: function (map, getCapLayer, url) {
+          map = (map || ISY.MapImplementation.OL3.olMap);
 
           var legend, attribution, attributionUrl, metadata, errors = [];
           if (getCapLayer) {
