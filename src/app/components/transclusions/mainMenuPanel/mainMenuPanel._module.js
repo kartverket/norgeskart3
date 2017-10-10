@@ -7,5 +7,5 @@ angular.module('mainMenuPanel', [
   'gnWmsImport',
   'mainMenuFaq',
   'mainMenuContact',
-  'gn_alert'
+  'gn_alert', 'gn_map', 'gnConfig'
 ]);

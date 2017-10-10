@@ -77,6 +77,7 @@ module.exports = {
             'vendor/bootstrap/dist/js/bootstrap.min.js',
             'vendor/angular-translate/angular-translate.min.js',
             'vendor/angular-sanitize/angular-sanitize.min.js',
+
             'vendor/proj4/dist/proj4.js',
             'vendor/es5-shim/es5-shim.min.js',
             'vendor/pouchdb/dist/pouchdb.min.js',
@@ -95,7 +96,8 @@ module.exports = {
             'vendor/angular-gettext/dist/angular-gettext.min.js',
             'vendor/angular-ui-date/dist/date.js',
             'vendor/floatThead/dist/jquery.floatThead.min.js',
-            'vendor/angular.ext/angular-floatThead.js',
+            'vendor/angular.ext/*.js',
+            'vendor/*.js',
             'vendor/ngeo/ngeo.js'
 
             ],

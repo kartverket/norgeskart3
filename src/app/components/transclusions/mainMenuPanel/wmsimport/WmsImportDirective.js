@@ -10,12 +10,12 @@ angular.module('gnWmsImport', [])
    */
   .directive('gnWmsImport', [
     'gnOwsCapabilities',
-    //'gnMap',
+    'gnMap',
     '$translate',
     '$timeout',
     //'gnSearchManagerService',
     //'Metadata',
-    function (gnOwsCapabilities, $translate, $timeout       ) {
+    function (gnOwsCapabilities, gnMap, $translate, $timeout       ) {
       return {
         restrict: 'A',
         replace: true,
@@ -36,7 +36,6 @@ angular.module('gnWmsImport', [])
           this.addLayer = function (getCapLayer) {
             getCapLayer.version = $scope.capability.version;
             var layer;
-/*
             if ($scope.format == 'wms') {
               layer = gnMap.addWmsToMapFromCap($scope.map, getCapLayer);
               gnMap.feedLayerMd(layer);
@@ -50,7 +49,6 @@ angular.module('gnWmsImport', [])
               return gnMap.addWmtsToMapFromCap($scope.map, getCapLayer,
                 $scope.capability);
             }
-*/
           };
         }],
         link: function (scope, element, attrs) {

@@ -24,8 +24,8 @@
 (function () {
   var module = angular.module('gn_map_service', [
     'gn_ows',
-    'ngeo',
-    'gn_wfs_service'
+    'ngeo'
+    //'gn_wfs_service',
   ]);
 
   /**
@@ -44,22 +44,22 @@
       'gnOwsCapabilities',
       'gnConfig',
       '$log',
-      'gnSearchLocation',
+      //'gnSearchLocation',
       '$rootScope',
       'gnUrlUtils',
       '$q',
       '$translate',
       'gnWmsQueue',
-      'gnSearchManagerService',
+      //'gnSearchManagerService',
       'Metadata',
-      'gnWfsService',
+      //'gnWfsService',
       'gnGlobalSettings',
       'gnViewerSettings',
-      'gnViewerService',
+      //'gnViewerService',
       function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
-        gnSearchLocation, $rootScope, gnUrlUtils, $q, $translate,
-        gnWmsQueue, gnSearchManagerService, Metadata, gnWfsService,
-        gnGlobalSettings, viewerSettings, gnViewerService) {
+        $rootScope, gnUrlUtils, $q, $translate,
+        gnWmsQueue, Metadata, //gnWfsService,
+        gnGlobalSettings, viewerSettings) {
 
         var defaultMapConfig = {
           'useOSM': 'true',
@@ -461,15 +461,15 @@
           // what layers do we want to add to the map
           addOwsServiceToMap: function (url, type) {
             // move to map
-            gnSearchLocation.setMap();
+            // gnSearchLocation.setMap();
             // open dialog for WMS
             switch (type.toLowerCase()) {
               case 'wms':
-                gnViewerService.openWmsTab(url);
+                //gnViewerService.openWmsTab(url);
                 break;
 
               case 'wmts':
-                gnViewerService.openWmtsTab(url);
+                //gnViewerService.openWmtsTab(url);
                 break;
             }
           },
@@ -1216,6 +1216,7 @@
            * @param {!Object} md object
            */
           addWfsFromScratch: function (map, url, name, createOnly, md) {
+            /*
             var defer = $q.defer();
             var $this = this;
 
@@ -1277,6 +1278,7 @@
               defer.reject(o);
             });
             return defer.promise;
+            */
           },
           /**
            * @ngdoc method
@@ -1597,7 +1599,7 @@
             defer.resolve(layer);
 
             if (layer.get('metadataUrl') && layer.get('metadataUuid')) {
-
+/*
               return gnSearchManagerService.gnSearch({
                 uuid: layer.get('metadataUuid'),
                 fast: 'index',
@@ -1620,6 +1622,7 @@
                 }
                 return layer;
               });
+*/
             }
             return defer.promise;
           },
