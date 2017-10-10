@@ -76,6 +76,7 @@ module.exports = {
             'vendor/angular-sanitize/angular-sanitize.min.js',
             'vendor/bootstrap/dist/js/bootstrap.min.js',
             'vendor/angular-translate/angular-translate.min.js',
+            'vendor/angular-sanitize/angular-sanitize.min.js',
             'vendor/proj4/dist/proj4.js',
             'vendor/es5-shim/es5-shim.min.js',
             'vendor/pouchdb/dist/pouchdb.min.js',
@@ -88,7 +89,7 @@ module.exports = {
             'vendor/featherlight/release/featherlight.min.js',
 
             'vendor/jsonix/dist/Jsonix-min.js',
-            'vendor/w3c-schemas/scripts/w3c-schemas.js',
+            'vendor/w3c-schemas/scripts/lib/*.js',
             'vendor/ogc-schemas/scripts/lib/*.js',
 
             'vendor/angular-gettext/dist/angular-gettext.min.js',

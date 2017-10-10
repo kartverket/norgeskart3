@@ -6,5 +6,6 @@ angular.module('mainMenuPanel', [
   'gn_ows',
   'gnWmsImport',
   'mainMenuFaq',
-  'mainMenuContact'
+  'mainMenuContact',
+  'gn_alert'
 ]);

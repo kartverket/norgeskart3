@@ -6,6 +6,7 @@
     "angular": "*",
     "angular-route": "*",
     "angular-mocks": "*",
+    "angular-sanitize": "*",
     "bootstrap": "*",
     "angular-translate": "*",
     "proj4": "*",
