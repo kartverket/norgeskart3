@@ -204,7 +204,7 @@ angular.module('mainApp')
         _showMapMarker();
       };
 
-      $(document).ready(function () {
+      angular.element(document).ready(function () {
         $scope.initMainPage();
         $scope.deactivateDrawFeatureTool();
       });

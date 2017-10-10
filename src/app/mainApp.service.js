@@ -19,8 +19,8 @@ angular.module('mainApp')
       };
 
       this.generateElevationChartServiceUrl = function (gpxFile) {
-        var serviceUrl = urlOpenWps + "wps.elevation?request=Execute&service=WPS&version=1.0.0&identifier=elevationChart&dataInputs=";
-        return serviceUrl + "[gpx=" + gpxFile + "] ";
+        var serviceUrl = urlOpenWps + "wps.elevation2?request=Execute&service=WPS&version=1.0.0&identifier=elevationChart&dataInputs=";
+        return serviceUrl + "gpx=@xlink:href=" + gpxFile;
       };
 
       this.generateMapLinkServiceUrl = function (config) {
