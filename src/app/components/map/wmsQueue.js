@@ -21,7 +21,7 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-(function() {
+(function () {
 
   var module = angular.module('gn_map_wmsqueue', []);
 
@@ -32,7 +32,7 @@
    * This service have a queue array for pending layers, and errors array
    * for layer for which the getCapabilities failed
    */
-  module.service('gnWmsQueue', [function() {
+  module.service('gnWmsQueue', [function () {
 
     // wms pending layers list
     var queue = [];
@@ -43,7 +43,7 @@
     this.queue = queue;
     this.errors = errors;
 
-    var getLayerIndex = function(a, layer) {
+    var getLayerIndex = function (a, layer) {
       var idx = -1;
       for (var i = 0; i < a.length; i++) {
         var o = a[i];
@@ -54,7 +54,7 @@
       return idx;
     };
 
-    var removeFromArray = function(a, layer) {
+    var removeFromArray = function (a, layer) {
       a.splice(getLayerIndex(a, layer), 1);
     };
 
@@ -64,7 +64,7 @@
      * @param {string} name
      * @param {ol.Map} map
      */
-    this.add = function(url, name, map) {
+    this.add = function (url, name, map) {
       queue.push({
         url: url,
         name: name,
@@ -72,7 +72,7 @@
       });
     };
 
-    this.removeFromQueue = function(layer) {
+    this.removeFromQueue = function (layer) {
       removeFromArray(queue, layer);
     };
 
@@ -82,14 +82,14 @@
      * @param {Object} layer contains
      *  url - name - msg
      */
-    this.error = function(layer) {
+    this.error = function (layer) {
       this.removeFromQueue(layer);
       if (getLayerIndex(errors, layer) < 0) {
         errors.push(layer);
       }
     };
 
-    this.removeFromError = function(layer) {
+    this.removeFromError = function (layer) {
       removeFromArray(errors, layer);
     };
 
@@ -99,7 +99,7 @@
      * @param {string} name
      * @param {ol.Map} map
      */
-    this.isPending = function(url, name, map) {
+    this.isPending = function (url, name, map) {
       var layer = {
         url: url,
         name: name,

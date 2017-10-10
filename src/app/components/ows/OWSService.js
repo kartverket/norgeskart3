@@ -210,7 +210,8 @@
                   } catch (e) {
                     defer.reject('capabilitiesParseError');
                   }
-                }),function (error) {
+                }),
+                function (error) {
                   defer.reject(error);
                 };
             } else {
@@ -237,7 +238,8 @@
                     } else {
                       defer.reject();
                     }
-                  }), function (error) {
+                  }),
+                  function (error) {
                     defer.reject(error);
                   };
               }
@@ -272,7 +274,8 @@
                       defer.resolve(xfsCap);
                     }
 
-                  }), function (error) {
+                  }),
+                  function (error) {
                     defer.reject(error);
                   };
               }
