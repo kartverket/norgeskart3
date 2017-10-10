@@ -10,25 +10,25 @@ angular.module('searchOptionsPanel')
               case ('koordTrans'):
                 scope.showKoordTransPanel();
                 break;
-/*
-              case ('seEiendom'):
-                scope.showSearchSeEiendomPanel();
-                break;
-              case ('lagTurkart'):
-                switchToLayer('rasterkart');
-                scope.showLagTurKartPanel();
-                break;
-              case ('lagFargeleggingskart'):
-                switchToLayer('rasterkart');
-                scope.showLagFargeleggingskartPanel();
-                break;
-              case ('lagNodplakat'):
-                scope.showLagNodplakatPanel();
-                break;
-              case ('ssrFakta'):
-                window.open(searchOption.url, '_blank');
-                break;
-*/
+                /*
+                              case ('seEiendom'):
+                                scope.showSearchSeEiendomPanel();
+                                break;
+                              case ('lagTurkart'):
+                                switchToLayer('rasterkart');
+                                scope.showLagTurKartPanel();
+                                break;
+                              case ('lagFargeleggingskart'):
+                                switchToLayer('rasterkart');
+                                scope.showLagFargeleggingskartPanel();
+                                break;
+                              case ('lagNodplakat'):
+                                scope.showLagNodplakatPanel();
+                                break;
+                              case ('ssrFakta'):
+                                window.open(searchOption.url, '_blank');
+                                break;
+                */
               default:
                 if (searchOption.url) {
                   var searchOptionUrl = searchOption.url;
