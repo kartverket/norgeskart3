@@ -364,17 +364,6 @@ module.exports = function ( grunt ) {
                 },
                 src: [ '<%= app_files.atpl %>' ],
                 dest: '<%= build_dir %>/templates-app.js'
-            },
-
-            /**
-             * These are the templates from `src/common`.
-             */
-            common: {
-                options: {
-                    base: 'src/common'
-                },
-                src: [ '<%= app_files.ctpl %>' ],
-                dest: '<%= build_dir %>/templates-common.js'
             }
         },
 

@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <ul data-ng-show="!themaMenu.open">
+    <ul data-ng-show="themaMenu.open">
         <li tabindex="0" data-ng-repeat="project in projects" data-ng-class="{activeMenu: project.isSelected}" data-ng-click="activateProject(project)" ng-keypress="activateProject(project)">
             <div class="row">
                 <div class="col-xs-1">
@@ -59,7 +59,7 @@
             </div>
         </div>
     </div>
-    <ul data-ng-show="!sectionMenu.open">
+    <ul data-ng-show="sectionMenu.open">
         <li tabindex="0" class="sidenav-sections" data-ng-click="showMoveableDrawMenu();closeNav();initDrawFeatureTool()" ng-keypress="showMoveableDrawMenu();closeNav();initDrawFeatureTool()">
             <div class="row">
                 <div class="col-xs-1">

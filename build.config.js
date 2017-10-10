@@ -73,19 +73,31 @@ module.exports = {
             'vendor/jquery/dist/jquery.min.js',
             'vendor/angular/angular.min.js',
             'vendor/angular-route/angular-route.min.js',
+            'vendor/angular-sanitize/angular-sanitize.min.js',
             'vendor/bootstrap/dist/js/bootstrap.min.js',
             'vendor/angular-translate/angular-translate.min.js',
             'vendor/proj4/dist/proj4.js',
             'vendor/es5-shim/es5-shim.min.js',
             'vendor/pouchdb/dist/pouchdb.min.js',
-            'vendor/openlayers3/ol.js',
+            'vendor/openlayers3/ol-debug.js',
             'vendor/blob-util/dist/blob-util.min.js',
             'vendor/maplib/dist/maplib-min.js',
             'vendor/xml-to-json/xml.min.js',
             'vendor/xml-to-json/json2xml.min.js',
             'vendor/angular-utils-pagination/dirPagination.js',
-            'vendor/featherlight/release/featherlight.min.js'
-        ],
+            'vendor/featherlight/release/featherlight.min.js',
+
+            'vendor/jsonix/dist/Jsonix-min.js',
+            'vendor/w3c-schemas/scripts/w3c-schemas.js',
+            'vendor/ogc-schemas/scripts/lib/*.js',
+
+            'vendor/angular-gettext/dist/angular-gettext.min.js',
+            'vendor/angular-ui-date/dist/date.js',
+            'vendor/floatThead/dist/jquery.floatThead.min.js',
+            'vendor/angular.ext/angular-floatThead.js',
+            'vendor/ngeo/ngeo.js'
+
+            ],
         css: [
             'vendor/bootstrap/dist/css/bootstrap.min.css',
             'vendor/featherlight/release/featherlight.min.css'
@@ -105,16 +117,26 @@ module.exports = {
     ],
     jssource_mapclient: [
         '!src/**/*.spec.js',
+
         'src/app/shared/isyTranslate/**/*.js',
         'src/app/shared/localStorage/**/*.js',
         'src/app/shared/mapLayout/**/*.js',
         'src/app/shared/mapOverlaysLayout/**/*.js',
+
         'src/app/apiController/**/*.js',
         'src/app/zISY.Angular/**/*.js',
+
         'src/app/components/overlays/mapOverlays/**/*.js',
         'src/app/components/overlays/changeBaseMapOverlay/**/*.js',
         'src/app/components/overlays/changeBaseLayerOverlay/**/*.js',
         'src/app/components/overlays/moveableOverlay/**/*.js',
+
+        'src/app/components/*.js',
+        'src/app/components/ows/*.js',
+        'src/app/components/map/*.js',
+        'src/app/components/alert/*.js',
+        'src/app/components/transclusions/mainMenuPanel/wmsimport/*.js',
+
         'src/app/components/overlays/mainMenuOverlay/**/*.js',
         'src/app/components/overlays/searchBarOverlay/**/*.js',
         'src/app/components/transclusions/mainMenuPanel/**/*.js',
