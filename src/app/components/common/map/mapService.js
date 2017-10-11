@@ -743,7 +743,7 @@ module.provider('gnMap', function () {
                   title: $translate.instant('featureInfo', {
                     title: layer.label
                   }),
-                  content: '<div gn-permalink-input="' + url + '"></div>'
+                  content: '<div><a href=' + url + '</a>' + url + '</div>'
                 });
               }
             });
