@@ -29,14 +29,14 @@
   };
 
   angular.module('gn_map_directive',
-    ['gn_owscontext_service'])
+    [])
 
     .directive(
     'gnDrawBbox',
       [
       'gnMap',
-      'gnOwsContextService',
-      function(gnMap, gnOwsContextService) {
+      //'gnOwsContextService',
+      function(gnMap) {
         return {
           restrict: 'A',
           replace: true,
@@ -231,8 +231,7 @@
 
             //Uses configuration from database
             if (gnMap.getMapConfig().context) {
-              gnOwsContextService.
-                  loadContextFromUrl(gnMap.getMapConfig().context, map);
+              //gnOwsContextService.loadContextFromUrl(gnMap.getMapConfig().context, map);
             }
 
             // apply background layer from settings

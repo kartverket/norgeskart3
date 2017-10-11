@@ -1,11 +1,12 @@
 {
   "name": "norgeskartclient",
-  "version": "1.0.25",
+  "version": "1.0.27",
   "devDependencies": {},
   "dependencies": {
     "angular": "*",
     "angular-route": "*",
     "angular-mocks": "*",
+    "angular-sanitize": "*",
     "bootstrap": "*",
     "angular-translate": "*",
     "proj4": "*",
@@ -13,6 +14,9 @@
     "jasmine-ajax": "*",
     "es5-shim": "*",
     "jquery": "*",
+    "jsonix": "latest",
+    "ogc-schemas": "latest",
+    "w3c-schemas": "latest",
     "blob-util": "*",
     "maplib": "https://github.com/kartverket/MapLib.git",
     "xml-to-json": "*",

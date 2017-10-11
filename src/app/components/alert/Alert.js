@@ -21,8 +21,36 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-  angular.module('gn_map', [
-    'gn_map_service',
-    'gn_map_directive',
-    'gnWmsQueue'
+angular.module('gn_alert', ['ngSanitize'])
+
+  .value('gnAlertValue', [])
+
+  .service('gnAlertService', [
+    'gnAlertValue',
+    '$timeout',
+    function (gnAlertValue, $timeout) {
+
+      var delay = 2000;
+      this.addAlert = function (alert) {
+        gnAlertValue.push(alert);
+
+        $timeout(function () {
+          gnAlertValue.splice(0, 1);
+        }, delay);
+      };
+    }
+  ])
+
+  .directive('gnAlertManager', [
+    'gnAlertValue',
+    function (gnAlertValue) {
+      return {
+        replace: true,
+        restrict: 'A',
+        templateUrl: 'components/alert/partials/alert.html',
+        link: function (scope) {
+          scope.alerts = gnAlertValue;
+        }
+      };
+    }
   ]);

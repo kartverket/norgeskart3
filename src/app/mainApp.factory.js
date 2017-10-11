@@ -12,7 +12,7 @@ angular.module('mainApp')
       var mainMenuIsOpen = false;
       var config = {
         instance: "norgeskart3",
-        configurl: "http://www.norgeskart.no/config"
+        configurl: "//nnrite540/api/v1/config/"
       };
       var listprojects = [{
         SiteTitle: "dekning",

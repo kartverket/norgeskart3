@@ -946,6 +946,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
          */
         addWmsToMapFromCap: function (map, getCapLayer) {
           var layer = this.createOlWMSFromCap(map, getCapLayer);
+          map = (map || ISY.MapImplementation.OL3.olMap);
           map.addLayer(layer);
           return layer;
         },
@@ -965,6 +966,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
          */
         addWfsToMapFromCap: function (map, getCapLayer, url) {
           var layer = this.createOlWFSFromCap(map, getCapLayer, url);
+          map = (map || ISY.MapImplementation.OL3.olMap);
           map.addLayer(layer);
           return layer;
         },
@@ -983,6 +985,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
          * @return {ol.Layer} the created layer
          */
         addWmsToMap: function (map, layerInfo) {
+          map = (map || ISY.MapImplementation.OL3.olMap);
           if (layerInfo) {
             var layer = this.createOlWMS(map, {
               LAYERS: layerInfo.name
@@ -1022,6 +1025,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
          * @param {!Object} md object
          */
         addWmsFromScratch: function (map, url, name, createOnly, md, version) {
+          map = (map || ISY.MapImplementation.OL3.olMap);
           var defer = $q.defer();
           var $this = this;
 
@@ -1107,6 +1111,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
          * @param {boolean} createOnly or add it to the map
          */
         addWmsAllLayersFromCap: function (map, url, createOnly) {
+          map = (map || ISY.MapImplementation.OL3.olMap);
           var $this = this;
 
           return gnOwsCapabilities.getWMSCapabilities(url).
@@ -1154,6 +1159,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
          * @param {!Object} md object
          */
         addWmtsFromScratch: function (map, url, name, createOnly, md) {
+          map = (map || ISY.MapImplementation.OL3.olMap);
           var defer = $q.defer();
           var $this = this;
 
@@ -1445,6 +1451,7 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
          * @param {Object} getCapLayer object to convert
          */
         addWmtsToMapFromCap: function (map, getCapLayer, capabilities) {
+          map = (map || ISY.MapImplementation.OL3.olMap);
           map.addLayer(this.createOlWMTSFromCap(map,
             getCapLayer, capabilities));
         },

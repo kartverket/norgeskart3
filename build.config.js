@@ -73,8 +73,11 @@ module.exports = {
             'vendor/jquery/dist/jquery.min.js',
             'vendor/angular/angular.min.js',
             'vendor/angular-route/angular-route.min.js',
+            'vendor/angular-sanitize/angular-sanitize.min.js',
             'vendor/bootstrap/dist/js/bootstrap.min.js',
             'vendor/angular-translate/angular-translate.min.js',
+            'vendor/angular-sanitize/angular-sanitize.min.js',
+
             'vendor/proj4/dist/proj4.js',
             'vendor/es5-shim/es5-shim.min.js',
             'vendor/pouchdb/dist/pouchdb.min.js',
@@ -88,13 +91,21 @@ module.exports = {
 
             'vendor/jsonix/*.js',
             'vendor/jsonix/lib/*.js',
-
+/*
+            'vendor/jsonix/dist/Jsonix-min.js',
+            'vendor/w3c-schemas/scripts/lib/*.js',
+            'vendor/ogc-schemas/scripts/lib/*.js',
+*/
             'vendor/angular-gettext/dist/angular-gettext.min.js',
             'vendor/angular-ui-date/dist/date.js',
             'vendor/floatThead/dist/jquery.floatThead.min.js',
             'vendor/angular.ext/angular-floatThead.js',
+
+            'vendor/angular.ext/*.js',
+            'vendor/*.js',
             'vendor/ngeo/ngeo.js'
-        ],
+
+            ],
         css: [
             'vendor/bootstrap/dist/css/bootstrap.min.css',
             'vendor/featherlight/release/featherlight.min.css'
@@ -114,16 +125,20 @@ module.exports = {
     ],
     jssource_mapclient: [
         '!src/**/*.spec.js',
+
         'src/app/shared/isyTranslate/**/*.js',
         'src/app/shared/localStorage/**/*.js',
         'src/app/shared/mapLayout/**/*.js',
         'src/app/shared/mapOverlaysLayout/**/*.js',
+
         'src/app/apiController/**/*.js',
         'src/app/zISY.Angular/**/*.js',
+
         'src/app/components/overlays/mapOverlays/**/*.js',
         'src/app/components/overlays/changeBaseMapOverlay/**/*.js',
         'src/app/components/overlays/changeBaseLayerOverlay/**/*.js',
         'src/app/components/overlays/moveableOverlay/**/*.js',
+
         'src/app/components/overlays/mainMenuOverlay/**/*.js',
         'src/app/components/overlays/searchBarOverlay/**/*.js',
         'src/app/components/transclusions/mainMenuPanel/**/*.js',
@@ -140,13 +155,13 @@ module.exports = {
         'src/app/components/transclusions/tools/tools.*.js',
         'src/app/components/transclusions/tools/toolsElevationProfile.factory.js',
 
+        'src/app/components/*.js',
+        'src/app/components/common/**/*.js',
+        'src/app/components/transclusions/mainMenuPanel/wmsimport/*.js',
+
         'src/app/components/catalog/*.js',
-        'src/app/components/common/ows/**/*.js',
-        'src/app/components/common/popup/**/*.js',
         'src/app/components/utility/*.js',
         'src/app/components/search/searchmanager/*.js',
-        'src/app/components/common/map/**/*.js',
-        'src/app/components/common/alert/**/*.js',
         'src/app/components/viewer/**/*.js',
     ],
     source_css: [
