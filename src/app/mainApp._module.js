@@ -8,5 +8,5 @@ angular.module('mainApp', [
   'tools',
   'localStorage',
   'mapLayout',
-  'mapOverlaysLayout'
+  'mapOverlaysLayout','gnWmsImport'
 ]);

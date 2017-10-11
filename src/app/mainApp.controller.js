@@ -73,24 +73,24 @@ angular.module('mainApp')
           }
         }
         if (obj.geojson !== undefined) {
-          console.error(obj.geojson);
-          //addGeoJsonLayer(url, "4326", null, true); //defaults to WGS84 as per standard definition
+          console.warn(obj.geojson);
+          localStorageFactory.set("geojson", obj.geojson);
         }
         if (obj.sosi !== undefined) {
-          console.error(obj.sosi);
+          console.warn(obj.sosi);
           //addSOSILayer(url, true);
         }
         if (obj.bbox !== undefined) {
-          console.error(obj.bbox);
+          console.warn(obj.bbox);
           //addBboxLayer(url);
         }
         if (obj.wms !== undefined) {
-          console.error(obj.wms);
-          //addWMSLayer(url);
+          console.warn(obj.wms);
+          localStorageFactory.set("wms", obj.wms);
         }
         if (obj.wfs !== undefined) {
-          console.error(obj.wfs);
-          //addWFSLayer(url);
+          console.warn(obj.wfs);
+          localStorageFactory.set("wfs", obj.wfs);
         }
         if (obj.wcs !== undefined) {
           console.error("Cannot display WCS directly. Use a Portrayal Service WMS with WCS as data layer.<br/>Syntax: /l/wms/[URL to portrayal]/d/wcs/[URL to data]");

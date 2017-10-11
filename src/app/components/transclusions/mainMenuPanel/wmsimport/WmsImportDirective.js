@@ -1,5 +1,4 @@
-
-angular.module('gnWmsImport', ['gn_ows', 'gn_alert','gn_map_service','gnConfig'])
+angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig'])
   /**
    * @ngdoc directive
    * @name gn_viewer.directive:gnWmsImport
@@ -15,7 +14,8 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert','gn_map_service','gnConfig']
     '$timeout',
     //'gnSearchManagerService',
     //'Metadata',
-    function (gnOwsCapabilities, gnMap, $translate, $timeout       ) {
+    'localStorageFactory',
+    function (gnOwsCapabilities, gnMap, $translate, $timeout, localStorageFactory) {
       return {
         restrict: 'A',
         replace: true,
@@ -124,6 +124,9 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert','gn_map_service','gnConfig']
               });
             }
           });
+
+          scope.setUrl(localStorageFactory.get("wms"));
+
         }
       };
     }
