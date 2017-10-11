@@ -81,7 +81,7 @@ module.exports = {
             'vendor/proj4/dist/proj4.js',
             'vendor/es5-shim/es5-shim.min.js',
             'vendor/pouchdb/dist/pouchdb.min.js',
-            'vendor/openlayers3/ol-debug.js',
+//            'vendor/openlayers3/ol-debug.js',
             'vendor/blob-util/dist/blob-util.min.js',
             'vendor/maplib/dist/maplib.js',
             'vendor/xml-to-json/xml.min.js',
@@ -103,7 +103,7 @@ module.exports = {
 
             'vendor/angular.ext/*.js',
             'vendor/*.js',
-            'vendor/ngeo/ngeo.js'
+            'vendor/ngeo/ngeo-debug.js'
 
             ],
         css: [

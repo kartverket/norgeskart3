@@ -293,7 +293,7 @@
             }
           }
           return o;
-        };
+        }
 
         function randomUuid() {
           return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
@@ -315,7 +315,7 @@
             title: $translate.instant('permalinkTo', {title: title}),
             content: '<div gn-permalink-input="' + url + '"></div>'
           });
-        };
+        }
 
         return {
           scrollTo: scrollTo,

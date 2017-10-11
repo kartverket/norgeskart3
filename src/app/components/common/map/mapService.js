@@ -28,7 +28,7 @@ var module = angular.module('gn_map_service', [
   'gn_search_manager',
   'gn_utility',
   'ngeo',
-  'gn_wfs_service'
+  'gn_wfs_service', 'gn_popup'
 ]);
 
 /**
@@ -57,17 +57,17 @@ module.provider('gnMap', function () {
     'Metadata',
     'gnWfsService',
     'gnGlobalSettings',
-    'gnViewerSettings',
+    'gnViewerSettings','gnPopup',
     /*'gnViewerService',
     function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
       gnSearchLocation, $rootScope, gnUrlUtils, $q, $translate,
       gnWmsQueue, gnSearchManagerService, Metadata, gnWfsService,
       gnGlobalSettings, viewerSettings, gnViewerService) {
 */
-function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
-  gnSearchLocation, $rootScope, gnUrlUtils, $q, $translate,
-  gnWmsQueue, gnSearchManagerService, Metadata, gnWfsService,
-  gnGlobalSettings, viewerSettings) {
+    function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
+      gnSearchLocation, $rootScope, gnUrlUtils, $q, $translate,
+      gnWmsQueue, gnSearchManagerService, Metadata, gnWfsService,
+      gnGlobalSettings, viewerSettings, gnPopup) {
 
       var defaultMapConfig = {
         'useOSM': 'true',
@@ -731,6 +731,23 @@ function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
               layer.get('time') || layer.get('style')));
 
             layer.set('errors', errors);
+
+            map.on('singleclick', function (evt) {
+              var viewResolution = (map.getView().getResolution());
+              var url = layer.getSource().getGetFeatureInfoUrl(
+                evt.coordinate, viewResolution, 'EPSG:3857', {
+                  'INFO_FORMAT': 'text/html'
+                });
+              if (url) {
+                gnPopup.createModal({
+                  title: $translate.instant('featureInfo', {
+                    title: layer.label
+                  }),
+                  content: '<div gn-permalink-input="' + url + '"></div>'
+                });
+              }
+            });
+
             return layer;
           }
 
