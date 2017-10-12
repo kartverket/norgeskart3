@@ -52,7 +52,7 @@
       };
       function getSession() {
         return session;
-      };
+      }
       function getRemainingTime() {
         session.start = moment(parseInt($cookies.serverTime));
         // 0 session length means user is not authenticated.
@@ -63,7 +63,7 @@
             moment(parseInt($cookies.sessionExpiry)).diff(
             moment()) / 1000);
         return session.remainingTime;
-      };
+      }
       function check(user) {
         // User is not yet authenticated
         if ($cookies.sessionExpiry === $cookies.serverTime) {
@@ -96,13 +96,13 @@
               type: 'danger'});
           }
         }
-      };
+      }
       function scheduleCheck(user, interval) {
         $timeout(function() {
           check(user);
           scheduleCheck(user, interval);
         }, interval || session.checkInterval);
-      };
+      }
       return {
         getSession: getSession,
         getRemainingTime: getRemainingTime,

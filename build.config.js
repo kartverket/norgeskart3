@@ -89,13 +89,10 @@ module.exports = {
             'vendor/angular-utils-pagination/dirPagination.js',
             'vendor/featherlight/release/featherlight.min.js',
 
-            'vendor/jsonix/*.js',
-            'vendor/jsonix/lib/*.js',
-/*
             'vendor/jsonix/dist/Jsonix-min.js',
             'vendor/w3c-schemas/scripts/lib/*.js',
             'vendor/ogc-schemas/scripts/lib/*.js',
-*/
+
             'vendor/angular-gettext/dist/angular-gettext.min.js',
             'vendor/angular-ui-date/dist/date.js',
             'vendor/floatThead/dist/jquery.floatThead.min.js',

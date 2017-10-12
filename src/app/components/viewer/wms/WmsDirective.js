@@ -34,7 +34,7 @@ module.directive('gnWmsDownload', ['gnWmsService', 'gnGlobalSettings', 'gnSearch
         md: '='
       },
       templateUrl: '/components/viewer/wms/partials/wmsDownload.html',
-      link: function (scope, element, attrs, ctrls) {
+      link: function (scope, element, attrs) {
         scope.isMapViewerEnabled = gnGlobalSettings.isMapViewerEnabled;
         scope.capabilities = null;
         scope.layerSelected = null;

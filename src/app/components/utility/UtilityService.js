@@ -250,9 +250,7 @@
 
             var strMatchedValue;
             if (arrMatches[2]) {
-              strMatchedValue = arrMatches[2].replace(
-               new RegExp('\"\"', 'g'),
-               '\"');
+              strMatchedValue = arrMatches[2].replace(new RegExp('\"\"', 'g'),'\"');
             } else {
               strMatchedValue = arrMatches[3];
             }

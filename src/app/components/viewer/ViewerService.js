@@ -34,8 +34,7 @@
    * from everywhere in the application.
    */
   module.service('gnViewerService', [
-    '$http',
-    function($http) {
+    function() {
       this.activeTool = {
         name: '',
         tab: '',

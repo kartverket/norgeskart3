@@ -48,9 +48,9 @@ module.directive('gnMainViewer', [
       scope: true,
       templateUrl: '../../catalog/components/viewer/' +
         'partials/mainviewer.html',
-      compile: function compile(tElement, tAttrs, transclude) {
+      compile: function compile() {
         return {
-          pre: function preLink(scope, iElement, iAttrs, controller) {
+          pre: function preLink(scope, iElement, iAttrs) {
             scope.map = scope.$eval(iAttrs['map']);
             scope.addLayerTabs = {
               search: true,
@@ -233,7 +233,7 @@ module.directive('gnMainViewer', [
               scope.graticuleOgcService = ogcGraticule;
             }
           },
-          post: function postLink(scope, iElement, iAttrs, controller) {
+          post: function postLink(scope) {
             //TODO: find another solution to render the map
             setTimeout(function () {
               scope.map.updateSize();
@@ -249,7 +249,7 @@ module.directive('gnMainViewer', [
 module.directive('giBtnGroup', function () {
     return {
       restrict: 'A',
-      controller: ['$scope', function ($scope) {
+      controller: [function () {
         var buttonScopes = [];
 
         this.activate = function (btnScope) {
@@ -279,7 +279,9 @@ module.directive('giBtnGroup', function () {
         var cls = attrs['giBtn'];
         scope.ngModelSet = ngModelGet.assign;
 
-        if (buttonsCtrl) buttonsCtrl.addButton(scope);
+        if (buttonsCtrl){
+          buttonsCtrl.addButton(scope);
+        }
 
         //ui->model
         element.bind('click', function () {
@@ -311,7 +313,7 @@ module.directive('gnvToolsBtn', [
   function () {
     return {
       restrict: 'A',
-      link: function (scope, element, attrs) {
+      link: function (scope, element) {
         element.bind('click', function () {
           if (element.hasClass('active')) {
             element.removeClass('active');
@@ -334,7 +336,7 @@ module.directive('gnvLayerIndicator', ['gnWmsQueue',
       restrict: 'A',
       templateUrl: 'components/viewer/' +
         'partials/layerindicator.html',
-      link: function (scope, element, attrs) {
+      link: function (scope) {
         scope.layerQueue = gnWmsQueue;
       }
     };

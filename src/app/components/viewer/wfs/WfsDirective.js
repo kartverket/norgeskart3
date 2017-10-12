@@ -34,7 +34,7 @@ module.directive('gnWfsDownload', ['gnWfsService', 'gnSearchSettings',
       },
       templateUrl: 'components/' +
         'viewer/wfs/partials/download.html',
-      link: function (scope, element, attrs, ctrls) {
+      link: function (scope, element, attrs) {
         scope.isWfsAvailable = false;
 
         function init() {
@@ -116,8 +116,7 @@ module.directive('gnNoMapWfsDownload', ['gnWfsService',
       scope: {},
       templateUrl: 'components/' +
         'viewer/wfs/partials/download.html',
-      link: function (scope, element, attrs, ctrls) {
-        scope.capabilities;
+      link: function (scope, element, attrs) {
         scope.isWfsAvailable = false;
 
         function init() {
@@ -173,26 +172,6 @@ module.directive('gnNoMapWfsDownload', ['gnWfsService',
 ]);
 module.directive('gnWFS', [
   function () {
-
-    var inputTypeMapping = {
-      string: 'text',
-      float: 'number'
-    };
-
-    var defaultValue = function (literalData) {
-      var value = undefined;
-      if (literalData.defaultValue !== undefined) {
-        value = literalData.defaultValue;
-      }
-      if (literalData.dataType.value === 'float') {
-        value = parseFloat(value);
-      }
-      if (literalData.dataType.value === 'string') {
-        value = value || '';
-      }
-      return value;
-    };
-
     return {
       restrict: 'AE',
       scope: {
@@ -204,7 +183,7 @@ module.directive('gnWFS', [
           'components/viewer/wps/partials/processform.html';
       },
 
-      link: function (scope, element, attrs) {
+      link: function () {
 
       }
     };

@@ -57,7 +57,7 @@ module.provider('gnMap', function () {
     'Metadata',
     'gnWfsService',
     'gnGlobalSettings',
-    'gnViewerSettings','gnPopup',
+    'gnViewerSettings', 'gnPopup',
     /*'gnViewerService',
     function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
       gnSearchLocation, $rootScope, gnUrlUtils, $q, $translate,
@@ -70,14 +70,14 @@ module.provider('gnMap', function () {
       gnGlobalSettings, viewerSettings, gnPopup) {
 
       var defaultMapConfig = {
-        'useOSM': 'true',
-        'projection': 'EPSG:3857',
-        'projectionList': [{
-          'code': 'EPSG:4326',
-          'label': 'WGS84 (EPSG:4326)'
+        useOSM: 'true',
+        projection: 'EPSG:3857',
+        projectionList: [{
+          code: 'EPSG:4326',
+          label: 'WGS84 (EPSG:4326)'
         }, {
-          'code': 'EPSG:3857',
-          'label': 'Google mercator (EPSG:3857)'
+          code: 'EPSG:3857',
+          label: 'Google mercator (EPSG:3857)'
         }]
       };
 
@@ -353,8 +353,8 @@ module.provider('gnMap', function () {
             source = new ol.source.TileWMS({
               url: conf.layer.url,
               params: {
-                'LAYERS': conf.layer.layers,
-                'VERSION': conf.layer.version
+                LAYERS: conf.layer.layers,
+                VERSION: conf.layer.version
               }
             });
           }
@@ -662,7 +662,7 @@ module.provider('gnMap', function () {
             }
             if (angular.isDefined(getCapLayer.Attribution)) {
               if (angular.isArray(getCapLayer.Attribution)) {
-
+                console.warn('');
               } else {
                 attribution = getCapLayer.Attribution.Title;
                 if (getCapLayer.Attribution.OnlineResource) {
@@ -685,7 +685,9 @@ module.provider('gnMap', function () {
             if (getCapLayer.CRS) {
               if (!getCapLayer.CRS.includes(projCode)) {
                 if (projCode === 'EPSG:3857' &&
-                  getCapLayer.CRS.includes('EPSG:900913')) {} else if (getCapLayer.CRS.includes('EPSG:4326')) {
+                  getCapLayer.CRS.includes('EPSG:900913')) {
+                  console.warn('');
+                } else if (getCapLayer.CRS.includes('EPSG:4326')) {
                   projCode = 'EPSG:4326';
                 }
               }
@@ -735,8 +737,8 @@ module.provider('gnMap', function () {
             map.on('singleclick', function (evt) {
               var viewResolution = (map.getView().getResolution());
               var url = layer.getSource().getGetFeatureInfoUrl(
-                evt.coordinate, viewResolution, 'EPSG:3857', {
-                  'INFO_FORMAT': 'text/html'
+                evt.coordinate, viewResolution, map.getView().getProjection(), {
+                  INFO_FORMAT: 'text/html'
                 });
               if (url) {
                 gnPopup.createModal({
@@ -776,10 +778,9 @@ module.provider('gnMap', function () {
             var layer = getCapLayer;
 
             var isLayerAvailableInMapProjection = false;
+            var mapProjection = map.getView().getProjection().getCode();
 
             if (layer.CRS) {
-              var mapProjection = map.getView().
-              getProjection().getCode();
               for (var i = 0; i < layer.CRS.length; i++) {
                 if (layer.CRS[i] === mapProjection) {
                   isLayerAvailableInMapProjection = true;
@@ -787,8 +788,6 @@ module.provider('gnMap', function () {
                 }
               }
             } else if (layer.defaultSRS) {
-              var mapProjection = map.getView().
-              getProjection().getCode();
               var srs = layer.defaultSRS;
               if ((srs.indexOf('urn:ogc:def:crs:EPSG::') === 0) ||
                 (srs.indexOf('urn:x-ogc:def:crs:EPSG::') === 0)) {
@@ -801,8 +800,6 @@ module.provider('gnMap', function () {
                 isLayerAvailableInMapProjection = true;
               }
             } else if (layer.otherSRS) {
-              var mapProjection = map.getView().
-              getProjection().getCode();
               for (var i = 0; i < layer.otherSRS.length; i++) {
                 var srs = layer.otherSRS[i];
                 if ((srs.indexOf('urn:ogc:def:crs:EPSG::') === 0) ||
@@ -837,7 +834,7 @@ module.provider('gnMap', function () {
             }
             if (angular.isDefined(layer.Attribution)) {
               if (angular.isArray(layer.Attribution)) {
-
+                console.warn('');
               } else {
                 attribution = layer.Attribution.Title;
               }
@@ -1333,7 +1330,7 @@ module.provider('gnMap', function () {
          */
         createOlWMTSFromCap: function (map, getCapLayer, capabilities) {
 
-          var legend, attribution, metadata;
+          var metadata;
           if (getCapLayer) {
             var layer = getCapLayer;
 
@@ -1433,7 +1430,7 @@ module.provider('gnMap', function () {
 
             // add link to metadata
             if (angular.isArray(layer.MetadataURL)) {
-              var metadata = layer.MetadataURL[0].OnlineResource;
+              metadata = layer.MetadataURL[0].OnlineResource;
               olLayer.set('metadataUrl', metadata);
 
               var params = gnUrlUtils.parseKeyValue(

@@ -26,7 +26,6 @@
     "angular-dynamic-locale": "0.1.32",
     "angular-float-thead": "0.1.2",
     "angular-gettext": "2.3.10",
-    "angular-sanitize": "1.6.6",
     "angular-touch": "1.6.6",
     "angular-ui-date": "*",
     "angular-ui-slider": "0.4.0"

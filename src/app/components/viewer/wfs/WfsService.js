@@ -26,10 +26,7 @@ var module = angular.module('gn_wfs_service', []);
 module.service('gnWfsService', [
   '$http',
   'gnOwsCapabilities',
-  'gnUrlUtils',
-  'gnGlobalSettings',
-  '$q',
-  function ($http, gnOwsCapabilities, gnUrlUtils, gnGlobalSettings, $q) {
+  function ($http, gnOwsCapabilities) {
 
     /**
      * Do a getCapabilies request to the url (service) given in parameter.
@@ -75,7 +72,7 @@ module.service('gnWfsService', [
       }
       return [];
     };
-    this.getProjection = function (capabilities, layers) {
+    this.getProjection = function (capabilities) {
       if (capabilities.operationsMetadata) {
         for (var i = 0; i < capabilities.operationsMetadata.operation.length; i++) {
           var op = capabilities.operationsMetadata.operation[i];
