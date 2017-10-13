@@ -14,12 +14,7 @@ angular.module('mainApp')
         instance: "norgeskart3",
         configurl: "//nnrite540/api/v1/config/"
       };
-      var listprojects = [{
-        SiteTitle: "dekning",
-        ProjectName: "dekning",
-        HeaderIcon: "",
-        HeaderTitle: "dekning"
-      }];
+      var listprojects = [];
       var mapConfig = {
         name: "default config",
         useCategories: true,
