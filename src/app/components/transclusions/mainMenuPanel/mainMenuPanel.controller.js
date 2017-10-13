@@ -5,12 +5,13 @@ angular.module('mainMenuPanel')
             $scope.drawActivated=false;
 
             $scope.mainMenuPanelLayout = "mainMenuSections";
-            
+
             $scope.resetApplication = function ($event) {
                 $event.preventDefault();
                 localStorageFactory.remove('lat');
                 localStorageFactory.remove('lon');
                 localStorageFactory.remove('zoom');
+                localStorageFactory.remove('wms')
                 localStorageFactory.set('mainMenuIsOpen', false);
                 location.hash = '';
                 location.reload($event.shiftKey);
