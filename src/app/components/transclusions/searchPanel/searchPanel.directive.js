@@ -559,6 +559,8 @@ angular.module('searchPanel')
                 return document;
               case ('matrikkelnummer'):
                 return document;
+              case ('kartkatalog'):
+                return document.Results;
               default:
                 try {
                   return JSON.parse(document);
@@ -598,12 +600,13 @@ angular.module('searchPanel')
               success: function (document) {
                 if (((document.length && document.length > 0) || (document.childNodes && document.childNodes[0].childNodes.length)) && scope.searchTimestamp === timestamp) {
                   _successFullSearch(_serviceDict, document);
+                } else if (document.NumFound && document.NumFound > 0) {
+                  _successFullSearch(_serviceDict, document);
                 }
-              }
-              /*,
+              },
               error: function (searchError) {
-                console.error("Error downloading from " + _serviceDict.url, searchError);
-              }*/
+                console.warn("Error downloading from " + _serviceDict.url, searchError);
+              }
             });
           };
 
@@ -715,29 +718,45 @@ angular.module('searchPanel')
                   jsonObject[i].url = mainAppService
                     .generateSeEiendomUrl(extra.kommunenr, extra.gardsnr, extra.bruksnr, extra.festenr, extra.seksjonsnr);
                   _pushToUnifiedResults(_getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]));
+                } else if (searchResult.source === 'kartkatalog') {
+                  _pushToUnifiedResults(_getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]));
                 }
               }
             }
           };
 
           var _getValuesFromJson = function (identifiersDict, jsonObject) {
-            var lat = jsonObject[identifiersDict.latID] + '';
-            var lon = jsonObject[identifiersDict.lonID] + '';
-            var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
-            var husnummer = identifiersDict.husnummerID !== false ? jsonObject[identifiersDict.husnummerID] : '';
-            if (identifiersDict.husnummerBokstav && typeof jsonObject[identifiersDict.husnummerBokstav] === 'string') {
-              husnummer += jsonObject[identifiersDict.husnummerBokstav];
+            if (identifiersDict !== 'kartkatalog') {
+              return {
+                name: jsonObject.Title,
+                format: identifiersDict.format,
+                source: identifiersDict.source,
+                url: jsonObject.DistributionUrl,
+                abstract: jsonObject.Abstract,
+                distributionProtocol: jsonObject.DistributionProtocol,
+                getCapabilitiesUrl: jsonObject.GetCapabilitiesUrl,
+                type: jsonObject.Type,
+                organizationLogo: jsonObject.OrganizationLogo
+              };
+            } else {
+              var lat = jsonObject[identifiersDict.latID] + '';
+              var lon = jsonObject[identifiersDict.lonID] + '';
+              var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
+              var husnummer = identifiersDict.husnummerID !== false ? jsonObject[identifiersDict.husnummerID] : '';
+              if (identifiersDict.husnummerBokstav && typeof jsonObject[identifiersDict.husnummerBokstav] === 'string') {
+                husnummer += jsonObject[identifiersDict.husnummerBokstav];
+              }
+              return {
+                name: jsonObject[identifiersDict.nameID],
+                kommune: jsonObject[identifiersDict.kommuneID],
+                point: point,
+                format: identifiersDict.format,
+                source: identifiersDict.source,
+                husnummer: husnummer,
+                navnetype: jsonObject[identifiersDict.navnetypeID],
+                url: jsonObject.url
+              };
             }
-            return {
-              name: jsonObject[identifiersDict.nameID],
-              kommune: jsonObject[identifiersDict.kommuneID],
-              point: point,
-              format: identifiersDict.format,
-              source: identifiersDict.source,
-              husnummer: husnummer,
-              navnetype: jsonObject[identifiersDict.navnetypeID],
-              url: jsonObject.url
-            };
           };
 
           var _removeNumberFromName = function (name) {

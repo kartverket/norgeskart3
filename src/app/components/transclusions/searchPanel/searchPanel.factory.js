@@ -9,7 +9,7 @@ angular
 
       var mapEpsg = 'EPSG:25833';
 
-      var initialSearchServices = ['ssr', 'matrikkelveg', 'matrikkeladresse', 'matrikkelnummer'];
+      var initialSearchServices = ['ssr', 'matrikkelveg', 'matrikkeladresse', 'matrikkelnummer','kartkatalog'];
 
       var availableUTMZones = ['25832', '25833', '25834', '25835', '25836', '32632', '32633', '32634', '32635', '32636'];
 
@@ -138,6 +138,19 @@ angular
           source: 'adresse',
           epsg: 'EPSG:4326',
           nameID: 'adressenavn',
+          latID: 'nord',
+          lonID: 'aust',
+          kommuneID: false,
+          husnummerID: false,
+          husnummerBokstav: false,
+          navnetypeID: false
+        };
+        serviceDict['kartkatalog'] = {
+          url: mainAppService.generateKartkatalogSearchUrl(query),
+          format: 'json',
+          source: 'kartkatalog',
+          epsg: 'EPSG:4326',
+          nameID: '',
           latID: 'nord',
           lonID: 'aust',
           kommuneID: false,

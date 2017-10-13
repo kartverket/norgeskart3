@@ -8,6 +8,11 @@ angular.module('mainApp')
       var urlSeEiendom = 'http://www.seeiendom.no/';
       var urlFaktaark = 'https://stadnamn.kartverket.no/fakta/';
       var urlHavnivaa = "http://api.sehavniva.no/";
+      var urlKartkatalogSearch = "https://kartkatalog.geonorge.no/api/search";
+
+      this.generateKartkatalogSearchUrl = function (query) {
+        return urlKartkatalogSearch + "?text=" + query;
+      };
 
       this.generateWhat3WordsServiceUrl = function () {
         return url + 'ws/w3w.py';
