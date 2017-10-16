@@ -779,6 +779,7 @@ module.provider('gnMap', function () {
 
             var isLayerAvailableInMapProjection = false;
             var mapProjection = map.getView().getProjection().getCode();
+            var srs;
 
             if (layer.CRS) {
               for (var i = 0; i < layer.CRS.length; i++) {
@@ -788,7 +789,7 @@ module.provider('gnMap', function () {
                 }
               }
             } else if (layer.defaultSRS) {
-              var srs = layer.defaultSRS;
+              srs = layer.defaultSRS;
               if ((srs.indexOf('urn:ogc:def:crs:EPSG::') === 0) ||
                 (srs.indexOf('urn:x-ogc:def:crs:EPSG::') === 0)) {
                 srs = 'EPSG:' + srs.split('::')[srs.split('::').length - 1];
@@ -801,7 +802,7 @@ module.provider('gnMap', function () {
               }
             } else if (layer.otherSRS) {
               for (var i = 0; i < layer.otherSRS.length; i++) {
-                var srs = layer.otherSRS[i];
+                srs = layer.otherSRS[i];
                 if ((srs.indexOf('urn:ogc:def:crs:EPSG::') === 0) ||
                   (srs.indexOf('urn:x-ogc:def:crs:EPSG::') === 0)) {
                   srs = 'EPSG:' + srs.split('::')[srs.split('::').length - 1];
@@ -959,10 +960,27 @@ module.provider('gnMap', function () {
          * @param {Object} getCapLayer object to convert
          */
         addWmsToMapFromCap: function (map, getCapLayer) {
-          var layer = this.createOlWMSFromCap(map, getCapLayer);
           map = (map || ISY.MapImplementation.OL3.olMap);
-          map.addLayer(layer);
-          return layer;
+          var isNewLayer = true;
+          var returnLayer;
+
+          map.getLayers().forEach(function (layer) {
+            if (layer.get('name') === getCapLayer.Name) {
+              isNewLayer = false;
+              var visibility = layer.getVisible();
+              if (visibility === false) {
+                layer.setVisible(true);
+              } else if (visibility === true) {
+                layer.setVisible(false);
+              }
+              returnLayer = layer;
+            }
+          });
+          if (isNewLayer) {
+            returnLayer = this.createOlWMSFromCap(map, getCapLayer);
+            map.addLayer(returnLayer);
+          }
+          return returnLayer;
         },
 
         /**
