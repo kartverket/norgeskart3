@@ -155,5 +155,31 @@
       </ul>
     </div>
 
+    <div data-ng-show="searchResults['kartkatalog']">
+      <div class="isHeaderClose" data-ng-click="placenamesResult.open = !placenamesResult.open">
+        <span translate="searchResult_kartkatalog"></span>
+        <span data-ng-show="!placenamesResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
+        <span data-ng-show="placenamesResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
+      </div>
+      <ul class="list-result" data-ng-show="!placenamesResult.open" data-ng-if="!isIosDevice()">
+        <li class="pointer-cursor" ng-repeat="searchResult in searchResults['kartkatalog']" ng-mousedown="importWMS(searchResult); openNav()"
+          ng-mouseover="mouseOver(searchResult)">
+          <span ng-bind="searchResult.name "></span>
+          <span class="info-text" ng-bind="searchResult.abstract "></span>
+        </li>
+      </ul>
+      <ul class="list-result" data-ng-show="!placenamesResult.open" data-ng-if="isIosDevice()">
+        <li class="pointer-cursor" ng-repeat="searchResult in searchResults['kartkatalog']" ng-mousedown="importWMS(searchResult) openNav()">
+          <span ng-bind="searchResult.name "></span>
+          <span class="info-text" ng-bind="searchResult.abstract "></span>
+        </li>
+      </ul>
+      <div data-ng-show="!placenamesResult.open" dir-paginate="obj in placenameItems | itemsPerPage: 15 track by $index"></div>
+      <div data-ng-show="!placenamesResult.open" class="search-pagination">
+        <dir-pagination-controls max-size="6" direction-links="true" on-page-change="pageChanged(newPageNumber)">
+        </dir-pagination-controls>
+      </div>
+    </div>
+
   </div>
 </div>

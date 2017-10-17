@@ -59,6 +59,13 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           scope.catServicesList = [];
           var type = scope.format.toUpperCase();
 
+          scope.$on('addWMSfromSearch', function(event, args) {
+            scope.setUrl({
+              url: args.url,
+              type: 'wms'
+            });
+          });
+
           function addLinks(md, type) {
             angular.forEach(md.getLinksByType(type), function (link) {
               if (link.url) {

@@ -405,6 +405,10 @@ angular.module('searchPanel')
             scope.initSearchOptions();
           };
 
+          scope.importWMS = function (searchResult) {
+            scope.$broadcast('addWMSfromSearch', searchResult);
+          };
+
           scope.showQueryPoint = function (queryPoint) {
             if (!scope.searchResults) {
               scope.searchResults = {};
@@ -554,11 +558,11 @@ angular.module('searchPanel')
               case ('adresse'):
                 return document.adresser;
               case ('matrikkelveg'):
-                return document;
+                return JSON.parse(document);
               case ('matrikkeladresse'):
-                return document;
+                return JSON.parse(document);
               case ('matrikkelnummer'):
-                return document;
+                return JSON.parse(document);
               case ('kartkatalog'):
                 return document.Results;
               default:
@@ -603,10 +607,11 @@ angular.module('searchPanel')
                 } else if (document.NumFound && document.NumFound > 0) {
                   _successFullSearch(_serviceDict, document);
                 }
-              },
+              } /* ,
               error: function (searchError) {
                 console.warn("Error downloading from " + _serviceDict.url, searchError);
               }
+              */
             });
           };
 
@@ -726,7 +731,7 @@ angular.module('searchPanel')
           };
 
           var _getValuesFromJson = function (identifiersDict, jsonObject) {
-            if (identifiersDict !== 'kartkatalog') {
+            if (identifiersDict.source === 'kartkatalog') {
               return {
                 name: jsonObject.Title,
                 format: identifiersDict.format,
@@ -828,6 +833,19 @@ angular.module('searchPanel')
                   default:
                 } // switch
               }
+            }
+            if (result.type === 'serviceLayer' || result.type === 'service') {
+              if (!_unifiedResults[result.source]) {
+                _unifiedResults[result.source] = {};
+              }
+              _unifiedResults[result.source][result.name] = {
+                name: result.name,
+                abstract: result.abstract,
+                format: result.format,
+                source: result.source,
+                id: result.name,
+                url: result.url
+              };
             }
           };
 
