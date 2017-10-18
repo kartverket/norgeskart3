@@ -102,7 +102,7 @@ angular.module('mainApp')
             displaycenterepsgcode: "EPSG:25833",
             displayCenter: "396722,7197864",
             displayprojectionepsgcode: "EPSG:25833",
-            isygatekeeper: "https://www.norgeskart.no/ws/gkt.py",
+            isygatekeeper: "https://www.norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
             tickethost: "https://www.norgeskart.no/ws/esk.py?wms.ecc_enc",
             name: "seeiendom"
           },
