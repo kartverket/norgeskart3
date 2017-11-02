@@ -60,8 +60,6 @@ module.directive('gnDraggable', ['$document',
       }
 
       dragZone.bind('mousedown', function (evt) {
-        var elt = $(evt.target);
-
         if (x === null) {
           x = element.prop('offsetLeft');
         }

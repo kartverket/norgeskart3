@@ -221,7 +221,7 @@ angular.module('gnConfig', [])
     'gnMap',
     'gnGlobalSettings',
     '$location',
-    function(searchSettings, viewerSettings, gnMap, gnGlobalSettings, $location) {
+    function (searchSettings, viewerSettings, gnMap, gnGlobalSettings, $location) {
 
       // Load the context defined in the configuration
       //viewerSettings.defaultContext = (viewerSettings.mapConfig.map || '../map/config-viewer.xml');
@@ -344,7 +344,7 @@ angular.module('gnConfig', [])
       });
 
       var searchMap = new ol.Map({
-        controls:[],
+        controls: [],
         layers: [],
         view: new ol.View(angular.extend({}, mapsConfig))
       });
@@ -372,12 +372,12 @@ angular.module('gnConfig', [])
           'OGC:WMS-1.1.1-http-get-map',
           'OGC:WMS-1.3.0-http-get-map',
           'OGC:WFS'
-          ],
+        ],
         services: [
           'OGC:WMS-1.3.0-http-get-capabilities',
           'OGC:WMS-1.1.1-http-get-capabilities',
           'OGC:WFS-1.0.0-http-get-capabilities'
-          ]
+        ]
       };
 
       // Set custom config in gnSearchSettings
@@ -386,8 +386,9 @@ angular.module('gnConfig', [])
         searchMap: searchMap
       });
 
-    }])
-/**
+    }
+  ])
+  /**
    * @ngdoc service
    * @kind function
    * @name Metadata
@@ -423,7 +424,9 @@ angular.module('gnConfig', [])
         if (angular.isDefined(record[field])) {
           try {
             record[field] = angular.fromJson(record[field]);
-          } catch (e) {}
+          } catch (e) {
+            console.warn(e);
+          }
         }
       });
 
@@ -439,7 +442,7 @@ angular.module('gnConfig', [])
         }
       });
       this.linksTree = links;
-    };
+    }
 
     function formatLink(sLink) {
       var linkInfos = sLink.split('|');
@@ -454,10 +457,6 @@ angular.module('gnConfig', [])
         applicationProfile: linkInfos[6]
       };
     }
-
-    function parseLink(sLink) {
-
-    };
 
     Metadata.prototype = {
       getUuid: function () {
@@ -554,16 +553,16 @@ angular.module('gnConfig', [])
         return ret;
       },
       getThumbnails: function () {
+        var images = {
+          list: []
+        };
         if (angular.isArray(this.image)) {
-          var images = {
-            list: []
-          };
           for (var i = 0; i < this.image.length; i++) {
             var s = this.image[i].split('|');
             var insertFn = 'push';
             if (s[0] === 'thumbnail') {
               images.small = s[1];
-              var insertFn = 'unshift';
+              insertFn = 'unshift';
             } else if (s[0] === 'overview') {
               images.big = s[1];
             }
@@ -628,7 +627,6 @@ angular.module('gnConfig', [])
       },
       getBoxAsPolygon: function (i) {
         // Polygon((4.6810%2045.9170,5.0670%2045.9170,5.0670%2045.5500,4.6810%2045.5500,4.6810%2045.9170))
-        var bboxes = [];
         if (this.geoBox[i]) {
           var coords = this.geoBox[i].split('|');
           return 'Polygon((' +

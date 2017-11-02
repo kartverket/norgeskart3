@@ -217,7 +217,9 @@ module.provider('gnMap', function () {
          * @param {Object} md to extract bbox from
          */
         getBboxFromMd: function (md) {
-          if (angular.isUndefined(md.geoBox)) return;
+          if (angular.isUndefined(md.geoBox)) {
+            return;
+          }
           var bboxes = [];
           angular.forEach(md.geoBox, function (bbox) {
             var c = bbox.split('|');
@@ -376,7 +378,7 @@ module.provider('gnMap', function () {
         isValidExtent: function (extent) {
           var valid = true;
           if (extent && angular.isArray(extent)) {
-            angular.forEach(extent, function (value, key) {
+            angular.forEach(extent, function (value) {
               if (!value || value === Infinity || value === -Infinity) {
                 valid = false;
               }
@@ -528,7 +530,7 @@ module.provider('gnMap', function () {
             });
           }
 
-          var layerOptions = {
+          layerOptions = {
             url: options.url,
             type: 'WMS',
             opacity: options.opacity,
@@ -573,7 +575,7 @@ module.provider('gnMap', function () {
           var unregisterEventKey = olLayer.getSource().on(
             (viewerSettings.singleTileWMS) ?
             'imageloaderror' : 'tileloaderror',
-            function (tileEvent, target) {
+            function (tileEvent) {
               var url = tileEvent.tile && tileEvent.tile.getKey ?
                 tileEvent.tile.getKey() : '- no tile URL found-';
 
@@ -627,7 +629,7 @@ module.provider('gnMap', function () {
           var legend, attribution, attributionUrl, metadata, errors = [];
           if (getCapLayer) {
 
-            var isLayerAvailableInMapProjection = false;
+            // var isLayerAvailableInMapProjection = false;
             // OL3 only parse CRS from WMS 1.3 (and not SRS in WMS 1.1.x)
             // so a WMS 1.1.x will always failed on this
             // https://github.com/openlayers/ol3/blob/master/src/
@@ -772,17 +774,16 @@ module.provider('gnMap', function () {
          * @return {ol.Layer} the created layer
          */
         createOlWFSFromCap: function (map, getCapLayer, url) {
-
-          var legend, attribution, metadata, errors = [];
+          var errors = [];
           if (getCapLayer) {
             var layer = getCapLayer;
-
+            var i;
             var isLayerAvailableInMapProjection = false;
             var mapProjection = map.getView().getProjection().getCode();
             var srs;
 
             if (layer.CRS) {
-              for (var i = 0; i < layer.CRS.length; i++) {
+              for (i = 0; i < layer.CRS.length; i++) {
                 if (layer.CRS[i] === mapProjection) {
                   isLayerAvailableInMapProjection = true;
                   break;
@@ -801,7 +802,7 @@ module.provider('gnMap', function () {
                 isLayerAvailableInMapProjection = true;
               }
             } else if (layer.otherSRS) {
-              for (var i = 0; i < layer.otherSRS.length; i++) {
+              for (i = 0; i < layer.otherSRS.length; i++) {
                 srs = layer.otherSRS[i];
                 if ((srs.indexOf('urn:ogc:def:crs:EPSG::') === 0) ||
                   (srs.indexOf('urn:x-ogc:def:crs:EPSG::') === 0)) {
@@ -862,7 +863,7 @@ module.provider('gnMap', function () {
 
             var vectorSource = new ol.source.Vector({
               format: vectorFormat,
-              loader: function (extent, resolution, projection) {
+              loader: function (extent) {
                 if (this.loadingLayer) {
                   return;
                 }
@@ -932,7 +933,7 @@ module.provider('gnMap', function () {
               map.getView().fit(extent, map.getSize());
             }
 
-            var layer = new ol.layer.Vector({
+            layer = new ol.layer.Vector({
               source: vectorSource,
               extent: extent
             });
@@ -1371,7 +1372,7 @@ module.provider('gnMap', function () {
 
             // Try to guess which matrixId to use depending projection
             var matrixSetsId;
-            for (var i = 0; i < layer.TileMatrixSetLink.length; i++) {
+            for (i = 0; i < layer.TileMatrixSetLink.length; i++) {
               if (layer.TileMatrixSetLink[i].TileMatrixSet ==
                 projection.getCode()) {
                 matrixSetsId = layer.TileMatrixSetLink[i].TileMatrixSet;
@@ -1383,7 +1384,7 @@ module.provider('gnMap', function () {
             }
 
             var matrixSet;
-            for (var i = 0; i < capabilities.TileMatrixSet.length; i++) {
+            for (i = 0; i < capabilities.TileMatrixSet.length; i++) {
               if (capabilities.TileMatrixSet[i].Identifier === matrixSetsId) {
                 matrixSet = capabilities.TileMatrixSet[i];
               }
@@ -1411,10 +1412,8 @@ module.provider('gnMap', function () {
 
             for (var z = 0; z < nbMatrix; ++z) {
               var matrix = tileMatrices[z];
-              var size = ol.extent.getWidth(projectionExtent) /
-                matrix.TileWidth;
-              resolutions[z] = matrix.ScaleDenominator * 0.00028 /
-                projection.getMetersPerUnit();
+              // var size = ol.extent.getWidth(projectionExtent) / matrix.TileWidth;
+              resolutions[z] = matrix.ScaleDenominator * 0.00028 / projection.getMetersPerUnit();
               matrixIds[z] = matrix.Identifier;
             }
 
@@ -1572,7 +1571,7 @@ module.provider('gnMap', function () {
               });
             case 'stamen':
               //We make watercolor the default layer
-              var type = opt && opt.name ? opt.name : 'watercolor',
+              type = opt && opt.name ? opt.name : 'watercolor',
                 source = new ol.source.Stamen({
                   layer: type
                 });

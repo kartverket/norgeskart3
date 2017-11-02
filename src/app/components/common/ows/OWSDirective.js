@@ -26,8 +26,7 @@ angular.module('gn_ows_directive', [])
 
   .directive(
     'gnLayersGrid', [
-      'gnOwsCapabilities',
-      function (gnOwsCapabilities) {
+      function () {
         return {
           restrict: 'A',
           templateUrl: 'components/common/ows/partials/layersGrid.html',
@@ -36,7 +35,7 @@ angular.module('gn_ows_directive', [])
             layers: '=',
             selectionMode: '=gnSelectionMode'
           },
-          link: function (scope, element, attrs) {
+          link: function (scope) {
             // Manage layers selection
             if (scope.selectionMode) {
               scope.isSelected = function (layerName) {

@@ -28,8 +28,6 @@ module.directive('gnSearchFormResults', [
   'gnSearchManagerService',
   function (gnSearchManagerService) {
 
-    var activeClass = 'active';
-
     return {
       restrict: 'A',
       replace: true,
@@ -109,8 +107,7 @@ module.directive('gnSearchFormResults', [
                 }
               } else {
                 // TODO: clear selection ?
-                console.log('Single selection is not ' +
-                  'supported in remote mode.');
+                console.warn('Single selection is not supported in remote mode.');
                 //  md['geonet:info'].selected = true;
                 //  gnSearchManagerService.select(md['geonet:info'].uuid)
                 //  .then(updateSelectionNumber);
@@ -161,7 +158,7 @@ module.directive('gnSearchFormResults', [
           return selected;
         };
 
-        scope.$on('resetSelection', function (evt) {
+        scope.$on('resetSelection', function () {
           if (scope.selection) {
             scope.selection = [];
           }

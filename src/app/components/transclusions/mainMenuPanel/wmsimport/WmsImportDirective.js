@@ -130,9 +130,9 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                       scope.capability.layers.filter(function (el) {
                         return el.Name === value;
                       })[0]
-                    )
-                  })
-                })
+                    );
+                  });
+                });
             }
           };
 

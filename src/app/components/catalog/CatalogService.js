@@ -341,6 +341,7 @@
         var urlSplit = originUrl.pathname.split('/');
         if (urlSplit.lenght < 3) {
           //TODO manage error
+          console.warn("gnHttp split error");
         }
         else {
           angular.extend(defaults, {
@@ -574,10 +575,6 @@
         applicationProfile: linkInfos[6]
       };
     }
-    function parseLink(sLink) {
-
-    }
-
     Metadata.prototype = {
       getUuid: function() {
         return this['geonet:info'].uuid;
@@ -674,8 +671,8 @@
         return ret;
       },
       getThumbnails: function() {
+        var images = {list: []};
         if (angular.isArray(this.image)) {
-          var images = {list: []};
           for (var i = 0; i < this.image.length; i++) {
             var s = this.image[i].split('|');
             var insertFn = 'push';

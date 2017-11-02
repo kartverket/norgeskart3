@@ -100,10 +100,7 @@ module.factory('gnFacetConfigService', [
           dimension: scope.categoryKey,
           value: category.path
         });
-      } else {
-
       }
-
       // Build facet.q
       facetQParam = '';
       $.each(categoryList, function (idx) {
@@ -119,7 +116,7 @@ module.factory('gnFacetConfigService', [
       scope.params['facet.q'] = facetQParam;
 
       scope.$emit('resetSearch', scope.params);
-    };
+    }
 
 
     buildPath = function (path, category) {
@@ -176,7 +173,6 @@ module.factory('gnFacetConfigService', [
       }
       var dimensionList =
         facetQParam.split('&');
-      var categoryList = [];
       for (var i = 0; i < dimensionList.length; i++) {
         var dimensionFilter = dimensionList[i].split('/');
         if (dimensionFilter[0] ==

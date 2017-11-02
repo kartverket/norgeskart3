@@ -46,7 +46,7 @@ module.controller('GnMdViewController', [
       $location.search(params);
     };
     $scope.deleteRecord = function (md) {
-      return gnMetadataActions.deleteMd(md).then(function (data) {
+      return gnMetadataActions.deleteMd(md).then(function () {
         gnAlertService.addAlert({
           msg: $translate.instant('metadataRemoved', {
             title: md.title || md.defaultTitle

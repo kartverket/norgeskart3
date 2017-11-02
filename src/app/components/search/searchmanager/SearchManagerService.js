@@ -176,11 +176,11 @@
       var search = function(url, error) {
         var defer = $q.defer();
         $http.get(url).
-            success(function(data, status) {
+            success(function(data) {
               defer.resolve(format(data));
             }).
-            error(function(data, status) {
-              defer.reject(error);
+            error(function(data) {
+              defer.reject(data);
             });
         return defer.promise;
       };

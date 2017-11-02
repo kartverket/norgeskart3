@@ -131,18 +131,18 @@
      *    base: 'base'}}}
      */
     this.encoders = {
-      'layers': {
-        'Layer': function(layer) {
+      layers: {
+        Layer: function(layer) {
           var enc = {
             layer: layer.bodId,
             opacity: layer.getOpacity()
           };
           return enc;
         },
-        'Group': function(layer, proj) {
+        Group: function(layer, proj) {
           var encs = [];
           var subLayers = layer.getLayers();
-          subLayers.forEach(function(subLayer, idx, arr) {
+          subLayers.forEach(function(subLayer) {
             if (subLayer.visible) {
               var enc = self.encoders.
                   layers['Layer'].call(this, layer);
@@ -155,13 +155,12 @@
           });
           return encs;
         },
-        'Vector': function(layer, features) {
+        Vector: function(layer, features) {
           var enc = self.encoders.
               layers['Layer'].call(this, layer);
           var format = new ol.format.GeoJSON();
           var encStyles = {};
           var encFeatures = [];
-          var stylesDict = {};
           var styleId = 0;
 
           angular.forEach(features, function(feature) {
@@ -222,7 +221,7 @@
           });
           return enc;
         },
-        'WMS': function(layer, config) {
+        WMS: function(layer, config) {
           var enc = self.encoders.
               layers['Layer'].call(this, layer);
           var params = layer.getSource().getParams();
@@ -241,16 +240,16 @@
             legend: layer.get('legend'),
             format: 'image/' + (config.format || 'png'),
             customParams: {
-              'EXCEPTIONS': 'XML',
-              'TRANSPARENT': 'true',
-              'CRS': 'EPSG:3857',
-              'TIME': params.TIME
+              EXCEPTIONS: 'XML',
+              TRANSPARENT: 'true',
+              CRS: 'EPSG:3857',
+              TIME: params.TIME
             },
             singleTile: config.singleTile || false
           });
           return enc;
         },
-        'OSM': function(layer, config) {
+        OSM: function(layer) {
           var enc = self.encoders.
               layers['Layer'].call(this, layer);
           angular.extend(enc, {
@@ -268,7 +267,7 @@
           });
           return enc;
         },
-        'Bing': function(layer, config) {
+        Bing: function(layer) {
           var enc = self.encoders.
               layers['Layer'].call(this, layer);
           angular.extend(enc, {
@@ -286,7 +285,7 @@
           });
           return enc;
         },
-        'WMTS': function(layer, config) {
+        WMTS: function(layer) {
           // sextant specific
           var enc = self.encoders.layers['Layer'].
               call(this, layer);
@@ -322,8 +321,8 @@
           return enc;
         }
       },
-      'legends' : {
-        'base': function(layer, config) {
+      legends : {
+        base: function(layer) {
           if (!layer.get('legend')) {
             return;
           }
@@ -410,6 +409,7 @@
       var stroke = style.getStroke();
       var textStyle = style.getText();
       var imageStyle = style.getImage();
+      var color;
 
       if (imageStyle && type === 'Point') {
         var size = imageStyle.getSize();
@@ -435,7 +435,7 @@
       }
 
       if (fill) {
-        var color = ol.color.asArray(fill.getColor());
+        color = ol.color.asArray(fill.getColor());
         literal.fillColor = toHexa(color);
         literal.fillOpacity = color[3];
       } else if (!literal.fillOpacity) {
@@ -443,7 +443,7 @@
       }
 
       if (stroke) {
-        var color = ol.color.asArray(stroke.getColor());
+        color = ol.color.asArray(stroke.getColor());
         literal.strokeWidth = stroke.getWidth();
         literal.strokeColor = toHexa(color);
         literal.strokeOpacity = color[3];

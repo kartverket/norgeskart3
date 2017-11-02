@@ -21,19 +21,19 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-(function() {
+(function () {
   goog.provide('ga_print_directive');
 
   // Source from https://github.com/geoadmin/mf-geoadmin3
-  var module = angular.module('ga_print_directive',
-      [
-       'pascalprecht.translate']);
+  var module = angular.module('ga_print_directive', [
+    'pascalprecht.translate'
+  ]);
 
   module.controller('GaPrintDirectiveController', [
     '$scope', '$http',
     '$window', '$translate', '$document',
-    function($scope, $http,
-             $window, $translate, $document) {
+    function ($scope, $http,
+      $window, $translate, $document) {
 
       var waitclass = 'ga-print-wait';
       var bodyEl = angular.element($document[0].body);
@@ -52,15 +52,15 @@
         widthMargin: 0
       };
       // Get print config
-      var updatePrintConfig = function() {
+      var updatePrintConfig = function () {
         var http = $http.get($scope.options.printConfigUrl);
-        http.success(function(data) {
+        http.success(function (data) {
           $scope.capabilities = data;
 
           // default values:
           $scope.layout = data.layouts[0];
           if ($scope.defaultLayout) {
-            angular.forEach(data.layouts, function(layout) {
+            angular.forEach(data.layouts, function (layout) {
               if (layout.name === $scope.defaultLayout) {
                 $scope.layout = layout;
               }
@@ -75,12 +75,12 @@
         return http;
       };
 
-      var activate = function() {
-        updatePrintConfig().then(function() {
+      var activate = function () {
+        updatePrintConfig().then(function () {
           deregister = [
             $scope.map.on('precompose', handlePreCompose),
             $scope.map.on('postcompose', handlePostCompose),
-            $scope.map.getView().on('propertychange', function(event) {
+            $scope.map.getView().on('propertychange', function () {
               updatePrintRectanglePixels($scope.scale);
             })
           ];
@@ -90,7 +90,7 @@
         });
       };
 
-      var deactivate = function() {
+      var deactivate = function () {
         if (deregister) {
           for (var i = 0; i < deregister.length; i++) {
             deregister[i].src.unByKey(deregister[i]);
@@ -99,7 +99,7 @@
         refreshComp();
       };
 
-      var refreshComp = function() {
+      var refreshComp = function () {
         updatePrintRectanglePixels($scope.scale);
         if ($scope.map) {
           $scope.map.render();
@@ -107,20 +107,22 @@
       };
 
       // Compose events
-      var handlePreCompose = function(evt) {
+      var handlePreCompose = function (evt) {
         var ctx = evt.context;
         ctx.save();
       };
 
-      var handlePostCompose = function(evt) {
+      var handlePostCompose = function (evt) {
         var ctx = evt.context;
         var size = $scope.map.getSize();
         var height = size[1] * ol.has.DEVICE_PIXEL_RATIO;
         var width = size[0] * ol.has.DEVICE_PIXEL_RATIO;
 
         var minx, miny, maxx, maxy;
-        minx = printRectangle[0], miny = printRectangle[1],
-        maxx = printRectangle[2], maxy = printRectangle[3];
+        minx = printRectangle[0];
+        miny = printRectangle[1];
+        maxx = printRectangle[2];
+        maxy = printRectangle[3];
 
         ctx.beginPath();
         // Outside polygon, must be clockwise
@@ -146,26 +148,26 @@
       };
 
       // Listeners
-      var registerEvents = function() {
+      var registerEvents = function () {
         //      $scope.$on('gaLayersChange', onMoveEnd);
         //      $scope.map.on('change:size', onMoveEnd);
-        $scope.$watch('scale', function() {
+        $scope.$watch('scale', function () {
           updatePrintRectanglePixels($scope.scale);
           $scope.getConfig();
         });
-        $scope.$watch('layout', function() {
+        $scope.$watch('layout', function () {
           updatePrintRectanglePixels($scope.scale);
           $scope.getConfig();
         });
-        $scope.map.on('moveend', function() {
-          $scope.$apply(function() {
+        $scope.map.on('moveend', function () {
+          $scope.$apply(function () {
             $scope.getConfig();
           });
         });
       };
 
       // Encode ol.Layer to a basic js object
-      var encodeLayer = function(layer, proj) {
+      var encodeLayer = function (layer, proj) {
         var encLayer, encLegend;
         var ext = proj.getExtent();
         var resolution = $scope.map.getView().getResolution();
@@ -177,26 +179,26 @@
           var maxResolution = layerConfig.maxResolution || Infinity;
 
           if (resolution <= maxResolution &&
-              resolution >= minResolution) {
+            resolution >= minResolution) {
             if (src instanceof ol.source.WMTS) {
               encLayer = $scope.encoders.layers['WMTS'].call(this,
-                  layer, layerConfig);
+                layer, layerConfig);
             } else if (src instanceof ol.source.OSM) {
               encLayer = $scope.encoders.layers['OSM'].call(this,
-                  layer, layerConfig);
+                layer, layerConfig);
             } else if (src instanceof ol.source.ImageWMS ||
-                src instanceof ol.source.TileWMS) {
+              src instanceof ol.source.TileWMS) {
               encLayer = $scope.encoders.layers['WMS'].call(this,
-                  layer, layerConfig);
+                layer, layerConfig);
             } else if (layer instanceof ol.layer.Vector) {
               var features = [];
-              src.forEachFeatureInExtent(ext, function(feat) {
+              src.forEachFeatureInExtent(ext, function (feat) {
                 features.push(feat);
               });
 
               if (features && features.length > 0) {
                 encLayer =
-                    $scope.encoders.layers['Vector'].call(this,
+                  $scope.encoders.layers['Vector'].call(this,
                     layer, features);
               }
             }
@@ -205,11 +207,11 @@
 
         if ($scope.options.legend && layerConfig.hasLegend) {
           encLegend = $scope.encoders.legends['ga_urllegend'].call(this,
-              layer, layerConfig);
+            layer, layerConfig);
 
           if (encLegend.classes &&
-              encLegend.classes[0] &&
-              encLegend.classes[0].icon) {
+            encLegend.classes[0] &&
+            encLegend.classes[0].icon) {
             var legStr = encLegend.classes[0].icon;
             if (legStr.indexOf(pdfLegendString,
                 legStr.length - pdfLegendString.length) !== -1) {
@@ -218,13 +220,16 @@
             }
           }
         }
-        return {layer: encLayer, legend: encLegend};
+        return {
+          layer: encLayer,
+          legend: encLegend
+        };
       };
 
 
       // Create a ol.geom.Polygon from an ol.geom.Circle, comes from OL2
       // https://github.com/openlayers/openlayers/blob/master/lib/OpenLayers/Geometry/Polygon.js#L240
-      var circleToPolygon = function(circle, sides, rotation) {
+      var circleToPolygon = function (circle, sides, rotation) {
         var origin = circle.getCenter();
         var radius = circle.getRadius();
         sides = sides || 40;
@@ -239,12 +244,12 @@
           var y = origin[1] + (radius * Math.sin(rotatedAngle));
           points.push([x, y]);
         }
-        points.push(points[0]);// Close the polygon
+        points.push(points[0]); // Close the polygon
         return new ol.geom.Polygon([points]);
       };
 
       // Transform an ol.Color to an hexadecimal string
-      var toHexa = function(olColor) {
+      var toHexa = function (olColor) {
         var hex = '#';
         for (var i = 0; i < 3; i++) {
           var part = olColor[i].toString(16);
@@ -257,7 +262,7 @@
       };
 
       // Transform a ol.style.Style to a print literal object
-      var transformToPrintLiteral = function(feature, style) {
+      var transformToPrintLiteral = function (feature, style) {
         /**
          * ol.style.Style properties:
          *
@@ -315,6 +320,7 @@
         var stroke = style.getStroke();
         var textStyle = style.getText();
         var imageStyle = style.getImage();
+        var color;
 
         if (imageStyle) {
           var size = imageStyle.getSize();
@@ -339,7 +345,7 @@
         }
 
         if (fill) {
-          var color = ol.color.asArray(fill.getColor());
+          color = ol.color.asArray(fill.getColor());
           literal.fillColor = toHexa(color);
           literal.fillOpacity = color[3];
         } else {
@@ -347,7 +353,7 @@
         }
 
         if (stroke) {
-          var color = ol.color.asArray(stroke.getColor());
+          color = ol.color.asArray(stroke.getColor());
           literal.strokeWidth = stroke.getWidth();
           literal.strokeColor = toHexa(color);
           literal.strokeOpacity = color[3];
@@ -383,21 +389,21 @@
 
       // Encoders by type of layer
       $scope.encoders = {
-        'layers': {
-          'Layer': function(layer) {
+        layers: {
+          Layer: function (layer) {
             var enc = {
               layer: layer.bodId,
               opacity: layer.getOpacity()
             };
             return enc;
           },
-          'Group': function(layer, proj) {
+          Group: function (layer, proj) {
             var encs = [];
             var subLayers = layer.getLayers();
-            subLayers.forEach(function(subLayer, idx, arr) {
+            subLayers.forEach(function (subLayer, idx, arr) {
               if (subLayer.visible) {
                 var enc = $scope.encoders.
-                    layers['Layer'].call(this, layer);
+                layers['Layer'].call(this, layer);
                 var layerEnc = encodeLayer(subLayer, proj);
                 if (layerEnc && layerEnc.layer) {
                   $.extend(enc, layerEnc);
@@ -407,22 +413,22 @@
             });
             return encs;
           },
-          'Vector': function(layer, features) {
+          Vector: function (layer, features) {
             var enc = $scope.encoders.
-                layers['Layer'].call(this, layer);
+            layers['Layer'].call(this, layer);
             var format = new ol.format.GeoJSON();
             var encStyles = {};
             var encFeatures = [];
             var stylesDict = {};
             var styleId = 0;
 
-            angular.forEach(features, function(feature) {
+            angular.forEach(features, function (feature) {
               var encStyle = {
                 id: styleId
               };
               var styles = (layer.getStyleFunction()) ?
-                  layer.getStyleFunction()(feature) :
-                  ol.feature.defaultStyleFunction(feature);
+                layer.getStyleFunction()(feature) :
+                ol.feature.defaultStyleFunction(feature);
 
 
               var geometry = feature.getGeometry();
@@ -465,56 +471,56 @@
             });
             return enc;
           },
-          'WMS': function(layer, config) {
+          WMS: function (layer, config) {
             var enc = $scope.encoders.
-                layers['Layer'].call(this, layer);
+            layers['Layer'].call(this, layer);
             var params = layer.getSource().getParams();
             var layers = params.LAYERS.split(',') || [];
             var styles = (params.STYLES !== undefined) ?
-                params.STYLES.split(',') :
-                new Array(layers.length).join(',').split(',');
+              params.STYLES.split(',') :
+              new Array(layers.length).join(',').split(',');
 
             angular.extend(enc, {
               type: 'WMS',
               baseURL: config.wmsUrl ||
-                  layer.url ||
-                  layer.getSource().getParams().URL,
+                layer.url ||
+                layer.getSource().getParams().URL,
               layers: layers,
               styles: styles,
               format: 'image/' + (config.format || 'png'),
               customParams: {
-                'EXCEPTIONS': 'XML',
-                'TRANSPARENT': 'true',
-                'CRS': 'EPSG:4326', // FIXME
-                'TIME': params.TIME
+                EXCEPTIONS: 'XML',
+                TRANSPARENT: 'true',
+                CRS: 'EPSG:4326', // FIXME
+                TIME: params.TIME
               },
               singleTile: config.singleTile || true
             });
             return enc;
 
           },
-          'OSM': function(layer, config) {
+          OSM: function (layer, config) {
             var enc = $scope.encoders.
-                layers['Layer'].call(this, layer);
+            layers['Layer'].call(this, layer);
             angular.extend(enc, {
               type: 'OSM',
               baseURL: 'http://a.tile.openstreetmap.org/',
               extension: 'png',
               // Hack to return an extent for the base
               // layer in case of undefined
-              maxExtent: layer.getExtent() ||
-                  [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
+              maxExtent: layer.getExtent() || [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
               resolutions: layer.getSource().tileGrid.getResolutions(),
               tileSize: [
                 layer.getSource().tileGrid.getTileSize(),
-                layer.getSource().tileGrid.getTileSize()]
+                layer.getSource().tileGrid.getTileSize()
+              ]
             });
             return enc;
 
           },
-          'WMTS': function(layer, config) {
+          WMTS: function (layer, config) {
             var enc = $scope.encoders.layers['Layer'].
-                call(this, layer);
+            call(this, layer);
             var source = layer.getSource();
             var tileGrid = source.getTileGrid();
             angular.extend(enc, {
@@ -531,15 +537,17 @@
               formatSuffix: config.format || 'jpeg',
               style: 'default',
               dimensions: ['TIME'],
-              params: {'TIME': source.getDimensions().Time},
+              params: {
+                TIME: source.getDimensions().Time
+              },
               matrixSet: '21781' // FIXME
             });
 
             return enc;
           }
         },
-        'legends' : {
-          'ga_urllegend': function(layer, config) {
+        legends: {
+          ga_urllegend: function (layer, config) {
             var format = '.png';
             if ($scope.options.pdfLegendList.indexOf(layer.bodId) !== -1) {
               format = pdfLegendString;
@@ -548,11 +556,11 @@
             enc.classes.push({
               name: '',
               icon: $scope.options.legendUrl +
-                  layer.bodId + '_' + $translate.use() + format
+                layer.bodId + '_' + $translate.use() + format
             });
             return enc;
           },
-          'base': function(config) {
+          base: function (config) {
             return {
               name: config.label,
               classes: []
@@ -561,11 +569,11 @@
         }
       };
 
-      var getNearestScale = function(target, scales) {
+      var getNearestScale = function (target, scales) {
         var nearest = null;
-        angular.forEach(scales, function(scale) {
+        angular.forEach(scales, function (scale) {
           if (nearest === null ||
-              Math.abs(scale - target) < Math.abs(nearest - target)) {
+            Math.abs(scale - target) < Math.abs(nearest - target)) {
             nearest = scale;
           }
         });
@@ -573,7 +581,7 @@
       };
 
 
-      $scope.getConfig = function() {
+      $scope.getConfig = function () {
         // http://mapfish.org/doc/print/protocol.html#print-pdf
         bodyEl.addClass(waitclass);
         var view = $scope.map.getView();
@@ -587,17 +595,17 @@
         var layers = this.map.getLayers();
         pdfLegendsToDownload = [];
 
-        angular.forEach(layers, function(layer) {
+        angular.forEach(layers, function (layer) {
           layer.visible = true; // FIXME: was not set by default
           if (layer.visible) {
             var attribution = layer.attribution;
             if (attribution !== undefined &&
-                attributions.indexOf(attribution) === -1) {
+              attributions.indexOf(attribution) === -1) {
               attributions.push(attribution);
             }
             if (layer instanceof ol.layer.Group) {
               var encs = $scope.encoders.layers['Group'].call(this,
-                  layer, proj);
+                layer, proj);
               encLayers = encLayers.concat(encs);
             } else {
               var enc = encodeLayer(layer, proj);
@@ -615,35 +623,35 @@
         var overlays = $scope.map.getOverlays();
         var resolution = $scope.map.getView().getResolution();
 
-        overlays.forEach(function(overlay) {
+        overlays.forEach(function (overlay) {
           var center = overlay.getPosition();
           var offset = 5 * resolution;
           if (center) {
             var cross = {
-              'type': 'Vector',
-              'styles': {
-                '1': {
-                  'externalGraphic': $scope.options.crossUrl,
-                  'graphicWidth': 16,
-                  'graphicHeight': 16
+              type: 'Vector',
+              styles: {
+                1: {
+                  externalGraphic: $scope.options.crossUrl,
+                  graphicWidth: 16,
+                  graphicHeight: 16
                 }
               },
-              'styleProperty': '_gx_style',
-              'geoJson': {
-                'type': 'FeatureCollection',
-                'features': [{
-                  'type': 'Feature',
-                  'properties': {
-                    '_gx_style': 1
+              styleProperty: '_gx_style',
+              geoJson: {
+                type: 'FeatureCollection',
+                features: [{
+                  type: 'Feature',
+                  properties: {
+                    _gx_style: 1
                   },
-                  'geometry': {
-                    'type': 'Point',
-                    'coordinates': [center[0], center[1], 0]
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [center[0], center[1], 0]
                   }
                 }]
               },
-              'name': 'drawing',
-              'opacity': 1
+              name: 'drawing',
+              opacity: 1
             };
             encLayers.push(cross);
           }
@@ -651,7 +659,7 @@
 
         // scale = resolution * inches per map unit (m) * dpi
         var scale = parseInt(view.getResolution() * UNITS_RATIO * DPI2);
-        var scales = this.scales.map(function(scale) {
+        var scales = this.scales.map(function (scale) {
           return parseInt(scale.value);
         });
 
@@ -679,7 +687,7 @@
         return $scope.jsonSpec;
       };
 
-      var getPrintRectangleCenterCoord = function() {
+      var getPrintRectangleCenterCoord = function () {
         // Framebuffer size!!
         var bottomLeft = printRectangle.slice(0, 2);
         var width = printRectangle[2] - printRectangle[0];
@@ -687,18 +695,19 @@
         var center = [bottomLeft[0] + width / 2, bottomLeft[1] + height / 2];
         // convert back to map display size
         var mapPixelCenter = [center[0] / ol.has.DEVICE_PIXEL_RATIO,
-          center[1] / ol.has.DEVICE_PIXEL_RATIO];
+          center[1] / ol.has.DEVICE_PIXEL_RATIO
+        ];
         return $scope.map.getCoordinateFromPixel(mapPixelCenter);
       };
 
-      var updatePrintRectanglePixels = function(scale) {
+      var updatePrintRectanglePixels = function (scale) {
         if ($scope.mode === 'thumbnailMaker') {
           printRectangle = calculatePageBoundsPixels(scale);
           $scope.map.render();
         }
       };
 
-      var getOptimalScale = function() {
+      var getOptimalScale = function () {
         var size = $scope.map.getSize();
         var resolution = $scope.map.getView().getResolution();
         var width = resolution * (size[0] - ($scope.options.widthMargin * 2));
@@ -713,26 +722,26 @@
         var nextBiggest = null;
         //The algo below assumes that scales are sorted from
         //biggest (1:500) to smallest (1:2500000)
-        angular.forEach($scope.scales, function(scale) {
+        angular.forEach($scope.scales, function (scale) {
           if (nextBiggest === null ||
-              testScale > scale.value) {
+            testScale > scale.value) {
             nextBiggest = scale;
           }
         });
         return nextBiggest;
       };
 
-      var calculatePageBoundsPixels = function(scale) {
+      var calculatePageBoundsPixels = function (scale) {
         var s = parseFloat(scale.value);
         var size = $scope.layout.map; // papersize in dot!
         var view = $scope.map.getView();
-        var center = view.getCenter();
         var resolution = view.getResolution();
         var w = size.width / DPI * MM_PER_INCHES / 1000.0 * s / resolution;
         var h = size.height / DPI * MM_PER_INCHES / 1000.0 * s / resolution;
         var mapSize = $scope.map.getSize();
-        var center = [mapSize[0] * ol.has.DEVICE_PIXEL_RATIO / 2 ,
-          mapSize[1] * ol.has.DEVICE_PIXEL_RATIO / 2];
+        var center = [mapSize[0] * ol.has.DEVICE_PIXEL_RATIO / 2,
+          mapSize[1] * ol.has.DEVICE_PIXEL_RATIO / 2
+        ];
 
         var minx, miny, maxx, maxy;
 
@@ -743,26 +752,26 @@
         return [minx, miny, maxx, maxy];
       };
 
-      $scope.$watch('mode', function(newVal, oldVal) {
+      $scope.$watch('mode', function (newVal, oldVal) {
         if (newVal === 'thumbnailMaker') {
           activate();
         } else {
           deactivate();
         }
       });
-    }]);
+    }
+  ]);
 
-  module.directive('gaPrint',
-      ['gnCurrentEdit', function(gnCurrentEdit) {
-        return {
-          restrict: 'A',
-          templateUrl: '../../catalog/components/common/map/' +
-           'print/partials/print.html',
-          controller: 'GaPrintDirectiveController',
-          link: function(scope, elt, attrs, controller) {
-            scope.defaultLayout = attrs.layout;
-            scope.gnCurrentEdit = gnCurrentEdit;
-          }
-        };
-      }]);
+  module.directive('gaPrint', ['gnCurrentEdit', function (gnCurrentEdit) {
+    return {
+      restrict: 'A',
+      templateUrl: '../../catalog/components/common/map/' +
+        'print/partials/print.html',
+      controller: 'GaPrintDirectiveController',
+      link: function (scope, elt, attrs, controller) {
+        scope.defaultLayout = attrs.layout;
+        scope.gnCurrentEdit = gnCurrentEdit;
+      }
+    };
+  }]);
 })();

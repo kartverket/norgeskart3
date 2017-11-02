@@ -176,7 +176,7 @@
 
       return {
         restrict: 'A',
-        link: function(scope, element, attrs) {
+        link: function(scope, element) {
 
           scope.change = function() {
             var method = element[0].checked ? 'select' : 'unselect';

@@ -21,13 +21,13 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-(function() {
+(function () {
   goog.provide('gn_printmap_directive');
 
   var module = angular.module('gn_printmap_directive', []);
 
-  var mapPrintController = function($scope, gnPrint, $http,
-                                    $translate, $window) {
+  var mapPrintController = function ($scope, gnPrint, $http,
+    $translate, $window) {
 
     var printRectangle;
     var deregister;
@@ -43,14 +43,14 @@
      * Return print configuration from Mapfishprint service
      * @return {*} promise
      */
-    var updatePrintConfig = function() {
+    var updatePrintConfig = function () {
       var http = $http.get(options.printConfigUrl);
-      http.success(function(data) {
+      http.success(function (data) {
 
         // default values:
         var layout = data.layouts[0];
         if ($scope.defaultLayout) {
-          angular.forEach(data.layouts, function(l) {
+          angular.forEach(data.layouts, function (l) {
             if (l.name === $scope.defaultLayout) {
               layout = l;
             }
@@ -70,12 +70,12 @@
       return http;
     };
 
-    this.activate = function() {
-      var initMapEvents = function() {
+    this.activate = function () {
+      var initMapEvents = function () {
         deregister = [
           $scope.map.on('precompose', handlePreCompose),
           $scope.map.on('postcompose', handlePostCompose),
-          $scope.map.getView().on('change:resolution', function(event) {
+          $scope.map.getView().on('change:resolution', function () {
             if ($scope.auto) {
               fitRectangleToView();
               $scope.$apply();
@@ -83,7 +83,7 @@
               updatePrintRectanglePixels($scope.config.scale);
             }
           }),
-          $scope.$watch('auto', function(v) {
+          $scope.$watch('auto', function (v) {
             if (v) {
               fitRectangleToView();
             }
@@ -98,7 +98,7 @@
       }
     };
 
-    this.deactivate = function() {
+    this.deactivate = function () {
       if (deregister) {
         for (var i = 0; i < deregister.length; i++) {
           if (angular.isFunction(deregister[i])) {
@@ -118,7 +118,7 @@
      * Compose the events
      * @param {Object} evt map.precompose event
      */
-    var handlePreCompose = function(evt) {
+    var handlePreCompose = function (evt) {
       var ctx = evt.context;
       ctx.save();
     };
@@ -127,15 +127,17 @@
      * Compose the grey rectangle for print extent
      * @param {Object} evt map.postcompose event
      */
-    var handlePostCompose = function(evt) {
+    var handlePostCompose = function (evt) {
       var ctx = evt.context;
       var size = $scope.map.getSize();
       var height = size[1] * ol.has.DEVICE_PIXEL_RATIO;
       var width = size[0] * ol.has.DEVICE_PIXEL_RATIO;
 
       var minx, miny, maxx, maxy;
-      minx = printRectangle[0], miny = printRectangle[1],
-      maxx = printRectangle[2], maxy = printRectangle[3];
+      minx = printRectangle[0];
+      miny = printRectangle[1];
+      maxx = printRectangle[2];
+      maxy = printRectangle[3];
 
       ctx.beginPath();
       // Outside polygon, must be clockwise
@@ -160,37 +162,33 @@
       ctx.restore();
     };
 
-    var updatePrintRectanglePixels = function(scale) {
+    var updatePrintRectanglePixels = function (scale) {
       printRectangle = gnPrint.calculatePageBoundsPixels($scope.map,
-          $scope.config.layout, scale);
+        $scope.config.layout, scale);
       $scope.map.render();
     };
 
-    var refreshComp = function() {
+    var refreshComp = function () {
       updatePrintRectanglePixels($scope.config.scale);
       $scope.map.render();
     };
     $scope.refreshComp = refreshComp;
 
-    var fitRectangleToView = function() {
+    var fitRectangleToView = function () {
       $scope.config.scale = gnPrint.getOptimalScale($scope.map,
-          $scope.config.scales,
-          $scope.config.layout);
+        $scope.config.scales,
+        $scope.config.layout);
 
       refreshComp();
     };
 
-    $scope.downloadUrl = function(url) {
-      if (8 === 9) {
-        $window.open(url);
-      } else {
-        $window.location = url;
-      }
+    $scope.downloadUrl = function (url) {
+      $window.location = url; // $window.open(url);
     };
 
     $scope.printing = false;
 
-    $scope.submit = function() {
+    $scope.submit = function () {
       if (!$scope.printActive) {
         return;
       }
@@ -210,19 +208,19 @@
       var layers = $scope.map.getLayers();
       pdfLegendsToDownload = [];
 
-      var sortedZindexLayers = layers.getArray().sort(function(a, b) {
+      var sortedZindexLayers = layers.getArray().sort(function (a, b) {
         return a.getZIndex() > b.getZIndex();
       });
-      angular.forEach(sortedZindexLayers, function(layer) {
+      angular.forEach(sortedZindexLayers, function (layer) {
         if (layer.getVisible()) {
           var attribution = layer.attribution;
           if (attribution !== undefined &&
-              attributions.indexOf(attribution) === -1) {
+            attributions.indexOf(attribution) === -1) {
             attributions.push(attribution);
           }
           if (layer instanceof ol.layer.Group) {
             var encs = gnPrint.encoders.layers['Group'].call(this,
-                layer, proj);
+              layer, proj);
             encLayers = encLayers.concat(encs);
           } else {
             var enc = encodeLayer(layer, proj);
@@ -237,9 +235,6 @@
         }
       });
 
-      var scales = $scope.config.scales.map(function(scale) {
-        return parseInt(scale.value);
-      });
       var spec = {
         layout: $scope.config.layout.name,
         srs: proj.getCode(),
@@ -257,7 +252,7 @@
         pages: [
           angular.extend({
             center: gnPrint.getPrintRectangleCenterCoord(
-                $scope.map, printRectangle),
+              $scope.map, printRectangle),
             // scale has to be one of the advertise by the print server
             scale: $scope.config.scale.value,
             dataOwner: '© ' + attributions.join(),
@@ -266,8 +261,8 @@
         ]
       };
       var http = $http.post($scope.config.createURL + '?url=' +
-          encodeURIComponent('../../pdf'), spec);
-      http.success(function(data) {
+        encodeURIComponent('../../pdf'), spec);
+      http.success(function (data) {
         $scope.printing = false;
         $scope.downloadUrl(data.getURL);
         //After standard print, download the pdf Legends
@@ -276,13 +271,13 @@
           $window.open(pdfLegendsToDownload[i]);
         }
       });
-      http.error(function() {
+      http.error(function () {
         $scope.printing = false;
       });
     };
 
     // Encode ol.Layer to a basic js object
-    var encodeLayer = function(layer, proj) {
+    var encodeLayer = function (layer, proj) {
       var encLayer, encLegend;
       var ext = proj.getExtent();
       var resolution = $scope.map.getView().getResolution();
@@ -294,47 +289,50 @@
         var maxResolution = layerConfig.maxResolution || Infinity;
 
         if (resolution <= maxResolution &&
-            resolution >= minResolution) {
+          resolution >= minResolution) {
           if (src instanceof ol.source.WMTS) {
             encLayer = gnPrint.encoders.layers['WMTS'].call(this,
-                layer, layerConfig, $scope.map);
+              layer, layerConfig, $scope.map);
           } else if (src instanceof ol.source.OSM) {
             encLayer = gnPrint.encoders.layers['OSM'].call(this,
-                layer, layerConfig);
+              layer, layerConfig);
           } else if (src instanceof ol.source.BingMaps) {
             encLayer = gnPrint.encoders.layers['Bing'].call(this,
-                layer, layerConfig);
+              layer, layerConfig);
           } else if (src instanceof ol.source.ImageWMS ||
-              src instanceof ol.source.TileWMS) {
+            src instanceof ol.source.TileWMS) {
             encLayer = gnPrint.encoders.layers['WMS'].call(this,
-                layer, layerConfig, $scope.map);
+              layer, layerConfig, $scope.map);
           } else if (src instanceof ol.source.Vector ||
-              src instanceof ol.source.ImageVector) {
+            src instanceof ol.source.ImageVector) {
             if (src instanceof ol.source.ImageVector) {
               src = src.getSource();
             }
             var features = [];
-            src.forEachFeatureInExtent(ext, function(feat) {
+            src.forEachFeatureInExtent(ext, function (feat) {
               features.push(feat);
             });
 
             if (features && features.length > 0) {
               encLayer =
-                  gnPrint.encoders.layers['Vector'].call(this,
-                      layer, features);
+                gnPrint.encoders.layers['Vector'].call(this,
+                  layer, features);
             }
           }
         }
       }
 
       encLegend = gnPrint.encoders.legends['base'].call(
-          this, layer, layerConfig
-          );
+        this, layer, layerConfig
+      );
 
       if (encLegend && encLegend.classes[0] && !encLegend.classes[0].icon) {
         encLegend = undefined;
       }
-      return {layer: encLayer, legend: encLegend};
+      return {
+        layer: encLayer,
+        legend: encLegend
+      };
     };
   };
 
@@ -346,37 +344,36 @@
     '$window'
   ];
 
-  module.directive('gnMapprint',
-      ['gnCurrentEdit', function(gnCurrentEdit) {
-        return {
-          restrict: 'A',
-          require: 'gnMapprint',
-          templateUrl: '../../catalog/components/common/map/' +
-           'print/partials/printmap.html',
-          controller: mapPrintController,
-          scope: {
-            printActive: '=',
-            map: '='
-          },
-          link: function(scope, elt, attrs, ctrl) {
+  module.directive('gnMapprint', ['gnCurrentEdit', function (gnCurrentEdit) {
+    return {
+      restrict: 'A',
+      require: 'gnMapprint',
+      templateUrl: '../../catalog/components/common/map/' +
+        'print/partials/printmap.html',
+      controller: mapPrintController,
+      scope: {
+        printActive: '=',
+        map: '='
+      },
+      link: function (scope, elt, attrs, ctrl) {
 
-            scope.defaultLayout = attrs.layout;
-            scope.auto = true;
-            scope.activatedOnce = false;
+        scope.defaultLayout = attrs.layout;
+        scope.auto = true;
+        scope.activatedOnce = false;
 
-            // Deactivate only if it has been activated once first
-            scope.$watch('printActive', function(isActive, old) {
-              if (angular.isDefined(isActive) &&
-                  (scope.activatedOnce || isActive)) {
-                if (isActive) {
-                  ctrl.activate();
-                  scope.activatedOnce = true;
-                } else {
-                  ctrl.deactivate();
-                }
-              }
-            });
+        // Deactivate only if it has been activated once first
+        scope.$watch('printActive', function (isActive, old) {
+          if (angular.isDefined(isActive) &&
+            (scope.activatedOnce || isActive)) {
+            if (isActive) {
+              ctrl.activate();
+              scope.activatedOnce = true;
+            } else {
+              ctrl.deactivate();
+            }
           }
-        };
-      }]);
+        });
+      }
+    };
+  }]);
 })();

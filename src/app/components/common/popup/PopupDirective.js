@@ -35,7 +35,7 @@ module.directive('gnModal',
       },
       templateUrl: 'components/common/popup/partials/popup.html',
 
-      link: function (scope, element, attrs) {
+      link: function (scope) {
 
         // Get the popup options
         scope.options = scope.optionsFunc();

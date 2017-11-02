@@ -21,27 +21,25 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-  var METRIC_DECIMALS = 4;
-  var DEGREE_DECIMALS = 8;
+var METRIC_DECIMALS = 4;
+var DEGREE_DECIMALS = 8;
 
-  var getDigitNumber = function(proj) {
-    return proj === 'EPSG:4326' ? DEGREE_DECIMALS : METRIC_DECIMALS;
-  };
+var getDigitNumber = function (proj) {
+  return proj === 'EPSG:4326' ? DEGREE_DECIMALS : METRIC_DECIMALS;
+};
 
-  angular.module('gn_map_directive',
-    [])
+angular.module('gn_map_directive', [])
 
-    .directive(
-    'gnDrawBbox',
-      [
+  .directive(
+    'gnDrawBbox', [
       'gnMap',
       //'gnOwsContextService',
-      function(gnMap) {
+      function (gnMap) {
         return {
           restrict: 'A',
           replace: true,
           templateUrl: 'components/common/map/' +
-          'partials/drawbbox.html',
+            'partials/drawbbox.html',
           scope: {
             htopRef: '@',
             hbottomRef: '@',
@@ -57,84 +55,84 @@
             schema: '@',
             location: '@'
           },
-          link: function(scope, element, attrs) {
+          link: function (scope, element, attrs) {
             scope.drawing = false;
             var mapRef = scope.htopRef || scope.dcRef || '';
             scope.mapId = 'map-drawbbox-' +
-            mapRef.substring(1, mapRef.length);
+              mapRef.substring(1, mapRef.length);
 
             var extentTpl = {
               'iso19139': '<gmd:EX_Extent ' +
-              'xmlns:gmd="http://www.isotc211.org/2005/gmd" ' +
-              'xmlns:gco="http://www.isotc211.org/2005/gco">' +
-              '<gmd:geographicElement>' +
-              '<gmd:EX_GeographicBoundingBox>' +
-              '<gmd:westBoundLongitude><gco:Decimal>{{west}}</gco:Decimal>' +
-              '</gmd:westBoundLongitude>' +
-              '<gmd:eastBoundLongitude><gco:Decimal>{{east}}</gco:Decimal>' +
-              '</gmd:eastBoundLongitude>' +
-              '<gmd:southBoundLatitude><gco:Decimal>{{south}}</gco:Decimal>' +
-              '</gmd:southBoundLatitude>' +
-              '<gmd:northBoundLatitude><gco:Decimal>{{north}}</gco:Decimal>' +
-              '</gmd:northBoundLatitude>' +
-              '</gmd:EX_GeographicBoundingBox></gmd:geographicElement>' +
-              '</gmd:EX_Extent>',
+                'xmlns:gmd="http://www.isotc211.org/2005/gmd" ' +
+                'xmlns:gco="http://www.isotc211.org/2005/gco">' +
+                '<gmd:geographicElement>' +
+                '<gmd:EX_GeographicBoundingBox>' +
+                '<gmd:westBoundLongitude><gco:Decimal>{{west}}</gco:Decimal>' +
+                '</gmd:westBoundLongitude>' +
+                '<gmd:eastBoundLongitude><gco:Decimal>{{east}}</gco:Decimal>' +
+                '</gmd:eastBoundLongitude>' +
+                '<gmd:southBoundLatitude><gco:Decimal>{{south}}</gco:Decimal>' +
+                '</gmd:southBoundLatitude>' +
+                '<gmd:northBoundLatitude><gco:Decimal>{{north}}</gco:Decimal>' +
+                '</gmd:northBoundLatitude>' +
+                '</gmd:EX_GeographicBoundingBox></gmd:geographicElement>' +
+                '</gmd:EX_Extent>',
               'iso19115-3': '<gex:EX_Extent ' +
-              'xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0" ' +
-              'xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0">' +
-              '<gex:geographicElement>' +
-              '<gex:EX_GeographicBoundingBox>' +
-              '<gex:westBoundLongitude><gco:Decimal>{{west}}</gco:Decimal>' +
-              '</gex:westBoundLongitude>' +
-              '<gex:eastBoundLongitude><gco:Decimal>{{east}}</gco:Decimal>' +
-              '</gex:eastBoundLongitude>' +
-              '<gex:southBoundLatitude><gco:Decimal>{{south}}</gco:Decimal>' +
-              '</gex:southBoundLatitude>' +
-              '<gex:northBoundLatitude><gco:Decimal>{{north}}</gco:Decimal>' +
-              '</gex:northBoundLatitude>' +
-              '</gex:EX_GeographicBoundingBox></gex:geographicElement>' +
-              '</gex:EX_Extent>'
+                'xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0" ' +
+                'xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0">' +
+                '<gex:geographicElement>' +
+                '<gex:EX_GeographicBoundingBox>' +
+                '<gex:westBoundLongitude><gco:Decimal>{{west}}</gco:Decimal>' +
+                '</gex:westBoundLongitude>' +
+                '<gex:eastBoundLongitude><gco:Decimal>{{east}}</gco:Decimal>' +
+                '</gex:eastBoundLongitude>' +
+                '<gex:southBoundLatitude><gco:Decimal>{{south}}</gco:Decimal>' +
+                '</gex:southBoundLatitude>' +
+                '<gex:northBoundLatitude><gco:Decimal>{{north}}</gco:Decimal>' +
+                '</gex:northBoundLatitude>' +
+                '</gex:EX_GeographicBoundingBox></gex:geographicElement>' +
+                '</gex:EX_Extent>'
             };
-            var xmlExtentFn = function(coords, location) {
+            var xmlExtentFn = function (coords) {
               if (angular.isArray(coords) &&
-              coords.length === 4 &&
-              !isNaN(coords[0]) &&
-              !isNaN(coords[1]) &&
-              !isNaN(coords[2]) &&
-              !isNaN(coords[3]) &&
-              angular.isNumber(coords[0]) &&
-              angular.isNumber(coords[1]) &&
-              angular.isNumber(coords[2]) &&
-              angular.isNumber(coords[3])) {
+                coords.length === 4 &&
+                !isNaN(coords[0]) &&
+                !isNaN(coords[1]) &&
+                !isNaN(coords[2]) &&
+                !isNaN(coords[3]) &&
+                angular.isNumber(coords[0]) &&
+                angular.isNumber(coords[1]) &&
+                angular.isNumber(coords[2]) &&
+                angular.isNumber(coords[3])) {
                 scope.extentXml = extentTpl[scope.schema || 'iso19139']
-                .replace('{{west}}', coords[0])
-                .replace('{{south}}', coords[1])
-                .replace('{{east}}', coords[2])
-                .replace('{{north}}', coords[3]);
+                  .replace('{{west}}', coords[0])
+                  .replace('{{south}}', coords[1])
+                  .replace('{{east}}', coords[2])
+                  .replace('{{north}}', coords[3]);
               }
             };
 
             /**
-              * set dublin-core coverage output
-              */
-            var setDcOutput = function() {
+             * set dublin-core coverage output
+             */
+            var setDcOutput = function () {
               if (scope.dcRef) {
                 scope.dcExtent = gnMap.getDcExtent(
-                scope.extent.md,
-                scope.location);
+                  scope.extent.md,
+                  scope.location);
               }
               xmlExtentFn(scope.extent.md, scope.location);
             };
 
             /**
-              * Different projections used in the directive:
-              * - md : the proj system in the metadata. It is defined as
-              *   4326 by iso19139 schema
-              * - map : the projection of the ol3 map, this projection
-              *   is set in GN settings
-              * - form : projection used for the form, it is chosen
-              *   from the combo list.
-              */
+             * Different projections used in the directive:
+             * - md : the proj system in the metadata. It is defined as
+             *   4326 by iso19139 schema
+             * - map : the projection of the ol3 map, this projection
+             *   is set in GN settings
+             * - form : projection used for the form, it is chosen
+             *   from the combo list.
+             */
             scope.projs = {
               list: gnMap.getMapConfig().projectionList,
               md: 'EPSG:4326',
@@ -150,21 +148,21 @@
             };
 
             if (attrs.hleft !== '' && attrs.hbottom !== '' &&
-                attrs.hright !== '' && attrs.htop !== '') {
+              attrs.hright !== '' && attrs.htop !== '') {
               scope.extent.md = [
                 parseFloat(attrs.hleft), parseFloat(attrs.hbottom),
                 parseFloat(attrs.hright), parseFloat(attrs.htop)
               ];
             }
 
-            var reprojExtent = function(from, to) {
+            var reprojExtent = function (from, to) {
               var extent = gnMap.reprojExtent(
-                  scope.extent[from],
-                  scope.projs[from], scope.projs[to]
+                scope.extent[from],
+                scope.projs[from], scope.projs[to]
               );
               if (extent && extent.map) {
                 var decimals = getDigitNumber(scope.projs.form);
-                scope.extent[to] = extent.map(function(coord) {
+                scope.extent[to] = extent.map(function (coord) {
                   return coord.toFixed(decimals) / 1;
                 });
               }
@@ -175,14 +173,14 @@
             reprojExtent('md', 'form');
             setDcOutput();
 
-            scope.$watch('projs.form', function(newValue, oldValue) {
+            scope.$watch('projs.form', function (newValue, oldValue) {
               var extent = gnMap.reprojExtent(
-                  scope.extent.form, oldValue, newValue
+                scope.extent.form, oldValue, newValue
               );
               if (extent && extent.map) {
                 var decimals = getDigitNumber(scope.projs.form);
 
-                scope.extent.form = extent.map(function(coord) {
+                scope.extent.form = extent.map(function (coord) {
                   return coord.toFixed(decimals) / 1;
                 });
               }
@@ -213,7 +211,7 @@
               source: source,
               style: boxStyle
             });
-            bboxLayer.setZIndex(100)
+            bboxLayer.setZIndex(100);
 
             var map = new ol.Map({
               layers: [
@@ -231,13 +229,14 @@
 
             //Uses configuration from database
             if (gnMap.getMapConfig().context) {
+              console.warn("configuration from database should be used");
               //gnOwsContextService.loadContextFromUrl(gnMap.getMapConfig().context, map);
             }
 
             // apply background layer from settings
             var bgLayer = gnMap.getMapConfig().mapBackgroundLayer;
             if (bgLayer) {
-              map.getLayers().removeAt(0)
+              map.getLayers().removeAt(0);
               gnMap.createLayerForType(bgLayer.type, {
                 name: bgLayer.layer,
                 url: bgLayer.url
@@ -246,20 +245,20 @@
 
             var dragbox = new ol.interaction.DragBox({
               style: boxStyle,
-              condition: function() {
+              condition: function () {
                 return scope.drawing;
               }
             });
 
-            dragbox.on('boxstart', function(mapBrowserEvent) {
+            dragbox.on('boxstart', function () {
               feature.setGeometry(null);
             });
 
-            dragbox.on('boxend', function(mapBrowserEvent) {
+            dragbox.on('boxend', function () {
               scope.extent.map = dragbox.getGeometry().getExtent();
               feature.setGeometry(dragbox.getGeometry());
 
-              scope.$apply(function() {
+              scope.$apply(function () {
                 reprojExtent('map', 'form');
                 reprojExtent('map', 'md');
                 setDcOutput();
@@ -269,9 +268,9 @@
             map.addInteraction(dragbox);
 
             /**
-            * Draw the map extent as a bbox onto the map.
-            */
-            var drawBbox = function() {
+             * Draw the map extent as a bbox onto the map.
+             */
+            var drawBbox = function () {
               var coordinates, geom;
 
               // no geometry
@@ -281,12 +280,12 @@
 
               if (gnMap.isPoint(scope.extent.map)) {
                 coordinates = [scope.extent.map[0],
-                  scope.extent.map[1]];
+                  scope.extent.map[1]
+                ];
                 geom = new ol.geom.Point(coordinates);
-              }
-              else {
+              } else {
                 coordinates = gnMap.getPolygonFromExtent(
-                    scope.extent.map);
+                  scope.extent.map);
                 geom = new ol.geom.Polygon(coordinates);
               }
               feature.setGeometry(geom);
@@ -295,12 +294,12 @@
             };
 
             /**
-            * When form is loaded
-            * - set map div
-            * - draw the feature with MD initial coordinates
-            * - fit map extent
-            */
-            scope.$watch('gnCurrentEdit.version', function(newValue) {
+             * When form is loaded
+             * - set map div
+             * - draw the feature with MD initial coordinates
+             * - fit map extent
+             */
+            scope.$watch('gnCurrentEdit.version', function () {
               map.setTarget(scope.mapId);
               drawBbox();
 
@@ -308,7 +307,7 @@
               var mapExtent = gnMap.getMapConfig().mapExtent;
               if (mapExtent && ol.extent.getWidth(mapExtent) &&
                 ol.extent.getHeight(mapExtent)) {
-                  map.getView().fit(mapExtent, map.getSize());
+                map.getView().fit(mapExtent, map.getSize());
               }
 
               if (gnMap.isValidExtent(scope.extent.map)) {
@@ -317,18 +316,18 @@
             });
 
             /**
-            * Switch mode (panning or drawing)
-            */
-            scope.drawMap = function() {
+             * Switch mode (panning or drawing)
+             */
+            scope.drawMap = function () {
               scope.drawing = !scope.drawing;
             };
 
             /**
-            * Called on form input change.
-            * Set map and md extent from form reprojection, and draw
-            * the bbox from the map extent.
-            */
-            scope.updateBbox = function() {
+             * Called on form input change.
+             * Set map and md extent from form reprojection, and draw
+             * the bbox from the map extent.
+             */
+            scope.updateBbox = function () {
 
               reprojExtent('form', 'map');
               reprojExtent('form', 'md');
@@ -338,18 +337,19 @@
             };
 
             /**
-            * Callback sent to gn-country-picker directive.
-            * Called on region selection from typeahead.
-            * Zoom to extent.
-            */
-            scope.onRegionSelect = function(region) {
+             * Callback sent to gn-country-picker directive.
+             * Called on region selection from typeahead.
+             * Zoom to extent.
+             */
+            scope.onRegionSelect = function (region) {
               // Manage regions service and geonames
               var bbox = region.bbox || region;
-              scope.$apply(function() {
+              scope.$apply(function () {
                 scope.extent.md = [parseFloat(bbox.west),
                   parseFloat(bbox.south),
                   parseFloat(bbox.east),
-                  parseFloat(bbox.north)];
+                  parseFloat(bbox.north)
+                ];
                 scope.location = region.name;
 
                 if (attrs.identifierRef !== undefined) {
@@ -367,9 +367,10 @@
               });
             };
 
-            scope.resetRegion = function() {
+            scope.resetRegion = function () {
               element.find('.twitter-typeahead').find('input').val('');
             };
           }
         };
-      }]);
+      }
+    ]);

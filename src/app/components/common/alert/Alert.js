@@ -50,7 +50,7 @@ module.directive('gnAlertManager', [
       restrict: 'A',
       templateUrl: 'components/common/alert/' +
         'partials/alert.html',
-      link: function (scope, element, attrs) {
+      link: function (scope) {
         scope.alerts = gnAlertValue;
       }
     };

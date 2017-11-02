@@ -211,18 +211,16 @@ module.provider('gnOwsCapabilities', function () {
             });
 
             //send request and decode result
-            if (true) {
-              $http.get(url, {
-                  cache: true
-                })
-                .then(function (result) {
-                  try {
-                    defer.resolve(displayFileContent(result.data));
-                  } catch (e) {
-                    defer.reject('capabilitiesParseError');
-                  }
-                });
-            }
+            $http.get(url, {
+                cache: true
+              })
+              .then(function (result) {
+                try {
+                  defer.resolve(displayFileContent(result.data));
+                } catch (e) {
+                  defer.reject('capabilitiesParseError');
+                }
+              });
           } else {
             defer.reject();
           }
@@ -304,7 +302,7 @@ module.provider('gnOwsCapabilities', function () {
             });
 
           if (bboxProp) {
-            extent =  ol.proj.transformExtent(bboxProp, 'EPSG:4326', proj);
+            extent = ol.proj.transformExtent(bboxProp, 'EPSG:4326', proj);
             //extent = ol.extent.containsExtent(proj.getWorldExtent(), bboxProp) ? ol.proj.transformExtent(bboxProp, 'EPSG:4326', proj) : proj.getExtent();
           } else if (angular.isArray(layer.BoundingBox)) {
             for (var i = 0; i < layer.BoundingBox.length; i++) {
