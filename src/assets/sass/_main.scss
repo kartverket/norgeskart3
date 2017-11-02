@@ -1,15 +1,9 @@
-@font-face {
-  font-family: MetaUnitSlab;
-  src: url("../assets/fonts/MetaWeb-Book.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
 $shadow-color: rgba(0, 0, 0, 0.24);
 $shadow: $shadow-color 1px 1px 2px 1px;
 $backgroundColor: white;
 
 // Main colors
-$color-important: #7da1c4;
+$color-important: #fe5000;
 $color-focus: #5e7c99;
 $color-standard: #eaeaea;
 $color-inactive: #d2d2d2;
@@ -30,8 +24,8 @@ $btn-border: 1px solid;
 $btn-border-radius: 4px;
 
 // Font families
-$font-special-normal: 'MetaUnitSlab', 'Roboto Slab', arial, helvetica, sans-serif;
-$font-default: 'MetaUnitSlab', 'Open sans', Arial, Helvetica, sans-serif;
+$font-special-normal: 'Raleway', Arial, sans-serif;
+$font-default: 'Open Sans', Arial, sans-serif;
 
 // Font sizes
 $font-xsmall: 14px;
@@ -642,7 +636,7 @@ html{
 }
 
 input{
-  font-family: MetaUnitSlab;
+  font-family: $font-default;
 }
 
 input::-ms-clear {
@@ -1031,7 +1025,7 @@ input::-ms-clear {
   height: 26px;
   padding: 0 0;
   font-size: 15px;
-  font-family: MetaUnitSlab;
+  font-family: $font-default;
   text-align: left;
 }
 
@@ -1137,29 +1131,29 @@ input::-ms-clear {
 }
 
 .norgeskart-logo {
+  height: 66px;
   margin-left: 10px;
   margin-right: 10px;
   padding: 12px 45px 15px 5px;
-
-  h1 {
-    font-size: 22px;
-    margin: 0;
-
-    a {
-      color: grey !important;
-    }
-  }
-
+  position: relative;
   button {
     display: block;
     height: 36px;
-    position: relative;
-    right: -30px;
+    opacity: 1.0;
+    position: absolute;
+    right: 15px;
+    top: 15px;
     width: 30px;
-
     .glyphicon {
       padding-left: 0;
     }
+  }
+  a {
+    display: block;
+    height: 36px;
+  }
+  img {
+    height: 100%;
   }
 }
 
