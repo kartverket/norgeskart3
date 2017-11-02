@@ -1151,8 +1151,10 @@ input::-ms-clear {
   }
 
   button {
+    color: $color-inactive;
     display: block;
     height: 36px;
+    opacity: 1.0;
     position: relative;
     right: -30px;
     width: 30px;
