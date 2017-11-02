@@ -85,7 +85,6 @@ angular.module('mainApp')
           //addBboxLayer(url);
         }
         if (obj.wms !== undefined) {
-          console.warn(obj.wms);
           localStorageFactory.set("wms", obj.wms);
         }
         if (obj.wfs !== undefined) {
@@ -200,6 +199,9 @@ angular.module('mainApp')
               if (parseInt(layers[i], 10) === baseLayers[m].id) {
                 map.SetBaseLayer(baseLayers[m]);
               }
+            }
+            if (!parseInt(layers[i], 10)) {
+              $scope.$broadcast('addLayerFromWMS', layers[i]);
             }
           }
         }

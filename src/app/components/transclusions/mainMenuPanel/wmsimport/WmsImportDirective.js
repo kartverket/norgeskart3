@@ -51,20 +51,25 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             }
           };
         }],
-        link: function (scope, element, attrs) {
+        link: function (scope, element, attrs, controller) {
           scope.loading = false;
           scope.format = attrs['gnWmsImport'] !== '' ? attrs['gnWmsImport'] : 'all';
           scope.serviceDesc = null;
           scope.servicesList = 'wms'; // gnViewerSettings.servicesUrl[scope.format];
           scope.catServicesList = [];
+          scope.layerList = [];
           var type = scope.format.toUpperCase();
 
-          scope.$on('addWMSfromSearch', function(event, args) {
+          scope.$on('addWMSfromSearch', function (event, args) {
             scope.setUrl({
               url: args.url,
               type: 'wms'
             });
           });
+          scope.$on('addLayerFromWMS', function (event, layer) {
+            scope.layerList.push(layer);
+          });
+
 
           function addLinks(md, type) {
             angular.forEach(md.getLinksByType(type), function (link) {
@@ -114,11 +119,20 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           scope.load = function () {
             if (scope.url) {
               scope.loading = true;
-              gnOwsCapabilities['get' + type.toUpperCase() +
-                'Capabilities'](scope.url).then(function (capability) {
-                scope.loading = false;
-                scope.capability = capability;
-              });
+              gnOwsCapabilities['get' + type.toUpperCase() + 'Capabilities'](scope.url)
+                .then(function (capability) {
+                  scope.loading = false;
+                  scope.capability = capability;
+                })
+                .then(function () {
+                  angular.forEach(scope.layerList, function (value) {
+                    controller.addLayer(
+                      scope.capability.layers.filter(function (el) {
+                        return el.Name === value;
+                      })[0]
+                    )
+                  })
+                })
             }
           };
 
