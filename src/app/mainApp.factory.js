@@ -280,6 +280,28 @@ angular.module('mainApp')
             }
           }, {
             type: "overlay",
+            Layers: {
+              Layer: {
+                name: "n5raster_foerstegang_metadata,n5raster_foerstegang",
+                queryable: "false",
+                title: "Øk–1⋅utgåve"
+              }
+            },
+            gatekeeper: "true",
+            name: "ok_1_utgave",
+            url: "https://wms.geonorge.no/skwms1/wms.n5raster2",
+            params: {
+              layers: "n5raster_foerstegang_metadata,n5raster_foerstegang",
+              format: "image/png"
+            },
+            guid: "0.n5raster_foerstegang_metadata,n5raster_foerstegang",
+            options: {
+              isbaselayer: "true",
+              singletile: "true",
+              visibility: "false"
+            }
+          }, {
+            type: "overlay",
             gatekeeper: "true",
             name: "adresser",
             url: "//wms.geonorge.no/skwms1/wms.matrikkel.seeiendom2",
