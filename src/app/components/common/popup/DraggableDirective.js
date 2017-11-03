@@ -93,6 +93,6 @@ module.directive('gnDraggable', ['$document',
         $document.unbind('mousemove', mousemove);
         $document.unbind('mouseup', mousemove);
       }
-    }
+    };
   }
 ]);

@@ -281,10 +281,10 @@
       var encLayer, encLegend;
       var ext = proj.getExtent();
       var resolution = $scope.map.getView().getResolution();
+      var layerConfig = {};
 
       if (!(layer instanceof ol.layer.Group)) {
         var src = layer.getSource();
-        var layerConfig = {};
         var minResolution = layerConfig.minResolution || 0;
         var maxResolution = layerConfig.maxResolution || Infinity;
 
@@ -344,7 +344,7 @@
     '$window'
   ];
 
-  module.directive('gnMapprint', ['gnCurrentEdit', function (gnCurrentEdit) {
+  module.directive('gnMapprint', [function () {
     return {
       restrict: 'A',
       require: 'gnMapprint',
@@ -362,7 +362,7 @@
         scope.activatedOnce = false;
 
         // Deactivate only if it has been activated once first
-        scope.$watch('printActive', function (isActive, old) {
+        scope.$watch('printActive', function (isActive) {
           if (angular.isDefined(isActive) &&
             (scope.activatedOnce || isActive)) {
             if (isActive) {

@@ -1171,8 +1171,8 @@ module.filter('signInLink', ['$location', 'gnLangs',
       href = href.replace('{{lang}}', gnLangs.getCurrent()) +
         '?redirect=' + encodeURIComponent(window.location.href);
       return href;
-    }
-  };
+    };
+  }
 ]);
 module.filter('newlines', function () {
   return function (value) {
@@ -1238,7 +1238,7 @@ module.directive('gnJsonText', function () {
 module.directive('gnImgModal', ['$filter', function ($filter) {
   return {
     restrict: 'A',
-    link: function (scope, element, attr, ngModel) {
+    link: function (scope, element, attr) {
 
       element.bind('click', function () {
         var img = scope.$eval(attr['gnImgModal']);
@@ -1360,7 +1360,7 @@ module.directive('gnLynky', ['$compile',
       scope: {
         text: '@gnLynky'
       },
-      link: function (scope, element, attrs) {
+      link: function (scope, element) {
         if ((scope.text.indexOf('link') === 0) &&
           (scope.text.split('|').length === 3)) {
           scope.link = scope.text.split('|')[1];

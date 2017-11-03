@@ -73,7 +73,7 @@ module.directive('gnPopup', [
         'ng-transclude>' +
         '</div>',
 
-      link: function (scope, element, attrs) {
+      link: function (scope, element) {
 
         // Get the popup options
         scope.options = scope.optionsFunc();
@@ -101,7 +101,7 @@ module.directive('gnPopup', [
 
         // Add close popup function
         scope.close = scope.options.close ||
-          (function (event) {
+          function (event) {
             if (event) {
               event.stopPropagation();
               event.preventDefault();
@@ -111,13 +111,13 @@ module.directive('gnPopup', [
             } else {
               element.hide();
             }
-          });
+          };
 
         scope.print = scope.options.print ||
-          (function () {
+          function () {
             var contentEl = element.find('.ga-popup-content');
             gaPrintService.htmlPrintout(contentEl.clone().html());
-          });
+          };
 
         element.addClass('popover');
 

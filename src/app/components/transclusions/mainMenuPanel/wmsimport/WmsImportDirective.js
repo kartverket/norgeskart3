@@ -70,7 +70,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             scope.layerList.push(layer);
           });
 
-
+          /*
           function addLinks(md, type) {
             angular.forEach(md.getLinksByType(type), function (link) {
               if (link.url) {
@@ -85,6 +85,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
               }
             });
           }
+          */
           // Get the list of services registered in the catalog
           /*
           if (attrs.servicesListFromCatalog) {

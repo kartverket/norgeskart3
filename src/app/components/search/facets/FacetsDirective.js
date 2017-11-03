@@ -53,10 +53,10 @@
               return !(scope.params &&
                   angular.isDefined(scope.params[facetKey]));
             }
-          };
+          }
 
           scope.collapsed = isFacetsCollapse(scope.indexKey);
-          scope.add = function(f, reset) {
+          scope.add = function(f) {
             gnFacetService.add(scope.currentFacets, scope.indexKey,
                 f['@name'], f['@label']);
             controller.resetPagination();
@@ -148,19 +148,16 @@
         templateUrl: '../../catalog/components/search/facets/' +
             'partials/facet-multiselect.html',
         scope: true,
-        compile: function compile(tElement, tAttrs, transclude) {
+        compile: function compile() {
           return {
-            pre: function preLink(scope, element, attrs, controller) {
+            pre: function preLink(scope, element, attrs) {
 
               var delimiter = ' or ';
-              var oldParams;
               var groups;
               scope.title = attrs['gnFacetMultiselectTitle'];
 
               scope.name = attrs.gnFacetMultiselect;
-              scope.contentCollapsed =
-                  attrs.gnFacetMultiselectCollapsed === 'true';
-
+              scope.contentCollapsed = attrs.gnFacetMultiselectCollapsed === 'true';
               gnFacetConfigService.loadConfig('hits').
 
                   // Load facets global config from cache
@@ -254,8 +251,7 @@
       };
     }]);
 
-  module.directive('gnFacetGraph', ['$timeout', function($timeout) {
-
+  module.directive('gnFacetGraph', [function() {
     return {
       restrict: 'A',
       replace: true,
@@ -265,7 +261,7 @@
         field: '=',
         callback: '='
       },
-      link: function(scope, element, attrs, controller) {
+      link: function(scope, element) {
         if (!scope.field) { return; }
 
         var tm = new TimeLine(element.find('.ui-timeline')[0],

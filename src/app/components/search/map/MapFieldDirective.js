@@ -36,9 +36,9 @@
               return attrs.template || '../../catalog/components/search/map/' +
                 'partials/mapfield.html';
             },
-            compile: function compile(tElement, tAttrs, transclude) {
+            compile: function compile() {
               return {
-                pre: function preLink(scope, iElement, iAttrs, controller) {
+                pre: function preLink(scope, iElement, iAttrs) {
 
                   scope.map = scope.$eval(iAttrs['gnMapField']);
                   scope.gnDrawBboxBtn = iAttrs['gnMapFieldGeom'];

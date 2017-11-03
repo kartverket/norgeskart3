@@ -65,8 +65,8 @@ var unmarshaller100 = context100.createUnmarshaller();
 var unmarshaller110 = context110.createUnmarshaller();
 
 module.provider('gnOwsCapabilities', function () {
-  this.$get = ['$http', '$q', 'gnUrlUtils', 'gnGlobalSettings',
-    function ($http, $q, gnUrlUtils, gnGlobalSettings) {
+  this.$get = ['$http', '$q', 'gnUrlUtils',
+    function ($http, $q, gnUrlUtils) {
 
       var displayFileContent = function (data) {
         var parser = new ol.format.WMSCapabilities();

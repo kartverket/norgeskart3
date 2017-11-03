@@ -1391,7 +1391,6 @@ module.provider('gnMap', function () {
             }
             var nbMatrix = matrixSet.TileMatrix.length;
 
-            var projectionExtent = projection.getExtent();
             var resolutions = new Array(nbMatrix);
             var matrixIds = new Array(nbMatrix);
 
@@ -1409,6 +1408,7 @@ module.provider('gnMap', function () {
             } else {
               tileMatrices = matrixSet.TileMatrix;
             }
+            // var projectionExtent = projection.getExtent();
 
             for (var z = 0; z < nbMatrix; ++z) {
               var matrix = tileMatrices[z];
@@ -1571,10 +1571,10 @@ module.provider('gnMap', function () {
               });
             case 'stamen':
               //We make watercolor the default layer
-              type = opt && opt.name ? opt.name : 'watercolor',
-                source = new ol.source.Stamen({
-                  layer: type
-                });
+              type = opt && opt.name ? opt.name : (
+                'watercolor',
+                source = new ol.source.Stamen({layer: type})
+              );
               source.set('type', type);
               return new ol.layer.Tile({
                 source: source,

@@ -27,8 +27,8 @@ angular.module('gn_utility', [
   ])
   .filter('characters', function () {
     return function (input, chars, breakOnWord) {
-      if (isNaN(chars)) return input;
-      if (chars <= 0) return '';
+      if (isNaN(chars)) {return input;}
+      if (chars <= 0) {return '';}
       if (input && input.length >= chars) {
         input = input.substring(0, chars);
 
@@ -50,8 +50,8 @@ angular.module('gn_utility', [
   })
   .filter('words', function () {
     return function (input, words) {
-      if (isNaN(words)) return input;
-      if (words <= 0) return '';
+      if (isNaN(words)) {return input;}
+      if (words <= 0) {return '';}
       if (input) {
         var inputWords = input.split(/\s+/);
         if (inputWords.length > words) {
@@ -64,15 +64,12 @@ angular.module('gn_utility', [
   .filter('striptags', function () {
     return function (value, allowed) {
 
+      var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
+        commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
       if (angular.isArray(value)) {
-
         allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
-        var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
-          commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
-
         var finalText = '';
-
-        angular.forEach(value, function (content, key) {
+        angular.forEach(value, function (content) {
           if (content) {
             finalText += content.replace(commentsAndPhpTags, '').
             replace(tags, function ($0, $1) {
@@ -85,24 +82,18 @@ angular.module('gn_utility', [
         return finalText;
       }
 
-
       if (!value) {
         return value;
       }
 
       if (angular.isString(value)) {
-
         allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
-        var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
-          commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
         return value.replace(commentsAndPhpTags, '').
         replace(tags, function ($0, $1) {
           return allowed.indexOf(
             '<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
         });
       }
-
-
     };
   })
 
@@ -119,8 +110,8 @@ angular.module('gn_utility', [
      empty array if undefined or empty string was intended */
   .filter('empty', function () {
     return function (input, alt) {
-      if (!alt) alt = '';
-      if (!input) return alt;
+      if (!alt) {alt = '';}
+      if (!input) {return alt;}
       if (angular.isArray(input)) {
         if (input[0]) {
           return input[0];
@@ -148,9 +139,9 @@ angular.module('gn_utility', [
       if (!splitChar) {
         splitChar = '|';
       }
-      if (!input.split(splitChar).length > splitIndex) {
+      if (!(input.split(splitChar).length > splitIndex)) {
         return '';
       }
       return input.split(splitChar)[splitIndex];
-    }
+    };
   });

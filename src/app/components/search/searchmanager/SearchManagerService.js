@@ -173,7 +173,7 @@
       /**
        * Run a search.
        */
-      var search = function(url, error) {
+      var search = function(url) {
         var defer = $q.defer();
         $http.get(url).
             success(function(data) {
@@ -187,14 +187,14 @@
 
       // TODO: remove search call to use params instead
       // of url and use gnSearch only (then rename it to search)
-      var gnSearch = function(params, error) {
+      var gnSearch = function(params) {
         var defer = $q.defer();
         gnHttp.callService('search', params).
-            success(function(data, status) {
+            success(function(data) {
               defer.resolve(format(data));
             }).
-            error(function(data, status) {
-              defer.reject(error);
+            error(function(data) {
+              defer.reject(data);
             });
         return defer.promise;
       };
@@ -227,11 +227,11 @@
         url += fromSelection ? 'yes' : 'no';
 
         $http.get(url).
-            success(function(data, status) {
+            success(function(data) {
               defer.resolve(data);
             }).
-            error(function(data, status) {
-              defer.reject(error);
+            error(function(data) {
+              defer.reject(data);
             });
         return defer.promise;
       };

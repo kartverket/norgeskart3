@@ -421,7 +421,7 @@ module.factory('gnRegionService', [
         if (!listDefer) {
           listDefer = $q.defer();
           $http.get('../api/regions/types').success(function (data) {
-            angular.forEach(data, function (value, key) {
+            angular.forEach(data, function (value) {
               if (value.id) {
                 var tokens = value.id.split('#'),
                   asHash = tokens.length > 0,
@@ -476,7 +476,7 @@ module.service('gnTreeFromSlash', [function () {
           value: group
           //selected: themesInSearch.indexOf(t['@name']) >= 0 ? true : false
         };
-        if (!node.nodes) node.nodes = [];
+        if (!node.nodes) {node.nodes = [];}
         node.nodes.push(newNode);
         //node.nodes.sort(sortNodeFn);
       }

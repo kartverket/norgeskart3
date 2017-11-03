@@ -101,13 +101,13 @@ module.directive('gnFacetDimensionList', [
           });
 
 
-          scope.buildPath = function (category, $event) {
+          scope.buildPath = function (category) {
             return gnFacetConfigService.buildPath(scope.path, category);
           };
 
           scope.buildLabel = gnFacetConfigService.buildLabel;
 
-          scope.filter = function (category, $event) {
+          scope.filter = function (category) {
             category.isSelected = !category.isSelected;
             if (category.isSelected) {
               scope.activeTab = category;
@@ -120,11 +120,11 @@ module.directive('gnFacetDimensionList', [
             gnFacetConfigService.filter(scope, category, category.isSelected);
           };
 
-          scope.isOnDrillDownPath = function (category, $event) {
+          scope.isOnDrillDownPath = function (category) {
             return gnFacetConfigService.isOnDrillDownPath(scope, category);
           };
 
-          scope.isInFilter = function (category, $event) {
+          scope.isInFilter = function (category) {
             return gnFacetConfigService.isInFilter(scope, category);
           };
         }
@@ -172,8 +172,8 @@ module.directive('gnFacetDimensionList', [
 ]);
 
 module.directive('gnFacetDimensionCategory', [
-  'gnFacetConfigService', 'RecursionHelper', '$parse',
-  function (gnFacetConfigService, RecursionHelper, $parse) {
+  'gnFacetConfigService', 'RecursionHelper',
+  function (gnFacetConfigService, RecursionHelper) {
     return {
       restrict: 'A',
       templateUrl: '../../catalog/components/search/facets/' +
@@ -189,7 +189,7 @@ module.directive('gnFacetDimensionCategory', [
         // Use the compile function from the RecursionHelper,
         // And return the linking function(s) which it returns
         return RecursionHelper.compile(element,
-          function (scope, element, attrs) {
+          function (scope, element) {
             var initialMaxItems = 5;
             scope.initialMaxItems = initialMaxItems;
             scope.maxItems = initialMaxItems;
@@ -221,7 +221,7 @@ module.directive('gnFacetDimensionCategory', [
             //  http%253A%252F%252Fwww.eionet.europa.eu
             //    %252Fgemet%252Fconcept%252F2641
 
-            scope.buildPath = function (category, $event) {
+            scope.buildPath = function (category) {
               return gnFacetConfigService.buildPath(scope.path, category);
             };
 

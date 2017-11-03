@@ -52,9 +52,9 @@
         templateUrl: '../../catalog/components/search/resultsview/partials/' +
             'templateswitcher.html',
         scope: {
-          'templateUrl': '='
+          templateUrl: '='
         },
-        link: function(scope, element, attrs, controller) {
+        link: function(scope) {
           scope.tpls = gnSearchSettings.resultViewTpls;
         }
       };
@@ -82,7 +82,7 @@
       return {
         restrict: 'A',
         scope: true,
-        link: function(scope, element, attrs, controller) {
+        link: function(scope, element, attrs) {
 
           scope.mdService = gnMetadataActions;
           scope.map = scope.$eval(attrs.map);
@@ -208,16 +208,14 @@
 
       return {
         restrict: 'A',
-        link: function(scope, element, attrs, controller) {
+        link: function(scope, element) {
 
           //TODO : change, just apply a style to the feature when
           // featureoverlay is fixed
           var feat = new ol.Feature();
 
           element.bind('mouseenter', function() {
-
-            var feat = gnMap.getBboxFeatureFromMd(scope.md,
-                scope.map.getView().getProjection());
+            feat = gnMap.getBboxFeatureFromMd(scope.md, scope.map.getView().getProjection());
             if (feat) {
               scope.hoverOL.getSource().addFeature(feat);
             }
@@ -231,13 +229,10 @@
     }]);
 
   module.directive('gnZoomtoOnclick', [
-    'gnMap',
-    function(gnMap) {
-
+    function() {
       return {
         restrict: 'A',
-        link: function(scope, element, attrs, controller) {
-
+        link: function(scope, element) {
           element.bind('dblclick', function() {
             scope.zoomToMdExtent(scope.md, scope.map);
           });

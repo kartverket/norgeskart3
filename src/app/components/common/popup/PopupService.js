@@ -75,7 +75,7 @@ module.factory('gnPopup', [
       $(target).append(this.element);
     };
 
-    Popup.prototype.open = function (scope) {
+    Popup.prototype.open = function () {
       // Show the popup
       this.element.show();
     };

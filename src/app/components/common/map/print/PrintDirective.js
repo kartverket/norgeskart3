@@ -171,10 +171,10 @@
         var encLayer, encLegend;
         var ext = proj.getExtent();
         var resolution = $scope.map.getView().getResolution();
+        var layerConfig = {}; // gaLayers.getLayer(layer.bodId) ||
 
         if (!(layer instanceof ol.layer.Group)) {
           var src = layer.getSource();
-          var layerConfig = {}; // gaLayers.getLayer(layer.bodId) ||
           var minResolution = layerConfig.minResolution || 0;
           var maxResolution = layerConfig.maxResolution || Infinity;
 
@@ -315,7 +315,6 @@
         var literal = {
           zIndex: style.getZIndex()
         };
-        var type = feature.getGeometry().getType();
         var fill = style.getFill();
         var stroke = style.getStroke();
         var textStyle = style.getText();
@@ -400,7 +399,7 @@
           Group: function (layer, proj) {
             var encs = [];
             var subLayers = layer.getLayers();
-            subLayers.forEach(function (subLayer, idx, arr) {
+            subLayers.forEach(function (subLayer) {
               if (subLayer.visible) {
                 var enc = $scope.encoders.
                 layers['Layer'].call(this, layer);
@@ -419,7 +418,6 @@
             var format = new ol.format.GeoJSON();
             var encStyles = {};
             var encFeatures = [];
-            var stylesDict = {};
             var styleId = 0;
 
             angular.forEach(features, function (feature) {
@@ -499,7 +497,7 @@
             return enc;
 
           },
-          OSM: function (layer, config) {
+          OSM: function (layer) {
             var enc = $scope.encoders.
             layers['Layer'].call(this, layer);
             angular.extend(enc, {
@@ -625,7 +623,6 @@
 
         overlays.forEach(function (overlay) {
           var center = overlay.getPosition();
-          var offset = 5 * resolution;
           if (center) {
             var cross = {
               type: 'Vector',
@@ -752,7 +749,7 @@
         return [minx, miny, maxx, maxy];
       };
 
-      $scope.$watch('mode', function (newVal, oldVal) {
+      $scope.$watch('mode', function (newVal) {
         if (newVal === 'thumbnailMaker') {
           activate();
         } else {
@@ -768,7 +765,7 @@
       templateUrl: '../../catalog/components/common/map/' +
         'print/partials/print.html',
       controller: 'GaPrintDirectiveController',
-      link: function (scope, elt, attrs, controller) {
+      link: function (scope, elt, attrs) {
         scope.defaultLayout = attrs.layout;
         scope.gnCurrentEdit = gnCurrentEdit;
       }

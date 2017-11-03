@@ -39,8 +39,7 @@
           selector: '@gnMetadataOpenSelector'
         },
 
-        link: function(scope, element, attrs, controller) {
-
+        link: function(scope, element) {
           element.on('click', function(e) {
             e.preventDefault();
             gnMdView.setLocationUuid(scope.md.getUuid());
@@ -61,8 +60,7 @@
             'components/search/mdview/partials/' +
             'mdpanel.html';
         },
-        link: function(scope, element, attrs, controller) {
-
+        link: function(scope, element) {
           var unRegister;
 
           element.find('.panel-body').append(scope.fragment);
@@ -99,7 +97,7 @@
           readonly: '@readonly'
         },
 
-        link: function(scope, element, attrs, controller) {
+        link: function(scope) {
           scope.$watch('md', function() {
             scope.rate = scope.md ? scope.md.rating : null;
           });
@@ -150,8 +148,7 @@
    *      Resource provider : user3@mail.com
    */
   module.directive('gnMetadataContacts', [
-    '$http',
-    function($http) {
+    function() {
       return {
         templateUrl: '../../catalog/components/search/mdview/partials/' +
             'contact.html',
@@ -160,7 +157,7 @@
           mdContacts: '=gnMetadataContacts',
           mode: '@gnMode'
         },
-        link: function(scope, element, attrs, controller) {
+        link: function(scope) {
 
           if (['default', 'role', 'org-role'].indexOf(scope.mode) === -1) {
             scope.mode = 'default';
@@ -177,6 +174,7 @@
                     }
                   });
             };
+            var contactsByOrgAndMailOrName;
 
             var aggregateRoles = function(resources) {
               return _.map(resources,
@@ -191,7 +189,7 @@
             };
 
             if (scope.mode === 'role') {
-              var contactsByOrgAndMailOrName =
+              contactsByOrgAndMailOrName =
                   groupByOrgAndMailOrName(scope.mdContacts);
 
               var contactsWithAggregatedRoles =
@@ -228,8 +226,7 @@
               for (var key in scope.mdContactsByOrgRole) {
                 var value = scope.mdContactsByOrgRole[key];
 
-                var contactsByOrgAndMailOrName = groupByOrgAndMailOrName(value);
-
+                contactsByOrgAndMailOrName = groupByOrgAndMailOrName(value);
                 scope.mdContactsByOrgRole[key] =
                     aggregateRoles(contactsByOrgAndMailOrName);
               }

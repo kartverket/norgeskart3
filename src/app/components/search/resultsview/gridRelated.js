@@ -42,7 +42,7 @@
         scope: {
           records: '<gnGridRelatedQuery'
         },
-        link: function(scope, element, attrs) {
+        link: function(scope) {
 
           var types = gnGlobalSettings.gnCfg.mods.search.grid.related;
           gnGridRelatedList.types = types;
@@ -76,7 +76,7 @@
           return attrs.template ||
               '../../catalog/components/metadataactions/partials/related.html';
         },
-        link: function(scope, element, attrs) {
+        link: function(scope) {
           gnGridRelatedList.promise.then(function() {
             var related = gnGridRelatedList.list[scope.uuid];
             if (related) {

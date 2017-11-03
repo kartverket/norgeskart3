@@ -120,7 +120,7 @@ module.service('gnMdView', [
      */
     this.initMdView = function () {
       var that = this;
-      var loadMdView = function (oldUrl, newUrl) {
+      var loadMdView = function () {
         var uuid = gnSearchLocation.getUuid();
         if (uuid) {
           if (!gnMdViewObj.current.record ||
@@ -207,7 +207,7 @@ module.service('gnMdFormatter', [
     gnSearchSettings, $q, gnMetadataManager) {
 
 
-    this.getFormatterUrl = function (fUrl, scope, uuid, opt_url) {
+    this.getFormatterUrl = function (fUrl, scope, uuid) {
       var url;
       var promiseMd;
       if (scope && scope.md) {
