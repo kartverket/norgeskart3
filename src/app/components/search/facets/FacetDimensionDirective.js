@@ -1,3 +1,4 @@
+/*jshint boss: true*/
 /*
  * Copyright (C) 2001-2016 Food and Agriculture Organization of the
  * United Nations (FAO-UN), United Nations World Food Programme (WFP)
@@ -258,7 +259,7 @@ module.directive('gnFacetDimensionCategory', [
               el = evt ?
                 $(evt.currentTarget).parent() :
                 element.find('span.fa');
-              var isExpanded = undefined;
+              var isExpanded;
               el.find('.fa').each(function (idx, e) {
                 e = $(e);
                 if (angular.isUndefined(isExpanded)) {

@@ -343,7 +343,9 @@ module.exports = function ( grunt ) {
                 strict: false,
                 undef: false,
                 unused: true,
-                esversion: 5
+                esversion: 5,
+                loopfunc:true,
+                expr: true
             },
             globals: {}
         },

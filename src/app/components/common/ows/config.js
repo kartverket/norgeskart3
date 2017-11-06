@@ -214,7 +214,7 @@ angular.module('gnConfig', [])
         return copy;
       }
     };
-  }())
+  })
   .run([
     'gnSearchSettings',
     'gnViewerSettings',

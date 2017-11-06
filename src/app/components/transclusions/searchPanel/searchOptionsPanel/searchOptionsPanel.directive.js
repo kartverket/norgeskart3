@@ -1,6 +1,6 @@
 angular.module('searchOptionsPanel')
-  .directive('searchOptionsPanel', ['$window', 'ISY.MapAPI.Map', 'changeBaseLayerPanelFactory',
-    function ($window, map, changeBaseLayerPanelFactory) {
+  .directive('searchOptionsPanel', ['$window', // 'ISY.MapAPI.Map', 'changeBaseLayerPanelFactory',
+    function ($window) { // , map, changeBaseLayerPanelFactory
       return {
         templateUrl: 'components/transclusions/searchPanel/searchOptionsPanel/searchOptionsPanel.html',
         restrict: 'A',
@@ -66,7 +66,7 @@ angular.module('searchOptionsPanel')
               }
             });
           };
-
+/*
           function switchToLayer(layerName) {
             var mapSwitched = false;
             var baselayers = map.GetBaseLayers();
@@ -80,7 +80,7 @@ angular.module('searchOptionsPanel')
               }
             }
           }
-
+*/
           function fixElementHeight(moveUpFromBottom) {
             var bodyHeight = $window.innerHeight;
             var menuListMaxHeight = Math.floor(bodyHeight - moveUpFromBottom);

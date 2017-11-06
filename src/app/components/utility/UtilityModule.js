@@ -1,3 +1,4 @@
+/*jshint -W018 */
 /*
  * Copyright (C) 2001-2016 Food and Agriculture Organization of the
  * United Nations (FAO-UN), United Nations World Food Programme (WFP)

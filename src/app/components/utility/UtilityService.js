@@ -1,3 +1,5 @@
+/*jshint bitwise: false*/
+/*jshint boss: true*/
 /*
  * Copyright (C) 2001-2016 Food and Agriculture Organization of the
  * United Nations (FAO-UN), United Nations World Food Programme (WFP)
@@ -454,6 +456,7 @@ module.service('gnTreeFromSlash', [function () {
       }
     }
   };
+  /*
   var sortNodeFn = function (a, b) {
     var aName = a.name;
     var bName = b.name;
@@ -465,6 +468,7 @@ module.service('gnTreeFromSlash', [function () {
     }
     return 0;
   };
+*/
 
   var createNode = function (node, g, index, e) {
     var group = g[index];

@@ -43,7 +43,7 @@
       var printRectangle;
       var deregister;
       var DPI = 72;
-      var DPI2 = 254;
+      // var DPI2 = 254;
       var MM_PER_INCHES = 25.4;
       var UNITS_RATIO = 39.37;
       $scope.options = {
@@ -566,7 +566,7 @@
           }
         }
       };
-
+      /*
       var getNearestScale = function (target, scales) {
         var nearest = null;
         angular.forEach(scales, function (scale) {
@@ -577,6 +577,7 @@
         });
         return nearest;
       };
+      */
 
 
       $scope.getConfig = function () {
@@ -619,7 +620,7 @@
         });
         // FIXME this is a temporary solution
         var overlays = $scope.map.getOverlays();
-        var resolution = $scope.map.getView().getResolution();
+        // var resolution = $scope.map.getView().getResolution();
 
         overlays.forEach(function (overlay) {
           var center = overlay.getPosition();
@@ -655,11 +656,12 @@
         });
 
         // scale = resolution * inches per map unit (m) * dpi
+        /*
         var scale = parseInt(view.getResolution() * UNITS_RATIO * DPI2);
         var scales = this.scales.map(function (scale) {
           return parseInt(scale.value);
         });
-
+        */
         $scope.jsonSpec = {
           layout: this.layout.name,
           srs: proj.getCode(),
