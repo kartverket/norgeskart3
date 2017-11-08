@@ -24,8 +24,6 @@
 
 (function() {
 
-  goog.provide('gn_selection_directive');
-
   var module = angular.module('gn_selection_directive', []);
 
   module.directive('gnSelectionWidget', [

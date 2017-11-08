@@ -100,7 +100,7 @@ module.exports = {
 
             'vendor/angular.ext/*.js',
             'vendor/*.js',
-            'vendor/ngeo/ngeo-debug.js'
+            'vendor/ngeo/ngeo.js'
 
             ],
         css: [

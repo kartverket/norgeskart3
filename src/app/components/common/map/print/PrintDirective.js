@@ -21,15 +21,11 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-(function () {
-  goog.provide('ga_print_directive');
-
-  // Source from https://github.com/geoadmin/mf-geoadmin3
-  var module = angular.module('ga_print_directive', [
+// Source from https://github.com/geoadmin/mf-geoadmin3
+angular.module('ga_print_directive', [
     'pascalprecht.translate'
-  ]);
-
-  module.controller('GaPrintDirectiveController', [
+  ])
+  .controller('GaPrintDirectiveController', [
     '$scope', '$http',
     '$window', '$translate', '$document',
     function ($scope, $http,
@@ -759,9 +755,8 @@
         }
       });
     }
-  ]);
-
-  module.directive('gaPrint', ['gnCurrentEdit', function (gnCurrentEdit) {
+  ])
+  .directive('gaPrint', ['gnCurrentEdit', function (gnCurrentEdit) {
     return {
       restrict: 'A',
       templateUrl: '../../catalog/components/common/map/' +
@@ -773,4 +768,3 @@
       }
     };
   }]);
-})();

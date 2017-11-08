@@ -21,12 +21,8 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-(function() {
-  goog.provide('gn_printmap_service');
-
-  var module = angular.module('gn_printmap_service', []);
-
-  module.service('gnPrint', function() {
+angular.module('gn_printmap_service', [])
+  .service('gnPrint', function () {
 
     var self = this;
 
@@ -46,7 +42,7 @@
      * @param {Array} printRectangle
      * @return {*}
      */
-    this.getPrintRectangleCenterCoord = function(map, printRectangle) {
+    this.getPrintRectangleCenterCoord = function (map, printRectangle) {
       // Framebuffer size!!
       var bottomLeft = printRectangle.slice(0, 2);
       var width = printRectangle[2] - printRectangle[0];
@@ -54,7 +50,8 @@
       var center = [bottomLeft[0] + width / 2, bottomLeft[1] + height / 2];
       // convert back to map display size
       var mapPixelCenter = [center[0] / ol.has.DEVICE_PIXEL_RATIO,
-        center[1] / ol.has.DEVICE_PIXEL_RATIO];
+        center[1] / ol.has.DEVICE_PIXEL_RATIO
+      ];
       return map.getCoordinateFromPixel(mapPixelCenter);
     };
 
@@ -66,18 +63,19 @@
      * @param {Object} scale
      * @return {*[]} extent
      */
-    this.calculatePageBoundsPixels = function(map, layout, scale) {
+    this.calculatePageBoundsPixels = function (map, layout, scale) {
       var s = parseFloat(scale.value);
       var size = layout.map; // papersize in dot!
       var view = map.getView();
       var ratio = map.getView().getProjection().getCode() === 'EPSG:4326' ?
-          METERS_PER_DEGREE : 1;
+        METERS_PER_DEGREE : 1;
       var resolution = view.getResolution() * ratio;
       var w = size.width / DPI * MM_PER_INCHES / 1000.0 * s / resolution;
       var h = size.height / DPI * MM_PER_INCHES / 1000.0 * s / resolution;
       var mapSize = map.getSize();
-      var center = [mapSize[0] * ol.has.DEVICE_PIXEL_RATIO / 2 ,
-        mapSize[1] * ol.has.DEVICE_PIXEL_RATIO / 2];
+      var center = [mapSize[0] * ol.has.DEVICE_PIXEL_RATIO / 2,
+        mapSize[1] * ol.has.DEVICE_PIXEL_RATIO / 2
+      ];
 
       var minx, miny, maxx, maxy;
 
@@ -96,10 +94,10 @@
      * @param {Object} layout
      * @return {*}
      */
-    this.getOptimalScale = function(map, scales, layout) {
+    this.getOptimalScale = function (map, scales, layout) {
       var size = map.getSize();
       var ratio = map.getView().getProjection().getCode() === 'EPSG:4326' ?
-          METERS_PER_DEGREE : 1;
+        METERS_PER_DEGREE : 1;
       var resolution = map.getView().getResolution() * ratio;
       var width = resolution * (size[0] - (options.widthMargin * 2));
       var height = resolution * (size[1] - (options.heightMargin * 2));
@@ -113,9 +111,9 @@
       var nextBiggest = null;
       //The algo below assumes that scales are sorted from
       //biggest (1:500) to smallest (1:2500000)
-      angular.forEach(scales, function(scale) {
+      angular.forEach(scales, function (scale) {
         if (nextBiggest === null ||
-            testScale > scale.value) {
+          testScale > scale.value) {
           nextBiggest = scale;
         }
       });
@@ -132,20 +130,20 @@
      */
     this.encoders = {
       layers: {
-        Layer: function(layer) {
+        Layer: function (layer) {
           var enc = {
             layer: layer.bodId,
             opacity: layer.getOpacity()
           };
           return enc;
         },
-        Group: function(layer, proj) {
+        Group: function (layer, proj) {
           var encs = [];
           var subLayers = layer.getLayers();
-          subLayers.forEach(function(subLayer) {
+          subLayers.forEach(function (subLayer) {
             if (subLayer.visible) {
               var enc = self.encoders.
-                  layers['Layer'].call(this, layer);
+              layers['Layer'].call(this, layer);
               var layerEnc = encodeLayer(subLayer, proj);
               if (layerEnc && layerEnc.layer) {
                 $.extend(enc, layerEnc);
@@ -155,15 +153,15 @@
           });
           return encs;
         },
-        Vector: function(layer, features) {
+        Vector: function (layer, features) {
           var enc = self.encoders.
-              layers['Layer'].call(this, layer);
+          layers['Layer'].call(this, layer);
           var format = new ol.format.GeoJSON();
           var encStyles = {};
           var encFeatures = [];
           var styleId = 0;
 
-          angular.forEach(features, function(feature) {
+          angular.forEach(features, function (feature) {
             var encStyle = {
               id: styleId
             };
@@ -171,14 +169,11 @@
             var styles, featureStyle = feature.get('_style');
             if (angular.isFunction(featureStyle)) {
               styles = featureStyle(feature);
-            }
-            else if (angular.isArray(featureStyle)) {
+            } else if (angular.isArray(featureStyle)) {
               styles = featureStyle;
-            }
-            else if (featureStyle) {
+            } else if (featureStyle) {
               styles = [featureStyle];
-            }
-            else {
+            } else {
               styles = ol.style.defaultStyleFunction(feature);
             }
 
@@ -221,17 +216,17 @@
           });
           return enc;
         },
-        WMS: function(layer, config) {
+        WMS: function (layer, config) {
           var enc = self.encoders.
-              layers['Layer'].call(this, layer);
+          layers['Layer'].call(this, layer);
           var params = layer.getSource().getParams();
           var layers = params.LAYERS.split(',') || [];
           var styles = (params.STYLES !== undefined) ?
-              params.STYLES.split(',') :
-              new Array(layers.length).join(',').split(',');
+            params.STYLES.split(',') :
+            new Array(layers.length).join(',').split(',');
           var url = layer.getSource() instanceof ol.source.ImageWMS ?
-              layer.getSource().getUrl() :
-              layer.getSource().getUrls()[0];
+            layer.getSource().getUrl() :
+            layer.getSource().getUrls()[0];
           angular.extend(enc, {
             type: 'WMS',
             baseURL: config.wmsUrl || url,
@@ -249,61 +244,60 @@
           });
           return enc;
         },
-        OSM: function(layer) {
+        OSM: function (layer) {
           var enc = self.encoders.
-              layers['Layer'].call(this, layer);
+          layers['Layer'].call(this, layer);
           angular.extend(enc, {
             type: 'OSM',
             baseURL: 'http://a.tile.openstreetmap.org/',
             extension: 'png',
             // Hack to return an extent for the base
             // layer in case of undefined
-            maxExtent: layer.getExtent() ||
-                [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
+            maxExtent: layer.getExtent() || [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
             resolutions: layer.getSource().tileGrid.getResolutions(),
             tileSize: [
               layer.getSource().tileGrid.getTileSize(),
-              layer.getSource().tileGrid.getTileSize()]
+              layer.getSource().tileGrid.getTileSize()
+            ]
           });
           return enc;
         },
-        Bing: function(layer) {
+        Bing: function (layer) {
           var enc = self.encoders.
-              layers['Layer'].call(this, layer);
+          layers['Layer'].call(this, layer);
           angular.extend(enc, {
             type: 'OSM',
             baseURL: 'http://a.tile.openstreetmap.org/',
             extension: 'png',
             // Hack to return an extent for the base
             // layer in case of undefined
-            maxExtent: layer.getExtent() ||
-                [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
+            maxExtent: layer.getExtent() || [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
             resolutions: layer.getSource().tileGrid.getResolutions(),
             tileSize: [
               layer.getSource().tileGrid.getTileSize(),
-              layer.getSource().tileGrid.getTileSize()]
+              layer.getSource().tileGrid.getTileSize()
+            ]
           });
           return enc;
         },
-        WMTS: function(layer) {
+        WMTS: function (layer) {
           // sextant specific
           var enc = self.encoders.layers['Layer'].
-              call(this, layer);
+          call(this, layer);
           var source = layer.getSource();
           var tileGrid = source.getTileGrid();
           var matrixSet = source.getMatrixSet();
           var matrixIds = new Array(tileGrid.getResolutions().length);
           for (var z = 0; z < tileGrid.getResolutions().length; ++z) {
-            var mSize = (ol.extent.getWidth(ol.proj.get('EPSG:3857').
-                getExtent()) /tileGrid.getTileSize()) /
-                tileGrid.getResolutions()[z];
-                matrixIds[z] = {
-                  identifier: tileGrid.getMatrixIds()[z],
-                  resolution: tileGrid.getResolutions()[z],
-                  tileSize: [tileGrid.getTileSize(), tileGrid.getTileSize()],
-                  topLeftCorner: tileGrid.getOrigin(),
-                  matrixSize: [mSize, mSize]
-                };
+            var mSize = (ol.extent.getWidth(ol.proj.get('EPSG:3857').getExtent()) / tileGrid.getTileSize()) /
+              tileGrid.getResolutions()[z];
+            matrixIds[z] = {
+              identifier: tileGrid.getMatrixIds()[z],
+              resolution: tileGrid.getResolutions()[z],
+              tileSize: [tileGrid.getTileSize(), tileGrid.getTileSize()],
+              topLeftCorner: tileGrid.getOrigin(),
+              matrixSize: [mSize, mSize]
+            };
           }
 
           angular.extend(enc, {
@@ -321,8 +315,8 @@
           return enc;
         }
       },
-      legends : {
-        base: function(layer) {
+      legends: {
+        base: function (layer) {
           if (!layer.get('legend')) {
             return;
           }
@@ -338,7 +332,7 @@
     };
 
     // Transform an ol.Color to an hexadecimal string
-    var toHexa = function(olColor) {
+    var toHexa = function (olColor) {
       var hex = '#';
       for (var i = 0; i < 3; i++) {
         var part = olColor[i].toString(16);
@@ -351,7 +345,7 @@
     };
 
     // Transform a ol.style.Style to a print literal object
-    var transformToPrintLiteral = function(feature, style) {
+    var transformToPrintLiteral = function (feature, style) {
       /**
        * ol.style.Style properties:
        *
@@ -471,7 +465,7 @@
         literal.labelAlign = textStyle.getTextAlign();
         if (textStyle.getStroke()) {
           literal.labelOutlineColor = toHexa(ol.color.asArray(
-              textStyle.getStroke().getColor()));
+            textStyle.getStroke().getColor()));
           literal.labelOutlineWidth = textStyle.getStroke().getWidth();
         }
         literal.fillOpacity = 0.0;
@@ -482,4 +476,3 @@
     };
 
   });
-})();
