@@ -73,7 +73,6 @@ angular.module('mainApp')
           }
         }
         if (obj.geojson !== undefined) {
-          console.warn(obj.geojson);
           localStorageFactory.set("geojson", obj.geojson);
         }
         if (obj.sosi !== undefined) {
@@ -88,7 +87,6 @@ angular.module('mainApp')
           localStorageFactory.set("wms", obj.wms);
         }
         if (obj.wfs !== undefined) {
-          console.warn(obj.wfs);
           localStorageFactory.set("wfs", obj.wfs);
         }
         if (obj.wcs !== undefined) {

@@ -801,7 +801,8 @@ module.provider('gnMap', function () {
               if (srs === mapProjection) {
                 isLayerAvailableInMapProjection = true;
               }
-            } else if (layer.otherSRS) {
+            }
+            if (layer.otherSRS) {
               for (i = 0; i < layer.otherSRS.length; i++) {
                 srs = layer.otherSRS[i];
                 if ((srs.indexOf('urn:ogc:def:crs:EPSG::') === 0) ||
@@ -879,12 +880,23 @@ module.provider('gnMap', function () {
                     version: '1.1.0',
                     srsName: map.getView().getProjection().getCode(),
                     bbox: extent.join(','),
-                    typename: getCapLayer.name.prefix + ':' +
-                      getCapLayer.name.localPart
+                    typename: getCapLayer.name.prefix + ':' + getCapLayer.name.localPart,
+                    outputFormat: getCapLayer.outputFormats.format[0] || 'text/xml; subtype=gml/3.2.1'
                   }));
-
+                // generate a GetFeature request
+                var featureRequest = new ol.format.WFS().writeGetFeature({
+                  srsName: map.getView().getProjection().getCode(),
+                  featureNS: '',
+                  featurePrefix: '',
+                  featureTypes: [getCapLayer.name.prefix + ':' + getCapLayer.name.localPart],
+                  outputFormat: getCapLayer.outputFormats.format[0] || 'text/xml; subtype=gml/3.2.1',
+                  filter: new ol.format.ogc.filter.Bbox('', extent, map.getView().getProjection().getCode())
+                });
                 $.ajax({
-                    url: urlGetFeature
+                    method: 'POST',
+                    url: parts[0],
+                    data: new XMLSerializer().serializeToString(featureRequest),
+                    contentType: "text/xml",                    
                   })
                   .done(function (response) {
                     // TODO: Check WFS exception
@@ -998,8 +1010,8 @@ module.provider('gnMap', function () {
          * @param {String} url of the service
          */
         addWfsToMapFromCap: function (map, getCapLayer, url) {
-          var layer = this.createOlWFSFromCap(map, getCapLayer, url);
           map = (map || ISY.MapImplementation.OL3.olMap);
+          var layer = this.createOlWFSFromCap(map, getCapLayer, url);
           map.addLayer(layer);
           return layer;
         },
@@ -1270,6 +1282,8 @@ module.provider('gnMap', function () {
          * @param {!Object} md object
          */
         addWfsFromScratch: function (map, url, name, createOnly, md) {
+          map = (map || ISY.MapImplementation.OL3.olMap);
+
           var defer = $q.defer();
           var $this = this;
 
@@ -1573,7 +1587,9 @@ module.provider('gnMap', function () {
               //We make watercolor the default layer
               type = opt && opt.name ? opt.name : (
                 'watercolor',
-                source = new ol.source.Stamen({layer: type})
+                source = new ol.source.Stamen({
+                  layer: type
+                })
               );
               source.set('type', type);
               return new ol.layer.Tile({

@@ -55,7 +55,6 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           scope.loading = false;
           scope.format = attrs['gnWmsImport'] !== '' ? attrs['gnWmsImport'] : 'all';
           scope.serviceDesc = null;
-          scope.servicesList = 'wms'; // gnViewerSettings.servicesUrl[scope.format];
           scope.catServicesList = [];
           scope.layerList = [];
           var type = scope.format.toUpperCase();
@@ -63,7 +62,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           scope.$on('addWMSfromSearch', function (event, args) {
             scope.setUrl({
               url: args.url,
-              type: 'wms'
+              type: type
             });
           });
           scope.$on('addLayerFromWMS', function (event, layer) {
@@ -147,7 +146,13 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             }
           });
 
-          scope.setUrl(localStorageFactory.get("wms"));
+          if (localStorageFactory.get("wms")) {
+            scope.format = "mws";
+            scope.setUrl(localStorageFactory.get("wms"));
+          } else if (localStorageFactory.get("wfs")) {
+            scope.format = "wfs";
+            scope.setUrl(localStorageFactory.get("wfs"));
+          }
 
         }
       };
