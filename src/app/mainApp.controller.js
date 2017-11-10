@@ -102,14 +102,36 @@ angular.module('mainApp')
 
       $scope.initMapLayout = function () {
         _initActiveLanguage();
+        var SAFE_SEQUENCE = "\n\n"; // a separator that cannot occur in URL
+        
         var obj = $location.search();
-        var hash = $location.hash().split('/');
-        if (hash.length >= 3) {
-          obj.zoom = hash[0];
-          obj.lon = hash[1];
-          obj.lat = hash[2];
-          for (index = 3; index < hash.length; index += 1) {
-            switch (hash[index].charAt(0)) {
+        var hash = $location.hash();
+        var tokens = [], match;
+        if (hash.indexOf("[") > -1) {
+          var tokenRE = /\[.*?\]/g ;
+          while(!!(match = tokenRE.exec(hash))) {
+            tokens.push(match[0].slice(1,-1)); 
+          }
+          hash = hash.replace(tokenRE, SAFE_SEQUENCE);
+        } else if (hash.indexOf("%5B") > -1) {
+          var tokenRE2 = /\%5B.*?\%5D/g ;
+          while(!!(match = tokenRE2.exec(hash))) { 
+            tokens.push(match[0].slice(3,-3)); 
+          }
+          hash = hash.replace(tokenRE2, SAFE_SEQUENCE);
+        }        
+        var parms = hash.split("/");
+        for (var p in parms) {
+          if (parms[p] == SAFE_SEQUENCE) {
+            parms[p] = tokens.shift(); // pop first
+          }
+        }    
+        if (parms.length >= 3) {
+          obj.zoom = parms[0];
+          obj.lon = parms[1];
+          obj.lat = parms[2];
+          for (index = 3; index < parms.length; index += 1) {
+            switch (parms[index].charAt(0)) {
               /*
               case '+':
                 // AddLayer named
@@ -147,7 +169,11 @@ angular.module('mainApp')
                 break;
 */
               case 'l':
-                obj.drawing = hash[index + 2];
+                if (parms[index + 1] === 'wms') {
+                  obj.wms = parms[index + 2];
+                } else if (parms[index + 1] === 'wfs') {
+                  obj.wfs = parms[index + 2];
+                }
                 index += 2;
                 break;
                 /*

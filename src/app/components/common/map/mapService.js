@@ -890,7 +890,8 @@ module.provider('gnMap', function () {
                   featurePrefix: '',
                   featureTypes: [getCapLayer.name.prefix + ':' + getCapLayer.name.localPart],
                   outputFormat: getCapLayer.outputFormats.format[0] || 'text/xml; subtype=gml/3.2.1',
-                  filter: new ol.format.ogc.filter.Bbox('', extent, map.getView().getProjection().getCode())
+                  filter: new ol.format.ogc.filter.Bbox('', extent, map.getView().getProjection().getCode()),
+                  count: 2
                 });
                 $.ajax({
                     method: 'POST',
