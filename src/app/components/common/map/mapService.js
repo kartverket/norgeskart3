@@ -774,6 +774,7 @@ module.provider('gnMap', function () {
          * @return {ol.Layer} the created layer
          */
         createOlWFSFromCap: function (map, getCapLayer, url) {
+          var defaultStyle = new ISY.MapImplementation.OL3.Styles.Default();
           var errors = [];
           if (getCapLayer) {
             var layer = getCapLayer;
@@ -829,8 +830,7 @@ module.provider('gnMap', function () {
 
             // TODO: parse better legend & attribution
             if (angular.isArray(layer.Style) && layer.Style.length > 0) {
-              var urlLegend = layer.Style[layer.Style.length - 1]
-                .LegendURL[0];
+              var urlLegend = layer.Style[layer.Style.length - 1].LegendURL[0];
               if (urlLegend) {
                 legend = urlLegend.OnlineResource;
               }
@@ -846,7 +846,7 @@ module.provider('gnMap', function () {
               metadata = layer.MetadataURL[0].OnlineResource;
             }
 
-            var vectorFormat = new ol.format.WFS();
+            var vectorFormat = new ol.format.GML3();
 
             if (getCapLayer.outputFormats) {
               $.each(getCapLayer.outputFormats.format,
@@ -861,18 +861,16 @@ module.provider('gnMap', function () {
             }
 
             //TODO different strategy depending on the format
-
             var vectorSource = new ol.source.Vector({
               format: vectorFormat,
               loader: function (extent) {
                 if (this.loadingLayer) {
                   return;
                 }
-
                 this.loadingLayer = true;
 
                 var parts = url.split('?');
-
+                /*
                 var urlGetFeature = gnUrlUtils.append(parts[0],
                   gnUrlUtils.toKeyValue({
                     service: 'WFS',
@@ -883,6 +881,7 @@ module.provider('gnMap', function () {
                     typename: getCapLayer.name.prefix + ':' + getCapLayer.name.localPart,
                     outputFormat: getCapLayer.outputFormats.format[0] || 'text/xml; subtype=gml/3.2.1'
                   }));
+                */
                 // generate a GetFeature request
                 var featureRequest = new ol.format.WFS().writeGetFeature({
                   srsName: map.getView().getProjection().getCode(),
@@ -912,8 +911,9 @@ module.provider('gnMap', function () {
                         ol.extent.extend(extent, geometry.getExtent());
                       }
                     }
-
-                    map.getView().fit(extent, map.getSize());
+                    if (extent[0] !== Infinity) {
+                      map.getView().fit(extent, map.getSize());
+                    }
 
                   })
                   .then(function () {
@@ -936,19 +936,17 @@ module.provider('gnMap', function () {
                   layer.wgs84BoundingBox[0].upperCorner
                 ]);
 
-              extent = ol.proj.transformExtent(
-                extent,
-                'EPSG:4326',
-                map.getView().getProjection().getCode());
+              extent = map.getView().calculateExtent(map.getSize());
             }
-
+/*
             if (extent) {
               map.getView().fit(extent, map.getSize());
             }
-
+*/
             layer = new ol.layer.Vector({
               source: vectorSource,
-              extent: extent
+              extent: extent,
+              style: defaultStyle.Styles()
             });
             layer.set('errors', errors);
             layer.set('featureTooltip', true);
@@ -957,8 +955,7 @@ module.provider('gnMap', function () {
             layer.set('label', getCapLayer.name.prefix + ':' +
               getCapLayer.name.localPart);
             return layer;
-          }
-
+          }          
         },
 
         /**
