@@ -122,7 +122,7 @@ angular.module('mainApp')
       };
 
       this.generateEmergencyPosterPreviewImageUrl = function (minx, miny, maxx, maxy) {
-        return urlOpenWms + 'wms.topo3?service=WMS&request=GetMap&CRS=EPSG:32633&FORMAT=image%2Fjpeg&BGCOLOR=0xFFFFFF&TRANSPARENT=false&LAYERS=topo2_WMS&VERSION=1.3.0&WIDTH=' + $(window).width() + '&HEIGHT=' + $(window).height() + '&BBOX=' + minx + ',' + miny + ',' + maxx + ',' + maxy;
+        return urlOpenWms + 'wms.topo3?service=WMS&request=GetMap&CRS=EPSG:32633&FORMAT=image%2Fjpeg&BGCOLOR=0xFFFFFF&TRANSPARENT=false&LAYERS=topo3_WMS&VERSION=1.3.0&WIDTH=' + $(window).width() + '&HEIGHT=' + $(window).height() + '&BBOX=' + minx + ',' + miny + ',' + maxx + ',' + maxy;
       };
 
       this.generateGeoJSONUrl = function (hash, save) {
