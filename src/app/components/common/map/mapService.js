@@ -907,7 +907,7 @@ module.provider('gnMap', function () {
                     for (var i = 0; i < features.length; ++i) {
                       var feature = features[i];
                       var geometry = feature.getGeometry();
-                      if (!goog.isNull(geometry)) {
+                      if ((!goog.isNull(geometry)) && (geometry !== undefined)) {
                         ol.extent.extend(extent, geometry.getExtent());
                       }
                     }

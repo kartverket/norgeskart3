@@ -147,7 +147,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           });
 
           if (localStorageFactory.get("wms")) {
-            scope.format = "mws";
+            scope.format = "wms";
             scope.setUrl(localStorageFactory.get("wms"));
           } else if (localStorageFactory.get("wfs")) {
             scope.format = "wfs";
