@@ -96,11 +96,10 @@ module.exports = {
             'vendor/angular-gettext/dist/angular-gettext.min.js',
             'vendor/angular-ui-date/dist/date.js',
             'vendor/floatThead/dist/jquery.floatThead.min.js',
-            'vendor/angular.ext/angular-floatThead.js',
-
-            'vendor/angular.ext/*.js',
+            'external/angular.ext/angular-floatThead.js',
+            'external/angular.ext/*.js',
             'vendor/*.js',
-            'external/ngeo/ngeo.js'
+            'external/ngeo/ngeo-debug.js'
 
             ],
         css: [
