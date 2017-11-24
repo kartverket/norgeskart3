@@ -12,6 +12,7 @@ angular.module('mainMenuPanel')
         localStorageFactory.remove('lon');
         localStorageFactory.remove('zoom');
         localStorageFactory.remove('wms');
+        localStorageFactory.remove('wfs');
         localStorageFactory.set('mainMenuIsOpen', false);
         location.hash = '';
         location.reload($event.shiftKey);
