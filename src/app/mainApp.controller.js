@@ -85,9 +85,11 @@ angular.module('mainApp')
         }
         if (obj.wms !== undefined) {
           localStorageFactory.set("wms", obj.wms);
+          $scope.$broadcast('addWMSfromSearch', {url: obj.wms, type: 'wms'} );
         }
         if (obj.wfs !== undefined) {
           localStorageFactory.set("wfs", obj.wfs);
+          $scope.$broadcast('addWMSfromSearch', {url: obj.wfs, type: 'wfs'} );
         }
         if (obj.wcs !== undefined) {
           console.error("Cannot display WCS directly. Use a Portrayal Service WMS with WCS as data layer.<br/>Syntax: /l/wms/[URL to portrayal]/d/wcs/[URL to data]");

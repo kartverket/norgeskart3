@@ -62,7 +62,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           scope.$on('addWMSfromSearch', function (event, args) {
             scope.setUrl({
               url: args.url,
-              type: type
+              type: args.type || type
             });
           });
           scope.$on('addLayerFromWMS', function (event, layer) {
