@@ -1,0 +1,53 @@
+<div class="panel-body" data-ng-show="!expandMenu.open">
+    <div id="spinner1" class="search-loading-overlay" data-ng-show="showSpinner">
+        <div class="spinner-loader"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+    </div>
+    <div>
+        <div class="info-text">
+            <span translate="Print_info"></span>
+        </div>
+        <div class="info-text">
+            <span translate="Scale"></span>: <b>1: 5 000</b>.
+        </div>
+        <div class="info-text">
+            <span translate="Paper_format"></span>: <b>A4</b>.
+        </div>
+        <div class="new-section">
+            <div class="title-text">
+                <span translate="Print_navn"></span>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="text"
+                           placeholder="{{'Print_navn_eks' | translate}}"
+                           ng-model="tittel"
+                           ng-disabled="!createMapButtonOn"
+                           class="full-width"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="new-section navigation-button pull-right">
+            <button class="btn btn-default btn-ordinary"
+                    data-ng-click="deactivatePrintBoxSelect(); showSearchOptionsPanel()" translate="Cancel_txt">
+            </button>
+
+            <button class="btn btn-default btn-important" data-ng-click="orderMap()"
+                    ng-disabled="!createMapButtonOn" translate="lagPrintOut">
+            </button>
+
+            <button class="btn btn-default btn-important" data-ng-click="downloadMap()"
+                    ng-disabled="!mapAvailable" translate="DownloadMap">
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="navigation-button pull-right">
+                <button class="btn btn-default btn-ordinary"
+                        data-ng-click="closeOverlay()" translate="Cancel_txt">
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

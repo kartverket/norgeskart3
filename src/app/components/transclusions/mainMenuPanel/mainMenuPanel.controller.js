@@ -68,6 +68,12 @@ angular.module('mainMenuPanel')
         moveableOverlayFactory.setActiveOverlay("ShareMap");
       };
 
+      $scope.showMoveablePrintMenu = function () {
+        mapOverlaysLayoutFactory.setShowSearchOverlay(false);
+        moveableOverlayFactory.deactiveAllOverlay();
+        moveableOverlayFactory.setActiveOverlay("Print");
+      };
+
       $scope.showMoveableElevationProfileMenu = function () {
         mapOverlaysLayoutFactory.setShowSearchOverlay(false);
         moveableOverlayFactory.deactiveAllOverlay();

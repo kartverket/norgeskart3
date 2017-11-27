@@ -140,6 +140,7 @@ module.exports = {
         'src/app/components/transclusions/mainMenuPanel/**/*.js',
         'src/app/components/transclusions/changeBaseLayerPanel/**/*.js',
         'src/app/components/transclusions/menuDraw/**/*.js',
+        'src/app/components/transclusions/print/**/*.js',
         'src/app/components/transclusions/menuShareMap/**/*.js',
         'src/app/components/transclusions/menuElevationProfile/**/*.js',
 
