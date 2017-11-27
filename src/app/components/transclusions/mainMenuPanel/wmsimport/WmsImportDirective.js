@@ -205,15 +205,15 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
         scope: {
           member: '='
         },
-        template: "<li class='list-group-item' ng-click='handle($event)' " +
-          "ng-class='(!isParentNode()) ? \"leaf\" : \"\"'><label>" +
-          "<span class='fa'  ng-class='isParentNode() ? \"fa-folder-o\" :" +
-          " \"fa-plus-square-o\"'></span>" +
+        template: "<li class='list-group-item' ng-click='handle($event)' ng-class='(!isParentNode()) ? \"leaf\" : \"\"'><label>" +
+          "<span class='fa' ng-class='isParentNode() ? \"fa-folder-o\" : isLayerActive ? \"fa-check-square-o\" : \"fa-square-o\"'></span>" +
           ' {{member.Title || member.title}}</label></li>',
         link: function (scope, element, attrs, controller) {
           var el = element;
           var select = function () {
-            controller.addLayer(scope.member);
+            var addedLayer = controller.addLayer(scope.member);
+            scope.isLayerActive = addedLayer.getVisible();
+
             gnAlertService.addAlert({
               msg: $translate.instant('layerAdded', {
                 layer:
