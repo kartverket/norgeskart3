@@ -28,22 +28,8 @@
             </div>
         </div>
     </div>
-    <ul data-ng-show="themaMenu.open">
-        <li tabindex="0" data-ng-repeat="project in projects" data-ng-class="{activeMenu: project.isSelected}" data-ng-click="activateProject(project)" ng-keypress="activateProject(project)">
-            <div class="row">
-                <div class="col-xs-1">
-                    <span data-ng-class="project.symbol" data-ng-bind="project.symbol_text"></span>
-                </div>
-                <div class="col-xs-11">
-                    <span translate="{{project.title}}"></span>
-                    <div class="pull-right">
-                    <!--<span class="circle" data-ng-show="project.isSelected" data-ng-bind="getVisibleSubLayersCount()"></span>-->
-                    <span class="badge" data-ng-show="project.isSelected" data-ng-bind="visibleLayersCount"></span>
-                    <span class="nextbtn glyphicon glyphicon-menu-right"></span>
-                        </div>
-                </div>
-            </div>
-        </li>
+    <ul data-ng-show="!themaMenu.open">
+        <div gn-Wms-Import="wms" gn-Wms-Import-Map="Map" gn-Wms-Import-Url="addLayerUrl.wms"></div>
     </ul>
 </div>
 
