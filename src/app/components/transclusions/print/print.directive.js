@@ -33,9 +33,9 @@ angular.module('print')
           scope.scale = '5000';
           scope.tittel = "Print";
 
-          _activatePrintBoxSelect(scope.scale, 1, 1);
-
           scope.orderMap = function () {
+            _activatePrintBoxSelect(scope.scale, 1, 1);
+            
             if (!extent.bbox) {
               return;
             }
@@ -65,12 +65,12 @@ angular.module('print')
                 center: extent.center,
                 dpi: "300",
                 layers: [{
-                  baseURL: "http://wms.geonorge.no/skwms1/wms.fargelegg",
+                  baseURL: "http://wms.geonorge.no/skwms1/wms.toporaster3",
                   customParams: {
                     TRANSPARENT: "false"
                   },
                   imageFormat: "image/jpeg",
-                  layers: ["fargeleggingskart"],
+                  layers: ["toporaster"],
                   opacity: 1,
                   type: "WMS"
                 }],
@@ -82,7 +82,7 @@ angular.module('print')
               layout: "A4 landscape",
               scale: extent.scale,
               titel: scope.tittel,
-              link: "http://www.norgeskart.no/turkart/"
+              link: "http://www.norgeskart.no/geonorge/"
             };
           };
 
