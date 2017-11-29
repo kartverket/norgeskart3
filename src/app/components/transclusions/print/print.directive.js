@@ -21,7 +21,7 @@ angular.module('print')
             extent = newExtent;
           }
           eventHandler.RegisterEvent(ISY.Events.EventTypes.PrintBoxSelectReturnValue, _boxExtent);
-          
+
           var _activatePrintBoxSelect = function (scale, cols, rows) {
             var printBoxSelectTool = toolsFactory.getToolById("PrintBoxSelect");
             printBoxSelectTool.additionalOptions.scale = scale;
@@ -29,11 +29,25 @@ angular.module('print')
             printBoxSelectTool.additionalOptions.rows = rows;
             toolsFactory.activateTool(printBoxSelectTool);
           };
+          var _deactivatePrintBoxSelect = function () {
+            var printBoxSelectTool = toolsFactory.getToolById("PrintBoxSelect");
+            toolsFactory.deactivateTool(printBoxSelectTool);
+          };
+    
+          scope.applyScale = function (scale) {
+            _deactivatePrintBoxSelect();
+            _activatePrintBoxSelect(scale, 1, 1);
+            scope.scale = scale;
+          };
 
-          scope.scale = '5000';
+          scope.scales = {
+            10000: '1: 10 000',
+            25000: '1: 25 000',
+            50000: '1: 50 000',
+            100000: '1: 100 000'
+          };
+          scope.scale = '25000';
           scope.tittel = "Print";
-
-          _activatePrintBoxSelect(scope.scale, 1, 1);
 
           scope.orderMap = function () {
             if (!extent.bbox) {
@@ -65,12 +79,12 @@ angular.module('print')
                 center: extent.center,
                 dpi: "300",
                 layers: [{
-                  baseURL: "http://wms.geonorge.no/skwms1/wms.fargelegg",
+                  baseURL: "http://wms.geonorge.no/skwms1/wms.toporaster3",
                   customParams: {
                     TRANSPARENT: "false"
                   },
                   imageFormat: "image/jpeg",
-                  layers: ["fargeleggingskart"],
+                  layers: ["toporaster"],
                   opacity: 1,
                   type: "WMS"
                 }],
@@ -82,7 +96,7 @@ angular.module('print')
               layout: "A4 landscape",
               scale: extent.scale,
               titel: scope.tittel,
-              link: "http://www.norgeskart.no/turkart/"
+              link: "http://www.norgeskart.no/geonorge"
             };
           };
 
@@ -134,6 +148,12 @@ angular.module('print')
           $(document).ready(function () {
             $($window).resize(setMenuListMaxHeight);
             setMenuListMaxHeight();
+          });
+
+          scope.$on('moveableOverlayChange', function (event, args) {
+            if (args.id === 'Print') {
+              _activatePrintBoxSelect(scope.scale, 1, 1);
+            }
           });
         }
       };
