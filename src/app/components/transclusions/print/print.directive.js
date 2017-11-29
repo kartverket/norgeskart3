@@ -50,6 +50,8 @@ angular.module('print')
           scope.tittel = "Print";
 
           scope.orderMap = function () {
+            _activatePrintBoxSelect(scope.scale, 1, 1);
+            
             if (!extent.bbox) {
               return;
             }
@@ -96,7 +98,7 @@ angular.module('print')
               layout: "A4 landscape",
               scale: extent.scale,
               titel: scope.tittel,
-              link: "http://www.norgeskart.no/geonorge"
+              link: "http://www.norgeskart.no/geonorge/"
             };
           };
 
