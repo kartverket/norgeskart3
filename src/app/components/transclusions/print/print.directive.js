@@ -33,7 +33,7 @@ angular.module('print')
             var printBoxSelectTool = toolsFactory.getToolById("PrintBoxSelect");
             toolsFactory.deactivateTool(printBoxSelectTool);
           };
-    
+
           scope.applyScale = function (scale) {
             _deactivatePrintBoxSelect();
             _activatePrintBoxSelect(scale, 1, 1);
@@ -51,18 +51,75 @@ angular.module('print')
 
           scope.orderMap = function () {
             _activatePrintBoxSelect(scope.scale, 1, 1);
-            
             if (!extent.bbox) {
               return;
             }
+            scope.olmap = ISY.MapImplementation.OL3.olMap;
+            var view = scope.olmap.getView();
+            var resolution = view.getResolution();
+            var proj = view.getProjection();
+            var encLayers = [];
+            var encLegends;
+            var attributions = [];
+            var layers = scope.olmap.getLayers();
+            pdfLegendsToDownload = [];
+
+            var sortedZindexLayers = layers.getArray().sort(function (a, b) {
+              return a.getZIndex() > b.getZIndex();
+            });
+
+            angular.forEach(sortedZindexLayers, function (layer) {
+              if (layer.getVisible()) {
+                var attribution = layer.attribution;
+                if (attribution !== undefined &&
+                  attributions.indexOf(attribution) === -1) {
+                  attributions.push(attribution);
+                }
+                if (layer instanceof ol.layer.Group) {
+                  var encs = encoders.layers['Group'].call(this, layer, proj);
+                  encLayers = encLayers.concat(encs);
+                } else {
+                  var enc = encodeLayer(layer, proj, resolution);
+                  if (enc && enc.layer) {
+                    encLayers.push(enc.layer);
+                    if (enc.legend) {
+                      encLegends = encLegends || [];
+                      encLegends.push(enc.legend);
+                    }
+                  }
+                }
+              }
+            });
+
             scope.createMapButtonOn = false;
             scope.mapAvailable = false;
-            var json = _createJson();
+
+            var printJson = {
+              attributes: {
+                map: {
+                  center: extent.center,
+                  // bbox: extent.bbox,
+                  dpi: "300",
+                  layers: encLayers,
+                  // legends: encLegends,
+                  projection: extent.projection,
+                  rotation: 0,
+                  // sone: extent.sone,
+                  // biSone: "",
+                  // paging: 1,
+                  scale: extent.scale,
+                  // titel: scope.tittel,
+                  // link: "http://www.norgeskart.no/geonorge/"
+                }
+              },
+              layout: "A4 landscape"
+            };
+
             $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side
-            var urlLagFargeleggingskart = mainAppService.generateLagFargeleggingskartUrl();
-            $http.post(urlLagFargeleggingskart, json).then(
+            var printUrl = mainAppService.generatePrintUrl();
+            $http.post(printUrl, printJson).then(
               function (response) {
-                _mapReadyForDownload(response, urlLagFargeleggingskart);
+                _mapReadyForDownload(response, printUrl);
               },
               function (response) {
                 _mapCreationFailed(response);
@@ -72,34 +129,6 @@ angular.module('print')
             document.getElementById("spinner1").style.backgroundColor = "rgba(0,0,0,0.4)";
             document.getElementById("spinner1").style.transition = "0.8s";
 
-          };
-
-          var _createJson = function () {
-            return {
-              map: {
-                bbox: extent.bbox,
-                center: extent.center,
-                dpi: "300",
-                layers: [{
-                  baseURL: "http://wms.geonorge.no/skwms1/wms.toporaster3",
-                  customParams: {
-                    TRANSPARENT: "false"
-                  },
-                  imageFormat: "image/jpeg",
-                  layers: ["toporaster"],
-                  opacity: 1,
-                  type: "WMS"
-                }],
-                projection: extent.projection,
-                sone: extent.sone,
-                biSone: ""
-              },
-              paging: 1,
-              layout: "A4 landscape",
-              scale: extent.scale,
-              titel: scope.tittel,
-              link: "http://www.norgeskart.no/geonorge/"
-            };
           };
 
           var _mapCreationFailed = function () {
@@ -113,13 +142,13 @@ angular.module('print')
             }
           };
 
-          var _mapReadyForDownload = function (response, urlLagFargeleggingskart) {
+          var _mapReadyForDownload = function (response, printUrl) {
             scope.mapAvailable = true;
             scope.createMapButtonOn = true;
             scope.showSpinner = false;
             document.getElementById("spinner1").style.backgroundColor = "transparent";
             document.getElementById("spinner1").style.transition = "0.8s";
-            mapLink = urlLagFargeleggingskart.replace('getprint_f.py', '') + response.data.linkPdf;
+            mapLink = printUrl.replace('getprint_f.py', '') + response.data.linkPdf;
           };
 
           scope.downloadMap = function () {
@@ -151,6 +180,242 @@ angular.module('print')
             $($window).resize(setMenuListMaxHeight);
             setMenuListMaxHeight();
           });
+          /**
+           * Object of methods that encode ol3 layers into print config objects.
+           *
+           * @type {{layers: {Layer: 'Layer', Group: 'Group',
+           *    Vector: 'Vector', WMS: 'WMS',
+           *    OSM: 'OSM', WMTS: 'WMTS'}, legends: {ga_urllegend: 'ga_urllegend',
+           *    base: 'base'}}}
+           */
+          var encoders = {
+            layers: {
+              Layer: function (layer) {
+                var enc = {
+                  layer: layer.bodId,
+                  opacity: layer.getOpacity()
+                };
+                return enc;
+              },
+              Group: function (layer, proj) {
+                var encs = [];
+                var subLayers = layer.getLayers();
+                subLayers.forEach(function (subLayer) {
+                  if (subLayer.visible) {
+                    var enc = encoders.layers['Layer'].call(this, layer);
+                    var layerEnc = encodeLayer(subLayer, proj);
+                    if (layerEnc && layerEnc.layer) {
+                      $.extend(enc, layerEnc);
+                      encs.push(enc.layer);
+                    }
+                  }
+                });
+                return encs;
+              },
+              Vector: function (layer, features) {
+                var enc = encoders.layers['Layer'].call(this, layer);
+                var format = new ol.format.GeoJSON();
+                var encStyles = {};
+                var encFeatures = [];
+                var styleId = 0;
+
+                angular.forEach(features, function (feature) {
+                  var encStyle = {
+                    id: styleId
+                  };
+
+                  var styles, featureStyle = feature.get('_style');
+                  if (angular.isFunction(featureStyle)) {
+                    styles = featureStyle(feature);
+                  } else if (angular.isArray(featureStyle)) {
+                    styles = featureStyle;
+                  } else if (featureStyle) {
+                    styles = [featureStyle];
+                  } else {
+                    styles = feature.getStyleFunction(); // was ol.style.defaultStyleFunction(feature);
+                  }
+
+                  var geometry = feature.getGeometry();
+
+                  // Transform an ol.geom.Circle to a ol.geom.Polygon
+                  if (geometry.getType() === 'Circle') {
+                    var polygon = circleToPolygon(geometry);
+                    feature = new ol.Feature(polygon);
+                  }
+
+                  var encJSON = format.writeFeatureObject(feature);
+                  if (!encJSON.properties) {
+                    encJSON.properties = {};
+                  } else if (encJSON.properties.Style) {
+                    delete encJSON.properties.Style;
+                  }
+
+                  encJSON.properties._gx_style = styleId;
+                  encFeatures.push(encJSON);
+
+                  if (styles && styles.length > 0) {
+                    $.extend(encStyle, transformToPrintLiteral(feature, styles[0]));
+                  }
+
+                  encStyles[styleId] = encStyle;
+                  styleId++;
+                });
+                angular.extend(enc, {
+                  type: 'Vector',
+                  styles: encStyles,
+                  styleProperty: '_gx_style',
+                  geoJson: {
+                    type: 'FeatureCollection',
+                    features: encFeatures
+                  },
+                  name: layer.bodId,
+                  opacity: (layer.opacity !== null) ? layer.opacity : 1.0
+                });
+                return enc;
+              },
+              WMS: function (layer, config) {
+                var enc = encoders.layers['Layer'].call(this, layer);
+                var params = layer.getSource().getParams();
+                var layers = params.LAYERS.split(',') || [];
+                var styles = (params.STYLES !== undefined) ?
+                  params.STYLES.split(',') :
+                  new Array(layers.length).join(',').split(',');
+                var url = layer.getSource() instanceof ol.source.ImageWMS ?
+                  layer.getSource().getUrl() :
+                  layer.getSource().getUrls()[0];
+                angular.extend(enc, {
+                  type: 'WMS',
+                  baseURL: config.wmsUrl || url,
+                  layers: layers,
+                  styles: styles,
+                  legend: layer.get('legend'),
+                  format: 'image/' + (config.format || 'png'),
+                  customParams: {
+                    EXCEPTIONS: 'XML',
+                    TRANSPARENT: 'true',
+                    CRS: 'EPSG:3857',
+                    TIME: params.TIME
+                  },
+                  singleTile: config.singleTile || false
+                });
+                return enc;
+              },
+              OSM: function (layer) {
+                var enc = encoders.layers['Layer'].call(this, layer);
+                angular.extend(enc, {
+                  type: 'OSM',
+                  baseURL: 'http://a.tile.openstreetmap.org/',
+                  extension: 'png',
+                  // Hack to return an extent for the base
+                  // layer in case of undefined
+                  maxExtent: layer.getExtent() || [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
+                  resolutions: layer.getSource().tileGrid.getResolutions(),
+                  tileSize: [
+                    layer.getSource().tileGrid.getTileSize(),
+                    layer.getSource().tileGrid.getTileSize()
+                  ]
+                });
+                return enc;
+              },
+              WMTS: function (layer) {
+                // sextant specific
+                var enc = encoders.layers['Layer'].call(this, layer);
+                var source = layer.getSource();
+                var tileGrid = source.getTileGrid();
+                var matrixSet = source.getMatrixSet();
+                var matrixIds = new Array(tileGrid.getResolutions().length);
+                for (var z = 0; z < tileGrid.getResolutions().length; ++z) {
+                  var mSize = (ol.extent.getWidth(ol.proj.get('EPSG:3857').getExtent()) / tileGrid.getTileSize()) /
+                    tileGrid.getResolutions()[z];
+                  matrixIds[z] = {
+                    identifier: tileGrid.getMatrixIds()[z],
+                    resolution: tileGrid.getResolutions()[z],
+                    tileSize: [tileGrid.getTileSize(), tileGrid.getTileSize()],
+                    topLeftCorner: tileGrid.getOrigin(),
+                    matrixSize: [mSize, mSize]
+                  };
+                }
+
+                angular.extend(enc, {
+                  type: 'WMTS',
+                  baseURL: layer.get('url'),
+                  layer: source.getLayer(),
+                  version: source.getVersion(),
+                  requestEncoding: 'KVP',
+                  format: source.getFormat(),
+                  style: source.getStyle(),
+                  matrixSet: matrixSet,
+                  matrixIds: matrixIds
+                });
+
+                return enc;
+              }
+            },
+            legends: {
+              base: function (layer) {
+                if (!layer.get('legend')) {
+                  return;
+                }
+                return {
+                  name: layer.get('title') || layer.get('label'),
+                  classes: [{
+                    name: '',
+                    icon: layer.get('legend')
+                  }]
+                };
+              }
+            }
+          };
+
+          // Encode ol.Layer to a basic js object
+          var encodeLayer = function (layer, proj, resolution) {
+            var encLayer, encLegend;
+            var ext = proj.getExtent();
+            var layerConfig = {};
+
+            if (!(layer instanceof ol.layer.Group)) {
+              var src = layer.getSource();
+              var minResolution = layerConfig.minResolution || 0;
+              var maxResolution = layerConfig.maxResolution || Infinity;
+
+              if (resolution <= maxResolution &&
+                resolution >= minResolution) {
+                if (src instanceof ol.source.WMTS) {
+                  encLayer = encoders.layers['WMTS'].call(this, layer, layerConfig, scope.olmap);
+                } else if (src instanceof ol.source.OSM) {
+                  encLayer = encoders.layers['OSM'].call(this, layer, layerConfig);
+                } else if (src instanceof ol.source.ImageWMS ||
+                  src instanceof ol.source.TileWMS) {
+                  encLayer = encoders.layers['WMS'].call(this, layer, layerConfig, scope.olmap);
+                } else if (src instanceof ol.source.Vector ||
+                  src instanceof ol.source.ImageVector) {
+                  if (src instanceof ol.source.ImageVector) {
+                    src = src.getSource();
+                  }
+                  var features = [];
+                  src.forEachFeatureInExtent(ext, function (feat) {
+                    features.push(feat);
+                  });
+
+                  if (features && features.length > 0) {
+                    encLayer = encoders.layers['Vector'].call(this, layer, features);
+                  }
+                }
+              }
+            }
+
+            encLegend = encoders.legends['base'].call(
+              this, layer, layerConfig
+            );
+
+            if (encLegend && encLegend.classes[0] && !encLegend.classes[0].icon) {
+              encLegend = undefined;
+            }
+            return {
+              layer: encLayer,
+              legend: encLegend
+            };
+          };
 
           scope.$on('moveableOverlayChange', function (event, args) {
             if (args.id === 'Print') {
