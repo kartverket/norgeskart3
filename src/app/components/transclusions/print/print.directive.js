@@ -213,6 +213,9 @@ angular.module('print')
                 return encs;
               },
               Vector: function (layer, features) {
+                if (layer.values_.name === 'PrintBoxSelect') {
+                  return;
+                }
                 var enc = encoders.layers['Layer'].call(this, layer);
                 var format = new ol.format.GeoJSON();
                 var encStyles = {};
@@ -288,15 +291,14 @@ angular.module('print')
                   baseURL: config.wmsUrl || url,
                   layers: layers,
                   styles: styles,
-                  legend: layer.get('legend'),
-                  format: 'image/' + (config.format || 'png'),
+                  // legend: layer.get('legend'),
+                  imageFormat: 'image/' + (config.format || 'png'),
                   customParams: {
                     EXCEPTIONS: 'XML',
                     TRANSPARENT: 'true',
                     CRS: 'EPSG:3857',
                     TIME: params.TIME
-                  },
-                  singleTile: config.singleTile || false
+                  }// , singleTile: config.singleTile || false
                 });
                 return enc;
               },
@@ -323,13 +325,13 @@ angular.module('print')
                 var source = layer.getSource();
                 var tileGrid = source.getTileGrid();
                 var matrixSet = source.getMatrixSet();
-                var matrixIds = new Array(tileGrid.getResolutions().length);
+                var matrices = new Array(tileGrid.getResolutions().length);
                 for (var z = 0; z < tileGrid.getResolutions().length; ++z) {
                   var mSize = (ol.extent.getWidth(ol.proj.get('EPSG:3857').getExtent()) / tileGrid.getTileSize()) /
                     tileGrid.getResolutions()[z];
-                  matrixIds[z] = {
+                  matrices[z] = {
                     identifier: tileGrid.getMatrixIds()[z],
-                    resolution: tileGrid.getResolutions()[z],
+                    scaleDenominator: tileGrid.getResolutions()[z],
                     tileSize: [tileGrid.getTileSize(), tileGrid.getTileSize()],
                     topLeftCorner: tileGrid.getOrigin(),
                     matrixSize: [mSize, mSize]
@@ -338,14 +340,14 @@ angular.module('print')
 
                 angular.extend(enc, {
                   type: 'WMTS',
-                  baseURL: layer.get('url'),
+                  baseURL: layer.getSource().getUrls()[0], // layer.get('url'),
                   layer: source.getLayer(),
                   version: source.getVersion(),
                   requestEncoding: 'KVP',
-                  format: source.getFormat(),
+                  imageFormat: source.getFormat(),
                   style: source.getStyle(),
                   matrixSet: matrixSet,
-                  matrixIds: matrixIds
+                  matrices: matrices
                 });
 
                 return enc;
