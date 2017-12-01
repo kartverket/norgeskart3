@@ -118,8 +118,8 @@ angular.module('mainApp')
         return urlGeonorge + "freeprint/getprint_f.py";
       };
 
-      this.generatePrintUrl = function () {
-        return "http://nnriap551.statkart.no:8080/print/print/default/report.pdf";
+      this.generatePrintUrl = function (param) {
+        return "http://nnriap551.statkart.no:8080" + param;
       };
 
       this.generateEmergencyPosterPointUrl = function (lat, lon) {

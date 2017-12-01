@@ -15,7 +15,6 @@ angular.module('print')
           scope.mapAvailable = false;
           scope.createMapButtonOn = true;
           scope.showLegend = false;
-          scope.showTrips = false;
 
           function _boxExtent(newExtent) {
             extent = newExtent;
@@ -116,19 +115,16 @@ angular.module('print')
             };
 
             $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side
-            var printUrl = mainAppService.generatePrintUrl();
-            $http.post(printUrl, printJson).then(
-              function (response) {
-                _mapReadyForDownload(response, printUrl);
-              },
-              function (response) {
-                _mapCreationFailed(response);
-              }
-            );
+            var printUrl = mainAppService.generatePrintUrl("/print/print/default/report.pdf");
+            var startTime = new Date().getTime();
             scope.showSpinner = true;
             document.getElementById("spinner1").style.backgroundColor = "rgba(0,0,0,0.4)";
             document.getElementById("spinner1").style.transition = "0.8s";
-
+            $http.post(printUrl, printJson).then(
+              function (response) {
+                scope.downloadWhenReady(response.data.statusURL, startTime);
+              }
+            );
           };
 
           var _mapCreationFailed = function () {
@@ -141,14 +137,43 @@ angular.module('print')
               scope.createMapButtonOn = true;
             }
           };
+          /*
+          var updateWaitingMsg = function (startTime, data) {
+            var elapsed = Math.floor((new Date().getTime() - startTime) / 100);
+            var time = '';
+            if (elapsed > 5) {
+              time = (elapsed / 10) + " sec";
+            }
+            $('#messages').text('Waiting for report ' + time + ": " + data.ref);
+          };
+          */
+          scope.downloadWhenReady = function (statusURL, startTime) {
+            if ((new Date().getTime() - startTime) > 30000) {
+              console.error('Gave up waiting after 30 seconds');
+            } else {
+              // updateWaitingMsg(startTime, data);
+              setTimeout(function () {
+                $http.get(mainAppService.generatePrintUrl(statusURL)).then(
+                  function (response) {
+                    if (!response.data.done) {
+                      scope.downloadWhenReady(response.data.statusURL, startTime);
+                    } else {
+                      scope.mapReadyForDownload(response.data.downloadURL);
+                    }
+                  }, function error() {
+                    _mapCreationFailed();
+                  });
+              }, 500);
+            }
+          };
 
-          var _mapReadyForDownload = function (response, printUrl) {
+          scope.mapReadyForDownload = function (downloadURL) {
             scope.mapAvailable = true;
             scope.createMapButtonOn = true;
             scope.showSpinner = false;
             document.getElementById("spinner1").style.backgroundColor = "transparent";
             document.getElementById("spinner1").style.transition = "0.8s";
-            mapLink = printUrl.replace('getprint_f.py', '') + response.data.linkPdf;
+            mapLink = mainAppService.generatePrintUrl(downloadURL);
           };
 
           scope.downloadMap = function () {
@@ -298,7 +323,7 @@ angular.module('print')
                     TRANSPARENT: 'true',
                     CRS: 'EPSG:3857',
                     TIME: params.TIME
-                  }// , singleTile: config.singleTile || false
+                  } // , singleTile: config.singleTile || false
                 });
                 return enc;
               },
