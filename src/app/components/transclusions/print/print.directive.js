@@ -156,7 +156,7 @@ angular.module('print')
                 $http.get(mainAppService.generatePrintUrl(statusURL)).then(
                   function (response) {
                     if (!response.data.done) {
-                      scope.downloadWhenReady(response.data.statusURL, startTime);
+                      scope.downloadWhenReady(statusURL, startTime);
                     } else {
                       scope.mapReadyForDownload(response.data.downloadURL);
                     }
