@@ -9,7 +9,7 @@ angular.module('mainApp')
       var groupIds = [];
       var notDummyGroup = false;
       var projectNameUrl;
-      var mainMenuIsOpen = false;
+      var mainMenuIsOpen = true;
       var config = {
         instance: "norgeskart3",
         configurl: "//www.norgeskart.no/config/"
