@@ -115,7 +115,7 @@ angular.module('print')
             };
 
             $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side
-            var printUrl = mainAppService.generatePrintUrl("/print/print/default/report.pdf");
+            var printUrl = mainAppService.generatePrintUrl("/print/print/kv/report.pdf");
             var startTime = new Date().getTime();
             scope.showSpinner = true;
             document.getElementById("spinner1").style.backgroundColor = "rgba(0,0,0,0.4)";
@@ -157,8 +157,10 @@ angular.module('print')
                   function (response) {
                     if (!response.data.done) {
                       scope.downloadWhenReady(statusURL, startTime);
-                    } else {
-                      scope.mapReadyForDownload(response.data.downloadURL);
+                    } else if (response.data.done && (response.data.status !== 'error')) {
+                      _mapCreationFailed();
+                    } else if (response.data.status === 'error') {
+                      _mapCreationFailed();
                     }
                   }, function error() {
                     _mapCreationFailed();
