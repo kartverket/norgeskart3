@@ -434,7 +434,7 @@ angular.module('mainApp')
       var projectName = function () {
         var absUrl = $location.$$absUrl;
         if (absUrl.indexOf("project=") > -1) {
-          var projectName = /project=([^&]+)&/.exec(absUrl);
+          var projectName = /project=([^&]+)(&|#)/.exec(absUrl);
           if (projectName === null) {
             projectName = /project=([^]+)/.exec(absUrl);
             if (projectName === null) {
