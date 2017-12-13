@@ -57,7 +57,7 @@ module.provider('gnMap', function () {
     'Metadata',
     'gnWfsService',
     'gnGlobalSettings',
-    'gnViewerSettings', 'gnPopup',
+    'gnViewerSettings', 'gnPopup', '$http',
     /*'gnViewerService',
     function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
       gnSearchLocation, $rootScope, gnUrlUtils, $q, $translate,
@@ -67,7 +67,7 @@ module.provider('gnMap', function () {
     function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
       gnSearchLocation, $rootScope, gnUrlUtils, $q, $translate,
       gnWmsQueue, gnSearchManagerService, Metadata, gnWfsService,
-      gnGlobalSettings, viewerSettings, gnPopup) {
+      gnGlobalSettings, viewerSettings, gnPopup, $http) {
 
       var defaultMapConfig = {
         useOSM: 'true',
@@ -740,14 +740,17 @@ module.provider('gnMap', function () {
               var viewResolution = (map.getView().getResolution());
               var url = layer.getSource().getGetFeatureInfoUrl(
                 evt.coordinate, viewResolution, map.getView().getProjection(), {
-                  INFO_FORMAT: 'text/html'
+                  INFO_FORMAT: 'text/plain'
                 });
               if (url) {
+                $http.get(url).then(
+                  function (response) {
                 gnPopup.createModal({
                   title: $translate.instant('featureInfo', {
                     title: layer.label
                   }),
-                  content: '<div><a href="' + url + '"</a>' + url + '</div>'
+                      content: '<pre>' + response.data + '</pre>'
+                    });
                 });
               }
             });
