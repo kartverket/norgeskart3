@@ -81,6 +81,39 @@ module.provider('gnMap', function () {
         }]
       };
 
+      if (!Array.prototype.includes) {
+        Array.prototype.includes = function(searchElement /*, fromIndex*/) {
+          'use strict';
+          if (this == null) {
+            throw new TypeError('Array.prototype.includes called on null or undefined');
+          }
+          
+          var O = Object(this);
+          var len = parseInt(O.length, 10) || 0;
+          if (len === 0) {
+            return false;
+          }
+          var n = parseInt(arguments[1], 10) || 0;
+          var k;
+          if (n >= 0) {
+            k = n;
+          } else {
+            k = len + n;
+            if (k < 0) {k = 0;}
+          }
+          var currentElement;
+          while (k < len) {
+            currentElement = O[k];
+            if (searchElement === currentElement ||
+               (searchElement !== searchElement && currentElement !== currentElement)) { // NaN !== NaN
+              return true;
+            }
+            k++;
+          }
+          return false;
+        };
+      }
+            
       /**
        * @description
        * Check if the layer is in the map to avoid adding duplicated ones.
@@ -745,13 +778,13 @@ module.provider('gnMap', function () {
               if (url) {
                 $http.get(url).then(
                   function (response) {
-                gnPopup.createModal({
-                  title: $translate.instant('featureInfo', {
-                    title: layer.label
-                  }),
+                    gnPopup.createModal({
+                      title: $translate.instant('featureInfo', {
+                        title: layer.label
+                      }),
                       content: '<pre>' + response.data + '</pre>'
                     });
-                });
+                  });
               }
             });
 
@@ -899,7 +932,7 @@ module.provider('gnMap', function () {
                     method: 'POST',
                     url: parts[0],
                     data: new XMLSerializer().serializeToString(featureRequest),
-                    contentType: "text/xml",                    
+                    contentType: "text/xml",
                   })
                   .done(function (response) {
                     // TODO: Check WFS exception
@@ -941,11 +974,11 @@ module.provider('gnMap', function () {
 
               extent = map.getView().calculateExtent(map.getSize());
             }
-/*
-            if (extent) {
-              map.getView().fit(extent, map.getSize());
-            }
-*/
+            /*
+                        if (extent) {
+                          map.getView().fit(extent, map.getSize());
+                        }
+            */
             layer = new ol.layer.Vector({
               source: vectorSource,
               extent: extent,
@@ -958,7 +991,7 @@ module.provider('gnMap', function () {
             layer.set('label', getCapLayer.name.prefix + ':' +
               getCapLayer.name.localPart);
             return layer;
-          }          
+          }
         },
 
         /**
