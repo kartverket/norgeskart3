@@ -70,7 +70,7 @@ angular.module('print')
           scope.paper_format = {
             A4: 'A4',
             A3: 'A3'
-          }
+          };
           scope.paperFormat = 'A4';
 
           scope.orderMap = function () {
@@ -86,7 +86,6 @@ angular.module('print')
             var encLegends;
             var attributions = [];
             var layers = scope.olmap.getLayers();
-            pdfLegendsToDownload = [];
 
             var sortedZindexLayers = layers.getArray().sort(function (a, b) {
               return a.getZIndex() > b.getZIndex();
@@ -103,8 +102,7 @@ angular.module('print')
                   var newExtent = searchEPSGForExtent(layer.getSource().getProjection().getCode().split(':')[1]);
                   newExtent.then(function (localExtent) {
                     if (layer instanceof ol.layer.Group) {
-                      var encs = encoders.layers['Group'].call(this, layer, proj);
-                      encLayers = encLayers.concat(encs);
+                      encLayers = encLayers.concat(encoders.layers['Group'].call(this, layer, proj));
                     } else {
                       var enc = encodeLayer(layer, proj, resolution);
                       if (enc && enc.layer) {
@@ -118,8 +116,7 @@ angular.module('print')
                   });
                 } else {
                   if (layer instanceof ol.layer.Group) {
-                    var encs = encoders.layers['Group'].call(this, layer, proj);
-                    encLayers = encLayers.concat(encs);
+                    encLayers = encLayers.concat(encoders.layers['Group'].call(this, layer, proj));
                   } else {
                     var enc = encodeLayer(layer, proj, resolution);
                     if (enc && enc.layer) {
@@ -250,7 +247,7 @@ angular.module('print')
                       proj4def = result['proj4'],
                       bbox = result['bbox'];
                     if (code && code.length > 0 && proj4def && proj4def.length > 0 &&
-                      bbox && bbox.length == 4) {
+                      bbox && bbox.length === 4) {
                       var newProjCode = 'EPSG:' + code;
                       proj4.defs(newProjCode, proj4def);
                       var newProj = ol.proj.get(newProjCode);
@@ -281,11 +278,10 @@ angular.module('print')
           var encoders = {
             layers: {
               Layer: function (layer) {
-                var enc = {
-                  layer: layer.bodId,
+                return {
+                  layer  : layer.bodId,
                   opacity: layer.getOpacity()
                 };
-                return enc;
               },
               Group: function (layer, proj) {
                 var encs = [];

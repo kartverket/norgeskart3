@@ -36,16 +36,16 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           this.addLayer = function (getCapLayer) {
             getCapLayer.version = $scope.capability.version;
             var layer;
-            if ($scope.format == 'wms') {
+            if ($scope.format === 'wms') {
               layer = gnMap.addWmsToMapFromCap($scope.map, getCapLayer);
               gnMap.feedLayerMd(layer);
               return layer;
-            } else if ($scope.format == 'wfs') {
+            } else if ($scope.format === 'wfs') {
               layer = gnMap.addWfsToMapFromCap($scope.map, getCapLayer,
                 $scope.url);
               gnMap.feedLayerMd(layer);
               return layer;
-            } else if ($scope.format == 'wmts') {
+            } else if ($scope.format === 'wmts') {
               return gnMap.addWmtsToMapFromCap($scope.map, getCapLayer,
                 $scope.capability);
             }
