@@ -9,7 +9,7 @@ angular.module('print')
             scope.activePosition.zoom = parseFloat(12);
             map.SetCenter(scope.activePosition);
           }
-          var extent = {};
+          scope.extent = {};
           var mapLink = "";
           var retryMapCreation = true;
           scope.mapAvailable = false;
@@ -17,15 +17,16 @@ angular.module('print')
           scope.showLegend = false;
 
           function _boxExtent(newExtent) {
-            extent = newExtent;
+            scope.extent = newExtent;
           }
           eventHandler.RegisterEvent(ISY.Events.EventTypes.PrintBoxSelectReturnValue, _boxExtent);
 
-          var _activatePrintBoxSelect = function (scale, cols, rows) {
+          var _activatePrintBoxSelect = function (scale, cols, rows, orientation) {
             var printBoxSelectTool = toolsFactory.getToolById("PrintBoxSelect");
             printBoxSelectTool.additionalOptions.scale = scale;
             printBoxSelectTool.additionalOptions.cols = cols;
             printBoxSelectTool.additionalOptions.rows = rows;
+            printBoxSelectTool.additionalOptions.orientation = orientation;
             toolsFactory.activateTool(printBoxSelectTool);
           };
           var _deactivatePrintBoxSelect = function () {
@@ -35,8 +36,20 @@ angular.module('print')
 
           scope.applyScale = function (scale) {
             _deactivatePrintBoxSelect();
-            _activatePrintBoxSelect(scale, 1, 1);
+            _activatePrintBoxSelect(scale, 1, 1, scope.orientation);
             scope.scale = scale;
+          };
+
+          scope.applyPaperformat = function (paperFormat) {
+            _deactivatePrintBoxSelect();
+            //_activatePrintBoxSelect(scale, 1, 1);
+            scope.paperFormat = paperFormat;
+          };
+
+          scope.applyOrientation = function (orientation) {
+            _deactivatePrintBoxSelect();
+            _activatePrintBoxSelect(scope.scale, 1, 1, orientation);
+            scope.orientation = orientation;
           };
 
           scope.scales = {
@@ -48,9 +61,21 @@ angular.module('print')
           scope.scale = '25000';
           scope.tittel = "Print";
 
+          scope.layout = {
+            landscape: 'liggende',
+            portrait: 'stående'
+          };
+          scope.orientation = 'landscape';
+
+          scope.paper_format = {
+            A4: 'A4',
+            A3: 'A3'
+          }
+          scope.paperFormat = 'A4';
+
           scope.orderMap = function () {
-            _activatePrintBoxSelect(scope.scale, 1, 1);
-            if (!extent.bbox) {
+            _activatePrintBoxSelect(scope.scale, 1, 1, scope.orientation);
+            if (!scope.extent.bbox) {
               return;
             }
             scope.olmap = ISY.MapImplementation.OL3.olMap;
@@ -74,16 +99,35 @@ angular.module('print')
                   attributions.indexOf(attribution) === -1) {
                   attributions.push(attribution);
                 }
-                if (layer instanceof ol.layer.Group) {
-                  var encs = encoders.layers['Group'].call(this, layer, proj);
-                  encLayers = encLayers.concat(encs);
+                if (layer.getSource().getProjection() !== null) {
+                  var newExtent = searchEPSGForExtent(layer.getSource().getProjection().getCode().split(':')[1]);
+                  newExtent.then(function (localExtent) {
+                    if (layer instanceof ol.layer.Group) {
+                      var encs = encoders.layers['Group'].call(this, layer, proj);
+                      encLayers = encLayers.concat(encs);
+                    } else {
+                      var enc = encodeLayer(layer, proj, resolution);
+                      if (enc && enc.layer) {
+                        encLayers.push(enc.layer);
+                        if (enc.legend) {
+                          encLegends = encLegends || [];
+                          encLegends.push(enc.legend);
+                        }
+                      }
+                    }
+                  });
                 } else {
-                  var enc = encodeLayer(layer, proj, resolution);
-                  if (enc && enc.layer) {
-                    encLayers.push(enc.layer);
-                    if (enc.legend) {
-                      encLegends = encLegends || [];
-                      encLegends.push(enc.legend);
+                  if (layer instanceof ol.layer.Group) {
+                    var encs = encoders.layers['Group'].call(this, layer, proj);
+                    encLayers = encLayers.concat(encs);
+                  } else {
+                    var enc = encodeLayer(layer, proj, resolution);
+                    if (enc && enc.layer) {
+                      encLayers.push(enc.layer);
+                      if (enc.legend) {
+                        encLegends = encLegends || [];
+                        encLegends.push(enc.legend);
+                      }
                     }
                   }
                 }
@@ -96,22 +140,22 @@ angular.module('print')
             var printJson = {
               attributes: {
                 map: {
-                  center: extent.center,
+                  center: scope.extent.center,
                   // bbox: extent.bbox,
                   dpi: "300",
                   layers: encLayers,
                   // legends: encLegends,
-                  projection: extent.projection,
+                  projection: scope.extent.projection,
                   rotation: 0,
                   // sone: extent.sone,
                   // biSone: "",
                   // paging: 1,
-                  scale: extent.scale,
+                  scale: scope.extent.scale,
                   // titel: scope.tittel,
                   // link: "http://www.norgeskart.no/geonorge/"
                 }
               },
-              layout: "A4 landscape"
+              layout: scope.orientation
             };
 
             $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side
@@ -137,21 +181,10 @@ angular.module('print')
               scope.createMapButtonOn = true;
             }
           };
-          /*
-          var updateWaitingMsg = function (startTime, data) {
-            var elapsed = Math.floor((new Date().getTime() - startTime) / 100);
-            var time = '';
-            if (elapsed > 5) {
-              time = (elapsed / 10) + " sec";
-            }
-            $('#messages').text('Waiting for report ' + time + ": " + data.ref);
-          };
-          */
           scope.downloadWhenReady = function (statusURL, startTime) {
             if ((new Date().getTime() - startTime) > 30000) {
               console.error('Gave up waiting after 30 seconds');
             } else {
-              // updateWaitingMsg(startTime, data);
               setTimeout(function () {
                 $http.get(mainAppService.generatePrintUrl(statusURL)).then(
                   function (response) {
@@ -162,7 +195,8 @@ angular.module('print')
                     } else if (response.data.status === 'error') {
                       _mapCreationFailed();
                     }
-                  }, function error() {
+                  },
+                  function error() {
                     _mapCreationFailed();
                   });
               }, 500);
@@ -202,6 +236,35 @@ angular.module('print')
               element.style.maxHeight = menuListMaxHeight + 'px';
             }
           }
+
+          function searchEPSGForExtent(query) {
+            return $http.get('https://epsg.io/?format=json&q=' + query).then(function (response) {
+              return response.data;
+            }).then(function (json) {
+              var results = json['results'];
+              if (results && results.length > 0) {
+                for (var i = 0, ii = results.length; i < ii; i++) {
+                  var result = results[i];
+                  if (result) {
+                    var code = result['code'],
+                      proj4def = result['proj4'],
+                      bbox = result['bbox'];
+                    if (code && code.length > 0 && proj4def && proj4def.length > 0 &&
+                      bbox && bbox.length == 4) {
+                      var newProjCode = 'EPSG:' + code;
+                      proj4.defs(newProjCode, proj4def);
+                      var newProj = ol.proj.get(newProjCode);
+                      var fromLonLat = ol.proj.getTransform('EPSG:4326', newProj);
+                      // very approximate calculation of projection extent
+                      return ol.extent.applyTransform([bbox[1], bbox[2], bbox[3], bbox[0]], fromLonLat);
+                    }
+                  }
+                }
+              }
+              return null;
+            });
+          }
+
 
           $(document).ready(function () {
             $($window).resize(setMenuListMaxHeight);
@@ -323,7 +386,7 @@ angular.module('print')
                   customParams: {
                     EXCEPTIONS: 'XML',
                     TRANSPARENT: 'true',
-                    CRS: 'EPSG:3857',
+                    CRS: layer.getSource().getProjection().getCode(),
                     TIME: params.TIME
                   } // , singleTile: config.singleTile || false
                 });
@@ -346,7 +409,7 @@ angular.module('print')
                 });
                 return enc;
               },
-              WMTS: function (layer) {
+              WMTS: function (layer, localExtent) {
                 // sextant specific
                 var enc = encoders.layers['Layer'].call(this, layer);
                 var source = layer.getSource();
@@ -354,7 +417,7 @@ angular.module('print')
                 var matrixSet = source.getMatrixSet();
                 var matrices = new Array(tileGrid.getResolutions().length);
                 for (var z = 0; z < tileGrid.getResolutions().length; ++z) {
-                  var mSize = (ol.extent.getWidth(ol.proj.get('EPSG:3857').getExtent()) / tileGrid.getTileSize()) /
+                  var mSize = (ol.extent.getWidth(localExtent) / tileGrid.getTileSize()) /
                     tileGrid.getResolutions()[z];
                   matrices[z] = {
                     identifier: tileGrid.getMatrixIds()[z],
@@ -378,6 +441,7 @@ angular.module('print')
                 });
 
                 return enc;
+
               }
             },
             legends: {
@@ -448,7 +512,7 @@ angular.module('print')
 
           scope.$on('moveableOverlayChange', function (event, args) {
             if (args.id === 'Print') {
-              _activatePrintBoxSelect(scope.scale, 1, 1);
+              _activatePrintBoxSelect(scope.scale, 1, 1, scope.orientation);
             }
           });
         }

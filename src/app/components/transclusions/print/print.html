@@ -1,66 +1,101 @@
 <div class="panel-body" data-ng-show="!expandMenu.open">
-    <div id="spinner1" class="search-loading-overlay" data-ng-show="showSpinner">
-        <div class="spinner-loader"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+  <div id="spinner1" class="search-loading-overlay" data-ng-show="showSpinner">
+    <div class="spinner-loader">
+      <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
     </div>
-    <div>
-        <div class="info-text">
-            <span translate="Print_info"></span>
-        </div>
-        <div class="new-section">
-            <div class="title-text">
-                <span translate="Scale"></span>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="dropdown">
-                        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span data-ng-bind="scales[scale]"></span>
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
-                            <li data-ng-repeat="(key, value) in scales" data-ng-click="applyScale(key)" class="pointer-cursor">
-                                <span data-ng-bind="scales[key]"></span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="info-text">
-            <span translate="Paper_format"></span>: <b>A4</b>.
-        </div>
-        <div class="new-section">
-            <div class="title-text">
-                <span translate="Print_navn"></span>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <input type="text"
-                           placeholder="{{'Print_navn_eks' | translate}}"
-                           ng-model="tittel"
-                           ng-disabled="!createMapButtonOn"
-                           class="full-width"
-                    />
-                </div>
-            </div>
-        </div>
-        <div class="new-section navigation-button pull-right">
-            <button class="btn btn-default btn-important" data-ng-click="orderMap()"
-                    ng-disabled="!createMapButtonOn" translate="lagPrintOut">
-            </button>
-
-            <button class="btn btn-default btn-important" data-ng-click="downloadMap()"
-                    ng-disabled="!mapAvailable" translate="DownloadMap">
-            </button>
-        </div>
+  </div>
+  <div>
+    <div class="info-text">
+      <span translate="Print_info"></span>
     </div>
-    <div class="row">
+    <div class="new-section">
+      <div class="title-text">
+        <span translate="Scale"></span>
+      </div>
+      <div class="row">
         <div class="col-xs-12">
-            <div class="navigation-button pull-right">
-                <button class="btn btn-default btn-ordinary"
-                        data-ng-click="closeOverlay()" translate="Cancel_txt">
-                </button>
-            </div>
+          <div class="dropdown">
+            <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="true">
+              <span data-ng-bind="scales[scale]"></span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
+              <li data-ng-repeat="(key, value) in scales" data-ng-click="applyScale(key)" class="pointer-cursor">
+                <span data-ng-bind="scales[key]"></span>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="info-text">
+      <div class="title-text">
+        <span translate="choose_paper_format"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="dropdown">
+            <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="true">
+              <span data-ng-bind="paper_format[paperFormat]"></span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu3">
+              <li data-ng-repeat="(key, value) in paper_format" data-ng-click="applyPaperformat(key)" class="pointer-cursor">
+                <span data-ng-bind="paper_format[key]"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-text">
+      <div class="title-text">
+        <span translate="choose_orientation"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="dropdown">
+            <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="true">
+              <span data-ng-bind="layout[orientation]"></span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu4">
+              <li data-ng-repeat="(key, value) in layout" data-ng-click="applyOrientation(key)" class="pointer-cursor">
+                <span data-ng-bind="layout[key]"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>    
+    <div class="new-section">
+      <div class="title-text">
+        <span translate="Print_navn"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <input type="text" placeholder="{{'Print_navn_eks' | translate}}" ng-model="tittel" ng-disabled="!createMapButtonOn" class="full-width"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="new-section navigation-button pull-right">
+      <button class="btn btn-default btn-important" data-ng-click="orderMap()" ng-disabled="!createMapButtonOn" translate="lagPrintOut">
+      </button>
+
+      <button class="btn btn-default btn-important" data-ng-click="downloadMap()" ng-disabled="!mapAvailable" translate="DownloadMap">
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="navigation-button pull-right">
+        <button class="btn btn-default btn-ordinary" data-ng-click="closeOverlay()" translate="Cancel_txt">
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

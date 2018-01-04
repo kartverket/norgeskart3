@@ -193,9 +193,7 @@ module.provider('gnOwsCapabilities', function () {
           }
         }
 
-        return gnUrlUtils.append(parts[0],
-          gnUrlUtils.toKeyValue(defaultParams));
-
+        return  gnUrlUtils.append('//www.norgeskart.no/ws/px.py' , gnUrlUtils.append(parts[0], gnUrlUtils.toKeyValue(defaultParams)));
 
       };
       return {
