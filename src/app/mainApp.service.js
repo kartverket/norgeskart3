@@ -197,7 +197,7 @@ angular.module('mainApp')
       };
 
       this.generateFaqUrl = function (code) {
-        return url + 'ws/faq.py?code=' + code;
+        return url + 'ws/faq.py?code=' + code + '&app=gn';
       };
 
       /*
