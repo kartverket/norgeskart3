@@ -84,7 +84,7 @@ module.provider('gnMap', function () {
       if (!Array.prototype.includes) {
         Array.prototype.includes = function(searchElement /*, fromIndex*/) {
           'use strict';
-          if (this == null) {
+          if (this === null) {
             throw new TypeError('Array.prototype.includes called on null or undefined');
           }
           
@@ -1421,7 +1421,7 @@ module.provider('gnMap', function () {
             // Try to guess which matrixId to use depending projection
             var matrixSetsId;
             for (i = 0; i < layer.TileMatrixSetLink.length; i++) {
-              if (layer.TileMatrixSetLink[i].TileMatrixSet ==
+              if (layer.TileMatrixSetLink[i].TileMatrixSet ===
                 projection.getCode()) {
                 matrixSetsId = layer.TileMatrixSetLink[i].TileMatrixSet;
                 break;

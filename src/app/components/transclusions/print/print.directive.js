@@ -62,10 +62,10 @@ angular.module('print')
           scope.tittel = "Print";
 
           scope.layout = {
-            landscape: 'liggende',
-            portrait: 'stående'
+            'A4 landscape': 'liggende',
+            'A4 portrait': 'stående'
           };
-          scope.orientation = 'landscape';
+          scope.orientation = 'A4 landscape';
 
           scope.paper_format = {
             A4: 'A4',
@@ -104,7 +104,7 @@ angular.module('print')
                     if (layer instanceof ol.layer.Group) {
                       encLayers = encLayers.concat(encoders.layers['Group'].call(this, layer, proj));
                     } else {
-                      var enc = encodeLayer(layer, proj, resolution);
+                      var enc = encodeLayer(layer, proj, resolution, localExtent);
                       if (enc && enc.layer) {
                         encLayers.push(enc.layer);
                         if (enc.legend) {
@@ -142,7 +142,7 @@ angular.module('print')
                   dpi: "300",
                   layers: encLayers,
                   // legends: encLegends,
-                  projection: scope.extent.projection,
+                  projection: 'EPSG:25833', //scope.extent.projection,
                   rotation: 0,
                   // sone: extent.sone,
                   // biSone: "",
@@ -152,6 +152,7 @@ angular.module('print')
                   // link: "http://www.norgeskart.no/geonorge/"
                 }
               },
+              outputFormat: "pdf",
               layout: scope.orientation
             };
 
@@ -428,7 +429,7 @@ angular.module('print')
                   type: 'WMTS',
                   baseURL: layer.getSource().getUrls()[0], // layer.get('url'),
                   layer: source.getLayer(),
-                  version: source.getVersion(),
+                  version: source.getVersion() || '1.0.0',
                   requestEncoding: 'KVP',
                   imageFormat: source.getFormat(),
                   style: source.getStyle(),
@@ -457,7 +458,7 @@ angular.module('print')
           };
 
           // Encode ol.Layer to a basic js object
-          var encodeLayer = function (layer, proj, resolution) {
+          var encodeLayer = function (layer, proj, resolution, localExtent) {
             var encLayer, encLegend;
             var ext = proj.getExtent();
             var layerConfig = {};
@@ -470,7 +471,7 @@ angular.module('print')
               if (resolution <= maxResolution &&
                 resolution >= minResolution) {
                 if (src instanceof ol.source.WMTS) {
-                  encLayer = encoders.layers['WMTS'].call(this, layer, layerConfig, scope.olmap);
+                  encLayer = encoders.layers['WMTS'].call(this, layer, localExtent);
                 } else if (src instanceof ol.source.OSM) {
                   encLayer = encoders.layers['OSM'].call(this, layer, layerConfig);
                 } else if (src instanceof ol.source.ImageWMS ||
