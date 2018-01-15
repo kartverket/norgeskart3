@@ -549,8 +549,8 @@ module.provider('gnMap', function () {
               params: layerParams,
               url: options.url,
               crossOrigin: 'anonymous',
-              projection: layerOptions.projection,
-              gutter: 15
+              projection: layerOptions.projection
+              // ,gutter: 15
             });
           }
 
