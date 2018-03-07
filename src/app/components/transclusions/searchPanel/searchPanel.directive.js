@@ -215,12 +215,12 @@ angular.module('searchPanel')
                 matrikkelnr: jsonRoot[i].MATRIKKELNR
               };
 
-              extra.matrikkeladresse = extra.kommunenr + '-' + extra.gardsnr + '/' + extra.bruksnr;
+              extra.adresse = extra.kommunenr + '-' + extra.gardsnr + '/' + extra.bruksnr;
 
               if (parseInt(extra.festenr, 10) > 0) {
-                extra.matrikkeladresse += '/' + extra.festenr;
+                extra.adresse += '/' + extra.festenr;
                 if (parseInt(extra.seksjonsnr, 10) > 0) {
-                  extra.matrikkeladresse += '/' + extra.seksjonsnr;
+                  extra.adresse += '/' + extra.seksjonsnr;
                 }
               }
 
@@ -232,7 +232,7 @@ angular.module('searchPanel')
             var tmpResults;
             if (matrikkelInfo.length > 1) {
               tmpResults = matrikkelInfo.sort(function (a, b) {
-                return a.matrikkeladresse.localeCompare(b.matrikkeladresse);
+                return a.adresse.localeCompare(b.adresse);
               });
             }
 
@@ -510,7 +510,7 @@ angular.module('searchPanel')
           };
 
           var _notSingleAddressHit = function () {
-            var matrikkelKey = 'matrikkeladresse';
+            var matrikkelKey = 'adresse';
             if (_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length == 1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']) {
               var key = Object.keys(_unifiedResults[matrikkelKey])[0];
               var result = _unifiedResults[matrikkelKey][key];
@@ -524,7 +524,7 @@ angular.module('searchPanel')
           scope.addResultsToMap = function () {
             var coordinates = [];
             for (var source in _unifiedResults) {
-              if (source == 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length > 1) {
+              if (source == 'adresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length > 1) {
                 continue;
               }
               for (var result in _unifiedResults[source]) {
@@ -590,7 +590,9 @@ angular.module('searchPanel')
               url: _serviceDict.url,
               async: true,
               success: function (document) {
-                if (((document.length && document.length > 0) || (document.childNodes && document.childNodes[0].childNodes.length)) && scope.searchTimestamp == timestamp) {
+                if (((document.length && document.length > 0) ||
+                    (document.childNodes && document.childNodes[0].childNodes.length) ||
+                    (document.sokStatus.ok === "true")) && scope.searchTimestamp == timestamp) {
                   _successFullSearch(_serviceDict, document);
                 }
               }

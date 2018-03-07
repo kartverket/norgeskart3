@@ -93,21 +93,21 @@
         </li>
       </ul>
     </div>
-    <div data-ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']">
+    <div data-ng-show="searchResults['adresse'] && !searchResults['matrikkelveg']">
       <div class="isHeaderClose" data-ng-click="addressResult.open = !addressResult.open">
         <span translate="searchResult_addresses"></span>
         <span data-ng-show="!addressResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
         <span data-ng-show="addressResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
       </div>
       <ul class="list-result" data-ng-show="!addressResult.open" data-ng-if="!isIosDevice()">
-        <li ng-mouseover="mouseOver(searchResult)" class="pointer-cursor" ng-repeat="searchResult in searchResults['matrikkeladresse']"
+        <li ng-mouseover="mouseOver(searchResult)" class="pointer-cursor" ng-repeat="searchResult in searchResults['adresse']"
           ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
           <span ng-bind="searchResult.name + ' ' + searchResult.husnummer + ', ' + searchResult.kommune"></span>
           </select>
         </li>
       </ul>
       <ul class="list-result" data-ng-show="!addressResult.open" data-ng-if="isIosDevice()">
-        <li class="pointer-cursor" ng-repeat="searchResult in searchResults['matrikkeladresse']" ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
+        <li class="pointer-cursor" ng-repeat="searchResult in searchResults['adresse']" ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
           <span ng-bind="searchResult.name + ' ' + searchResult.husnummer + ', ' + searchResult.kommune"></span>
           </select>
         </li>
