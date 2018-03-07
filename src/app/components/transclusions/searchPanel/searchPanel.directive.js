@@ -745,7 +745,8 @@ angular.module('searchPanel')
           };
 
           scope.fixNames = function (name) {
-            return _removeNumberFromName(scope.capitalizeName(name.toLowerCase()));
+            //return _removeNumberFromName(scope.capitalizeName(name.toLowerCase()));
+            return _removeNumberFromName(name);
           };
 
           var _pushToUnifiedResults = function (result) {
