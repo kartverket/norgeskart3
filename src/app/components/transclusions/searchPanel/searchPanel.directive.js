@@ -754,7 +754,7 @@ angular.module('searchPanel')
           var _pushToUnifiedResults = function (result) {
             if (result.kommune && result.name) {
               result.name = result.source != 'matrikkelnummer' ? scope.fixNames(result.name) : result.name;
-              result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
+              result.kommune = result.kommune; //scope.capitalizeName(result.kommune.toLowerCase());
               var resultID = _createID(result);
               if (!_unifiedResults[result.source]) {
                 _unifiedResults[result.source] = {};
