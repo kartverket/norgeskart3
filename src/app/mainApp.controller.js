@@ -85,11 +85,17 @@ angular.module('mainApp')
         }
         if (obj.wms !== undefined) {
           localStorageFactory.set("wms", obj.wms);
-          $scope.$broadcast('addWMSfromSearch', {url: obj.wms, type: 'wms'} );
+          $scope.$broadcast('addWMSfromSearch', {
+            url: obj.wms,
+            type: 'wms'
+          });
         }
         if (obj.wfs !== undefined) {
           localStorageFactory.set("wfs", obj.wfs);
-          $scope.$broadcast('addWMSfromSearch', {url: obj.wfs, type: 'wfs'} );
+          $scope.$broadcast('addWMSfromSearch', {
+            url: obj.wfs,
+            type: 'wfs'
+          });
         }
         if (obj.wcs !== undefined) {
           console.error("Cannot display WCS directly. Use a Portrayal Service WMS with WCS as data layer.<br/>Syntax: /l/wms/[URL to portrayal]/d/wcs/[URL to data]");
@@ -105,29 +111,30 @@ angular.module('mainApp')
       $scope.initMapLayout = function () {
         _initActiveLanguage();
         var SAFE_SEQUENCE = "\n\n"; // a separator that cannot occur in URL
-        
+
         var obj = $location.search();
         var hash = $location.hash();
-        var tokens = [], match;
+        var tokens = [],
+          match;
         if (hash.indexOf("[") > -1) {
-          var tokenRE = /\[.*?\]/g ;
-          while(!!(match = tokenRE.exec(hash))) {
-            tokens.push(match[0].slice(1,-1)); 
+          var tokenRE = /\[.*?\]/g;
+          while (!!(match = tokenRE.exec(hash))) {
+            tokens.push(match[0].slice(1, -1));
           }
           hash = hash.replace(tokenRE, SAFE_SEQUENCE);
         } else if (hash.indexOf("%5B") > -1) {
-          var tokenRE2 = /\%5B.*?\%5D/g ;
-          while(!!(match = tokenRE2.exec(hash))) { 
-            tokens.push(match[0].slice(3,-3)); 
+          var tokenRE2 = /\%5B.*?\%5D/g;
+          while (!!(match = tokenRE2.exec(hash))) {
+            tokens.push(match[0].slice(3, -3));
           }
           hash = hash.replace(tokenRE2, SAFE_SEQUENCE);
-        }        
+        }
         var parms = hash.split("/");
         for (var p in parms) {
           if (parms[p] == SAFE_SEQUENCE) {
             parms[p] = tokens.shift(); // pop first
           }
-        }    
+        }
         if (parms.length >= 3) {
           obj.zoom = parms[0];
           obj.lon = parms[1];
@@ -353,6 +360,246 @@ angular.module('mainApp')
       //     }, 400);
       //
       // };
+      /* TEST for XDM */
+      function getVisibleFeaturesInLayer(layer) {
+        var features = [],
+          feature,
+          i,
+          j;
+
+        for (i = 0, j = layer.features.length; i < j; i += 1) {
+          if (layer.features[i].getVisibility() && layer.features[i].onScreen()) {
+            feature = {};
+            feature.fid = layer.features[i].fid;
+            feature['attributes'] = layer.features[i]['attributes'];
+
+            features.push(feature);
+          }
+        }
+        return features;
+      }
+
+      function getFeaturesInLayer(layer) {
+        var features = [],
+          feature,
+          i,
+          j;
+
+        for (i = 0, j = layer.features.length; i < j; i += 1) {
+          feature = {};
+          feature.fid = layer.features[i].fid;
+          feature['attributes'] = layer.features[i]['attributes'];
+
+          features.push(feature);
+        }
+        return features;
+      }
+
+      function postMessage(msg) {
+        //TODO: find a way to postMessage back to parent, the following are block by Chrome
+        //event.source.postMessage(JSON.stringify(msg), event.origin);
+        window.parent.postMessage(JSON.stringify(msg), '*');
+      }
+
+      function listener(event) {
+        if (event.origin === "http://localhost" || "http://geonorge.no" || "http://norgeskart.no" || "https://register.geonorge.no/") {
+          var json = JSON.parse(event.data);
+
+          if (json) {
+            if (json.cmd === 'setCenter') {
+              map.SetCenter({
+                lon: json.x,
+                lat: json.y,
+                zoom: json.zoom
+              });
+            } else if ((json.cmd === 'setVisible') || (json.cmd === 'setBasemap')) {
+              if (json.cmd === 'setBasemap') {
+                for (var m in map.layers) {
+                  if (map.layers[m].isUrlDataLayer) {
+                    continue;
+                  }
+                  if (map.layers[m].isBasemap) {
+                    continue;
+                  }
+                  map.layers[m].setVisibility(false);
+                }
+              }
+              var candidates = map.GetOverlayLayers().filter(function (el) {
+                return el.guid == json.id;
+              });
+              if (candidates.length > 0) {
+                map.ShowLayer(candidates[0]);
+              }
+              postMessage({
+                type: "result",
+                cmd: json.cmd,
+                affected: candidates.length
+              });
+            } else if (json.cmd === 'addDataSource') {
+              parseParamsAndAddDataLayerFromUrl([json.type, json.url]);
+            } else if (json.cmd === 'setVisibleVectorLayer') {
+              vectorLayers = map.getLayersByClass("OpenLayers.Layer.Vector").slice();
+
+              for (i = 0, j = vectorLayers.length; i < j; i += 1) {
+                layer = vectorLayers[i];
+
+                if (layer.shortid === json.shortid) {
+                  layer.setVisibility(true);
+
+                  if (layer.preferredBackground) {
+                    rasterLayers = map.getLayersByClass("OpenLayers.Layer.WMTS");
+
+                    for (k = 0, l = rasterLayers.length; k < l; k += 1) {
+                      raster = rasterLayers[k];
+
+                      if (raster.shortid === layer.preferredBackground) {
+                        raster.setVisibility(true);
+                      } else if (!raster.isBaseLayer) {
+                        raster.setVisibility(false);
+                      }
+                    }
+                  }
+                } else {
+                  layer.setVisibility(false);
+                }
+              }
+            } else if (json.cmd === 'getFeatures') {
+              if (json.layer) {
+                layers = map.getLayersBy('shortid', json.layer);
+
+                if (layers.length > 0) {
+                  layer = layers[0];
+                  features = getFeaturesInLayer(layer);
+
+                  postMessage({
+                    type: "layerFeatures",
+                    layer: layer.shortid,
+                    features: features
+                  });
+                } else {
+                  postMessage({
+                    type: "error",
+                    message: "no such layer"
+                  });
+                }
+              } else {
+                vectorLayers = map.getLayersByClass("OpenLayers.Layer.Vector").slice();
+                layers = [];
+
+                for (i = 0, j = vectorLayers.length; i < j; i += 1) {
+                  layer = vectorLayers[i];
+                  layers.push({
+                    layer: layer.shortid,
+                    features: getFeaturesInLayer(layer)
+                  });
+                }
+                postMessage({
+                  type: "features",
+                  layers: layers
+                });
+              }
+            } else if (json.cmd === 'getVisibleFeatures') {
+              if (json.layer) {
+                layers = map.getLayersBy('shortid', json.layer);
+
+                if (layers.length > 0) {
+                  layer = layers[0];
+                  features = getVisibleFeaturesInLayer(layer);
+
+                  postMessage({
+                    type: "layerVisibleFeatures",
+                    layer: layer.shortid,
+                    features: features
+                  });
+                } else {
+                  postMessage({
+                    type: "error",
+                    message: "no such layer"
+                  });
+                }
+              } else {
+                vectorLayers = map.getLayersByClass("OpenLayers.Layer.Vector").slice();
+                layers = [];
+                for (i = 0, j = vectorLayers.length; i < j; i += 1) {
+                  layer = vectorLayers[i];
+                  layers.push({
+                    layer: layer.shortid,
+                    features: getVisibleFeaturesInLayer(layer)
+                  });
+                }
+                postMessage({
+                  type: "visibleFeatures",
+                  layers: layers
+                });
+              }
+            } else if (json.cmd === 'selectFeature') {
+              layers = map.getLayersBy('shortid', json.layer);
+              feature = null;
+              selector = null;
+
+              if (layers.length > 0) {
+                layer = layers[0];
+                feature = layer.getFeatureByFid(json.feature);
+
+                if (feature) {
+                  controls = layer.map.getControlsByClass('OpenLayers.Control.SelectFeature');
+
+                  for (i = 0, j = controls.length; i < j && selector === null; i += 1) {
+                    if (controls[i].layer.shortid === layer.shortid) {
+                      if (controls[i].click) {
+                        // ensure the correct control is used
+                        selector = controls[i];
+                      }
+                    }
+                  }
+                }
+              }
+              if (feature !== null && selector !== null) {
+                if (json.panAndZoom && feature.geometry.bounds) {
+                  feature.layer.map.zoomToExtent(feature.geometry.bounds);
+                }
+                selector.clickFeature.call(selector, feature);
+              } else {
+                postMessage({
+                  type: "error",
+                  message: "no such layer or feature"
+                });
+              }
+            } else if (json.cmd === 'setBoundingBox') {
+              var draw = map.getControlsByClass('OpenLayers.Control.Draw')[0];
+              if (draw) {
+                var l = json.bounds[0],
+                  b = json.bounds[1],
+                  r = json.bounds[2],
+                  t = json.bounds[3];
+                var polygon = new OpenLayers.Geometry.Polygon([
+                  new OpenLayers.Geometry.LinearRing([
+                    new OpenLayers.Geometry.Point(l, b),
+                    new OpenLayers.Geometry.Point(r, b),
+                    new OpenLayers.Geometry.Point(r, t),
+                    new OpenLayers.Geometry.Point(l, t),
+                    new OpenLayers.Geometry.Point(l, b)
+                  ])
+                ]);
+                feature = new OpenLayers.Feature.Vector(polygon);
+                draw.displayBBoxFeature(feature);
+              }
+            } else if (json.cmd === 'addMarker') {
+              var markers = new OpenLayers.Layer.Markers("Markers");
+              map.addLayer(markers);
+              var size = new OpenLayers.Size(20, 25);
+              var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
+              var icon = new OpenLayers.Icon('/theme/norgeskart/img/embed-marker.png', size, offset);
+              markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(json.x, json.y), icon, json.title || ''));
+            }
+          }
+        }
+      }
+      if (window.addEventListener) {
+        addEventListener("message", listener, false);
+      } else {
+        attachEvent("onmessage", listener);
+      }
 
     }
   ]);
