@@ -36,7 +36,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           this.addLayer = function (getCapLayer) {
             getCapLayer.version = $scope.capability.version;
             if ($scope.url !== getCapLayer.url) {
-              getCapLayer.url = $scope.url
+              getCapLayer.url = $scope.url;
             }
             var layer;
             if ($scope.format === 'wms') {

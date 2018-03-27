@@ -631,7 +631,6 @@ angular.module('mainApp')
                   b = json.bounds[1],
                   r = json.bounds[2],
                   t = json.bounds[3];
-                  geometry = new ol.geom.Polygon(null)
                 var polygon = new ol.geom.Polygon([
                   new ol.geom.LinearRing([
                     new ol.geom.Point(l, b),
