@@ -14,6 +14,8 @@ angular.module('mainApp')
     '$window',
     function ($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory, $translate, $timeout, $window) {
 
+      $scope.addInteraction = false;
+
       function _initToolbar() {
         toolsFactory.initToolbar();
       }
@@ -203,15 +205,61 @@ angular.module('mainApp')
           $location.url($location.$$url.replace('#' + encodeURIComponent($location.hash()), ''));
           $location.search(obj);
         }
+
+        mainAppFactory.projectName();
+
         if (obj.type !== undefined) {
           if (obj.type === "1") {
+            //Embed layout 
+            $scope.showMapLayout();
+            return;
+          } else if (obj.type === "2") {
+            //select-rect            
+            $scope.addInteraction = true;
             $scope.showMapLayout();
             return;
           }
         }
-        mainAppFactory.projectName();
         $scope.showMapOverlaysLayout();
       };
+
+      function addInteractions() {
+        var source = new ol.source.Vector({
+          wrapX: false
+        });
+
+        var vector = new ol.layer.Vector({
+          source: source
+        });
+        ISY.MapImplementation.OL3.olMap.addLayer(vector);
+
+        var draw = new ol.interaction.Draw({
+          source: source,
+          type: ol.geom.GeometryType.LINE_STRING,
+          geometryFunction: function (coordinates, geometry) {
+            if (!geometry) {
+              geometry = new ol.geom.Polygon(null);
+            }
+            var start = coordinates[0];
+            var end = coordinates[1];
+            geometry.setCoordinates([
+              [start, [start[0], end[1]], end, [end[0], start[1]], start]
+            ]);
+            return geometry;
+          },
+          maxPoints: 2
+        });
+        draw.on('drawend', function (event) {
+          var message = {
+            bbox: event.feature.values_.geometry.extent_
+          };
+          postMessage(JSON.stringify(message));
+        });
+        draw.on('drawstart', function () {
+          vector.getSource().clear();
+        });
+        ISY.MapImplementation.OL3.olMap.addInteraction(draw);
+      }
 
       function _initActiveLanguage() {
         var langId = localStorageFactory.get("activeLanguage");
@@ -267,6 +315,9 @@ angular.module('mainApp')
         _initUrl();
         _initMapLayers();
         _showMapMarker();
+        if ($scope.addInteraction) {
+          addInteractions();
+        }
       };
 
       angular.element(document).ready(function () {
@@ -445,18 +496,18 @@ angular.module('mainApp')
             } else if (json.cmd === 'addDataSource') {
               parseParamsAndAddDataLayerFromUrl([json.type, json.url]);
             } else if (json.cmd === 'setVisibleVectorLayer') {
-              vectorLayers = map.getLayersByClass("OpenLayers.Layer.Vector").slice();
+              vectorLayers = map.getLayersByClass("ol.Layer.Vector").slice();
 
-              for (i = 0, j = vectorLayers.length; i < j; i += 1) {
+              for (i = 0; i < vectorLayers.length; i += 1) {
                 layer = vectorLayers[i];
 
                 if (layer.shortid === json.shortid) {
                   layer.setVisibility(true);
 
                   if (layer.preferredBackground) {
-                    rasterLayers = map.getLayersByClass("OpenLayers.Layer.WMTS");
+                    rasterLayers = map.getLayersByClass("ol.Layer.WMTS");
 
-                    for (k = 0, l = rasterLayers.length; k < l; k += 1) {
+                    for (k = 0; k < rasterLayers.length; k += 1) {
                       raster = rasterLayers[k];
 
                       if (raster.shortid === layer.preferredBackground) {
@@ -490,10 +541,10 @@ angular.module('mainApp')
                   });
                 }
               } else {
-                vectorLayers = map.getLayersByClass("OpenLayers.Layer.Vector").slice();
+                vectorLayers = map.getLayersByClass("ol.Layer.Vector").slice();
                 layers = [];
 
-                for (i = 0, j = vectorLayers.length; i < j; i += 1) {
+                for (i = 0; i < vectorLayers.length; i += 1) {
                   layer = vectorLayers[i];
                   layers.push({
                     layer: layer.shortid,
@@ -525,9 +576,9 @@ angular.module('mainApp')
                   });
                 }
               } else {
-                vectorLayers = map.getLayersByClass("OpenLayers.Layer.Vector").slice();
+                vectorLayers = map.getLayersByClass("ol.Layer.Vector").slice();
                 layers = [];
-                for (i = 0, j = vectorLayers.length; i < j; i += 1) {
+                for (i = 0; i < vectorLayers.length; i += 1) {
                   layer = vectorLayers[i];
                   layers.push({
                     layer: layer.shortid,
@@ -546,12 +597,13 @@ angular.module('mainApp')
 
               if (layers.length > 0) {
                 layer = layers[0];
+
                 feature = layer.getFeatureByFid(json.feature);
 
                 if (feature) {
-                  controls = layer.map.getControlsByClass('OpenLayers.Control.SelectFeature');
+                  controls = layer.map.getControlsByClass('ol.Control.SelectFeature');
 
-                  for (i = 0, j = controls.length; i < j && selector === null; i += 1) {
+                  for (i = 0; i < controls.length && selector === null; i += 1) {
                     if (controls[i].layer.shortid === layer.shortid) {
                       if (controls[i].click) {
                         // ensure the correct control is used
@@ -573,35 +625,41 @@ angular.module('mainApp')
                 });
               }
             } else if (json.cmd === 'setBoundingBox') {
-              var draw = map.getControlsByClass('OpenLayers.Control.Draw')[0];
+              var draw = map.getControlsByClass('ol.Control.Draw')[0];
               if (draw) {
                 var l = json.bounds[0],
                   b = json.bounds[1],
                   r = json.bounds[2],
                   t = json.bounds[3];
-                var polygon = new OpenLayers.Geometry.Polygon([
-                  new OpenLayers.Geometry.LinearRing([
-                    new OpenLayers.Geometry.Point(l, b),
-                    new OpenLayers.Geometry.Point(r, b),
-                    new OpenLayers.Geometry.Point(r, t),
-                    new OpenLayers.Geometry.Point(l, t),
-                    new OpenLayers.Geometry.Point(l, b)
+                  geometry = new ol.geom.Polygon(null)
+                var polygon = new ol.geom.Polygon([
+                  new ol.geom.LinearRing([
+                    new ol.geom.Point(l, b),
+                    new ol.geom.Point(r, b),
+                    new ol.geom.Point(r, t),
+                    new ol.geom.Point(l, t),
+                    new ol.geom.Point(l, b)
                   ])
                 ]);
-                feature = new OpenLayers.Feature.Vector(polygon);
+                feature = new ol.Feature.Vector(polygon);
                 draw.displayBBoxFeature(feature);
               }
             } else if (json.cmd === 'addMarker') {
-              var markers = new OpenLayers.Layer.Markers("Markers");
-              map.addLayer(markers);
-              var size = new OpenLayers.Size(20, 25);
-              var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
-              var icon = new OpenLayers.Icon('/theme/norgeskart/img/embed-marker.png', size, offset);
-              markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(json.x, json.y), icon, json.title || ''));
+              map.ShowInfoMarker([Number(json.x), Number(json.y)]);
             }
           }
         }
       }
+
+      function _loadResult(resultSet) {
+        message = {
+          cmd: 'featureSelected',
+          features: resultSet.features,
+          layer: resultSet.name
+        };
+        postMessage(JSON.stringify(message));
+      }
+      eventHandler.RegisterEvent(ISY.Events.EventTypes.FeatureInfoEnd, _loadResult);
       if (window.addEventListener) {
         addEventListener("message", listener, false);
       } else {
