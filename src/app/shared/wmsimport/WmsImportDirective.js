@@ -19,7 +19,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
       return {
         restrict: 'A',
         replace: true,
-        templateUrl: 'components/transclusions/mainMenuPanel/wmsimport/partials/wmsimport.html',
+        templateUrl: 'shared/wmsimport/partials/wmsimport.html',
         scope: {
           map: '=gnWmsImportMap',
           url: '=?gnWmsImportUrl'
@@ -35,6 +35,9 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
            */
           this.addLayer = function (getCapLayer) {
             getCapLayer.version = $scope.capability.version;
+            if ($scope.url !== getCapLayer.url) {
+              getCapLayer.url = $scope.url
+            }
             var layer;
             if ($scope.format === 'wms') {
               layer = gnMap.addWmsToMapFromCap($scope.map, getCapLayer);
@@ -111,6 +114,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
 
           scope.setUrl = function (srv) {
             scope.url = angular.isObject(srv) ? srv.url : srv;
+            scope.url = scope.url.replace(/\[|\]/g, "");
             type = angular.isObject(srv) && srv.type || type;
             scope.serviceDesc = angular.isObject(srv) ? srv : null;
             scope.load();
@@ -148,10 +152,13 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
 
           if (localStorageFactory.get("wms")) {
             scope.format = "wms";
-            scope.setUrl(localStorageFactory.get("wms"));
+            scope.setUrl(localStorageFactory.get("wms"));           
           } else if (localStorageFactory.get("wfs")) {
             scope.format = "wfs";
             scope.setUrl(localStorageFactory.get("wfs"));
+          }
+          if (localStorageFactory.get("addLayers")) {
+            scope.layerList = localStorageFactory.get("addLayers").split(",");
           }
 
         }

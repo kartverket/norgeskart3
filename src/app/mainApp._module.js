@@ -7,6 +7,12 @@ angular.module('mainApp', [
   'mapOverlays',
   'tools',
   'localStorage',
+  'gn_urlutils_service',
+  'gn_ows',
+  'gn_alert',
+  'gn_map',
+  'gnConfig',
+  'gnWmsImport',
   'mapLayout',
-  'mapOverlaysLayout','gnWmsImport'
+  'mapOverlaysLayout'
 ]);

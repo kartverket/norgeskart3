@@ -83,6 +83,13 @@ angular.module('mainApp')
           console.warn(obj.bbox);
           //addBboxLayer(url);
         }
+        if (obj.addLayers !== undefined) {
+          layers = obj.addLayers;
+          localStorageFactory.set("addLayers", obj.addLayers);
+        } else {
+          localStorageFactory.set("addLayers", "");
+        }
+
         if (obj.wms !== undefined) {
           localStorageFactory.set("wms", obj.wms);
           $scope.$broadcast('addWMSfromSearch', {

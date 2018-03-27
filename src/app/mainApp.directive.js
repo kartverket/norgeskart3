@@ -50,7 +50,7 @@ angular.module('mainApp')
             return path;
           }
 
-
+          
         }
       };
     }

@@ -13,6 +13,7 @@ angular.module('mainMenuPanel')
         localStorageFactory.remove('zoom');
         localStorageFactory.remove('wms');
         localStorageFactory.remove('wfs');
+        localStorageFactory.remove('addLayers');
         localStorageFactory.set('mainMenuIsOpen', false);
         location.hash = '';
         location.reload($event.shiftKey);

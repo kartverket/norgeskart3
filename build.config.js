@@ -126,6 +126,7 @@ module.exports = {
         'src/app/shared/localStorage/**/*.js',
         'src/app/shared/mapLayout/**/*.js',
         'src/app/shared/mapOverlaysLayout/**/*.js',
+        'src/app/shared/wmsimport/*.js',
 
         'src/app/apiController/**/*.js',
         'src/app/zISY.Angular/**/*.js',
@@ -154,7 +155,6 @@ module.exports = {
 
         'src/app/components/*.js',
         'src/app/components/common/**/*.js',
-        'src/app/components/transclusions/mainMenuPanel/wmsimport/*.js',
 
         'src/app/components/catalog/*.js',
         'src/app/components/utility/*.js',
