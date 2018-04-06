@@ -16,6 +16,13 @@ angular.module('mainApp')
 
       $scope.addInteraction = false;
 
+      localStorageFactory.remove('lat');
+      localStorageFactory.remove('lon');
+      localStorageFactory.remove('zoom');
+      localStorageFactory.remove('wms');
+      localStorageFactory.remove('wfs');
+      localStorageFactory.remove('addLayers');
+
       function _initToolbar() {
         toolsFactory.initToolbar();
       }
