@@ -719,7 +719,7 @@ angular.module('searchPanel')
             var lat = jsonObject[identifiersDict.latID] + '';
             var lon = jsonObject[identifiersDict.lonID] + '';
             if (isNaN(lat) && isNaN(lon)) {
-              point = ''
+              point = '';
             } else {
               point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
             }
