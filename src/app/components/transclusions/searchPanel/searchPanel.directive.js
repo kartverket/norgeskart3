@@ -715,9 +715,14 @@ angular.module('searchPanel')
           };
 
           var _getValuesFromJson = function (identifiersDict, jsonObject) {
+            var point;
             var lat = jsonObject[identifiersDict.latID] + '';
             var lon = jsonObject[identifiersDict.lonID] + '';
-            var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
+            if (isNaN(lat) && isNaN(lon)) {
+              point = ''
+            } else {
+              point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
+            }
             var husnummer = identifiersDict.husnummerID !== false ? jsonObject[identifiersDict.husnummerID] : '';
             if (identifiersDict.husnummerBokstav && typeof jsonObject[identifiersDict.husnummerBokstav] === 'string') {
               husnummer += jsonObject[identifiersDict.husnummerBokstav];
