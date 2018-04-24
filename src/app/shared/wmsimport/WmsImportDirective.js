@@ -213,7 +213,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           member: '='
         },
         template: "<li class='list-group-item' ng-click='handle($event)' ng-class='(!isParentNode()) ? \"leaf\" : \"\"'><label>" +
-          "<span class='fa' ng-class='isParentNode() ? \"fa-folder-o\" : isLayerActive ? \"fa-check-square-o\" : \"fa-square-o\"'></span>" +
+          "<span class='fa' ng-class='isParentNode() ? isLayerActive ? \"fa-check-square-o\" : \"fa-square-o\" : isLayerActive ? \"fa-check-square-o\" : \"fa-square-o\"'></span>" +
           ' {{member.Title || member.title}}</label></li>',
         link: function (scope, element, attrs, controller) {
           var el = element;
@@ -229,23 +229,28 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
               type: 'success'
             });
           };
+          /*
           var toggleNode = function () {
             el.find('.fa').first().toggleClass('fa-folder-o')
               .toggleClass('fa-folder-open-o');
             el.children('ul').toggle();
           };
+          */
           if (angular.isArray(scope.member.Layer)) {
             element.append("<gn-cap-tree-col class='list-group' " +
               "collection='member.Layer'></gn-cap-tree-col>");
             $compile(element.contents())(scope);
           }
           scope.handle = function (evt) {
+            /*
             if (scope.isParentNode()) {
               toggleNode();
             } else {
               select();
             }
-            evt.stopPropagation();
+            */
+           select();
+           evt.stopPropagation();
           };
           scope.isParentNode = function () {
             return angular.isDefined(scope.member.Layer);
