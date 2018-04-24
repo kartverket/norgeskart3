@@ -216,7 +216,6 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           "<span class='fa' ng-class='isParentNode() ? isLayerActive ? \"fa-check-square-o\" : \"fa-square-o\" : isLayerActive ? \"fa-check-square-o\" : \"fa-square-o\"'></span>" +
           ' {{member.Title || member.title}}</label></li>',
         link: function (scope, element, attrs, controller) {
-          var el = element;
           var select = function () {
             var addedLayer = controller.addLayer(scope.member);
             scope.isLayerActive = addedLayer.getVisible();
@@ -229,26 +228,12 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
               type: 'success'
             });
           };
-          /*
-          var toggleNode = function () {
-            el.find('.fa').first().toggleClass('fa-folder-o')
-              .toggleClass('fa-folder-open-o');
-            el.children('ul').toggle();
-          };
-          */
           if (angular.isArray(scope.member.Layer)) {
             element.append("<gn-cap-tree-col class='list-group' " +
               "collection='member.Layer'></gn-cap-tree-col>");
             $compile(element.contents())(scope);
           }
           scope.handle = function (evt) {
-            /*
-            if (scope.isParentNode()) {
-              toggleNode();
-            } else {
-              select();
-            }
-            */
            select();
            evt.stopPropagation();
           };
