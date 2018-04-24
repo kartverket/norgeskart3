@@ -12,7 +12,7 @@ angular.module('mainApp')
       var mainMenuIsOpen = true;
       var config = {
         instance: "norgeskart3",
-        configurl: "//www.norgeskart.no/config/"
+        configurl: "http://localhost:8081/"
       };
       var listprojects = [];
       var mapConfig = {
@@ -65,12 +65,12 @@ angular.module('mainApp')
         config: {
           project: {
             lat: 7197864,
-            lon: 396722,
+            lon: 306722,
             mapepsg: "EPSG:25833",
-            zoom: 4,
+            zoom: 3,
             mapbackgroundcolor: "#FFFFFF",
             displaycenterepsgcode: "EPSG:25833",
-            displayCenter: "396722,7197864",
+            displayCenter: "306722,7197864",
             displayprojectionepsgcode: "EPSG:25833",
             isygatekeeper: "https://www.norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
             tickethost: "https://www.norgeskart.no/ws/esk.py?wms.ecc_enc",
