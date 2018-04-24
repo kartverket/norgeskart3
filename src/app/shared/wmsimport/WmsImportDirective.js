@@ -152,7 +152,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
 
           if (localStorageFactory.get("wms")) {
             scope.format = "wms";
-            scope.setUrl(localStorageFactory.get("wms"));           
+            scope.setUrl(localStorageFactory.get("wms"));
           } else if (localStorageFactory.get("wfs")) {
             scope.format = "wfs";
             scope.setUrl(localStorageFactory.get("wfs"));
@@ -212,12 +212,19 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
         scope: {
           member: '='
         },
-        template: "<li class='list-group-item' ng-click='handle($event)' ng-class='(!isParentNode()) ? \"leaf\" : \"\"'><label>" +
-          "<span class='fa' ng-class='isParentNode() ? isLayerActive ? \"fa-check-square-o\" : \"fa-square-o\" : isLayerActive ? \"fa-check-square-o\" : \"fa-square-o\"'></span>" +
-          ' {{member.Title || member.title}}</label></li>',
+        template: "<li class='list-group-item'><label ng-click='handle($event)'>" +
+          "<span class='fa' ng-class='isLayerActive ? \"fa-check-square-o\" : \"fa-square-o\"'></span>" +
+          " {{member.Title || member.title}}</label><a href class='width-100 text-right small' " +
+          "data-ng-click=\"member.showInfo = !member.showInfo\" title=\"{{'Legend'|translate}}\">" +
+          "<i class='fa fa-caret-down' ng-if='!member.showInfo'/>" +
+          "<i class='fa fa-caret-up' ng-if='member.showInfo'/>" +
+          "<span translate ng-if=\"!member.showInfo\">{{'showLegend' | translate}}</span>" +
+          "<span translate ng-if=\"member.showInfo\">{{'hideLegend' | translate}}</span>" +
+          "</a><div class=\"details width-100\" ng-init=\"member.showInfo = false\" ng-show=\"member.showInfo\"><p><img ng-src=\"{{member.legend}}\"/></p></div></li>",
         link: function (scope, element, attrs, controller) {
           var select = function () {
             var addedLayer = controller.addLayer(scope.member);
+            scope.member.legend = addedLayer.values_.legend;
             scope.isLayerActive = addedLayer.getVisible();
 
             gnAlertService.addAlert({
@@ -234,9 +241,9 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             $compile(element.contents())(scope);
           }
           scope.handle = function (evt) {
-           select();
-           evt.stopPropagation();
-          };
+            select();
+            evt.stopImmediatePropagation();
+          };          
           scope.isParentNode = function () {
             return angular.isDefined(scope.member.Layer);
           };
