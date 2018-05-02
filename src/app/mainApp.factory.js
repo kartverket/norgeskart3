@@ -12,7 +12,7 @@ angular.module('mainApp')
       var mainMenuIsOpen = true;
       var config = {
         instance: "norgeskart3",
-        configurl: "//www.norgeskart.no/config/"
+        configurl: "//www.norgeskart.no/config"
       };
       var listprojects = [];
       var mapConfig = {
@@ -74,7 +74,7 @@ angular.module('mainApp')
             displayprojectionepsgcode: "EPSG:25833",
             isygatekeeper: "https://www.norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
             tickethost: "https://www.norgeskart.no/ws/esk.py?wms.ecc_enc",
-            name: "seeiendom"
+            name: "geonorge"
           },
           wmts: [{
             type: "map",
@@ -413,7 +413,7 @@ angular.module('mainApp')
 
       function getProjectsListCallback(project) {
         projectsList = project ? project : undefined;
-        if (projectNameUrl === 'seeiendom') {
+        if (projectNameUrl === 'geonorge') {
           getProjectCallback(defaultProjectConfig, false);
         } else if (projectsList === undefined || projectNameUrl !== undefined) {
           map.GetConfigResource(projectUrl, 'application/json', getProjectCallback);
