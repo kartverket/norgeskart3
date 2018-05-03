@@ -193,7 +193,7 @@ module.provider('gnOwsCapabilities', function () {
           }
         }
 
-        return  gnUrlUtils.append('//www.norgeskart.no/ws/px.py' , gnUrlUtils.append(parts[0], gnUrlUtils.toKeyValue(defaultParams)));
+        return gnUrlUtils.append('//www.norgeskart.no/ws/px.py', gnUrlUtils.append(parts[0], gnUrlUtils.toKeyValue(defaultParams)));
 
       };
       return {
@@ -260,23 +260,21 @@ module.provider('gnOwsCapabilities', function () {
               version: version
             });
 
-            if (gnUrlUtils.isValid(url)) {
-              $http.get(url, {
-                  cache: true
-                })
-                .then(function (result) {
-                  var xfsCap = parseWFSCapabilities(result.data);
+            $http.get(url, {
+                cache: true
+              })
+              .then(function (result) {
+                var xfsCap = parseWFSCapabilities(result.data);
 
-                  if (!xfsCap || xfsCap.exception !== undefined) {
-                    defer.reject({
-                      msg: 'wfsGetCapabilitiesFailed',
-                      owsExceptionReport: xfsCap
-                    });
-                  } else {
-                    defer.resolve(xfsCap);
-                  }
-                });
-            }
+                if (!xfsCap || xfsCap.exception !== undefined) {
+                  defer.reject({
+                    msg: 'wfsGetCapabilitiesFailed',
+                    owsExceptionReport: xfsCap
+                  });
+                } else {
+                  defer.resolve(xfsCap);
+                }
+              });
           }
           return defer.promise;
         },
