@@ -212,15 +212,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
         scope: {
           member: '='
         },
-        template: "<li class='list-group-item'><label ng-click='handle($event)'>" +
-          "<span class='fa' ng-class='isLayerActive ? \"fa-check-square-o\" : \"fa-square-o\"'></span>" +
-          " {{member.Title || member.title}}</label><a href class='width-100 text-right small' " +
-          "data-ng-click=\"member.showInfo = !member.showInfo\" title=\"{{'Legend'|translate}}\">" +
-          "<i class='fa fa-caret-down' ng-if='!member.showInfo'/>" +
-          "<i class='fa fa-caret-up' ng-if='member.showInfo'/>" +
-          "<span translate ng-if=\"!member.showInfo\">{{'showLegend' | translate}}</span>" +
-          "<span translate ng-if=\"member.showInfo\">{{'hideLegend' | translate}}</span>" +
-          "</a><div class=\"details width-100\" ng-init=\"member.showInfo = false\" ng-show=\"member.showInfo\"><p><img ng-src=\"{{member.legend}}\"/></p></div></li>",
+        templateUrl: 'shared/wmsimport/partials/layeritem.html',
         link: function (scope, element, attrs, controller) {
           var select = function () {
             var addedLayer = controller.addLayer(scope.member);
@@ -236,8 +228,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             });
           };
           if (angular.isArray(scope.member.Layer)) {
-            element.append("<gn-cap-tree-col class='list-group' " +
-              "collection='member.Layer'></gn-cap-tree-col>");
+            element.append("<gn-cap-tree-col class='list-group' collection='member.Layer'></gn-cap-tree-col>");
             $compile(element.contents())(scope);
           }
           scope.handle = function (evt) {
