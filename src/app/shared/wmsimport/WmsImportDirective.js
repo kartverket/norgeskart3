@@ -67,6 +67,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
               url: args.url,
               type: args.type || type
             });
+            scope.format =  args.type;
           });
           scope.$on('addLayerFromWMS', function (event, layer) {
             scope.layerList.push(layer);
@@ -141,7 +142,6 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           };
 
           // watch url as input
-          /*
           scope.$watch('url', function (value) {
             if (value) {
               scope.setUrl({
@@ -150,7 +150,6 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
               });
             }
           });
-          */
 
           if (localStorageFactory.get("wms")) {
             scope.format = "wms";
