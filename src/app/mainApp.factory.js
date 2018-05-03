@@ -73,8 +73,7 @@ angular.module('mainApp')
             displayCenter: "306722,7197864",
             displayprojectionepsgcode: "EPSG:25833",
             isygatekeeper: "https://www.norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
-            tickethost: "https://www.norgeskart.no/ws/esk.py?wms.ecc_enc",
-            name: "geonorge"
+            name: "geoportal"
           },
           wmts: [{
             type: "map",
@@ -113,23 +112,6 @@ angular.module('mainApp')
           }, {
             type: "map",
             gatekeeper: "true",
-            name: "rasterkart",
-            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
-            params: {
-              layers: "toporaster3",
-              format: "image/png"
-            },
-            matrixprefix: "true",
-            guid: "0.toporaster3",
-            options: {
-              isbaselayer: "true",
-              singletile: "false",
-              visibility: "false"
-            },
-            thumbnail: "raster"
-          }, {
-            type: "map",
-            gatekeeper: "true",
             name: "gratone",
             url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
             params: {
@@ -154,22 +136,6 @@ angular.module('mainApp')
             },
             matrixprefix: "true",
             guid: "0.norges_grunnkart",
-            options: {
-              isbaselayer: "true",
-              singletile: "false",
-              visibility: "false"
-            }
-          }, {
-            type: "map",
-            gatekeeper: "true",
-            name: "terreng",
-            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
-            params: {
-              layers: "terreng_norgeskart",
-              format: "image/png"
-            },
-            matrixprefix: "true",
-            guid: "0.terreng_norgeskart",
             options: {
               isbaselayer: "true",
               singletile: "false",
@@ -226,86 +192,6 @@ angular.module('mainApp')
               visibility: "false"
             }
           }],
-          wms: [{
-            type: "overlay",
-            Layers: {
-              Layer: {
-                name: "cells",
-                queryable: "false",
-                title: "Elektron. Sjøkart"
-              }
-            },
-            ticket: "true",
-            name: "elektron_sjokart",
-            url: "https://wms.geonorge.no/skwms1/wms.ecc_enc",
-            params: {
-              layers: "cells",
-              format: "image/png"
-            },
-            guid: "0.cells",
-            options: {
-              isbaselayer: "true",
-              singletile: "true",
-              visibility: "false"
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "adresser",
-            url: "//wms.geonorge.no/skwms1/wms.matrikkel.seeiendom2",
-            groupid: 1,
-            maxResolution: 2,
-            params: {
-              layers: "matrikkel:MATRIKKELADRESSEWFS,matrikkel:VEGADRESSEWFS",
-              format: "image/png"
-            },
-            guid: "1.matrikkeladresse",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "bygninger",
-            url: "//wms.geonorge.no/skwms1/wms.matrikkel.seeiendom2",
-            groupid: 1,
-            maxResolution: 2,
-            params: {
-              layers: "matrikkel:BYGNINGWFS",
-              format: "image/png"
-            },
-            guid: "1.bygning",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "teiger_og_grenser",
-            url: "//wms.geonorge.no/skwms1/wms.matrikkel.seeiendom2",
-            groupid: 1,
-            maxResolution: 2,
-            params: {
-              layers: "matrikkel:TEIGGRENSEWFS,matrikkel:TEIGWFS",
-              format: "image/png",
-              styles: ",Matrikkelnummer"
-            },
-            guid: "1.teiggrense",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "true"
-            }
-          }],
-          maplayer: {
-            index: 1,
-            name: "matrikkel_data",
-            groupid: 1
-          },
           mapbounds: {
             mapbound: [{
               epsg: "EPSG:23031",
@@ -434,7 +320,7 @@ angular.module('mainApp')
       var projectName = function () {
         var absUrl = $location.$$absUrl;
         if (absUrl.indexOf("project=") > -1) {
-          var projectName = /project=([^&]+)(&|#)/.exec(absUrl);
+          var projectName = /project=([^&|#]+)(&|#)/.exec(absUrl);
           if (projectName === null) {
             projectName = /project=([^]+)/.exec(absUrl);
             if (projectName === null) {
