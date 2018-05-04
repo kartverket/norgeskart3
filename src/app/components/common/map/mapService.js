@@ -82,12 +82,12 @@ module.provider('gnMap', function () {
       };
 
       if (!Array.prototype.includes) {
-        Array.prototype.includes = function(searchElement /*, fromIndex*/) {
+        Array.prototype.includes = function (searchElement /*, fromIndex*/ ) {
           'use strict';
           if (this === null) {
             throw new TypeError('Array.prototype.includes called on null or undefined');
           }
-          
+
           var O = Object(this);
           var len = parseInt(O.length, 10) || 0;
           if (len === 0) {
@@ -99,13 +99,15 @@ module.provider('gnMap', function () {
             k = n;
           } else {
             k = len + n;
-            if (k < 0) {k = 0;}
+            if (k < 0) {
+              k = 0;
+            }
           }
           var currentElement;
           while (k < len) {
             currentElement = O[k];
             if (searchElement === currentElement ||
-               (searchElement !== searchElement && currentElement !== currentElement)) { // NaN !== NaN
+              (searchElement !== searchElement && currentElement !== currentElement)) { // NaN !== NaN
               return true;
             }
             k++;
@@ -113,7 +115,7 @@ module.provider('gnMap', function () {
           return false;
         };
       }
-            
+
       /**
        * @description
        * Check if the layer is in the map to avoid adding duplicated ones.
@@ -536,6 +538,7 @@ module.provider('gnMap', function () {
           var options = layerOptions || {};
 
           var source, olLayer;
+          viewerSettings.singleTileWMS = true; // testing singleTile
           if (viewerSettings.singleTileWMS) {
             source = new ol.source.ImageWMS({
               params: layerParams,
@@ -710,7 +713,7 @@ module.provider('gnMap', function () {
             }
 
             var layerParam = {
-              LAYERS: getCapLayer.Name || getCapLayer.Title 
+              LAYERS: getCapLayer.Name || getCapLayer.Title
             };
             if (getCapLayer.version) {
               layerParam.VERSION = getCapLayer.version;
@@ -1698,33 +1701,33 @@ module.provider('gnMap', function () {
           // var $this = this;
 
           defer.resolve(layer);
-/* Remove metadata use for now
-          if (layer.get('metadataUrl') && layer.get('metadataUuid')) {
+          /* Remove metadata use for now
+                    if (layer.get('metadataUrl') && layer.get('metadataUuid')) {
 
-            return gnSearchManagerService.gnSearch({
-              uuid: layer.get('metadataUuid'),
-              fast: 'index',
-              _content_type: 'json'
-            }).then(function (data) {
-              if (data.metadata.length === 1) {
-                var md = new Metadata(data.metadata[0]);
-                layer.set('md', md);
+                      return gnSearchManagerService.gnSearch({
+                        uuid: layer.get('metadataUuid'),
+                        fast: 'index',
+                        _content_type: 'json'
+                      }).then(function (data) {
+                        if (data.metadata.length === 1) {
+                          var md = new Metadata(data.metadata[0]);
+                          layer.set('md', md);
 
-                var mdLinks = md.getLinksByType('#OGC:WMTS',
-                  '#OGC:WMS', '#OGC:WMS-1.1.1-http-get-map');
+                          var mdLinks = md.getLinksByType('#OGC:WMTS',
+                            '#OGC:WMS', '#OGC:WMS-1.1.1-http-get-map');
 
-                angular.forEach(mdLinks, function (link) {
-                  if (layer.get('url').indexOf(link.url) >= 0 &&
-                    link.name === layer.getSource().getParams().LAYERS) {
-                    this.feedLayerWithRelated(layer, link.group);
-                    return;
-                  }
-                }, $this);
-              }
-              return layer;
-            });
-          }
-*/          
+                          angular.forEach(mdLinks, function (link) {
+                            if (layer.get('url').indexOf(link.url) >= 0 &&
+                              link.name === layer.getSource().getParams().LAYERS) {
+                              this.feedLayerWithRelated(layer, link.group);
+                              return;
+                            }
+                          }, $this);
+                        }
+                        return layer;
+                      });
+                    }
+          */
           return defer.promise;
         },
 
