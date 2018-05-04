@@ -468,192 +468,194 @@ angular.module('mainApp')
 
       function listener(event) {
         if (event.origin === "http://localhost" || "http://geonorge.no" || "http://norgeskart.no" || "https://register.geonorge.no/") {
-          var json = JSON.parse(event.data);
-
-          if (json) {
-            if (json.cmd === 'setCenter') {
-              map.SetCenter({
-                lon: json.x,
-                lat: json.y,
-                zoom: json.zoom
-              });
-            } else if ((json.cmd === 'setVisible') || (json.cmd === 'setBasemap')) {
-              if (json.cmd === 'setBasemap') {
-                for (var m in map.layers) {
-                  if (map.layers[m].isUrlDataLayer) {
-                    continue;
-                  }
-                  if (map.layers[m].isBasemap) {
-                    continue;
-                  }
-                  map.layers[m].setVisibility(false);
-                }
-              }
-              var candidates = map.GetOverlayLayers().filter(function (el) {
-                return el.guid == json.id;
-              });
-              if (candidates.length > 0) {
-                map.ShowLayer(candidates[0]);
-              }
-              postMessage({
-                type: "result",
-                cmd: json.cmd,
-                affected: candidates.length
-              });
-            } else if (json.cmd === 'addDataSource') {
-              parseParamsAndAddDataLayerFromUrl([json.type, json.url]);
-            } else if (json.cmd === 'setVisibleVectorLayer') {
-              vectorLayers = map.getLayersByClass("ol.Layer.Vector").slice();
-
-              for (i = 0; i < vectorLayers.length; i += 1) {
-                layer = vectorLayers[i];
-
-                if (layer.shortid === json.shortid) {
-                  layer.setVisibility(true);
-
-                  if (layer.preferredBackground) {
-                    rasterLayers = map.getLayersByClass("ol.Layer.WMTS");
-
-                    for (k = 0; k < rasterLayers.length; k += 1) {
-                      raster = rasterLayers[k];
-
-                      if (raster.shortid === layer.preferredBackground) {
-                        raster.setVisibility(true);
-                      } else if (!raster.isBaseLayer) {
-                        raster.setVisibility(false);
-                      }
+          if (typeof event.data !== 'object' && event.data !== "") {
+            var json = JSON.parse(event.data);
+            if (json) {
+              if (json.cmd === 'setCenter') {
+                map.SetCenter({
+                  lon: json.x,
+                  lat: json.y,
+                  zoom: json.zoom
+                });
+              } else if ((json.cmd === 'setVisible') || (json.cmd === 'setBasemap')) {
+                if (json.cmd === 'setBasemap') {
+                  for (var m in map.layers) {
+                    if (map.layers[m].isUrlDataLayer) {
+                      continue;
                     }
+                    if (map.layers[m].isBasemap) {
+                      continue;
+                    }
+                    map.layers[m].setVisibility(false);
                   }
-                } else {
-                  layer.setVisibility(false);
                 }
-              }
-            } else if (json.cmd === 'getFeatures') {
-              if (json.layer) {
-                layers = map.getLayersBy('shortid', json.layer);
-
-                if (layers.length > 0) {
-                  layer = layers[0];
-                  features = getFeaturesInLayer(layer);
-
-                  postMessage({
-                    type: "layerFeatures",
-                    layer: layer.shortid,
-                    features: features
-                  });
-                } else {
-                  postMessage({
-                    type: "error",
-                    message: "no such layer"
-                  });
+                var candidates = map.GetOverlayLayers().filter(function (el) {
+                  return el.guid == json.id;
+                });
+                if (candidates.length > 0) {
+                  map.ShowLayer(candidates[0]);
                 }
-              } else {
+                postMessage({
+                  type: "result",
+                  cmd: json.cmd,
+                  affected: candidates.length
+                });
+              } else if (json.cmd === 'addDataSource') {
+                parseParamsAndAddDataLayerFromUrl([json.type, json.url]);
+              } else if (json.cmd === 'setVisibleVectorLayer') {
                 vectorLayers = map.getLayersByClass("ol.Layer.Vector").slice();
-                layers = [];
 
                 for (i = 0; i < vectorLayers.length; i += 1) {
                   layer = vectorLayers[i];
-                  layers.push({
-                    layer: layer.shortid,
-                    features: getFeaturesInLayer(layer)
+
+                  if (layer.shortid === json.shortid) {
+                    layer.setVisibility(true);
+
+                    if (layer.preferredBackground) {
+                      rasterLayers = map.getLayersByClass("ol.Layer.WMTS");
+
+                      for (k = 0; k < rasterLayers.length; k += 1) {
+                        raster = rasterLayers[k];
+
+                        if (raster.shortid === layer.preferredBackground) {
+                          raster.setVisibility(true);
+                        } else if (!raster.isBaseLayer) {
+                          raster.setVisibility(false);
+                        }
+                      }
+                    }
+                  } else {
+                    layer.setVisibility(false);
+                  }
+                }
+              } else if (json.cmd === 'getFeatures') {
+                if (json.layer) {
+                  layers = map.getLayersBy('shortid', json.layer);
+
+                  if (layers.length > 0) {
+                    layer = layers[0];
+                    features = getFeaturesInLayer(layer);
+
+                    postMessage({
+                      type: "layerFeatures",
+                      layer: layer.shortid,
+                      features: features
+                    });
+                  } else {
+                    postMessage({
+                      type: "error",
+                      message: "no such layer"
+                    });
+                  }
+                } else {
+                  vectorLayers = map.getLayersByClass("ol.Layer.Vector").slice();
+                  layers = [];
+
+                  for (i = 0; i < vectorLayers.length; i += 1) {
+                    layer = vectorLayers[i];
+                    layers.push({
+                      layer: layer.shortid,
+                      features: getFeaturesInLayer(layer)
+                    });
+                  }
+                  postMessage({
+                    type: "features",
+                    layers: layers
                   });
                 }
-                postMessage({
-                  type: "features",
-                  layers: layers
-                });
-              }
-            } else if (json.cmd === 'getVisibleFeatures') {
-              if (json.layer) {
+              } else if (json.cmd === 'getVisibleFeatures') {
+                if (json.layer) {
+                  layers = map.getLayersBy('shortid', json.layer);
+
+                  if (layers.length > 0) {
+                    layer = layers[0];
+                    features = getVisibleFeaturesInLayer(layer);
+
+                    postMessage({
+                      type: "layerVisibleFeatures",
+                      layer: layer.shortid,
+                      features: features
+                    });
+                  } else {
+                    postMessage({
+                      type: "error",
+                      message: "no such layer"
+                    });
+                  }
+                } else {
+                  vectorLayers = map.getLayersByClass("ol.Layer.Vector").slice();
+                  layers = [];
+                  for (i = 0; i < vectorLayers.length; i += 1) {
+                    layer = vectorLayers[i];
+                    layers.push({
+                      layer: layer.shortid,
+                      features: getVisibleFeaturesInLayer(layer)
+                    });
+                  }
+                  postMessage({
+                    type: "visibleFeatures",
+                    layers: layers
+                  });
+                }
+              } else if (json.cmd === 'selectFeature') {
                 layers = map.getLayersBy('shortid', json.layer);
+                feature = null;
+                selector = null;
 
                 if (layers.length > 0) {
                   layer = layers[0];
-                  features = getVisibleFeaturesInLayer(layer);
 
-                  postMessage({
-                    type: "layerVisibleFeatures",
-                    layer: layer.shortid,
-                    features: features
-                  });
-                } else {
-                  postMessage({
-                    type: "error",
-                    message: "no such layer"
-                  });
-                }
-              } else {
-                vectorLayers = map.getLayersByClass("ol.Layer.Vector").slice();
-                layers = [];
-                for (i = 0; i < vectorLayers.length; i += 1) {
-                  layer = vectorLayers[i];
-                  layers.push({
-                    layer: layer.shortid,
-                    features: getVisibleFeaturesInLayer(layer)
-                  });
-                }
-                postMessage({
-                  type: "visibleFeatures",
-                  layers: layers
-                });
-              }
-            } else if (json.cmd === 'selectFeature') {
-              layers = map.getLayersBy('shortid', json.layer);
-              feature = null;
-              selector = null;
+                  feature = layer.getFeatureByFid(json.feature);
 
-              if (layers.length > 0) {
-                layer = layers[0];
+                  if (feature) {
+                    controls = layer.map.getControlsByClass('ol.Control.SelectFeature');
 
-                feature = layer.getFeatureByFid(json.feature);
-
-                if (feature) {
-                  controls = layer.map.getControlsByClass('ol.Control.SelectFeature');
-
-                  for (i = 0; i < controls.length && selector === null; i += 1) {
-                    if (controls[i].layer.shortid === layer.shortid) {
-                      if (controls[i].click) {
-                        // ensure the correct control is used
-                        selector = controls[i];
+                    for (i = 0; i < controls.length && selector === null; i += 1) {
+                      if (controls[i].layer.shortid === layer.shortid) {
+                        if (controls[i].click) {
+                          // ensure the correct control is used
+                          selector = controls[i];
+                        }
                       }
                     }
                   }
                 }
-              }
-              if (feature !== null && selector !== null) {
-                if (json.panAndZoom && feature.geometry.bounds) {
-                  feature.layer.map.zoomToExtent(feature.geometry.bounds);
+                if (feature !== null && selector !== null) {
+                  if (json.panAndZoom && feature.geometry.bounds) {
+                    feature.layer.map.zoomToExtent(feature.geometry.bounds);
+                  }
+                  selector.clickFeature.call(selector, feature);
+                } else {
+                  postMessage({
+                    type: "error",
+                    message: "no such layer or feature"
+                  });
                 }
-                selector.clickFeature.call(selector, feature);
-              } else {
-                postMessage({
-                  type: "error",
-                  message: "no such layer or feature"
-                });
+              } else if (json.cmd === 'setBoundingBox') {
+                var draw = map.getControlsByClass('ol.Control.Draw')[0];
+                if (draw) {
+                  var l = json.bounds[0],
+                    b = json.bounds[1],
+                    r = json.bounds[2],
+                    t = json.bounds[3];
+                  var polygon = new ol.geom.Polygon([
+                    new ol.geom.LinearRing([
+                      new ol.geom.Point(l, b),
+                      new ol.geom.Point(r, b),
+                      new ol.geom.Point(r, t),
+                      new ol.geom.Point(l, t),
+                      new ol.geom.Point(l, b)
+                    ])
+                  ]);
+                  feature = new ol.Feature.Vector(polygon);
+                  draw.displayBBoxFeature(feature);
+                }
+              } else if (json.cmd === 'addMarker') {
+                map.ShowInfoMarker([Number(json.x), Number(json.y)]);
               }
-            } else if (json.cmd === 'setBoundingBox') {
-              var draw = map.getControlsByClass('ol.Control.Draw')[0];
-              if (draw) {
-                var l = json.bounds[0],
-                  b = json.bounds[1],
-                  r = json.bounds[2],
-                  t = json.bounds[3];
-                var polygon = new ol.geom.Polygon([
-                  new ol.geom.LinearRing([
-                    new ol.geom.Point(l, b),
-                    new ol.geom.Point(r, b),
-                    new ol.geom.Point(r, t),
-                    new ol.geom.Point(l, t),
-                    new ol.geom.Point(l, b)
-                  ])
-                ]);
-                feature = new ol.Feature.Vector(polygon);
-                draw.displayBBoxFeature(feature);
-              }
-            } else if (json.cmd === 'addMarker') {
-              map.ShowInfoMarker([Number(json.x), Number(json.y)]);
             }
           }
+
         }
       }
 
