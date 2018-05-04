@@ -216,7 +216,11 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
         link: function (scope, element, attrs, controller) {
           var select = function () {
             var addedLayer = controller.addLayer(scope.member);
-            scope.member.legend = addedLayer.values_.legend;
+            if (addedLayer.values_.legend) {
+              scope.member.legend = addedLayer.values_.legend;
+            } else {
+              scope.member.legend = ngeo.LayerHelper.prototype.getWMSLegendURL(addedLayer.values_.url, addedLayer.values_.name);
+            }
             scope.isLayerActive = addedLayer.getVisible();
 
             gnAlertService.addAlert({
