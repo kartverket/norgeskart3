@@ -710,7 +710,7 @@ module.provider('gnMap', function () {
             }
 
             var layerParam = {
-              LAYERS: getCapLayer.Name
+              LAYERS: getCapLayer.Name || getCapLayer.Title 
             };
             if (getCapLayer.version) {
               layerParam.VERSION = getCapLayer.version;
@@ -1012,7 +1012,7 @@ module.provider('gnMap', function () {
           var returnLayer;
 
           map.getLayers().forEach(function (layer) {
-            if (layer.get('name') === getCapLayer.Name) {
+            if (layer.get('name') === (getCapLayer.Name || getCapLayer.Title)) {
               isNewLayer = false;
               var visibility = layer.getVisible();
               if (visibility === false) {
@@ -1695,7 +1695,7 @@ module.provider('gnMap', function () {
          */
         feedLayerMd: function (layer) {
           var defer = $q.defer();
-          var $this = this;
+          // var $this = this;
 
           defer.resolve(layer);
 /* Remove metadata use for now
