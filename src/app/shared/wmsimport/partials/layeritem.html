@@ -1,14 +1,14 @@
 <li class="list-group-item">
-  <label ng-click='handle($event)'>
+  <label ng-click="handle($event)">
     <span class='fa' ng-class="isLayerActive ? 'fa-check-square-o' : 'fa-square-o' "></span>
     {{member.Title || member.title}}
   </label>
-  <a href class='width-100 text-right small' data-ng-click="member.showInfo = !member.showInfo" title="{{'Legend'|translate}}">
+  <label class='width-100 text-right small' ng-click="showInfo($event)">
     <i class='fa fa-caret-down' ng-if='!member.showInfo' />
     <i class='fa fa-caret-up' ng-if='member.showInfo' />
     <span translate ng-if="!member.showInfo">{{'showLegend' | translate}}</span>
     <span translate ng-if="member.showInfo">{{'hideLegend' | translate}}</span>
-  </a>
+  </label>
   <div class="details width-100" ng-init="member.showInfo = false" ng-show="member.showInfo">
     <p>
       <img ng-src="{{member.legend}}" />

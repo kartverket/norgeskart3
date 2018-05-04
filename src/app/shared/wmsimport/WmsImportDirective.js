@@ -67,7 +67,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
               url: args.url,
               type: args.type || type
             });
-            scope.format =  args.type;
+            scope.format = args.type;
           });
           scope.$on('addLayerFromWMS', function (event, layer) {
             scope.layerList.push(layer);
@@ -184,8 +184,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
         scope: {
           collection: '='
         },
-        template: "<ul class='list-group'><gn-cap-tree-elt " +
-          "ng-repeat='member in collection' member='member'>" +
+        template: "<ul class='list-group'><gn-cap-tree-elt ng-repeat='member in collection' member='member'>" +
           '</gn-cap-tree-elt></ul>'
       };
     }
@@ -235,7 +234,11 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           scope.handle = function (evt) {
             select();
             evt.stopImmediatePropagation();
-          };          
+          };
+          scope.showInfo = function (evt) {
+            evt.stopImmediatePropagation();
+            scope.member.showInfo = !scope.member.showInfo;
+          };
           scope.isParentNode = function () {
             return angular.isDefined(scope.member.Layer);
           };
