@@ -1698,7 +1698,7 @@ module.provider('gnMap', function () {
           var $this = this;
 
           defer.resolve(layer);
-
+/* Remove metadata use for now
           if (layer.get('metadataUrl') && layer.get('metadataUuid')) {
 
             return gnSearchManagerService.gnSearch({
@@ -1724,6 +1724,7 @@ module.provider('gnMap', function () {
               return layer;
             });
           }
+*/          
           return defer.promise;
         },
 
