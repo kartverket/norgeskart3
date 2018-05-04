@@ -172,7 +172,8 @@ angular.module('mainApp')
               isbaselayer: "true",
               singletile: "false",
               visibility: "false"
-            }
+            },
+            thumbnail: "grey"
           }, {
             type: "map",
             gatekeeper: "true",
