@@ -4,10 +4,10 @@
     {{member.Title || member.title}}
   </label>
   <label class='width-100 text-right small' ng-click="showInfo($event)" ng-hide="!member.legend">
-    <i class='fa fa-caret-down' ng-if='!member.showInfo' />
-    <i class='fa fa-caret-up' ng-if='member.showInfo' />
-    <span translate ng-if="!member.showInfo">{{'showLegend' | translate}}</span>
-    <span translate ng-if="member.showInfo">{{'hideLegend' | translate}}</span>
+    <i class='fa fa-caret-down' ng-if='!member.showInfo && member.queryable' />
+    <i class='fa fa-caret-up' ng-if='member.showInfo && member.queryable' />
+    <span translate ng-if="!member.showInfo && member.queryable">{{'showLegend' | translate}}</span>
+    <span translate ng-if="member.showInfo && member.queryable">{{'hideLegend' | translate}}</span>
   </label>
   <div class="details width-100" ng-init="member.showInfo = false" ng-show="member.showInfo">
     <p>
