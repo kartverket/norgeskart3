@@ -27,7 +27,7 @@ angular.module('mainApp')
                 elementsInPath = _generatePath(event);
               }
               for (var i = 0; i < elementsInPath.length; i++) {
-                if (elementsInPath[i].id === "mapDiv") {
+                if (elementsInPath[i].id === "mapDiv" && mainAppFactory.getMapConfig().projectName !== "geonorge") {
                   scope.closeNav();
                 }
               }
