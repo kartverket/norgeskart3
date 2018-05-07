@@ -1,9 +1,9 @@
 <li class="list-group-item">
   <label ng-click="handle($event)">
-    <span class='fa' ng-class="isLayerActive ? 'fa-check-square-o' : 'fa-square-o' "></span>
+    <span class='fa' ng-class=" member.queryable ? ( isLayerActive ? 'fa-check-square-o' : 'fa-square-o' ) : '' "></span>
     {{member.Title || member.title}}
   </label>
-  <label class='width-100 text-right small' ng-click="showInfo($event)">
+  <label class='width-100 text-right small' ng-click="showInfo($event)" ng-hide="!member.legend">
     <i class='fa fa-caret-down' ng-if='!member.showInfo' />
     <i class='fa fa-caret-up' ng-if='member.showInfo' />
     <span translate ng-if="!member.showInfo">{{'showLegend' | translate}}</span>
