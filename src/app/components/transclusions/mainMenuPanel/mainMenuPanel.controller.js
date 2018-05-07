@@ -14,7 +14,7 @@ angular.module('mainMenuPanel')
         localStorageFactory.remove('wms');
         localStorageFactory.remove('wfs');
         localStorageFactory.remove('addLayers');
-        localStorageFactory.set('mainMenuIsOpen', false);
+        localStorageFactory.set('mainMenuIsOpen', true);
         location.hash = '';
         location.reload($event.shiftKey);
       };
