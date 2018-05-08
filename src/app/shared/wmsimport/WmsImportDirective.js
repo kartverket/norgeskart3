@@ -222,22 +222,24 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
               scope.member.legend = ngeo.LayerHelper.prototype.getWMSLegendURL(addedLayer.values_.url, addedLayer.values_.name);
             }
             scope.isLayerActive = addedLayer.getVisible();
-
-            gnAlertService.addAlert({
-              msg: $translate.instant('layerAdded', {
-                layer:
-                  (scope.member.Title || scope.member.title)
-              }),
-              type: 'success'
-            });
+            /*
+                        gnAlertService.addAlert({
+                          msg: $translate.instant('layerAdded', {
+                            layer: (scope.member.Title || scope.member.title)
+                          }),
+                          type: 'success'
+                        });
+            */
           };
           if (angular.isArray(scope.member.Layer)) {
             element.append("<gn-cap-tree-col class='list-group' collection='member.Layer'></gn-cap-tree-col>");
             $compile(element.contents())(scope);
           }
           scope.handle = function (evt) {
-            select();
-            evt.stopImmediatePropagation();
+            if (scope.member.Name) {
+              select();
+              evt.stopImmediatePropagation();
+            }
           };
           scope.showInfo = function (evt) {
             evt.stopImmediatePropagation();
