@@ -216,6 +216,19 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
         link: function (scope, element, attrs, controller) {
           var select = function () {
             var addedLayer = controller.addLayer(scope.member);
+
+            addedLayer.getSource().on('imageloadstart',
+              function () {
+                scope.showSpinner = true;
+                document.getElementById("spinner1").style.transition = "0.8s";
+              });
+            addedLayer.getSource().on('imageloadend',
+              function () {
+                scope.showSpinner = false;
+                scope.$apply();
+                document.getElementById("spinner1").style.transition = "0.8s";
+              });
+
             if (addedLayer.values_.legend) {
               scope.member.legend = addedLayer.values_.legend;
             } else {
@@ -223,12 +236,12 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             }
             scope.isLayerActive = addedLayer.getVisible();
             /*
-                        gnAlertService.addAlert({
-                          msg: $translate.instant('layerAdded', {
-                            layer: (scope.member.Title || scope.member.title)
-                          }),
-                          type: 'success'
-                        });
+            gnAlertService.addAlert({
+              msg: $translate.instant('layerAdded', {
+                layer: (scope.member.Title || scope.member.title)
+              }),
+              type: 'success'
+            });
             */
           };
           if (angular.isArray(scope.member.Layer)) {

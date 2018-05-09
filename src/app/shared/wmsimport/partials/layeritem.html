@@ -8,13 +8,18 @@
     <i class='fa fa-caret-up' ng-if='member.showInfo && member.Name' />
     <span translate ng-if="!member.showInfo && member.Name">{{'showLegend' | translate}}</span>
     <span translate ng-if="member.showInfo && member.Name">{{'hideLegend' | translate}}</span>
-  </label>
+    </label>
   <div class="details width-100" ng-init="member.showInfo = false" ng-show="member.showInfo">
     <p>
       <img ng-src="{{member.legend}}" />
     </p>
   </div>
-  <!--ToDo: add Opacity slide -->
+  <div id="spinner1" class="details width-100" data-ng-show="showSpinner">
+    <div class="spinner-loader" style="font-size: 10px; color:black; left:95%; margin-top: -20px;">
+      <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+    </div>
+  </div>
+<!--ToDo: add Opacity slide -->
   <!--
   <div class="" title="{{'opacity' | translate}}">
     <label data-translate="">setOpacity</label>
