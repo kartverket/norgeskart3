@@ -740,7 +740,6 @@ angular.module('searchPanel')
                 abstract: jsonObject.Abstract,
                 distributionProtocol: jsonObject.DistributionProtocol,
                 getCapabilitiesUrl: jsonObject.GetCapabilitiesUrl,
-                type: jsonObject.Type,
                 organizationLogo: jsonObject.OrganizationLogo
               };
             } else {
@@ -834,14 +833,14 @@ angular.module('searchPanel')
                 } // switch
               }
             }
-            if (result.type === 'serviceLayer' || result.type === 'service') {
+            if (result.distributionProtocol === 'serviceLayer' || result.distributionProtocol === 'service' || result.distributionProtocol === 'OGC:WMS' || result.distributionProtocol === 'WMS') {
               if (!_unifiedResults[result.source]) {
                 _unifiedResults[result.source] = {};
               }
               _unifiedResults[result.source][result.name] = {
                 name: result.name,
                 abstract: result.abstract,
-                format: result.format,
+                type: result.distributionProtocol,
                 source: result.source,
                 id: result.name,
                 url: result.url

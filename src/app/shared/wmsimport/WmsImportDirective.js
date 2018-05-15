@@ -63,55 +63,15 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           var type = scope.format.toUpperCase();
 
           scope.$on('addWMSfromSearch', function (event, args) {
+            scope.format = (args.type.split(":")[1] ? args.type.split(":")[1] : args.type).toLowerCase();
             scope.setUrl({
               url: args.url,
-              type: args.type || type
+              type: scope.format || type
             });
-            scope.format = args.type;
           });
           scope.$on('addLayerFromWMS', function (event, layer) {
             scope.layerList.push(layer);
           });
-
-          /*
-          function addLinks(md, type) {
-            angular.forEach(md.getLinksByType(type), function (link) {
-              if (link.url) {
-                scope.catServicesList.push({
-                  title: md.title || md.defaultTitle,
-                  uuid: md.getUuid(),
-                  name: link.name,
-                  desc: link.desc,
-                  type: type,
-                  url: link.url
-                });
-              }
-            });
-          }
-          */
-          // Get the list of services registered in the catalog
-          /*
-          if (attrs.servicesListFromCatalog) {
-            // FIXME: Only load the first 100 services
-            gnSearchManagerService.gnSearch({
-              fast: 'index',
-              _content_type: 'json',
-              from: 1,
-              to: 100,
-              serviceType: 'OGC:WMS or OGC:WFS or OGC:WMTS'
-            }).then(function (data) {
-              angular.forEach(data.metadata, function (record) {
-                var md = new Metadata(record);
-                if (scope.format === 'all') {
-                  addLinks(md, 'wms');
-                  addLinks(md, 'wfs');
-                } else {
-                  addLinks(md, scope.format);
-                }
-              });
-            });
-          }
-          */
 
           scope.setUrl = function (srv) {
             scope.url = angular.isObject(srv) ? srv.url : srv;
@@ -225,7 +185,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                 scope.showSpinner = false;
                 scope.$apply();
               });
-              addedLayer.getSource().on('imageloaderror',
+            addedLayer.getSource().on('imageloaderror',
               function (tileEvent) {
                 console.warn("imageloaderror : " + tileEvent.target.params_.LAYERS);
                 scope.showSpinner = false;
