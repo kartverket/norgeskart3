@@ -571,6 +571,7 @@ module.provider('gnMap', function () {
             type: 'WMS',
             opacity: options.opacity,
             visible: options.visible,
+            preload: Infinity,
             source: source,
             legend: options.legend,
             attribution: options.attribution,
@@ -608,37 +609,6 @@ module.provider('gnMap', function () {
           ngeoDecorateLayer(olLayer);
           olLayer.displayInLayerManager = true;
 
-          var unregisterEventKey = olLayer.getSource().on(
-            (viewerSettings.singleTileWMS) ?
-            'imageloaderror' : 'tileloaderror',
-            function (tileEvent) {
-              var url = tileEvent.tile && tileEvent.tile.getKey ?
-                tileEvent.tile.getKey() : '- no tile URL found-';
-
-              var layer = tileEvent.currentTarget &&
-                tileEvent.currentTarget.getParams ?
-                tileEvent.currentTarget.getParams().LAYERS :
-                layerParams.LAYERS;
-
-              var msg = $translate.instant('layerTileLoadError', {
-                url: url,
-                layer: layer
-              });
-              console.warn(msg);
-              $rootScope.$broadcast('StatusUpdated', {
-                msg: msg,
-                timeout: 0,
-                type: 'danger'
-              });
-              olLayer.get('errors').push(msg);
-              olLayer.getSource().unByKey(unregisterEventKey);
-
-              gnWmsQueue.error({
-                url: url,
-                name: layer,
-                msg: msg
-              });
-            });
           return olLayer;
         },
 

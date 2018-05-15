@@ -202,9 +202,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
    */
   .directive('gnCapTreeElt', [
     '$compile',
-    '$translate',
-    'gnAlertService',
-    function ($compile, $translate, gnAlertService) {
+    function ($compile) {
       return {
         restrict: 'E',
         require: '^gnWmsImport',
@@ -220,13 +218,18 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             addedLayer.getSource().on('imageloadstart',
               function () {
                 scope.showSpinner = true;
-                document.getElementById("spinner1").style.transition = "0.8s";
+                scope.$apply();
               });
             addedLayer.getSource().on('imageloadend',
               function () {
                 scope.showSpinner = false;
                 scope.$apply();
-                document.getElementById("spinner1").style.transition = "0.8s";
+              });
+              addedLayer.getSource().on('imageloaderror',
+              function (tileEvent) {
+                console.warn("imageloaderror : " + tileEvent.target.params_.LAYERS);
+                scope.showSpinner = false;
+                scope.$apply();
               });
 
             if (addedLayer.values_.legend) {
@@ -235,14 +238,6 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
               scope.member.legend = ngeo.LayerHelper.prototype.getWMSLegendURL(addedLayer.values_.url, addedLayer.values_.name);
             }
             scope.isLayerActive = addedLayer.getVisible();
-            /*
-            gnAlertService.addAlert({
-              msg: $translate.instant('layerAdded', {
-                layer: (scope.member.Title || scope.member.title)
-              }),
-              type: 'success'
-            });
-            */
           };
           if (angular.isArray(scope.member.Layer)) {
             element.append("<gn-cap-tree-col class='list-group' collection='member.Layer'></gn-cap-tree-col>");
