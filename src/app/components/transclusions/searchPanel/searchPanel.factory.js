@@ -9,7 +9,7 @@ angular
 
       var mapEpsg = 'EPSG:25833';
 
-      var initialSearchServices = ['ssr', 'matrikkelveg', 'matrikkeladresse', 'matrikkelnummer'];
+      var initialSearchServices = ['ssr', 'matrikkelveg', 'adresse', 'matrikkelnummer'];
 
       var availableUTMZones = ['25832', '25833', '25834', '25835', '25836', '32632', '32633', '32634', '32635', '32636'];
 
@@ -140,10 +140,10 @@ angular
           nameID: 'adressenavn',
           latID: 'nord',
           lonID: 'aust',
-          kommuneID: false,
-          husnummerID: false,
-          husnummerBokstav: false,
-          navnetypeID: false
+          kommuneID: 'kommunenavn',
+          husnummerID: 'husnr',
+          husnummerBokstav: "bokstav",
+          navnetypeID: "type"
         };
         return serviceDict;
       };
