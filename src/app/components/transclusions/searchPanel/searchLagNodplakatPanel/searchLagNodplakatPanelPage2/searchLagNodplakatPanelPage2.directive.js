@@ -132,7 +132,7 @@ angular.module('searchLagNodplakatPanelPage2')
               FORMAT: 'image/jpeg',
               BGCOLOR: '0xFFFFFF',
               TRANSPARENT: 'false',
-              LAYERS: 'topo3_WMS',
+              LAYERS: 'topo4_WMS',
               VERSION: '1.3.0',
               WIDTH: pixels.width,
               HEIGHT: pixels.height,
