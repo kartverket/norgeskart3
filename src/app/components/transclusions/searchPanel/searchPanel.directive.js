@@ -552,7 +552,34 @@ angular.module('searchPanel')
                 _getPlacenameHits(jsonObject);
                 return jsonObject.sokRes.stedsnavn;
               case ('adresse'):
-                return document.adresser;
+                var parsedInput = searchPanelFactory.parseInput(_getQuery()).parsedInput;
+                var adresser;
+                if (parsedInput.gnr) {
+                  adresser = document.adresser.sort(function (a, b) {
+                    return a.husnr - b.husnr;
+                  });
+                } else {
+                  if (/(\d+)([a-zA-Z])?/.test(_getQuery())) {
+                    parsedInput.husnr = /(\d+)([a-zA-Z])?/.exec(_getQuery())[1];
+                    parsedInput.bokstav = /(\d+)([a-zA-Z])?/.exec(_getQuery())[2];
+                  }
+                  adresser = document.adresser
+                    .filter(function (a) {
+                      return a.husnr === parsedInput.husnr;
+                    })
+                    .filter(function (a) {
+                      if (parsedInput.bokstav) {
+                        if (a.bokstav) {
+                          return a.bokstav === parsedInput.bokstav.toUpperCase();
+                        } else {
+                          return false;
+                        }
+                      } else {
+                        return true;
+                      }
+                    });
+                }
+                return adresser;
               default:
                 try {
                   return JSON.parse(document);
@@ -700,7 +727,7 @@ angular.module('searchPanel')
               var parsedInput = searchPanelFactory.parseInput(_getQuery()).parsedInput;
               if (parsedInput.municipality && searchResult.source === 'adresse') {
                 jsonObject = jsonObject.filter(function (el) {
-                  if ( (el.kommunenr === parsedInput.municipality || el.kommunenavn === parsedInput.municipality.toUpperCase() ) && el.gardsnr === parsedInput.gnr) {
+                  if ((el.kommunenr === parsedInput.municipality || el.kommunenavn === parsedInput.municipality.toUpperCase()) && el.gardsnr === parsedInput.gnr) {
                     return true;
                   } else {
                     return false;
