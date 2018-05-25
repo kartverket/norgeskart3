@@ -697,6 +697,16 @@ angular.module('searchPanel')
               if (!jsonObject.length) {
                 jsonObject = [jsonObject];
               }
+              var parsedInput = searchPanelFactory.parseInput(_getQuery()).parsedInput;
+              if (parsedInput.municipality && searchResult.source === 'adresse') {
+                jsonObject = jsonObject.filter(function (el) {
+                  if (el.kommunenr === parsedInput.municipality && el.gardsnr === parsedInput.gnr) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                });
+              }
               for (var i = 0; i < jsonObject.length; i++) {
                 if (jsonObject[i][_serviceDict[searchResult.source].latID]) {
                   _pushToUnifiedResults(_getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]));

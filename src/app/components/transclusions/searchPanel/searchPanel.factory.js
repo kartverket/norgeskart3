@@ -74,11 +74,11 @@ angular
         } else {
           parsedQuery = input;
         }
-        return parsedQuery;
+        return {parsedQuery: parsedQuery, parsedInput: parsedInput };
       };
 
       var generateServiceDict = function (query) {
-        query = parseInput(query);
+        query = parseInput(query).parsedQuery;
         var serviceDict = {};
         serviceDict['ssr'] = {
           url: mainAppService.generateSearchStedsnavnUrl(query, placenamePage, placenameHitsPerPage),
@@ -154,6 +154,9 @@ angular
       return {
         getSourceDict: function () {
           return sourceDict;
+        },
+        parseInput: function (input) {
+          return parseInput(input);
         },
         getServiceDict: function (query) {
           return generateServiceDict(query);
