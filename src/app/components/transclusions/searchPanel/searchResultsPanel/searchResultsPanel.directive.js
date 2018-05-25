@@ -17,7 +17,7 @@ angular.module('searchResultsPanel')
 
           var _readResponse = function (jsonObject) {
             jsonObject = jsonObject[0];
-            var source = 'adresse';
+            var source = 'matrikkeladresse';
             var identifiersDict = searchPanelFactory.getServiceDict()[source];
             var epsg = identifiersDict.epsg;
             var lat = jsonObject[identifiersDict.latID] + '';
