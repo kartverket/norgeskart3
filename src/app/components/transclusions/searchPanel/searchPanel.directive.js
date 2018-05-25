@@ -700,7 +700,7 @@ angular.module('searchPanel')
               var parsedInput = searchPanelFactory.parseInput(_getQuery()).parsedInput;
               if (parsedInput.municipality && searchResult.source === 'adresse') {
                 jsonObject = jsonObject.filter(function (el) {
-                  if (el.kommunenr === parsedInput.municipality && el.gardsnr === parsedInput.gnr) {
+                  if ( (el.kommunenr === parsedInput.municipality || el.kommunenavn === parsedInput.municipality.toUpperCase() ) && el.gardsnr === parsedInput.gnr) {
                     return true;
                   } else {
                     return false;
