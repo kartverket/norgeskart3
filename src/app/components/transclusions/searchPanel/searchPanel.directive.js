@@ -728,7 +728,15 @@ angular.module('searchPanel')
               if (parsedInput.municipality && searchResult.source === 'adresse') {
                 jsonObject = jsonObject.filter(function (el) {
                   if ((el.kommunenr === parsedInput.municipality || el.kommunenavn === parsedInput.municipality.toUpperCase()) && el.gardsnr === parsedInput.gnr) {
-                    return true;
+                    if (parsedInput.bnr > -1) {
+                      if ( el.bruksnr.startsWith(parsedInput.bnr) ) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    } else {
+                      return true;
+                    }
                   } else {
                     return false;
                   }
