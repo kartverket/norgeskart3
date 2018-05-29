@@ -587,11 +587,11 @@ angular.module('searchPanel')
                           return true;
                         }
                       });
+                      adresser.sort(function (a, b) {
+                        return parseInt(a.husnr) - parseInt(b.husnr);
+                      });
                   }
                 }
-                adresser.sort(function (a, b) {
-                  return parseInt(a.husnr) - parseInt(b.husnr);
-                });
                 return adresser;
               default:
                 try {
