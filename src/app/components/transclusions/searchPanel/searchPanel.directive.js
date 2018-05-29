@@ -559,26 +559,39 @@ angular.module('searchPanel')
                     return a.husnr - b.husnr;
                   });
                 } else {
-                  if (/(\d+)([a-zA-Z])?/.test(_getQuery())) {
-                    parsedInput.husnr = /(\d+)([a-zA-Z])?/.exec(_getQuery())[1];
-                    parsedInput.bokstav = /(\d+)([a-zA-Z])?/.exec(_getQuery())[2];
+                  if (/(\D+)(\d+)([a-zA-Z])?/.test(_getQuery())) {
+                    var reResult = /(\D+)(\d+)([a-zA-Z])?/.exec(_getQuery());
+                    parsedInput.street = reResult[1].trim().toUpperCase();
+                    parsedInput.husnr = reResult[2];
+                    parsedInput.bokstav = reResult[3];
                   }
-                  adresser = document.adresser
-                    .filter(function (a) {
-                      return a.husnr === parsedInput.husnr;
-                    })
-                    .filter(function (a) {
-                      if (parsedInput.bokstav) {
-                        if (a.bokstav) {
-                          return a.bokstav === parsedInput.bokstav.toUpperCase();
+                  if (Array.isArray(document.adresser)) {
+                    adresser = document.adresser
+                      .filter(function (a) {
+                        return a.type === 'Vegadresse';
+                      })
+                      .filter(function (a) {
+                        return a.adressenavn.trim().toUpperCase().startsWith(parsedInput.street);
+                      })
+                      .filter(function (a) {
+                        return a.husnr.startsWith(parsedInput.husnr);
+                      })
+                      .filter(function (a) {
+                        if (parsedInput.bokstav) {
+                          if (a.bokstav) {
+                            return a.bokstav === parsedInput.bokstav.toUpperCase();
+                          } else {
+                            return false;
+                          }
                         } else {
-                          return false;
+                          return true;
                         }
-                      } else {
-                        return true;
-                      }
-                    });
+                      });
+                  }
                 }
+                adresser.sort(function (a, b) {
+                  return parseInt(a.husnr) - parseInt(b.husnr);
+                });
                 return adresser;
               default:
                 try {
@@ -729,7 +742,7 @@ angular.module('searchPanel')
                 jsonObject = jsonObject.filter(function (el) {
                   if ((el.kommunenr === parsedInput.municipality || el.kommunenavn === parsedInput.municipality.toUpperCase()) && el.gardsnr === parsedInput.gnr) {
                     if (parsedInput.bnr > -1) {
-                      if ( el.bruksnr.startsWith(parsedInput.bnr) ) {
+                      if (el.bruksnr.startsWith(parsedInput.bnr)) {
                         return true;
                       } else {
                         return false;
