@@ -76,7 +76,7 @@ angular.module('mainApp')
       };
 
       this.generateSearchAdresseUrl = function (query) {
-        return urlGeonorge + "AdresseWS/adresse/sok?sokestreng=" + encodeURIComponent(query) + "&antPerSide=100&side=1";
+        return urlGeonorge + "AdresseWS/adresse/sok?sokestreng=" + encodeURIComponent(query) + "&antPerSide=100&side=0";
       };
 
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
