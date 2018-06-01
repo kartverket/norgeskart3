@@ -6,6 +6,11 @@ angular.module('searchPanel')
         restrict: 'A',
         controller: 'searchPanelController',
         link: function (scope) {
+          if (!String.prototype.startsWith) {
+            String.prototype.startsWith = function (search, pos) {
+              return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+            };
+          }
           scope.sourceDict = searchPanelFactory.getSourceDict();
           scope.mapEpsg = searchPanelFactory.getMapEpsg();
 
@@ -587,9 +592,9 @@ angular.module('searchPanel')
                           return true;
                         }
                       });
-                      adresser.sort(function (a, b) {
-                        return parseInt(a.husnr) - parseInt(b.husnr);
-                      });
+                    adresser.sort(function (a, b) {
+                      return parseInt(a.husnr) - parseInt(b.husnr);
+                    });
                   }
                 }
                 return adresser;
