@@ -153,7 +153,7 @@ angular.module('mainApp')
         }
         var addLayers = parms[0].split('+');
         if (addLayers[1]) {
-          localStorageFactory.set("addLayers", addLayers[1]);
+          localStorageFactory.set("addLayers", addLayers[1].split('%')[0]);
         }
 
         if (parms.length >= 3) {
