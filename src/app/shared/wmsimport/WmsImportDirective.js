@@ -41,12 +41,10 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             var layer;
             if ($scope.format === 'wms') {
               layer = gnMap.addWmsToMapFromCap($scope.map, getCapLayer);
-              gnMap.feedLayerMd(layer);
               return layer;
             } else if ($scope.format === 'wfs') {
               layer = gnMap.addWfsToMapFromCap($scope.map, getCapLayer,
                 $scope.url);
-              gnMap.feedLayerMd(layer);
               return layer;
             } else if ($scope.format === 'wmts') {
               return gnMap.addWmtsToMapFromCap($scope.map, getCapLayer,
@@ -63,6 +61,9 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           var type = scope.format.toUpperCase();
 
           scope.$on('addWMSfromSearch', function (event, args) {
+            if (localStorageFactory.get("addLayers")) {
+              scope.layerList = localStorageFactory.get("addLayers").split(",");
+            }
             scope.format = (args.type.split(":")[1] ? args.type.split(":")[1] : args.type).toLowerCase();
             scope.setUrl({
               url: args.url,
@@ -91,11 +92,13 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                 })
                 .then(function () {
                   angular.forEach(scope.layerList, function (value) {
-                    controller.addLayer(
+                    var addedLayer = controller.addLayer(
                       scope.capability.layers.filter(function (el) {
                         return el.Name === value;
                       })[0]
                     );
+                    addedLayer.setVisible(true);
+                    scope.capability.Layer[0].isLayerActive = true;                    
                   });
                 });
             }
@@ -103,12 +106,14 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
 
           // watch url as input
           scope.$watch('url', function (value) {
+            /*
             if (value) {
               scope.setUrl({
                 url: value,
                 type: scope.format
               });
             }
+            */
           });
 
           if (localStorageFactory.get("wms")) {
@@ -118,10 +123,6 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             scope.format = "wfs";
             scope.setUrl(localStorageFactory.get("wfs"));
           }
-          if (localStorageFactory.get("addLayers")) {
-            scope.layerList = localStorageFactory.get("addLayers").split(",");
-          }
-
         }
       };
     }

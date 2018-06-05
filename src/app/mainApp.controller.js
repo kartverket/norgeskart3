@@ -96,7 +96,7 @@ angular.module('mainApp')
           layers = obj.addLayers;
           localStorageFactory.set("addLayers", obj.addLayers);
         } else {
-          localStorageFactory.set("addLayers", "");
+          // localStorageFactory.set("addLayers", "");
         }
 
         if (obj.wms !== undefined) {
@@ -151,6 +151,11 @@ angular.module('mainApp')
             parms[p] = tokens.shift(); // pop first
           }
         }
+        var addLayers = parms[0].split('+');
+        if (addLayers[1]) {
+          localStorageFactory.set("addLayers", addLayers[1]);
+        }
+
         if (parms.length >= 3) {
           obj.zoom = parms[0];
           obj.lon = parms[1];
