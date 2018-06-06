@@ -1,6 +1,6 @@
 {
   "name": "norgeskartclient",
-  "version": "1.0.47",
+  "version": "1.0.48",
   "devDependencies": {},
   "dependencies": {
     "angular": "1.6.x",

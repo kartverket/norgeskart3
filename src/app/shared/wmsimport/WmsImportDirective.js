@@ -198,7 +198,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             } else {
               scope.member.legend = ngeo.LayerHelper.prototype.getWMSLegendURL(addedLayer.values_.url, addedLayer.values_.name);
             }
-            scope.isLayerActive = addedLayer.getVisible();
+            scope.member.isLayerActive = addedLayer.getVisible();
           };
           if (angular.isArray(scope.member.Layer)) {
             element.append("<gn-cap-tree-col class='list-group' collection='member.Layer'></gn-cap-tree-col>");
