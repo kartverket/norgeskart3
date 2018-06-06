@@ -94,27 +94,31 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                   angular.forEach(scope.layerList, function (value) {
                     var addedLayer = controller.addLayer(
                       scope.capability.layers.filter(function (el) {
-                        return el.Name === value;
+                        if (el.Name === value || el.Title.toLowerCase() === value.toLowerCase()) {
+                          el.isLayerActive = true;
+                          return true;
+                        } else {
+                          return false;
+                        }
                       })[0]
                     );
                     addedLayer.setVisible(true);
-                    scope.capability.Layer[0].isLayerActive = true;                    
                   });
                 });
             }
           };
 
           // watch url as input
+          /*
           scope.$watch('url', function (value) {
-            /*
             if (value) {
               scope.setUrl({
                 url: value,
                 type: scope.format
               });
             }
-            */
           });
+            */
 
           if (localStorageFactory.get("wms")) {
             scope.format = "wms";

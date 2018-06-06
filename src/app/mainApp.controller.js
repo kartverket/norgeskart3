@@ -153,7 +153,7 @@ angular.module('mainApp')
         }
         var addLayers = parms[0].split('+');
         if (addLayers[1]) {
-          localStorageFactory.set("addLayers", addLayers[1].split('%')[0]);
+          localStorageFactory.set("addLayers", decodeURI(addLayers[1].split('%2F')[0]));
         }
 
         if (parms.length >= 3) {
@@ -162,12 +162,12 @@ angular.module('mainApp')
           obj.lat = parms[2];
           for (index = 3; index < parms.length; index += 1) {
             switch (parms[index].charAt(0)) {
-              /*
               case '+':
                 // AddLayer named
-                showLayerNamed(extra.slice(1), layerIndex);
-                layerIndex += 1;
+                localStorageFactory.set("addLayers", decodeURI(parms[index].slice(1)));
+                index += 1;
                 break;
+              /*
               case '-':
                 hideLayerNamed(extra.slice(1));
                 break;
