@@ -289,6 +289,29 @@ module.provider('gnOwsCapabilities', function () {
           // TODO fix using layer.BoundingBox[0].extent
           // when sextant fix his capabilities
 
+          var setProjectionFromEPSG = function (bbox) {
+            var defer = $q.defer();
+            var epsg_url = 'https://epsg.io/?format=json&q=' + bbox.crs.split(':')[1];
+            $http.get(epsg_url)
+              .then(function (response) {
+                var results = response.data.results;
+                if (results && results.length > 0) {
+                  for (var i = 0, ii = results.length; i < ii; i++) {
+                    var result = results[i];
+                    if (result) {
+                      if (result['code'] && result['code'].length > 0 && result['proj4'] && result['proj4'].length > 0) {
+                        proj4.defs('EPSG:' + result['code'], result['proj4']);
+                        defer.resolve();
+                      }
+                    } else {
+                      defer.reject();
+                    }
+                  }
+                }
+              });
+            return defer.promise;
+          };
+
           var bboxProp;
           ['EX_GeographicBoundingBox', 'WGS84BoundingBox'].forEach(
             function (prop) {
@@ -299,23 +322,18 @@ module.provider('gnOwsCapabilities', function () {
 
           if (bboxProp) {
             extent = ol.proj.transformExtent(bboxProp, 'EPSG:4326', proj);
-            //extent = ol.extent.containsExtent(proj.getWorldExtent(), bboxProp) ? ol.proj.transformExtent(bboxProp, 'EPSG:4326', proj) : proj.getExtent();
           } else if (angular.isArray(layer.BoundingBox)) {
             for (var i = 0; i < layer.BoundingBox.length; i++) {
               var bbox = layer.BoundingBox[i];
-              // Use the bbox with the code matching the map projection
-              // or the first one.
-              if (bbox.crs === proj.getCode() ||
-                layer.BoundingBox.length === 1) {
-
-                extent =
-                  ol.extent.containsExtent(
-                    proj.getWorldExtent(),
-                    bbox.extent) ?
-                  ol.proj.transformExtent(bbox.extent,
-                    bbox.crs || 'EPSG:4326', proj) :
-                  proj.getExtent();
-                break;
+              if (!ol.proj.get(bbox.crs)) {
+                setProjectionFromEPSG(bbox).then(function () {
+                  extent = ol.proj.transformExtent(bbox.extent, bbox.crs || 'EPSG:4326', proj);
+                });
+              } else {
+                if (bbox.crs === proj.getCode() || layer.BoundingBox.length === 1) {
+                  extent = ol.proj.transformExtent(bbox.extent, bbox.crs || 'EPSG:4326', proj);
+                  break;
+                }
               }
             }
           }

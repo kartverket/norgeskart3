@@ -690,15 +690,22 @@ module.provider('gnMap', function () {
             }
 
             var projCode = map.getView().getProjection().getCode();
+            if (!getCapLayer.CRS){
+              console.warn('No CRS found in the capabilities, try to set SRS as CRS');
+              getCapLayer.CRS = getCapLayer.SRS;
+            } 
             if (getCapLayer.CRS) {
               if (!getCapLayer.CRS.includes(projCode)) {
-                if (projCode === 'EPSG:3857' &&
-                  getCapLayer.CRS.includes('EPSG:900913')) {
+                if (projCode === 'EPSG:3857' && getCapLayer.CRS.includes('EPSG:900913')) {
                   console.warn('');
                 } else if (getCapLayer.CRS.includes('EPSG:4326')) {
                   projCode = 'EPSG:4326';
+                } else {
+                  projCode = getCapLayer.CRS[0];
                 }
               }
+            } else {
+              console.warn('No CRS found, that might result in an error!');
             }
 
             var layer = this.createOlWMS(map, layerParam, {
