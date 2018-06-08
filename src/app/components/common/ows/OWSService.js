@@ -195,7 +195,6 @@ module.provider('gnOwsCapabilities', function () {
 
         //return gnUrlUtils.append('//www.norgeskart.no/ws/px.py', gnUrlUtils.append(parts[0], gnUrlUtils.toKeyValue(defaultParams)));
         return gnUrlUtils.append(gnUrlUtils.append(parts[0], gnUrlUtils.toKeyValue(defaultParams)));
-
       };
       return {
         mergeDefaultParams: mergeDefaultParams,
@@ -203,26 +202,40 @@ module.provider('gnOwsCapabilities', function () {
 
         getWMSCapabilities: function (url) {
           var defer = $q.defer();
-          if (url) {
-            url = mergeDefaultParams(url, {
-              service: 'WMS',
-              request: 'GetCapabilities'
-            });
+          var counter = 0;
+          var newUrl;
+          var request = function (url) {
+            if (url) {
+              if (counter === 0) {
+                newUrl = mergeDefaultParams(url, {
+                  service: 'WMS',
+                  request: 'GetCapabilities'
+                });
+              } else {                
+                newUrl = gnUrlUtils.append('//www.norgeskart.no/ws/px.py', url);
+              }
 
-            //send request and decode result
-            $http.get(url, {
-                cache: true
-              })
-              .then(function (result) {
-                try {
-                  defer.resolve(displayFileContent(result.data));
-                } catch (e) {
-                  defer.reject('capabilitiesParseError');
-                }
-              });
-          } else {
-            defer.reject();
-          }
+              //send request and decode result
+              $http.get(newUrl)
+                .then(function (result) {
+                  try {
+                    defer.resolve(displayFileContent(result.data));
+                  } catch (e) {
+                    defer.reject('capabilitiesParseError');
+                  }
+                }, function errorCallback() {
+                  if (counter < 1) {
+                    counter++;
+                    request(newUrl);
+                  } else {
+                    defer.reject('capabilities error');
+                  }
+                });
+            } else {
+              defer.reject();
+            }
+          };
+          request(url);
           return defer.promise;
         },
 
@@ -409,7 +422,6 @@ module.provider('gnOwsCapabilities', function () {
             return;
           }
         },
-
 
         getLayerInfoFromWfsCap: function (name, capObj, uuid) {
           var needles = [];
