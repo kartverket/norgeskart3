@@ -81,7 +81,7 @@ angular.module('searchLagFargeleggingskartPanel')
               layout: "A4 landscape",
               scale: extent.scale,
               titel: scope.tittel,
-              link: "http://www.norgeskart.no/turkart/"
+              link: "http://www.norgeskart.no/#!?zoom=" + scope.activePosition.zoom + "&lat=" + Number(Math.round(scope.activePosition.lat + 'e' + 2) + 'e-' + 2) + "&lon=" + Number(Math.round(scope.activePosition.lon + 'e' + 2) + 'e-' + 2)
             };
           };
 
