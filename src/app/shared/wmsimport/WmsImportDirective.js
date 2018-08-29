@@ -166,8 +166,8 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
    * call back the gnCapTreeCol for all its children.
    */
   .directive('gnCapTreeElt', [
-    '$compile',
-    function ($compile) {
+    '$compile', '$location',
+    function ($compile, $location) {
       return {
         restrict: 'E',
         require: '^gnWmsImport',
@@ -180,6 +180,26 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           var select = function () {
             var addedLayer = controller.addLayer(scope.member);
 
+            var addedLayers = $location.search().addLayers;
+            if (addedLayers) {
+              addedLayers = addedLayers.split(',');
+            } else {
+              addedLayers = [];
+            }
+
+            var i = addedLayers.indexOf(scope.member.Name);
+            if(i != -1) {
+              addedLayers.splice(i, 1);
+            } else {
+              addedLayers.push(scope.member.Name);
+            }
+
+            if (addedLayers && addedLayers.length > 0) {
+              $location.search('addLayers', addedLayers.toString());
+            } else {
+              $location.search('addLayers', null);
+            }
+            
             addedLayer.getSource().on('imageloadstart',
               function () {
                 scope.showSpinner = true;
