@@ -92,16 +92,30 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                 })
                 .then(function () {
                   angular.forEach(scope.layerList, function (value) {
-                    var addedLayer = controller.addLayer(
-                      scope.capability.layers.filter(function (el) {
-                        if (el.Name === value || el.Title.toLowerCase() === value.toLowerCase()) {
-                          el.isLayerActive = true;
-                          return true;
-                        } else {
-                          return false;
-                        }
-                      })[0]
-                    );
+                    var addedLayer;
+                    if (scope.format === 'wms') {
+                      addedLayer = controller.addLayer(
+                        scope.capability.layers.filter(function (el) {
+                          if (el.Name === value || el.Title.toLowerCase() === value.toLowerCase()) {
+                            el.isLayerActive = true;
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        })[0]
+                      );
+                    } else if (scope.format === 'wfs') {
+                      addedLayer = controller.addLayer(
+                        scope.capability.featureTypeList.featureType.filter(function (el) {
+                          if (el.title === value) {
+                            el.isLayerActive = true;
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        })[0]
+                      );
+                    }
                     addedLayer.setVisible(true);
                   });
                 });
@@ -187,11 +201,13 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
               addedLayers = [];
             }
 
-            var i = addedLayers.indexOf(scope.member.Name);
-            if(i != -1) {
+            var layerName = scope.member.Name || scope.member.title;
+
+            var i = addedLayers.indexOf(layerName);
+            if (i != -1) {
               addedLayers.splice(i, 1);
             } else {
-              addedLayers.push(scope.member.Name);
+              addedLayers.push(layerName);
             }
 
             if (addedLayers && addedLayers.length > 0) {
@@ -199,7 +215,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             } else {
               $location.search('addLayers', null);
             }
-            
+
             addedLayer.getSource().on('imageloadstart',
               function () {
                 scope.showSpinner = true;
@@ -229,7 +245,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             $compile(element.contents())(scope);
           }
           scope.handle = function (evt) {
-            if (scope.member.Name) {
+            if (scope.member.Name || scope.member.title) {
               select();
               evt.stopImmediatePropagation();
             }

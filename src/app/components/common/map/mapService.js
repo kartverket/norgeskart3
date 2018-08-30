@@ -1025,9 +1025,26 @@ module.provider('gnMap', function () {
          */
         addWfsToMapFromCap: function (map, getCapLayer, url) {
           map = (map || ISY.MapImplementation.OL3.olMap);
-          var layer = this.createOlWFSFromCap(map, getCapLayer, url);
-          map.addLayer(layer);
-          return layer;
+          var isNewLayer = true;
+          var returnLayer;
+
+          map.getLayers().forEach(function (layer) {
+            if (layer.get('label') === getCapLayer.title) {
+              isNewLayer = false;
+              var visibility = layer.getVisible();
+              if (visibility === false) {
+                layer.setVisible(true);
+              } else if (visibility === true) {
+                layer.setVisible(false);
+              }
+              returnLayer = layer;
+            }
+          });
+          if (isNewLayer) {
+            returnLayer = this.createOlWFSFromCap(map, getCapLayer, url);
+            map.addLayer(returnLayer);
+          }
+          return returnLayer;
         },
 
         /**
