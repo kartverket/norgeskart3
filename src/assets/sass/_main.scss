@@ -35,8 +35,8 @@ $font-large: 24px;
 $font-xlarge: 36px;
 
 // Line heights
-$line-height-xsmall: 1.3;
-$line-height-small: 1.5;
+$line-height-xsmall: 1.0;
+$line-height-small: 1.3;
 $line-height-medium: 22px;
 $line-height-large: 31px;
 $line-height-xlarge: 40px;
@@ -95,7 +95,7 @@ p {
 ul {
   //overflow: hidden;
   padding: 0;
-  font-size: 15px;//$font-xsmall;
+  font-size: $font-xsmall;
   line-height: $line-height-small;
 
   li {

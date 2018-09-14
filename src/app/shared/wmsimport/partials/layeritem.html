@@ -1,4 +1,4 @@
-<li class="list-group-item">
+<li style="border-top: 1px solid #dddd; font-size: 14px; ">
   <label ng-click="handle($event)">
     <span class='fa' ng-class=" (member.Name || member.title) ? ( member.isLayerActive ? 'fa-check-square-o' : 'fa-square-o' ) : '' "></span>
     {{member.Title || member.title}}
@@ -15,7 +15,7 @@
     </p>
   </div>
   <div id="spinner1" class="details width-100" data-ng-show="showSpinner">
-    <div class="spinner-loader" style="font-size: 10px; color:black; left:95%; margin-top: -20px;">
+    <div style="position: absolute; font-size: 7px; color:black; left:90%; margin-top: -20px;">
       <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
     </div>
   </div>
