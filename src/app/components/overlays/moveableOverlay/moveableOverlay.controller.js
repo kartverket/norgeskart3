@@ -1,9 +1,7 @@
 angular.module('moveableOverlay')
     .controller('moveableOverlayController', ['$scope','moveableOverlayFactory', '$element',
-        function($scope, moveableOverlayFactory, $element) {
-            if ($element.scope){
-                $element = $($element);
-            }
+        function($scope, moveableOverlayFactory) {
+
             $scope.showElevationProfilePage1 = function () {
                 $scope.menuElevationProfileLayout = 'page1';
             };

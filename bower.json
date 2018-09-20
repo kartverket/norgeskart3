@@ -3,16 +3,15 @@
   "version": "1.0.40",
   "devDependencies": {},
   "dependencies": {
-    "angular": "1.6.x",
-    "angular-route": "1.6.x",
-    "angular-mocks": "1.6.x",
+    "angular": "1.7.x",
+    "angular-route": "1.7.x",
+    "angular-mocks": "1.7.x",
     "bootstrap": "3.3.x",
-    "angular-translate": "2.17.x",
+    "angular-translate": "2.x.x",
     "proj4": "*",
-    "pouchdb": "5.0.x",
-    "jasmine-ajax": "3.3.x",
+    "pouchdb": "5.x.x",
     "es5-shim": "4.5.x",
-    "jquery": "2.2.x",
+    "jquery": "3.3.1",
     "blob-util": "1.2.x",
     "maplib": "https://github.com/kartverket/MapLib.git",
     "xml-to-json": "*",
@@ -20,6 +19,6 @@
     "featherlight": "1.7.x"
   },
   "resolutions": {
-    "angular": "1.6.*"
+    "angular": "1.7.*"
   }
 }
