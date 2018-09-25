@@ -17,22 +17,20 @@
     "url": "https://github.com/kartverket/norgeskart3.git"
   },
   "license": "SEE LICENSE IN README.md",
-  "dependencies": {
-    "karma-es5-shim": "0.0.x"
-  },
+  "dependencies": {},
   "devDependencies": {
     "grunt": "1.0.x",
     "grunt-appcache": "0.2.x",
     "grunt-bump": "0.8.x",
     "grunt-contrib-clean": "2.0.x",
-    "eslint": "5.5.x",
+    "eslint": "5.6.x",
     "eslint-config-airbnb-base": "13.1.x",
     "eslint-plugin-import": "2.14.x",
     "grunt-contrib-compass": "1.1.x",
     "grunt-contrib-concat": "1.0.x",
     "grunt-contrib-copy": "1.0.x",
-    "grunt-contrib-jshint": "1.1.x",
-    "grunt-contrib-uglify": "3.0.x",
+    "grunt-contrib-jshint": "2.0.x",
+    "grunt-contrib-uglify": "3.3.x",
     "grunt-contrib-watch": "1.1.x",
     "grunt-conventional-changelog": "6.1.x",
     "grunt-eslint": "21.0.x",
