@@ -74,7 +74,6 @@ module.exports = {
             'vendor/bootstrap/dist/js/bootstrap.min.js',
             'vendor/angular-translate/angular-translate.min.js',
             'vendor/proj4/dist/proj4.js',
-            'vendor/es5-shim/es5-shim.min.js',
             'vendor/pouchdb/dist/pouchdb.min.js',
             'vendor/openlayers3/ol.js',
             'vendor/blob-util/dist/blob-util.min.js',
