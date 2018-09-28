@@ -9,7 +9,6 @@ module.exports = {
      */
     build_dir: 'build',
     compile_dir: 'dist',
-    nuget_dir: 'nuget',
 
     /**
      * This is a collection of file patterns that refer to our app code (the
@@ -24,8 +23,7 @@ module.exports = {
         js: [  'src/**/*.js',  '!src/**/*.spec.js', '!src/assets/**/*.js', '!src/lib/log4javascript/log4javascript.js' ],
         jsunit: [ 'src/**/*.spec.js' ],
 
-        atpl: [ 'src/app/**/*.html', 'src/app/**/*.tpl.html' ],
-        ctpl: [ 'src/common/**/*.tpl.html' ],
+        atpl: [ 'src/app/**/*.html', ],
 
         html: [ 'src/index.html'],
         sass: 'src/assets/sass/main.scss'
@@ -76,7 +74,6 @@ module.exports = {
             'vendor/bootstrap/dist/js/bootstrap.min.js',
             'vendor/angular-translate/angular-translate.min.js',
             'vendor/proj4/dist/proj4.js',
-            'vendor/es5-shim/es5-shim.min.js',
             'vendor/pouchdb/dist/pouchdb.min.js',
             'vendor/openlayers3/ol.js',
             'vendor/blob-util/dist/blob-util.min.js',
@@ -100,9 +97,6 @@ module.exports = {
             'vendor/bootstrap/fonts/glyphicons-halflings-regular.eot'
         ]
     },
-    vendor_nuget_excludes: [
-        'vendor/jquery/dist/jquery.js'
-    ],
     jssource_mapclient: [
         '!src/**/*.spec.js',
         'src/app/shared/isyTranslate/**/*.js',
@@ -124,7 +118,6 @@ module.exports = {
         'src/app/components/transclusions/menuElevationProfile/**/*.js',
         'src/app/components/transclusions/searchPanel/**/*.js',
         'src/app/components/transclusions/tools/**/*.js'
-
     ],
     source_css: [
         '*.css'

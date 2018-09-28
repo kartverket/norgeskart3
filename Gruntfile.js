@@ -18,10 +18,6 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-appcache');
 
-    //var fs = require('fs');
-    var _ = require('lodash');
-    var readDir = require('fs-readdir-recursive');
-
     /**
      * Load in our build configuration file.
      */
@@ -94,8 +90,7 @@ module.exports = function ( grunt ) {
          */
         clean: [
             '<%= build_dir %>',
-            '<%= compile_dir %>',
-            '<%= nuget_dir %>'
+            '<%= compile_dir %>'
         ],
 
         /**
@@ -186,38 +181,6 @@ module.exports = function ( grunt ) {
                         expand: true
                     }
                 ]
-            },
-            nuget: {
-                files: [
-                    //source files
-                    {
-                        src: ['<%= pkg.name %>-<%= pkg.version %>.js'],
-                        dest: '<%= nuget_dir %>/Scripts/<%= pkg.name %>',
-                        cwd: '<%= compile_dir %>',
-                        expand: true
-                    },
-                    {
-                        src: ['<%= pkg.name %>-<%= pkg.version %>.js'],
-                        dest: '<%= nuget_dir %>/Scripts/mapAdminTool',
-                        cwd: '<%= compile_dir %>',
-                        expand: true
-                    },
-                    //Sass generated css
-                    {
-                        src: ['css/<%= pkg.name %>-<%= pkg.version %>.css'],
-                        dest: '<%= nuget_dir %>/Style/<%= pkg.name %>',
-                        cwd: '<%= build_dir %>',
-                        expand: true
-                    },
-                    //Sass generated css, mapAdminTool
-                    {
-                        src: ['css/<%= pkg.name %>-<%= pkg.version %>.css'],
-                        dest: '<%= nuget_dir %>/Style/mapAdminTool',
-                        cwd: '<%= build_dir %>',
-                        expand: true
-                    }
-
-                ]
             }
         },
 
@@ -255,8 +218,7 @@ module.exports = function ( grunt ) {
                     '<%= vendor_files.js %>',
                     '<%= external_files.js %>',
                     '<%= build_dir %>/src/**/*.js',
-                    '<%= html2js.app.dest %>',
-                    '<%= html2js.common.dest %>'
+                    '<%= html2js.app.dest %>'
                 ],
                 dest: '<%= compile_dir %>/<%= pkg.name %>-<%= pkg.version %>.js'
             }
@@ -366,16 +328,7 @@ module.exports = function ( grunt ) {
                 dest: '<%= build_dir %>/templates-app.js'
             },
 
-            /**
-             * These are the templates from `src/common`.
-             */
-            common: {
-                options: {
-                    base: 'src/common'
-                },
-                src: [ '<%= app_files.ctpl %>' ],
-                dest: '<%= build_dir %>/templates-common.js'
-            }
+
         },
 
         /**
@@ -412,7 +365,6 @@ module.exports = function ( grunt ) {
                     '<%= vendor_files.js %>',
                     '<%= external_files.js %>',
                     '<%= build_dir %>/src/**/*.js',
-                    '<%= html2js.common.dest %>',
                     '<%= html2js.app.dest %>',
                     '<%= build_dir %>/css/<%= pkg.name %>-<%= pkg.version %>.css'
                 ]
@@ -444,7 +396,6 @@ module.exports = function ( grunt ) {
                     '<%= vendor_files.js %>',
                     '<%= external_files.js %>',
                     '<%= html2js.app.dest %>',
-                    '<%= html2js.common.dest %>',
                     '<%= test_files.js %>'
                 ]
             }
@@ -518,8 +469,7 @@ module.exports = function ( grunt ) {
              */
             tpls: {
                 files: [
-                    '<%= app_files.atpl %>',
-                    '<%= app_files.ctpl %>'
+                    '<%= app_files.atpl %>'
                 ],
                 tasks: [ 'html2js' ]
             },
@@ -544,40 +494,6 @@ module.exports = function ( grunt ) {
                 options: {
                     livereload: false
                 }
-            }
-        },
-        //the nuget package structure
-        nuspec: {
-            build: {
-
-            }
-        },
-        nugetidx: {
-            build: {
-            }
-        },
-        nugetadminidx: {
-            build: {
-            }
-        },
-        nugetcontroller: {
-            build: {
-                cwd: '<%= compile_dir %>',
-                dir: '<%= compile_dir %>',
-                src: [
-                    '<%= pkg.name %>-<%= pkg.version %>.js',
-                    '<%= source_css %>'
-                ]
-            }
-        },
-        nugetAdminController: {
-            build: {
-                cwd: '<%= build_dir %>',
-                dir: '<%= build_dir %>',
-                src: [
-                    '<%= vendor_files.js %>',
-                    '<%= source_css %>'
-                ]
             }
         },
         appcache: {   // See chrome://appcache-internals/ for appcache status in chrome!
@@ -652,17 +568,6 @@ module.exports = function ( grunt ) {
         'index:compile'
     ]);
 
-    grunt.registerTask('nuget', [
-        'build',
-        'compile',
-        'copy:nuget',
-        'nugetidx',
-        'nugetadminidx',
-        'nugetcontroller',
-        'nugetAdminController',
-        'nuspec'
-    ]);
-
     function filterForJS(files) {
         return files.filter(function (file) {
             return file.match(/\.js$/);
@@ -680,19 +585,8 @@ module.exports = function ( grunt ) {
     }
 
     function mapDirectoriesToTargetEnvironment(file){
-        var dirRE = new RegExp( '^('+grunt.config('build_dir')+'|'+grunt.config('compile_dir')+')\/', 'g' );
+        var dirRE = new RegExp( '^('+grunt.config('build_dir')+'|'+grunt.config('compile_dir')+')/', 'g' );
         return file.replace( dirRE, '' );
-    }
-
-    //utility for getting just the filenames of a full path
-    function getfilenames(files) {
-        return files.map(function (file) {
-            return file.split('/').pop();
-        });
-    }
-
-    function ucFirst(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     /**
@@ -725,27 +619,6 @@ module.exports = function ( grunt ) {
         grunt.file.copy('src/elevationProfile.xml', this.data.dir + '/elevationProfile.xml', copyOptions);
     });
 
-    //build Index.cshtml for NuGet package
-    grunt.registerMultiTask('nugetadminidx', 'Process index.cshtml template for nuget', function () {
-        //var markup = grunt.file.read("src/html/configMarkup.html");
-        var packageName = 'mapAdminTool';
-        var packageNameUcfirst = ucFirst(packageName);
-        var copyOptions = {
-            process: function (contents) {
-                return grunt.template.process(contents, {
-                    data: {
-                        packageName: packageName,
-                        packageNameUcfirst: packageNameUcfirst
-                    }
-                });
-            }
-        };
-        var dest = grunt.config('nuget_dir') + '/Views/' + packageNameUcfirst + 'Page/';
-
-        grunt.file.copy('internal_templates/config.cshtml', dest + 'Index.cshtml', copyOptions);
-        //grunt.file.copy('html/jstemplates.html', dest + 'JsTemplates.cshtml');
-    });
-
 
     /**
      * In order to avoid having to specify manually the files needed for karma to
@@ -774,89 +647,6 @@ module.exports = function ( grunt ) {
                 });
             }
         });
-    });
-
-    //build .nuspec file
-    grunt.registerMultiTask('nuspec', 'create .nuspec file', function () {
-        var files = readDir(grunt.config('nuget_dir'));
-
-        var fileList = files.map(function (file) {
-            file = file.replace(/\//g, "\\");
-            return {
-                src: file,
-                dest: 'Content\\' + file
-            };
-        });
-
-        var copyOptions = {
-            process: function (contents) {
-                return grunt.template.process(contents, {
-                    data: {
-                        packageName: grunt.config('pkg.name'),
-                        description: grunt.config('pkg.description'),
-                        version: grunt.config('pkg.version'),
-                        fileList: fileList
-                    }
-                });
-            }
-        };
-        var dest = grunt.config('nuget_dir') + '/';
-
-        grunt.file.copy('internal_templates/nuspec.tmpl', dest + '.nuspec', copyOptions);
-    });
-
-    //create nugetcontroller file for NuGet package
-    grunt.registerMultiTask('nugetcontroller', 'Create controller', function () {
-        var excludes = grunt.config('vendor_nuget_excludes');
-        var files = _.filter(this.filesSrc, function (file) {
-            return (excludes.indexOf(file) === -1);
-        });
-
-        var jsFiles = getfilenames(filterForJS(files));
-        var cssFiles = getfilenames(filterForCSS(files));
-        //cssFiles = cssFiles.concat(fs.readdirSync('sass/css'));
-        var packageName = grunt.config('pkg.name');
-        var copyOptions = {
-            process: function (contents) {
-                return grunt.template.process(contents, {
-                    data: {
-                        packageNameUcfirst: ucFirst(packageName),
-                        packageName: packageName,
-                        scripts: jsFiles,
-                        styles: cssFiles
-                    }
-                });
-            }
-        };
-        var dest = grunt.config('nuget_dir') + '/Controllers/' + ucFirst(packageName) + 'PageController.cs';
-        grunt.file.copy('internal_templates/controller.tmpl', dest, copyOptions);
-    });
-
-    //create nugetcontroller file for NuGet package
-    grunt.registerMultiTask('nugetAdminController', 'Create controller for MapAdminTool', function () {
-        var excludes = grunt.config('vendor_nuget_excludes');
-        var files = _.filter(this.filesSrc, function (file) {
-            return (excludes.indexOf(file) === -1);
-        });
-
-        var jsFiles = getfilenames(filterForJS(files));
-        var cssFiles = getfilenames(filterForCSS(files));
-        //cssFiles = cssFiles.concat(fs.readdirSync('sass/css'));
-        var packageName = 'mapAdminTool';
-        var copyOptions = {
-            process: function (contents) {
-                return grunt.template.process(contents, {
-                    data: {
-                        packageNameUcfirst: ucFirst(packageName),
-                        packageName: packageName,
-                        scripts: jsFiles,
-                        styles: cssFiles
-                    }
-                });
-            }
-        };
-        var dest = grunt.config('nuget_dir') + '/Controllers/' + ucFirst(packageName) + 'PageController.cs';
-        grunt.file.copy('internal_templates/MapAdminToolController.tmpl', dest, copyOptions);
     });
 };
 

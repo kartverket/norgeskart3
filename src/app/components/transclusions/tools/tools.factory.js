@@ -7,7 +7,6 @@ angular
           id: "PointSelect",
           title: "PointSelect_title",
           hover: "PointSelect_hover",
-          symbol: "glyphicon glyphicon-map-marker",
           sortOrder: 0,
           isSelected: true,
           cursorStyle: "default"
@@ -16,7 +15,6 @@ angular
           id: "BoxSelect",
           title: "BoxSelect_title",
           hover: "BoxSelect_hover",
-          symbol: "glyphicon glyphicon-unchecked",
           sortOrder: 1,
           isSelected: false,
           cursorStyle: "default"
@@ -25,7 +23,6 @@ angular
           id: "FeatureHoverInfo",
           title: "FeatureHoverInfo_title",
           hover: "FeatureHoverInfo_hover",
-          symbol: "glyphicon glyphicon-unchecked",
           sortOrder: 2,
           isSelected: false,
           cursorStyle: "default"
@@ -34,7 +31,6 @@ angular
           id: "FeatureEditor",
           title: "FeatureEditor_title",
           hover: "FeatureEidtor_hover",
-          symbol: "glyphicon glyphicon-unchecked",
           sortOrder: 3,
           isSelected: false,
           cursorStyle: "crosshair"
@@ -43,7 +39,6 @@ angular
           id: "DefaultZoom",
           title: "DefaultZoom_title",
           hover: "DefaultZoom_hover",
-          symbol: "glyphicon glyphicon-unchecked",
           sortOrder: 4,
           isSelected: false,
           cursorStyle: "zoom-in"
@@ -52,7 +47,6 @@ angular
           id: "MeasureLine",
           title: "MeasureLine_title",
           hover: "MeasureLine_hover",
-          symbol: "flaticon-tool292",
           sortOrder: 6,
           isSelected: false,
           cursorStyle: "default"
@@ -61,7 +55,6 @@ angular
           id: "Measure",
           title: "Measure_title",
           hover: "Measure_hover",
-          symbol: "flaticon-triangular43",
           sortOrder: 5,
           isSelected: false,
           cursorStyle: "default"
@@ -70,7 +63,6 @@ angular
           id: "DrawFeature",
           title: "DrawFeature_title",
           hover: "DrawFeature_hover",
-          symbol: "flaticon-triangular43",
           sortOrder: 7,
           isSelected: false,
           cursorStyle: "default",
@@ -82,7 +74,6 @@ angular
           id: "AddLayerFeature",
           title: "AddLayerFeature_title",
           hover: "AddLayerFeature_hover",
-          symbol: "flaticon-triangular43",
           sortOrder: 8,
           isSelected: false,
           cursorStyle: "default",
@@ -107,7 +98,6 @@ angular
           id: "ModifyFeature",
           title: "ModifyFeature_title",
           hover: "ModifyFeature_hover",
-          symbol: "flaticon-triangular43",
           sortOrder: 9,
           isSelected: false,
           cursorStyle: "default",
@@ -133,7 +123,6 @@ angular
           id: "PrintBoxSelect",
           title: "PrintBoxSelect_title",
           hover: "PrintBoxSelect_hover",
-          symbol: "flaticon-triangular43",
           sortOrder: 10,
           isSelected: false,
           cursorStyle: "default",
@@ -145,7 +134,6 @@ angular
           id: "AddLayerUrl",
           title: "AddLayerUrl_title",
           hover: "AddLayerUrl_hover",
-          symbol: "flaticon-triangular43",
           sortOrder: 10,
           isSelected: false,
           cursorStyle: "default",

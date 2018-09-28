@@ -95,7 +95,7 @@ angular.module('searchLagTurkartPanel')
               legend: scope.showLegend,
               trips: scope.showTrips,
               sweden: scope.showSweden,
-              link: "http://www.norgeskart.no/turkart/#9/238117/6674760"
+              link: "http://www.norgeskart.no/#!?zoom=" + scope.activePosition.zoom + "&lat=" + Number(Math.round(scope.activePosition.lat + 'e' + 2) + 'e-' + 2) + "&lon=" + Number(Math.round(scope.activePosition.lon + 'e' + 2) + 'e-' + 2)
             };
           };
 

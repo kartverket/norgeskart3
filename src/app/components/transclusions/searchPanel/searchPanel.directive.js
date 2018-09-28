@@ -878,7 +878,7 @@ angular.module('searchPanel')
           };
 
           var _createID = function (result) {
-            return result.name + (result.point[0] + '').split('.')[0] + (result.point[1] + '').split('.')[0];
+            return result.name + (result.point[0] + '').replace('.', '') + (result.point[1] + '').replace('.', '');
           };
 
           scope.capitalizeName = function (name) {
