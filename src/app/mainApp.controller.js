@@ -473,7 +473,7 @@ angular.module('mainApp')
 
       function listener(event) {
         if (event.origin === "http://localhost" || "http://geonorge.no" || "http://norgeskart.no" || "https://register.geonorge.no/") {
-          if (typeof event.data !== 'object' && event.data !== "") {
+          if (typeof event.data !== 'object' && event.data !== "" && typeof event.data !== 'string') {
             var json = JSON.parse(event.data);
             if (json) {
               if (json.cmd === 'setCenter') {

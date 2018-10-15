@@ -34,21 +34,23 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
            * @return {*}
            */
           this.addLayer = function (getCapLayer) {
-            getCapLayer.version = $scope.capability.version;
-            if ($scope.url !== getCapLayer.url) {
-              getCapLayer.url = $scope.url;
-            }
+            if (!getCapLayer) return;
+            
+            getCapLayer.version =  "1.3.0"; //$scope.capability.version;
+            angular.forEach($scope.url, function (url) {
+              if (url.startsWith(getCapLayer.url)) {
+                getCapLayer.url = url
+              }
+            })
             var layer;
             if ($scope.format === 'wms') {
               layer = gnMap.addWmsToMapFromCap($scope.map, getCapLayer);
               return layer;
             } else if ($scope.format === 'wfs') {
-              layer = gnMap.addWfsToMapFromCap($scope.map, getCapLayer,
-                $scope.url);
+              layer = gnMap.addWfsToMapFromCap($scope.map, getCapLayer, $scope.url);
               return layer;
             } else if ($scope.format === 'wmts') {
-              return gnMap.addWmtsToMapFromCap($scope.map, getCapLayer,
-                $scope.capability);
+              return gnMap.addWmtsToMapFromCap($scope.map, getCapLayer, $scope.capability);
             }
           };
         }],
@@ -77,6 +79,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           scope.setUrl = function (srv) {
             scope.url = angular.isObject(srv) ? srv.url : srv;
             scope.url = scope.url.replace(/\[|\]/g, "");
+            scope.url = scope.url.split(',');
             type = angular.isObject(srv) && srv.type || type;
             scope.serviceDesc = angular.isObject(srv) ? srv : null;
             scope.load();
@@ -85,40 +88,45 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           scope.load = function () {
             if (scope.url) {
               scope.loading = true;
-              gnOwsCapabilities['get' + type.toUpperCase() + 'Capabilities'](scope.url)
-                .then(function (capability) {
-                  scope.loading = false;
-                  scope.capability = capability;
-                })
-                .then(function () {
-                  angular.forEach(scope.layerList, function (value) {
-                    var addedLayer;
-                    if (scope.format === 'wms') {
-                      addedLayer = controller.addLayer(
-                        scope.capability.layers.filter(function (el) {
-                          if (el.Name === value || el.Title.toLowerCase() === value.toLowerCase()) {
-                            el.isLayerActive = true;
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        })[0]
-                      );
-                    } else if (scope.format === 'wfs') {
-                      addedLayer = controller.addLayer(
-                        scope.capability.featureTypeList.featureType.filter(function (el) {
-                          if (el.title === value) {
-                            el.isLayerActive = true;
-                            return true;
-                          } else {
-                            return false;
-                          }
-                        })[0]
-                      );
-                    }
-                    addedLayer.setVisible(true);
+              scope.capabilities = [];
+              for (var i = 0; i < scope.url.length; i++) {
+                gnOwsCapabilities['get' + type.toUpperCase() + 'Capabilities'](scope.url[i])
+                  .then(function (capability) {
+                    scope.loading = false;
+                    scope.capabilities.push(capability);
+                  })
+                  .then(function () {
+                    angular.forEach(scope.layerList, function (value) {
+                      var addedLayer;
+                      for (var i = 0; i < scope.capabilities.length; i++) {
+                        if (scope.format === 'wms') {
+                          addedLayer = controller.addLayer(
+                            scope.capabilities[i].layers.filter(function (el) {
+                              if (el.Name === value || el.Title.toLowerCase() === value.toLowerCase()) {
+                                el.isLayerActive = true;
+                                return true;
+                              } else {
+                                return false;
+                              }
+                            })[0]
+                          );
+                        } else if (scope.format === 'wfs') {
+                          addedLayer = controller.addLayer(
+                            scope.capabilities[i].featureTypeList.featureType.filter(function (el) {
+                              if (el.title === value) {
+                                el.isLayerActive = true;
+                                return true;
+                              } else {
+                                return false;
+                              }
+                            })[0]
+                          );
+                        }
+                      }
+                      addedLayer.setVisible(true);
+                    });
                   });
-                });
+              }
             }
           };
 
@@ -148,6 +156,26 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
 
   /**
    * @ngdoc directive
+   * @name gn_wmsimport.directive:gnCapTree
+   */
+  .directive('gnCapTree', [
+    function () {
+      return {
+        restrict: 'E',
+        replace: true,
+        scope: {
+          collection: '='
+        },
+        template: "<div class='list-group' ng-repeat='member in collection'>"+
+        "<gn-cap-tree-col collection='member.Layer' selection='selection'></gn-cap-tree-col>"+
+        "<gn-cap-tree-col collection='member.featureTypeList.featureType' selection='selection'></gn-cap-tree-col>"+
+        "</div>"
+      };
+    }
+  ])
+
+    /**
+   * @ngdoc directive
    * @name gn_wmsimport.directive:gnCapTreeCol
    *
    * @description
@@ -163,11 +191,11 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
         scope: {
           collection: '='
         },
-        template: "<ul class='list-group'><gn-cap-tree-elt ng-repeat='member in collection' member='member'>" +
-          '</gn-cap-tree-elt></ul>'
+        template: "<ul class='list-group'><gn-cap-tree-elt ng-repeat='member in collection' member='member'></gn-cap-tree-elt></ul>"
       };
     }
   ])
+
 
 
   /**
