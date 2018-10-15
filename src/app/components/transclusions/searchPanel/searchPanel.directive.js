@@ -528,6 +528,7 @@ angular.module('searchPanel')
 
           scope.addResultsToMap = function () {
             var coordinates = [];
+            map.RemoveInfoMarkers();
             for (var source in _unifiedResults) {
               if (source == 'adresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length > 1) {
                 continue;
@@ -537,11 +538,13 @@ angular.module('searchPanel')
               }
             }
             if (coordinates.length > 0) {
-              map.RemoveInfoMarkers();
               map.ShowInfoMarkers(coordinates);
               $timeout(function () {
                 scope.searchResults = _unifiedResults;
               }, 0);
+            } else if (coordinates.length == 0 && scope.searchBarModel !== "") {
+              scope.showNoResultPanel();
+              scope.searchResults = undefined;
             }
           };
           var _getPlacenameHits = function (jsonObject) {
@@ -611,7 +614,7 @@ angular.module('searchPanel')
             var jsonObject;
             for (var service in _searchResults) {
               var searchResult = _searchResults[service];
-              jsonObject = _convertSearchResult2Json(searchResult.document, searchResult.source);
+              jsonObject = _convertSearchResult2Json(searchResult.document, searchResult.source);              
               _iterateJsonObject(jsonObject, searchResult);
             }
           };
@@ -626,7 +629,7 @@ angular.module('searchPanel')
             _readResults();
             if (_notSingleAddressHit()) {
               scope.addResultsToMap();
-            }
+            }            
           };
 
           var _downloadSearchBarFromUrl = function (_serviceDict, timestamp) {
@@ -672,6 +675,7 @@ angular.module('searchPanel')
 
           scope.searchBarValueChanged = function () {
             if (scope.searchBarModel === '') {
+              scope.showSearchResultPanel();
               scope.cleanResults();
               return;
             }

@@ -9,6 +9,15 @@ angular.module('searchPanel')
 
       };
 
+      $scope.showNoResultPanel = function() {
+        $scope.deactivatePrintBoxSelect();
+        $scope.searchPanelLayout = "searchNoResultPanel";
+        // mainAppFactory.setActiveSearchPanel('searchNoResultPanel');
+        $timeout(function () {
+            $scope.$apply();
+        }, 1);
+      };
+
       $scope.showSearchOptionsPanel = function (previous) {
         $scope.deactivatePrintBoxSelect();
         $scope.deactivateAddLayerUrl();

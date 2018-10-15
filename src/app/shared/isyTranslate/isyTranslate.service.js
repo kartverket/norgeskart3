@@ -334,7 +334,8 @@ angular.module('isyTranslate').constant('translations', {
     "vedtatt_av_navnemyndighet": "Navnevalg vedtatt av navnemyndighet",
     "vedtatt_navneledd": "Vedtatt navneledd",
     "vei": "Vei",
-    "width_txt": "TYKKELSE:"
+    "width_txt": "TYKKELSE:",
+    "no_search_hits": "ingen søketreff"
   },
   nn: {
     "AcceptAndContinue": "EG SKJØNAR OG GODTAR",
@@ -671,7 +672,8 @@ angular.module('isyTranslate').constant('translations', {
     "vedtatt_av_navnemyndighet": "Namneval vedteke/gjort av namnemyndet",
     "vedtatt_navneledd": "Vedteke namneledd",
     "vei": "Veg",
-    "width_txt": "TJUKKLEIK:"
+    "width_txt": "TJUKKLEIK:",
+    "no_search_hits": "ingen treff"
   },
   en: {
     "AcceptAndContinue": "ACCEPT AND CONTINUE",
@@ -1008,6 +1010,7 @@ angular.module('isyTranslate').constant('translations', {
     "vedtatt_av_navnemyndighet": "Descicion made by place name authority",
     "vedtatt_navneledd": "Place name part descided",
     "vei": "Road",
-    "width_txt": "WIDTH:"
+    "width_txt": "WIDTH:",
+    "no_search_hits": "no search hits"
   }
 });
