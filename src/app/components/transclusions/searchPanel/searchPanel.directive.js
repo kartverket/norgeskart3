@@ -304,6 +304,8 @@ angular.module('searchPanel')
                 });
                 if (scope.activeSearchResult && scope.activeSearchResult.source == 'mouseClick') {
                   scope.searchBarModel = data.placename;
+                  $location.search()['sok'] = data.placename;
+                  $location.search(angular.extend($location.search(), $location.search()));
                 }
                 var elevationValue = data.elevation === false ? '-' : data.elevation.toFixed(1);
                 scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, elevationValue, {});
@@ -371,6 +373,12 @@ angular.module('searchPanel')
             scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-ambulance', true, 'Lage nødplakat', {});
           };
 
+          function _updateLocationMarker(lat, lon){
+            $location.search()['markerLat'] = lat;
+            $location.search()['markerLon'] = lon;
+            $location.search(angular.extend($location.search(), $location.search()));
+          }
+
           scope.initSearchOptions = function () {
             scope.searchOptionsOrder = searchPanelFactory.getSearchOptionsOrder();
             for (var searchOption in scope.searchOptionsOrder) {
@@ -397,6 +405,7 @@ angular.module('searchPanel')
             }
             activePosition.geographicPoint = searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, scope.mapEpsg, 'EPSG:4326');
             map.SetCenter(activePosition);
+            _updateLocationMarker(activePosition.lat, activePosition.lon);
             map.RemoveInfoMarkers();
             scope.activePosition = activePosition;
             scope.activeSearchResult = searchResult;
@@ -416,6 +425,7 @@ angular.module('searchPanel')
             scope.searchResults['searchBar'] = queryPoint;
             scope.removeInfomarkers();
             map.ShowInfoMarker(queryPoint.point);
+            _updateLocationMarker(queryPoint.point[1], queryPoint.point[0]);
             scope.activatePosition(queryPoint);
             if (queryPoint.source === 'coordGeo' || queryPoint.source === 'coordUtm') {
               scope.showSearchOptionsPanel();
@@ -1117,6 +1127,48 @@ angular.module('searchPanel')
           scope.pageChangeHandler = function (value) {
             scope.currentPage = value;
           };
+
+          function _updateInfoMarker(coordinates){
+            map.RemoveInfoMarker();
+            map.ShowInfoMarker(coordinates);
+          }
+
+          function init() {
+            var openPanel = $location.search().panel;
+            if (openPanel !== undefined){
+              scope.activePosition = {
+                lon: 0,
+                lat: 0,
+                zoom: 0
+              };
+              scope.activePosition.zoom = Number($location.search().zoom);
+              scope.activePosition.lon = Number($location.search().markerLon);
+              scope.activePosition.lat = Number($location.search().markerLat);
+              showQueryPointFromMouseClick([scope.activePosition.lon, scope.activePosition.lat]);
+              switch (openPanel) {
+                case 'searchSeEiendomPanel':
+                  scope.showSearchSeEiendomPanel();
+                  break;
+                case 'searchKoordTransPanel':
+                  scope.showKoordTransPanel();                  
+                  break;
+                case 'searchLagTurkartPanel':
+                  scope.showLagTurKartPanel();                  
+                  break;
+                case 'searchLagFargeleggingskartPanel':
+                  scope.showLagFargeleggingskartPanel();
+                  break;
+                case 'searchLagNodplakatPanel':
+                  scope.showLagNodplakatPanel();
+                  break;
+              }
+              _updateInfoMarker([scope.activePosition.lon, scope.activePosition.lat]);
+            }
+          }
+
+          angular.element(document).ready(function () {
+            init();
+          });
 
           /*Map get feature info end*/
         }
