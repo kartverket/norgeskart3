@@ -1,6 +1,6 @@
 angular.module('menuDraw')
-  .directive('menuDraw', ['toolsFactory', 'ISY.EventHandler', '$location', 'mainAppService', '$http', '$filter',
-    function (toolsFactory, eventHandler, $location, mainAppService, $http, $filter) {
+  .directive('menuDraw', ['toolsFactory', 'ISY.EventHandler', '$location', 'mainAppService', '$http', '$filter', '$timeout',
+    function (toolsFactory, eventHandler, $location, mainAppService, $http, $filter, $timeout) {
       return {
         templateUrl: 'components/transclusions/menuDraw/menuDraw.html',
         restrict: 'A',
@@ -8,7 +8,7 @@ angular.module('menuDraw')
           /*
           Draw start
           */
-
+          var isGeoJsonConverted = true;
           scope.drawingHash = '';
           scope.snap = true;
           scope.selectionActive = false;
@@ -280,10 +280,33 @@ angular.module('menuDraw')
             }
           };
 
+          function _checkIfGeoJSONConverted(geoJson){
+            isGeoJsonConverted = true;
+            for (var i = 0; i < geoJson.features.length; i++) {
+              var featureCrds = geoJson.features[i].geometry.coordinates;
+              if (featureCrds.length === 2 && typeof featureCrds[0] === 'number') {
+                if (featureCrds[1] > 90){
+                  isGeoJsonConverted = false;
+                  break;
+                }
+              } else {
+                for (var j = 0; j < featureCrds.length; j++) {
+                  if (featureCrds[j][1] > 90){
+                    isGeoJsonConverted = false;
+                    break;
+                  }
+                }
+              }
+              break;
+            }
+          }
+
           var _getGeoJSON = function (hash) {
             scope.drawingHash = hash;
             var drawingUrl = mainAppService.generateGeoJSONUrl(hash, false);
             $http.get(drawingUrl).then(function (result) {
+              // console.log('Result: ', result.data);
+              _checkIfGeoJSONConverted(result.data);
               _setGeoJSONOnScope(result);
             });
           };
@@ -391,6 +414,15 @@ angular.module('menuDraw')
             }
           };
 
+          function _showConvertInfo(){
+            if (!isGeoJsonConverted) {
+              scope.showConvertInfo = true;
+              $timeout(function () {
+                scope.showConvertInfo = false;
+              }, 4000);
+            }
+          }
+
           scope.downloadButtonClick = function () {
             if (scope.drawingHash !== '') {
               var downloadUrl = mainAppService.generateGeoJSONUrl(scope.drawingHash, true);
@@ -399,6 +431,7 @@ angular.module('menuDraw')
           };
 
           scope.saveButtonClick = function () {
+            _showConvertInfo();
             var saveUrl = mainAppService.generateGeoJSONSaveUrl();
             $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side
             $http.post(saveUrl, scope.GeoJSON).then(function (result) {

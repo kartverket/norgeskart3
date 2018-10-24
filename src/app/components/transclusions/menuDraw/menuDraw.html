@@ -1,4 +1,7 @@
 <div class="panel-body">
+    <div data-ng-if="showConvertInfo" id="drawInfo" class="drawInfo">
+        <span translate="geoJson_converted"></span>
+    </div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" data-ng-class="{navTabsTransparent: expandMenu.open}" role="tablist" id="myTabs">
         <li data-ng-click="switchType('Point')" role="presentation" class="active"><a href data-target="#point" aria-controls="point" role="tab" data-toggle="tab" translate="point_txt"></a></li>
