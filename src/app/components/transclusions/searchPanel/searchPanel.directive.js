@@ -551,6 +551,7 @@ angular.module('searchPanel')
               map.ShowInfoMarkers(coordinates);
               $timeout(function () {
                 scope.searchResults = _unifiedResults;
+                scope.showSearchResultPanel();
               }, 0);
             } else if (coordinates.length == 0 && scope.searchBarModel !== "") {
               scope.showNoResultPanel();
