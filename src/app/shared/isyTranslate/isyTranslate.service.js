@@ -335,7 +335,7 @@ angular.module('isyTranslate').constant('translations', {
     "vedtatt_navneledd": "Vedtatt navneledd",
     "vei": "Vei",
     "width_txt": "TYKKELSE:",
-    "no_search_hits": "ingen søketreff",
+    "no_search_hits": "Søket ditt ga ingen treff",
     "geoJson_converted": "GeoJSON har blitt konvertert"
   },
   nn: {
@@ -674,7 +674,7 @@ angular.module('isyTranslate').constant('translations', {
     "vedtatt_navneledd": "Vedteke namneledd",
     "vei": "Veg",
     "width_txt": "TJUKKLEIK:",
-    "no_search_hits": "ingen treff",
+    "no_search_hits": "Søket ditt ga ikkje treff",
     "geoJson_converted": "GeoJSON har blitt konvertert"
   },
   en: {
