@@ -34,14 +34,16 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
            * @return {*}
            */
           this.addLayer = function (getCapLayer) {
-            if (!getCapLayer) return;
+            if (!getCapLayer) {
+              return;
+            }
             
             getCapLayer.version =  "1.3.0"; //$scope.capability.version;
             angular.forEach($scope.url, function (url) {
               if (url.startsWith(getCapLayer.url)) {
-                getCapLayer.url = url
+                getCapLayer.url = url;
               }
-            })
+            });
             var layer;
             if ($scope.format === 'wms') {
               layer = gnMap.addWmsToMapFromCap($scope.map, getCapLayer);

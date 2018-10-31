@@ -95,9 +95,7 @@ angular.module('mainApp')
         if (obj.addLayers !== undefined) {
           layers = obj.addLayers;
           localStorageFactory.set("addLayers", obj.addLayers);
-        } else {
-          // localStorageFactory.set("addLayers", "");
-        }
+        } 
 
         if (obj.wms !== undefined) {
           localStorageFactory.set("wms", obj.wms);
