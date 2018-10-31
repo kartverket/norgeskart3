@@ -12,7 +12,7 @@ angular.module('mainApp')
       var mainMenuIsOpen = true;
       var config = {
         instance: "norgeskart3",
-        configurl: "//www.norgeskart.no/config"
+        configurl: "https://www.norgeskart.no/config"
       };
       var listprojects = [];
       var mapConfig = {
