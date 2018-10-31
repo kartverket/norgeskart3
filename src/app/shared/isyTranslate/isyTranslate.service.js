@@ -1013,7 +1013,7 @@ angular.module('isyTranslate').constant('translations', {
     "vedtatt_navneledd": "Place name part descided",
     "vei": "Road",
     "width_txt": "WIDTH:",
-    "no_search_hits": "no search hits",
+    "no_search_hits": "Your search contained no results",
     "geoJson_converted": "GeoJSON has been converted"
   }
 });
