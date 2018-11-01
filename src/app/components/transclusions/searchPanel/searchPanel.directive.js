@@ -551,13 +551,23 @@ angular.module('searchPanel')
               map.ShowInfoMarkers(coordinates);
               $timeout(function () {
                 scope.searchResults = _unifiedResults;
-                scope.showSearchResultPanel();
+                _showSpinner(false);
               }, 0);
             } else if (coordinates.length == 0 && scope.searchBarModel !== "") {
-              scope.showNoResultPanel();
-              scope.searchResults = undefined;
+              _showSpinner(true);
             }
           };
+
+          var _showSpinner = function(value) {
+            scope.spinnerIsVisible = true;
+            $timeout(function () {
+              scope.$apply();
+            }, 0);
+            $timeout(function () {
+              scope.spinnerIsVisible = false;
+            }, value === true ? 1500 : 500);
+          };
+
           var _getPlacenameHits = function (jsonObject) {
             scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
             scope.placenameItems = _generateArrayWithValues(parseInt(scope.placenameHits, 10));
