@@ -335,7 +335,7 @@ angular.module('isyTranslate').constant('translations', {
     "vedtatt_navneledd": "Vedtatt navneledd",
     "vei": "Vei",
     "width_txt": "TYKKELSE:",
-    "no_search_hits": "ingen søketreff",
+    "no_search_hits": "Ingen søketreff.",
     "geoJson_converted": "GeoJSON har blitt konvertert"
   },
   nn: {
@@ -674,7 +674,7 @@ angular.module('isyTranslate').constant('translations', {
     "vedtatt_navneledd": "Vedteke namneledd",
     "vei": "Veg",
     "width_txt": "TJUKKLEIK:",
-    "no_search_hits": "ingen treff",
+    "no_search_hits": "Ingen treff.",
     "geoJson_converted": "GeoJSON har blitt konvertert"
   },
   en: {
@@ -1013,7 +1013,7 @@ angular.module('isyTranslate').constant('translations', {
     "vedtatt_navneledd": "Place name part descided",
     "vei": "Road",
     "width_txt": "WIDTH:",
-    "no_search_hits": "no search hits",
+    "no_search_hits": "No search hits.",
     "geoJson_converted": "GeoJSON has been converted"
   }
 });
