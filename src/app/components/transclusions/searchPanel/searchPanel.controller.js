@@ -18,9 +18,13 @@ angular.module('searchPanel')
         $scope.deactivatePrintBoxSelect();
         $scope.deactivateAddLayerUrl();
         $scope.searchPanelLayout = "searchOptionsPanel";
-        _updateLocationPanel("searchOptionsPanel");
         if (!previous) {
           mainAppFactory.setActiveSearchPanel('searchOptionsPanel');
+          _updateLocationPanel("searchOptionsPanel");
+        }else{
+          if ($location.search()['panel'] === undefined){
+            _updateLocationPanel("searchOptionsPanel");
+          }
         }
       };
 
