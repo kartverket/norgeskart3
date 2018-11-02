@@ -13,9 +13,9 @@ angular.module('mainApp')
     '$timeout',
     '$window',
     function ($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory, $translate, $timeout, $window) {
-
+      
       function _initToolbar() {
-        toolsFactory.initToolbar();
+          toolsFactory.initToolbar();
       }
 
       var _setSearch = function (obj) {
@@ -53,6 +53,21 @@ angular.module('mainApp')
         eventHandler.RegisterEvent(ISY.Events.EventTypes.MapMoveend, _viewChanged);
         eventHandler.RegisterEvent(ISY.Events.EventTypes.ChangeLayers, _loadingLayerEnd);
       }
+
+      $scope.resetMainAppFactory = function() {
+        mainAppFactory.resetMainAppFactory();
+      };
+
+      $scope.reInitMap = function() {
+        mainAppFactory.updateMapConfig();
+        var mapConfig = mainAppFactory.getMapConfig();
+        map.ReInit(mapConfig);
+        _initUrl();
+        _initMapLayers();
+        
+        $scope.$broadcast('initDraw');
+        $scope.$broadcast('initBaseLayers');
+      };
 
       function _initUrl() {
         var obj = $location.search();

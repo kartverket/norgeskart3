@@ -571,6 +571,10 @@ angular.module('menuDraw')
 
           _initMenuDraw();
 
+          scope.$on('initDraw', function(){
+            _initMenuDraw();
+          });
+
           // var setMenuListMaxHeight = function () {
           //     $(document).ready(function() {
           //         var isMobile = $window.matchMedia("only screen and (max-width: 760px)");

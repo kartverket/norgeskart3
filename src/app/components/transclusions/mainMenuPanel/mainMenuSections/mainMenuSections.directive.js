@@ -26,8 +26,12 @@ angular.module('mainMenuSections')
               var newSearch = angular.extend($location.search(), obj);
               newSearch.layers = layers;
               $location.search(newSearch);
-              $timeout(function () {
-                window.location.reload();
+              $timeout(function () {                 
+                  scope.resetMainAppFactory();
+                  scope.initMapLayout();
+                  scope.reInitMap();
+                  map.RedrawMap();        
+                  scope.getVisibleLayersCount();        
               }, 0);
             }
           };
@@ -39,8 +43,12 @@ angular.module('mainMenuSections')
             localStorageFactory.set("activeLanguage", langId);
           };
 
+          scope.getVisibleLayersCount = function() {
+            return map.GetVisibleSubLayers().length;
+          };
+
           $(document).ready(function () {
-            scope.visibleLayersCount = map.GetVisibleSubLayers().length;
+            scope.getVisibleLayersCount();
           });
 
           /*Print start*/
