@@ -13,7 +13,7 @@
     "pouchdb": "5.0.x",
     "jasmine-ajax": "3.3.x",
     "es5-shim": "4.5.x",
-    "jquery": "2.2.x",
+    "jquery": "3.3.x",
     "jsonix": "latest",
     "ogc-schemas": "latest",
     "w3c-schemas": "latest",
