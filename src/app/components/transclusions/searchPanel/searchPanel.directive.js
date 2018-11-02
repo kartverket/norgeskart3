@@ -635,7 +635,7 @@ angular.module('searchPanel')
             var jsonObject;
             for (var service in _searchResults) {
               var searchResult = _searchResults[service];
-              jsonObject = _convertSearchResult2Json(searchResult.document, searchResult.source);              
+              jsonObject = _convertSearchResult2Json(searchResult.document, searchResult.source);
               _iterateJsonObject(jsonObject, searchResult);
             }
           };
@@ -650,7 +650,7 @@ angular.module('searchPanel')
             _readResults();
             if (_notSingleAddressHit()) {
               scope.addResultsToMap();
-            }            
+            }
           };
 
           var _downloadSearchBarFromUrl = function (_serviceDict, timestamp) {
@@ -1157,19 +1157,19 @@ angular.module('searchPanel')
               scope.activePosition.lat = Number($location.search().markerLat);
               showQueryPointFromMouseClick([scope.activePosition.lon, scope.activePosition.lat]);
               switch (openPanel) {
-                case 'searchSeEiendomPanel':
+                case 'Seeiendom':
                   scope.showSearchSeEiendomPanel();
                   break;
-                case 'searchKoordTransPanel':
-                  scope.showKoordTransPanel();                  
+                case 'Koordinater':
+                  scope.showKoordTransPanel();
                   break;
-                case 'searchLagTurkartPanel':
-                  scope.showLagTurKartPanel();                  
+                case 'Turkart':
+                  scope.showLagTurKartPanel();
                   break;
-                case 'searchLagFargeleggingskartPanel':
+                case 'Fargelegg':
                   scope.showLagFargeleggingskartPanel();
                   break;
-                case 'searchLagNodplakatPanel':
+                case 'Nodplakat':
                   scope.showLagNodplakatPanel();
                   break;
               }

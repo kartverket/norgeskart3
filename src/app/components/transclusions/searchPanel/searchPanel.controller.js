@@ -30,9 +30,8 @@ angular.module('searchPanel')
         $scope.activeSearchOptionOrder = ['kommunenr', 'gardsnr', 'bruksnr', 'festenr', 'seksjonsnr', 'eiendomstype', 'matrikkelnr'];
         $scope.activeSearchOption = $scope.searchOptionsDict['seEiendom'];
         $scope.searchPanelLayout = "searchSeEiendomPanel";
-        _updateLocationPanel("searchSeEiendomPanel");
+        _updateLocationPanel("Seeiendom");
         mainAppFactory.setActiveSearchPanel('searchSeEiendomPanel');
-
       };
 
       $scope.searchOptionsDict = {};
@@ -40,28 +39,28 @@ angular.module('searchPanel')
       $scope.showKoordTransPanel = function () {
         map.SetCenter($scope.activePosition);
         $scope.searchPanelLayout = "searchKoordTransPanel";
-        _updateLocationPanel("searchKoordTransPanel");
+        _updateLocationPanel("Koordinater");
         mainAppFactory.setActiveSearchPanel('searchKoordTransPanel');
       };
 
       $scope.showLagTurKartPanel = function () {
         map.SetCenter($scope.activePosition);
         $scope.searchPanelLayout = "searchLagTurkartPanel";
-        _updateLocationPanel("searchLagTurkartPanel");
+        _updateLocationPanel("Turkart");
         mainAppFactory.setActiveSearchPanel('searchLagTurkartPanel');
       };
 
       $scope.showLagFargeleggingskartPanel = function () {
         map.SetCenter($scope.activePosition);
         $scope.searchPanelLayout = "searchLagFargeleggingskartPanel";
-        _updateLocationPanel("searchLagFargeleggingskartPanel");
+        _updateLocationPanel("Fargelegg");
         mainAppFactory.setActiveSearchPanel('searchLagFargeleggingskartPanel');
       };
 
       $scope.showLagNodplakatPanel = function () {
         map.SetCenter($scope.activePosition);
         $scope.searchPanelLayout = "searchLagNodplakatPanel";
-        _updateLocationPanel("searchLagNodplakatPanel");
+        _updateLocationPanel("Nodplakat");
         mainAppFactory.setActiveSearchPanel('searchLagNodplakatPanel');
       };
 
