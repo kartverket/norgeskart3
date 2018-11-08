@@ -41,5 +41,14 @@ angular.module('menuElevationProfile')
                 // scope.elevationProfileActive = false;
             };
 
+            scope.showElevationProfilePage1 = function () {
+                scope.menuElevationProfileLayout = 'page1';
+            };
+            scope.showElevationProfilePage2 = function () {
+                scope.menuElevationProfileLayout = 'page2';
+            };
+
+            scope.menuElevationProfileLayout = 'page1';
+
         }
     ]);

@@ -336,7 +336,9 @@ angular.module('isyTranslate').constant('translations', {
     "vei": "Vei",
     "width_txt": "TYKKELSE:",
     "no_search_hits": "Søket ditt ga ingen treff",
-    "geoJson_converted": "GeoJSON har blitt konvertert"
+    "geoJson_converted": "GeoJSON har blitt konvertert",
+    "template_type": "Maltype",
+    "map_name": "Kart navn"
   },
   nn: {
     "AcceptAndContinue": "EG SKJØNAR OG GODTAR",
@@ -675,7 +677,9 @@ angular.module('isyTranslate').constant('translations', {
     "vei": "Veg",
     "width_txt": "TJUKKLEIK:",
     "no_search_hits": "Søket ditt ga ikkje treff",
-    "geoJson_converted": "GeoJSON har blitt konvertert"
+    "geoJson_converted": "GeoJSON har blitt konvertert",
+    "template_type": "Maltype",
+    "map_name": "Kart navn"
   },
   en: {
     "AcceptAndContinue": "ACCEPT AND CONTINUE",
@@ -1014,6 +1018,8 @@ angular.module('isyTranslate').constant('translations', {
     "vei": "Road",
     "width_txt": "WIDTH:",
     "no_search_hits": "Your search contained no results",
-    "geoJson_converted": "GeoJSON has been converted"
+    "geoJson_converted": "GeoJSON has been converted",
+    "template_type": "Template type",
+    "map_name": "Map name"
   }
 });

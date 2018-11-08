@@ -1,6 +1,6 @@
 angular.module('searchPanel')
-  .controller('searchPanelController', ['$scope', 'toolsFactory', 'ISY.MapAPI.Map', 'mainAppFactory', '$timeout', '$location',
-    function ($scope, toolsFactory, map, mainAppFactory, $timeout, $location) {
+  .controller('searchPanelController', ['$scope', 'toolsFactory', 'ISY.MapAPI.Map', 'mainAppFactory', '$timeout', '$location', 'searchPanelFactory',
+    function ($scope, toolsFactory, map, mainAppFactory, $timeout, $location, searchPanelFactory) {
 
       function _updateLocationPanel(panelName) {
         $location.search()['panel'] = panelName;
@@ -36,6 +36,8 @@ angular.module('searchPanel')
         $scope.searchPanelLayout = "searchSeEiendomPanel";
         _updateLocationPanel("Seeiendom");
         mainAppFactory.setActiveSearchPanel('searchSeEiendomPanel');
+        var showSelection = ($location.search().showSelection === undefined || $location.search().showSelection === 'false') ? false : true;
+        searchPanelFactory.setShowEiendomMarkering(showSelection);
       };
 
       $scope.searchOptionsDict = {};

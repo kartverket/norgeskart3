@@ -142,7 +142,7 @@ angular
       ];
 
       var offlineMode = false;
-
+      
       var selectTool = function (toolId) {
         for (var i = 0; i < tools.length; i++) {
           tools[i].isSelected = tools[i].id === toolId;
@@ -280,7 +280,17 @@ angular
         setSnappingFeatures: function (features, toolId) {
           var tool = this.getToolById(toolId);
           tool.snappingFeatures = features;
+        },
+
+        val2key: function (val, array) {
+          for (var key in array) {
+            if (array[key] == val) {
+              return key;
+            }
+          }
+          return false;
         }
+
       };
     }
   ]);

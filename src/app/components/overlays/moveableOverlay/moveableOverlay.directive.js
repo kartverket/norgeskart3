@@ -18,17 +18,14 @@ angular.module('moveableOverlay')
                     };
 
                     $scope.closeOverlay = function(){
-                        // var activeOverlay = moveableOverlayFactory.getActiveOverlay();
-                        // if (activeOverlay.id === "DrawMenu"){
                         mapOverlaysLayoutFactory.setShowSearchOverlay(true);
-                        // }
                         _addUnsavedDrawings();
                         moveableOverlayFactory.deactiveAllOverlay();
                         menuElevationProfileFactory.setElevationBtnActivity(false);
                         menuElevationProfileFactory.setElevationProfileActive(false);
                         $scope.deactivateDrawFeatureTool($scope.GeoJSON);
                         $scope.deactivateAddLayerFeatureTool();
-                        $scope.showElevationProfilePage1();
+                        $scope.deactivateMoveableOverlay();
                     };
 
                     var startX = 0;

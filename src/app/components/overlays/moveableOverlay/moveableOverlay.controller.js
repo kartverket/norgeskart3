@@ -2,17 +2,7 @@ angular.module('moveableOverlay')
     .controller('moveableOverlayController', ['$scope','moveableOverlayFactory', '$element',
         function($scope, moveableOverlayFactory) {
 
-            $scope.showElevationProfilePage1 = function () {
-                $scope.menuElevationProfileLayout = 'page1';
-            };
-            $scope.showElevationProfilePage2 = function () {
-                $scope.menuElevationProfileLayout = 'page2';
-            };
-
-            $scope.menuElevationProfileLayout = 'page1';
-
             $scope.menuShowMoveableOverlay = function(id){
-                // $scope.overlay = moveableOverlayFactory.getActiveOverlay();
                 var overlay = moveableOverlayFactory.getActiveOverlayById(id);
                 if (overlay !== undefined){
                     var moveableElements = document.getElementsByClassName("moveableOverlay");
@@ -31,6 +21,10 @@ angular.module('moveableOverlay')
                     return moveableOverlayFactory.isOverlayVisibleById(id);
                 }
                 return false;
-
             };
+
+            $scope.isAnyOverlayActive = function() {
+                return (moveableOverlayFactory.getActiveOverlay() === undefined || moveableOverlayFactory.getActiveOverlay().id === 'DrawMenu')  ? false : true;
+            };
+
         }]);

@@ -25,6 +25,14 @@ angular
                 show: false,
                 top: 12,
                 left: 19
+            },
+            {
+                id: "PrintMenu",
+                headingTitle: 'skriv_ut',
+                headingIcon: 'fa fa-print',
+                show: false,
+                top: 12,
+                left: 19
             }
         ];
 

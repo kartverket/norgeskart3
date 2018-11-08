@@ -1,0 +1,84 @@
+<div class="panel-body" data-ng-show="!expandMenu.open">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" id="myElevationTabs">
+        <li role="presentation" class="active"><a href data-target="#printMap" aria-controls="printMap" role="tab"
+                data-toggle="tab" translate="skriv_ut"></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content search-content">
+        <div role="tabpanel" class="tab-pane active" id="printMap">
+            <!-- Maltype -->
+            <div class="new-section row">
+                <div class="col-xs-12">
+                    <div class="title-text">
+                        <span translate="template_type"></span>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span data-ng-bind="selectedTemplateType"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
+                            <li data-ng-repeat="templateType in templateTypes" data-ng-click="setTemplateType(templateType)"
+                                class="pointer-cursor">
+                                <span data-ng-bind="templateType"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Målestokk -->
+            <div class="new-section row">
+                <div class="col-xs-12">
+                    <div class="title-text">
+                        <span translate="Scale"></span>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
+                            <span>1 :</span>
+                            <span data-ng-bind="selectedPrintZoomLevel"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
+                            <li data-ng-repeat="printZoomLevel in printZoomLevels" data-ng-click="setPrintZoomLevel(printZoomLevel)" class="pointer-cursor">
+                                <span data-ng-bind="printZoomLevel"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section row">
+                <div class="col-xs-12">
+                    <div class="title-text">
+                        <span translate="Turkart_navn"></span>
+                    </div>
+                    <input type="text" placeholder="{{'map_name' | translate}}" class="full-width" />
+                </div>
+            </div>
+            <!-- <div class="new-section row">
+                <div class="col-xs-12">
+                    <div class="title-text">
+                        <span>Orientation</span>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default active">Portrait</button>
+                        <button type="button" class="btn btn-default">Landscape</button>
+                    </div>
+                </div>
+            </div> -->
+            <div class="new-section pull-right">
+                <button class="btn btn-default btn-important" translate="skriv_ut"></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="navigation-button pull-right">
+                <button class="btn btn-default btn-ordinary" data-ng-click="closeOverlay()" translate="Cancel_txt">
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

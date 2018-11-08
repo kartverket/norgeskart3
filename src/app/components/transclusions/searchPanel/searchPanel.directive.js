@@ -944,7 +944,7 @@ angular.module('searchPanel')
           scope.resetSearchPanel = function () {
             scope.showSearchOptionsPanel();
             scope.searchPanelLayout = '';
-            searchPanelFactory.setShowEiendomMarkering(false);
+            // searchPanelFactory.setShowEiendomMarkering(false);
           };
 
           var showQueryPointFromMouseClick = function (coordinates) {
@@ -1158,6 +1158,8 @@ angular.module('searchPanel')
               showQueryPointFromMouseClick([scope.activePosition.lon, scope.activePosition.lat]);
               switch (openPanel) {
                 case 'Seeiendom':
+                  var showSelection = ($location.search().showSelection === undefined || $location.search().showSelection === 'false') ? false : true;
+                  searchPanelFactory.setShowEiendomMarkering(showSelection);
                   scope.showSearchSeEiendomPanel();
                   break;
                 case 'Koordinater':
