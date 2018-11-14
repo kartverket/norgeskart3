@@ -68,6 +68,7 @@ angular.module('mainApp')
         $scope.$broadcast('initDraw');
         $scope.$broadcast('initBaseLayers');
         $scope.deactivateDrawFeatureTool($scope.GeoJSON);
+        $scope.openNav();
       };
 
       function _initUrl() {
