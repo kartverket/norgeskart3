@@ -17,11 +17,11 @@ angular.module('mainMenuSections')
               var search = $location.search();
               search['project'] = project.id;
               search.layers = "";
-              setSearch(map.GetUrlObject(), search.layers);
+              setSearch(map.GetUrlObject(), search.layers, project);
             }
           };
 
-          var setSearch = function (obj, layers) {
+          var setSearch = function (obj, layers, project) {
             if (!angular.equals(obj, $location.search())) {
               var newSearch = angular.extend($location.search(), obj);
               newSearch.layers = layers;
@@ -32,6 +32,7 @@ angular.module('mainMenuSections')
                   scope.reInitMap();
                   map.RedrawMap();        
                   scope.getVisibleLayersCount();        
+                  scope.activateProject(project);
               }, 0);
             }
           };
