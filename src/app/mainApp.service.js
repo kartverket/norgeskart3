@@ -565,5 +565,25 @@ angular.module('mainApp')
           });
       };
 
+      this.generateUrlPrintCapabilities = function(appId) {
+        return urlGeonorge + "print/" + appId + "/capabilities.json";
+      };
+
+      this.generatePrintUrl = function(appId){
+        return urlGeonorge + "print/" + appId + "/report.pdf";
+      };
+
+      this.generatePrintDownloadUrl = function(downloadUrl){
+        return urlGeonorge.slice(0, -1) + downloadUrl;
+      };
+
+      this.generateStatusPrintDownloadUrl = function(statusUrl){
+        return urlGeonorge.slice(0, -1) + statusUrl;
+      };
+
+      this.generateCancelPrintUrl = function(refNum){
+        return urlGeonorge + 'print/cancel/' + refNum;
+      };
+
     }
   ]);

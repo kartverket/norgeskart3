@@ -1,3 +1,6 @@
+<div id="spinnerPrint" class="search-loading-overlay" data-ng-show="showSpinner">
+    <div class="spinner-loader"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+</div>
 <div class="panel-body" data-ng-show="!expandMenu.open">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist" id="myElevationTabs">
@@ -16,13 +19,13 @@
                     <div class="dropdown">
                         <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span data-ng-bind="selectedTemplateType"></span>
+                            <span data-ng-bind="selectedLayout.name"></span>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
-                            <li data-ng-repeat="templateType in templateTypes" data-ng-click="setTemplateType(templateType)"
+                            <li data-ng-repeat="layout in layouts" data-ng-click="setLayoutType(layout)"
                                 class="pointer-cursor">
-                                <span data-ng-bind="templateType"></span>
+                                <span data-ng-bind="layout.name"></span>
                             </li>
                         </ul>
                     </div>
@@ -38,45 +41,76 @@
                         <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="true">
                             <span>1 :</span>
-                            <span data-ng-bind="selectedPrintZoomLevel"></span>
+                            <span data-ng-bind="selectedPrintScale"></span>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu2">
-                            <li data-ng-repeat="printZoomLevel in printZoomLevels" data-ng-click="setPrintZoomLevel(printZoomLevel)" class="pointer-cursor">
-                                <span data-ng-bind="printZoomLevel"></span>
+                            <li data-ng-repeat="scale in printScales" data-ng-click="setPrintScale(scale)" class="pointer-cursor">
+                                <span data-ng-bind="scale"></span>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+            <!-- Format og DPI -->
+
+            <div class="new-section row">
+                <div class="col-xs-6">
+                    <div class="title-text">
+                        <span translate="print_format"></span>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
+                            <span data-ng-bind="selectedFormat"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu3">
+                            <li data-ng-repeat="format in formats" data-ng-click="setFormat(format)" class="pointer-cursor">
+                                <span data-ng-bind="format"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="title-text">
+                        <span translate="print_dpi"></span>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu4" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
+                            <span data-ng-bind="selectedDpi"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu4">
+                            <li data-ng-repeat="dpi in dpiResolutions" data-ng-click="setDpi(dpi)" class="pointer-cursor">
+                                <span data-ng-bind="dpi"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kart navn -->
             <div class="new-section row">
                 <div class="col-xs-12">
                     <div class="title-text">
                         <span translate="Turkart_navn"></span>
                     </div>
-                    <input type="text" placeholder="{{'map_name' | translate}}" class="full-width" />
+                    <input type="text" placeholder="{{'map_name' | translate}}" class="full-width" data-ng-model='mapName' />
                 </div>
             </div>
-            <!-- <div class="new-section row">
-                <div class="col-xs-12">
-                    <div class="title-text">
-                        <span>Orientation</span>
-                    </div>
-                    <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-default active">Portrait</button>
-                        <button type="button" class="btn btn-default">Landscape</button>
-                    </div>
-                </div>
-            </div> -->
             <div class="new-section pull-right">
-                <button class="btn btn-default btn-important" translate="skriv_ut"></button>
+                <button class="btn btn-default btn-important" translate="generate_print" data-ng-click="print()"></button>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <div class="navigation-button pull-right">
-                <button class="btn btn-default btn-ordinary" data-ng-click="closeOverlay()" translate="Cancel_txt">
+            <div class="navigation-button">
+                <button class="btn btn-default btn-ordinary hightPriorityBtn" data-ng-disabled="printCanceled" data-ng-click="cancelPrint()" translate="cancel_print">
+                </button>
+                <button class="btn btn-default btn-ordinary pull-right" data-ng-click="closeOverlay()" translate="Cancel_txt">
                 </button>
             </div>
         </div>

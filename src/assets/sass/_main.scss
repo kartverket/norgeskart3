@@ -1374,6 +1374,11 @@ textarea, input[type="text"] {
   color: white;
 }
 
+.hightPriorityBtn{
+  z-index: 17;
+  position: absolute;
+}
+
 @import "spacing";
 @import "mobile";
 @import "mobileLandscape";

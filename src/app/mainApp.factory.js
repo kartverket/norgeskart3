@@ -875,6 +875,13 @@ angular.module('mainApp')
           return lastSelectedSearchPanel;
         },
 
+        getVisibleLayers: function() {
+          var _isLayerVisible = function (layer) {
+            return layer.isVisible;
+          };
+          return mapConfig.layers.filter(_isLayerVisible);
+        },
+
         resetMainAppFactory: function () {
           instance = "";
           projectUrl = undefined;
