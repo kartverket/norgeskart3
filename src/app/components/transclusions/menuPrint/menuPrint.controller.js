@@ -1,7 +1,7 @@
 angular.module('menuPrint')
     .controller('menuPrintController', ['$scope', 'toolsFactory', 'toolsPrint', '$timeout', 'ISY.MapAPI.Map', 'mainAppService', 'mainAppFactory',
         function ($scope, toolsFactory, toolsPrint, $timeout, map, mainAppService, mainAppFactory) {
-            
+
             $scope.printScales = {
                 1: 500,
                 2: 1000,
@@ -46,7 +46,7 @@ angular.module('menuPrint')
                 $scope.selectedLayout = layout;
                 setPrintBoxSelect();
             };
-            
+
             $scope.setFormat = function(format){
                 $scope.selectedFormat = format;
             };
@@ -101,15 +101,15 @@ angular.module('menuPrint')
                                 opacity: 1,
                                 type: "WMS"
                             }
-                            
+
                         ],
                         projection: "EPSG:25833",
                         rotation: 0,
                         scale: 500000
                     },
+                    title: ""
                 },
-                layout: "A4 portrait",
-                title: ""
+                layout: "A4 portrait"
             };
 
             // var printJson = {
@@ -171,7 +171,7 @@ angular.module('menuPrint')
                 temporaryJsonData.layout = $scope.selectedLayout.name;
                 temporaryJsonData.attributes.map.dpi = $scope.selectedDpi;
                 temporaryJsonData.attributes.map.projection = mapConfig.coordinate_system;
-                temporaryJsonData.title = $scope.mapName;
+                temporaryJsonData.attributes.title = $scope.mapName;
                 // for (var i = 0; i < visibleLayers.length; i++) {
                 //     var printLayer = {
                 //         baseURL: 'https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts', //visibleLayers[i].subLayers[0].url[0],
@@ -183,7 +183,7 @@ angular.module('menuPrint')
                 //     };
                 //     printJson.attributes.map.layers.push(printLayer);
                 // }
-                
+
                 var uploadPrintData = toolsPrint.uploadDataForPrint('default', temporaryJsonData);
                 uploadPrintData.then(function (status) {
                     $timeout(function () {
@@ -210,7 +210,7 @@ angular.module('menuPrint')
                     console.error('Rejected cancel print: ', reject);
                     $scope.showSpinner = false;
                 });
-                
+
             };
 
         }]);
