@@ -280,7 +280,17 @@ angular
         setSnappingFeatures: function (features, toolId) {
           var tool = this.getToolById(toolId);
           tool.snappingFeatures = features;
+        },
+
+        val2key: function (val, array) {
+          for (var key in array) {
+            if (array[key] == val) {
+              return key;
+            }
+          }
+          return false;
         }
+
       };
     }
   ]);

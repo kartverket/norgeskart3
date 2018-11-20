@@ -847,7 +847,6 @@ angular.module('searchPanel')
           var _pushToUnifiedResults = function (result) {
             if (result.kommune && result.name) {
               result.name = result.source != 'matrikkelnummer' ? scope.fixNames(result.name) : result.name;
-              result.kommune = result.kommune; //scope.capitalizeName(result.kommune.toLowerCase());
               var resultID = _createID(result);
               if (!_unifiedResults[result.source]) {
                 _unifiedResults[result.source] = {};
@@ -944,7 +943,7 @@ angular.module('searchPanel')
           scope.resetSearchPanel = function () {
             scope.showSearchOptionsPanel();
             scope.searchPanelLayout = '';
-            searchPanelFactory.setShowEiendomMarkering(false);
+            // searchPanelFactory.setShowEiendomMarkering(false);
           };
 
           var showQueryPointFromMouseClick = function (coordinates) {
@@ -1158,6 +1157,8 @@ angular.module('searchPanel')
               showQueryPointFromMouseClick([scope.activePosition.lon, scope.activePosition.lat]);
               switch (openPanel) {
                 case 'Seeiendom':
+                  var showSelection = ($location.search().showSelection === undefined || $location.search().showSelection === 'false') ? false : true;
+                  searchPanelFactory.setShowEiendomMarkering(showSelection);
                   scope.showSearchSeEiendomPanel();
                   break;
                 case 'Koordinater':

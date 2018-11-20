@@ -5,7 +5,7 @@ angular.module('mainMenuPanel')
             $scope.drawActivated=false;
 
             $scope.mainMenuPanelLayout = "mainMenuSections";
-            
+
             $scope.resetApplication = function ($event) {
                 $event.preventDefault();
                 localStorageFactory.remove('lat');
@@ -54,22 +54,36 @@ angular.module('mainMenuPanel')
             };
             // !FAQ
 
-            $scope.showMoveableDrawMenu = function () {
+            function _setActiveMoveableMenu(menuName) {
                 mapOverlaysLayoutFactory.setShowSearchOverlay(false);
                 moveableOverlayFactory.deactiveAllOverlay();
-                moveableOverlayFactory.setActiveOverlay("DrawMenu");
+                moveableOverlayFactory.setActiveOverlay(menuName);
+                $scope.menuShowMoveableOverlay(menuName);
+            }
+
+            $scope.moveableOverlayLayout = "";
+
+            $scope.showMoveableDrawMenu = function () {
+                _setActiveMoveableMenu("DrawMenu");
             };
 
             $scope.showMoveableShareMapMenu = function () {
-                mapOverlaysLayoutFactory.setShowSearchOverlay(false);
-                moveableOverlayFactory.deactiveAllOverlay();
-                moveableOverlayFactory.setActiveOverlay("ShareMap");
+                $scope.moveableOverlayLayout = "menuShareMapLayout";
+                _setActiveMoveableMenu("ShareMap");
             };
 
             $scope.showMoveableElevationProfileMenu = function () {
-                mapOverlaysLayoutFactory.setShowSearchOverlay(false);
-                moveableOverlayFactory.deactiveAllOverlay();
-                moveableOverlayFactory.setActiveOverlay("ElevationProfile");
+                $scope.moveableOverlayLayout = "menuElevationProfileLayout";
+                _setActiveMoveableMenu("ElevationProfile");
+            };
+/*
+            $scope.showMoveablePrintMenu = function() {
+                $scope.moveableOverlayLayout = "menuPrintLayout";
+                _setActiveMoveableMenu("PrintMenu");
+            };
+*/
+            $scope.deactivateMoveableOverlay = function(){
+                $scope.moveableOverlayLayout = "";
             };
 
             $scope.isDrawActivated = function () {
