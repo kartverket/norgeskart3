@@ -484,24 +484,24 @@ angular.module('searchPanel')
               } else if (((params.east.value > -2465220.60) && (params.north.value > 4102904.86)) && ((params.east.value < 771164.64) && (params.north.value < 9406031.63))) {
                 epsg = 'EPSG:25833';
                 scope.showQueryPoint(scope.contructQueryPoint(params.north.value, params.east.value, epsg, 'coordUtm', ''));
-                scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
+                //scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
                 return true;
               } else if (((params.east.value > -128551.4542) && (params.north.value > 6404024.705)) && ((params.east.value < 1148218.099) && (params.north.value < 8010780.591))) {
                 epsg = 'EPSG:25833';
                 SosiCode = 23;
                 scope.showQueryPoint(scope.contructQueryPoint(params.north.value, params.east.value, epsg, 'coordUtm', ''));
-                scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
+                //scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
                 return true;
               } else if (((params.north.value > -2465220.60) && (params.east.value > 4102904.86)) && ((params.north.value < 771164.64) && (params.east.value < 9406031.63))) {
                 epsg = 'EPSG:25833';
                 scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, epsg, 'coordUtm', ''));
-                scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
+                //scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
                 return true;
               } else if (((params.north.value > -128551.4542) && (params.east.value > 6404024.705)) && ((params.north.value < 1148218.099) && (params.east.value < 8010780.591))) {
                 epsg = 'EPSG:25833';
                 SosiCode = 23;
                 scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, epsg, 'coordUtm', ''));
-                scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
+                //scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
                 return true;
               }
             }
