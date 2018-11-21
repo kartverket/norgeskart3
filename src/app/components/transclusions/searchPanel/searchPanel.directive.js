@@ -8,7 +8,11 @@ angular.module('searchPanel')
         link: function (scope) {
           if (!String.prototype.startsWith) {
             String.prototype.startsWith = function (search, pos) {
-              return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+              if (search) {
+                return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+              } else {
+                return false;
+              }
             };
           }
           scope.sourceDict = searchPanelFactory.getSourceDict();
@@ -373,7 +377,7 @@ angular.module('searchPanel')
             scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-ambulance', true, 'Lage nødplakat', {});
           };
 
-          function _updateLocationMarker(lat, lon){
+          function _updateLocationMarker(lat, lon) {
             $location.search()['markerLat'] = lat;
             $location.search()['markerLon'] = lon;
             $location.search(angular.extend($location.search(), $location.search()));
@@ -558,7 +562,7 @@ angular.module('searchPanel')
             }
           };
 
-          var _showSpinner = function(value) {
+          var _showSpinner = function (value) {
             scope.spinnerIsVisible = true;
             $timeout(function () {
               scope.$apply();
@@ -1138,14 +1142,14 @@ angular.module('searchPanel')
             scope.currentPage = value;
           };
 
-          function _updateInfoMarker(coordinates){
+          function _updateInfoMarker(coordinates) {
             map.RemoveInfoMarker();
             map.ShowInfoMarker(coordinates);
           }
 
           function init() {
             var openPanel = $location.search().panel;
-            if (openPanel !== undefined){
+            if (openPanel !== undefined) {
               scope.activePosition = {
                 lon: 0,
                 lat: 0,
