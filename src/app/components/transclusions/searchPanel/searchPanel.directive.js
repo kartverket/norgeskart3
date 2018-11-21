@@ -8,7 +8,11 @@ angular.module('searchPanel')
         link: function (scope) {
           if (!String.prototype.startsWith) {
             String.prototype.startsWith = function (search, pos) {
-              return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+              if (search) {
+                return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+              } else {
+                return false;
+              }
             };
           }
           scope.sourceDict = searchPanelFactory.getSourceDict();
