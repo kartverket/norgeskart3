@@ -125,7 +125,9 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                           );
                         }
                       }
-                      addedLayer.setVisible(true);
+                      if(addedLayer){
+                        addedLayer.setVisible(true);
+                      }
                     });
                   });
               }
