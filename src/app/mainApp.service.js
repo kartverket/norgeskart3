@@ -5,7 +5,7 @@ angular.module('mainApp')
       var urlOpenWps = 'https://openwps.statkart.no/skwms1/';
       var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
       var urlGeonorge = 'https://ws.geonorge.no/';
-      var urlSeEiendom = 'http://www.seeiendom.no/';
+      var urlSeEiendom = 'https://seeiendom.kartverket.no/';
       var urlFaktaark = 'https://stadnamn.kartverket.no/fakta/';
       var urlHavnivaa = "http://api.sehavniva.no/";
 
@@ -88,7 +88,7 @@ angular.module('mainApp')
       };
 
       this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
-        return urlSeEiendom + "services/Matrikkel.svc/GetDetailPage?type=property&knr=" + knr + "&gnr=" + gnr + "&bnr=" + bnr + "&fnr=" + fnr + "&snr=" + snr + "&customer=kartverket";
+        return urlSeEiendom + "eiendom/" + knr + "/" + gnr + "/" + bnr + "/" + fnr + "/" + snr ;
       };
 
       this.generateFaktaarkUrl = function (stedsnummer) {
