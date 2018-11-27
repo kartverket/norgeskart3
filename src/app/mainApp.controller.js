@@ -67,6 +67,7 @@ angular.module('mainApp')
         
         $scope.$broadcast('initDraw');
         $scope.$broadcast('initBaseLayers');
+        $scope.$broadcast('reInitSearchPanel');
         $scope.deactivateDrawFeatureTool($scope.GeoJSON);
         $scope.openNav();
       };
@@ -95,6 +96,9 @@ angular.module('mainApp')
         }
         var newSearch = angular.extend($location.search(), obj);
         $location.search(newSearch);
+        $timeout(function () {
+          _showMapMarker();
+        }, 500);
       }
 
       $scope.initMapLayout = function () {
@@ -201,7 +205,7 @@ angular.module('mainApp')
 
       function _showMapMarker() {
         var parameters = $location.search();
-        var marker = parameters['marker_lon'] && parameters['marker_lat'] ? [parameters['marker_lon'], parameters['marker_lat']] : undefined;
+        var marker = parameters['markerLon'] && parameters['markerLat'] ? [parameters['markerLon'], parameters['markerLat']] : undefined;
         if (marker) {
           map.ShowInfoMarker(marker);
         }
@@ -218,7 +222,6 @@ angular.module('mainApp')
         map.AddScaleLine();
         _initUrl();
         _initMapLayers();
-        _showMapMarker();
       };
 
       angular.element(document).ready(function () {
