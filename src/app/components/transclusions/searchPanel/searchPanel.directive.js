@@ -1186,6 +1186,13 @@ angular.module('searchPanel')
             init();
           });
 
+          scope.$on('reInitSearchPanel', function () {
+            scope.showSearchOptionsPanel('reset');
+            $timeout(function() {
+              init();
+            }, 500);
+          });
+
           /*Map get feature info end*/
         }
       };
