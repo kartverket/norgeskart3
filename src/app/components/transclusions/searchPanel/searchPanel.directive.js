@@ -776,7 +776,7 @@ angular.module('searchPanel')
                 jsonObject = jsonObject.filter(function (el) {
                   if ((el.kommunenr === parsedInput.municipality || el.kommunenavn === parsedInput.municipality.toUpperCase()) && el.gardsnr === parsedInput.gnr) {
                     if (parsedInput.bnr > -1) {
-                      if (el.bruksnr.startsWith(parsedInput.bnr)) {
+                      if ( (el.bruksnr.length === parsedInput.bnr.length) && (el.bruksnr.startsWith(parsedInput.bnr))) {
                         return true;
                       } else {
                         return false;
