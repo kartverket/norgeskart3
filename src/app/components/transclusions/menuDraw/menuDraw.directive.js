@@ -358,7 +358,8 @@ angular.module('menuDraw')
               mode: scope.mode,
               selectedFeatureId: scope.selectedFeatureId,
               selectionActive: scope.selectionActive,
-              showMeasurements: scope.showMeasurements
+              showMeasurements: scope.showMeasurements,
+              showNauticalMiles: scope.showNauticalMiles
             };
 
             if (scope.GeoJSON) {

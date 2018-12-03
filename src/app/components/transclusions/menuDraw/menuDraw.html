@@ -73,9 +73,13 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="line">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-6">
                     <input type="checkbox" ng-model="showMeasurements" data-ng-change="activateDrawFeatureTool()"/>
                     <span translate="showMeasurements_txt"></span>
+                </div>
+                <div class="col-xs-6 draw-content">
+                    <input type="checkbox" ng-model="showNauticalMiles" data-ng-change="activateDrawFeatureTool()"/>
+                    <span translate="showNauticalMiles_txt"></span>
                 </div>
             </div>
             <div class="new-section">
@@ -136,9 +140,13 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="polygon">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-6">
                     <input type="checkbox" ng-model="showMeasurements" data-ng-change="activateDrawFeatureTool()"/>
                     <span translate="showMeasurements_txt"></span>
+                </div>
+                <div class="col-xs-6 draw-content">
+                    <input type="checkbox" ng-model="showNauticalMiles" data-ng-change="activateDrawFeatureTool()" />
+                    <span translate="showNauticalMiles_txt"></span>
                 </div>
             </div>
             <div class="new-section">

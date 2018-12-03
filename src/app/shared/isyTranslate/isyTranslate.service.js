@@ -342,7 +342,8 @@ angular.module('isyTranslate').constant('translations', {
     "cancel_print": "AVBRYT UTSKRIFT",
     "print_format" : "Format",
     "print_dpi": "DPI",
-    "generate_print" : "GENERERE UTSKRIFT"
+    "generate_print" : "GENERERE UTSKRIFT",
+    "showNauticalMiles_txt": "NAUTISKE MIL"
   },
   nn: {
     "AcceptAndContinue": "EG SKJØNAR OG GODTAR",
@@ -687,7 +688,8 @@ angular.module('isyTranslate').constant('translations', {
     "cancel_print": "AVBRYT UTSKRIFT",
     "print_format": "Format",
     "print_dpi": "DPI",
-    "generate_print": "GENERERE UTSKRIFT"
+    "generate_print": "GENERERE UTSKRIFT",
+    "showNauticalMiles_txt": "NAUTISKE MIL"
   },
   en: {
     "AcceptAndContinue": "ACCEPT AND CONTINUE",
@@ -1032,6 +1034,7 @@ angular.module('isyTranslate').constant('translations', {
     "cancel_print": "Cancel print",
     "print_format": "Format",
     "print_dpi": "DPI",
-    "generate_print": "GENERATE PRINT FILE"
+    "generate_print": "GENERATE PRINT FILE",
+    "showNauticalMiles_txt": "NAUTICAL MILES"
   }
 });
