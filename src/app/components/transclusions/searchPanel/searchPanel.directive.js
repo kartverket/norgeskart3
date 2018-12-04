@@ -776,8 +776,16 @@ angular.module('searchPanel')
                 jsonObject = jsonObject.filter(function (el) {
                   if ((el.kommunenr === parsedInput.municipality || el.kommunenavn === parsedInput.municipality.toUpperCase()) && el.gardsnr === parsedInput.gnr) {
                     if (parsedInput.bnr > -1) {
-                      if ( (el.bruksnr.length === parsedInput.bnr.length) && (el.bruksnr.startsWith(parsedInput.bnr))) {
-                        return true;
+                      if ((el.bruksnr.length === parsedInput.bnr.length) && (el.bruksnr.startsWith(parsedInput.bnr)) ) {
+                        if (parsedInput.fnr > -1) {
+                          if ( (el.festenr.length === parsedInput.fnr.length) && (el.festenr.startsWith(parsedInput.fnr)) ) {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        } else {
+                          return true;
+                        }
                       } else {
                         return false;
                       }
@@ -1188,7 +1196,7 @@ angular.module('searchPanel')
 
           scope.$on('reInitSearchPanel', function () {
             scope.showSearchOptionsPanel('reset');
-            $timeout(function() {
+            $timeout(function () {
               init();
             }, 500);
           });
