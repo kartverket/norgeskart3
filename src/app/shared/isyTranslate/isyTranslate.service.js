@@ -336,7 +336,14 @@ angular.module('isyTranslate').constant('translations', {
     "vei": "Vei",
     "width_txt": "TYKKELSE:",
     "no_search_hits": "Søket ditt ga ingen treff",
-    "geoJson_converted": "GeoJSON har blitt konvertert"
+    "geoJson_converted": "GeoJSON har blitt konvertert",
+    "template_type": "Maltype",
+    "map_name": "Kart navn",
+    "cancel_print": "AVBRYT UTSKRIFT",
+    "print_format" : "Format",
+    "print_dpi": "DPI",
+    "generate_print" : "GENERERE UTSKRIFT",
+    "showNauticalMiles_txt": "NAUTISKE MIL"
   },
   nn: {
     "AcceptAndContinue": "EG SKJØNAR OG GODTAR",
@@ -675,7 +682,14 @@ angular.module('isyTranslate').constant('translations', {
     "vei": "Veg",
     "width_txt": "TJUKKLEIK:",
     "no_search_hits": "Søket ditt ga ikkje treff",
-    "geoJson_converted": "GeoJSON har blitt konvertert"
+    "geoJson_converted": "GeoJSON har blitt konvertert",
+    "template_type": "Maltype",
+    "map_name": "Kart navn",
+    "cancel_print": "AVBRYT UTSKRIFT",
+    "print_format": "Format",
+    "print_dpi": "DPI",
+    "generate_print": "GENERERE UTSKRIFT",
+    "showNauticalMiles_txt": "NAUTISKE MIL"
   },
   en: {
     "AcceptAndContinue": "ACCEPT AND CONTINUE",
@@ -1014,6 +1028,13 @@ angular.module('isyTranslate').constant('translations', {
     "vei": "Road",
     "width_txt": "WIDTH:",
     "no_search_hits": "Your search contained no results",
-    "geoJson_converted": "GeoJSON has been converted"
+    "geoJson_converted": "GeoJSON has been converted",
+    "template_type": "Template type",
+    "map_name": "Map name",
+    "cancel_print": "Cancel print",
+    "print_format": "Format",
+    "print_dpi": "DPI",
+    "generate_print": "GENERATE PRINT FILE",
+    "showNauticalMiles_txt": "NAUTICAL MILES"
   }
 });
