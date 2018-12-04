@@ -1155,7 +1155,7 @@ angular.module('searchPanel')
               scope.activePosition.zoom = Number($location.search().zoom);
               scope.activePosition.lon = Number($location.search().markerLon);
               scope.activePosition.lat = Number($location.search().markerLat);
-              if (scope.activatePosition.lat && scope.activatePosition.lon){
+              if (!isNaN(scope.activePosition.lon) && !isNaN(scope.activePosition.lat)){
                 showQueryPointFromMouseClick([scope.activePosition.lon, scope.activePosition.lat]);
               }
               switch (openPanel) {
