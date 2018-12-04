@@ -1166,7 +1166,9 @@ angular.module('searchPanel')
               scope.activePosition.zoom = Number($location.search().zoom);
               scope.activePosition.lon = Number($location.search().markerLon);
               scope.activePosition.lat = Number($location.search().markerLat);
-              showQueryPointFromMouseClick([scope.activePosition.lon, scope.activePosition.lat]);
+              if (scope.activatePosition.lat && scope.activatePosition.lon){
+                showQueryPointFromMouseClick([scope.activePosition.lon, scope.activePosition.lat]);
+              }
               switch (openPanel) {
                 case 'Seeiendom':
                   var showSelection = ($location.search().showSelection === undefined || $location.search().showSelection === 'false') ? false : true;
