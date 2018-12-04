@@ -183,16 +183,18 @@ angular.module('mainApp')
 
       function _initMapLayers() {
         var mapLayers = mainAppFactory.getInitLayersInUrl();
-        if (mapLayers !== undefined) {
+        if (mapLayers !== undefined && mapLayers !== "") {
           var layers = mapLayers.split(",");
           var overlayLayers = map.GetOverlayLayers();
           var baseLayers = map.GetBaseLayers();
-          for (var i = 0; i < layers.length; i++) {
-            for (var j = 0; j < overlayLayers.length; j++) {
+          for (var j = 0; j < overlayLayers.length; j++) {
+            overlayLayers[j].isVisible = false;
+            map.HideLayer(overlayLayers[j]);
+            for (var i = 0; i < layers.length; i++) {
               if (parseInt(layers[i], 10) === overlayLayers[j].id) {
                 overlayLayers[j].isVisible = true;
                 map.ShowLayer(overlayLayers[j]);
-              }
+              } 
             }
             for (var m = 0; m < baseLayers.length; m++) {
               if (parseInt(layers[i], 10) === baseLayers[m].id) {
