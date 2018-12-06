@@ -322,7 +322,7 @@ angular.module('mainApp')
             type: "overlay",
             gatekeeper: "true",
             name: "bygninger",
-            url: "//wms.geonorge.no/skwms1/wms.matrikkel.seeiendom2",
+            url: "//wms.geonorge.no/skwms1/wms.matrikkel.seeiendom2/?CQL_FILTER=BYGNINGSTATUS<9",
             groupid: 1,
             maxResolution: 2,
             params: {
