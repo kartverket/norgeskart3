@@ -1,0 +1,14 @@
+.mousePosition {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-family: $font-default;
+  font-size: $font-xsmall;
+  padding: 0 5px 0 5px;
+  cursor: inherit;
+  background-color: $white;
+  color: $gray-dark;
+  opacity: 0.9;
+  border-radius: 1px;
+  z-index: 99;
+}
