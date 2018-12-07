@@ -343,7 +343,11 @@ angular.module('isyTranslate').constant('translations', {
     "print_format" : "Format",
     "print_dpi": "DPI",
     "generate_print" : "GENERERE UTSKRIFT",
-    "showNauticalMiles_txt": "NAUTISKE MIL"
+    "showNauticalMiles_txt": "NAUTISKE MIL",
+    "privacy_policy": "Personvern",
+    "privacy_policy_title": "Personvern og cookies",
+    "privacy_policy_info": "Les hvordan vi tar vare på personopplysninger i ",
+    "privacy_policy_link": "Kartverkets personverneklæring"
   },
   nn: {
     "AcceptAndContinue": "EG SKJØNAR OG GODTAR",
@@ -689,7 +693,11 @@ angular.module('isyTranslate').constant('translations', {
     "print_format": "Format",
     "print_dpi": "DPI",
     "generate_print": "GENERERE UTSKRIFT",
-    "showNauticalMiles_txt": "NAUTISKE MIL"
+    "showNauticalMiles_txt": "NAUTISKE MIL",
+    "privacy_policy": "Personvern",
+    "privacy_policy_title": "Personvern og cookies",
+    "privacy_policy_info": "Les hvordan vi tar vare på personopplysninger i ",
+    "privacy_policy_link": "Kartverkets personverneklæring"
   },
   en: {
     "AcceptAndContinue": "ACCEPT AND CONTINUE",
@@ -1035,6 +1043,10 @@ angular.module('isyTranslate').constant('translations', {
     "print_format": "Format",
     "print_dpi": "DPI",
     "generate_print": "GENERATE PRINT FILE",
-    "showNauticalMiles_txt": "NAUTICAL MILES"
+    "showNauticalMiles_txt": "NAUTICAL MILES",
+    "privacy_policy": "Privacy policy",
+    "privacy_policy_title": "Privacy policy and cookies",
+    "privacy_policy_info": "Read how we take care of personal information in ",
+    "privacy_policy_link": "The Norwegian mapping authority privacy policy"
   }
 });

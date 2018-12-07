@@ -32,6 +32,10 @@ angular.module('mainMenuPanel')
               $scope.mainMenuPanelLayout = "mainMenuContact";
             };
 
+            $scope.showMainMenuPrivacy = function() {
+                $scope.mainMenuPanelLayout = "mainMenuPrivacy";
+            };
+
             // FAQ
             var _faqResponse = function (response) {
               if (response.status == 200) {
