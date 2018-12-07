@@ -574,7 +574,7 @@ angular.module('mainApp')
         }
 
         mapConfig.coordinate_system = project.config.project.mapepsg;
-        mapConfig.mouseProjectionPrefix = project.config.project.displayprojectionprefix;
+        mapConfig.mouseProjectionPrefix = "EU89 UTM"; //project.config.project.displayprojectionprefix;
         mapConfig.headerTitle = project.config.project.headertitle;
         mapConfig.siteTitle = project.config.project.sitetitle;
         mapConfig.isy3dflyurl = project.config.project.isy3dflyurl;
@@ -588,7 +588,7 @@ angular.module('mainApp')
 
         // var layout = getLayout(project.config.project.layout);
         // if (layout) {
-        //     mapConfig.showMousePosition = layout.enablemousepositionctrl === 'true';
+            mapConfig.showMousePosition = 'true'; //layout.enablemousepositionctrl === 'true';
         // }
         updateMapConfigWithCoordinateAndExtend(project.config.mapbounds);
         //
