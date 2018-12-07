@@ -1379,6 +1379,12 @@ textarea, input[type="text"] {
   position: absolute;
 }
 
+.menuCloseBtn{
+  font-size: 38px;
+  cursor: pointer;
+  font-weight: normal;
+}
+
 @import "spacing";
 @import "mobile";
 @import "mobileLandscape";
