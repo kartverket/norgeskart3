@@ -1385,6 +1385,17 @@ textarea, input[type="text"] {
   font-weight: normal;
 }
 
+.noSearchHits{
+  display: inline-grid;
+  & span{
+    padding: 4px 0;
+  }
+  & div{
+    display: inline-grid;
+    margin-top: 6px;
+  }
+}
+
 @import "spacing";
 @import "mobile";
 @import "mobileLandscape";
