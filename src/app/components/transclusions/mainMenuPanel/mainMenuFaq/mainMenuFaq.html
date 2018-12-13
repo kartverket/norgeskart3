@@ -15,16 +15,36 @@
     </li>
   </ul>
 </div>
-<div class="sidenav-group">
-  <div class="faq-items">
-    <dl data-ng-class="faqExpand == $index ? 'expanded' : ''" data-ng-repeat="faqItem in faqItems">
-      <dt>
-        <a data-ng-click="faqToggle($event, $index)" href="#">
-          <i class="pull-right fa fa-fw" data-ng-class="faqExpand == $index ? 'fa-angle-up' : 'fa-angle-down'"></i>
-          {{faqItem.question}}
-        </a>
-      </dt>
-      <dd>{{faqItem.answer}}</dd>
-    </dl>
+<div class="sidenav-group faq-items">
+  <div class="spinner-content" data-ng-show="spinnerIsVisible">
+    <div class="app-spinner">
+      <svg class="spinner" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+      </svg>
+    </div>
+  </div>
+  <div class="row" data-ng-show="!spinnerIsVisible">
+    <div class="col-xs-12">
+      <div data-ng-show="failToLoadFaq" class="failToLoad">
+        <span translate="fail_to_load_faq"></span>
+      </div>
+      <ul>
+        <li data-ng-repeat="faqItem in faqItems track by $index" data-ng-click="toggleItem($index)" data-ng-class="{'itemHeader': $index == selectedItem}">
+          <div class="row">
+            <div class="col-xs-11">
+              <span data-ng-bind="faqItem.question"></span>
+            </div>
+            <div class="col-xs-1">
+              <span class="nextbtn glyphicon glyphicon-menu-down" data-ng-class="$index == selectedItem ? 'glyphicon-menu-up' : 'glyphicon-menu-down'"></span>
+            </div>
+          </div>
+          <div class="row itemBody" data-ng-show="$index == selectedItem" data-ng-click="faqItem.open = faqItem.open; $event.stopPropagation();">
+            <div class="col-xs-12">
+              <span class="itemText" data-ng-bind="faqItem.answer"></span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

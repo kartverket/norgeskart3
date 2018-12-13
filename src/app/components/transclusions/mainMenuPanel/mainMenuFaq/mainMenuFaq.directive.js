@@ -4,7 +4,12 @@ angular.module('mainMenuFaq')
             return {
                 templateUrl: 'components/transclusions/mainMenuPanel/mainMenuFaq/mainMenuFaq.html',
                 restrict: 'A',
-                link: function(){
+                controller: 'mainMenuFaqController',
+                link: function(scope){
+
+                    scope.toggleItem = function(i){
+                        scope.selectedItem = scope.selectedItem === i ? undefined : i;
+                    };
 
                 }
             };
