@@ -1329,21 +1329,38 @@ textarea, input[type="text"] {
   }
 }
 
-.faq-items {
-  margin: 15px 30px 15px 15px;
-  a {
-    color: #262626 !important;
-    display: block;
-  }
-  dd {
-    display: none;
-    white-space: pre-line;
-  }
-  .expanded {
-    dd {
-      display: block;
+.sidenav-group.faq-items {
+  .spinner-content{
+    .app-spinner{
+      position: relative;
+      top: 0;
     }
   }
+
+  .itemHeader{
+    background: lightgray;
+    margin-top:2px;
+    margin-bottom: 2px;
+  }
+
+  .itemBody{
+    background-color: #f3f3f3;
+    margin-bottom: -5px;
+    margin-top: 5px;
+    padding: 8px 0;
+    cursor: default;
+  }
+
+  .itemText{
+    white-space: pre-line;
+  }
+
+  .failToLoad{
+    padding: 10px 15px 5px 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
 }
 
 .content {

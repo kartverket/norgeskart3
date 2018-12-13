@@ -350,7 +350,9 @@ angular.module('isyTranslate').constant('translations', {
     "privacy_policy": "Personvern",
     "privacy_policy_title": "Personvern og cookies",
     "privacy_policy_info": "Les hvordan vi tar vare på personopplysninger i ",
-    "privacy_policy_link": "Kartverkets personverneklæring"
+    "privacy_policy_link": "Kartverkets personverneklæring",
+    "chat_with_kartverket" : "Snakk med Kartverket",
+    "fail_to_load_faq": "Feil å laste inn tips og triks"
   },
   nn: {
     "AcceptAndContinue": "EG SKJØNAR OG GODTAR",
@@ -703,7 +705,9 @@ angular.module('isyTranslate').constant('translations', {
     "privacy_policy": "Personvern",
     "privacy_policy_title": "Personvern og cookies",
     "privacy_policy_info": "Les hvordan vi tar vare på personopplysninger i ",
-    "privacy_policy_link": "Kartverkets personverneklæring"
+    "privacy_policy_link": "Kartverkets personverneklæring",
+    "chat_with_kartverket": "Snakk med Kartverket",
+    "fail_to_load_faq": "Feil å laste inn tips og triks"
   },
   en: {
     "AcceptAndContinue": "ACCEPT AND CONTINUE",
@@ -1056,6 +1060,8 @@ angular.module('isyTranslate').constant('translations', {
     "privacy_policy": "Privacy policy",
     "privacy_policy_title": "Privacy policy and cookies",
     "privacy_policy_info": "Read how we take care of personal information in ",
-    "privacy_policy_link": "The Norwegian mapping authority privacy policy"
+    "privacy_policy_link": "The Norwegian mapping authority privacy policy",
+    "chat_with_kartverket": "Chat with Kartverket",
+    "fail_to_load_faq": "Fail to load tips and tricks"
   }
 });
