@@ -470,7 +470,7 @@ angular.module('menuDraw')
 
           function rgba2hex(rgba) {
             rgba = rgba.replace('rgba', '').replace('(', '').replace(')', '').split(',');
-            return "#" + hex(rgba[0]) + hex(rgba[1]) + hex(rgba[2]);
+            return ("#" + hex(rgba[0]) + hex(rgba[1]) + hex(rgba[2])).toUpperCase();
 
           }
 
