@@ -350,7 +350,7 @@ angular.module('isyTranslate').constant('translations', {
     "privacy_policy": "Personvern",
     "privacy_policy_title": "Personvern og cookies",
     "privacy_policy_info": "Les hvordan vi tar vare på personopplysninger i ",
-    "privacy_policy_link": "Kartverkets personverneklæring",
+    "privacy_policy_link": "Kartverkets personvernerklæring",
     "chat_with_kartverket" : "Snakk med Kartverket",
     "fail_to_load_faq": "Feil å laste inn tips og triks"
   },
@@ -691,7 +691,7 @@ angular.module('isyTranslate').constant('translations', {
     "vei": "Veg",
     "width_txt": "TJUKKLEIK:",
     "no_search_hits": "Søket ditt ga ikkje treff.",
-    "no_search_hits_line2": "Du kan søke på adresse, stadnamn eller koordinatar.",    
+    "no_search_hits_line2": "Du kan søke på adresse, stadnamn eller koordinatar.",
     "for_example_txt": "Til dømes:",
     "search_options_txt": "For fleire søkevarianter, sjå under tips og triks i menyen.",
     "geoJson_converted": "GeoJSON har blitt konvertert",
@@ -704,8 +704,8 @@ angular.module('isyTranslate').constant('translations', {
     "showNauticalMiles_txt": "NAUTISKE MIL",
     "privacy_policy": "Personvern",
     "privacy_policy_title": "Personvern og cookies",
-    "privacy_policy_info": "Les hvordan vi tar vare på personopplysninger i ",
-    "privacy_policy_link": "Kartverkets personverneklæring",
+    "privacy_policy_info": "Les korleis vi tar vare på personopplysningar i ",
+    "privacy_policy_link": "Kartverkets personvernerklæring",
     "chat_with_kartverket": "Snakk med Kartverket",
     "fail_to_load_faq": "Feil å laste inn tips og triks"
   },
@@ -1059,8 +1059,8 @@ angular.module('isyTranslate').constant('translations', {
     "showNauticalMiles_txt": "NAUTICAL MILES",
     "privacy_policy": "Privacy policy",
     "privacy_policy_title": "Privacy policy and cookies",
-    "privacy_policy_info": "Read how we take care of personal information in ",
-    "privacy_policy_link": "The Norwegian mapping authority privacy policy",
+    "privacy_policy_info": "Read about how we protect your personal data in our ",
+    "privacy_policy_link": "privacy policy",
     "chat_with_kartverket": "Chat with Kartverket",
     "fail_to_load_faq": "Fail to load tips and tricks"
   }
