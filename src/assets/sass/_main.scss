@@ -1413,6 +1413,12 @@ textarea, input[type="text"] {
   }
 }
 
+.anchorLink{
+  a{
+    text-decoration: underline;
+  }
+}
+
 @import "spacing";
 @import "mobile";
 @import "mobileLandscape";

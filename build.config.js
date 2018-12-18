@@ -81,7 +81,8 @@ module.exports = {
             'vendor/xml-to-json/xml.min.js',
             'vendor/xml-to-json/json2xml.min.js',
             'vendor/angular-utils-pagination/dirPagination.js',
-            'vendor/featherlight/release/featherlight.min.js'
+            'vendor/featherlight/release/featherlight.min.js',
+            'node_modules/angular-sanitize/angular-sanitize.min.js'
         ],
         css: [
             'vendor/bootstrap/dist/css/bootstrap.min.css',

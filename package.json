@@ -21,7 +21,9 @@
     "start": "npm run lite"
   },
   "license": "SEE LICENSE IN README.md",
-  "dependencies": {},
+  "dependencies": {
+    "angular-sanitize": "^1.7.5"
+  },
   "devDependencies": {
     "grunt": "1.0.x",
     "grunt-appcache": "0.2.x",
