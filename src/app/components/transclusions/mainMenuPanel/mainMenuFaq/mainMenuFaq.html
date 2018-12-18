@@ -40,7 +40,7 @@
           </div>
           <div class="row itemBody" data-ng-show="$index == selectedItem" data-ng-click="faqItem.open = faqItem.open; $event.stopPropagation();">
             <div class="col-xs-12">
-              <span class="itemText" data-ng-bind="faqItem.answer"></span>
+              <div class="itemText anchorLink" ng-bind-html="faqItem.answer"></div>
             </div>
           </div>
         </li>
