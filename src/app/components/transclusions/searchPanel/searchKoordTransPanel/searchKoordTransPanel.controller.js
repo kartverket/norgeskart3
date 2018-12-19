@@ -6,22 +6,104 @@ angular.module('searchKoordTransPanel')
         return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
       };
 
+      // The following code snippet are from http://www.movable-type.co.uk/scripts/latlong.html
+      /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+      /* Geodesy representation conversion functions                        (c) Chris Veness 2002-2017  */
+      /*                                                                                   MIT Licence  */
+      /* www.movable-type.co.uk/scripts/latlong.html                                                    */
+      /* www.movable-type.co.uk/scripts/geodesy/docs/module-dms.html                                    */
+      /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+      /**
+       * Converts decimal degrees to deg/min/sec format
+       *  - degree, prime, double-prime symbols are added, but sign is discarded, though no compass
+       *    direction is added.
+       *
+       * @private
+       * @param   {number} deg - Degrees to be formatted as specified.
+       * @param   {string} [format=dms] - Return value as 'd', 'dm', 'dms' for deg, deg+min, deg+min+sec.
+       * @param   {number} [dp=0|2|4] - Number of decimal places to use – default 0 for dms, 2 for dm, 4 for d.
+       * @returns {string} Degrees formatted as deg/min/secs according to specified format.
+       */
+      var decToDMS = function (deg, format, dp) {
+        DmsSeparator = '';
+        if (isNaN(deg)) {
+          return null; // give up here if we can't make a number from deg
+        }
+
+        // default values
+        if (format === undefined) {
+          format = 'dms';
+        }
+        if (dp === undefined) {
+          switch (format) {
+            case 'd':
+            case 'deg':
+              dp = 7;
+              break;
+            case 'dm':
+            case 'deg+min':
+              dp = 7;
+              break;
+            case 'dms':
+            case 'deg+min+sec':
+              dp = 5;
+              break;
+            default:
+              format = 'dms';
+              dp = 0; // be forgiving on invalid format
+          }
+        }
+
+        var sign = Math.sign(deg) === -1 ? '-' : ''; // remember the sign
+        deg = Math.abs(deg); // (unsigned result ready for appending compass dir'n)
+
+        var dms, d, m, s;
+        switch (format) {
+          default: // invalid format spec!
+          case 'd':
+          case 'deg':
+            d = _round(deg, dp); // round degrees
+            dms = sign + d; // + '°';
+            break;
+          case 'dm':
+          case 'deg+min':
+            d = Math.floor(deg); // get component deg
+            m = _round(((deg * 60) % 60), dp); // get component min & round
+            if (m == 60) {
+              m = 0;
+              d++;
+            } // check for rounding up
+            dms = sign + d + '°' + DmsSeparator + m + '′';
+            break;
+          case 'dms':
+          case 'deg+min+sec':
+            d = Math.floor(deg); // get component deg
+            m = Math.floor((deg * 3600) / 60) % 60; // get component min
+            s = _round((deg * 3600 % 60), dp); // get component sec & round
+            if (s == 60) {
+              s = _round((0), dp);
+              m++;
+            } // check for rounding up
+            if (m == 60) {
+              m = 0;
+              d++;
+            } // check for rounding up
+            dms = sign + d + '°' + DmsSeparator + m + '′' + DmsSeparator + s + '″';
+            break;
+        }
+
+        return dms;
+      };
+      // End snippet
+
       var _addSearchOptionToPanel = function (data) {
         if (($scope.activePosition.resSosiKoordSys == '50') || ($scope.activePosition.resSosiKoordSys == '84')) {
-          $scope.activePosition.transLat = _round(data.nord, 7);
-          $scope.activePosition.transLon = _round(data.ost, 7);
-          var deg = Math.floor(data.ost);
-          var rest = (data.ost - deg) * 60;
-          $scope.activePosition.transLon2 = deg + '° ' + _round(rest, 7) + '\'';
-          var min = Math.floor(rest);
-          var sec = (rest - min) * 60;
-          $scope.activePosition.transLon3 = deg + '° ' + min + '\' ' + _round(sec, 5) + '\'\'';
-          deg = Math.floor(data.nord);
-          rest = (data.nord - deg) * 60;
-          $scope.activePosition.transLat2 = deg + '° ' + _round(rest, 7) + '\'';
-          min = Math.floor(rest);
-          sec = (rest - min) * 60;
-          $scope.activePosition.transLat3 = deg + '° ' + min + '\' ' + _round(sec, 5) + '\'\'';
+          $scope.activePosition.transLon = decToDMS(data.ost, 'd');
+          $scope.activePosition.transLat = decToDMS(data.nord, 'd');
+          $scope.activePosition.transLon2 = decToDMS(data.ost, 'dm');
+          $scope.activePosition.transLat2 = decToDMS(data.nord, 'dm');
+          $scope.activePosition.transLon3 = decToDMS(data.ost, 'dms');
+          $scope.activePosition.transLat3 = decToDMS(data.nord, 'dms');
         } else {
           $scope.activePosition.transLat = _round(data.nord, 2);
           $scope.activePosition.transLat2 = '';
@@ -79,5 +161,3 @@ angular.module('searchKoordTransPanel')
       };
     }
   ]);
-
-
