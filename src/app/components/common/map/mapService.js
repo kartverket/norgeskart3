@@ -992,7 +992,7 @@ module.provider('gnMap', function () {
           var returnLayer;
 
           map.getLayers().forEach(function (layer) {
-            if (layer.get('name') === (getCapLayer.Name || getCapLayer.Title)) {
+            if ( (layer.get('label') === getCapLayer.Title) && (layer.get('name') === getCapLayer.Name) ) {
               isNewLayer = false;
               var visibility = layer.getVisible();
               if (visibility === false) {
