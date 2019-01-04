@@ -76,7 +76,7 @@ module.exports = function ( grunt ) {
                     "package.json",
                     "client/bower.json"
                 ],
-                createTag: false,
+                createTag: true,
                 tagName: 'v%VERSION%',
                 tagMessage: 'Version %VERSION%',
                 push: false,

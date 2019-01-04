@@ -13,9 +13,9 @@ angular.module('mainApp')
     '$timeout',
     '$window',
     function ($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory, $translate, $timeout, $window) {
-      
+
       function _initToolbar() {
-          toolsFactory.initToolbar();
+        toolsFactory.initToolbar();
       }
 
       var _setSearch = function (obj) {
@@ -54,17 +54,17 @@ angular.module('mainApp')
         eventHandler.RegisterEvent(ISY.Events.EventTypes.ChangeLayers, _loadingLayerEnd);
       }
 
-      $scope.resetMainAppFactory = function() {
+      $scope.resetMainAppFactory = function () {
         mainAppFactory.resetMainAppFactory();
       };
 
-      $scope.reInitMap = function() {
+      $scope.reInitMap = function () {
         mainAppFactory.updateMapConfig();
         var mapConfig = mainAppFactory.getMapConfig();
         map.ReInit(mapConfig);
         _initUrl();
         _initMapLayers();
-        
+
         $scope.$broadcast('initDraw');
         $scope.$broadcast('initBaseLayers');
         $scope.$broadcast('reInitSearchPanel');
@@ -194,10 +194,12 @@ angular.module('mainApp')
               if (parseInt(layers[i], 10) === overlayLayers[j].id) {
                 overlayLayers[j].isVisible = true;
                 map.ShowLayer(overlayLayers[j]);
-              } 
+              }
             }
+          }
+          for (var l = 0; l < layers.length; l++) {
             for (var m = 0; m < baseLayers.length; m++) {
-              if (parseInt(layers[i], 10) === baseLayers[m].id) {
+              if (parseInt(layers[l], 10) === baseLayers[m].id) {
                 map.SetBaseLayer(baseLayers[m]);
               }
             }
