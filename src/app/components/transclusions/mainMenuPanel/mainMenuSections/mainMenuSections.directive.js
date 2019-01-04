@@ -17,17 +17,22 @@ angular.module('mainMenuSections')
               var search = $location.search();
               search['project'] = project.id;
               search.layers = "";
-              setSearch(map.GetUrlObject(), search.layers);
+              setSearch(map.GetUrlObject(), search.layers, project);
             }
           };
 
-          var setSearch = function (obj, layers) {
+          var setSearch = function (obj, layers, project) {
             if (!angular.equals(obj, $location.search())) {
               var newSearch = angular.extend($location.search(), obj);
               newSearch.layers = layers;
               $location.search(newSearch);
-              $timeout(function () {
-                window.location.reload();
+              $timeout(function () {                 
+                  scope.resetMainAppFactory();
+                  scope.initMapLayout();
+                  scope.reInitMap();
+                  map.RedrawMap();        
+                  scope.getVisibleLayersCount();        
+                  scope.activateProject(project);
               }, 0);
             }
           };
@@ -39,8 +44,12 @@ angular.module('mainMenuSections')
             localStorageFactory.set("activeLanguage", langId);
           };
 
+          scope.getVisibleLayersCount = function() {
+            return map.GetVisibleSubLayers().length;
+          };
+
           $(document).ready(function () {
-            scope.visibleLayersCount = map.GetVisibleSubLayers().length;
+            scope.getVisibleLayersCount();
           });
 
           /*Print start*/

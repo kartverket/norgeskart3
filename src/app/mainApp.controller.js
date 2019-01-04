@@ -24,7 +24,7 @@ angular.module('mainApp')
       localStorageFactory.remove('addLayers');
 
       function _initToolbar() {
-        toolsFactory.initToolbar();
+          toolsFactory.initToolbar();
       }
 
       var _setSearch = function (obj) {
@@ -62,6 +62,24 @@ angular.module('mainApp')
         eventHandler.RegisterEvent(ISY.Events.EventTypes.MapMoveend, _viewChanged);
         eventHandler.RegisterEvent(ISY.Events.EventTypes.ChangeLayers, _loadingLayerEnd);
       }
+
+      $scope.resetMainAppFactory = function() {
+        mainAppFactory.resetMainAppFactory();
+      };
+
+      $scope.reInitMap = function() {
+        mainAppFactory.updateMapConfig();
+        var mapConfig = mainAppFactory.getMapConfig();
+        map.ReInit(mapConfig);
+        _initUrl();
+        _initMapLayers();
+        
+        $scope.$broadcast('initDraw');
+        $scope.$broadcast('initBaseLayers');
+        $scope.$broadcast('reInitSearchPanel');
+        $scope.deactivateDrawFeatureTool($scope.GeoJSON);
+        $scope.openNav();
+      };
 
       function _initUrl() {
         var obj = $location.search();
@@ -120,6 +138,9 @@ angular.module('mainApp')
         }
         var newSearch = angular.extend($location.search(), obj);
         $location.search(newSearch);
+        $timeout(function () {
+          _showMapMarker();
+        }, 500);
       }
 
       $scope.initMapLayout = function () {
@@ -282,16 +303,18 @@ angular.module('mainApp')
 
       function _initMapLayers() {
         var mapLayers = mainAppFactory.getInitLayersInUrl();
-        if (mapLayers !== undefined) {
+        if (mapLayers !== undefined && mapLayers !== "") {
           var layers = mapLayers.split(",");
           var overlayLayers = map.GetOverlayLayers();
           var baseLayers = map.GetBaseLayers();
-          for (var i = 0; i < layers.length; i++) {
-            for (var j = 0; j < overlayLayers.length; j++) {
+          for (var j = 0; j < overlayLayers.length; j++) {
+            overlayLayers[j].isVisible = false;
+            map.HideLayer(overlayLayers[j]);
+            for (var i = 0; i < layers.length; i++) {
               if (parseInt(layers[i], 10) === overlayLayers[j].id) {
                 overlayLayers[j].isVisible = true;
                 map.ShowLayer(overlayLayers[j]);
-              }
+              } 
             }
             for (var m = 0; m < baseLayers.length; m++) {
               if (parseInt(layers[i], 10) === baseLayers[m].id) {
@@ -307,7 +330,7 @@ angular.module('mainApp')
 
       function _showMapMarker() {
         var parameters = $location.search();
-        var marker = parameters['marker_lon'] && parameters['marker_lat'] ? [parameters['marker_lon'], parameters['marker_lat']] : undefined;
+        var marker = parameters['markerLon'] && parameters['markerLat'] ? [parameters['markerLon'], parameters['markerLat']] : undefined;
         if (marker) {
           map.ShowInfoMarker(marker);
         }
@@ -324,10 +347,6 @@ angular.module('mainApp')
         map.AddScaleLine();
         _initUrl();
         _initMapLayers();
-        _showMapMarker();
-        if ($scope.addInteraction) {
-          addInteractions();
-        }
       };
 
       angular.element(document).ready(function () {

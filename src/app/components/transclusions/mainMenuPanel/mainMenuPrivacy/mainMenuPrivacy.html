@@ -1,0 +1,26 @@
+<div class="sidenav-group">
+    <ul>
+        <li tabindex="0" data-ng-click="showMainMenuSections()" ng-keypress="showMainMenuSections()">
+            <div class="sidenav-header-text row">
+                <div class="col-xs-1">
+                    <span class="fa fa-user-secret"></span>
+                </div>
+                <div class="col-xs-11">
+                    <span class="text-uppercase" translate="privacy_policy"></span>
+                    <div class="backbtn">
+                        <span class="glyphicon glyphicon-menu-left"></span>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="sidenav-group">
+    <article class="content">
+        <h2><span translate="privacy_policy_title"></span></h2>
+        <p><span translate="privacy_policy_info"></span>
+            <a ng-show="language.id === 'no' || language.id === 'nn'" href="https://www.kartverket.no/Om-Kartverket/Personvern/" translate="privacy_policy_link" target="_blank"></a>
+            <a ng-show="language.id === 'en'" href="https://www.kartverket.no/en/About-The-Norwegian-Mapping-Authority/privacy-policy/" translate="privacy_policy_link" target="_blank"></a>
+        </p>
+    </article>
+</div>

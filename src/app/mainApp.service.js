@@ -5,7 +5,7 @@ angular.module('mainApp')
       var urlOpenWps = 'https://openwps.statkart.no/skwms1/';
       var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
       var urlGeonorge = 'https://ws.geonorge.no/';
-      var urlSeEiendom = 'http://www.seeiendom.no/';
+      var urlSeEiendom = 'https://seeiendom.kartverket.no/';
       var urlFaktaark = 'https://stadnamn.kartverket.no/fakta/';
       var urlHavnivaa = "http://api.sehavniva.no/";
       var urlKartkatalogSearch = "https://kartkatalog.geonorge.no/api/search";
@@ -40,7 +40,7 @@ angular.module('mainApp')
         var height = encodeURIComponent(config.HEIGHT);
         var bbox = encodeURIComponent(config.BBOX);
 
-        return urlOpenWms + "wms.topo2?service=" + service + "&request=" + request + "&CRS=" + crs + "&FORMAT=" + format + "&BGCOLOR=" + bgcolor + "&TRANSPARENT=" + transparent +
+        return urlOpenWms + "wms.topo4?service=" + service + "&request=" + request + "&CRS=" + crs + "&FORMAT=" + format + "&BGCOLOR=" + bgcolor + "&TRANSPARENT=" + transparent +
           "&LAYERS=" + layers + "&VERSION=" + version + "&WIDTH=" + width + "&HEIGHT=" + height + "&BBOX=" + bbox;
       };
 
@@ -81,7 +81,7 @@ angular.module('mainApp')
       };
 
       this.generateSearchAdresseUrl = function (query) {
-        return urlGeonorge + "AdresseWS/adresse/sok?sokestreng=" + encodeURIComponent(query) + "&antPerSide=100&side=1";
+        return urlGeonorge + "AdresseWS/adresse/sok?sokestreng=" + encodeURIComponent(query) + "&antPerSide=1000&side=0";
       };
 
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
@@ -93,7 +93,7 @@ angular.module('mainApp')
       };
 
       this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
-        return urlSeEiendom + "services/Matrikkel.svc/GetDetailPage?type=property&knr=" + knr + "&gnr=" + gnr + "&bnr=" + bnr + "&fnr=" + fnr + "&snr=" + snr + "&customer=kartverket";
+        return urlSeEiendom + "eiendom/" + knr + "/" + gnr + "/" + bnr + "/" + fnr + "/" + snr ;
       };
 
       this.generateFaktaarkUrl = function (stedsnummer) {
@@ -131,7 +131,7 @@ angular.module('mainApp')
       };
 
       this.generateEmergencyPosterPreviewImageUrl = function (minx, miny, maxx, maxy) {
-        return urlOpenWms + 'wms.topo2?service=WMS&request=GetMap&CRS=EPSG:32633&FORMAT=image%2Fjpeg&BGCOLOR=0xFFFFFF&TRANSPARENT=false&LAYERS=topo2_WMS&VERSION=1.3.0&WIDTH=' + $(window).width() + '&HEIGHT=' + $(window).height() + '&BBOX=' + minx + ',' + miny + ',' + maxx + ',' + maxy;
+        return urlOpenWms + 'wms.topo4?service=WMS&request=GetMap&CRS=EPSG:32633&FORMAT=image%2Fjpeg&BGCOLOR=0xFFFFFF&TRANSPARENT=false&LAYERS=topo4_WMS&VERSION=1.3.0&WIDTH=' + $(window).width() + '&HEIGHT=' + $(window).height() + '&BBOX=' + minx + ',' + miny + ',' + maxx + ',' + maxy;
       };
 
       this.generateGeoJSONUrl = function (hash, save) {

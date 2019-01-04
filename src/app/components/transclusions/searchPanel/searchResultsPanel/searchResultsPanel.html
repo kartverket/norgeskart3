@@ -93,21 +93,21 @@
         </li>
       </ul>
     </div>
-    <div data-ng-show="searchResults['matrikkeladresse'] && !searchResults['matrikkelveg']">
+    <div data-ng-show="searchResults['adresse'] && !searchResults['matrikkelveg']">
       <div class="isHeaderClose" data-ng-click="addressResult.open = !addressResult.open">
         <span translate="searchResult_addresses"></span>
         <span data-ng-show="!addressResult.open" class="nextbtn glyphicon glyphicon-menu-up"></span>
         <span data-ng-show="addressResult.open" class="nextbtn glyphicon glyphicon-menu-down"></span>
       </div>
       <ul class="list-result" data-ng-show="!addressResult.open" data-ng-if="!isIosDevice()">
-        <li ng-mouseover="mouseOver(searchResult)" class="pointer-cursor" ng-repeat="searchResult in searchResults['matrikkeladresse']"
+        <li ng-mouseover="mouseOver(searchResult)" class="pointer-cursor" ng-repeat="searchResult in searchResults['adresse']"
           ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
           <span ng-bind="searchResult.name + ' ' + searchResult.husnummer + ', ' + searchResult.kommune"></span>
           </select>
         </li>
       </ul>
       <ul class="list-result" data-ng-show="!addressResult.open" data-ng-if="isIosDevice()">
-        <li class="pointer-cursor" ng-repeat="searchResult in searchResults['matrikkeladresse']" ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
+        <li class="pointer-cursor" ng-repeat="searchResult in searchResults['adresse']" ng-mousedown="activatePosition(searchResult); showSearchOptionsPanel()">
           <span ng-bind="searchResult.name + ' ' + searchResult.husnummer + ', ' + searchResult.kommune"></span>
           </select>
         </li>
@@ -123,7 +123,7 @@
         <div ng-repeat="searchResult in searchResults['matrikkelnummer']">
           <div ng-if="searchResult.url">
             <li ng-mouseover="mouseOver(searchResult)" class="pointer-cursor list-group-item-danger"  data-ng-click="openShowEiendom(searchResult);">
-              <span>Matrikkelenheten har ingen kjente teiger. Klikk her får å se informasjon om eiendommen</span>
+              <span>Matrikkelenheten har ingen kjente teiger. Klikk her for å se informasjon om eiendommen</span>
               <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
               </select>
             </li>
@@ -140,7 +140,7 @@
         <div ng-repeat="searchResult in searchResults['matrikkelnummer']">
           <div ng-if="searchResult.url">
             <li class="pointer-cursor list-group-item-danger" ng-mousedown="openShowEiendom(searchResult);">
-              <span>Matrikkelenheten har ingen kjente teiger. Klikk her får å se informasjon om eiendommen</span>
+              <span>Matrikkelenheten har ingen kjente teiger. Klikk her for å se informasjon om eiendommen</span>
               <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
               </select>
             </li>
@@ -181,5 +181,27 @@
       </div>
     </div>
 
+  </div>
+</div>
+<div class="search-panel" ng-show="searchResults === undefined && searchBarModel !== '' && searchBarModel !== undefined">
+  <div class="search-content spinner-content" data-ng-show="spinnerIsVisible"> 
+    <div class="app-spinner">
+      <svg class="spinner" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+      </svg>
+    </div>
+  </div>
+  <div class="search-content" data-ng-show="!spinnerIsVisible">
+    <div class="noSearchHits">
+      <span translate="no_search_hits"></span>
+      <span translate="no_search_hits_line2"></span>
+      <div>
+        <span translate="for_example_txt"></span>
+        <span>Wergelandsveien1, Oslo<br/>0301-209/416<br/>Slottsparken<br/>6649900,261205</span>
+      </div>
+      <div>
+        <span translate="search_options_txt"></span>
+      </div>
+    </div>
   </div>
 </div>

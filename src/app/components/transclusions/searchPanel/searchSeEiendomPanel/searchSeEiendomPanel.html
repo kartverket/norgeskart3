@@ -111,7 +111,7 @@
             <ul data-ng-show="allResults.open">
                 <li class="sidenav-subsection" data-ng-repeat="result in searchOptionsDict['seEiendom'].allResults"
                     data-ng-click="selectResult(result); allResults.open = !allResults.open">
-                    <span data-ng-bind="result.matrikkeladresse"></span>
+                    <span data-ng-bind="result.adresse"></span>
                 </li>
             </ul>
         </div>
@@ -119,7 +119,7 @@
         <div class="new-section">
             <div class="row">
                 <div class="col-xs-12">
-                    <input type="checkbox" ng-model="showSelectionCheckbox" data-ng-click="eiendomMarkering(); showSelection();"/>
+                    <input type="checkbox" ng-model="showSelectionCheckbox" ng-change="eiendomMarkering(); showSelection();"/>
                     <span translate="showSelection_txt"></span>
                     <span data-ng-show="showSelectedPolygon"><i class="fa fa-spinner fa-spin fa-fw"></i></span>
                 </div>

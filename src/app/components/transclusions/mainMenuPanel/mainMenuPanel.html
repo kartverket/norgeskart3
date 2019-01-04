@@ -1,8 +1,8 @@
 <div id="mySidenav" class="sidenav">
     <div id="sideMenuPosition" class="side-menu-position">
         <div class="norgeskart-logo">
-            <button class="close" data-ng-click="closeNav(); removeInfomarkers(); addResultsToMap(); showMainMenuSections()" type="button">
-                <span class="glyphicon glyphicon-remove"></span>
+            <button class="close" data-ng-click="closeNav(); addResultsToMap(); showMainMenuSections()" type="button">
+                <span class="menuCloseBtn">&times;</span>
             </button>
             <a href="https://www.geonorge.no/">
                 <img alt="Geonorge" class="norgeskart-logo-image" src="assets/img/logo-geonorge.png">
@@ -13,9 +13,16 @@
             <div ng-switch-when="mainMenuSections" main-menu-sections></div>
             <div ng-switch-when="mainMenuBaseLayers" main-menu-base-layers></div>
             <div ng-switch-when="mainMenuGroupLayers" main-menu-group-layers></div>
-            <div ng-switch-when="mainMenuFaq" main-menu-faq></div>
+            <div ng-switch-when="mainMenuFaq" main-menu-faq ng-controller="mainMenuFaqController" ng-init="initFaq()"></div>
             <div ng-switch-when="mainMenuContact" main-menu-contact></div>
+            <div ng-switch-when="mainMenuPrivacy" main-menu-privacy></div>
         </div>
+        <!-- <div class="footer">
+            <div class="chat">
+                <img src="../../../../assets/img/chat-blue.png" width="auto" height="40px">
+                <span translate="chat_with_kartverket"></span>
+            </div>
+        </div> -->
     </div>
 </div>
 

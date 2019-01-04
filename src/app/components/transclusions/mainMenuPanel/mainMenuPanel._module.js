@@ -1,7 +1,1 @@
-angular.module('mainMenuPanel', [
-  'mainMenuSections',
-  'mainMenuBaseLayers',
-  'mainMenuGroupLayers',
-  'mainMenuFaq',
-  'mainMenuContact'
-]);
+angular.module('mainMenuPanel', ['mainMenuSections', 'mainMenuBaseLayers', 'mainMenuGroupLayers', 'mainMenuFaq', 'mainMenuContact', 'mainMenuPrivacy']);

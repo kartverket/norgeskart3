@@ -1,6 +1,6 @@
 angular.module('searchSeEiendomPanel')
-  .directive('searchSeEiendomPanel', ['$window', 'searchPanelFactory',
-    function ($window, searchPanelFactory) {
+  .directive('searchSeEiendomPanel', ['$window', 'searchPanelFactory', '$location',
+    function ($window, searchPanelFactory, $location) {
       return {
         templateUrl: 'components/transclusions/searchPanel/searchSeEiendomPanel/searchSeEiendomPanel.html',
         restrict: 'A',
@@ -49,8 +49,14 @@ angular.module('searchSeEiendomPanel')
             }
           }
 
+          var _updateSelection = function(value) {
+            $location.search()['showSelection'] = value === true ? 'true' : 'false';
+            $location.search(angular.extend($location.search(), $location.search()));
+          };
+
           scope.eiendomMarkering = function () {
             searchPanelFactory.setShowEiendomMarkering(scope.showSelectionCheckbox);
+            _updateSelection(scope.showSelectionCheckbox);
           };
 
           scope.selectResult = function (result) {
@@ -63,6 +69,7 @@ angular.module('searchSeEiendomPanel')
 
           var initSeEiendom = function () {
             scope.showSelectionCheckbox = searchPanelFactory.getShowEiendomMarkering();
+            _updateSelection(scope.showSelectionCheckbox);
           };
 
           scope.hideEiendomMarkering = function () {

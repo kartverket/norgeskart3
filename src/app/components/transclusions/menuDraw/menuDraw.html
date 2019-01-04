@@ -1,4 +1,7 @@
 <div class="panel-body">
+    <div data-ng-if="showConvertInfo" id="drawInfo" class="drawInfo">
+        <span translate="geoJson_converted"></span>
+    </div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" data-ng-class="{navTabsTransparent: expandMenu.open}" role="tablist" id="myTabs">
         <li data-ng-click="switchType('Point')" role="presentation" class="active"><a href data-target="#point" aria-controls="point" role="tab" data-toggle="tab" translate="point_txt"></a></li>
@@ -70,9 +73,13 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="line">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-6">
                     <input type="checkbox" ng-model="showMeasurements" data-ng-change="activateDrawFeatureTool()"/>
                     <span translate="showMeasurements_txt"></span>
+                </div>
+                <div class="col-xs-6 draw-content">
+                    <input type="checkbox" ng-model="showNauticalMiles" data-ng-change="activateDrawFeatureTool()"/>
+                    <span translate="showNauticalMiles_txt"></span>
                 </div>
             </div>
             <div class="new-section">
@@ -133,9 +140,13 @@
         </div>
         <div role="tabpanel" class="tab-pane" id="polygon">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-6">
                     <input type="checkbox" ng-model="showMeasurements" data-ng-change="activateDrawFeatureTool()"/>
                     <span translate="showMeasurements_txt"></span>
+                </div>
+                <div class="col-xs-6 draw-content">
+                    <input type="checkbox" ng-model="showNauticalMiles" data-ng-change="activateDrawFeatureTool()" />
+                    <span translate="showNauticalMiles_txt"></span>
                 </div>
             </div>
             <div class="new-section">

@@ -9,7 +9,6 @@ module.exports = {
      */
     build_dir: 'build',
     compile_dir: 'dist',
-    nuget_dir: 'nuget',
 
     /**
      * This is a collection of file patterns that refer to our app code (the
@@ -24,8 +23,7 @@ module.exports = {
         js: [  'src/**/*.js',  '!src/**/*.spec.js', '!src/assets/**/*.js', '!src/lib/log4javascript/log4javascript.js' ],
         jsunit: [ 'src/**/*.spec.js' ],
 
-        atpl: [ 'src/app/**/*.html', 'src/app/**/*.tpl.html' ],
-        ctpl: [ 'src/common/**/*.tpl.html' ],
+        atpl: [ 'src/app/**/*.html', ],
 
         html: [ 'src/index.html'],
         sass: 'src/assets/sass/main.scss'
@@ -79,7 +77,6 @@ module.exports = {
             'vendor/angular-sanitize/angular-sanitize.min.js',
 
             'vendor/proj4/dist/proj4.js',
-            'vendor/es5-shim/es5-shim.min.js',
             'vendor/pouchdb/dist/pouchdb.min.js',
 //            'vendor/openlayers3/ol-debug.js',
             'vendor/blob-util/dist/blob-util.min.js',
@@ -88,7 +85,6 @@ module.exports = {
             'vendor/xml-to-json/json2xml.min.js',
             'vendor/angular-utils-pagination/dirPagination.js',
             'vendor/featherlight/release/featherlight.min.js',
-
             'vendor/jsonix/dist/Jsonix-min.js',
             'vendor/w3c-schemas/scripts/lib/*.js',
             'vendor/ogc-schemas/scripts/lib/*.js',
@@ -99,9 +95,9 @@ module.exports = {
             'external/angular.ext/angular-floatThead.js',
             'external/angular.ext/*.js',
             'vendor/*.js',
-            'external/ngeo/ngeo-debug.js'
-
-            ],
+            'external/ngeo/ngeo-debug.js',
+            'node_modules/angular-sanitize/angular-sanitize.min.js'
+        ],
         css: [
             'vendor/bootstrap/dist/css/bootstrap.min.css',
             'vendor/featherlight/release/featherlight.min.css'
@@ -116,9 +112,6 @@ module.exports = {
             'vendor/bootstrap/fonts/glyphicons-halflings-regular.eot'
         ]
     },
-    vendor_nuget_excludes: [
-        'vendor/jquery/dist/jquery.js'
-    ],
     jssource_mapclient: [
         '!src/**/*.spec.js',
 
@@ -145,14 +138,9 @@ module.exports = {
         'src/app/components/transclusions/menuShareMap/**/*.js',
         'src/app/components/transclusions/menuElevationProfile/**/*.js',
 
-        'src/app/components/transclusions/searchPanel/*.js',
-        'src/app/components/transclusions/searchPanel/searchKoordTransPanel/*.js',
-        'src/app/components/transclusions/searchPanel/searchOptionsPanel/*.js',
-        'src/app/components/transclusions/searchPanel/searchResultsPanel/*.js',
-
+        'src/app/components/transclusions/searchPanel/**/*.js',
         'src/app/components/transclusions/tools/tools.*.js',
         'src/app/components/transclusions/tools/toolsElevationProfile.factory.js',
-
         'src/app/components/*.js',
         'src/app/components/common/**/*.js',
 

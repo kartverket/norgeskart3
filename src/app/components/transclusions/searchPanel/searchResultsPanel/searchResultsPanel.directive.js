@@ -16,7 +16,9 @@ angular.module('searchResultsPanel')
           };
 
           var _readResponse = function (jsonObject) {
-            jsonObject = jsonObject[0];
+            jsonObject = jsonObject.filter(function (el) {
+              return el.HUSNR == scope.activeHusnum;
+            })[0];
             var source = 'matrikkeladresse';
             var identifiersDict = searchPanelFactory.getServiceDict()[source];
             var epsg = identifiersDict.epsg;

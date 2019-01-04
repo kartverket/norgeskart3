@@ -9,7 +9,7 @@ angular
 
       var mapEpsg = 'EPSG:25833';
 
-      var initialSearchServices = ['ssr', 'matrikkelveg', 'matrikkeladresse', 'matrikkelnummer','kartkatalog'];
+      var initialSearchServices = ['ssr', 'matrikkelveg', 'adresse', 'matrikkelnummer','kartkatalog'];
 
       var availableUTMZones = ['25832', '25833', '25834', '25835', '25836', '32632', '32633', '32634', '32635', '32636'];
 
@@ -74,11 +74,11 @@ angular
         } else {
           parsedQuery = input;
         }
-        return parsedQuery;
+        return {parsedQuery: parsedQuery, parsedInput: parsedInput };
       };
 
       var generateServiceDict = function (query) {
-        query = parseInput(query);
+        query = parseInput(query).parsedQuery;
         var serviceDict = {};
         serviceDict['ssr'] = {
           url: mainAppService.generateSearchStedsnavnUrl(query, placenamePage, placenameHitsPerPage),
@@ -140,10 +140,10 @@ angular
           nameID: 'adressenavn',
           latID: 'nord',
           lonID: 'aust',
-          kommuneID: false,
-          husnummerID: false,
-          husnummerBokstav: false,
-          navnetypeID: false
+          kommuneID: 'kommunenavn',
+          husnummerID: 'husnr',
+          husnummerBokstav: "bokstav",
+          navnetypeID: "type"
         };
         serviceDict['kartkatalog'] = {
           url: mainAppService.generateKartkatalogSearchUrl(query),
@@ -168,6 +168,9 @@ angular
       return {
         getSourceDict: function () {
           return sourceDict;
+        },
+        parseInput: function (input) {
+          return parseInput(input);
         },
         getServiceDict: function (query) {
           return generateServiceDict(query);

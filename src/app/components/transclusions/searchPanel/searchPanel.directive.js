@@ -225,12 +225,12 @@ angular.module('searchPanel')
                 matrikkelnr: jsonRoot[i].MATRIKKELNR
               };
 
-              extra.matrikkeladresse = extra.kommunenr + '-' + extra.gardsnr + '/' + extra.bruksnr;
+              extra.adresse = extra.kommunenr + '-' + extra.gardsnr + '/' + extra.bruksnr;
 
               if (parseInt(extra.festenr, 10) > 0) {
-                extra.matrikkeladresse += '/' + extra.festenr;
+                extra.adresse += '/' + extra.festenr;
                 if (parseInt(extra.seksjonsnr, 10) > 0) {
-                  extra.matrikkeladresse += '/' + extra.seksjonsnr;
+                  extra.adresse += '/' + extra.seksjonsnr;
                 }
               }
 
@@ -242,7 +242,7 @@ angular.module('searchPanel')
             var tmpResults;
             if (matrikkelInfo.length > 1) {
               tmpResults = matrikkelInfo.sort(function (a, b) {
-                return a.matrikkeladresse.localeCompare(b.matrikkeladresse);
+                return a.adresse.localeCompare(b.adresse);
               });
             }
 
@@ -309,6 +309,8 @@ angular.module('searchPanel')
                 });
                 if (scope.activeSearchResult && scope.activeSearchResult.source === 'mouseClick') {
                   scope.searchBarModel = data.placename;
+                  $location.search()['sok'] = data.placename;
+                  $location.search(angular.extend($location.search(), $location.search()));
                 }
                 var elevationValue = data.elevation === false ? '-' : data.elevation.toFixed(1);
                 scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, elevationValue, {});
@@ -376,6 +378,12 @@ angular.module('searchPanel')
             scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-ambulance', true, 'Lage nødplakat', {});
           };
 
+          function _updateLocationMarker(lat, lon) {
+            $location.search()['markerLat'] = lat;
+            $location.search()['markerLon'] = lon;
+            $location.search(angular.extend($location.search(), $location.search()));
+          }
+
           scope.initSearchOptions = function () {
             scope.searchOptionsOrder = searchPanelFactory.getSearchOptionsOrder();
             for (var searchOption in scope.searchOptionsOrder) {
@@ -402,6 +410,7 @@ angular.module('searchPanel')
             }
             activePosition.geographicPoint = searchPanelFactory.constructPoint(activePosition.lat, activePosition.lon, scope.mapEpsg, 'EPSG:4326');
             map.SetCenter(activePosition);
+            _updateLocationMarker(activePosition.lat, activePosition.lon);
             map.RemoveInfoMarkers();
             scope.activePosition = activePosition;
             scope.activeSearchResult = searchResult;
@@ -425,6 +434,7 @@ angular.module('searchPanel')
             scope.searchResults['searchBar'] = queryPoint;
             scope.removeInfomarkers();
             map.ShowInfoMarker(queryPoint.point);
+            _updateLocationMarker(queryPoint.point[1], queryPoint.point[0]);
             scope.activatePosition(queryPoint);
             if (queryPoint.source === 'coordGeo' || queryPoint.source === 'coordUtm') {
               scope.showSearchOptionsPanel();
@@ -524,8 +534,8 @@ angular.module('searchPanel')
           };
 
           var _notSingleAddressHit = function () {
-            var matrikkelKey = 'matrikkeladresse';
-            if (_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length === 1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']) {
+            var matrikkelKey = 'adresse';
+            if (_unifiedResults[matrikkelKey] && Object.keys(_unifiedResults[matrikkelKey]).length == 1 && !_unifiedResults['matrikkelveg'] && !_unifiedResults['ssr']) {
               var key = Object.keys(_unifiedResults[matrikkelKey])[0];
               var result = _unifiedResults[matrikkelKey][key];
               scope.showQueryPoint(scope.contructQueryPoint(result.point[1], result.point[0], scope.mapEpsg, result.source, result.kommune));
@@ -537,8 +547,9 @@ angular.module('searchPanel')
 
           scope.addResultsToMap = function () {
             var coordinates = [];
+            map.RemoveInfoMarkers();
             for (var source in _unifiedResults) {
-              if (source === 'matrikkeladresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length > 1) {
+              if (source == 'adresse' && _unifiedResults['matrikkelveg'] && Object.keys(_unifiedResults['matrikkelveg']).length > 1) {
                 continue;
               }
               for (var result in _unifiedResults[source]) {
@@ -546,13 +557,26 @@ angular.module('searchPanel')
               }
             }
             if (coordinates.length > 0) {
-              map.RemoveInfoMarkers();
               map.ShowInfoMarkers(coordinates);
               $timeout(function () {
                 scope.searchResults = _unifiedResults;
+                _showSpinner(false);
               }, 0);
+            } else if (coordinates.length == 0 && scope.searchBarModel !== "") {
+              _showSpinner(true);
             }
           };
+
+          var _showSpinner = function (value) {
+            scope.spinnerIsVisible = true;
+            $timeout(function () {
+              scope.$apply();
+            }, 0);
+            $timeout(function () {
+              scope.spinnerIsVisible = false;
+            }, value === true ? 1500 : 500);
+          };
+
           var _getPlacenameHits = function (jsonObject) {
             scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
             scope.placenameItems = _generateArrayWithValues(parseInt(scope.placenameHits, 10));
@@ -564,16 +588,50 @@ angular.module('searchPanel')
                 var jsonObject = xml.xmlToJSON(document);
                 _getPlacenameHits(jsonObject);
                 return jsonObject.sokRes.stedsnavn;
-              case ('adresse'):
-                return document.adresser;
-              case ('matrikkelveg'):
-                return JSON.parse(document);
-              case ('matrikkeladresse'):
-                return JSON.parse(document);
-              case ('matrikkelnummer'):
-                return JSON.parse(document);
               case ('kartkatalog'):
-                return document.Results;
+                return document.Results;                
+              case ('adresse'):
+                var parsedInput = searchPanelFactory.parseInput(_getQuery()).parsedInput;
+                var adresser;
+                if (parsedInput.gnr) {
+                  adresser = document.adresser.sort(function (a, b) {
+                    return a.husnr - b.husnr;
+                  });
+                } else {
+                  if (/(\D+)(\d+)([a-zA-Z])?/.test(_getQuery())) {
+                    var reResult = /(\D+)(\d+)([a-zA-Z])?/.exec(_getQuery());
+                    parsedInput.street = reResult[1].trim().toUpperCase();
+                    parsedInput.husnr = reResult[2];
+                    parsedInput.bokstav = reResult[3];
+                  }
+                  if (Array.isArray(document.adresser)) {
+                    adresser = document.adresser
+                      .filter(function (a) {
+                        return a.type === 'Vegadresse';
+                      })
+                      .filter(function (a) {
+                        return a.adressenavn.trim().toUpperCase().startsWith(parsedInput.street);
+                      })
+                      .filter(function (a) {
+                        return a.husnr.startsWith(parsedInput.husnr);
+                      })
+                      .filter(function (a) {
+                        if (parsedInput.bokstav) {
+                          if (a.bokstav) {
+                            return a.bokstav === parsedInput.bokstav.toUpperCase();
+                          } else {
+                            return false;
+                          }
+                        } else {
+                          return true;
+                        }
+                      });
+                    adresser.sort(function (a, b) {
+                      return parseInt(a.husnr) - parseInt(b.husnr);
+                    });
+                  }
+                }
+                return adresser;
               default:
                 try {
                   return JSON.parse(document);
@@ -611,9 +669,9 @@ angular.module('searchPanel')
               url: _serviceDict.url,
               async: true,
               success: function (document) {
-                if (((document.length && document.length > 0) || (document.childNodes && document.childNodes[0].childNodes.length)) && scope.searchTimestamp === timestamp) {
-                  _successFullSearch(_serviceDict, document);
-                } else if (document.NumFound && document.NumFound > 0) {
+                if (((document.length && document.length > 0) ||
+                    (document.childNodes && document.childNodes[0].childNodes.length) ||
+                    (document.sokStatus.ok === "true")) && scope.searchTimestamp == timestamp) {
                   _successFullSearch(_serviceDict, document);
                 }
               } /* ,
@@ -648,6 +706,7 @@ angular.module('searchPanel')
 
           scope.searchBarValueChanged = function () {
             if (scope.searchBarModel === '') {
+              scope.showSearchResultPanel();
               scope.cleanResults();
               return;
             }
@@ -718,6 +777,32 @@ angular.module('searchPanel')
               if (!jsonObject.length) {
                 jsonObject = [jsonObject];
               }
+              var parsedInput = searchPanelFactory.parseInput(_getQuery()).parsedInput;
+              if (parsedInput.municipality && searchResult.source === 'adresse') {
+                jsonObject = jsonObject.filter(function (el) {
+                  if ((el.kommunenr === parsedInput.municipality || el.kommunenavn === parsedInput.municipality.toUpperCase()) && el.gardsnr === parsedInput.gnr) {
+                    if (parsedInput.bnr > -1) {
+                      if ((el.bruksnr.length === parsedInput.bnr.length) && (el.bruksnr.startsWith(parsedInput.bnr)) ) {
+                        if (parsedInput.fnr > -1) {
+                          if ( (el.festenr.length === parsedInput.fnr.length) && (el.festenr.startsWith(parsedInput.fnr)) ) {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        } else {
+                          return true;
+                        }
+                      } else {
+                        return false;
+                      }
+                    } else {
+                      return true;
+                    }
+                  } else {
+                    return false;
+                  }
+                });
+              }
               for (var i = 0; i < jsonObject.length; i++) {
                 if (jsonObject[i][_serviceDict[searchResult.source].latID]) {
                   _pushToUnifiedResults(_getValuesFromJson(_serviceDict[searchResult.source], jsonObject[i]));
@@ -752,9 +837,14 @@ angular.module('searchPanel')
                 organizationLogo: jsonObject.OrganizationLogo
               };
             } else {
+              var point;
               var lat = jsonObject[identifiersDict.latID] + '';
               var lon = jsonObject[identifiersDict.lonID] + '';
-              var point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
+              if (isNaN(lat) && isNaN(lon)) {
+                point = '';
+              } else {
+                point = searchPanelFactory.constructPoint(lat, lon, identifiersDict.epsg, scope.mapEpsg);
+              }
               var husnummer = identifiersDict.husnummerID !== false ? jsonObject[identifiersDict.husnummerID] : '';
               if (identifiersDict.husnummerBokstav && typeof jsonObject[identifiersDict.husnummerBokstav] === 'string') {
                 husnummer += jsonObject[identifiersDict.husnummerBokstav];
@@ -783,13 +873,13 @@ angular.module('searchPanel')
           };
 
           scope.fixNames = function (name) {
-            return _removeNumberFromName(scope.capitalizeName(name.toLowerCase()));
+            //return _removeNumberFromName(scope.capitalizeName(name.toLowerCase()));
+            return _removeNumberFromName(name);
           };
 
           var _pushToUnifiedResults = function (result) {
             if (result.kommune && result.name) {
-              result.name = result.source !== 'matrikkelnummer' ? scope.fixNames(result.name) : result.name;
-              result.kommune = scope.capitalizeName(result.kommune.toLowerCase());
+              result.name = result.source != 'matrikkelnummer' ? scope.fixNames(result.name) : result.name;
               var resultID = _createID(result);
               if (!_unifiedResults[result.source]) {
                 _unifiedResults[result.source] = {};
@@ -858,7 +948,7 @@ angular.module('searchPanel')
           };
 
           var _createID = function (result) {
-            return result.name + (result.point[0] + '').split('.')[0] + (result.point[1] + '').split('.')[0];
+            return result.name + (result.point[0] + '').replace('.', '') + (result.point[1] + '').replace('.', '');
           };
 
           scope.capitalizeName = function (name) {
@@ -899,7 +989,7 @@ angular.module('searchPanel')
           scope.resetSearchPanel = function () {
             scope.showSearchOptionsPanel();
             scope.searchPanelLayout = '';
-            searchPanelFactory.setShowEiendomMarkering(false);
+            // searchPanelFactory.setShowEiendomMarkering(false);
           };
 
           var showQueryPointFromMouseClick = function (coordinates) {
@@ -1093,6 +1183,59 @@ angular.module('searchPanel')
           scope.pageChangeHandler = function (value) {
             scope.currentPage = value;
           };
+
+          function _updateInfoMarker(coordinates) {
+            map.RemoveInfoMarker();
+            map.ShowInfoMarker(coordinates);
+          }
+
+          function init() {
+            var openPanel = $location.search().panel;
+            if (openPanel !== undefined) {
+              scope.activePosition = {
+                lon: 0,
+                lat: 0,
+                zoom: 0
+              };
+              scope.activePosition.zoom = Number($location.search().zoom);
+              scope.activePosition.lon = Number($location.search().markerLon);
+              scope.activePosition.lat = Number($location.search().markerLat);
+              if (!isNaN(scope.activePosition.lon) && !isNaN(scope.activePosition.lat)){
+                showQueryPointFromMouseClick([scope.activePosition.lon, scope.activePosition.lat]);
+              }
+              switch (openPanel) {
+                case 'Seeiendom':
+                  var showSelection = ($location.search().showSelection === undefined || $location.search().showSelection === 'false') ? false : true;
+                  searchPanelFactory.setShowEiendomMarkering(showSelection);
+                  scope.showSearchSeEiendomPanel();
+                  break;
+                case 'Koordinater':
+                  scope.showKoordTransPanel();
+                  break;
+                case 'Turkart':
+                  scope.showLagTurKartPanel();
+                  break;
+                case 'Fargelegg':
+                  scope.showLagFargeleggingskartPanel();
+                  break;
+                case 'Nodplakat':
+                  scope.showLagNodplakatPanel();
+                  break;
+              }
+              _updateInfoMarker([scope.activePosition.lon, scope.activePosition.lat]);
+            }
+          }
+
+          angular.element(document).ready(function () {
+            init();
+          });
+
+          scope.$on('reInitSearchPanel', function () {
+            scope.showSearchOptionsPanel('reset');
+            $timeout(function () {
+              init();
+            }, 500);
+          });
 
           /*Map get feature info end*/
         }

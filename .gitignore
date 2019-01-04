@@ -13,3 +13,4 @@ build
 dist
 *.appcache
 *.lock
+package-lock.json

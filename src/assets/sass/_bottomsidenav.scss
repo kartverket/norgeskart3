@@ -18,17 +18,6 @@
   //width:105px;
 }
 
-.baseMapIsOpen{
-  box-shadow: rgba(0, 0, 0, 0.24) 1px 1px 3px 1px;
-}
-
-.side-base-map-position{
-  position: static;
-}
-
-.breadcrumbsMaps {
-  border-right: 1px solid $gray;
-}
 
 .baseMapPanel{
   //border: 1px solid black;
@@ -83,18 +72,3 @@
     margin-left: 5px;
   }
 }
-
-
-
-/* The navigation menu links */
-.sidebasemapnav-close-menu {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #2f3940;
-  display: block;
-  transition: 0.3s
-}
-
-
-

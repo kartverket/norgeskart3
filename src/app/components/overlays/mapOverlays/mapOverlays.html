@@ -1,14 +1,9 @@
 <div moveable-overlay class="moveableOverlay" data-ng-show="menuShowMoveableOverlay('DrawMenu')">
     <div menu-draw class="movemenu overlayContent"></div>
 </div>
-<div moveable-overlay class="moveableOverlay" data-ng-show="menuShowMoveableOverlay('ElevationProfile')">
-    <div menu-elevation-profile class="movemenu overlayContent"></div>
-</div>
-<div moveable-overlay class="moveableOverlay" data-ng-show="menuShowMoveableOverlay('Print')">
-    <div print class="movemenu overlayContent"></div>
-</div>
-<div moveable-overlay class="moveableOverlay" data-ng-show="menuShowMoveableOverlay('ShareMap')">
-    <div menu-share-map class="movemenu overlayContent"></div>
+<div ng-switch="moveableOverlayLayout" moveable-overlay class="moveableOverlay" data-ng-show="isAnyOverlayActive()">
+  <div ng-switch-when="menuElevationProfileLayout" menu-elevation-profile class="movemenu overlayContent"></div>
+  <div ng-switch-when="menuShareMapLayout" menu-share-map class="movemenu overlayContent"></div>
 </div>
 <div main-menu-overlay></div>
 <div search-bar-overlay data-ng-show="showSearchOverlay()"></div>

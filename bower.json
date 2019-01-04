@@ -3,14 +3,13 @@
   "version": "1.0.55",
   "devDependencies": {},
   "dependencies": {
-    "angular": "1.6.x",
-    "angular-route": "1.6.x",
-    "angular-mocks": "1.6.x",
-    "angular-sanitize": "*",
+    "angular": "1.7.x",
+    "angular-route": "1.7.x",
+    "angular-mocks": "1.7.x",
     "bootstrap": "3.3.x",
-    "angular-translate": "2.17.x",
+    "angular-translate": "2.x.x",
     "proj4": "*",
-    "pouchdb": "5.0.x",
+    "pouchdb": "5.x.x",
     "jasmine-ajax": "3.3.x",
     "es5-shim": "4.5.x",
     "jquery": "3.3.x",
@@ -31,6 +30,6 @@
     "angular-ui-slider": "0.4.x"
   },
   "resolutions": {
-    "angular": "1.6.*"
+    "angular": "1.7.*"
   }
 }

@@ -1,5 +1,4 @@
 angular.module('mainApp', [
-  'ngRoute',
   'templates-app',
   'angularUtils.directives.dirPagination',
   'ISY.Angular',
@@ -14,5 +13,6 @@ angular.module('mainApp', [
   'gnConfig',
   'gnWmsImport',
   'mapLayout',
-  'mapOverlaysLayout'
+  'mapOverlaysLayout',
+  'ngSanitize'
 ]);
