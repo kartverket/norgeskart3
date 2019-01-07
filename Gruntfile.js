@@ -563,7 +563,7 @@ module.exports = function ( grunt ) {
         'copy:compile_assets',
         'ngmin',
         'concat:compile_js',
-        'uglify',
+        //'uglify',
         'appcache',
         'index:compile'
     ]);
