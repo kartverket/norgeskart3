@@ -73,7 +73,7 @@ angular.module('mainApp')
         map.ReInit(mapConfig);
         _initUrl();
         _initMapLayers();
-        
+
         $scope.$broadcast('initDraw');
         $scope.$broadcast('initBaseLayers');
         $scope.$broadcast('reInitSearchPanel');
@@ -113,7 +113,7 @@ angular.module('mainApp')
         if (obj.addLayers !== undefined) {
           layers = obj.addLayers;
           localStorageFactory.set("addLayers", obj.addLayers);
-        } 
+        }
 
         if (obj.wms !== undefined) {
           localStorageFactory.set("wms", obj.wms);
@@ -241,11 +241,11 @@ angular.module('mainApp')
 
         if (obj.type !== undefined) {
           if (obj.type === "1") {
-            //Embed layout 
+            //Embed layout
             $scope.showMapLayout();
             return;
           } else if (obj.type === "2") {
-            //select-rect            
+            //select-rect
             $scope.addInteraction = true;
             $scope.showMapLayout();
             return;
@@ -314,13 +314,13 @@ angular.module('mainApp')
               if (parseInt(layers[i], 10) === overlayLayers[j].id) {
                 overlayLayers[j].isVisible = true;
                 map.ShowLayer(overlayLayers[j]);
-              } 
-            }
-            for (var m = 0; m < baseLayers.length; m++) {
-              if (parseInt(layers[i], 10) === baseLayers[m].id) {
-                map.SetBaseLayer(baseLayers[m]);
               }
             }
+          }
+          for (var l = 0; l < layers.length; l++) {
+            for (var m = 0; m < baseLayers.length; m++) {
+                map.SetBaseLayer(baseLayers[m]);
+              }
             if (!parseInt(layers[i], 10)) {
               $scope.$broadcast('addLayerFromWMS', layers[i]);
             }
