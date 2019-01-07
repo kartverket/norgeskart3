@@ -873,7 +873,7 @@ angular.module('searchPanel')
                 url: result.url
               };
               if (result.husnummer) {
-                _unifiedResults[result.source][resultID]['husnummer'] = result.husnummer;
+                _unifiedResults[result.source][resultID]['husnummer'] = (typeof result.husnummer === 'string') ? [result.husnummer] : result.husnummer;
               } else if (result.navnetype) {
                 _unifiedResults[result.source][resultID]['navnetype'] = result.navnetype;
                 switch (result.navnetype) {
