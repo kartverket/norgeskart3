@@ -319,8 +319,10 @@ angular.module('mainApp')
           }
           for (var l = 0; l < layers.length; l++) {
             for (var m = 0; m < baseLayers.length; m++) {
+              if (parseInt(layers[l], 10) === baseLayers[m].id) {
                 map.SetBaseLayer(baseLayers[m]);
               }
+            }
             if (!parseInt(layers[i], 10)) {
               $scope.$broadcast('addLayerFromWMS', layers[i]);
             }
