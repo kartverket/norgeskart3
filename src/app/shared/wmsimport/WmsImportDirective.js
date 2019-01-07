@@ -91,19 +91,20 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             if (scope.url) {
               scope.loading = true;
               scope.capabilities = [];
+              scope.capabilitiesCounter = 0;
               for (var i = 0; i < scope.url.length; i++) {
-                gnOwsCapabilities['get' + type.toUpperCase() + 'Capabilities'](scope.url[i])
-                  .then(function (capability) {
+                gnOwsCapabilities["get" + type.toUpperCase() + "Capabilities"](scope.url[i])
+                  .then(function(capability) {
                     scope.loading = false;
                     scope.capabilities.push(capability);
                   })
-                  .then(function () {
-                    angular.forEach(scope.layerList, function (value) {
-                      var addedLayer;
-                      for (var i = 0; i < scope.capabilities.length; i++) {
-                        if (scope.format === 'wms') {
+                  .then(function() {
+                    angular.forEach(scope.layerList, function(value) {
+                      if (value) {
+                        var addedLayer;
+                        if (scope.format === "wms") {
                           addedLayer = controller.addLayer(
-                            scope.capabilities[i].layers.filter(function (el) {
+                            scope.capabilities[scope.capabilitiesCounter].layers.filter(function(el) {
                               if (el.Name === value || el.Title.toLowerCase() === value.toLowerCase()) {
                                 el.isLayerActive = true;
                                 return true;
@@ -112,9 +113,9 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                               }
                             })[0]
                           );
-                        } else if (scope.format === 'wfs') {
+                        } else if (scope.format === "wfs") {
                           addedLayer = controller.addLayer(
-                            scope.capabilities[i].featureTypeList.featureType.filter(function (el) {
+                            scope.capabilities[scope.capabilitiesCounter].featureTypeList.featureType.filter(function(el) {
                               if (el.title === value) {
                                 el.isLayerActive = true;
                                 return true;
@@ -124,16 +125,16 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                             })[0]
                           );
                         }
-                      }
-                      if(addedLayer){
-                        addedLayer.setVisible(true);
+                        if (addedLayer) {
+                          addedLayer.setVisible(true);
+                        }
                       }
                     });
+                    scope.capabilitiesCounter++;
                   });
               }
             }
           };
-
           // watch url as input
           /*
           scope.$watch('url', function (value) {
