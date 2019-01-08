@@ -22,6 +22,7 @@ angular.module('mainApp')
       localStorageFactory.remove('wms');
       localStorageFactory.remove('wfs');
       localStorageFactory.remove('addLayers');
+      localStorageFactory.remove('type');
 
       function _initToolbar() {
           toolsFactory.initToolbar();

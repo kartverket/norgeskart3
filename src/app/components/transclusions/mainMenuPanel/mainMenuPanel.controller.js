@@ -11,16 +11,6 @@ angular.module('mainMenuPanel')
         localStorageFactory.remove('lat');
         localStorageFactory.remove('lon');
         localStorageFactory.remove('zoom');
-        localStorageFactory.set('mainMenuIsOpen', false);
-        location.hash = '';
-        location.reload($event.shiftKey);
-      };
-
-      $scope.resetApplication = function ($event) {
-        $event.preventDefault();
-        localStorageFactory.remove('lat');
-        localStorageFactory.remove('lon');
-        localStorageFactory.remove('zoom');
         localStorageFactory.remove('wms');
         localStorageFactory.remove('wfs');
         localStorageFactory.remove('addLayers');
