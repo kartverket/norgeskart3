@@ -213,8 +213,8 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
    * call back the gnCapTreeCol for all its children.
    */
   .directive('gnCapTreeElt', [
-    '$compile', '$location',
-    function ($compile, $location) {
+    '$compile', '$location','localStorageFactory',
+    function ($compile, $location, localStorageFactory) {
       return {
         restrict: 'E',
         require: '^gnWmsImport',
@@ -274,8 +274,10 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             scope.member.isLayerActive = addedLayer.getVisible();
           };
           if (angular.isArray(scope.member.Layer)) {
-            element.append("<gn-cap-tree-col class='list-group' collection='member.Layer'></gn-cap-tree-col>");
-            $compile(element.contents())(scope);
+            if ( localStorageFactory.get("type") !== 'dek') {
+              element.append("<gn-cap-tree-col class='list-group' collection='member.Layer'></gn-cap-tree-col>");
+              $compile(element.contents())(scope);
+            }
           }
           scope.handle = function (evt) {
             if (scope.member.Name || scope.member.title) {

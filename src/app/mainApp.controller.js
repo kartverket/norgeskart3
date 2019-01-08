@@ -249,6 +249,9 @@ angular.module('mainApp')
             $scope.addInteraction = true;
             $scope.showMapLayout();
             return;
+          } else if (obj.type === "dek") {
+            localStorageFactory.set("type", obj.type);
+            return;
           }
         }
         $scope.showMapOverlaysLayout();
