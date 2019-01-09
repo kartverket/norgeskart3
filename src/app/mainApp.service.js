@@ -9,7 +9,7 @@ angular.module('mainApp')
       var urlFaktaark = 'https://stadnamn.kartverket.no/fakta/';
       var urlHavnivaa = "http://api.sehavniva.no/";
       var urlAdresseSok = 'https://ws.geonorge.no/adresser/v1/sok';
-      var urlAdressePunktsok = 'https://ws.geonorge.no/adresser/v1/punktsok'
+      var urlAdressePunktsok = 'https://ws.geonorge.no/adresser/v1/punktsok';
 
       this.generateWhat3WordsServiceUrl = function () {
         return url + 'ws/w3w.py';
@@ -87,11 +87,11 @@ angular.module('mainApp')
 
       this.generateAdresseSokUrl = function (query) {
         return urlAdresseSok + '?sok=' + query + '*' + '&treffPerSide=1000';
-      }
+      };
 
       this.generateAdressePunktsokUrl = function (radius, lat, lon) {
         return urlAdressePunktsok + '?radius=' + radius + '&lat=' + lat + '&lon=' + lon + '&treffPerSide=100';
-      }
+      };
 
       this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
         return urlSeEiendom + "eiendom/" + knr + "/" + gnr + "/" + bnr + "/" + fnr + "/" + snr ;
