@@ -8,6 +8,8 @@ angular.module('mainApp')
       var urlSeEiendom = 'https://seeiendom.kartverket.no/';
       var urlFaktaark = 'https://stadnamn.kartverket.no/fakta/';
       var urlHavnivaa = "http://api.sehavniva.no/";
+      var urlAdresseSok = 'https://ws.geonorge.no/adresser/v1/sok';
+      var urlAdressePunktsok = 'https://ws.geonorge.no/adresser/v1/punktsok'
 
       this.generateWhat3WordsServiceUrl = function () {
         return url + 'ws/w3w.py';
@@ -75,10 +77,6 @@ angular.module('mainApp')
         return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + query + "*&eksakteForst=true&antPerSide=" + antall + "&epsgKode=32633&side=" + side;
       };
 
-      this.generateSearchAdresseUrl = function (query) {
-        return urlGeonorge + "AdresseWS/adresse/sok?sokestreng=" + encodeURIComponent(query) + "&antPerSide=1000&side=0";
-      };
-
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
         return url + 'ws/elev.py?lat=' + lat + '&lon=' + lon + '&epsg=' + epsgNumber;
       };
@@ -86,6 +84,14 @@ angular.module('mainApp')
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
         return url + "ws/wfs.teig.py?bbox=" + minx + "," + miny + "," + maxx + "," + maxy;
       };
+
+      this.generateAdresseSokUrl = function (query) {
+        return urlAdresseSok + '?sok=' + query + '*' + '&treffPerSide=1000';
+      }
+
+      this.generateAdressePunktsokUrl = function (radius, lat, lon) {
+        return urlAdressePunktsok + '?radius=' + radius + '&lat=' + lat + '&lon=' + lon + '&treffPerSide=100';
+      }
 
       this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
         return urlSeEiendom + "eiendom/" + knr + "/" + gnr + "/" + bnr + "/" + fnr + "/" + snr ;

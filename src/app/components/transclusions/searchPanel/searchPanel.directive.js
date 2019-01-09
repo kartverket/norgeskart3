@@ -331,7 +331,7 @@ angular.module('searchPanel')
                   scope.showSelection();
                 }
                 break;
-            }
+           }
           };
 
           var _downloadSearchOptionFromUrl = function (url, name) {
@@ -356,6 +356,14 @@ angular.module('searchPanel')
             var matrikkelInfoUrl = mainAppService.generateMatrikkelInfoUrl(lat, lon, lat, lon);
             _downloadSearchOptionFromUrl(matrikkelInfoUrl, 'seEiendom');
           };
+
+          var _fetchAdresseInfo = function () {
+            var lat = scope.activePosition.geographicPoint[1];
+            var lon = scope.activePosition.geographicPoint[0];
+            var radius = 50; // radius i m
+            var adresseInfoUrl = mainAppService.generateAdressePunktsokUrl(radius, lat, lon);
+            _downloadSearchOptionFromUrl(adresseInfoUrl, 'adresse');
+          }
 
           var _addKoordTransToSearchOptions = function () {
             var name = 'koordTrans';
@@ -390,6 +398,7 @@ angular.module('searchPanel')
             }
             _fetchElevationPoint();
             _fetchMatrikkelInfo();
+            _fetchAdresseInfo();
             _addKoordTransToSearchOptions();
             _addLagTurkartToSearchOptions();
             _addLagFargeleggingskartToSearchOptions();
@@ -601,13 +610,13 @@ angular.module('searchPanel')
                   if (Array.isArray(document.adresser)) {
                     adresser = document.adresser
                       .filter(function (a) {
-                        return a.type === 'Vegadresse';
+                        return a.objtype === 'Vegadresse';
                       })
                       .filter(function (a) {
                         return a.adressenavn.trim().toUpperCase().startsWith(parsedInput.street);
                       })
                       .filter(function (a) {
-                        return a.husnr.startsWith(parsedInput.husnr);
+                        return String(a.nummer).startsWith(parsedInput.husnr);
                       })
                       .filter(function (a) {
                         if (parsedInput.bokstav) {
@@ -619,9 +628,14 @@ angular.module('searchPanel')
                         } else {
                           return true;
                         }
+                      })
+                      .map(function (a) {
+                        a.lat = a.representasjonspunkt.lat;
+                        a.lon = a.representasjonspunkt.lon;
+                        return a;
                       });
                     adresser.sort(function (a, b) {
-                      return parseInt(a.husnr) - parseInt(b.husnr);
+                      return parseInt(a.nummer) - parseInt(b.nummer);
                     });
                   }
                 }
@@ -664,8 +678,7 @@ angular.module('searchPanel')
               async: true,
               success: function (document) {
                 if (((document.length && document.length > 0) ||
-                    (document.childNodes && document.childNodes[0].childNodes.length) ||
-                    (document.sokStatus.ok === "true")) && scope.searchTimestamp == timestamp) {
+                    (document.childNodes && document.childNodes[0].childNodes.length) || (document.adresser !== undefined )) && scope.searchTimestamp == timestamp) {
                   _successFullSearch(_serviceDict, document);
                 }
               }
