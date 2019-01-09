@@ -363,7 +363,7 @@ angular.module('searchPanel')
             var radius = 50; // radius i m
             var adresseInfoUrl = mainAppService.generateAdressePunktsokUrl(radius, lat, lon);
             _downloadSearchOptionFromUrl(adresseInfoUrl, 'adresse');
-          }
+          };
 
           var _addKoordTransToSearchOptions = function () {
             var name = 'koordTrans';
