@@ -86,11 +86,13 @@ angular.module('mainApp')
       };
 
       this.generateAdresseSokUrl = function (query) {
-        return urlAdresseSok + '?sok=' + query + '*' + '&treffPerSide=1000';
+        query = typeof query === 'string' ? query : '';
+        query = query.includes(',') ? query.replace(',', '*') : query + '*';
+        return urlAdresseSok + '?sok=' + query + '&treffPerSide=1000';
       };
 
       this.generateAdressePunktsokUrl = function (radius, lat, lon) {
-        return urlAdressePunktsok + '?radius=' + radius + '&lat=' + lat + '&lon=' + lon + '&treffPerSide=100';
+        return urlAdressePunktsok + '?radius=' + radius + '&lat=' + lat + '&lon=' + lon + '&treffPerSide=10';
       };
 
       this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
