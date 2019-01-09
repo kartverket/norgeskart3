@@ -133,15 +133,15 @@ angular
           navnetypeID: false
         };
         serviceDict['adresse'] = {
-          url: mainAppService.generateSearchAdresseUrl(query),
+          url: mainAppService.generateAdresseSokUrl(query),
           format: 'json',
           source: 'adresse',
           epsg: 'EPSG:4326',
           nameID: 'adressenavn',
-          latID: 'nord',
-          lonID: 'aust',
+          latID: 'lat',
+          lonID: 'lon',
           kommuneID: 'kommunenavn',
-          husnummerID: 'husnr',
+          husnummerID: 'nummer',
           husnummerBokstav: "bokstav",
           navnetypeID: "type"
         };
