@@ -87,7 +87,7 @@ angular.module('mainApp')
 
       this.generateAdresseSokUrl = function (query) {
         query = typeof query === 'string' ? query : '';
-        query = query.includes(',') ? query.replace(',', '*') : query + '*';
+        query = query.indexOf(',') !== -1 ? query.replace(',', '*') : query + '*';
         return urlAdresseSok + '?sok=' + query + '&treffPerSide=1000';
       };
 
