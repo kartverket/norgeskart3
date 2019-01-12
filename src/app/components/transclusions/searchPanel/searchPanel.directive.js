@@ -126,22 +126,10 @@ angular.module('searchPanel')
           };
 
           var _parseInput = function (input) {
-            var parsedInput = {},
-              what3words;
-
-            // matches two numbers using either . or , as decimal mark. Numbers using . as decimal mark are separated by , or , plus blankspace. Numbers using , as decimal mark are separated by blankspace
-            what3words = /^[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/;
+            var parsedInput = {};
 
             input = input.replace(/Nord|NORD|North|NORTH|[nN]/g, 'N');
             input = input.replace(/Øst|ØST|East|EAST|[eEøØoO]/g, 'E');
-
-            if (typeof input === 'string') {
-              if (what3words.test(input)) {
-                parsedInput.phrase = input;
-                parsedInput.w3w = true;
-                return parsedInput;
-              }
-            }
 
             var digitsRegEx = /(-?\d*\.?)\d+/g;
             var nondigitsRegEx = /[nN]|[eEøØoO]+/g; //   /\D+/g;
@@ -450,9 +438,7 @@ angular.module('searchPanel')
             var epsg = query.split('@')[1];
             var params = _parseInput(query.split('@')[0]);
 
-            if (params.w3w) {
-              _w3wSearch(params.phrase);
-            } else if (typeof params.phrase === 'string') {
+            if (typeof params.phrase === 'string') {
               return false;
             } else if (typeof params.north === 'undefined') {
               return false;
@@ -741,20 +727,6 @@ angular.module('searchPanel')
               scope.searchBarValueChanged();
             }
           });
-
-          var _w3wSearch = function (query) {
-            $.ajax({
-              url: mainAppService.generateWhat3WordsServiceUrl(),
-              data: query,
-              dataType: 'JSON',
-              success: function (r) {
-                if (!r.position) {
-                  return;
-                }
-                scope.showQueryPoint(scope.contructQueryPoint(parseFloat(r.position[0]), parseFloat(r.position[1]), 'EPSG:4326', 'coordGeo', ''));
-              }
-            });
-          };
 
           var _generateArrayWithValues = function (values) {
             return new Array(values);

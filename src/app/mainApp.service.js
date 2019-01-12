@@ -11,10 +11,6 @@ angular.module('mainApp')
       var urlAdresseSok = 'https://ws.geonorge.no/adresser/v1/sok';
       var urlAdressePunktsok = 'https://ws.geonorge.no/adresser/v1/punktsok';
 
-      this.generateWhat3WordsServiceUrl = function () {
-        return url + 'ws/w3w.py';
-      };
-
       this.uploadGpxFileService = function () {
         return url + 'ws/upload-gpx.py';
       };
@@ -516,7 +512,6 @@ angular.module('mainApp')
                   }
                 }
         */
-        //{ESRI: null,EPSG: null,SOSI: null,name: 'what3words',viewable: false,forward: true,key: 'w3w',type: 'extended',bbox: {}}
         //{'ESRI': null, 'EPSG': null, 'SOSI': null, 'name': 'Geohash', 'viewable': false, 'forward': true}
         //{'ESRI': null, 'EPSG': null, 'SOSI': 53, 'name': 'Møre-A'},
         //{'ESRI': null, 'EPSG': null, 'SOSI': 54, 'name': 'Møre-B'},
