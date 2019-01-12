@@ -692,8 +692,14 @@ angular.module('searchPanel')
           scope.getResults = function (searchServices) {
             _cancelOldRequests();
             scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
-            for (var serviceIndex = 0; serviceIndex < searchServices.length; serviceIndex++) {
-              _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
+            if (searchServices){
+              for (var serviceIndex = 0; serviceIndex < searchServices.length; serviceIndex++) {
+                _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
+              }
+            } else {
+              for (var service in _serviceDict) {
+                _downloadSearchBarFromUrl(_serviceDict[service], scope.searchTimestamp);
+              }
             }
           };
 
@@ -726,7 +732,7 @@ angular.module('searchPanel')
             }
             _init(query);
             scope.showSearchResultPanel();
-            scope.getResults(searchPanelFactory.getInitialSearchServices());
+            scope.getResults();
           };
 
           $timeout(function () {

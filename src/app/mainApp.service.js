@@ -63,7 +63,9 @@ angular.module('mainApp')
       };
 
       this.generateSearchMatrikkelAdresseUrl = function (query) {
-        return url + "ws/adr.py?" + encodeURIComponent(query);
+        query = typeof query === 'string' ? query : '';
+        query = query.indexOf(',') !== -1 ? query.replace(',', ' ') : query;
+        return urlAdresseSok + '?sok=' + query + '&treffPerSide=10';
       };
 
       this.generateSearchStedsnavnUrl = function (query, side, antall) {
@@ -96,7 +98,7 @@ angular.module('mainApp')
       };
 
       this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
-        return urlSeEiendom + "eiendom/" + knr + "/" + gnr + "/" + bnr + "/" + fnr + "/" + snr ;
+        return urlSeEiendom + "eiendom/" + knr + "/" + gnr + "/" + bnr + "/" + fnr + "/" + snr;
       };
 
       this.generateFaktaarkUrl = function (stedsnummer) {
