@@ -98,17 +98,17 @@ angular.module('searchKoordTransPanel')
 
       var _addSearchOptionToPanel = function (data) {
         if (($scope.activePosition.resSosiKoordSys == '50') || ($scope.activePosition.resSosiKoordSys == '84')) {
-          $scope.activePosition.transLon = decToDMS(data.ost, 'd');
-          $scope.activePosition.transLat = decToDMS(data.nord, 'd');
-          $scope.activePosition.transLon2 = decToDMS(data.ost, 'dm');
-          $scope.activePosition.transLat2 = decToDMS(data.nord, 'dm');
-          $scope.activePosition.transLon3 = decToDMS(data.ost, 'dms');
-          $scope.activePosition.transLat3 = decToDMS(data.nord, 'dms');
+          $scope.activePosition.transLon = decToDMS(data.tily, 'd');
+          $scope.activePosition.transLat = decToDMS(data.tilx, 'd');
+          $scope.activePosition.transLon2 = decToDMS(data.tily, 'dm');
+          $scope.activePosition.transLat2 = decToDMS(data.tilx, 'dm');
+          $scope.activePosition.transLon3 = decToDMS(data.tily, 'dms');
+          $scope.activePosition.transLat3 = decToDMS(data.tilx, 'dms');
         } else {
-          $scope.activePosition.transLat = _round(data.nord, 2);
+          $scope.activePosition.transLat = _round(data.tilx, 2);
           $scope.activePosition.transLat2 = '';
           $scope.activePosition.transLat3 = '';
-          $scope.activePosition.transLon = _round(data.ost, 2);
+          $scope.activePosition.transLon = _round(data.tily, 2);
           $scope.activePosition.transLon2 = '';
           $scope.activePosition.transLon3 = '';
         }

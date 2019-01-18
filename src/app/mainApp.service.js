@@ -104,7 +104,7 @@ angular.module('mainApp')
       this.generateKoordTransUrl = function (ost, nord, resSosiKoordSys, sosiKoordSys) {
         resSosiKoordSys = resSosiKoordSys || 84;
         sosiKoordSys = sosiKoordSys || 84;
-        return urlGeonorge + 'transApi?ost=' + ost + '&nord=' + nord + '&fra=' + sosiKoordSys + '&til=' + resSosiKoordSys;
+        return 'http://nnrite020:8080/SkTransRestWS/transformer?system=koordsys&frasys=' +sosiKoordSys + '&tilsys=' + resSosiKoordSys + '&bredde=' + nord + '&lengde=' + ost;
       };
 
       this.generateSeHavnivaaUrl = function (lat, lon) {
