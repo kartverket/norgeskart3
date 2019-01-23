@@ -9,8 +9,6 @@ angular
 
       var mapEpsg = 'EPSG:25833';
 
-      var initialSearchServices = ['ssr', 'matrikkelveg', 'adresse', 'matrikkelnummer'];
-
       var availableUTMZones = ['25832', '25833', '25834', '25835', '25836', '32632', '32633', '32634', '32635', '32636'];
 
       var sourceDict = {
@@ -93,31 +91,19 @@ angular
           husnummerBokstav: false,
           navnetypeID: 'navnetype'
         };
-        serviceDict['matrikkelveg'] = {
-          url: mainAppService.generateSearchMatrikkelVegUrl(query),
-          format: 'json',
-          source: 'matrikkelveg',
-          epsg: 'EPSG:25832',
-          nameID: 'NAVN',
-          latID: 'LATITUDE',
-          lonID: 'LONGITUDE',
-          kommuneID: 'KOMMUNENAVN',
-          husnummerID: 'HUSNUMMER',
-          husnummerBokstav: false,
-          navnetypeID: false
-        };
+       
         serviceDict['matrikkeladresse'] = {
           url: mainAppService.generateSearchMatrikkelAdresseUrl(query),
           format: 'json',
           source: 'matrikkeladresse',
-          epsg: 'EPSG:25832',
-          nameID: 'NAVN',
-          latID: 'LATITUDE',
-          lonID: 'LONGITUDE',
-          kommuneID: 'KOMMUNENAVN',
-          husnummerID: 'HUSNR',
-          husnummerBokstav: 'BOKSTAV',
-          navnetypeID: false
+          epsg: 'EPSG:4326',
+          nameID: 'adressenavn',
+          latID: 'lat',
+          lonID: 'lon',
+          kommuneID: 'kommunenavn',
+          husnummerID: 'nummer',
+          husnummerBokstav: 'bokstav',
+          navnetypeID: "type"
         };
         serviceDict['matrikkelnummer'] = {
           url: mainAppService.generateSearchMatrikkelNummerUrl(query),
@@ -132,19 +118,35 @@ angular
           husnummerBokstav: false,
           navnetypeID: false
         };
-        serviceDict['adresse'] = {
-          url: mainAppService.generateSearchAdresseUrl(query),
-          format: 'json',
-          source: 'adresse',
-          epsg: 'EPSG:4326',
-          nameID: 'adressenavn',
-          latID: 'nord',
-          lonID: 'aust',
-          kommuneID: 'kommunenavn',
-          husnummerID: 'husnr',
-          husnummerBokstav: "bokstav",
-          navnetypeID: "type"
-        };
+        if ( /\d/.test(query) ) {
+          serviceDict['adresse'] = {
+            url: mainAppService.generateAdresseSokUrl(query),
+            format: 'json',
+            source: 'adresse',
+            epsg: 'EPSG:4326',
+            nameID: 'adressenavn',
+            latID: 'lat',
+            lonID: 'lon',
+            kommuneID: 'kommunenavn',
+            husnummerID: 'nummer',
+            husnummerBokstav: "bokstav",
+            navnetypeID: "type"
+          };
+        } else {
+          serviceDict['matrikkelveg'] = {
+            url: mainAppService.generateSearchMatrikkelVegUrl(query),
+            format: 'json',
+            source: 'matrikkelveg',
+            epsg: 'EPSG:25832',
+            nameID: 'NAVN',
+            latID: 'LATITUDE',
+            lonID: 'LONGITUDE',
+            kommuneID: 'KOMMUNENAVN',
+            husnummerID: 'HUSNUMMER',
+            husnummerBokstav: false,
+            navnetypeID: false
+          };
+        }
         return serviceDict;
       };
 
@@ -166,9 +168,6 @@ angular
         },
         getSearchOptionsOrder: function () {
           return searchOptionsOrder;
-        },
-        getInitialSearchServices: function () {
-          return initialSearchServices;
         },
         getMapEpsg: function () {
           return mapEpsg;
@@ -210,6 +209,5 @@ angular
           return eiendomMarkering;
         }
       };
-
     }
   ]);

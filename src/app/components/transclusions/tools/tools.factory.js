@@ -120,6 +120,17 @@ angular
           }
         },
         {
+          id: "PrintBox",
+          title: "PrintBox_title",
+          hover: "PrintBox_hover",
+          sortOrder: 10,
+          isSelected: false,
+          cursorStyle: "default",
+          additionalOptions: {
+            scale: 25000
+          }
+        },
+        {
           id: "PrintBoxSelect",
           title: "PrintBoxSelect_title",
           hover: "PrintBoxSelect_hover",
@@ -142,7 +153,7 @@ angular
       ];
 
       var offlineMode = false;
-      
+
       var selectTool = function (toolId) {
         for (var i = 0; i < tools.length; i++) {
           tools[i].isSelected = tools[i].id === toolId;

@@ -8,7 +8,11 @@ angular.module('searchPanel')
         link: function (scope) {
           if (!String.prototype.startsWith) {
             String.prototype.startsWith = function (search, pos) {
-              return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+              if (search) {
+                return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+              } else {
+                return false;
+              }
             };
           }
           scope.sourceDict = searchPanelFactory.getSourceDict();
@@ -122,22 +126,10 @@ angular.module('searchPanel')
           };
 
           var _parseInput = function (input) {
-            var parsedInput = {},
-              what3words;
-
-            // matches two numbers using either . or , as decimal mark. Numbers using . as decimal mark are separated by , or , plus blankspace. Numbers using , as decimal mark are separated by blankspace
-            what3words = /^[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/;
+            var parsedInput = {};
 
             input = input.replace(/Nord|NORD|North|NORTH|[nN]/g, 'N');
             input = input.replace(/Øst|ØST|East|EAST|[eEøØoO]/g, 'E');
-
-            if (typeof input === 'string') {
-              if (what3words.test(input)) {
-                parsedInput.phrase = input;
-                parsedInput.w3w = true;
-                return parsedInput;
-              }
-            }
 
             var digitsRegEx = /(-?\d*\.?)\d+/g;
             var nondigitsRegEx = /[nN]|[eEøØoO]+/g; //   /\D+/g;
@@ -327,7 +319,7 @@ angular.module('searchPanel')
                   scope.showSelection();
                 }
                 break;
-            }
+           }
           };
 
           var _downloadSearchOptionFromUrl = function (url, name) {
@@ -353,6 +345,14 @@ angular.module('searchPanel')
             _downloadSearchOptionFromUrl(matrikkelInfoUrl, 'seEiendom');
           };
 
+          var _fetchAdresseInfo = function () {
+            var lat = scope.activePosition.geographicPoint[1];
+            var lon = scope.activePosition.geographicPoint[0];
+            var radius = 50; // radius i m
+            var adresseInfoUrl = mainAppService.generateAdressePunktsokUrl(radius, lat, lon);
+            _downloadSearchOptionFromUrl(adresseInfoUrl, 'adresse');
+          };
+
           var _addKoordTransToSearchOptions = function () {
             var name = 'koordTrans';
             scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-map-marker', true, 'Se koordinater', {});
@@ -373,7 +373,7 @@ angular.module('searchPanel')
             scope.searchOptionsDict[name] = _constructSearchOption(name, 'fa fa-ambulance', true, 'Lage nødplakat', {});
           };
 
-          function _updateLocationMarker(lat, lon){
+          function _updateLocationMarker(lat, lon) {
             $location.search()['markerLat'] = lat;
             $location.search()['markerLon'] = lon;
             $location.search(angular.extend($location.search(), $location.search()));
@@ -386,6 +386,7 @@ angular.module('searchPanel')
             }
             _fetchElevationPoint();
             _fetchMatrikkelInfo();
+            _fetchAdresseInfo();
             _addKoordTransToSearchOptions();
             _addLagTurkartToSearchOptions();
             _addLagFargeleggingskartToSearchOptions();
@@ -437,9 +438,7 @@ angular.module('searchPanel')
             var epsg = query.split('@')[1];
             var params = _parseInput(query.split('@')[0]);
 
-            if (params.w3w) {
-              _w3wSearch(params.phrase);
-            } else if (typeof params.phrase === 'string') {
+            if (typeof params.phrase === 'string') {
               return false;
             } else if (typeof params.north === 'undefined') {
               return false;
@@ -558,7 +557,7 @@ angular.module('searchPanel')
             }
           };
 
-          var _showSpinner = function(value) {
+          var _showSpinner = function (value) {
             scope.spinnerIsVisible = true;
             $timeout(function () {
               scope.$apply();
@@ -597,13 +596,13 @@ angular.module('searchPanel')
                   if (Array.isArray(document.adresser)) {
                     adresser = document.adresser
                       .filter(function (a) {
-                        return a.type === 'Vegadresse';
+                        return a.objtype === 'Vegadresse';
                       })
                       .filter(function (a) {
                         return a.adressenavn.trim().toUpperCase().startsWith(parsedInput.street);
                       })
                       .filter(function (a) {
-                        return a.husnr.startsWith(parsedInput.husnr);
+                        return String(a.nummer).startsWith(parsedInput.husnr);
                       })
                       .filter(function (a) {
                         if (parsedInput.bokstav) {
@@ -615,9 +614,14 @@ angular.module('searchPanel')
                         } else {
                           return true;
                         }
+                      })
+                      .map(function (a) {
+                        a.lat = a.representasjonspunkt.lat;
+                        a.lon = a.representasjonspunkt.lon;
+                        return a;
                       });
                     adresser.sort(function (a, b) {
-                      return parseInt(a.husnr) - parseInt(b.husnr);
+                      return parseInt(a.nummer) - parseInt(b.nummer);
                     });
                   }
                 }
@@ -660,8 +664,7 @@ angular.module('searchPanel')
               async: true,
               success: function (document) {
                 if (((document.length && document.length > 0) ||
-                    (document.childNodes && document.childNodes[0].childNodes.length) ||
-                    (document.sokStatus.ok === "true")) && scope.searchTimestamp == timestamp) {
+                    (document.childNodes && document.childNodes[0].childNodes.length) || (document.adresser !== undefined )) && scope.searchTimestamp == timestamp) {
                   _successFullSearch(_serviceDict, document);
                 }
               }
@@ -675,8 +678,14 @@ angular.module('searchPanel')
           scope.getResults = function (searchServices) {
             _cancelOldRequests();
             scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
-            for (var serviceIndex = 0; serviceIndex < searchServices.length; serviceIndex++) {
-              _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
+            if (searchServices){
+              for (var serviceIndex = 0; serviceIndex < searchServices.length; serviceIndex++) {
+                _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
+              }
+            } else {
+              for (var service in _serviceDict) {
+                _downloadSearchBarFromUrl(_serviceDict[service], scope.searchTimestamp);
+              }
             }
           };
 
@@ -709,7 +718,7 @@ angular.module('searchPanel')
             }
             _init(query);
             scope.showSearchResultPanel();
-            scope.getResults(searchPanelFactory.getInitialSearchServices());
+            scope.getResults();
           };
 
           $timeout(function () {
@@ -718,20 +727,6 @@ angular.module('searchPanel')
               scope.searchBarValueChanged();
             }
           });
-
-          var _w3wSearch = function (query) {
-            $.ajax({
-              url: mainAppService.generateWhat3WordsServiceUrl(),
-              data: query,
-              dataType: 'JSON',
-              success: function (r) {
-                if (!r.position) {
-                  return;
-                }
-                scope.showQueryPoint(scope.contructQueryPoint(parseFloat(r.position[0]), parseFloat(r.position[1]), 'EPSG:4326', 'coordGeo', ''));
-              }
-            });
-          };
 
           var _generateArrayWithValues = function (values) {
             return new Array(values);
@@ -772,8 +767,16 @@ angular.module('searchPanel')
                 jsonObject = jsonObject.filter(function (el) {
                   if ((el.kommunenr === parsedInput.municipality || el.kommunenavn === parsedInput.municipality.toUpperCase()) && el.gardsnr === parsedInput.gnr) {
                     if (parsedInput.bnr > -1) {
-                      if (el.bruksnr.startsWith(parsedInput.bnr)) {
-                        return true;
+                      if ((el.bruksnr.length === parsedInput.bnr.length) && (el.bruksnr.startsWith(parsedInput.bnr)) ) {
+                        if (parsedInput.fnr > -1) {
+                          if ( (el.festenr.length === parsedInput.fnr.length) && (el.festenr.startsWith(parsedInput.fnr)) ) {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        } else {
+                          return true;
+                        }
                       } else {
                         return false;
                       }
@@ -847,7 +850,6 @@ angular.module('searchPanel')
           var _pushToUnifiedResults = function (result) {
             if (result.kommune && result.name) {
               result.name = result.source != 'matrikkelnummer' ? scope.fixNames(result.name) : result.name;
-              result.kommune = result.kommune; //scope.capitalizeName(result.kommune.toLowerCase());
               var resultID = _createID(result);
               if (!_unifiedResults[result.source]) {
                 _unifiedResults[result.source] = {};
@@ -862,7 +864,7 @@ angular.module('searchPanel')
                 url: result.url
               };
               if (result.husnummer) {
-                _unifiedResults[result.source][resultID]['husnummer'] = result.husnummer;
+                _unifiedResults[result.source][resultID]['husnummer'] = (typeof result.husnummer === 'string') ? [result.husnummer] : result.husnummer;
               } else if (result.navnetype) {
                 _unifiedResults[result.source][resultID]['navnetype'] = result.navnetype;
                 switch (result.navnetype) {
@@ -1139,14 +1141,14 @@ angular.module('searchPanel')
             scope.currentPage = value;
           };
 
-          function _updateInfoMarker(coordinates){
+          function _updateInfoMarker(coordinates) {
             map.RemoveInfoMarker();
             map.ShowInfoMarker(coordinates);
           }
 
           function init() {
             var openPanel = $location.search().panel;
-            if (openPanel !== undefined){
+            if (openPanel !== undefined) {
               scope.activePosition = {
                 lon: 0,
                 lat: 0,
@@ -1187,7 +1189,7 @@ angular.module('searchPanel')
 
           scope.$on('reInitSearchPanel', function () {
             scope.showSearchOptionsPanel('reset');
-            $timeout(function() {
+            $timeout(function () {
               init();
             }, 500);
           });

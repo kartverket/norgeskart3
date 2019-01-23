@@ -5,13 +5,11 @@ angular.module('mainApp')
       var urlOpenWps = 'https://openwps.statkart.no/skwms1/';
       var urlOpenWms = 'http://openwms.statkart.no/skwms1/';
       var urlGeonorge = 'https://ws.geonorge.no/';
-      var urlSeEiendom = 'http://www.seeiendom.no/';
+      var urlSeEiendom = 'https://seeiendom.kartverket.no/';
       var urlFaktaark = 'https://stadnamn.kartverket.no/fakta/';
       var urlHavnivaa = "http://api.sehavniva.no/";
-
-      this.generateWhat3WordsServiceUrl = function () {
-        return url + 'ws/w3w.py';
-      };
+      var urlAdresseSok = 'https://ws.geonorge.no/adresser/v1/sok';
+      var urlAdressePunktsok = 'https://ws.geonorge.no/adresser/v1/punktsok';
 
       this.uploadGpxFileService = function () {
         return url + 'ws/upload-gpx.py';
@@ -61,7 +59,9 @@ angular.module('mainApp')
       };
 
       this.generateSearchMatrikkelAdresseUrl = function (query) {
-        return url + "ws/adr.py?" + encodeURIComponent(query);
+        query = typeof query === 'string' ? query : '';
+        query = query.indexOf(',') !== -1 ? query.replace(',', ' ') : query;
+        return urlAdresseSok + '?sok=' + query + '&treffPerSide=10';
       };
 
       this.generateSearchStedsnavnUrl = function (query, side, antall) {
@@ -75,10 +75,6 @@ angular.module('mainApp')
         return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + query + "*&eksakteForst=true&antPerSide=" + antall + "&epsgKode=32633&side=" + side;
       };
 
-      this.generateSearchAdresseUrl = function (query) {
-        return urlGeonorge + "AdresseWS/adresse/sok?sokestreng=" + encodeURIComponent(query) + "&antPerSide=1000&side=0";
-      };
-
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
         return url + 'ws/elev.py?lat=' + lat + '&lon=' + lon + '&epsg=' + epsgNumber;
       };
@@ -87,8 +83,18 @@ angular.module('mainApp')
         return url + "ws/wfs.teig.py?bbox=" + minx + "," + miny + "," + maxx + "," + maxy;
       };
 
+      this.generateAdresseSokUrl = function (query) {
+        query = typeof query === 'string' ? query : '';
+        query = query.indexOf(',') !== -1 ? query.replace(',', '*') : query + '*';
+        return urlAdresseSok + '?sok=' + query + '&treffPerSide=1000';
+      };
+
+      this.generateAdressePunktsokUrl = function (radius, lat, lon) {
+        return urlAdressePunktsok + '?radius=' + radius + '&lat=' + lat + '&lon=' + lon + '&treffPerSide=10';
+      };
+
       this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
-        return urlSeEiendom + "services/Matrikkel.svc/GetDetailPage?type=property&knr=" + knr + "&gnr=" + gnr + "&bnr=" + bnr + "&fnr=" + fnr + "&snr=" + snr + "&customer=kartverket";
+        return urlSeEiendom + "eiendom/" + knr + "/" + gnr + "/" + bnr + "/" + fnr + "/" + snr;
       };
 
       this.generateFaktaarkUrl = function (stedsnummer) {
@@ -506,7 +512,6 @@ angular.module('mainApp')
                   }
                 }
         */
-        //{ESRI: null,EPSG: null,SOSI: null,name: 'what3words',viewable: false,forward: true,key: 'w3w',type: 'extended',bbox: {}}
         //{'ESRI': null, 'EPSG': null, 'SOSI': null, 'name': 'Geohash', 'viewable': false, 'forward': true}
         //{'ESRI': null, 'EPSG': null, 'SOSI': 53, 'name': 'Møre-A'},
         //{'ESRI': null, 'EPSG': null, 'SOSI': 54, 'name': 'Møre-B'},
@@ -564,26 +569,20 @@ angular.module('mainApp')
             return obj;
           });
       };
-
       this.generateUrlPrintCapabilities = function(appId) {
         return urlGeonorge + "print/" + appId + "/capabilities.json";
       };
-
       this.generatePrintUrl = function(appId){
         return urlGeonorge + "print/" + appId + "/report.pdf";
       };
-
       this.generatePrintDownloadUrl = function(downloadUrl){
         return urlGeonorge.slice(0, -1) + downloadUrl;
       };
-
       this.generateStatusPrintDownloadUrl = function(statusUrl){
         return urlGeonorge.slice(0, -1) + statusUrl;
       };
-
       this.generateCancelPrintUrl = function(refNum){
         return urlGeonorge + 'print/cancel/' + refNum;
       };
-
     }
   ]);

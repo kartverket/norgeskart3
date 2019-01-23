@@ -13,12 +13,13 @@ angular.module('mainApp')
           var measureLine = toolsFactory.getToolById("MeasureLine");
           var measure = toolsFactory.getToolById("Measure");
           var pointSelectTool = toolsFactory.getToolById('PointSelect');
+          var printBox = toolsFactory.getToolById('PrintBox');
           var printBoxSelect = toolsFactory.getToolById('PrintBoxSelect');
           var drawFeature = toolsFactory.getToolById('DrawFeature');
           var addLayerUrl = toolsFactory.getToolById('AddLayerUrl');
 
           element.on('mousedown touchstart', function (event) {
-            if (!addFeatureTool.isSelected && !measureLine.isSelected && !measure.isSelected && !printBoxSelect.isSelected && !drawFeature.isSelected && !addLayerUrl.isSelected) {
+            if (!addFeatureTool.isSelected && !measureLine.isSelected && !measure.isSelected && !printBox.isSelected && !printBoxSelect.isSelected && !drawFeature.isSelected && !addLayerUrl.isSelected) {
               toolsFactory.activateTool(pointSelectTool);
             }
             if (mainAppFactory.isMainMenuOpen()) {

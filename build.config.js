@@ -77,7 +77,7 @@ module.exports = {
             'vendor/pouchdb/dist/pouchdb.min.js',
             'vendor/openlayers3/ol.js',
             'vendor/blob-util/dist/blob-util.min.js',
-            'vendor/maplib/dist/maplib-min.js',
+            'vendor/maplib/dist/maplib.js',
             'vendor/xml-to-json/xml.min.js',
             'vendor/xml-to-json/json2xml.min.js',
             'vendor/angular-utils-pagination/dirPagination.js',
