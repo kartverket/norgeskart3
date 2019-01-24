@@ -32,7 +32,7 @@ angular.module('menuPrint')
               $scope.formats = capabilities.formats;
               $scope.selectedFormat = "pdf";
               $scope.dpiResolutions = $scope.selectedLayout.attributes[1].clientInfo.dpiSuggestions;
-              $scope.selectedDpi = 72;
+              $scope.selectedDpi = 128;
               $scope.showSpinner = false;
               setPrintBox();
             });
