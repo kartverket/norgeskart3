@@ -119,11 +119,11 @@ angular.module('menuPrint')
               center: [center.lon, center.lat],
               dpi: $scope.selectedDpi,
               layers: [],
-              projection: "EPSG:25833",
               rotation: 0,
+              projection: "EPSG:25833",
               scale: $scope.selectedPrintScale
             },
-            pos: [center.lon, center.lat],
+            pos: Number(Math.round(center.lon + 'e' + 2) + 'e-' + 2) + ', ' + Number(Math.round(center.lat + 'e' + 2) + 'e-' + 2),
             title: $scope.mapName || ''
           },
           layout: $scope.selectedLayout.name,
