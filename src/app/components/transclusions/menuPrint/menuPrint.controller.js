@@ -32,7 +32,7 @@ angular.module('menuPrint')
               $scope.formats = capabilities.formats;
               $scope.selectedFormat = "pdf";
               $scope.dpiResolutions = $scope.selectedLayout.attributes[1].clientInfo.dpiSuggestions;
-              $scope.selectedDpi = 130;
+              $scope.selectedDpi = 72;
               $scope.showSpinner = false;
               setPrintBox();
             });
@@ -126,7 +126,8 @@ angular.module('menuPrint')
             pos: [center.lon, center.lat],
             title: $scope.mapName || ''
           },
-          layout: $scope.selectedLayout.name
+          layout: $scope.selectedLayout.name,
+          outputFormat: $scope.selectedFormat
         };
         //var mapConfig = mainAppFactory.getMapConfig();
         //printJson.attributes.map.projection = mapConfig.coordinate_system;
@@ -298,6 +299,16 @@ angular.module('menuPrint')
               };
               break;
             default:
+              printLayer = {
+                baseURL: visibleLayers[i].subLayers[0].url[0],
+                customParams: {
+                  TRANSPARENT: "true"
+                },
+                imageFormat: "image/png",
+                layers: [visibleLayers[i].subLayers[0].name],
+                opacity: 0.7,
+                type: visibleLayers[i].subLayers[0].source
+              };
               break;
           }
           printJson.attributes.map.layers.push(printLayer);
