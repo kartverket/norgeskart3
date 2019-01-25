@@ -119,7 +119,7 @@ angular.module('menuPrint')
               center: [center.lon, center.lat],
               dpi: $scope.selectedDpi,
               layers: [],
-              rotation: 0,
+              rotation: 0, // ToDo: calculate the angle so that north can be shown correctly
               projection: "EPSG:25833",
               scale: $scope.selectedPrintScale
             },
@@ -142,11 +142,14 @@ angular.module('menuPrint')
                 customParams: {
                   TRANSPARENT: "true"
                 },
-                imageFormat: "image/png",
+                imageFormat: visibleLayers[i].subLayers[0].format,
                 layers: [visibleLayers[i].subLayers[0].name],
                 opacity: 0.7,
                 type: visibleLayers[i].subLayers[0].source
               };
+              if( visibleLayers[i].subLayers[0].styles) {
+                printLayer.styles = [visibleLayers[i].subLayers[0].styles];
+              }
               break;
             case 'WMTS':
               printLayer = {
@@ -154,7 +157,7 @@ angular.module('menuPrint')
                 customParams: {
                   TRANSPARENT: "false"
                 },
-                imageFormat: "image/png",
+                imageFormat: visibleLayers[i].subLayers[0].format,
                 layer: visibleLayers[i].subLayers[0].name,
                 opacity: 1,
                 type: visibleLayers[i].subLayers[0].source,
@@ -304,7 +307,7 @@ angular.module('menuPrint')
                 customParams: {
                   TRANSPARENT: "true"
                 },
-                imageFormat: "image/png",
+                imageFormat: visibleLayers[i].subLayers[0].format,
                 layers: [visibleLayers[i].subLayers[0].name],
                 opacity: 0.7,
                 type: visibleLayers[i].subLayers[0].source
