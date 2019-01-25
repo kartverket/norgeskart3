@@ -6,13 +6,16 @@ angular.module('menuPrint')
         1: 100,
         2: 500,
         3: 1000,
-        4: 5000,
-        5: 10000,
-        6: 25000,
-        7: 50000,
-        8: 100000,
-        9: 250000,
-        10: 500000
+        4: 2500,
+        5: 5000,
+        6: 10000,
+        7: 25000,
+        8: 50000,
+        9: 100000,
+        10: 250000,
+        11: 500000,
+        12: 1000000,
+        13: 2500000
       };
 
       $scope.printCanceled = true;
@@ -124,6 +127,7 @@ angular.module('menuPrint')
               scale: $scope.selectedPrintScale
             },
             pos: Number(Math.round(center.lon + 'e' + 2) + 'e-' + 2) + ', ' + Number(Math.round(center.lat + 'e' + 2) + 'e-' + 2),
+            scale_string: "1:" + $scope.selectedPrintScale,
             title: $scope.mapName || ''
           },
           layout: $scope.selectedLayout.name,
