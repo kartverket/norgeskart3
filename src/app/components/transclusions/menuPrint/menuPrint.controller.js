@@ -112,10 +112,16 @@ angular.module('menuPrint')
 
       $scope.print = function () {
         var center = map.GetCenter();
-        var visibleLayers = mainAppFactory.getVisibleLayers();
-        visibleLayers.sort(function (x, y) {
-          return x.isBaseLayer - y.isBaseLayer;
+         var layers = ISY.MapImplementation.OL3.olMap.getLayers().getArray(); //mainAppFactory.getVisibleLayers();
+        layers.sort(function (a, b) {
+          return a.getZIndex() - b.getZIndex();
         });
+        layers = layers.filter(function (layer) {
+          return layer.get('name') != 'PrintBox';
+        }).filter(function (layer) {
+          return layer.getVisible() == true;
+        })
+
         var printJson = {
           attributes: {
             map: {
@@ -137,34 +143,34 @@ angular.module('menuPrint')
         //printJson.attributes.map.projection = mapConfig.coordinate_system;
         $scope.printCanceled = false;
         $scope.showSpinner = true;
-        for (var i = 0; i < visibleLayers.length; i++) {
+        for (var i = 0; i < layers.length; i++) {
           var printLayer = {};
-          switch (visibleLayers[i].subLayers[0].source) {
-            case 'WMS':
+          switch (layers[i].type) {
+            case 'IMAGE':
               printLayer = {
-                baseURL: visibleLayers[i].subLayers[0].url[0],
+                baseURL: layers[i].getProperties().config.url[0],
                 customParams: {
                   TRANSPARENT: "true"
                 },
-                imageFormat: visibleLayers[i].subLayers[0].format,
-                layers: [visibleLayers[i].subLayers[0].name],
+                imageFormat: layers[i].getProperties().config.format,
+                layers: [layers[i].getProperties().config.name],
                 opacity: 0.7,
-                type: visibleLayers[i].subLayers[0].source
+                type: layers[i].getProperties().config.source
               };
-              if( visibleLayers[i].subLayers[0].styles) {
-                printLayer.styles = [visibleLayers[i].subLayers[0].styles];
+              if (layers[i].getProperties().config.styles) {
+                printLayer.styles = [layers[i].getProperties().config.styles];
               }
               break;
-            case 'WMTS':
+            case 'TILE':
               printLayer = {
-                baseURL: visibleLayers[i].subLayers[0].url[0],
+                baseURL: layers[i].getProperties().config.url[0],
                 customParams: {
                   TRANSPARENT: "false"
                 },
-                imageFormat: visibleLayers[i].subLayers[0].format,
-                layer: visibleLayers[i].subLayers[0].name,
+                imageFormat: layers[i].getProperties().config.format,
+                layer: layers[i].getProperties().config.name,
                 opacity: 1,
-                type: visibleLayers[i].subLayers[0].source,
+                type: layers[i].getProperties().config.source,
                 dimensions: null,
                 requestEncoding: "KVP",
                 dimensionParams: {},
@@ -172,149 +178,169 @@ angular.module('menuPrint')
                 matrices: [{
                     identifier: "EPSG:25833:0",
                     scaleDenominator: 77371428.57142858,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [1, 1]
                   },
                   {
                     identifier: "EPSG:25833:1",
                     scaleDenominator: 38685714.28571429,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [2, 2]
                   },
                   {
                     identifier: "EPSG:25833:2",
                     scaleDenominator: 19342857.142857146,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [4, 4]
                   },
                   {
                     identifier: "EPSG:25833:3",
                     scaleDenominator: 9671428.571428573,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [8, 8]
                   },
                   {
                     identifier: "EPSG:25833:4",
                     scaleDenominator: 4835714.285714286,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [16, 16]
                   },
                   {
                     identifier: "EPSG:25833:5",
                     scaleDenominator: 2417857.142857143,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [32, 32]
                   },
                   {
                     identifier: "EPSG:25833:6",
                     scaleDenominator: 1208928.5714285716,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [64, 64]
                   },
                   {
                     identifier: "EPSG:25833:7",
                     scaleDenominator: 604464.2857142858,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [128, 128]
                   },
                   {
                     identifier: "EPSG:25833:8",
                     scaleDenominator: 302232.1428571429,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [256, 256]
                   },
                   {
                     identifier: "EPSG:25833:9",
                     scaleDenominator: 151116.07142857145,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [512, 512]
                   },
                   {
                     identifier: "EPSG:25833:10",
                     scaleDenominator: 75558.03571428572,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [1024, 1024]
                   },
                   {
                     identifier: "EPSG:25833:11",
                     scaleDenominator: 37779.01785714286,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [2048, 2048]
                   },
                   {
                     identifier: "EPSG:25833:12",
                     scaleDenominator: 18889.50892857143,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [4096, 4096]
                   },
                   {
                     identifier: "EPSG:25833:13",
                     scaleDenominator: 9444.754464285716,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [8192, 8192]
                   },
                   {
                     identifier: "EPSG:25833:14",
                     scaleDenominator: 4722.377232142858,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [16384, 16384]
                   },
                   {
                     identifier: "EPSG:25833:15",
                     scaleDenominator: 2361.188616071429,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [32768, 32768]
                   },
                   {
                     identifier: "EPSG:25833:16",
                     scaleDenominator: 1180.5943080357144,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [65536, 65536]
                   },
                   {
                     identifier: "EPSG:25833:17",
                     scaleDenominator: 590.2971540178572,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [131072, 131072]
                   },
                   {
                     identifier: "EPSG:25833:18",
                     scaleDenominator: 295.1485770089286,
-                    topLeftCorner: [-2500000,9045984],
-                    tileSize:[ 256,256],
+                    topLeftCorner: [-2500000, 9045984],
+                    tileSize: [256, 256],
                     matrixSize: [262144, 262144]
                   }
                 ],
               };
               break;
+            case 'VECTOR':
+              if (layers[i].getSource().getFormat()) {
+                // Assume GML
+                printLayer = {
+                  url: layers[i].getSource().getUrl(),
+                  opacity: 0.7,
+                  type: 'GML'
+                };
+              } else {
+                // Assume GeoJson - drawing
+                var hash = layers[i].getSource().getFeatures()[0].getId();
+                var geoJsonUrl = mainAppService.generateGeoJSONUrl(hash, false);
+                printLayer = {
+                  geoJson: geoJsonUrl,
+                  opacity: 0.7,
+                  type: 'geojson'
+                };
+              }
+              break;
             default:
+              console.warn("Unexpected Layer type to print, let's try it");
               printLayer = {
-                baseURL: visibleLayers[i].subLayers[0].url[0],
+                baseURL: layers[i].getProperties().config.url[0],
                 customParams: {
                   TRANSPARENT: "true"
                 },
-                imageFormat: visibleLayers[i].subLayers[0].format,
-                layers: [visibleLayers[i].subLayers[0].name],
+                imageFormat: layers[i].getProperties().config.format,
+                layers: [layers[i].getProperties().config.name],
                 opacity: 0.7,
-                type: visibleLayers[i].subLayers[0].source
+                type: layers[i].getProperties().config.source
               };
               break;
           }
