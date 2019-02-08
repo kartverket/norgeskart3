@@ -54,6 +54,7 @@ angular.module("ISY.Angular.MapImplementation", [])
     "ISY.MapImplementation.OL3.AddLayerFeature",
     "ISY.MapImplementation.OL3.ModifyFeature",
     "ISY.MapImplementation.OL3.AddFeatureGps",
+    "ISY.MapImplementation.OL3.PrintBox",
     "ISY.MapImplementation.OL3.PrintBoxSelect",
     "ISY.MapImplementation.OL3.AddLayerUrl",
     ISY.MapImplementation.OL3.Map
@@ -69,6 +70,7 @@ angular.module("ISY.Angular.MapImplementation", [])
   .service("ISY.MapImplementation.OL3.AddLayerFeature", ["ISY.EventHandler", ISY.MapImplementation.OL3.AddLayerFeature])
   .service("ISY.MapImplementation.OL3.ModifyFeature", ["ISY.EventHandler", ISY.MapImplementation.OL3.ModifyFeature])
   .service("ISY.MapImplementation.OL3.AddFeatureGps", ["ISY.EventHandler", ISY.MapImplementation.OL3.AddFeatureGps])
+  .service("ISY.MapImplementation.OL3.PrintBox", ["ISY.EventHandler", ISY.MapImplementation.OL3.PrintBox])
   .service("ISY.MapImplementation.OL3.PrintBoxSelect", ["ISY.EventHandler", ISY.MapImplementation.OL3.PrintBoxSelect])
   .service("ISY.MapImplementation.OL3.AddLayerUrl", ["ISY.EventHandler", ISY.MapImplementation.OL3.AddLayerUrl]);
 
