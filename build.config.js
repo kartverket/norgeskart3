@@ -35,7 +35,7 @@ module.exports = {
      */
     test_files: {
         js: [
-            'vendor/angular-mocks/angular-mocks.js'
+            'node_modules/angular-mocks/angular-mocks.js'
         ]
     },
 
@@ -68,34 +68,34 @@ module.exports = {
 
     vendor_files: {
         js: [
-            'vendor/jquery/dist/jquery.min.js',
-            'vendor/angular/angular.min.js',
-            'vendor/angular-route/angular-route.min.js',
-            'vendor/bootstrap/dist/js/bootstrap.min.js',
-            'vendor/angular-translate/angular-translate.min.js',
-            'vendor/proj4/dist/proj4.js',
-            'vendor/pouchdb/dist/pouchdb.min.js',
-            'vendor/openlayers3/ol.js',
-            'vendor/blob-util/dist/blob-util.min.js',
-            'vendor/maplib/dist/maplib.js',
-            'vendor/xml-to-json/xml.min.js',
-            'vendor/xml-to-json/json2xml.min.js',
-            'vendor/angular-utils-pagination/dirPagination.js',
-            'vendor/featherlight/release/featherlight.min.js',
+            'node_modules/jquery/dist/jquery.min.js',
+            'node_modules/angular/angular.min.js',
+            'node_modules/angular-route/angular-route.min.js',
+            'node_modules/bootstrap/dist/js/bootstrap.min.js',
+            'node_modules/angular-translate/dist/angular-translate.min.js',
+            'node_modules/proj4/dist/proj4.js',
+            'node_modules/pouchdb/dist/pouchdb.min.js',
+            'node_modules/ol/dist/ol.js',
+            'node_modules/blob-util/dist/blob-util.min.js',
+            'node_modules/maplib/dist/maplib-min.js',
+            'node_modules/xml-to-json/xml.min.js',
+            'node_modules/xml-to-json/json2xml.min.js',
+            'node_modules/angular-utils-pagination/dirPagination.js',
+            'node_modules/featherlight/release/featherlight.min.js',
             'node_modules/angular-sanitize/angular-sanitize.min.js'
         ],
         css: [
-            'vendor/bootstrap/dist/css/bootstrap.min.css',
-            'vendor/featherlight/release/featherlight.min.css'
+            'node_modules/bootstrap/dist/css/bootstrap.min.css',
+            'node_modules/featherlight/release/featherlight.min.css'
         ],
         assets: [
             'src/assets/fonts/'
         ],
         fonts: [
-            'vendor/bootstrap/fonts/glyphicons-halflings-regular.woff',
-            'vendor/bootstrap/fonts/glyphicons-halflings-regular.woff2',
-            'vendor/bootstrap/fonts/glyphicons-halflings-regular.ttf',
-            'vendor/bootstrap/fonts/glyphicons-halflings-regular.eot'
+            'node_modules/bootstrap/fonts/glyphicons-halflings-regular.woff',
+            'node_modules/bootstrap/fonts/glyphicons-halflings-regular.woff2',
+            'node_modules/bootstrap/fonts/glyphicons-halflings-regular.ttf',
+            'node_modules/bootstrap/fonts/glyphicons-halflings-regular.eot'
         ]
     },
     jssource_mapclient: [

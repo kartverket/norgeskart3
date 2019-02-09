@@ -5,7 +5,7 @@ angular.module('mainMenuPanel')
             $scope.drawActivated=false;
 
             $scope.mainMenuPanelLayout = "mainMenuSections";
-            
+
             $scope.resetApplication = function ($event) {
                 $event.preventDefault();
                 localStorageFactory.remove('lat');
@@ -48,7 +48,7 @@ angular.module('mainMenuPanel')
             }
 
             $scope.moveableOverlayLayout = "";
-            
+
             $scope.showMoveableDrawMenu = function () {
                 _setActiveMoveableMenu("DrawMenu");
             };
@@ -62,7 +62,7 @@ angular.module('mainMenuPanel')
                 $scope.moveableOverlayLayout = "menuElevationProfileLayout";
                 _setActiveMoveableMenu("ElevationProfile");
             };
-
+            
             $scope.showMoveablePrintMenu = function() {
                 $scope.moveableOverlayLayout = "menuPrintLayout";
                 _setActiveMoveableMenu("PrintMenu");

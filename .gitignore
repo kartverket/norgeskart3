@@ -1,13 +1,7 @@
-# Bower
-.bower-cache
-.bower-registry
-.bower-tmp
-
 # Sass
 .sass-cache
 
 node_modules
-vendor
 coverage
 build
 dist
