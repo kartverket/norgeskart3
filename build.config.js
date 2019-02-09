@@ -77,7 +77,7 @@ module.exports = {
             'node_modules/pouchdb/dist/pouchdb.min.js',
             'node_modules/ol/dist/ol.js',
             'node_modules/blob-util/dist/blob-util.min.js',
-            'node_modules/maplib/dist/maplib.js',
+            'node_modules/maplib/dist/maplib-min.js',
             'node_modules/xml-to-json/xml.min.js',
             'node_modules/xml-to-json/json2xml.min.js',
             'node_modules/angular-utils-pagination/dirPagination.js',
