@@ -74,7 +74,7 @@ module.exports = {
             'node_modules/bootstrap/dist/js/bootstrap.min.js',
             'node_modules/angular-translate/dist/angular-translate.min.js',
             'node_modules/proj4/dist/proj4.js',
-            'node_modules/pouchdb/dist/pouchdb.min.js',
+            'external/pouchdb.js',
             'node_modules/ol/dist/ol.js',
             'node_modules/blob-util/dist/blob-util.min.js',
             'node_modules/maplib/dist/maplib-min.js',

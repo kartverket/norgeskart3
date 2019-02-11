@@ -1,7 +1,7 @@
 {
   "author": "",
   "name": "norgeskart3",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "homepage": "http://www.norgeskart.no/3",
   "description": "Norgeskart3",
   "keywords": [
@@ -18,7 +18,10 @@
   },
   "scripts": {
     "lite": "lite-server --port 10001 --baseDir=build",
-    "start": "npm run lite"
+    "start": "npm run lite",
+    "prebuild": "browserify ./node_modules/pouchdb-browser/lib/index.js -s PouchDB > ./external/pouchdb.js",
+    "build": "grunt default -f",
+    "dev": "npm run prebuild && grunt watch -f"
   },
   "license": "SEE LICENSE IN README.md",
   "dependencies": {
@@ -44,18 +47,19 @@
     "jquery-ui": "~1.12.x",
     "maplib": "git+https://github.com/kartverket/MapLib.git",
     "ol": "https://github.com/kartverket/ol.git#kv0219",
-    "pouchdb-browser": "~7.0.0",
+    "pouchdb-browser": "7.0.0",
     "proj4": "*",
     "xml-to-json": "git+https://github.com/SpeedShifter/Xml-to-JSON.git"
   },
   "devDependencies": {
+    "browserify": "^16.2.3",
+    "eslint": "5.x.x",
+    "eslint-config-airbnb-base": "13.1.x",
+    "eslint-plugin-import": "2.x.x",
     "grunt": "1.0.x",
     "grunt-appcache": "0.2.x",
     "grunt-bump": "0.8.x",
     "grunt-contrib-clean": "2.0.x",
-    "eslint": "5.x.x",
-    "eslint-config-airbnb-base": "13.1.x",
-    "eslint-plugin-import": "2.x.x",
     "grunt-contrib-compass": "1.1.x",
     "grunt-contrib-concat": "1.0.x",
     "grunt-contrib-copy": "1.0.x",
@@ -67,9 +71,9 @@
     "grunt-html2js": "0.5.x",
     "grunt-karma": "3.0.x",
     "grunt-ngmin": "0.0.x",
-    "jasmine-core": "3.x.x",
     "jasmine": "~3",
     "jasmine-ajax": "3.4.0",
+    "jasmine-core": "3.x.x",
     "karma": "^3.0.0",
     "karma-chrome-launcher": "2.2.x",
     "karma-coverage": "1.1.x",
