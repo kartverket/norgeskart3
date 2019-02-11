@@ -44,7 +44,7 @@
     "jquery-ui": "~1.12.x",
     "maplib": "git+https://github.com/kartverket/MapLib.git",
     "ol": "https://github.com/kartverket/ol.git#kv0219",
-    "pouchdb-browser": "~7.0.0",
+    "pouchdb": "5.0.0",
     "proj4": "*",
     "xml-to-json": "git+https://github.com/SpeedShifter/Xml-to-JSON.git"
   },
