@@ -12,8 +12,8 @@ The solution uses web services from Kartverket which are subject to their own li
 
 Installation
 ------------
-    1. Install nodejs and bower, make sure you can run the commands "node" and "bower" in your preferred command line    
-    2. Install $ npm -g install grunt-cli karma bower
+    1. Install nodejs, make sure you can run the commands "node" in your preferred command line    
+    2. Install $ npm -g install grunt-cli karma
     3. Install ruby and compass to build scss
         3.1 Install ruby 1.9.3 http://rubyinstaller.org/
         3.2 Add ruby executables to your PATH 
@@ -21,8 +21,7 @@ Installation
         3.4 run "gem update --system"
         3.5 run "gem install compass"    
     4. Run "npm install" on the command line from within the fetched directory
-    5. Run "bower install"
-    6. Build and run unit tests with "grunt default"
+    5. Build and run unit tests with "grunt default"
 
 
 Learn
@@ -43,12 +42,6 @@ ng-boilerplate/
   |  |  |- <reusable code>
   |  |- less/
   |  |  |- main.less
-  |- vendor/
-  |  |- angular-bootstrap/
-  |  |- bootstrap/
-  |  |- placeholders/
-  |- .bowerrc
-  |- bower.json
   |- build.config.js
   |- Gruntfile.js
   |- module.prefix
@@ -62,14 +55,6 @@ learn more.
 
 - `karma/` - test configuration.
 - `src/` - our application sources. [Read more &raquo;](src/README.md)
-- `vendor/` - third-party libraries. [Bower](http://bower.io) will install
-  packages here. Anything added to this directory will need to be manually added
-  to `build.config.js` and `karma/karma-unit.js` to be picked up by the build
-  system.
-- `.bowerrc` - the Bower configuration file. This tells Bower to install
-  components into the `vendor/` directory.
-- `bower.json` - this is our project configuration for Bower and it contains the
-  list of Bower dependencies we need.
 - `build.config.js` - our customizable build settings.
 - `Gruntfile.js` - our build script.
 - `module.prefix` and `module.suffix` - our compiled application script is

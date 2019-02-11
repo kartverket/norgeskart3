@@ -12,19 +12,9 @@ angular.module('menuElevationProfilePage1')
            */
           function _addLayerFeatureEnd(feature) {
             scope.setImageExits(false);
-            var multiLineString;
-            var newFeature = feature;
-            if (feature.getGeometry().getType() === 'LineString') {
-              multiLineString = new ol.geom.MultiLineString();
-              multiLineString.appendLineString(feature.getGeometry());
-              newFeature = new ol.Feature({
-                geometry: multiLineString
-              });
-            }
-
             if (menuElevationProfileFactory.getElevationProfileActive()) {
               var gpxFormat = new ol.format.GPX();
-              var gpx = gpxFormat.writeFeatures([newFeature], {
+              var gpx = gpxFormat.writeFeatures([feature], {
                 featureProjection: 'EPSG:25833',
                 dataProjection: 'EPSG:4326'
               });

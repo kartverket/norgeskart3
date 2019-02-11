@@ -37,9 +37,7 @@ angular.module('moveableOverlay')
           var x = 0;
           var y = 0;
 
-
-
-          element.on('mousedown touchstart', function (event) {
+          element.on('pointerdown mousedown touchstart', function (event) {
             updateElementsPosition(element);
             if (event.target.id !== 'header1' && event.target.id !== 'header2' &&
               event.target.id !== 'header3' && event.target.id !== 'header4' &&

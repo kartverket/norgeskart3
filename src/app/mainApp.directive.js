@@ -18,7 +18,7 @@ angular.module('mainApp')
           var drawFeature = toolsFactory.getToolById('DrawFeature');
           var addLayerUrl = toolsFactory.getToolById('AddLayerUrl');
 
-          element.on('mousedown touchstart', function (event) {
+          element.on('pointerdown mousedown touchstart', function (event) {
             if (!addFeatureTool.isSelected && !measureLine.isSelected && !measure.isSelected && !printBox.isSelected && !printBoxSelect.isSelected && !drawFeature.isSelected && !addLayerUrl.isSelected) {
               toolsFactory.activateTool(pointSelectTool);
             }
