@@ -165,9 +165,7 @@ angular.module('menuPrint')
             case 'WMS':
               printLayer = {
                 baseURL: baseUrl,
-                customParams: {
-                  TRANSPARENT: "true"
-                },
+                customParams: customParams,
                 imageFormat: layers[i].getProperties().config.format,
                 layers: [layers[i].getProperties().config.name],
                 opacity: 1,
@@ -184,9 +182,7 @@ angular.module('menuPrint')
               }
               printLayer = {
                 baseURL: baseUrl,
-                customParams: {
-                  TRANSPARENT: "true"
-                },
+                customParams: customParams,
                 style: "default",
                 imageFormat: layers[i].getProperties().config.format,
                 layer: layers[i].getProperties().config.name,
