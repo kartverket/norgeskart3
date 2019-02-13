@@ -122,9 +122,8 @@
       <ul class="list-result" data-ng-show="!cadastreResult.open" data-ng-if="!isIosDevice()">
         <div ng-repeat="searchResult in searchResults['matrikkelnummer']">
           <div ng-if="searchResult.url">
-            <li ng-mouseover="mouseOver(searchResult)" class="pointer-cursor list-group-item-danger"  data-ng-click="openShowEiendom(searchResult);">
-              <span>Matrikkelenheten har ingen kjente teiger. Klikk her for å se informasjon om eiendommen</span>
-              <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+            <li ng-mouseover="mouseOver(searchResult)" class="pointer-cursor list-group-item-warning"  data-ng-click="openShowEiendom(searchResult);">
+              <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span> <span translate="searchResult_noMatrikkel"></span>
               </select>
             </li>
           </div>
@@ -139,9 +138,8 @@
       <ul class="list-result" data-ng-show="!cadastreResult.open" data-ng-if="isIosDevice()">
         <div ng-repeat="searchResult in searchResults['matrikkelnummer']">
           <div ng-if="searchResult.url">
-            <li class="pointer-cursor list-group-item-danger" ng-mousedown="openShowEiendom(searchResult);">
-              <span>Matrikkelenheten har ingen kjente teiger. Klikk her for å se informasjon om eiendommen</span>
-              <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span>
+            <li class="pointer-cursor list-group-item-warning" ng-mousedown="openShowEiendom(searchResult);">
+              <span ng-bind="searchResult.name + ', ' + searchResult.kommune"></span> <span translate="searchResult_noMatrikkel"></span>
               </select>
             </li>
           </div>
@@ -158,7 +156,7 @@
   </div>
 </div>
 <div class="search-panel" ng-show="searchResults === undefined && searchBarModel !== '' && searchBarModel !== undefined">
-  <div class="search-content spinner-content" data-ng-show="spinnerIsVisible"> 
+  <div class="search-content spinner-content" data-ng-show="spinnerIsVisible">
     <div class="app-spinner">
       <svg class="spinner" viewBox="25 25 50 50">
         <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
