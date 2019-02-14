@@ -61,7 +61,7 @@ angular.module('mainApp')
       this.generateSearchMatrikkelAdresseUrl = function (query) {
         query = typeof query === 'string' ? query : '';
         query = query.indexOf(',') !== -1 ? query.replace(',', ' ') : query;
-        return urlAdresseSok + '?sok=' + query + '&treffPerSide=10';
+        return urlAdresseSok + '?sok=' + encodeURIComponent(query) + '&treffPerSide=10';
       };
 
       this.generateSearchStedsnavnUrl = function (query, side, antall) {
@@ -86,7 +86,7 @@ angular.module('mainApp')
       this.generateAdresseSokUrl = function (query) {
         query = typeof query === 'string' ? query : '';
         query = query.indexOf(',') !== -1 ? query.replace(',', '*') : query + '*';
-        return urlAdresseSok + '?sok=' + query + '&treffPerSide=1000';
+        return urlAdresseSok + '?sok=' + encodeURIComponent(query) + '&treffPerSide=1000';
       };
 
       this.generateAdressePunktsokUrl = function (radius, lat, lon) {
