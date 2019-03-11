@@ -352,7 +352,9 @@ angular.module('isyTranslate').constant('translations', {
     "privacy_policy_info": "Les hvordan vi tar vare på personopplysninger i ",
     "privacy_policy_link": "Kartverkets personvernerklæring",
     "chat_with_kartverket" : "Snakk med Kartverket",
-    "fail_to_load_faq": "Feil å laste inn tips og triks"
+    "fail_to_load_faq": "Feil å laste inn tips og triks",
+    "searchResult_noMatrikkel": "har ingen kjente teiger. Klikk her for å se informasjon om eiendommen.",
+    "multipleAdressesText": "Eiendommen har flere adresser"
   },
   nn: {
     "AcceptAndContinue": "EG SKJØNAR OG GODTAR",
@@ -707,7 +709,9 @@ angular.module('isyTranslate').constant('translations', {
     "privacy_policy_info": "Les korleis vi tar vare på personopplysningar i ",
     "privacy_policy_link": "Kartverkets personvernerklæring",
     "chat_with_kartverket": "Snakk med Kartverket",
-    "fail_to_load_faq": "Feil å laste inn tips og triks"
+    "fail_to_load_faq": "Feil å laste inn tips og triks",
+    "searchResult_noMatrikkel": " har ingen kjende teigar. Klikk her for å sjå informasjon om eigedomen.",
+    "multipleAdressesText": "Eigedomen har fleire adresser"
   },
   en: {
     "AcceptAndContinue": "ACCEPT AND CONTINUE",
@@ -1062,6 +1066,8 @@ angular.module('isyTranslate').constant('translations', {
     "privacy_policy_info": "Read about how we protect your personal data in our ",
     "privacy_policy_link": "privacy policy",
     "chat_with_kartverket": "Chat with Kartverket",
-    "fail_to_load_faq": "Fail to load tips and tricks"
+    "fail_to_load_faq": "Fail to load tips and tricks",
+    "searchResult_noMatrikkel": "has no known cadastral parcels. Click here to see information about the property.",
+    "multipleAdressesText": "The property has several addresses"
   }
 });

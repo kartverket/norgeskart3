@@ -21,10 +21,13 @@
     </div>
     <div class="search-content" data-ng-show="!eiendom.open">
         <span data-ng-show="showFetchAdressSearch"><i class="fa fa-spinner fa-spin fa-2x fa-fw"></i></span>
-        <div data-ng-show="vegaddresse !== ''">
+        <div ng-if="multipleAdresses">
+          <span translate="multipleAdressesText"></span>
+        </div>
+        <div ng-if="!multipleAdresses" data-ng-show="vegaddresse !== ''">
             <span data-ng-show="!showFetchAdressSearch" data-ng-bind="vegaddresse"></span>
         </div>
-        <div data-ng-show="cityName !== ''">
+        <div ng-if="!multipleAdresses" data-ng-show="cityName !== ''">
             <span data-ng-show="!showFetchAdressSearch" data-ng-bind="cityName"></span>
         </div>
         <div class="new-section" data-ng-class="{noMarginTop: vegaddresse == ''}">

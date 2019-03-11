@@ -286,6 +286,11 @@ angular.module('searchPanel')
                   }
                 }
               }
+              if (addressNum.length > 1) {
+                scope.multipleAdresses = true;
+              } else {
+                scope.multipleAdresses = false;
+              }
             });
           };
           var _addSearchOptionToPanel = function (name, data) {
@@ -319,7 +324,7 @@ angular.module('searchPanel')
                   scope.showSelection();
                 }
                 break;
-           }
+            }
           };
 
           var _downloadSearchOptionFromUrl = function (url, name) {
@@ -664,7 +669,7 @@ angular.module('searchPanel')
               async: true,
               success: function (document) {
                 if (((document.length && document.length > 0) ||
-                    (document.childNodes && document.childNodes[0].childNodes.length) || (document.adresser !== undefined )) && scope.searchTimestamp == timestamp) {
+                    (document.childNodes && document.childNodes[0].childNodes.length) || (document.adresser !== undefined)) && scope.searchTimestamp == timestamp) {
                   _successFullSearch(_serviceDict, document);
                 }
               }
@@ -678,7 +683,7 @@ angular.module('searchPanel')
           scope.getResults = function (searchServices) {
             _cancelOldRequests();
             scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
-            if (searchServices){
+            if (searchServices) {
               for (var serviceIndex = 0; serviceIndex < searchServices.length; serviceIndex++) {
                 _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
               }
@@ -767,9 +772,9 @@ angular.module('searchPanel')
                 jsonObject = jsonObject.filter(function (el) {
                   if ((el.kommunenr === parsedInput.municipality || el.kommunenavn === parsedInput.municipality.toUpperCase()) && el.gardsnr === parsedInput.gnr) {
                     if (parsedInput.bnr > -1) {
-                      if ((el.bruksnr.length === parsedInput.bnr.length) && (el.bruksnr.startsWith(parsedInput.bnr)) ) {
+                      if ((el.bruksnr.length === parsedInput.bnr.length) && (el.bruksnr.startsWith(parsedInput.bnr))) {
                         if (parsedInput.fnr > -1) {
-                          if ( (el.festenr.length === parsedInput.fnr.length) && (el.festenr.startsWith(parsedInput.fnr)) ) {
+                          if ((el.festenr.length === parsedInput.fnr.length) && (el.festenr.startsWith(parsedInput.fnr))) {
                             return true;
                           } else {
                             return false;
@@ -1157,7 +1162,7 @@ angular.module('searchPanel')
               scope.activePosition.zoom = Number($location.search().zoom);
               scope.activePosition.lon = Number($location.search().markerLon);
               scope.activePosition.lat = Number($location.search().markerLat);
-              if (!isNaN(scope.activePosition.lon) && !isNaN(scope.activePosition.lat)){
+              if (!isNaN(scope.activePosition.lon) && !isNaN(scope.activePosition.lat)) {
                 showQueryPointFromMouseClick([scope.activePosition.lon, scope.activePosition.lat]);
               }
               switch (openPanel) {
