@@ -693,15 +693,13 @@ angular.module('gn_formfields_directive', [])
    * @name gn_formfields.directive:gnBboxInput
    * @restrict A
    * @requires gnMap
-   * @requires ngeoDecorateInteraction
    *
    * @description
    * The `gnBboxInput` directive provides an input widget for bounding boxes.
    */
   .directive('gnBboxInput', [
     'gnMap',
-    'ngeoDecorateInteraction',
-    function (gnMap, goDecoI) {
+    function (gnMap) {
 
       var extentFromValue = function (str) {
         if (str === undefined || str === '') {
@@ -723,8 +721,7 @@ angular.module('gn_formfields_directive', [])
           value: '=',
           map: '='
         },
-        templateUrl: '../../catalog/components/search/formfields/' +
-          'partials/bboxInput.html',
+        
 
         link: function (scope, element, attrs) {
           var crs = scope.crs || 'EPSG:4326';
@@ -762,7 +759,6 @@ angular.module('gn_formfields_directive', [])
           };
 
           dragboxInteraction.on('boxstart', clearMap);
-          goDecoI(dragboxInteraction);
           dragboxInteraction.active = false;
 
           scope.clear = function () {

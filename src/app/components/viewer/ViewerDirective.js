@@ -245,7 +245,6 @@ module.directive('gnMainViewer', [
   }
 ]);
 
-// TODO : to remove those directives when ngeo allow null class
 module.directive('giBtnGroup', function () {
     return {
       restrict: 'A',

@@ -17,6 +17,8 @@ angular.module('mainApp')
       this.generateWhat3WordsServiceUrl = function () {
         return url + 'ws/w3w.py';
       };
+      var urlAdresseSok = 'https://ws.geonorge.no/adresser/v1/sok';
+      var urlAdressePunktsok = 'https://ws.geonorge.no/adresser/v1/punktsok';
 
       this.uploadGpxFileService = function () {
         return url + 'ws/upload-gpx.py';
@@ -66,7 +68,9 @@ angular.module('mainApp')
       };
 
       this.generateSearchMatrikkelAdresseUrl = function (query) {
-        return url + "ws/adr.py?" + encodeURIComponent(query);
+        query = typeof query === 'string' ? query : '';
+        query = query.indexOf(',') !== -1 ? query.replace(',', ' ') : query;
+        return urlAdresseSok + '?sok=' + query + '&treffPerSide=10';
       };
 
       this.generateSearchStedsnavnUrl = function (query, side, antall) {
@@ -80,10 +84,6 @@ angular.module('mainApp')
         return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + query + "*&eksakteForst=true&antPerSide=" + antall + "&epsgKode=32633&side=" + side;
       };
 
-      this.generateSearchAdresseUrl = function (query) {
-        return urlGeonorge + "AdresseWS/adresse/sok?sokestreng=" + encodeURIComponent(query) + "&antPerSide=1000&side=0";
-      };
-
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
         return url + 'ws/elev.py?lat=' + lat + '&lon=' + lon + '&epsg=' + epsgNumber;
       };
@@ -92,8 +92,18 @@ angular.module('mainApp')
         return url + "ws/wfs.teig.py?bbox=" + minx + "," + miny + "," + maxx + "," + maxy;
       };
 
+      this.generateAdresseSokUrl = function (query) {
+        query = typeof query === 'string' ? query : '';
+        query = query.indexOf(',') !== -1 ? query.replace(',', '*') : query + '*';
+        return urlAdresseSok + '?sok=' + query + '&treffPerSide=1000';
+      };
+
+      this.generateAdressePunktsokUrl = function (radius, lat, lon) {
+        return urlAdressePunktsok + '?radius=' + radius + '&lat=' + lat + '&lon=' + lon + '&treffPerSide=10';
+      };
+
       this.generateSeEiendomUrl = function (knr, gnr, bnr, fnr, snr) {
-        return urlSeEiendom + "eiendom/" + knr + "/" + gnr + "/" + bnr + "/" + fnr + "/" + snr ;
+        return urlSeEiendom + "eiendom/" + knr + "/" + gnr + "/" + bnr + "/" + fnr + "/" + snr;
       };
 
       this.generateFaktaarkUrl = function (stedsnummer) {
@@ -515,7 +525,6 @@ angular.module('mainApp')
                   }
                 }
         */
-        //{ESRI: null,EPSG: null,SOSI: null,name: 'what3words',viewable: false,forward: true,key: 'w3w',type: 'extended',bbox: {}}
         //{'ESRI': null, 'EPSG': null, 'SOSI': null, 'name': 'Geohash', 'viewable': false, 'forward': true}
         //{'ESRI': null, 'EPSG': null, 'SOSI': 53, 'name': 'Møre-A'},
         //{'ESRI': null, 'EPSG': null, 'SOSI': 54, 'name': 'Møre-B'},

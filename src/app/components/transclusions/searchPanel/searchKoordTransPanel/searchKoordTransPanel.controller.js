@@ -6,6 +6,12 @@ angular.module('searchKoordTransPanel')
         return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
       };
 
+      if (!Math.sign) {
+        Math.sign = function(x) {
+          return ((x > 0) - (x < 0)) || +x;
+        };
+      }
+
       // The following code snippet are from http://www.movable-type.co.uk/scripts/latlong.html
       /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
       /* Geodesy representation conversion functions                        (c) Chris Veness 2002-2017  */

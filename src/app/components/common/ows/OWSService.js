@@ -21,26 +21,14 @@
  * Rome - Italy. email: geonetwork@osgeo.org
  */
 
-/*
-  goog.require('Filter_1_0_0');
-  goog.require('Filter_1_1_0');
-  goog.require('GML_2_1_2');
-  goog.require('GML_3_1_1');
-  goog.require('OWS_1_0_0');
-  goog.require('SMIL_2_0');
-  goog.require('SMIL_2_0_Language');
-  goog.require('WFS_1_0_0');
-  goog.require('WFS_1_1_0');
-  goog.require('XLink_1_0');
-*/
 var module = angular.module('gn_ows_service', ['gn_urlutils_service']);
 
 // WFS Client
 // Jsonix wrapper to read or write WFS response or request
 var context100 = new Jsonix.Context(
-  [XLink_1_0, OWS_1_0_0, Filter_1_0_0,
-    GML_2_1_2, SMIL_2_0, SMIL_2_0_Language,
-    WFS_1_0_0
+  [w3cSchemas.XLink_1_0, ogcSchemas.OWS_1_0_0, ogcSchemas.Filter_1_0_0,
+    ogcSchemas.GML_2_1_2, ogcSchemas.SMIL_2_0, ogcSchemas.SMIL_2_0_Language,
+    ogcSchemas.WFS_1_0_0
   ], {
     namespacePrefixes: {
       'http://www.opengis.net/wfs': 'wfs'
@@ -48,11 +36,11 @@ var context100 = new Jsonix.Context(
   }
 );
 var context110 = new Jsonix.Context(
-  [XLink_1_0, OWS_1_0_0,
-    Filter_1_1_0,
-    GML_3_1_1,
-    SMIL_2_0, SMIL_2_0_Language,
-    WFS_1_1_0
+  [w3cSchemas.XLink_1_0, ogcSchemas.OWS_1_0_0,
+    ogcSchemas.Filter_1_1_0,
+    ogcSchemas.GML_3_1_1,
+    ogcSchemas.SMIL_2_0, ogcSchemas.SMIL_2_0_Language,
+    ogcSchemas.WFS_1_1_0
   ], {
     namespacePrefixes: {
       'http://www.w3.org/1999/xlink': 'xlink',

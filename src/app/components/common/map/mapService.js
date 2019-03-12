@@ -27,7 +27,6 @@ var module = angular.module('gn_map_service', [
   'gnWmsQueue',
   'gn_search_manager',
   'gn_utility',
-  'ngeo',
   'gn_wfs_service', 'gn_popup'
 ]);
 
@@ -43,7 +42,6 @@ var module = angular.module('gn_map_service', [
  */
 module.provider('gnMap', function () {
   this.$get = [
-    'ngeoDecorateLayer',
     'gnOwsCapabilities',
     'gnConfig',
     '$log',
@@ -58,13 +56,7 @@ module.provider('gnMap', function () {
     'gnWfsService',
     'gnGlobalSettings',
     'gnViewerSettings', 'gnPopup', '$http',
-    /*'gnViewerService',
-    function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
-      gnSearchLocation, $rootScope, gnUrlUtils, $q, $translate,
-      gnWmsQueue, gnSearchManagerService, Metadata, gnWfsService,
-      gnGlobalSettings, viewerSettings, gnViewerService) {
-*/
-    function (ngeoDecorateLayer, gnOwsCapabilities, gnConfig, $log,
+    function (gnOwsCapabilities, gnConfig, $log,
       gnSearchLocation, $rootScope, gnUrlUtils, $q, $translate,
       gnWmsQueue, gnSearchManagerService, Metadata, gnWfsService,
       gnGlobalSettings, viewerSettings, gnPopup, $http) {
@@ -497,7 +489,6 @@ module.provider('gnMap', function () {
             label: name
           });
 
-          ngeoDecorateLayer(vector);
           vector.displayInLayerManager = true;
           map.getLayers().push(vector);
         },
@@ -606,7 +597,6 @@ module.provider('gnMap', function () {
               olLayer.set('metadataUuid', uuid);
             }
           }
-          ngeoDecorateLayer(olLayer);
           olLayer.displayInLayerManager = true;
 
           return olLayer;
@@ -966,7 +956,6 @@ module.provider('gnMap', function () {
             });
             layer.set('errors', errors);
             layer.set('featureTooltip', true);
-            ngeoDecorateLayer(layer);
             layer.displayInLayerManager = true;
             layer.set('label', getCapLayer.name.prefix + ':' +
               getCapLayer.name.localPart);
@@ -1487,7 +1476,6 @@ module.provider('gnMap', function () {
               cextent: gnOwsCapabilities.getLayerExtentFromGetCap(map,
                 getCapLayer)
             });
-            ngeoDecorateLayer(olLayer);
             olLayer.displayInLayerManager = true;
 
             // add link to metadata

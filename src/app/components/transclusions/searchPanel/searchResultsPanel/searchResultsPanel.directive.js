@@ -11,19 +11,19 @@ angular.module('searchResultsPanel')
             var query = searchResult.name + ' ' + activeHusnummer + ',' + searchResult.kommune;
             var url = mainAppService.generateSearchMatrikkelAdresseUrl(query);
             $http.get(url).then(function (response) {
-              _readResponse(response.data);
+              _readResponse(response.data.adresser);
             });
           };
 
           var _readResponse = function (jsonObject) {
             jsonObject = jsonObject.filter(function (el) {
-              return el.HUSNR == scope.activeHusnum;
+              return el.nummer == scope.activeHusnum;
             })[0];
             var source = 'matrikkeladresse';
             var identifiersDict = searchPanelFactory.getServiceDict()[source];
-            var epsg = identifiersDict.epsg;
-            var lat = jsonObject[identifiersDict.latID] + '';
-            var lon = jsonObject[identifiersDict.lonID] + '';
+            var epsg = jsonObject.representasjonspunkt.epsg;
+            var lat = jsonObject.representasjonspunkt.lat;
+            var lon = jsonObject.representasjonspunkt.lon;
             var kommune = jsonObject[identifiersDict.kommuneID];
             var name = jsonObject[identifiersDict.nameID];
             var mapEpsg = searchPanelFactory.getMapEpsg();

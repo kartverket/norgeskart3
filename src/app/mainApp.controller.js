@@ -25,7 +25,7 @@ angular.module('mainApp')
       localStorageFactory.remove('type');
 
       function _initToolbar() {
-          toolsFactory.initToolbar();
+        toolsFactory.initToolbar();
       }
 
       var _setSearch = function (obj) {
@@ -64,11 +64,11 @@ angular.module('mainApp')
         eventHandler.RegisterEvent(ISY.Events.EventTypes.ChangeLayers, _loadingLayerEnd);
       }
 
-      $scope.resetMainAppFactory = function() {
+      $scope.resetMainAppFactory = function () {
         mainAppFactory.resetMainAppFactory();
       };
 
-      $scope.reInitMap = function() {
+      $scope.reInitMap = function () {
         mainAppFactory.updateMapConfig();
         var mapConfig = mainAppFactory.getMapConfig();
         map.ReInit(mapConfig);

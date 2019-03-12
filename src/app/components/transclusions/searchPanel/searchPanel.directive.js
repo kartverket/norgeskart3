@@ -127,22 +127,10 @@ angular.module('searchPanel')
           };
 
           var _parseInput = function (input) {
-            var parsedInput = {},
-              what3words;
-
-            // matches two numbers using either . or , as decimal mark. Numbers using . as decimal mark are separated by , or , plus blankspace. Numbers using , as decimal mark are separated by blankspace
-            what3words = /^[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]+$/;
+            var parsedInput = {};
 
             input = input.replace(/Nord|NORD|North|NORTH|[nN]/g, 'N');
             input = input.replace(/Øst|ØST|East|EAST|[eEøØoO]/g, 'E');
-
-            if (typeof input === 'string') {
-              if (what3words.test(input)) {
-                parsedInput.phrase = input;
-                parsedInput.w3w = true;
-                return parsedInput;
-              }
-            }
 
             var digitsRegEx = /(-?\d*\.?)\d+/g;
             var nondigitsRegEx = /[nN]|[eEøØoO]+/g; //   /\D+/g;
@@ -332,7 +320,7 @@ angular.module('searchPanel')
                   scope.showSelection();
                 }
                 break;
-            }
+           }
           };
 
           var _downloadSearchOptionFromUrl = function (url, name) {
@@ -356,6 +344,14 @@ angular.module('searchPanel')
             var lon = scope.activePosition.geographicPoint[0];
             var matrikkelInfoUrl = mainAppService.generateMatrikkelInfoUrl(lat, lon, lat, lon);
             _downloadSearchOptionFromUrl(matrikkelInfoUrl, 'seEiendom');
+          };
+
+          var _fetchAdresseInfo = function () {
+            var lat = scope.activePosition.geographicPoint[1];
+            var lon = scope.activePosition.geographicPoint[0];
+            var radius = 50; // radius i m
+            var adresseInfoUrl = mainAppService.generateAdressePunktsokUrl(radius, lat, lon);
+            _downloadSearchOptionFromUrl(adresseInfoUrl, 'adresse');
           };
 
           var _addKoordTransToSearchOptions = function () {
@@ -391,6 +387,7 @@ angular.module('searchPanel')
             }
             _fetchElevationPoint();
             _fetchMatrikkelInfo();
+            _fetchAdresseInfo();
             _addKoordTransToSearchOptions();
             _addLagTurkartToSearchOptions();
             _addLagFargeleggingskartToSearchOptions();
@@ -446,9 +443,7 @@ angular.module('searchPanel')
             var epsg = query.split('@')[1];
             var params = _parseInput(query.split('@')[0]);
 
-            if (params.w3w) {
-              _w3wSearch(params.phrase);
-            } else if (typeof params.phrase === 'string') {
+            if (typeof params.phrase === 'string') {
               return false;
             } else if (typeof params.north === 'undefined') {
               return false;
@@ -607,13 +602,13 @@ angular.module('searchPanel')
                   if (Array.isArray(document.adresser)) {
                     adresser = document.adresser
                       .filter(function (a) {
-                        return a.type === 'Vegadresse';
+                        return a.objtype === 'Vegadresse';
                       })
                       .filter(function (a) {
                         return a.adressenavn.trim().toUpperCase().startsWith(parsedInput.street);
                       })
                       .filter(function (a) {
-                        return a.husnr.startsWith(parsedInput.husnr);
+                        return String(a.nummer).startsWith(parsedInput.husnr);
                       })
                       .filter(function (a) {
                         if (parsedInput.bokstav) {
@@ -625,9 +620,14 @@ angular.module('searchPanel')
                         } else {
                           return true;
                         }
+                      })
+                      .map(function (a) {
+                        a.lat = a.representasjonspunkt.lat;
+                        a.lon = a.representasjonspunkt.lon;
+                        return a;
                       });
                     adresser.sort(function (a, b) {
-                      return parseInt(a.husnr) - parseInt(b.husnr);
+                      return parseInt(a.nummer) - parseInt(b.nummer);
                     });
                   }
                 }
@@ -670,8 +670,7 @@ angular.module('searchPanel')
               async: true,
               success: function (document) {
                 if (((document.length && document.length > 0) ||
-                    (document.childNodes && document.childNodes[0].childNodes.length) ||
-                    (document.sokStatus.ok === "true")) && scope.searchTimestamp == timestamp) {
+                    (document.childNodes && document.childNodes[0].childNodes.length) || (document.adresser !== undefined )) && scope.searchTimestamp == timestamp) {
                   _successFullSearch(_serviceDict, document);
                 }
               } /* ,
@@ -685,8 +684,14 @@ angular.module('searchPanel')
           scope.getResults = function (searchServices) {
             _cancelOldRequests();
             scope.searchTimestamp = parseInt((new Date()).getTime(), 10);
-            for (var serviceIndex = 0; serviceIndex < searchServices.length; serviceIndex++) {
-              _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
+            if (searchServices){
+              for (var serviceIndex = 0; serviceIndex < searchServices.length; serviceIndex++) {
+                _downloadSearchBarFromUrl(_serviceDict[searchServices[serviceIndex]], scope.searchTimestamp);
+              }
+            } else {
+              for (var service in _serviceDict) {
+                _downloadSearchBarFromUrl(_serviceDict[service], scope.searchTimestamp);
+              }
             }
           };
 
@@ -719,7 +724,7 @@ angular.module('searchPanel')
             }
             _init(query);
             scope.showSearchResultPanel();
-            scope.getResults(searchPanelFactory.getInitialSearchServices());
+            scope.getResults();
           };
 
           $timeout(function () {
@@ -728,20 +733,6 @@ angular.module('searchPanel')
               scope.searchBarValueChanged();
             }
           });
-
-          var _w3wSearch = function (query) {
-            $.ajax({
-              url: mainAppService.generateWhat3WordsServiceUrl(),
-              data: query,
-              dataType: 'JSON',
-              success: function (r) {
-                if (!r.position) {
-                  return;
-                }
-                scope.showQueryPoint(scope.contructQueryPoint(parseFloat(r.position[0]), parseFloat(r.position[1]), 'EPSG:4326', 'coordGeo', ''));
-              }
-            });
-          };
 
           var _generateArrayWithValues = function (values) {
             return new Array(values);
@@ -894,7 +885,7 @@ angular.module('searchPanel')
                 url: result.url
               };
               if (result.husnummer) {
-                _unifiedResults[result.source][resultID]['husnummer'] = result.husnummer;
+                _unifiedResults[result.source][resultID]['husnummer'] = (typeof result.husnummer === 'string') ? [result.husnummer] : result.husnummer;
               } else if (result.navnetype) {
                 _unifiedResults[result.source][resultID]['navnetype'] = result.navnetype;
                 switch (result.navnetype) {
