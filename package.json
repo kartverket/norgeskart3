@@ -19,11 +19,12 @@
   "scripts": {
     "lite": "lite-server --port 10001 --baseDir=build",
     "start": "npm run lite",
+    "prebuild": "npm run prebuild1 && npm run prebuild2 && npm run prebuild3",
     "prebuild1": "browserify ./node_modules/pouchdb-browser/lib/index.js -s PouchDB > ./external/pouchdb.js",
     "prebuild2": "browserify ./node_modules/w3c-schemas/w3c-schemas.js -s w3c-schemas > ./external/w3c-schemas.js",
     "prebuild3": "browserify ./node_modules/ogc-schemas/ogc-schemas.js -s ogc-schemas > ./external/ogc-schemas.js",
     "build": "grunt default -f",
-    "dev": "npm run prebuild1 && npm run prebuild2 && npm run prebuild3 && grunt watch -f"
+    "dev": "grunt watch -f"
   },
   "license": "SEE LICENSE IN README.md",
   "dependencies": {
