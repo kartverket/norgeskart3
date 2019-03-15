@@ -739,25 +739,27 @@ module.provider('gnMap', function () {
 
             layer.set('errors', errors);
 
-            map.on('singleclick', function (evt) {
-              var viewResolution = (map.getView().getResolution());
-              var url = layer.getSource().getGetFeatureInfoUrl(
-                evt.coordinate, viewResolution, map.getView().getProjection(), {
-                  INFO_FORMAT: 'text/plain'
-                });
-              if (url) {
-                $http.get(url).then(
-                  function (response) {
-                    gnPopup.createModal({
-                      title: $translate.instant('featureInfo', {
-                        title: layer.label
-                      }),
-                      content: '<pre>' + response.data + '</pre>'
-                    });
+            var urlParams = gnSearchLocation.getParams();
+            if (urlParams.type && urlParams.type !== "dek") {
+              map.on('singleclick', function (evt) {
+                var viewResolution = (map.getView().getResolution());
+                var url = layer.getSource().getGetFeatureInfoUrl(
+                  evt.coordinate, viewResolution, map.getView().getProjection(), {
+                    INFO_FORMAT: 'text/plain'
                   });
-              }
-            });
-
+                if (url) {
+                  $http.get(url).then(
+                    function (response) {
+                      gnPopup.createModal({
+                        title: $translate.instant('featureInfo', {
+                          title: layer.label
+                        }),
+                        content: '<pre>' + response.data + '</pre>'
+                      });
+                    });
+                }
+              });
+            }
             return layer;
           }
 
