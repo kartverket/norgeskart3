@@ -37,8 +37,8 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             if (!getCapLayer) {
               return;
             }
-            
-            getCapLayer.version =  "1.3.0"; //$scope.capability.version;
+
+            getCapLayer.version = "1.3.0"; //$scope.capability.version;
             angular.forEach($scope.url, function (url) {
               if (url.startsWith(getCapLayer.url)) {
                 getCapLayer.url = url;
@@ -94,17 +94,17 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
               scope.capabilitiesCounter = 0;
               for (var i = 0; i < scope.url.length; i++) {
                 gnOwsCapabilities["get" + type.toUpperCase() + "Capabilities"](scope.url[i])
-                  .then(function(capability) {
+                  .then(function (capability) {
                     scope.loading = false;
                     scope.capabilities.push(capability);
                   })
-                  .then(function() {
-                    angular.forEach(scope.layerList, function(value) {
+                  .then(function () {
+                    angular.forEach(scope.layerList, function (value) {
                       if (value) {
                         var addedLayer;
                         if (scope.format === "wms") {
                           addedLayer = controller.addLayer(
-                            scope.capabilities[scope.capabilitiesCounter].layers.filter(function(el) {
+                            scope.capabilities[scope.capabilitiesCounter].layers.filter(function (el) {
                               if (el.Name === value || el.Title.toLowerCase() === value.toLowerCase()) {
                                 el.isLayerActive = true;
                                 return true;
@@ -115,7 +115,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                           );
                         } else if (scope.format === "wfs") {
                           addedLayer = controller.addLayer(
-                            scope.capabilities[scope.capabilitiesCounter].featureTypeList.featureType.filter(function(el) {
+                            scope.capabilities[scope.capabilitiesCounter].featureTypeList.featureType.filter(function (el) {
                               if (el.title === value) {
                                 el.isLayerActive = true;
                                 return true;
@@ -171,15 +171,15 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
         scope: {
           collection: '='
         },
-        template: "<div class='list-group' ng-repeat='member in collection'>"+
-        "<gn-cap-tree-col collection='member.Layer' selection='selection'></gn-cap-tree-col>"+
-        "<gn-cap-tree-col collection='member.featureTypeList.featureType' selection='selection'></gn-cap-tree-col>"+
-        "</div>"
+        template: "<div class='list-group' ng-repeat='member in collection'>" +
+          "<gn-cap-tree-col collection='member.Layer' selection='selection'></gn-cap-tree-col>" +
+          "<gn-cap-tree-col collection='member.featureTypeList.featureType' selection='selection'></gn-cap-tree-col>" +
+          "</div>"
       };
     }
   ])
 
-    /**
+  /**
    * @ngdoc directive
    * @name gn_wmsimport.directive:gnCapTreeCol
    *
@@ -213,8 +213,8 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
    * call back the gnCapTreeCol for all its children.
    */
   .directive('gnCapTreeElt', [
-    '$compile', '$location','localStorageFactory',
-    function ($compile, $location, localStorageFactory) {
+    '$compile', '$location', 'localStorageFactory', 'gnUrlUtils',
+    function ($compile, $location, localStorageFactory, gnUrlUtils) {
       return {
         restrict: 'E',
         require: '^gnWmsImport',
@@ -269,12 +269,54 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             if (addedLayer.values_.legend) {
               scope.member.legend = addedLayer.values_.legend;
             } else {
-              scope.member.legend = ngeo.LayerHelper.prototype.getWMSLegendURL(addedLayer.values_.url, addedLayer.values_.name);
+              var getWMSLegendURL = function (url,
+                layerName, opt_scale, opt_legendRule, opt_legendWidth, opt_legendHeight,
+                opt_servertype, opt_dpi, opt_bbox, opt_srs, opt_additionalQueryString) {
+                if (!url) {
+                  return undefined;
+                }
+                var queryString = {
+                  'FORMAT': 'image/png',
+                  'TRANSPARENT': true,
+                  'SERVICE': 'WMS',
+                  'VERSION': '1.1.1',
+                  'REQUEST': 'GetLegendGraphic',
+                  'LAYER': layerName
+                };
+                if (opt_scale !== undefined) {
+                  queryString['SCALE'] = opt_scale;
+                }
+                if (opt_legendRule !== undefined) {
+                  queryString['RULE'] = opt_legendRule;
+                  if (opt_legendWidth !== undefined) {
+                    queryString['WIDTH'] = opt_legendWidth;
+                  }
+                  if (opt_legendHeight !== undefined) {
+                    queryString['HEIGHT'] = opt_legendHeight;
+                  }
+                }
+                if (opt_servertype == 'qgis') {
+                  if (opt_dpi != undefined) {
+                    queryString['DPI'] = opt_dpi;
+                  }
+                  if (opt_bbox != undefined && opt_srs != undefined && opt_scale != undefined && opt_dpi != undefined && opt_legendRule == undefined) {
+                    queryString['BBOX'] = opt_bbox.join(',');
+                    queryString['SRS'] = opt_srs;
+                    queryString['WIDTH'] = Math.round((opt_bbox[2] - opt_bbox[0]) / opt_scale * 39.37 * opt_dpi);
+                    queryString['HEIGHT'] = Math.round((opt_bbox[3] - opt_bbox[1]) / opt_scale * 39.37 * opt_dpi);
+                  }
+                }
+                if (opt_additionalQueryString) {
+                  Object.assign(queryString, opt_additionalQueryString);
+                }
+                return gnUrlUtils.appendParams(url, queryString);
+              };
+              scope.member.legend = getWMSLegendURL(addedLayer.values_.url, addedLayer.values_.name);
             }
             scope.member.isLayerActive = addedLayer.getVisible();
           };
           if (angular.isArray(scope.member.Layer)) {
-            if ( localStorageFactory.get("type") !== 'dek') {
+            if (localStorageFactory.get("type") !== 'dek') {
               element.append("<gn-cap-tree-col class='list-group' collection='member.Layer'></gn-cap-tree-col>");
               $compile(element.contents())(scope);
             }
