@@ -25,7 +25,6 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           url: '=?gnWmsImportUrl'
         },
         controller: ['$scope', function ($scope) {
-
           /**
            * Transform a capabilities layer into an ol.Layer
            * and add it to the map.
@@ -37,6 +36,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
             if (!getCapLayer) {
               return;
             }
+            var format = getCapLayer.type ? getCapLayer.type : $scope.format;
 
             getCapLayer.version = "1.3.0"; //$scope.capability.version;
             angular.forEach($scope.url, function (url) {
@@ -45,19 +45,23 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
               }
             });
             var layer;
-            if ($scope.format === 'wms') {
+            if (format === 'wms') {
               layer = gnMap.addWmsToMapFromCap($scope.map, getCapLayer);
               return layer;
-            } else if ($scope.format === 'wfs') {
+            } else if (format === 'wfs') {
               layer = gnMap.addWfsToMapFromCap($scope.map, getCapLayer, $scope.url);
               return layer;
-            } else if ($scope.format === 'wmts') {
+            } else if (format === 'wmts') {
               return gnMap.addWmtsToMapFromCap($scope.map, getCapLayer, $scope.capability);
+            } else if (format === 'geojson') {
+              return gnMap.addGeojsonToMap(getCapLayer, $scope.map);
+            } else if (format === 'kml') {
+              return gnMap.addKmlToMap(getCapLayer, $scope.map);
             }
           };
         }],
         link: function (scope, element, attrs, controller) {
-          scope.loading = false;
+          scope.capabilities = [];
           scope.format = attrs['gnWmsImport'] !== '' ? attrs['gnWmsImport'] : 'all';
           scope.serviceDesc = null;
           scope.catServicesList = [];
@@ -90,69 +94,98 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
           scope.load = function () {
             if (scope.url) {
               scope.loading = true;
-              scope.capabilities = [];
               scope.capabilitiesCounter = 0;
               for (var i = 0; i < scope.url.length; i++) {
-                gnOwsCapabilities["get" + type.toUpperCase() + "Capabilities"](scope.url[i])
-                  .then(function (capability) {
-                    scope.loading = false;
-                    scope.capabilities.push(capability);
-                  })
-                  .then(function () {
-                    angular.forEach(scope.layerList, function (value) {
-                      if (value) {
-                        var addedLayer;
-                        if (scope.format === "wms") {
-                          addedLayer = controller.addLayer(
-                            scope.capabilities[scope.capabilitiesCounter].layers.filter(function (el) {
-                              if (el.Name === value || el.Title.toLowerCase() === value.toLowerCase()) {
-                                el.isLayerActive = true;
-                                return true;
-                              } else {
-                                return false;
-                              }
-                            })[0]
-                          );
-                        } else if (scope.format === "wfs") {
-                          addedLayer = controller.addLayer(
-                            scope.capabilities[scope.capabilitiesCounter].featureTypeList.featureType.filter(function (el) {
-                              if (el.title === value) {
-                                el.isLayerActive = true;
-                                return true;
-                              } else {
-                                return false;
-                              }
-                            })[0]
-                          );
+                var addedLayer;
+                if (gnOwsCapabilities["get" + type.toUpperCase() + "Capabilities"]) {
+                  gnOwsCapabilities["get" + type.toUpperCase() + "Capabilities"](scope.url[i])
+                    .then(function (capability) {
+                      scope.loading = false;
+                      scope.capabilitiesCounter = scope.capabilities.push(capability) - 1;
+                    })
+                    .then(function () {
+                      angular.forEach(scope.layerList, function (value) {
+                        if (value) {
+                          if (scope.format === "wms" && scope.capabilities[scope.capabilitiesCounter].layers) {
+                            addedLayer = controller.addLayer(
+                              scope.capabilities[scope.capabilitiesCounter].layers.filter(function (el) {
+                                if (el.Name === value || el.Title.toLowerCase() === value.toLowerCase()) {
+                                  el.isLayerActive = true;
+                                  return true;
+                                } else {
+                                  return false;
+                                }
+                              })[0]
+                            );
+                          } else if (scope.format === "wfs" && scope.capabilities[scope.capabilitiesCounter].layers) {
+                            addedLayer = controller.addLayer(
+                              scope.capabilities[scope.capabilitiesCounter].featureTypeList.featureType.filter(function (el) {
+                                if (el.title === value) {
+                                  el.isLayerActive = true;
+                                  return true;
+                                } else {
+                                  return false;
+                                }
+                              })[0]
+                            );
+                          }
+                          if (addedLayer) {
+                            addedLayer.setVisible(true);
+                          }
                         }
-                        if (addedLayer) {
-                          addedLayer.setVisible(true);
-                        }
-                      }
+                      });
                     });
-                    scope.capabilitiesCounter++;
+                } else {
+                  var pseudoCapability = {
+                    url: scope.url[i],
+                    type: scope.format,
+                    Name: 'geojson',
+                    Title: scope.url[i].split('//')[1]
+                  };
+                  var pseudo = [pseudoCapability];
+                  var layer = {
+                    Layer: pseudo,
+                    url: scope.url[i],
+                    type: scope.format,
+                    Name: 'geojson',
+                    Title: scope.url[i].split('//')[1]
+                  };
+                  var capa = {
+                    Layer: [layer]
+                  };
+
+                  scope.capabilitiesCounter = scope.capabilities.push(capa) - 1;
+
+                  angular.forEach(scope.layerList, function (value) {
+                    if (value && value === "geojson") {
+                      if (scope.format === "geojson") {
+                        addedLayer = controller.addLayer(pseudoCapability);
+                      } else if (scope.format === "kml") {
+                        addedLayer = controller.addLayer(pseudoCapability);
+                      }
+                      if (addedLayer) {
+                        scope.capabilities[scope.capabilitiesCounter].Layer[0].isLayerActive = true;
+                        addedLayer.setVisible(true);
+                      }
+                    }
                   });
+                  scope.loading = false;
+                }
               }
             }
           };
-          // watch url as input
-          /*
-          scope.$watch('url', function (value) {
-            if (value) {
-              scope.setUrl({
-                url: value,
-                type: scope.format
-              });
-            }
-          });
-            */
-
           if (localStorageFactory.get("wms")) {
             scope.format = "wms";
             scope.setUrl(localStorageFactory.get("wms"));
           } else if (localStorageFactory.get("wfs")) {
             scope.format = "wfs";
             scope.setUrl(localStorageFactory.get("wfs"));
+          } else if (localStorageFactory.get("geojson")) {
+            scope.format = "geojson";
+            scope.setUrl(localStorageFactory.get("geojson"));
+          } else if (localStorageFactory.get("kml")) {
+            scope.format = "kml";
+            scope.setUrl(localStorageFactory.get("kml"));
           }
         }
       };
@@ -268,7 +301,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
 
             if (addedLayer.values_.legend) {
               scope.member.legend = addedLayer.values_.legend;
-            } else {
+            } else if (scope.member.type !== 'geojson') {
               var getWMSLegendURL = function (url,
                 layerName, opt_scale, opt_legendRule, opt_legendWidth, opt_legendHeight,
                 opt_servertype, opt_dpi, opt_bbox, opt_srs, opt_additionalQueryString) {
@@ -276,12 +309,12 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                   return undefined;
                 }
                 var queryString = {
-                  'FORMAT': 'image/png',
-                  'TRANSPARENT': true,
-                  'SERVICE': 'WMS',
-                  'VERSION': '1.1.1',
-                  'REQUEST': 'GetLegendGraphic',
-                  'LAYER': layerName
+                  FORMAT: 'image/png',
+                  TRANSPARENT: true,
+                  SERVICE: 'WMS',
+                  VERSION: '1.1.1',
+                  REQUEST: 'GetLegendGraphic',
+                  LAYER: layerName
                 };
                 if (opt_scale !== undefined) {
                   queryString['SCALE'] = opt_scale;

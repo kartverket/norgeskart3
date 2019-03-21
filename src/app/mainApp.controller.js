@@ -98,10 +98,25 @@ angular.module('mainApp')
               center.epsg = 'EPSG:4258';
             }
             map.SetCenter(center);
-          }
+          }          
+        }
+        if (obj.addLayers !== undefined) {
+          layers = obj.addLayers;
+          localStorageFactory.set("addLayers", obj.addLayers);
         }
         if (obj.geojson !== undefined) {
           localStorageFactory.set("geojson", obj.geojson);
+          $scope.$broadcast('addWMSfromSearch', {
+            url: obj.geojson,
+            type: 'geojson'
+          });
+        }
+        if (obj.kml !== undefined) {
+          localStorageFactory.set("kml", obj.kml);
+          $scope.$broadcast('addWMSfromSearch', {
+            url: obj.kml,
+            type: 'kml'
+          });
         }
         if (obj.sosi !== undefined) {
           console.warn(obj.sosi);
@@ -111,11 +126,6 @@ angular.module('mainApp')
           console.warn(obj.bbox);
           //addBboxLayer(url);
         }
-        if (obj.addLayers !== undefined) {
-          layers = obj.addLayers;
-          localStorageFactory.set("addLayers", obj.addLayers);
-        }
-
         if (obj.wms !== undefined) {
           localStorageFactory.set("wms", obj.wms);
           $scope.$broadcast('addWMSfromSearch', {

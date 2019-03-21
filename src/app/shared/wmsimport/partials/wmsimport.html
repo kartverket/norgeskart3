@@ -1,47 +1,4 @@
 <div>
-  <!--
-  <form role="form">
-              <input type="hidden" name="_csrf" value="{{csrf}}"/>
-    <div class="form-group">
-      <div data-ng-show="catServicesList.length > 0">
-        <div class="dropdown">
-          <button class="btn btn-block btn-default dropdown-toggle" type="button"
-                  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-            <span data-ng-hide="serviceDesc"
-                  title="{{'chooseAserviceHelp' | translate}}">{{'chooseAservice' | translate}}</span>
-            <span data-ng-show="serviceDesc">{{serviceDesc.title}}</span>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li data-ng-repeat="srv in catServicesList">
-              <a href="" data-ng-click="setUrl(srv)"
-                 title="{{srv.desc}}">
-                {{srv.title}} ({{srv.url}}) - {{srv.type}}
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <label>
-        <span data-translate="" data-ng-show="catServicesList.length > 0">or</span>&nbsp;
-        <span data-translate="" data-translate-values="{type: '{{format.toUpperCase()}}'}">orTypeAServiceUrl</span>
-      </label>
-      <div class="dropdown">
-        <input class="form-control input-sm" type="text" data-toggle="dropdown"
-               data-ng-model="url" data-ng-change="load()" data-ng-model-options="{debounce:500}"
-               placeholder="{{'serviceUrl' | translate}}"/>
-        <ul class="dropdown-menu" role="menu" data-ng-show="servicesList.length > 0">
-          <li data-ng-repeat="srv in servicesList">
-            <a href="" data-ng-click="setUrl(srv)" title="{{srv.url}}">
-              {{srv.name}}
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </form>
-  -->
   <p class="text-center" ng-show="loading">
     <i class="fa fa-spinner fa-spin"></i>
   </p>

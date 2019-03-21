@@ -471,26 +471,76 @@ module.provider('gnMap', function () {
          * Add a KML layer to the map from a given source.
          *
          * @param {string} name of the layer
-         * @param {number} url of the kml sources
+         * @param {string} url of the kml sources
          * @param {ol.Map} map object
          */
-        addKmlToMap: function (name, url, map) {
-          if (!url || url === '') {
+        addKmlToMap: function (options, map) {
+          map = (map || ISY.MapImplementation.OL3.olMap);
+          if (!options.url || options.url === '') {
             return;
           }
 
           var kmlSource = new ol.source.KML({
             projection: map.getView().getProjection(),
-            url: url
+            url: options.url
           });
 
           var vector = new ol.layer.Vector({
             source: kmlSource,
-            label: name
+            label: options.name
           });
 
           vector.displayInLayerManager = true;
           map.getLayers().push(vector);
+          return vector;
+        },
+
+                /**
+         * @ngdoc method
+         * @methodOf gn_map.service:gnMap
+         * @name gnMap#addGeojsonToMap
+         *
+         * @description
+         * Add a GeoJson layer to the map from a given source.
+         *
+         * @param {string} name of the layer
+         * @param {string} url of the geojson sources
+         * @param {ol.Map} map object
+         */
+        addGeojsonToMap: function (options, map) {
+          map = (map || ISY.MapImplementation.OL3.olMap);
+          if (!options.url || options.url === '') {
+            return;
+          }
+          var isNewLayer = true;
+          var returnLayer;
+
+          map.getLayers().forEach(function (layer) {
+            if ( (layer.get('label') === options.Name) && (layer.get('title') === options.Title) ) {
+              isNewLayer = false;
+              var visibility = layer.getVisible();
+              if (visibility === false) {
+                layer.setVisible(true);
+              } else if (visibility === true) {
+                layer.setVisible(false);
+              }
+              returnLayer = layer;
+            }
+          });
+          if (isNewLayer) {
+            returnLayer = new ol.layer.Vector({
+              source: new ol.source.Vector({
+                projection: map.getView().getProjection(),
+                url: options.url,
+                format: new ol.format.GeoJSON()
+              }),
+              label: options.Name,
+              title: options.Title
+              //style: function(feature) { style.getText().setText(feature.get('name')); return style; }
+            });
+            map.addLayer(returnLayer);
+          }
+          return returnLayer;
         },
 
         // Given only the url, it will show a dialog to select
