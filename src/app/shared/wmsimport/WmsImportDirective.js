@@ -140,7 +140,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                     url: scope.url[i],
                     type: scope.format,
                     Name: 'geojson',
-                    Title: scope.url[i].split('//')[1]
+                    Title: "Kartlagt område" //scope.url[i].split('//')[1]
                   };
                   var pseudo = [pseudoCapability];
                   var layer = {
@@ -148,7 +148,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                     url: scope.url[i],
                     type: scope.format,
                     Name: 'geojson',
-                    Title: scope.url[i].split('//')[1]
+                    Title: "Kartlagt område" //scope.url[i].split('//')[1]
                   };
                   var capa = {
                     Layer: [layer]
