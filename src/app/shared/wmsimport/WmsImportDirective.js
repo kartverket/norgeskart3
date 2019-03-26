@@ -136,19 +136,26 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                       });
                     });
                 } else {
+                  var title = scope.url[i].split('//')[1];
+                  $.ajax({
+                    dataType: "json",
+                    type: "GET",
+                    url: scope.url[i],
+                    async: false
+                  }).done(function (data) {
+                    title = data.name || data.title || "Kartlagt område";
+                  });
                   var pseudoCapability = {
                     url: scope.url[i],
-                    type: scope.format,
                     Name: 'geojson',
-                    Title: "Kartlagt område" //scope.url[i].split('//')[1]
+                    Title: title
                   };
-                  var pseudo = [pseudoCapability];
                   var layer = {
-                    Layer: pseudo,
+                    Layer: [pseudoCapability],
                     url: scope.url[i],
                     type: scope.format,
                     Name: 'geojson',
-                    Title: "Kartlagt område" //scope.url[i].split('//')[1]
+                    Title: title
                   };
                   var capa = {
                     Layer: [layer]
@@ -170,6 +177,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
                     }
                   });
                   scope.loading = false;
+
                 }
               }
             }
