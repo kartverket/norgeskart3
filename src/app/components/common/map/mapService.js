@@ -790,7 +790,7 @@ module.provider('gnMap', function () {
             layer.set('errors', errors);
 
             var urlParams = gnSearchLocation.getParams();
-            if (urlParams.type && urlParams.type !== "dek") {
+            if (!urlParams.type || urlParams.type !== "dek") {
               map.on('singleclick', function (evt) {
                 var viewResolution = (map.getView().getResolution());
                 var url = layer.getSource().getGetFeatureInfoUrl(
