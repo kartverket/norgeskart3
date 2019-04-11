@@ -364,6 +364,7 @@ angular.module('menuDraw')
 
             if (scope.GeoJSON) {
               drawFeatureTool.additionalOptions.GeoJSON = scope.GeoJSON;
+              drawFeatureTool.additionalOptions.drawingHash = scope.drawingHash
             }
             toolsFactory.deactivateTool(drawFeatureTool);
             toolsFactory.activateTool(drawFeatureTool);
