@@ -371,16 +371,19 @@ angular.module("menuPrint")
             };
             break;
           case "VECTOR":
+            var geojson;
             if (layers[i].getSource().getFormat()) {
               // Assume GML
-              printLayer = {
-                url: layers[i].getSource().getUrl(),
-                opacity: 0.7,
-                type: "GML"
-              };
+              // printLayer = {
+              //   url: layers[i].getSource().getUrl(),
+              //   opacity: 0.7,
+              //   type: "GML"
+              // };
+              geojson = layers[i].getSource().getUrl() + '&outputFormat=json&srsName=urn:x-ogc:def:crs:EPSG:25833';
             } else {
               // Assume GeoJson - drawing
-              var geojson = layers[i].getProperties().options.GeoJSON;
+              geojson = layers[i].getProperties().options.GeoJSON;
+            }
               removeKeys(geojson, "style");
               printLayer = {
                 geoJson: geojson,
@@ -422,7 +425,6 @@ angular.module("menuPrint")
                   "version": "2"
                 }
               };
-            }
             break;
           default:
             console.warn("Unexpected Layer type to print, let's try it");
