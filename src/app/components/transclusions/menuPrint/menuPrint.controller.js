@@ -150,7 +150,7 @@ angular.module("menuPrint")
           return layer.getVisible() == true;
         })
         .sort(function(a, b) {
-          return (a.layerIndex || 0) - b.layerIndex;
+          return b.layerIndex - (a.layerIndex || Infinity);
         });
 
       var printJson = {
