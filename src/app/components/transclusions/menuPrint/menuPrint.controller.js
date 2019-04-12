@@ -409,14 +409,14 @@ angular.module("menuPrint")
                         strokeOpacity: 1,
                         strokeWidth: 3,
                         strokeLinecap: "round"
-                      },
+                      }/* ToDo: Fix this error: With this style, geometries with empty properties will not show
                       {
                         type: "text",
                         label: "[measurement]",
                         haloRadius : "3",
                         strokeColor: "orange",
                         fillColor: "#FF0000"
-                      }
+                      } */
                     ]
                   },
                   "version": "2"
