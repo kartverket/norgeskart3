@@ -382,7 +382,9 @@ angular.module("menuPrint")
               geojson = layers[i].getSource().getUrl() + '&outputFormat=json&srsName=urn:x-ogc:def:crs:EPSG:25833';
             } else {
               // Assume GeoJson - drawing
-              geojson = layers[i].getProperties().options.GeoJSON;
+              if (layers[i].getProperties().options && layers[i].getProperties().options.GeoJSON) {
+                geojson = layers[i].getProperties().options.GeoJSON;
+              }
             }
               removeKeys(geojson, "style");
               printLayer = {
