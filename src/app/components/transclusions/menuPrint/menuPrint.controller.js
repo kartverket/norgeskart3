@@ -170,7 +170,8 @@ angular.module("menuPrint")
           title: $scope.mapName || ""
         },
         layout: $scope.selectedLayout.name,
-        outputFormat: $scope.selectedFormat
+        outputFormat: $scope.selectedFormat,
+        outputFilename: "norgeskart-utskrift"
       };
       //var mapConfig = mainAppFactory.getMapConfig();
       //printJson.attributes.map.projection = mapConfig.coordinate_system;
