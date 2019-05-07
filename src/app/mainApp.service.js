@@ -64,7 +64,7 @@ angular.module('mainApp')
       };
 
       this.generateSearchMatrikkelVegUrl = function (query) {
-        return url + "ws/veg.py?" + encodeURIComponent(query);
+        return urlGeonorge + "norgeskart/v1/matrikkel/veg/" + encodeURIComponent(query);
       };
 
       this.generateSearchMatrikkelAdresseUrl = function (query) {
@@ -89,7 +89,7 @@ angular.module('mainApp')
       };
 
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
-        return url + "ws/wfs.teig.py?bbox=" + minx + "," + miny + "," + maxx + "," + maxy;
+        return urlGeonorge + "norgeskart/v1/teiger/bbox/" + minx + "," + miny + "," + maxx + "," + maxy;
       };
 
       this.generateAdresseSokUrl = function (query) {
@@ -158,41 +158,19 @@ angular.module('mainApp')
       };
 
       this.generateSearchMatrikkelNummerUrl = function (query) {
-        return url + 'ws/eie.py?' + encodeURIComponent(query);
+        return urlGeonorge + 'norgeskart/v1/matrikkel/eie/' + encodeURIComponent(query);
       };
 
       this._constructMarkingFilter = function (property) {
-        return 'FILTER=' + encodeURIComponent('<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml">' +
-          '<And>' +
-          '<ogc:PropertyIsEqualTo>' +
-          '<ogc:PropertyName>KOMMUNENR</ogc:PropertyName>' +
-          '<ogc:Literal>' + property.kommunenr + '</ogc:Literal>' +
-          '</ogc:PropertyIsEqualTo>' +
-          '<ogc:PropertyIsEqualTo>' +
-          '<ogc:PropertyName>GARDSNR</ogc:PropertyName>' +
-          '<ogc:Literal>' + property.gardsnr + '</ogc:Literal>' +
-          '</ogc:PropertyIsEqualTo>' +
-          '<ogc:PropertyIsEqualTo>' +
-          '<ogc:PropertyName>BRUKSNR</ogc:PropertyName>' +
-          '<ogc:Literal>' + property.bruksnr + '</ogc:Literal>' +
-          '</ogc:PropertyIsEqualTo>' +
-          '<ogc:PropertyIsEqualTo>' +
-          '<ogc:PropertyName>FESTENR</ogc:PropertyName>' +
-          '<ogc:Literal>' + property.festenr + '</ogc:Literal>' +
-          '</ogc:PropertyIsEqualTo>' +
-          '<ogc:PropertyIsEqualTo>' +
-          '<ogc:PropertyName>SEKSJONSNR</ogc:PropertyName>' +
-          '<ogc:Literal>' + property.seksjonsnr + '</ogc:Literal>' +
-          '</ogc:PropertyIsEqualTo>' +
-          '</And>' +
-          '</ogc:Filter>');
+        return property.kommunenr + '-' + property.gardsnr + '-' + property.bruksnr + '-' + property.festenr + '-'  +property.seksjonsnr;
       };
+      
       this.generateMatrikkelWfsFilterUrl = function (property) {
-        return url + 'ws/wfs.teig.py?' + this._constructMarkingFilter(property);
+        return urlGeonorge + 'norgeskart/v1/teiger/' + this._constructMarkingFilter(property);
       };
 
       this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {
-        var baseUrl = url + 'ws/eiendom.py?';
+        var baseUrl = urlGeonorge + 'norgeskart/v1/matrikkel/eiendom/';
         if (festnr !== "0") {
           if (sectionsnr === "0") {
             baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr;
