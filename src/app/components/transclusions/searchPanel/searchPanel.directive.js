@@ -635,7 +635,7 @@ angular.module('searchPanel')
                 try {
                   return JSON.parse(document);
                 } catch (e) {
-                  return;
+                  return document;
                 }
             }
           };
