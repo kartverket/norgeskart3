@@ -158,13 +158,13 @@ angular.module('mainApp')
       };
 
       this.generateSearchMatrikkelNummerUrl = function (query) {
-        return urlGeonorge + 'norgeskart/v1/matrikkel/eie/' + encodeURIComponent(query);
+        return urlGeonorge + 'norgeskart/v1/matrikkel/eie/' + query;
       };
 
       this._constructMarkingFilter = function (property) {
         return property.kommunenr + '-' + property.gardsnr + '-' + property.bruksnr + '-' + property.festenr + '-'  +property.seksjonsnr;
       };
-      
+
       this.generateMatrikkelWfsFilterUrl = function (property) {
         return urlGeonorge + 'norgeskart/v1/teiger/' + this._constructMarkingFilter(property);
       };
