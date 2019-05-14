@@ -1417,6 +1417,13 @@ angular.module('mainApp')
         getLastActiveSearchPanel: function () {
           return lastSelectedSearchPanel;
         },
+        
+        getVisibleLayers: function() {
+          var _isLayerVisible = function (layer) {
+            return layer.isVisible;
+          };
+          return mapConfig.layers.filter(_isLayerVisible);
+        },
 
         resetMainAppFactory: function () {
           instance = "";

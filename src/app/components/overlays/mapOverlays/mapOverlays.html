@@ -2,9 +2,11 @@
     <div menu-draw class="movemenu overlayContent"></div>
 </div>
 <div ng-switch="moveableOverlayLayout" moveable-overlay class="moveableOverlay" data-ng-show="isAnyOverlayActive()">
-  <div ng-switch-when="menuElevationProfileLayout" menu-elevation-profile class="movemenu overlayContent"></div>
-  <div ng-switch-when="menuShareMapLayout" menu-share-map class="movemenu overlayContent"></div>
+    <div ng-switch-when="menuElevationProfileLayout" menu-elevation-profile class="movemenu overlayContent"></div>
+    <div ng-switch-when="menuShareMapLayout" menu-share-map class="movemenu overlayContent"></div>
+    <div ng-switch-when="menuPrintLayout" menu-print class="movemenu overlayContent" data-ng-init="initMainPrintProtocol()"></div>
 </div>
+
 <div main-menu-overlay></div>
 <div search-bar-overlay data-ng-show="showSearchOverlay()"></div>
 <div class="change-base-map-mobile" change-base-map-overlay></div>

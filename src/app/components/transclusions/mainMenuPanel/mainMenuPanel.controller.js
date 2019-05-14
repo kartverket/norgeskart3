@@ -62,12 +62,12 @@ angular.module('mainMenuPanel')
                 $scope.moveableOverlayLayout = "menuElevationProfileLayout";
                 _setActiveMoveableMenu("ElevationProfile");
             };
-/*
+            
             $scope.showMoveablePrintMenu = function() {
                 $scope.moveableOverlayLayout = "menuPrintLayout";
                 _setActiveMoveableMenu("PrintMenu");
             };
-*/
+
             $scope.deactivateMoveableOverlay = function(){
                 $scope.moveableOverlayLayout = "";
             };

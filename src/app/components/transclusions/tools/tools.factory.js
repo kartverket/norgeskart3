@@ -120,6 +120,17 @@ angular
           }
         },
         {
+          id: "PrintBox",
+          title: "PrintBox_title",
+          hover: "PrintBox_hover",
+          sortOrder: 10,
+          isSelected: false,
+          cursorStyle: "default",
+          additionalOptions: {
+            scale: 25000
+          }
+        },
+        {
           id: "PrintBoxSelect",
           title: "PrintBoxSelect_title",
           hover: "PrintBoxSelect_hover",
