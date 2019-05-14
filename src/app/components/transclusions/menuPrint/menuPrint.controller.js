@@ -459,7 +459,7 @@ angular.module("menuPrint")
           $scope.showSpinner = false;
         }
       );
-    }
+    };
 
     $scope.cancelPrint = function() {
       $scope.printCanceled = true;
