@@ -1,7 +1,7 @@
 {
   "author": "",
   "name": "norgeskart3",
-  "version": "1.1.17",
+  "version": "2.0.0",
   "homepage": "http://www.norgeskart.no/3",
   "description": "Norgeskart3",
   "keywords": [
@@ -18,10 +18,10 @@
   },
   "scripts": {
     "lite": "lite-server --port 10001 --baseDir=build",
-    "start": "npm run lite",
+    "start": "yarn run lite",
     "prebuild": "browserify ./node_modules/pouchdb-browser/lib/index.js -s PouchDB > ./external/pouchdb.js",
     "build": "grunt default -f",
-    "dev": "npm run prebuild && grunt watch -f"
+    "dev": "yarn run prebuild && grunt watch -f"
   },
   "license": "SEE LICENSE IN README.md",
   "dependencies": {
