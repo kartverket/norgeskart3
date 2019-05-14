@@ -994,29 +994,31 @@ angular.module('searchPanel')
           });
 
           scope.showSelection = function () {
-            var addLayerUrlTool = toolsFactory.getToolById("AddLayerUrl");
-            if (!searchPanelFactory.getShowEiendomMarkering()) {
-              addLayerUrlTool.additionalOptions.show = false;
-            } else {
-              addLayerUrlTool.additionalOptions.show = true;
-              addLayerUrlTool.additionalOptions.url = mainAppService.generateMatrikkelWfsFilterUrl(scope.searchOptionsDict['seEiendom']);
-              addLayerUrlTool.additionalOptions.geometryName = 'FLATE';
-              addLayerUrlTool.additionalOptions.style = new ol.style.Style({
-                fill: new ol.style.Fill({
-                  color: 'rgba(255,255,102,0.6)'
-                }),
-                stroke: new ol.style.Stroke({
-                  color: 'rgba(255,255,102,1)',
-                  width: 1
-                })
-              });
-            }
-            if (addLayerUrlTool.additionalOptions.show === true) {
-              scope.showSelectedPolygon = true;
-            }
+            if (scope.searchOptionsDict['seEiendom'].name === 'seEiendom') {
+              var addLayerUrlTool = toolsFactory.getToolById("AddLayerUrl");
+              if (!searchPanelFactory.getShowEiendomMarkering()) {
+                addLayerUrlTool.additionalOptions.show = false;
+              } else {
+                addLayerUrlTool.additionalOptions.show = true;
+                addLayerUrlTool.additionalOptions.url = mainAppService.generateMatrikkelWfsFilterUrl(scope.searchOptionsDict['seEiendom']);
+                addLayerUrlTool.additionalOptions.geometryName = 'FLATE';
+                addLayerUrlTool.additionalOptions.style = new ol.style.Style({
+                  fill: new ol.style.Fill({
+                    color: 'rgba(255,255,102,0.6)'
+                  }),
+                  stroke: new ol.style.Stroke({
+                    color: 'rgba(255,255,102,1)',
+                    width: 1
+                  })
+                });
+              }
+              if (addLayerUrlTool.additionalOptions.show === true) {
+                scope.showSelectedPolygon = true;
+              }
 
-            toolsFactory.activateTool(addLayerUrlTool);
-            toolsFactory.deactivateTool(addLayerUrlTool);
+              toolsFactory.activateTool(addLayerUrlTool);
+              toolsFactory.deactivateTool(addLayerUrlTool);
+            }
           };
 
           function showSelectedPolygonEnd() {
