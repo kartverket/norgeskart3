@@ -904,7 +904,14 @@ module.provider('gnMap', function () {
               metadata = layer.MetadataURL[0].OnlineResource;
             }
 
-            var vectorFormat = new ol.format.GML3();
+            var vectorFormat;
+            if (getCapLayer.outputFormats.format[0] === 'text/xml; subtype=gml/3.2.1') {
+              vectorFormat = new ol.format.GML32();
+            } else if (getCapLayer.outputFormats.format[0] === 'text/xml; subtype=gml/3.2') {
+              vectorFormat = new ol.format.GML32();
+            } else{
+              vectorFormat = new ol.format.GML3();
+            }             
 
             if (getCapLayer.outputFormats) {
               $.each(getCapLayer.outputFormats.format,
@@ -936,18 +943,6 @@ module.provider('gnMap', function () {
                   parts = '';
                 }
                 
-                /*
-                var urlGetFeature = gnUrlUtils.append(parts[0],
-                  gnUrlUtils.toKeyValue({
-                    service: 'WFS',
-                    request: 'GetFeature',
-                    version: '1.1.0',
-                    srsName: map.getView().getProjection().getCode(),
-                    bbox: extent.join(','),
-                    typename: getCapLayer.name.prefix + ':' + getCapLayer.name.localPart,
-                    outputFormat: getCapLayer.outputFormats.format[0] || 'text/xml; subtype=gml/3.2.1'
-                  }));
-                */
                 // generate a GetFeature request
                 var featureRequest = new ol.format.WFS().writeGetFeature({
                   srsName: map.getView().getProjection().getCode(),
@@ -965,19 +960,6 @@ module.provider('gnMap', function () {
                     contentType: "text/xml",
                   })
                   .done(function (response) {
-                    // TODO: Check WFS exception     
-                    //var list = response.getElementsByTagName('gml:featureMember');
-                    //var test_features = [];
-                    /*
-                    for (var l = 0; l < list.length; l++) {
-                      // console.log(list[l]);
-                      var test_feature = new ol.Feature({
-                        geometry: new ol.geom.Polygon(polyCoords),
-                        labelPoint: new ol.geom.Point(labelCoords),
-                        name: 'My Polygon'
-                      });
-                      test_features.push(test_feature);
-                    } */
                     vectorSource.addFeatures(vectorFormat.readFeatures(response));
 
                     var extent = ol.extent.createEmpty();
@@ -985,7 +967,7 @@ module.provider('gnMap', function () {
                     for (var i = 0; i < features.length; ++i) {
                       var feature = features[i];
                       var geometry = feature.getGeometry();
-                      if ((!goog.isNull(geometry)) && (geometry !== undefined)) {
+                      if (geometry !== undefined) {
                         ol.extent.extend(extent, geometry.getExtent());
                       }
                     }
