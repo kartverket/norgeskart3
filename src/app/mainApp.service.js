@@ -153,7 +153,7 @@ angular.module('mainApp')
       };
 
       this.generateMatrikkelWfsFilterUrl = function (property) {
-        return urlGeonorge + 'norgeskart/v1/teiger/' + this._constructMarkingFilter(property);
+        return urlGeonorge + 'norgeskart/v1/teiger/' + this._constructMarkingFilter(property) + '/';
       };
 
       this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {
