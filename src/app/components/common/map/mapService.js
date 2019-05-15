@@ -922,12 +922,20 @@ module.provider('gnMap', function () {
             var vectorSource = new ol.source.Vector({
               format: vectorFormat,
               loader: function (extent) {
+                var parts;
                 if (this.loadingLayer) {
                   return;
                 }
                 this.loadingLayer = true;
 
-                var parts = url.split('?');
+                if (typeof url === 'string' ) {
+                  parts = url.split('?');
+                } else if (Array.isArray(url)) {
+                  parts = url[0].split('?');
+                } else {
+                  parts = '';
+                }
+                
                 /*
                 var urlGetFeature = gnUrlUtils.append(parts[0],
                   gnUrlUtils.toKeyValue({
@@ -947,7 +955,7 @@ module.provider('gnMap', function () {
                   featurePrefix: '',
                   featureTypes: [getCapLayer.name.prefix + ':' + getCapLayer.name.localPart],
                   outputFormat: getCapLayer.outputFormats.format[0] || 'text/xml; subtype=gml/3.2.1',
-                  filter: new ol.format.ogc.filter.Bbox('', extent, map.getView().getProjection().getCode()),
+                  filter: new ol.format.filter.Bbox('', extent, map.getView().getProjection().getCode()),
                   count: 2
                 });
                 $.ajax({
@@ -957,7 +965,19 @@ module.provider('gnMap', function () {
                     contentType: "text/xml",
                   })
                   .done(function (response) {
-                    // TODO: Check WFS exception
+                    // TODO: Check WFS exception     
+                    //var list = response.getElementsByTagName('gml:featureMember');
+                    //var test_features = [];
+                    /*
+                    for (var l = 0; l < list.length; l++) {
+                      // console.log(list[l]);
+                      var test_feature = new ol.Feature({
+                        geometry: new ol.geom.Polygon(polyCoords),
+                        labelPoint: new ol.geom.Point(labelCoords),
+                        name: 'My Polygon'
+                      });
+                      test_features.push(test_feature);
+                    } */
                     vectorSource.addFeatures(vectorFormat.readFeatures(response));
 
                     var extent = ol.extent.createEmpty();
