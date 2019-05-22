@@ -43,7 +43,7 @@
     "es5-shim": "^4.5.x",
     "featherlight": "^1.7.x",
     "floatthead": "^2.x.x",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.1",
     "jquery-ui": "~1.12.x",
     "maplib": "git+https://github.com/kartverket/MapLib.git",
     "ol": "https://github.com/kartverket/ol.git#kv0219",
