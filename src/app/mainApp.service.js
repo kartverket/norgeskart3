@@ -120,7 +120,7 @@ angular.module('mainApp')
       };
 
       this.generateEmergencyPosterPointUrl = function (lat, lon) {
-        return url + 'ws/emergencyPoster.py?&lon=' + lon + ',lat=' + lat;
+        return urlGeonorge + 'norgeskart/emergencyPoster/' + lon + '/' + lat;
       };
 
       this.generateSearchStedsnavnBboxUrl = function (minx, miny, maxx, maxy) {
