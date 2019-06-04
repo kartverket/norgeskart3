@@ -1,7 +1,7 @@
 {
   "author": "",
   "name": "norgeskart3",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "homepage": "http://www.norgeskart.no/3",
   "description": "Norgeskart3",
   "keywords": [
@@ -21,6 +21,7 @@
     "start": "yarn run lite",
     "prebuild": "browserify ./node_modules/pouchdb-browser/lib/index.js -s PouchDB > ./external/pouchdb.js",
     "build": "grunt default -f",
+    "bump": "grunt bump",
     "dev": "yarn run prebuild && grunt watch -f"
   },
   "license": "SEE LICENSE IN README.md",
@@ -56,7 +57,7 @@
     "eslint": "5.x.x",
     "eslint-config-airbnb-base": "13.1.x",
     "eslint-plugin-import": "2.x.x",
-    "grunt": "1.0.x",
+    "grunt": "^1.0.4",
     "grunt-appcache": "0.2.x",
     "grunt-bump": "0.8.x",
     "grunt-contrib-clean": "2.0.x",
@@ -68,7 +69,7 @@
     "grunt-contrib-watch": "1.1.x",
     "grunt-conventional-changelog": "6.1.x",
     "grunt-eslint": "21.0.x",
-    "grunt-html2js": "0.5.x",
+    "grunt-html2js": "^0.6.0",
     "grunt-karma": "3.0.x",
     "grunt-ngmin": "0.0.x",
     "jasmine": "~3",

@@ -380,7 +380,11 @@ angular.module("menuPrint")
               //   opacity: 0.7,
               //   type: "GML"
               // };
-              geojson = layers[i].getSource().getUrl() + '&outputFormat=json&srsName=urn:x-ogc:def:crs:EPSG:25833';
+              if (layers[i].getSource().getUrl()[0].split(".").slice(-1)[0] === 'geojson') {
+                geojson = layers[i].getSource().getUrl()[0];
+              } else {
+                geojson = layers[i].getSource().getUrl() + '&outputFormat=json&srsName=urn:x-ogc:def:crs:EPSG:25833';
+              }              
             } else {
               // Assume GeoJson - drawing
               if (layers[i].getProperties().options && layers[i].getProperties().options.GeoJSON) {
