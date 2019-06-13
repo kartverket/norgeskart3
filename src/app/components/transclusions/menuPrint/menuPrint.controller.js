@@ -373,6 +373,9 @@ angular.module("menuPrint")
               break;
             case "VECTOR":
               var geojson;
+              var styleCollection = {
+                version: "2"
+              }
               if (layers[i].getSource().getFormat()) {
                 // Assume GML
                 // printLayer = {
@@ -385,106 +388,116 @@ angular.module("menuPrint")
                 } else {
                   geojson = layers[i].getSource().getUrl() + '&outputFormat=json&srsName=urn:x-ogc:def:crs:EPSG:25833';
                 }
+                styleCollection["*"] = {
+                  symbolizers: [
+                    {
+                      type: "polygon",
+                      fillColor: layers[i].getStyle().getFill().getColor(),
+                      fillOpacity: 0.6,
+                      strokeColor: layers[i].getStyle().getStroke().getColor(),
+                      strokeOpacity: 1,
+                      strokeWidth: 1,
+                      strokeLinecap: "round"
+                    }
+                  ]
+                };
               } else {
                 // Assume GeoJson - drawing
                 if (layers[i].getProperties().options && layers[i].getProperties().options.GeoJSON) {
                   geojson = layers[i].getProperties().options.GeoJSON;
+                  geojson.features.forEach(function (feature) {
+                    var symbolizers = [];
+                    var id = "[IN('" + feature.id + "')]";
+                    switch (feature.geometry.type) {
+                      case ('Point'):
+                        if (feature.properties.style.regularshape) {
+                          symbolizers.push(
+                            {
+                              fillColor: feature.properties.style.regularshape.fill.color,
+                              strokeColor: feature.properties.style.regularshape.fill.color,
+                              pointRadius: feature.properties.style.regularshape.radius,
+                              type: "point"
+                            }
+                          );
+                        }
+                        if (feature.properties.style.text) {
+                          symbolizers.push(
+                            {
+                              fillColor: feature.properties.style.text.fill.color,
+                              strokeColor: feature.properties.style.text.fill.color,
+                              fontColor: feature.properties.style.text.fill.color,
+                              strokeWidth: feature.properties.style.text.stroke.width,
+                              label: feature.properties.style.text.text,
+                              haloColor: "white",
+                              haloOpacity: "0.7",
+                              haloRadius: "3.0",
+                              type: "text"
+                            }
+                          );
+                        }
+                        break;
+                      case ('LineString'):
+                        if (feature.properties.style.stroke) {
+                          symbolizers = [
+                            {
+                              fillColor: feature.properties.style.stroke.color,
+                              label: feature.properties.measurement,
+                              labelXOffset: "-40.0",
+                              haloColor: "white",
+                              haloOpacity: "0.7",
+                              haloRadius: "3.0",
+                              type: "text"
+                            },
+                            {
+                              strokeColor: feature.properties.style.stroke.color,
+                              strokeWidth: feature.properties.style.stroke.width,
+                              type: "line"
+                            }
+
+                          ];
+                        }
+                        break;
+                      case ('Polygon'):
+                        symbolizers = [
+                          {
+                            fillColor: feature.properties.style.fill.color,
+                            fillOpacity: 0.5,
+                            strokeColor: feature.properties.style.stroke.color,
+                            strokeWidth: feature.properties.style.stroke.width,
+                            type: "polygon"
+                          }
+                        ];
+                        break;
+                      default:
+                        symbolizers = [
+                          {
+                            fillColor: "red",
+                            pointRadius: 5,
+                            type: "point"
+                          },
+                          {
+                            type: "line",
+                            strokeColor: "black",
+                            strokeOpacity: 1,
+                            strokeWidth: 3,
+                            strokeLinecap: "round",
+                            strokeDashstyle: "dot"
+                          },
+                          {
+                            type: "polygon",
+                            fillColor: "#FF0000",
+                            fillOpacity: 0.7,
+                            strokeColor: "yellow",
+                            strokeOpacity: 1,
+                            strokeWidth: 3,
+                            strokeLinecap: "round"
+                          }
+                        ];
+                    }
+                    styleCollection[id] = { symbolizers: symbolizers };
+                  });
                 }
               }
-              var styleCollection = {
-                version: "2"
-              };
-              geojson.features.forEach(function (feature) {
-                var symbolizers = [];
-                var id = "[IN('" + feature.id + "')]";
-                switch (feature.geometry.type) {
-                  case ('Point'):
-                    if (feature.properties.style.regularshape) {
-                      symbolizers.push(
-                        {
-                          fillColor: feature.properties.style.regularshape.fill.color,
-                          strokeColor: feature.properties.style.regularshape.fill.color,
-                          pointRadius: feature.properties.style.regularshape.radius,
-                          type: "point"
-                        }
-                      );
-                    }
-                    if (feature.properties.style.text) {
-                      symbolizers.push(
-                        {
-                          fillColor: feature.properties.style.text.fill.color,
-                          strokeColor: feature.properties.style.text.fill.color,
-                          fontColor: feature.properties.style.text.fill.color,
-                          strokeWidth: feature.properties.style.text.stroke.width,
-                          label: feature.properties.style.text.text,
-                          haloColor: "white",
-                          haloOpacity: "0.7",
-                          haloRadius: "3.0",
-                          type: "text"
-                        }
-                      );
-                    }
-                    break;
-                  case ('LineString'):
-                    if (feature.properties.style.stroke) {
-                      symbolizers = [
-                        {
-                          fillColor: feature.properties.style.stroke.color,
-                          label: feature.properties.measurement,
-                          labelXOffset: "-40.0",
-                          haloColor: "white",
-                          haloOpacity: "0.7",
-                          haloRadius: "3.0",
-                          type: "text"
-                        },
-                        {
-                          strokeColor: feature.properties.style.stroke.color,
-                          strokeWidth: feature.properties.style.stroke.width,
-                          type: "line"
-                        }
-
-                      ];
-                    }
-                    break;
-                  case ('Polygon'):
-                    symbolizers = [
-                      {
-                        fillColor: feature.properties.style.fill.color,
-                        fillOpacity: 0.5,
-                        strokeColor: feature.properties.style.stroke.color,
-                        strokeWidth: feature.properties.style.stroke.width,
-                        type: "polygon"
-                      }
-                    ];
-                    break;
-                  default:
-                    symbolizers = [
-                      {
-                        fillColor: "red",
-                        pointRadius: 5,
-                        type: "point"
-                      },
-                      {
-                        type: "line",
-                        strokeColor: "black",
-                        strokeOpacity: 1,
-                        strokeWidth: 3,
-                        strokeLinecap: "round",
-                        strokeDashstyle: "dot"
-                      },
-                      {
-                        type: "polygon",
-                        fillColor: "#FF0000",
-                        fillOpacity: 0,
-                        strokeColor: "blue",
-                        strokeOpacity: 1,
-                        strokeWidth: 3,
-                        strokeLinecap: "round"
-                      }
-                    ];
-                }
-                styleCollection[id] = { symbolizers: symbolizers };
-              });
 
               removeKeys(geojson, "style");
               printLayer = {
