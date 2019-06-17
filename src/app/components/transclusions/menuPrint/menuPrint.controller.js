@@ -411,11 +411,32 @@ angular.module("menuPrint")
                     switch (feature.geometry.type) {
                       case ('Point'):
                         if (feature.properties.style.regularshape) {
+                          var shape = 'circle';
+                          var rotation = '0';
+                          switch (feature.properties.style.regularshape.points) {
+                            case 3:
+                              shape = 'triangle';
+                              break;
+                            case 4:
+                              shape = 'square';
+                              rotation = '45';
+                              break;
+                            case 5:
+                              shape = 'star';
+                              break;
+                            case 64:
+                              shape = 'circle';
+                              break;
+                            default:
+                              break;
+                          }
                           symbolizers.push(
                             {
                               fillColor: feature.properties.style.regularshape.fill.color,
                               strokeColor: feature.properties.style.regularshape.fill.color,
                               pointRadius: feature.properties.style.regularshape.radius,
+                              graphicName: shape,
+                              rotation: rotation,
                               type: "point"
                             }
                           );
