@@ -423,8 +423,8 @@ angular.module("menuPrint")
                         if (feature.properties.style.text) {
                           var font = feature.properties.style.text.font.split(" ");
                           var fontSize = "15px";
-                          var fontFamily = "sans-serif"
-                          if (font.length > 1){
+                          var fontFamily = "sans-serif";
+                          if (font.length > 1) {
                             fontSize = font[0];
                             fontFamily = font[1];
                           }
