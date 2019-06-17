@@ -421,11 +421,20 @@ angular.module("menuPrint")
                           );
                         }
                         if (feature.properties.style.text) {
+                          var font = feature.properties.style.text.font.split(" ");
+                          var fontSize = "15px";
+                          var fontFamily = "sans-serif"
+                          if (font.length > 1){
+                            fontSize = font[0];
+                            fontFamily = font[1];
+                          }
                           symbolizers.push(
                             {
                               fillColor: feature.properties.style.text.fill.color,
                               strokeColor: feature.properties.style.text.fill.color,
                               fontColor: feature.properties.style.text.fill.color,
+                              fontFamily: fontFamily,
+                              fontSize: fontSize,
                               strokeWidth: feature.properties.style.text.stroke.width,
                               label: feature.properties.style.text.text,
                               haloColor: "white",
@@ -458,10 +467,15 @@ angular.module("menuPrint")
                         }
                         break;
                       case ('Polygon'):
+                        var rgba = feature.properties.style.fill.color.substr(5).split(")")[0].split(",");
+                        var opacity = 0.5;
+                        if (rgba.length > 3) {
+                          opacity = +rgba[3];
+                        }
                         symbolizers = [
                           {
                             fillColor: feature.properties.style.fill.color,
-                            fillOpacity: 0.5,
+                            fillOpacity: opacity,
                             strokeColor: feature.properties.style.stroke.color,
                             strokeWidth: feature.properties.style.stroke.width,
                             type: "polygon"
