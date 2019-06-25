@@ -376,7 +376,7 @@ angular.module("menuPrint")
               var styleCollection = {
                 version: "2"
               }
-              if (layers[i].getSource().getFormat()) {
+              if (layers[i].getSource().getUrl()) {
                 // Assume GML
                 // printLayer = {
                 //   url: layers[i].getSource().getUrl(),
