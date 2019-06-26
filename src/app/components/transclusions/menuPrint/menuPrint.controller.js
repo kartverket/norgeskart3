@@ -375,14 +375,8 @@ angular.module("menuPrint")
               var geojson;
               var styleCollection = {
                 version: "2"
-              }
-              if (layers[i].getSource().getUrl()) {
-                // Assume GML
-                // printLayer = {
-                //   url: layers[i].getSource().getUrl(),
-                //   opacity: 0.7,
-                //   type: "GML"
-                // };
+              };
+              if (layers[i].getSource().getUrl() || layers[i].getSource().getFormat()) {
                 if (layers[i].getSource().getUrl()[0].split(".").slice(-1)[0] === 'geojson') {
                   geojson = layers[i].getSource().getUrl()[0];
                 } else {
