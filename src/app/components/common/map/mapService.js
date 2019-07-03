@@ -738,6 +738,10 @@ module.provider('gnMap', function () {
               if (!getCapLayer.CRS.includes(projCode)) {
                 if (projCode === 'EPSG:3857' && getCapLayer.CRS.includes('EPSG:900913')) {
                   console.warn('');
+                } else if (getCapLayer.BoundingBox.filter( function(obj) {
+                  return obj['crs'] === 'EPSG:25833';
+                }).length > 0 ) {
+                  projCode = 'EPSG:25833';
                 } else if (getCapLayer.CRS.includes('EPSG:4326')) {
                   projCode = 'EPSG:4326';
                 } else {
