@@ -529,12 +529,15 @@ angular.module("menuPrint")
               }
 
               if (geojson) {
-                removeKeys(geojson, "style");
-                printLayer = {
-                  geoJson: geojson,
-                  type: "geojson",
-                  style: styleCollection
-                };
+                if (typeof geojson === 'string' || Object.keys(geojson.features).length !== 0){
+                  var newGeojson = JSON.parse(JSON.stringify(geojson))
+                  removeKeys(newGeojson, "style");
+                  printLayer = {
+                    geoJson: newGeojson,
+                    type: "geojson",
+                    style: styleCollection
+                  };
+                }
               }
               break;
             default:
