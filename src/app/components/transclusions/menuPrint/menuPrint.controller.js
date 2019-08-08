@@ -528,12 +528,14 @@ angular.module("menuPrint")
                 }
               }
 
-              removeKeys(geojson, "style");
-              printLayer = {
-                geoJson: geojson,
-                type: "geojson",
-                style: styleCollection
-              };
+              if (geojson) {
+                removeKeys(geojson, "style");
+                printLayer = {
+                  geoJson: geojson,
+                  type: "geojson",
+                  style: styleCollection
+                };
+              }
               break;
             default:
               console.warn("Unexpected Layer type to print, let's try it");
@@ -549,7 +551,9 @@ angular.module("menuPrint")
               };
               break;
           }
-          printJson.attributes.map.layers.push(printLayer);
+          if (Object.keys(printLayer).length !== 0) {
+            printJson.attributes.map.layers.push(printLayer);
+          }
         }
 
         var uploadPrintData = toolsPrint.uploadDataForPrint("kv", printJson);
