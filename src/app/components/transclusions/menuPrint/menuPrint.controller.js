@@ -462,6 +462,10 @@ angular.module("menuPrint")
                         break;
                       case ('LineString'):
                         if (feature.properties.style.stroke) {
+                          var strokeDashstyle = "solid";
+                          if (feature.properties.style.stroke.lineDash) {
+                            strokeDashstyle = feature.properties.style.stroke.lineDash.toString().replace(",", " ");
+                          }
                           symbolizers = [
                             {
                               fillColor: feature.properties.style.stroke.color,
@@ -475,7 +479,10 @@ angular.module("menuPrint")
                             {
                               strokeColor: feature.properties.style.stroke.color,
                               strokeWidth: feature.properties.style.stroke.width,
-                              type: "line"
+                              strokeDashstyle: strokeDashstyle,
+                              type: "line",
+                              strokeOpacity: 1,
+                              strokeLinecap: "round",
                             }
 
                           ];
@@ -529,7 +536,7 @@ angular.module("menuPrint")
               }
 
               if (geojson) {
-                if (typeof geojson === 'string' || Object.keys(geojson.features).length !== 0){
+                if (typeof geojson === 'string' || Object.keys(geojson.features).length !== 0) {
                   var newGeojson = JSON.parse(JSON.stringify(geojson))
                   removeKeys(newGeojson, "style");
                   printLayer = {
