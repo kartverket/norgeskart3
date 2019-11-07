@@ -97,6 +97,9 @@ angular.module('searchLagNodplakatPanel')
                 $scope.lagNodplakatName = value;
                 $scope.activePlaceName = value;
             };
+            $scope.setNodePlagatStreet = function (value) {
+              $scope.activeStreet = value;
+          };
 
             $scope.setlagNodplakatConfirmRoad = function (value) {
                 $scope.lagNodplakatConfirmRoad = value;

@@ -51,31 +51,43 @@
         </div>
 
         <div class="new-section" ng-show="lagNodplakatDict['emergencyPosterPoint'].veg">
-            <span>
+          <div>
+            <div>
                 <span translate="FoundRoadIs"></span>
-                <span> {{lagNodplakatDict['emergencyPosterPoint'].veg}} </span>
+                <div class="dropdown">
+                  <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownStreet" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      <span data-ng-bind="activeStreet||lagNodplakatDict['emergencyPosterPoint'].veg"></span>
+                      <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownStreet">
+                      <li data-ng-repeat="(key, value) in lagNodplakatDict['emergencyPosterPoint'].vegliste" data-ng-click="setNodePlagatStreet(value)" class="pointer-cursor">
+                          <span data-ng-bind="value"></span>
+                      </li>
+                  </ul>
+                </div>
                 <span translate="In"></span>
                 <span> {{lagNodplakatDict['emergencyPosterPoint'].kommune}}</span>
                 <span translate="Municipality"></span>
-            </span>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="dropdown">
-                        <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span>{{ valgtTekst | translate }}</span>
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu3">
-                            <li data-ng-click="setlagNodplakatConfirmRoad(true)" class="pointer-cursor">
-                                <span translate="ja"></span>
-                            </li>
-                            <li data-ng-click="setlagNodplakatConfirmRoad(false)" class="pointer-cursor">
-                                <span translate="nei"></span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+              </div>
             </div>
+          <div class="row">
+              <div class="col-xs-12">
+                  <div class="dropdown">
+                      <button class="btn btn-default btn-searchPanel dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          <span>{{ valgtTekst | translate }}</span>
+                          <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-relative" aria-labelledby="dropdownMenu3">
+                          <li data-ng-click="setlagNodplakatConfirmRoad(true)" class="pointer-cursor">
+                              <span translate="ja"></span>
+                          </li>
+                          <li data-ng-click="setlagNodplakatConfirmRoad(false)" class="pointer-cursor">
+                              <span translate="nei"></span>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
         </div>
         <div class="new-section navigation-button pull-right">
             <button class="btn btn-default btn-ordinary"
