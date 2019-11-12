@@ -99,7 +99,8 @@ angular.module('searchLagNodplakatPanelPage2')
             var localUTMPoint = ol.proj.transform([scope.activePosition.geographicPoint[0], scope.activePosition.geographicPoint[1]], 'EPSG:4326', UTM.localProj);
             var street = '';
             if (!!scope.lagNodplakatDict.emergencyPosterPoint.matrikkelnr && scope.lagNodplakatConfirmRoad) {
-              street = scope.activeStreet + ' i ' + scope.lagNodplakatDict.emergencyPosterPoint.kommune;
+              street = scope.activeStreet || scope.lagNodplakatDict.emergencyPosterPoint.veg;
+              street += ' i ' + scope.lagNodplakatDict.emergencyPosterPoint.kommune;
             }
             return {
               locationName: scope.lagNodplakatName,
@@ -159,7 +160,7 @@ angular.module('searchLagNodplakatPanelPage2')
             return emergencyPosterServiceUrl;
           };
 
-            scope.generateEmergancyPoster = function () {
+          scope.generateEmergancyPoster = function () {
             if (!scope.lagNodplakatDict.emergencyPosterPoint) {
               alert('Service returned error.');
             }
