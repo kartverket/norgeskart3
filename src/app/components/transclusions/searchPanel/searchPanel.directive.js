@@ -233,7 +233,16 @@ angular.module('searchPanel')
               });
             }
 
-            scope.searchOptionsDict[name] = matrikkelInfo[0];
+            if (scope.searchBarModel.length > 1 && matrikkelInfo[0].adresse !== scope.searchBarModel) {
+              scope.searchOptionsDict[name] = matrikkelInfo.filter(function (el) {
+                return el.adresse == scope.searchBarModel;
+              })[0];
+              if (scope.searchOptionsDict[name] === undefined) {
+                scope.searchOptionsDict[name] = matrikkelInfo[0];
+              }
+            } else {
+              scope.searchOptionsDict[name] = matrikkelInfo[0];
+            }
             if (tmpResults) {
               scope.searchOptionsDict[name].allResults = tmpResults;
             }
