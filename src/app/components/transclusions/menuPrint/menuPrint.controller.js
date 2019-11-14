@@ -119,7 +119,7 @@ angular.module("menuPrint")
       function removeKeys(obj, keys) {
         var index;
         for (var prop in obj) {
-          if (obj.hasOwnProperty(prop)) {
+          if (Object.prototype.hasOwnProperty.call(obj, prop)) {
             switch (typeof obj[prop]) {
               case "string":
                 index = keys.indexOf(prop);
@@ -537,7 +537,7 @@ angular.module("menuPrint")
 
               if (geojson) {
                 if (typeof geojson === 'string' || Object.keys(geojson.features).length !== 0) {
-                  var newGeojson = JSON.parse(JSON.stringify(geojson))
+                  var newGeojson = JSON.parse(JSON.stringify(geojson));
                   removeKeys(newGeojson, "style");
                   printLayer = {
                     geoJson: newGeojson,

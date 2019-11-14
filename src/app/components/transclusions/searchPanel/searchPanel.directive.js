@@ -470,7 +470,7 @@ angular.module('searchPanel')
               if (sosi) {
                 var koordTransUrl = mainAppService.generateKoordTransUrl(params.north.value, params.east.value, '', sosi);
                 $http.get(koordTransUrl).then(function (response) {
-                  if (response.data.hasOwnProperty('kode') && response.data.kode !== 0) {
+                  if (Object.prototype.hasOwnProperty.call(response.data, "kode") && response.data.kode !== 0) {
                     console.error(response.data);
                     return false;
                   } else {
@@ -1246,7 +1246,6 @@ angular.module('searchPanel')
             } else if (newValue && newValue.indexOf('@') < 0) {
               scope.searchBarCoordinateSystemIndicator = false;
             }
-
           });
         }
       };
