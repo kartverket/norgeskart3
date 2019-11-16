@@ -104,7 +104,7 @@ angular.module('mainApp')
             displayprojectionepsgcode: "EPSG:25833",
             isygatekeeper: "https://www.norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
             tickethost: "https://www.norgeskart.no/ws/esk.py?wms.ecc_enc",
-            name: "norgeskart"
+            name: "fastmerker"
           },
           wmts: [{
             type: "map",
@@ -120,14 +120,14 @@ angular.module('mainApp')
             options: {
               isbaselayer: "true",
               singletile: "false",
-              visibility: "true"
+              visibility: "false"
             },
             thumbnail: "land"
           }, {
             type: "map",
             gatekeeper: "true",
             name: "flybilder",
-            url: "http://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?|http://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?",
+            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?|https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?",
             params: {
               layers: "Nibcache_UTM33_EUREF89",
               format: "image/png"
@@ -171,7 +171,7 @@ angular.module('mainApp')
             options: {
               isbaselayer: "true",
               singletile: "false",
-              visibility: "false"
+              visibility: "true"
             },
             thumbnail: "grey"
           }, {
@@ -303,605 +303,78 @@ angular.module('mainApp')
             }
           }, {
             type: "overlay",
+            Layers: {
+              Layer: {
+                name: "CPOS_monitoring_stations",
+                queryable: "false",
+                title: "CPOS_monitoring_stations"
+              }
+            },
             gatekeeper: "true",
-            name: "fotruter",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 5,
+            name: "CPOS_monitoring_stations",
+            info: "Koordinatbestemte fastmerker er markert i terrenget med metallbolter som vanligvis er satt ned i fast fjell. Fastmerkene er inndelt i Stamnett, landsnett, trekantpunkter og høydefastmerker.",
+            url: "http://nnriap663/cgi-bin/cpos_monitor",
+            legendurl: "http://nnriap663/cgi-bin/cpos_monitor",
+            groupid: 2,
             params: {
-              layers: "Fotrute",
+              layers: "CPOS_monitoring_stations",
               format: "image/png"
             },
-            guid: "5.Fotrute",
+            guid: "2.cpos_monitor",
             options: {
               isbaselayer: "false",
               singletile: "true",
-              visibility: "false"
+              visibility: "true"
             },
             includedfields: {
-              capitalize: "true",
               field: [{
-                name: "belysning"
+                alias: "id",
+                name: "id"
               }, {
-                name: "rutenavn"
+                alias: "station",
+                name: "station"
               }, {
-                name: "rutenummer"
+                alias: "time",
+                name: "time"
               }, {
-                name: "vedlikeholdsansvarlig"
+                alias: "n_sat",
+                name: "n_sat"
               }, {
-                name: "merking_d",
-                alias: "Merking"
+                alias: "hdop",
+                name: "hdop"
               }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
+                alias: "hoehe",
+                name: "hoehe",
+                unit: " m"
               }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "Ruteinfopunkt",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 5,
-            params: {
-              layers: "Ruteinfopunkt",
-              format: "image/png"
-            },
-            guid: "5.Fotrute",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "objtype",
-                alias: "Rutetype"
+                alias: "dn",
+                name: "dn",
+                unit: " m"
               }, {
-                name: "informasjon"
+                alias: "de",
+                name: "de"
               }, {
-                name: "vedlikeholdsansvarlig"
+                alias: "dlage",
+                name: "dlage"
               }, {
-                name: "ruteinfoid",
-                alias: "Rutenummer"
-              }, {
-                name: "description",
-                alias: "tilrettelegging"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "skiloyper",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 5,
-            params: {
-              layers: "Skiloype",
-              format: "image/png"
-            },
-            guid: "5.Skiloype",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "belysning"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "sykkelruter",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 5,
-            params: {
-              layers: "Sykkelrute",
-              format: "image/png"
-            },
-            guid: "5.Sykkelrute",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "belysning"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "historisk_ferdselsrute",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 6,
-            params: {
-              layers: "Historisk",
-              format: "image/png"
-            },
-            guid: "6.Historisk",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "belysning"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "kyststi",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 6,
-            params: {
-              layers: "Kyststi",
-              format: "image/png"
-            },
-            guid: "6.Kyststi",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "belysning"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "kultursti",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 6,
-            params: {
-              layers: "Kultursti",
-              format: "image/png"
-            },
-            guid: "6.Kultursti",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "belysning"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "natursti",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 6,
-            params: {
-              layers: "Natursti",
-              format: "image/png"
-            },
-            guid: "6.Natursti",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "belysning"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "trimloype",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 6,
-            params: {
-              layers: "Trimloype",
-              format: "image/png"
-            },
-            guid: "6.Trimloype",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "belysning"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "fotrute_type_ikke_angitt",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 6,
-            params: {
-              layers: "Fotrutetypeikkeangitt",
-              format: "image/png"
-            },
-            guid: "6.Fotrutetypeikkeangitt",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "belysning"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "Maskinpreparert",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 7,
-            params: {
-              layers: "Maskinpreparert",
-              format: "image/png"
-            },
-            guid: "7.Maskinpreparert",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "belysning"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }, {
-                name: "antallskispor"
-              }, {
-                name: "tilpasning_d",
-                alias: "tilpassing"
-              }, {
-                name: "preparering_d",
-                alias: "preparering"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "Snøskuter",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 7,
-            params: {
-              layers: "Snoskuter",
-              format: "image/png"
-            },
-            guid: "7.Snøskuter",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "belysning"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }, {
-                name: "antallskispor"
-              }, {
-                name: "tilpasning_d",
-                alias: "tilpassing"
-              }, {
-                name: "preparering_d",
-                alias: "preparering"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "Upreparert",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 7,
-            params: {
-              layers: "Upreparert",
-              format: "image/png"
-            },
-            guid: "7.Upreparert",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "belysning"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }, {
-                name: "antallskispor"
-              }, {
-                name: "tilpasning_d",
-                alias: "tilpassing"
-              }, {
-                name: "preparering_d",
-                alias: "preparering"
-              }]
-            }
-          }, {
-            type: "overlay",
-            gatekeeper: "true",
-            name: "Preparering ikke angitt",
-            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-            groupid: 7,
-            params: {
-              layers: "Ingen_info",
-              format: "image/png"
-            },
-            guid: "7.Preparering ikke angitt",
-            options: {
-              isbaselayer: "false",
-              singletile: "true",
-              visibility: "false"
-            },
-            includedfields: {
-              capitalize: "true",
-              field: [{
-                name: "merking_d",
-                alias: "Merking"
-              }, {
-                name: "rutenavn"
-              }, {
-                name: "rutenummer"
-              }, {
-                name: "vedlikeholdsansvarlig"
-              }, {
-                name: "belysning"
-              }, {
-                name: "spesialrutetype_d",
-                alias: "Spesialrutetype"
-              }, {
-                name: "gradering_d",
-                alias: "Vanskelig"
-              }, {
-                name: "antallskispor"
-              }, {
-                name: "tilpasning_d",
-                alias: "tilpassing"
-              }, {
-                name: "preparering_d",
-                alias: "preparering"
+                alias: "d",
+                name: "underldag"
               }]
             }
           }],
           maplayer: [{
-            index: 3,
-            name: "fakta",
-            groupid: 3
-          }, {
-            index: 5,
-            name: "tur_og_friluftsruter",
-            groupid: 5
-          }, {
-            index: 6,
-            name: "fotrutetype",
-            groupid: 6
-          }, {
-            index: 7,
-            name: "Skiløypepreparering",
-            groupid: 7
+            index: 2,
+            name: "CPOS",
+            groupid: 2
           }],
-          vector: [{
-            type: "overlay",
-            name: "kommunenes_fjelltopper",
-            url: "https://www.norgeskart.no/json/tema/kommunefjell/Kommunefjell2018.geojson",
-            epsg: "EPSG:25833",
-            groupid: 3,
-            params: {
-              format: "application/json"
-            },
-            guid: "3.Kommunenes fjelltopper",
-            options: {
-              visibility: "false"
-            },
-            style: {
-              regularshape: {
-                fill: {
-                  color: "#000000"
-                },
-                points: 3,
-                radius: 9
-              }
+          featureDict: {
+            Punkttype: {
+              T: "Trekantpunkt",
+              L: "Landsnett",
+              S: "Stamnett",
+              N: "Høydefastmerke"
             }
-          }],
+          },
           mapbounds: {
             mapbound: [{
               epsg: "EPSG:23031",
@@ -1009,7 +482,7 @@ angular.module('mainApp')
 
       function getProjectsListCallback(project) {
         projectsList = project ? project : undefined;
-        if (projectNameUrl === 'norgeskart') {
+        if (projectNameUrl === 'fastmerker') {
           getProjectCallback(defaultProjectConfig, false);
         } else if (projectsList === undefined || projectNameUrl !== undefined) {
           map.GetConfigResource(projectUrl, 'application/json', getProjectCallback);
@@ -1022,7 +495,7 @@ angular.module('mainApp')
 
       var _setDeafultProject = function () {
         var obj = $location.search();
-        obj.project = "norgeskart";
+        obj.project = "fastmerker";
         var newSearch = angular.extend($location.search(), obj);
         $location.search(newSearch);
       };
@@ -1040,7 +513,7 @@ angular.module('mainApp')
           return decodeURIComponent(projectName[1]);
         } else {
           _setDeafultProject();
-          return 'norgeskart';
+          return 'fastmerker';
         }
       };
 
@@ -1417,7 +890,7 @@ angular.module('mainApp')
         getLastActiveSearchPanel: function () {
           return lastSelectedSearchPanel;
         },
-        
+
         getVisibleLayers: function() {
           var _isLayerVisible = function (layer) {
             return layer.isVisible;
@@ -1529,7 +1002,7 @@ angular.module('mainApp')
                 displayprojectionepsgcode: "EPSG:25833",
                 isygatekeeper: "https://www.norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
                 tickethost: "https://www.norgeskart.no/ws/esk.py?wms.ecc_enc",
-                name: "norgeskart"
+                name: "fastmerker"
               },
               wmts: [{
                 type: "map",
@@ -1545,14 +1018,14 @@ angular.module('mainApp')
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
-                  visibility: "true"
+                  visibility: "false"
                 },
                 thumbnail: "land"
               }, {
                 type: "map",
                 gatekeeper: "true",
                 name: "flybilder",
-                url: "http://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?|http://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?",
+                url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?|https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?",
                 params: {
                   layers: "Nibcache_UTM33_EUREF89",
                   format: "image/png"
@@ -1596,7 +1069,7 @@ angular.module('mainApp')
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
-                  visibility: "false"
+                  visibility: "true"
                 },
                 thumbnail: "grey"
               }, {
@@ -1728,605 +1201,103 @@ angular.module('mainApp')
                 }
               }, {
                 type: "overlay",
+                Layers: {
+                  Layer: {
+                    name: "cpos_monitor",
+                    queryable: "false",
+                    title: "CPOS monitor"
+                  }
+                },
                 gatekeeper: "true",
-                name: "fotruter",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 5,
+                name: "cpos_monitor",
+                info: "Koordinatbestemte fastmerker er markert i terrenget med metallbolter som vanligvis er satt ned i fast fjell. Fastmerkene er inndelt i Stamnett, landsnett, trekantpunkter og høydefastmerker.",
+                url: "http://nnriap663/cgi-bin/cpos_monitor",
+                legendurl: "http://nnriap663/cgi-bin/cpos_monitor",
+                groupid: 2,
                 params: {
-                  layers: "Fotrute",
+                  layers: "cpos_monitor",
                   format: "image/png"
                 },
-                guid: "5.Fotrute",
+                guid: "2.cpos_monitor",
                 options: {
                   isbaselayer: "false",
                   singletile: "true",
-                  visibility: "false"
+                  visibility: "true"
                 },
                 includedfields: {
-                  capitalize: "true",
                   field: [{
-                    name: "belysning"
+                    alias: "id",
+                    name: "id"
                   }, {
-                    name: "rutenavn"
+                    alias: "station",
+                    name: "station"
                   }, {
-                    name: "rutenummer"
+                    alias: "Nord",
+                    name: "nord"
                   }, {
-                    name: "vedlikeholdsansvarlig"
+                    alias: "Øst",
+                    name: "ost"
                   }, {
-                    name: "merking_d",
-                    alias: "Merking"
+                    alias: "Sone",
+                    name: "sone"
                   }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
+                    alias: "Høyde_nn2000",
+                    name: "hoyde_nn2000",
+                    unit: " m"
                   }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "Ruteinfopunkt",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 5,
-                params: {
-                  layers: "Ruteinfopunkt",
-                  format: "image/png"
-                },
-                guid: "5.Fotrute",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "objtype",
-                    alias: "Rutetype"
+                    alias: "Høyde_nn1954",
+                    name: "hoyde_nn1954",
+                    unit: " m"
                   }, {
-                    name: "informasjon"
+                    alias: "Ellipsoidisk_høyde",
+                    name: "ellipsoidisk_hoyde"
                   }, {
-                    name: "vedlikeholdsansvarlig"
+                    alias: "Punkttype",
+                    name: "punkttype"
                   }, {
-                    name: "ruteinfoid",
-                    alias: "Rutenummer"
+                    alias: "Underlag",
+                    name: "underlag"
                   }, {
-                    name: "description",
-                    alias: "tilrettelegging"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "skiloyper",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 5,
-                params: {
-                  layers: "Skiloype",
-                  format: "image/png"
-                },
-                guid: "5.Skiloype",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "belysning"
+                    alias: "Kvalitet_nn1954",
+                    name: "kvalitet_nn1954",
+                    unit: " mm"
                   }, {
-                    name: "rutenavn"
+                    alias: "Kvalitet_grunnriss",
+                    name: "kvalitet_grunnriss",
+                    unit: " mm"
                   }, {
-                    name: "rutenummer"
+                    alias: "Status",
+                    name: "status"
                   }, {
-                    name: "vedlikeholdsansvarlig"
+                    alias: "Status_år",
+                    name: "status_ar"
                   }, {
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "sykkelruter",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 5,
-                params: {
-                  layers: "Sykkelrute",
-                  format: "image/png"
-                },
-                guid: "5.Sykkelrute",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "belysning"
-                  }, {
-                    name: "rutenavn"
-                  }, {
-                    name: "rutenummer"
-                  }, {
-                    name: "vedlikeholdsansvarlig"
-                  }, {
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "historisk_ferdselsrute",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 6,
-                params: {
-                  layers: "Historisk",
-                  format: "image/png"
-                },
-                guid: "6.Historisk",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "belysning"
-                  }, {
-                    name: "rutenavn"
-                  }, {
-                    name: "rutenummer"
-                  }, {
-                    name: "vedlikeholdsansvarlig"
-                  }, {
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "kyststi",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 6,
-                params: {
-                  layers: "Kyststi",
-                  format: "image/png"
-                },
-                guid: "6.Kyststi",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "belysning"
-                  }, {
-                    name: "rutenavn"
-                  }, {
-                    name: "rutenummer"
-                  }, {
-                    name: "vedlikeholdsansvarlig"
-                  }, {
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "kultursti",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 6,
-                params: {
-                  layers: "Kultursti",
-                  format: "image/png"
-                },
-                guid: "6.Kultursti",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "belysning"
-                  }, {
-                    name: "rutenavn"
-                  }, {
-                    name: "rutenummer"
-                  }, {
-                    name: "vedlikeholdsansvarlig"
-                  }, {
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "natursti",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 6,
-                params: {
-                  layers: "Natursti",
-                  format: "image/png"
-                },
-                guid: "6.Natursti",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "belysning"
-                  }, {
-                    name: "rutenavn"
-                  }, {
-                    name: "rutenummer"
-                  }, {
-                    name: "vedlikeholdsansvarlig"
-                  }, {
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "trimloype",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 6,
-                params: {
-                  layers: "Trimloype",
-                  format: "image/png"
-                },
-                guid: "6.Trimloype",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "belysning"
-                  }, {
-                    name: "rutenavn"
-                  }, {
-                    name: "rutenummer"
-                  }, {
-                    name: "vedlikeholdsansvarlig"
-                  }, {
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "fotrute_type_ikke_angitt",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 6,
-                params: {
-                  layers: "Fotrutetypeikkeangitt",
-                  format: "image/png"
-                },
-                guid: "6.Fotrutetypeikkeangitt",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "belysning"
-                  }, {
-                    name: "rutenavn"
-                  }, {
-                    name: "rutenummer"
-                  }, {
-                    name: "vedlikeholdsansvarlig"
-                  }, {
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "Maskinpreparert",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 7,
-                params: {
-                  layers: "Maskinpreparert",
-                  format: "image/png"
-                },
-                guid: "7.Maskinpreparert",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "rutenavn"
-                  }, {
-                    name: "rutenummer"
-                  }, {
-                    name: "vedlikeholdsansvarlig"
-                  }, {
-                    name: "belysning"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }, {
-                    name: "antallskispor"
-                  }, {
-                    name: "tilpasning_d",
-                    alias: "tilpassing"
-                  }, {
-                    name: "preparering_d",
-                    alias: "preparering"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "Snøskuter",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 7,
-                params: {
-                  layers: "Snoskuter",
-                  format: "image/png"
-                },
-                guid: "7.Snøskuter",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "rutenavn"
-                  }, {
-                    name: "rutenummer"
-                  }, {
-                    name: "vedlikeholdsansvarlig"
-                  }, {
-                    name: "belysning"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }, {
-                    name: "antallskispor"
-                  }, {
-                    name: "tilpasning_d",
-                    alias: "tilpassing"
-                  }, {
-                    name: "preparering_d",
-                    alias: "preparering"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "Upreparert",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 7,
-                params: {
-                  layers: "Upreparert",
-                  format: "image/png"
-                },
-                guid: "7.Upreparert",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "rutenavn"
-                  }, {
-                    name: "rutenummer"
-                  }, {
-                    name: "vedlikeholdsansvarlig"
-                  }, {
-                    name: "belysning"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }, {
-                    name: "antallskispor"
-                  }, {
-                    name: "tilpasning_d",
-                    alias: "tilpassing"
-                  }, {
-                    name: "preparering_d",
-                    alias: "preparering"
-                  }]
-                }
-              }, {
-                type: "overlay",
-                gatekeeper: "true",
-                name: "Preparering ikke angitt",
-                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
-                groupid: 7,
-                params: {
-                  layers: "Ingen_info",
-                  format: "image/png"
-                },
-                guid: "7.Preparering ikke angitt",
-                options: {
-                  isbaselayer: "false",
-                  singletile: "true",
-                  visibility: "false"
-                },
-                includedfields: {
-                  capitalize: "true",
-                  field: [{
-                    name: "merking_d",
-                    alias: "Merking"
-                  }, {
-                    name: "rutenavn"
-                  }, {
-                    name: "rutenummer"
-                  }, {
-                    name: "vedlikeholdsansvarlig"
-                  }, {
-                    name: "belysning"
-                  }, {
-                    name: "spesialrutetype_d",
-                    alias: "Spesialrutetype"
-                  }, {
-                    name: "gradering_d",
-                    alias: "Vanskelig"
-                  }, {
-                    name: "antallskispor"
-                  }, {
-                    name: "tilpasning_d",
-                    alias: "tilpassing"
-                  }, {
-                    name: "preparering_d",
-                    alias: "preparering"
+                    alias: "Beskrivelse",
+                    name: "beskrivelse"
                   }]
                 }
               }],
               maplayer: [{
-                index: 3,
-                name: "fakta",
-                groupid: 3
-              }, {
-                index: 5,
-                name: "tur_og_friluftsruter",
-                groupid: 5
+                index: 2,
+                name: "fastmerker",
+                groupid: 2
               }, {
                 index: 6,
-                name: "fotrutetype",
+                name: "Basestasjoner",
                 groupid: 6
               }, {
-                index: 7,
-                name: "Skiløypepreparering",
-                groupid: 7
+                index: 5,
+                name: "utm_rutenett",
+                groupid: 5
               }],
-              vector: [{
-                type: "overlay",
-                name: "kommunenes_fjelltopper",
-                url: "https://www.norgeskart.no/json/tema/kommunefjell/Kommunefjell2018.geojson",
-                epsg: "EPSG:25833",
-                groupid: 3,
-                params: {
-                  format: "application/json"
-                },
-                guid: "3.Kommunenes fjelltopper",
-                options: {
-                  visibility: "false"
-                },
-                style: {
-                  regularshape: {
-                    fill: {
-                      color: "#000000"
-                    },
-                    points: 3,
-                    radius: 9
-                  }
+              featureDict: {
+                Punkttype: {
+                  T: "Trekantpunkt",
+                  L: "Landsnett",
+                  S: "Stamnett",
+                  N: "Høydefastmerke"
                 }
-              }],
+              },
               mapbounds: {
                 mapbound: [{
                   epsg: "EPSG:23031",

@@ -41,6 +41,7 @@
     "angular-utils-pagination": "^0.11.x",
     "blob-util": "^2.x.x",
     "bootstrap": "3.4.x",
+    "chart.js": "^2.9.3",
     "es5-shim": "^4.5.x",
     "featherlight": "^1.7.x",
     "floatthead": "^2.x.x",
