@@ -357,8 +357,8 @@ angular.module('mainApp')
                 alias: "dlage",
                 name: "dlage"
               }, {
-                alias: "d",
-                name: "underldag"
+                alias: "dh",
+                name: "dh"
               }]
             }
           }],
