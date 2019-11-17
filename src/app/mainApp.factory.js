@@ -331,8 +331,10 @@ angular.module('mainApp')
                 alias: "id",
                 name: "id"
               },  {
-                alias: "shortname",
-                name: "shortname"
+                alias: "Åpne graph :",
+                name: "shortname",
+                type: "link",
+                baseurl: "http://159.162.31.150:8060/"
               }, {
                 alias: "station",
                 name: "station"
