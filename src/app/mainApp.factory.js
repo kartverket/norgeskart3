@@ -330,6 +330,9 @@ angular.module('mainApp')
               field: [{
                 alias: "id",
                 name: "id"
+              },  {
+                alias: "shortname",
+                name: "shortname"
               }, {
                 alias: "station",
                 name: "station"
@@ -1228,6 +1231,9 @@ angular.module('mainApp')
                   field: [{
                     alias: "id",
                     name: "id"
+                  }, {
+                    alias: "shortname",
+                    name: "shortname"
                   }, {
                     alias: "station",
                     name: "station"
