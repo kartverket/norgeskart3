@@ -40,7 +40,7 @@ angular.module('gnWmsImport', ['gn_ows', 'gn_alert', 'gn_map_service', 'gnConfig
 
             getCapLayer.version = "1.3.0"; //$scope.capability.version;
             angular.forEach($scope.url, function (url) {
-              if (url.startsWith(getCapLayer.url)) {
+              if (url.split('//')[1].startsWith(getCapLayer.url.split('//')[1])) {
                 getCapLayer.url = url;
               }
             });
