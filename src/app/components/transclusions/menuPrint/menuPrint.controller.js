@@ -202,6 +202,7 @@ angular.module("menuPrint")
             }
             baseUrl = testUrl[0];
           }
+          customParams = JSON.parse(JSON.stringify(customParams));
 
           switch (sourceType) {
             case "WMS":
