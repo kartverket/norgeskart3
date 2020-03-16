@@ -55,7 +55,7 @@
   "devDependencies": {
     "browserify": "^16.5.0",
     "eslint": "6.x.x",
-    "eslint-config-airbnb-base": "14.0.x",
+    "eslint-config-airbnb-base": "14.1.x",
     "eslint-plugin-import": "2.x.x",
     "grunt": "^1.0.4",
     "grunt-appcache": "0.2.x",
