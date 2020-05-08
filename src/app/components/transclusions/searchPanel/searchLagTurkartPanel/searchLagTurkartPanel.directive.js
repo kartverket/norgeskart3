@@ -75,7 +75,7 @@ angular.module('searchLagTurkartPanel')
                 center: extent.center,
                 dpi: "300",
                 layers: [{
-                  baseURL: "http://wms.geonorge.no/skwms1/wms.toporaster3",
+                  baseURL: "http://wms.geonorge.no/skwms1/wms.toporaster4",
                   customParams: {
                     TRANSPARENT: "false"
                   },

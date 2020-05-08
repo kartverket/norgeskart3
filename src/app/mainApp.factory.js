@@ -146,11 +146,11 @@ angular.module('mainApp')
             name: "rasterkart",
             url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
             params: {
-              layers: "toporaster3",
+              layers: "toporaster4",
               format: "image/png"
             },
             matrixprefix: "true",
-            guid: "0.toporaster3",
+            guid: "0.toporaster4",
             options: {
               isbaselayer: "true",
               singletile: "false",
@@ -1049,11 +1049,11 @@ angular.module('mainApp')
                 name: "rasterkart",
                 url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
                 params: {
-                  layers: "toporaster3",
+                  layers: "toporaster4",
                   format: "image/png"
                 },
                 matrixprefix: "true",
-                guid: "0.toporaster3",
+                guid: "0.toporaster4",
                 options: {
                   isbaselayer: "true",
                   singletile: "false",

@@ -198,10 +198,11 @@ angular.module("menuPrint")
           if (testUrl.length > 1) {
             for (var b = 1; b < testUrl.length; b++) {
               var param = testUrl[b].split("=");
-              customParams[param[0]] = param[1];
+              customParams[param[0]] = testUrl[b].split("=").slice(1).join('=');
             }
             baseUrl = testUrl[0];
           }
+          customParams = JSON.parse(JSON.stringify(customParams));
 
           switch (sourceType) {
             case "WMS":
