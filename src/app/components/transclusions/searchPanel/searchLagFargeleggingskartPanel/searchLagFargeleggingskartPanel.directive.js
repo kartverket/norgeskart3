@@ -43,7 +43,7 @@ angular.module('searchLagFargeleggingskartPanel')
             var json = _createJson();
             $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side
             var urlLagFargeleggingskart = mainAppService.generateLagFargeleggingskartUrl();
-            $http.post(urlLagFargeleggingskart, json).then(
+            $http.post(urlLagFargeleggingskart, json, {headers:{'Content-Type': 'application/json'}}).then(
               function (response) {
                 _mapReadyForDownload(response, urlLagFargeleggingskart);
               },

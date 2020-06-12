@@ -55,7 +55,7 @@ angular.module('searchLagTurkartPanel')
             var json = _createJson();
             $http.defaults.headers.post = {}; //TODO: This is a hack. CORS pre-flight should be implemented server-side
             var urlLagTurkart = mainAppService.generateLagTurkartUrl();
-            $http.post(urlLagTurkart, json).then(
+            $http.post(urlLagTurkart, json, {headers:{'Content-Type': 'application/json'}}).then(
               function (response) {
                 _mapReadyForDownload(response, urlLagTurkart);
               },
