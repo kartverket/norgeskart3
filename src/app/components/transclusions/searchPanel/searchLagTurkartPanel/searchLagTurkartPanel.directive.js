@@ -116,7 +116,7 @@ angular.module('searchLagTurkartPanel')
             scope.showSpinner = false;
             document.getElementById("spinner1").style.backgroundColor = "transparent";
             document.getElementById("spinner1").style.transition = "0.8s";
-            mapLink = urlLagTurkart.replace('getprint_sverige.py', '') + response.data.linkPdf;
+            mapLink = urlLagTurkart.replace('turkart', '') + response.data.linkPdf;
           };
 
           scope.downloadMap = function () {

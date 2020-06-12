@@ -102,7 +102,7 @@ angular.module('searchLagFargeleggingskartPanel')
             scope.showSpinner = false;
             document.getElementById("spinner1").style.backgroundColor = "transparent";
             document.getElementById("spinner1").style.transition = "0.8s";
-            mapLink = urlLagFargeleggingskart.replace('getprint_f.py', '') + response.data.linkPdf;
+            mapLink = urlLagFargeleggingskart.replace('fargelegg', '') + response.data.linkPdf;
           };
 
           scope.downloadMap = function () {

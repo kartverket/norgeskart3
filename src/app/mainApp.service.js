@@ -112,11 +112,11 @@ angular.module('mainApp')
       };
 
       this.generateLagTurkartUrl = function () {
-        return urlGeonorge + "freeprint/getprint_sverige.py";
+        return urlGeonorge + "norgeskart/nkprint/turkart";
       };
 
       this.generateLagFargeleggingskartUrl = function () {
-        return urlGeonorge + "freeprint/getprint_f.py";
+        return urlGeonorge + "norgeskart/nkprint/fargelegg";
       };
 
       this.generateEmergencyPosterPointUrl = function (lat, lon) {
