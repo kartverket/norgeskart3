@@ -16,12 +16,12 @@ angular.module('menuShareMap')
       };
 
       $scope.getTwitterUrl = function () {
-        var url = 'http://twitter.com/share?url=' + getEncodedUrl();
+        var url = 'https://twitter.com/share?url=' + getEncodedUrl();
         $window.open(url, '_blank');
       };
 
       $scope.getFacebookUrl = function () {
-        var url = 'http://www.facebook.com/sharer.php?u=' + getEncodedUrl();
+        var url = 'https://www.facebook.com/sharer.php?u=' + getEncodedUrl();
         $window.open(url, '_blank');
       };
 

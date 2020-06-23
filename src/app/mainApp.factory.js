@@ -71,7 +71,7 @@ angular.module('mainApp')
           subLayers: [{
             title: "norges_grunnkart",
             source: "WMS",
-            url: ["http://opencache.statkart.no/gatekeeper/gk/gk.open?LAYERS=norges_grunnkart"],
+            url: ["https://opencache.statkart.no/gatekeeper/gk/gk.open?LAYERS=norges_grunnkart"],
             gatekeeper: true,
             name: "norges_grunnkart",
             format: "image/png",
@@ -127,7 +127,7 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "flybilder",
-            url: "http://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?|http://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?",
+            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?|https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?",
             params: {
               layers: "Nibcache_UTM33_EUREF89",
               format: "image/png"
@@ -1496,7 +1496,7 @@ angular.module('mainApp')
               subLayers: [{
                 title: "norges_grunnkart",
                 source: "WMS",
-                url: ["http://opencache.statkart.no/gatekeeper/gk/gk.open?LAYERS=norges_grunnkart"],
+                url: ["https://opencache.statkart.no/gatekeeper/gk/gk.open?LAYERS=norges_grunnkart"],
                 gatekeeper: true,
                 name: "norges_grunnkart",
                 format: "image/png",
@@ -1552,7 +1552,7 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "flybilder",
-                url: "http://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?|http://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?",
+                url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?|https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?",
                 params: {
                   layers: "Nibcache_UTM33_EUREF89",
                   format: "image/png"

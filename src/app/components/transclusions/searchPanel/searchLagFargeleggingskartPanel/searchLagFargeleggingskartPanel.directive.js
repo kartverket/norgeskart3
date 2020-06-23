@@ -64,7 +64,7 @@ angular.module('searchLagFargeleggingskartPanel')
                 center: extent.center,
                 dpi: "300",
                 layers: [{
-                  baseURL: "http://wms.geonorge.no/skwms1/wms.fargelegg",
+                  baseURL: "https://wms.geonorge.no/skwms1/wms.fargelegg",
                   customParams: {
                     TRANSPARENT: "false"
                   },
@@ -81,7 +81,7 @@ angular.module('searchLagFargeleggingskartPanel')
               layout: "A4 landscape",
               scale: extent.scale,
               titel: scope.tittel,
-              link: "http://www.norgeskart.no/#!?zoom=" + scope.activePosition.zoom + "&lat=" + Number(Math.round(scope.activePosition.lat + 'e' + 2) + 'e-' + 2) + "&lon=" + Number(Math.round(scope.activePosition.lon + 'e' + 2) + 'e-' + 2),
+              link: "https://www.norgeskart.no/#!?zoom=" + scope.activePosition.zoom + "&lat=" + Number(Math.round(scope.activePosition.lat + 'e' + 2) + 'e-' + 2) + "&lon=" + Number(Math.round(scope.activePosition.lon + 'e' + 2) + 'e-' + 2),
               type: "fargelegg"
             };
           };
