@@ -42,7 +42,7 @@
               <span data-ng-bind="attribute[1].name"></span>
             </div>
             <div data-ng-if="attribute[1].type=='link'" class="col-xs-5">
-              <a class="text-info" href="{{attribute[1].url}}" target="_blank"> <span data-ng-bind="attribute[1].name"></span></a>
+              <a class="text-info" href="{{attribute[1].url}}" target="_blank" rel="noopener noreferrer"> <span data-ng-bind="attribute[1].name"></span></a>
             </div>
             <div data-ng-if="!attribute[1].type" class="col-xs-5">
               <span data-ng-bind="attribute[1]"></span>
