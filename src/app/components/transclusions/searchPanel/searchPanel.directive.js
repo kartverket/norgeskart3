@@ -440,6 +440,7 @@ angular.module('searchPanel')
 
           var _checkQueryForCoordinates = function (query) {
             scope.coordinate = true;
+            var checkInput = searchPanelFactory.parseInput(query);
             var epsg = query.split('@')[1];
             var params = _parseInput(query.split('@')[0]);
 
@@ -447,6 +448,8 @@ angular.module('searchPanel')
               return false;
             } else if (typeof params.north === 'undefined') {
               return false;
+            } else if (typeof checkInput.parsedInput.bnr !== 'undefined') {
+              return false
             }
             // var possibleProjections = mainAppService.isNotOutOfBounds(params);
             // console.error(JSON.stringify(possibleProjections));
