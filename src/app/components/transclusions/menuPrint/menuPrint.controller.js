@@ -395,7 +395,7 @@ angular.module("menuPrint").controller("menuPrintController", [
             };
             break;
           case "VECTOR":
-            var geojson;
+            var geojson = null;
             var styleCollection = {
               version: "2",
             };
