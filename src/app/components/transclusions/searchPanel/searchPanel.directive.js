@@ -449,7 +449,7 @@ angular.module('searchPanel')
             } else if (typeof params.north === 'undefined') {
               return false;
             } else if (typeof checkInput.parsedInput.bnr !== 'undefined') {
-              return false
+              return false;
             }
             // var possibleProjections = mainAppService.isNotOutOfBounds(params);
             // console.error(JSON.stringify(possibleProjections));
