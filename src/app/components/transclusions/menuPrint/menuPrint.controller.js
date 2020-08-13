@@ -487,146 +487,150 @@ angular.module("menuPrint").controller("menuPrintController", [
                 layers[i].getProperties().options.GeoJSON
               ) {
                 geojson = layers[i].getProperties().options.GeoJSON;
-                geojson.features.forEach(function (feature) {
-                  var symbolizers = [];
-                  var id = "[IN('" + feature.id + "')]";
-                  switch (feature.geometry.type) {
-                    case "Point":
-                      if (feature.properties.style.regularshape) {
-                        var shape = "circle";
-                        var rotation = "0";
-                        switch (feature.properties.style.regularshape.points) {
-                          case 3:
-                            shape = "triangle";
-                            break;
-                          case 4:
-                            shape = "square";
-                            rotation = "45";
-                            break;
-                          case 5:
-                            shape = "star";
-                            break;
-                          case 64:
-                            shape = "circle";
-                            break;
-                          default:
-                            break;
+                if (geojson.features.length > 0) {
+                  geojson.features.forEach(function (feature) {
+                    var symbolizers = [];
+                    var id = "[IN('" + feature.id + "')]";
+                    switch (feature.geometry.type) {
+                      case "Point":
+                        if (feature.properties.style.regularshape) {
+                          var shape = "circle";
+                          var rotation = "0";
+                          switch (feature.properties.style.regularshape.points) {
+                            case 3:
+                              shape = "triangle";
+                              break;
+                            case 4:
+                              shape = "square";
+                              rotation = "45";
+                              break;
+                            case 5:
+                              shape = "star";
+                              break;
+                            case 64:
+                              shape = "circle";
+                              break;
+                            default:
+                              break;
+                          }
+                          symbolizers.push({
+                            fillColor:
+                              feature.properties.style.regularshape.fill.color,
+                            strokeColor:
+                              feature.properties.style.regularshape.fill.color,
+                            pointRadius:
+                              feature.properties.style.regularshape.radius,
+                            graphicName: shape,
+                            rotation: rotation,
+                            type: "point",
+                          });
                         }
-                        symbolizers.push({
-                          fillColor:
-                            feature.properties.style.regularshape.fill.color,
-                          strokeColor:
-                            feature.properties.style.regularshape.fill.color,
-                          pointRadius:
-                            feature.properties.style.regularshape.radius,
-                          graphicName: shape,
-                          rotation: rotation,
-                          type: "point",
-                        });
-                      }
-                      if (feature.properties.style.text) {
-                        var font = feature.properties.style.text.font.split(
-                          " "
-                        );
-                        var fontSize = "15px";
-                        var fontFamily = "sans-serif";
-                        if (font.length > 1) {
-                          fontSize = font[0];
-                          fontFamily = font[1];
-                        }
-                        symbolizers.push({
-                          fillColor: feature.properties.style.text.fill.color,
-                          strokeColor: feature.properties.style.text.fill.color,
-                          fontColor: feature.properties.style.text.fill.color,
-                          fontFamily: fontFamily,
-                          fontSize: fontSize,
-                          strokeWidth:
-                            feature.properties.style.text.stroke.width,
-                          label: feature.properties.style.text.text,
-                          haloColor: "white",
-                          haloOpacity: "0.7",
-                          haloRadius: "3.0",
-                          type: "text",
-                        });
-                      }
-                      break;
-                    case "LineString":
-                      if (feature.properties.style.stroke) {
-                        var strokeDashstyle = "solid";
-                        if (feature.properties.style.stroke.lineDash) {
-                          strokeDashstyle = feature.properties.style.stroke.lineDash
-                            .toString()
-                            .replace(",", " ");
-                        }
-                        symbolizers = [
-                          {
-                            fillColor: feature.properties.style.stroke.color,
-                            label: feature.properties.measurement,
-                            labelXOffset: "-40.0",
+                        if (feature.properties.style.text) {
+                          var font = feature.properties.style.text.font.split(
+                            " "
+                          );
+                          var fontSize = "15px";
+                          var fontFamily = "sans-serif";
+                          if (font.length > 1) {
+                            fontSize = font[0];
+                            fontFamily = font[1];
+                          }
+                          symbolizers.push({
+                            fillColor: feature.properties.style.text.fill.color,
+                            strokeColor: feature.properties.style.text.fill.color,
+                            fontColor: feature.properties.style.text.fill.color,
+                            fontFamily: fontFamily,
+                            fontSize: fontSize,
+                            strokeWidth:
+                              feature.properties.style.text.stroke.width,
+                            label: feature.properties.style.text.text,
                             haloColor: "white",
                             haloOpacity: "0.7",
                             haloRadius: "3.0",
                             type: "text",
-                          },
+                          });
+                        }
+                        break;
+                      case "LineString":
+                        if (feature.properties.style.stroke) {
+                          var strokeDashstyle = "solid";
+                          if (feature.properties.style.stroke.lineDash) {
+                            strokeDashstyle = feature.properties.style.stroke.lineDash
+                              .toString()
+                              .replace(",", " ");
+                          }
+                          symbolizers = [
+                            {
+                              fillColor: feature.properties.style.stroke.color,
+                              label: feature.properties.measurement,
+                              labelXOffset: "-40.0",
+                              haloColor: "white",
+                              haloOpacity: "0.7",
+                              haloRadius: "3.0",
+                              type: "text",
+                            },
+                            {
+                              strokeColor: feature.properties.style.stroke.color,
+                              strokeWidth: feature.properties.style.stroke.width,
+                              strokeDashstyle: strokeDashstyle,
+                              type: "line",
+                              strokeOpacity: 1,
+                              strokeLinecap: "round",
+                            },
+                          ];
+                        }
+                        break;
+                      case "Polygon":
+                        var rgba = feature.properties.style.fill.color
+                          .substr(5)
+                          .split(")")[0]
+                          .split(",");
+                        var opacity = 0.5;
+                        if (rgba.length > 3) {
+                          opacity = +rgba[3];
+                        }
+                        symbolizers = [
                           {
+                            fillColor: feature.properties.style.fill.color,
+                            fillOpacity: opacity,
                             strokeColor: feature.properties.style.stroke.color,
                             strokeWidth: feature.properties.style.stroke.width,
-                            strokeDashstyle: strokeDashstyle,
+                            type: "polygon",
+                          },
+                        ];
+                        break;
+                      default:
+                        symbolizers = [
+                          {
+                            fillColor: "red",
+                            pointRadius: 5,
+                            type: "point",
+                          },
+                          {
                             type: "line",
+                            strokeColor: "black",
                             strokeOpacity: 1,
+                            strokeWidth: 3,
+                            strokeLinecap: "round",
+                            strokeDashstyle: "dot",
+                          },
+                          {
+                            type: "polygon",
+                            fillColor: "#FF0000",
+                            fillOpacity: 0.7,
+                            strokeColor: "yellow",
+                            strokeOpacity: 1,
+                            strokeWidth: 3,
                             strokeLinecap: "round",
                           },
                         ];
-                      }
-                      break;
-                    case "Polygon":
-                      var rgba = feature.properties.style.fill.color
-                        .substr(5)
-                        .split(")")[0]
-                        .split(",");
-                      var opacity = 0.5;
-                      if (rgba.length > 3) {
-                        opacity = +rgba[3];
-                      }
-                      symbolizers = [
-                        {
-                          fillColor: feature.properties.style.fill.color,
-                          fillOpacity: opacity,
-                          strokeColor: feature.properties.style.stroke.color,
-                          strokeWidth: feature.properties.style.stroke.width,
-                          type: "polygon",
-                        },
-                      ];
-                      break;
-                    default:
-                      symbolizers = [
-                        {
-                          fillColor: "red",
-                          pointRadius: 5,
-                          type: "point",
-                        },
-                        {
-                          type: "line",
-                          strokeColor: "black",
-                          strokeOpacity: 1,
-                          strokeWidth: 3,
-                          strokeLinecap: "round",
-                          strokeDashstyle: "dot",
-                        },
-                        {
-                          type: "polygon",
-                          fillColor: "#FF0000",
-                          fillOpacity: 0.7,
-                          strokeColor: "yellow",
-                          strokeOpacity: 1,
-                          strokeWidth: 3,
-                          strokeLinecap: "round",
-                        },
-                      ];
-                  }
-                  styleCollection[id] = { symbolizers: symbolizers };
-                });
-                geojson = JSON.stringify(geojson);
+                    }
+                    styleCollection[id] = { symbolizers: symbolizers };
+                  });
+                  geojson = JSON.stringify(geojson);
+                } else {
+                  geojson = null;
+                }
               }
             }
 
