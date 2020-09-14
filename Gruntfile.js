@@ -311,7 +311,8 @@ module.exports = function (grunt) {
         strict: false,
         undef: false,
         unused: true,
-        esversion: 5
+        esversion: 5,
+        asi: true
       },
       globals: {}
     },
