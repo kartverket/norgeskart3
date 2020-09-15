@@ -29,6 +29,11 @@ angular.module('moveableOverlay')
           };
 
           element.on('pointerdown mousedown touchstart', function (event) {
+            if (event.target.id !== 'header1' && event.target.id !== 'header2' &&
+              event.target.id !== 'header3' && event.target.id !== 'header4' &&
+              event.target.id !== 'header5' && event.target.id !== 'header6') {
+              return event;
+            }
             event.preventDefault();
           });
 
