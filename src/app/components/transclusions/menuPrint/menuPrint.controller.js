@@ -403,9 +403,12 @@ angular.module("menuPrint").controller("menuPrintController", [
               layers[i].getSource().getUrl() ||
               layers[i].getSource().getFormat()
             ) {
-              var layerConfig = mapConfig.layers.filter(function (layer) {
-                return layer.name == layers[i].typename;
-              });
+              var layerConfig;
+              if (typeof layers[0].typename != "undefined") {
+                layerConfig = mapConfig.layers.filter(function (layer) {
+                  return layer.name == layers[i].typename;
+                });
+              }
               var fillColor = "rgba(255, 255, 255, 0.6)",
                 strokeColor = "#319FD3",
                 textfillColor = "rgba(255, 255, 255, 0.6)",
@@ -444,7 +447,8 @@ angular.module("menuPrint").controller("menuPrintController", [
                   feature.values_["ID"] ||
                   feature.values_["n"] ||
                   feature.values_["N"] ||
-                  feature.values_["offisielt_navn"];
+                  feature.values_["offisielt_navn"] ||
+                  feature.values_["MATRIKKELNR"];
                 feature.id_ = id;
                 id = "[IN('" + id + "')]";
                 symbolizers.push(
@@ -472,6 +476,9 @@ angular.module("menuPrint").controller("menuPrintController", [
                   }
                 );
                 styleCollection[id] = { symbolizers: symbolizers };
+                // delete some feature objects some poduces erros in print service
+                delete feature.values_.boundedBy;
+                delete feature.values_.REPRESENTASJONSPUNKT;
               });
               if (featuresInExtent.length > 0) {
                 geojson = writer.writeFeatures(featuresInExtent);
