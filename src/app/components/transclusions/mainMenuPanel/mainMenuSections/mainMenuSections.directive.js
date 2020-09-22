@@ -25,13 +25,13 @@ angular.module('mainMenuSections')
             if (!angular.equals(obj, $location.search())) {
               var newSearch = angular.extend($location.search(), obj);
               newSearch.layers = layers;
-              $location.search(newSearch);
-              $timeout(function () {                 
+              $location.search(newSearch).replace();
+              $timeout(function () {
                   scope.resetMainAppFactory();
                   scope.initMapLayout();
                   scope.reInitMap();
-                  map.RedrawMap();        
-                  scope.getVisibleLayersCount();        
+                  map.RedrawMap();
+                  scope.getVisibleLayersCount();
                   scope.activateProject(project);
               }, 0);
             }

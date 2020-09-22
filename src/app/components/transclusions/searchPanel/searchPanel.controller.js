@@ -4,7 +4,7 @@ angular.module('searchPanel')
 
       function _updateLocationPanel(panelName) {
         $location.search()['panel'] = panelName;
-        $location.search(angular.extend($location.search(), $location.search()));
+        $location.search(angular.extend($location.search(), $location.search())).replace();
       }
 
       $scope.showSearchResultPanel = function () {

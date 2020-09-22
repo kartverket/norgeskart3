@@ -1,117 +1,150 @@
-angular.module('mainApp')
-  .controller('mainAppController', [
-    '$scope',
-    'ISY.MapAPI.Map',
-    'mainAppFactory',
-    'toolsFactory',
-    'ISY.EventHandler',
-    'isyTranslateFactory',
-    '$location',
-    'mainMenuPanelFactory',
-    'localStorageFactory',
-    '$translate',
-    '$timeout',
-    '$window',
-    function ($scope, map, mainAppFactory, toolsFactory, eventHandler, isyTranslateFactory, $location, mainMenuPanelFactory, localStorageFactory, $translate, $timeout, $window) {
+angular.module("mainApp").controller("mainAppController", [
+  "$scope",
+  "ISY.MapAPI.Map",
+  "mainAppFactory",
+  "toolsFactory",
+  "ISY.EventHandler",
+  "isyTranslateFactory",
+  "$location",
+  "mainMenuPanelFactory",
+  "localStorageFactory",
+  "$translate",
+  "$timeout",
+  "$window",
+  function (
+    $scope,
+    map,
+    mainAppFactory,
+    toolsFactory,
+    eventHandler,
+    isyTranslateFactory,
+    $location,
+    mainMenuPanelFactory,
+    localStorageFactory,
+    $translate,
+    $timeout,
+    $window
+  ) {
+    function _initToolbar() {
+      toolsFactory.initToolbar();
+    }
 
-      function _initToolbar() {
-        toolsFactory.initToolbar();
-      }
-
-      var _setSearch = function (obj) {
-        if (!angular.equals(obj, $location.search())) {
-          var newSearch = angular.extend($location.search(), obj);
-          $location.search(newSearch);
-          mainMenuPanelFactory.setProjectById($location.search().project);
-        }
-      };
-
-      function _viewChanged(obj) {
-        localStorageFactory.set("lat", $location.search().lat);
-        localStorageFactory.set("lon", $location.search().lon);
-        localStorageFactory.set("zoom", $location.search().zoom);
-        $timeout(function () {
-          $scope.$apply(function () {
-            _setSearch(obj);
-          }, 0);
-        }, 10);
-      }
-
-      function _loadingLayerEnd(obj) {
-        localStorageFactory.set("lat", $location.search().lat);
-        localStorageFactory.set("lon", $location.search().lon);
-        localStorageFactory.set("zoom", $location.search().zoom);
-        $timeout(function () {
-          $scope.$apply(function () {
-            _setSearch(obj);
-          }, 0);
-        }, 5);
-      }
-
-      function _registerEvents() {
-        eventHandler.RegisterEvent(ISY.Events.EventTypes.MapConfigLoaded, _initToolbar);
-        eventHandler.RegisterEvent(ISY.Events.EventTypes.MapMoveend, _viewChanged);
-        eventHandler.RegisterEvent(ISY.Events.EventTypes.ChangeLayers, _loadingLayerEnd);
-      }
-
-      $scope.resetMainAppFactory = function () {
-        mainAppFactory.resetMainAppFactory();
-      };
-
-      $scope.reInitMap = function () {
-        mainAppFactory.updateMapConfig();
-        var mapConfig = mainAppFactory.getMapConfig();
-        map.ReInit(mapConfig);
-        _initUrl();
-        _initMapLayers();
-
-        $scope.$broadcast('initDraw');
-        $scope.$broadcast('initBaseLayers');
-        $scope.$broadcast('reInitSearchPanel');
-        $scope.deactivateDrawFeatureTool($scope.GeoJSON);
-        $scope.openNav();
-      };
-
-      function _initUrl() {
-        var obj = $location.search();
-        if (obj.zoom !== undefined && obj.lat !== undefined && obj.lon !== undefined) {
-          if (localStorageFactory.get("zoom") !== null && localStorageFactory.get("lat") !== null && localStorageFactory.get("lon") !== null) {
-            var center = {
-              lon: localStorageFactory.get("lon"),
-              lat: localStorageFactory.get("lat"),
-              zoom: localStorageFactory.get("zoom")
-            };
-            if (((center.lon > 32.88) && (center.lat > -16.1)) && ((center.lon < 84.17) && (center.lat < 39.65))) {
-              var tmp = center.lon;
-              center.lon = center.lat;
-              center.lat = tmp;
-              center.epsg = 'EPSG:4258';
-            }
-            map.SetCenter(center);
-          }
-        }
-
-        if (obj.layers !== undefined) {
-          mainAppFactory.setInitLayersInUrl(obj.layers);
-        }
+    var _setSearch = function (obj) {
+      if (!angular.equals(obj, $location.search())) {
         var newSearch = angular.extend($location.search(), obj);
-        $location.search(newSearch);
-        $timeout(function () {
-          _showMapMarker();
-        }, 500);
+        $location.search(newSearch).replace();
+        mainMenuPanelFactory.setProjectById($location.search().project);
+      }
+    };
+
+    function _viewChanged(obj) {
+      localStorageFactory.set("lat", $location.search().lat);
+      localStorageFactory.set("lon", $location.search().lon);
+      localStorageFactory.set("zoom", $location.search().zoom);
+      $timeout(function () {
+        $scope.$apply(function () {
+          _setSearch(obj);
+        }, 0);
+      }, 10);
+    }
+
+    function _loadingLayerEnd(obj) {
+      localStorageFactory.set("lat", $location.search().lat);
+      localStorageFactory.set("lon", $location.search().lon);
+      localStorageFactory.set("zoom", $location.search().zoom);
+      $timeout(function () {
+        $scope.$apply(function () {
+          _setSearch(obj);
+        }, 0);
+      }, 5);
+    }
+
+    function _registerEvents() {
+      eventHandler.RegisterEvent(
+        ISY.Events.EventTypes.MapConfigLoaded,
+        _initToolbar
+      );
+      eventHandler.RegisterEvent(
+        ISY.Events.EventTypes.MapMoveend,
+        _viewChanged
+      );
+      eventHandler.RegisterEvent(
+        ISY.Events.EventTypes.ChangeLayers,
+        _loadingLayerEnd
+      );
+    }
+
+    $scope.resetMainAppFactory = function () {
+      mainAppFactory.resetMainAppFactory();
+    };
+
+    $scope.reInitMap = function () {
+      mainAppFactory.updateMapConfig();
+      var mapConfig = mainAppFactory.getMapConfig();
+      map.ReInit(mapConfig);
+      _initUrl();
+      _initMapLayers();
+
+      $scope.$broadcast("initDraw");
+      $scope.$broadcast("initBaseLayers");
+      $scope.$broadcast("reInitSearchPanel");
+      $scope.deactivateDrawFeatureTool($scope.GeoJSON);
+      $scope.openNav();
+    };
+
+    function _initUrl() {
+      var obj = $location.search();
+      if (
+        obj.zoom !== undefined &&
+        obj.lat !== undefined &&
+        obj.lon !== undefined
+      ) {
+        if (
+          localStorageFactory.get("zoom") !== null &&
+          localStorageFactory.get("lat") !== null &&
+          localStorageFactory.get("lon") !== null
+        ) {
+          var center = {
+            lon: localStorageFactory.get("lon"),
+            lat: localStorageFactory.get("lat"),
+            zoom: localStorageFactory.get("zoom"),
+          };
+          if (
+            center.lon > 32.88 &&
+            center.lat > -16.1 &&
+            center.lon < 84.17 &&
+            center.lat < 39.65
+          ) {
+            var tmp = center.lon;
+            center.lon = center.lat;
+            center.lat = tmp;
+            center.epsg = "EPSG:4258";
+          }
+          map.SetCenter(center);
+        }
       }
 
-      $scope.initMapLayout = function () {
-        _initActiveLanguage();
-        var obj = $location.search();
-        var hash = $location.hash().split('/');
-        if (hash.length >= 3) {
-          obj.zoom = hash[0];
-          obj.lon = hash[1];
-          obj.lat = hash[2];
-          for (index = 3; index < hash.length; index += 1) {
-            switch (hash[index].charAt(0)) {
-              /*
+      if (obj.layers !== undefined) {
+        mainAppFactory.setInitLayersInUrl(obj.layers);
+      }
+      var newSearch = angular.extend($location.search(), obj);
+      $location.search(newSearch).replace();
+      $timeout(function () {
+        _showMapMarker();
+      }, 500);
+    }
+
+    $scope.initMapLayout = function () {
+      _initActiveLanguage();
+      var obj = $location.search();
+      var hash = $location.hash().split("/");
+      if (hash.length >= 3) {
+        obj.zoom = hash[0];
+        obj.lon = hash[1];
+        obj.lat = hash[2];
+        for (index = 3; index < hash.length; index += 1) {
+          switch (hash[index].charAt(0)) {
+            /*
               case '+':
                 // AddLayer named
                 showLayerNamed(extra.slice(1), layerIndex);
@@ -147,185 +180,199 @@ angular.module('mainApp')
                 index += 3;
                 break;
 */
-              case 'l':
-                obj.drawing = hash[index + 2];
-                index += 2;
-                break;
-                /*
-              case 'd':
-                NK.functions.setDataLayer(parms.slice(index + 1, index + 3))
-                index += 2;
-                break;
-                */
-            }
-          }
-          $location.url($location.$$url.replace('#' + encodeURIComponent($location.hash()), ''));
-          $location.search(obj);
-        }
-        if (obj.type !== undefined) {
-          if (obj.type === "1") {
-            $scope.showMapLayout();
-            return;
+            case "l":
+              obj.drawing = hash[index + 2];
+              index += 2;
+              break;
+            /*
+            case 'd':
+              NK.functions.setDataLayer(parms.slice(index + 1, index + 3))
+              index += 2;
+              break;
+              */
           }
         }
-        mainAppFactory.projectName();
-        $scope.showMapOverlaysLayout();
-      };
-
-      function _initActiveLanguage() {
-        var langId = localStorageFactory.get("activeLanguage");
-        if (langId !== null) {
-          isyTranslateFactory.setCurrentLanguage(langId);
-          map.SetTranslateOptions(isyTranslateFactory.getTranslateOptionsByActiveLanguage());
-          $translate.use(langId);
+        $location.url(
+          $location.$$url.replace(
+            "#" + encodeURIComponent($location.hash()),
+            ""
+          )
+        );
+        $location.search(obj).replace();
+      }
+      if (obj.type !== undefined) {
+        if (obj.type === "1") {
+          $scope.showMapLayout();
+          return;
         }
       }
+      mainAppFactory.projectName();
+      $scope.showMapOverlaysLayout();
+    };
 
-      function _initMapLayers() {
-        var mapLayers = mainAppFactory.getInitLayersInUrl();
-        if (mapLayers !== undefined && mapLayers !== "") {
-          var layers = mapLayers.split(",");
-          var overlayLayers = map.GetOverlayLayers();
-          var baseLayers = map.GetBaseLayers();
-          for (var j = 0; j < overlayLayers.length; j++) {
-            overlayLayers[j].isVisible = false;
-            map.HideLayer(overlayLayers[j]);
-            for (var i = 0; i < layers.length; i++) {
-              if (parseInt(layers[i], 10) === overlayLayers[j].id) {
-                overlayLayers[j].isVisible = true;
-                map.ShowLayer(overlayLayers[j]);
-              }
-            }
-          }
-          for (var l = 0; l < layers.length; l++) {
-            for (var m = 0; m < baseLayers.length; m++) {
-              if (parseInt(layers[l], 10) === baseLayers[m].id) {
-                map.SetBaseLayer(baseLayers[m]);
-              }
-            }
-          }
-        }
+    function _initActiveLanguage() {
+      var langId = localStorageFactory.get("activeLanguage");
+      if (langId !== null) {
+        isyTranslateFactory.setCurrentLanguage(langId);
+        map.SetTranslateOptions(
+          isyTranslateFactory.getTranslateOptionsByActiveLanguage()
+        );
+        $translate.use(langId);
       }
-
-      function _showMapMarker() {
-        var parameters = $location.search();
-        var marker = parameters['markerLon'] && parameters['markerLat'] ? [parameters['markerLon'], parameters['markerLat']] : undefined;
-        if (marker) {
-          map.ShowInfoMarker(marker);
-        }
-      }
-
-      $scope.initMainPage = function () {
-        _registerEvents();
-        map.SetTranslateOptions(isyTranslateFactory.getTranslateOptionsByActiveLanguage());
-        map.SetImageInfoMarker("assets/img/pin-md-orange.png");
-        mainAppFactory.updateMapConfig();
-        var mapConfig = mainAppFactory.getMapConfig();
-        map.Init('mapDiv', mapConfig);
-        map.AddZoom();
-        map.AddScaleLine();
-        _initUrl();
-        _initMapLayers();
-      };
-
-      angular.element(document).ready(function () {
-        $scope.initMainPage();
-        $scope.deactivateDrawFeatureTool();
-      });
-
-      $scope.showMapLayout = function () {
-        $scope.mapTypeLayout = "mapLayout";
-      };
-
-      $scope.showMapOverlaysLayout = function () {
-        $scope.mapTypeLayout = "mapOverlaysLayout";
-      };
-
-      $scope.mapTypeLayout = "mapOverlaysLayout";
-
-      $scope.isDrawActivated = function () {
-        if ($scope.drawActivated) {
-          return true;
-        } else {
-          $scope.drawActivated = true;
-          return false;
-        }
-      };
-
-      $scope.setGeoJSON = function (GeoJSON) {
-        $scope.GeoJSON = GeoJSON;
-      };
-
-      $scope.drawActivated = false;
-
-      $scope.initDrawFeatureTool = function () {
-        var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
-        toolsFactory.activateTool(drawFeatureTool);
-      };
-
-      $scope.deactivateDrawFeatureTool = function () {
-        var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
-        toolsFactory.deactivateTool(drawFeatureTool);
-        $scope.drawActivated = false;
-      };
-
-      $scope.deactivateAddLayerFeatureTool = function () {
-        var addLayerFeature = toolsFactory.getToolById("AddLayerFeature");
-        toolsFactory.deactivateTool(addLayerFeature);
-      };
-
-      $scope.openNav = function () {
-        var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
-        if (isMobile.matches) {
-          document.getElementById("mySidenav").style.width = "320px";
-          document.getElementById("sideMenuPosition").style.width = "320px";
-        } else {
-          document.getElementById("mySidenav").style.width = "395px";
-          document.getElementById("sideMenuPosition").style.width = "395px";
-        }
-        // document.getElementById("mySidenav").style.width = "395px";
-        document.getElementById("mySidenav").style.overflowY = "auto";
-
-        // document.getElementById("sideMenuPosition").style.width = "395px";
-        mainAppFactory.setMainMenuStatus(true);
-        localStorageFactory.set("mainMenuIsOpen", true);
-      };
-
-      $scope.closeNav = function () {
-        if (document.getElementById("mySidenav") && document.getElementById("main")) {
-          document.getElementById("mySidenav").style.width = "0";
-          $timeout(function () {
-            document.getElementById("sideMenuPosition").style.width = "0";
-          }, 400);
-
-          document.getElementById("mySidenav").style.overflowY = "hidden";
-
-          localStorageFactory.set("mainMenuIsOpen", false);
-          mainAppFactory.setMainMenuStatus(false);
-        }
-      };
-
-      // $scope.openBaseMapNav = function () {
-      //     var lengthDeselectBaseMaps = changeBaseMapPanelFactory.lengthDeselectBaseMaps();
-      //     if (lengthDeselectBaseMaps === 3){
-      //         document.getElementById('mySideBaseMapNav').style.minWidth="214px";
-      //         document.getElementById("sideBasMapPosition").style.minWidth = "214px";
-      //     }else{
-      //         document.getElementById('mySideBaseMapNav').style.minWidth="146px";
-      //         document.getElementById("sideBasMapPosition").style.minWidth = "146px";
-      //     }
-      //
-      //
-      //
-      // };
-      //
-      // $scope.closeBaseMapNav = function () {
-      //     document.getElementById('mySideBaseMapNav').style.minWidth="0";
-      //     $timeout(function () {
-      //         document.getElementById("sideBasMapPosition").style.minWidth = "0";
-      //     }, 400);
-      //
-      // };
-
     }
-  ]);
+
+    function _initMapLayers() {
+      var mapLayers = mainAppFactory.getInitLayersInUrl();
+      if (mapLayers !== undefined && mapLayers !== "") {
+        var layers = mapLayers.split(",");
+        var overlayLayers = map.GetOverlayLayers();
+        var baseLayers = map.GetBaseLayers();
+        for (var j = 0; j < overlayLayers.length; j++) {
+          overlayLayers[j].isVisible = false;
+          map.HideLayer(overlayLayers[j]);
+          for (var i = 0; i < layers.length; i++) {
+            if (parseInt(layers[i], 10) === overlayLayers[j].id) {
+              overlayLayers[j].isVisible = true;
+              map.ShowLayer(overlayLayers[j]);
+            }
+          }
+        }
+        for (var l = 0; l < layers.length; l++) {
+          for (var m = 0; m < baseLayers.length; m++) {
+            if (parseInt(layers[l], 10) === baseLayers[m].id) {
+              map.SetBaseLayer(baseLayers[m]);
+            }
+          }
+        }
+      }
+    }
+
+    function _showMapMarker() {
+      var parameters = $location.search();
+      var marker =
+        parameters["markerLon"] && parameters["markerLat"]
+          ? [parameters["markerLon"], parameters["markerLat"]]
+          : undefined;
+      if (marker) {
+        map.ShowInfoMarker(marker);
+      }
+    }
+
+    $scope.initMainPage = function () {
+      _registerEvents();
+      map.SetTranslateOptions(
+        isyTranslateFactory.getTranslateOptionsByActiveLanguage()
+      );
+      map.SetImageInfoMarker("assets/img/pin-md-orange.png");
+      mainAppFactory.updateMapConfig();
+      var mapConfig = mainAppFactory.getMapConfig();
+      map.Init("mapDiv", mapConfig);
+      map.AddZoom();
+      map.AddScaleLine();
+      _initUrl();
+      _initMapLayers();
+    };
+
+    angular.element(document).ready(function () {
+      $scope.initMainPage();
+      $scope.deactivateDrawFeatureTool();
+    });
+
+    $scope.showMapLayout = function () {
+      $scope.mapTypeLayout = "mapLayout";
+    };
+
+    $scope.showMapOverlaysLayout = function () {
+      $scope.mapTypeLayout = "mapOverlaysLayout";
+    };
+
+    $scope.mapTypeLayout = "mapOverlaysLayout";
+
+    $scope.isDrawActivated = function () {
+      if ($scope.drawActivated) {
+        return true;
+      } else {
+        $scope.drawActivated = true;
+        return false;
+      }
+    };
+
+    $scope.setGeoJSON = function (GeoJSON) {
+      $scope.GeoJSON = GeoJSON;
+    };
+
+    $scope.drawActivated = false;
+
+    $scope.initDrawFeatureTool = function () {
+      var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+      toolsFactory.activateTool(drawFeatureTool);
+    };
+
+    $scope.deactivateDrawFeatureTool = function () {
+      var drawFeatureTool = toolsFactory.getToolById("DrawFeature");
+      toolsFactory.deactivateTool(drawFeatureTool);
+      $scope.drawActivated = false;
+    };
+
+    $scope.deactivateAddLayerFeatureTool = function () {
+      var addLayerFeature = toolsFactory.getToolById("AddLayerFeature");
+      toolsFactory.deactivateTool(addLayerFeature);
+    };
+
+    $scope.openNav = function () {
+      var isMobile = $window.matchMedia("only screen and (max-width: 760px)");
+      if (isMobile.matches) {
+        document.getElementById("mySidenav").style.width = "320px";
+        document.getElementById("sideMenuPosition").style.width = "320px";
+      } else {
+        document.getElementById("mySidenav").style.width = "395px";
+        document.getElementById("sideMenuPosition").style.width = "395px";
+      }
+      // document.getElementById("mySidenav").style.width = "395px";
+      document.getElementById("mySidenav").style.overflowY = "auto";
+
+      // document.getElementById("sideMenuPosition").style.width = "395px";
+      mainAppFactory.setMainMenuStatus(true);
+      localStorageFactory.set("mainMenuIsOpen", true);
+    };
+
+    $scope.closeNav = function () {
+      if (
+        document.getElementById("mySidenav") &&
+        document.getElementById("main")
+      ) {
+        document.getElementById("mySidenav").style.width = "0";
+        $timeout(function () {
+          document.getElementById("sideMenuPosition").style.width = "0";
+        }, 400);
+
+        document.getElementById("mySidenav").style.overflowY = "hidden";
+
+        localStorageFactory.set("mainMenuIsOpen", false);
+        mainAppFactory.setMainMenuStatus(false);
+      }
+    };
+
+    // $scope.openBaseMapNav = function () {
+    //     var lengthDeselectBaseMaps = changeBaseMapPanelFactory.lengthDeselectBaseMaps();
+    //     if (lengthDeselectBaseMaps === 3){
+    //         document.getElementById('mySideBaseMapNav').style.minWidth="214px";
+    //         document.getElementById("sideBasMapPosition").style.minWidth = "214px";
+    //     }else{
+    //         document.getElementById('mySideBaseMapNav').style.minWidth="146px";
+    //         document.getElementById("sideBasMapPosition").style.minWidth = "146px";
+    //     }
+    //
+    //
+    //
+    // };
+    //
+    // $scope.closeBaseMapNav = function () {
+    //     document.getElementById('mySideBaseMapNav').style.minWidth="0";
+    //     $timeout(function () {
+    //         document.getElementById("sideBasMapPosition").style.minWidth = "0";
+    //     }, 400);
+    //
+    // };
+  },
+]);
