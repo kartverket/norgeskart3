@@ -396,7 +396,7 @@ angular.module('menuDraw')
           var _removeDrawingFromUrl = function () {
             var hash = _getValueFromUrl('drawing');
             var oldUrl = $location.url();
-            $location.url(oldUrl.replace('drawing=' + hash, ''));
+            $location.url(oldUrl.replace('drawing=' + hash, '')).replace();
             scope.drawingHash = '';
           };
 
@@ -448,7 +448,7 @@ angular.module('menuDraw')
             var hash = drawingUrl.split('/')[hashIndex].split('.')[0];
             _removeDrawingFromUrl();
             var oldUrl = $location.url();
-            $location.url(oldUrl + '&drawing=' + hash);
+            $location.url(oldUrl + '&drawing=' + hash).replace();
             _checkUrlForGeoJSON();
           };
 

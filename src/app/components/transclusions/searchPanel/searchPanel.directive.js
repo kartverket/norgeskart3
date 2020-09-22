@@ -100,13 +100,13 @@ angular.module('searchPanel')
           var _removeSearchFromUrl = function () {
             var hash = _getValueFromUrl('sok');
             var oldUrl = $location.url();
-            $location.url(oldUrl.replace('sok=' + hash, ''));
+            $location.url(oldUrl.replace('sok=' + hash, '')).replace();
           };
 
           var _setSearchInUrl = function (query) {
             _removeSearchFromUrl();
             var oldUrl = $location.url();
-            $location.url(oldUrl + '&sok=' + query);
+            $location.url(oldUrl + '&sok=' + query).replace();
           };
 
           var _resetResults = function () {
@@ -302,7 +302,7 @@ angular.module('searchPanel')
                 if (scope.activeSearchResult && scope.activeSearchResult.source == 'mouseClick') {
                   scope.searchBarModel = data.placename;
                   $location.search()['sok'] = data.placename;
-                  $location.search(angular.extend($location.search(), $location.search()));
+                  $location.search(angular.extend($location.search(), $location.search())).replace();
                 }
                 var elevationValue = data.elevation === false ? '-' : data.elevation.toFixed(1);
                 scope.searchOptionsDict[name] = _constructSearchOption(name, '↑', false, elevationValue, {});
@@ -381,7 +381,7 @@ angular.module('searchPanel')
           function _updateLocationMarker(lat, lon) {
             $location.search()['markerLat'] = lat;
             $location.search()['markerLon'] = lon;
-            $location.search(angular.extend($location.search(), $location.search()));
+            $location.search(angular.extend($location.search(), $location.search())).replace();
           }
 
           scope.initSearchOptions = function () {

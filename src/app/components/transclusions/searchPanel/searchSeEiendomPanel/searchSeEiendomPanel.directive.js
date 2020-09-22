@@ -51,7 +51,7 @@ angular.module('searchSeEiendomPanel')
 
           var _updateSelection = function(value) {
             $location.search()['showSelection'] = value === true ? 'true' : 'false';
-            $location.search(angular.extend($location.search(), $location.search()));
+            $location.search(angular.extend($location.search(), $location.search())).replace();
           };
 
           scope.eiendomMarkering = function () {

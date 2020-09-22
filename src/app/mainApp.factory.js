@@ -1000,13 +1000,6 @@ angular.module('mainApp')
         getProjectsListCallback(listprojects);
       };
 
-      // var setSearch = function (obj) {
-      //     if (!angular.equals(obj, $location.search())) {
-      //         var newSearch = angular.extend($location.search(), obj);
-      //         $location.search(newSearch);
-      //     }
-      // };
-
       function getProjectsListCallback(project) {
         projectsList = project ? project : undefined;
         if (projectNameUrl === 'norgeskart') {
@@ -1024,7 +1017,7 @@ angular.module('mainApp')
         var obj = $location.search();
         obj.project = "norgeskart";
         var newSearch = angular.extend($location.search(), obj);
-        $location.search(newSearch);
+        $location.search(newSearch).replace();
       };
 
       var projectName = function () {
