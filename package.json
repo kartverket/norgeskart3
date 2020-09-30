@@ -67,7 +67,6 @@
     "grunt-contrib-copy": "1.0.x",
     "grunt-contrib-jshint": "2.1.x",
     "grunt-contrib-watch": "1.1.x",
-    "grunt-conventional-changelog": "6.1.x",
     "grunt-eslint": "23.0.x",
     "grunt-html2js": "^0.7.1",
     "grunt-karma": "^4.0.0",
