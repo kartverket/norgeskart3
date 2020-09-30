@@ -253,6 +253,7 @@ module.exports = function (grunt) {
             sequences: false
           },
           mangle: true,
+          safari10:true,
           sourceMap: true
         },
         files: {
