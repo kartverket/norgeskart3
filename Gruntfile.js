@@ -11,7 +11,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-terser')
   grunt.loadNpmTasks('grunt-contrib-compass')
-  grunt.loadNpmTasks('grunt-conventional-changelog')
   grunt.loadNpmTasks('grunt-bump')
   grunt.loadNpmTasks('grunt-karma')
   grunt.loadNpmTasks('grunt-ngmin')
@@ -49,16 +48,6 @@ module.exports = function (grunt) {
         ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
         /*' * Licensed <%= pkg.licenses.type %> <<%= pkg.licenses.url %>>\n' +*/
         ' */\n'
-    },
-
-    /**
-     * Creates a changelog on a new version.
-     */
-    changelog: {
-      options: {
-        dest: 'CHANGELOG.md',
-        template: 'changelog.tpl'
-      }
     },
 
     /**
@@ -249,12 +238,13 @@ module.exports = function (grunt) {
         options: {
           compress: {
             drop_console: true,
-            toplevel: true,
-            sequences: false
           },
-          mangle: true,
-          safari10:true,
-          sourceMap: true
+          output: {
+            beautify: false // defaults to true
+          },
+          sourceMap: false,
+          safari10: true, // defaults to false
+          toplevel: true, // defaults to false
         },
         files: {
           '<%= concat.compile_js.dest %>': '<%= concat.compile_js.dest %>'
