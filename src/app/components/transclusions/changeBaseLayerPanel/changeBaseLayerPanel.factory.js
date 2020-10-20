@@ -7,7 +7,13 @@ angular
           title: "Land",
           symbol: "baseMap-land",
           isSelected: false
-        },
+      },
+      {
+        id: "raster",
+        title: "Raster",
+        symbol: "baseMap-raster",
+        isSelected: false
+      },
         {
           id: "aerial",
           title: "Flybilder",
