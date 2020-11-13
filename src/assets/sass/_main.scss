@@ -1353,6 +1353,14 @@ textarea, input[type="text"] {
 
   .itemText{
     white-space: pre-line;
+    margin: 15px 30px 15px 15px;
+    a {
+      color: $color-important;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
 
   .failToLoad{
