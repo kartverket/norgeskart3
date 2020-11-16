@@ -12,7 +12,7 @@ angular.module('mainApp')
       var mainMenuIsOpen = false;
       var config = {
         instance: "norgeskart3",
-        configurl: "https://github.com/kartverket/nk3config/tree/master/config"
+        configurl: "https://kartverket.github.io/nk3config/config"
       };
       var listprojects = [{
         SiteTitle: "tilgjengelighet",
