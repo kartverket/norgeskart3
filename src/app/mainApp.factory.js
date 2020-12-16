@@ -103,7 +103,7 @@ angular.module('mainApp')
             lat: 7197864,
             lon: 396722,
             mapepsg: "EPSG:25833",
-            zoom: 4,
+            zoom: 3,
             mapbackgroundcolor: "#FFFFFF",
             displaycenterepsgcode: "EPSG:25833",
             displayCenter: "396722,7197864",
