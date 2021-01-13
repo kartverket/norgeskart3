@@ -196,7 +196,6 @@ angular.module("menuPrint").controller("menuPrintController", [
         outputFilename: "norgeskart-utskrift",
       };
       var mapConfig = mainAppFactory.getMapConfig();
-      //printJson.attributes.map.projection = mapConfig.coordinate_system;
       $scope.printCanceled = false;
       $scope.showSpinner = true;
       for (var i = 0; i < layers.length; i++) {
@@ -205,12 +204,14 @@ angular.module("menuPrint").controller("menuPrintController", [
           TRANSPARENT: "true",
         };
         var baseUrl = "";
-        var sourceType = "VECTOR";
+        var sourceType = layers[i].getSource().constructor.name || "VECTOR";
         if (layers[i].getProperties().config) {
           baseUrl = layers[i].getProperties().config.url[0];
           sourceType = layers[i].getProperties().config.source;
-        } else if (layers[i].getSource().getUrl()) {
+        } else if (typeof layers[i].getSource().getUrl === "function" && layers[i].getSource().getUrl() ) {
           baseUrl = layers[i].getSource().getUrl();
+        } else if (typeof layers[i].getSource().getUrls === "function" && layers[i].getSource().getUrls() ) {
+          baseUrl = layers[i].getSource().getUrls()[0];
         }
 
         if (baseUrl.substr(0, 2) === "//") {
@@ -242,17 +243,19 @@ angular.module("menuPrint").controller("menuPrintController", [
             break;
           case "WMTS":
             var identifier = "";
-            if (layers[i].getProperties().config.matrixPrefix) {
+            if (layers[i].getProperties().config && layers[i].getProperties().config.matrixPrefix) {
               identifier = layers[i].getSource().getMatrixSet() + ":";
             }
+            var imageFormat = layers[i].getProperties().source.getFormat() || layers[i].getProperties().config.format;
+            var layername = layers[i].getProperties().source.layer_ || layers[i].getProperties().config.name;
             printLayer = {
               baseURL: baseUrl,
               customParams: customParams,
               style: "default",
-              imageFormat: layers[i].getProperties().config.format,
-              layer: layers[i].getProperties().config.name,
+              imageFormat: imageFormat,
+              layer: layername,
               opacity: 1,
-              type: layers[i].getProperties().config.source,
+              type: sourceType,
               dimensions: null,
               requestEncoding: "KVP",
               dimensionParams: {},
@@ -394,17 +397,15 @@ angular.module("menuPrint").controller("menuPrintController", [
               ],
             };
             break;
+          case "VectorSource":
           case "VECTOR":
             var geojson = null;
             var styleCollection = {
               version: "2",
             };
-            if (
-              layers[i].getSource().getUrl() ||
-              layers[i].getSource().getFormat()
-            ) {
+            if (typeof layers[i].getSource().getUrl === "function" || typeof layers[i].getSource().getFormat === "function") {
               var layerConfig;
-              if (typeof layers[0].typename != "undefined") {
+              if (typeof layers[i].typename != "undefined") {
                 layerConfig = mapConfig.layers.filter(function (layer) {
                   return layer.name == layers[i].typename;
                 });
@@ -448,7 +449,9 @@ angular.module("menuPrint").controller("menuPrintController", [
                   feature.values_["n"] ||
                   feature.values_["N"] ||
                   feature.values_["offisielt_navn"] ||
-                  feature.values_["MATRIKKELNR"];
+                  feature.values_["MATRIKKELNR"] ||
+                  feature.values_["measurement"] ||
+                  feature.id_;
                 feature.id_ = id;
                 id = "[IN('" + id + "')]";
                 symbolizers.push(
@@ -673,7 +676,11 @@ angular.module("menuPrint").controller("menuPrintController", [
             break;
         }
         if (Object.keys(printLayer).length !== 0) {
-          printJson.attributes.map.layers.push(printLayer);
+          if (sourceType === "VectorSource" || sourceType === "Vector") {
+            printJson.attributes.map.layers.unshift(printLayer);
+          } else {
+            printJson.attributes.map.layers.push(printLayer);
+          }
         }
       }
 
