@@ -403,7 +403,10 @@ angular.module("menuPrint").controller("menuPrintController", [
             var styleCollection = {
               version: "2",
             };
-            if (typeof layers[i].getSource().getUrl === "function" || typeof layers[i].getSource().getFormat === "function") {
+            if (
+              (typeof layers[i].getSource().getUrl === "function" && typeof layers[i].getSource().getUrl() !== "undefined") || 
+              (typeof layers[i].getSource().getFormat === "function" && typeof layers[i].getSource().getFormat() !== "undefined")
+              ) {
               var layerConfig;
               if (typeof layers[i].typename != "undefined") {
                 layerConfig = mapConfig.layers.filter(function (layer) {
