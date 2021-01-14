@@ -204,7 +204,7 @@ angular.module("menuPrint").controller("menuPrintController", [
           TRANSPARENT: "true",
         };
         var baseUrl = "";
-        var sourceType = layers[i].getSource().constructor.name || "VECTOR";
+        var sourceType = "WMTS";
         if (layers[i].getProperties().config) {
           baseUrl = layers[i].getProperties().config.url[0];
           sourceType = layers[i].getProperties().config.source;
@@ -212,6 +212,8 @@ angular.module("menuPrint").controller("menuPrintController", [
           baseUrl = layers[i].getSource().getUrl();
         } else if (typeof layers[i].getSource().getUrls === "function" && layers[i].getSource().getUrls() ) {
           baseUrl = layers[i].getSource().getUrls()[0];
+        } else if (layers[i].getProperties().id === "drawing") {
+          sourceType = "VECTOR";
         }
 
         if (baseUrl.substr(0, 2) === "//") {
@@ -404,7 +406,7 @@ angular.module("menuPrint").controller("menuPrintController", [
               version: "2",
             };
             if (
-              (typeof layers[i].getSource().getUrl === "function" && typeof layers[i].getSource().getUrl() !== "undefined") || 
+              (typeof layers[i].getSource().getUrl === "function" && typeof layers[i].getSource().getUrl() !== "undefined") ||
               (typeof layers[i].getSource().getFormat === "function" && typeof layers[i].getSource().getFormat() !== "undefined")
               ) {
               var layerConfig;
