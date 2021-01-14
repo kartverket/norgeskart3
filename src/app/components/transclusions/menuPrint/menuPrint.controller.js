@@ -681,7 +681,7 @@ angular.module("menuPrint").controller("menuPrintController", [
             break;
         }
         if (Object.keys(printLayer).length !== 0) {
-          if (sourceType === "VectorSource" || sourceType === "Vector") {
+          if (sourceType === "VectorSource" || sourceType === "VECTOR") {
             printJson.attributes.map.layers.unshift(printLayer);
           } else {
             printJson.attributes.map.layers.push(printLayer);
