@@ -81,12 +81,13 @@ angular.module('mainApp')
           }],
           visibleOnLoad: false
         }],
+        /*
         basemap: {
           url: 'https://opencache.statkart.no/gatekeeper/gk/gk.open_wmts?',
           layers: 'europa_forenklet',
           format: 'image/png',
           matrixprefix: 'true',
-        },
+        },*/
         zoom: 3,
         center: [570130, 7032300],
         hoverOptions: {
