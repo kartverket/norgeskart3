@@ -212,7 +212,8 @@ angular.module("menuPrint").controller("menuPrintController", [
           baseUrl = layers[i].getSource().getUrl();
         } else if (typeof layers[i].getSource().getUrls === "function" && layers[i].getSource().getUrls() ) {
           baseUrl = layers[i].getSource().getUrls()[0];
-        } else if (layers[i].getProperties().id === "drawing") {
+        }
+        if (layers[i].getProperties().id === "drawing" || layers[i].getProperties().id === "propertyMarking") {
           sourceType = "VECTOR";
         }
 
@@ -419,6 +420,9 @@ angular.module("menuPrint").controller("menuPrintController", [
                 strokeColor = "#319FD3",
                 textfillColor = "rgba(255, 255, 255, 0.6)",
                 textstrokeColor = "#319FD3";
+              if (layers[i].getProperties().id === "propertyMarking") {
+                fillColor = "rgba(255, 191, 1, 0.4)"
+              }
               if (layerConfig) {
                 if (layerConfig[0].subLayers[0].style.fill) {
                   fillColor = layerConfig[0].subLayers[0].style.fill.color;
