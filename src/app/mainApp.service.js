@@ -76,7 +76,7 @@ angular.module('mainApp')
       };
 
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
-        return url + 'ws/elev.py?lat=' + lat + '&lon=' + lon + '&epsg=' + epsgNumber;
+        return urlGeonorge + 'elevation-nk/v1/?lat=' + lat + '&lon=' + lon + '&epsg=' + epsgNumber;
       };
 
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
