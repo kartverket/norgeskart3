@@ -343,6 +343,7 @@ angular.module('menuDraw')
           };
 
           scope.activateDrawFeatureTool = function () {
+            window.showMeasurements = scope.showMeasurements;
             if (scope.type != 'Text') {
               scope.text = "";
             }

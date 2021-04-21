@@ -578,25 +578,39 @@ angular.module("menuPrint").controller("menuPrintController", [
                               .toString()
                               .replace(",", " ");
                           }
-                          symbolizers = [
-                            {
-                              fillColor: feature.properties.style.stroke.color,
-                              label: feature.properties.measurement,
-                              labelXOffset: "-40.0",
-                              haloColor: "white",
-                              haloOpacity: "0.7",
-                              haloRadius: "3.0",
-                              type: "text",
-                            },
-                            {
-                              strokeColor: feature.properties.style.stroke.color,
-                              strokeWidth: feature.properties.style.stroke.width,
-                              strokeDashstyle: strokeDashstyle,
-                              type: "line",
-                              strokeOpacity: 1,
-                              strokeLinecap: "round",
-                            },
-                          ];
+                          if (window.showMeasurements) {
+                            symbolizers = [
+                              {
+                                fillColor: feature.properties.style.stroke.color,
+                                label: feature.properties.measurement,
+                                labelXOffset: "-40.0",
+                                haloColor: "white",
+                                haloOpacity: "0.7",
+                                haloRadius: "3.0",
+                                type: "text",
+                              },
+                              {
+                                strokeColor: feature.properties.style.stroke.color,
+                                strokeWidth: feature.properties.style.stroke.width,
+                                strokeDashstyle: strokeDashstyle,
+                                type: "line",
+                                strokeOpacity: 1,
+                                strokeLinecap: "round",
+                              },
+                            ];
+                          } else {
+                            symbolizers = [
+                              {
+                                strokeColor: feature.properties.style.stroke.color,
+                                strokeWidth: feature.properties.style.stroke.width,
+                                strokeDashstyle: strokeDashstyle,
+                                type: "line",
+                                strokeOpacity: 1,
+                                strokeLinecap: "round",
+                              },
+                            ];
+                          }
+
                         }
                         break;
                       case "Polygon":
@@ -608,15 +622,38 @@ angular.module("menuPrint").controller("menuPrintController", [
                         if (rgba.length > 3) {
                           opacity = +rgba[3];
                         }
-                        symbolizers = [
-                          {
-                            fillColor: feature.properties.style.fill.color,
-                            fillOpacity: opacity,
-                            strokeColor: feature.properties.style.stroke.color,
-                            strokeWidth: feature.properties.style.stroke.width,
-                            type: "polygon",
-                          },
-                        ];
+                        feature.properties.measurement = feature.properties.measurement.replace(/&sup2;/g, '²')
+                        if (window.showMeasurements) {
+                          symbolizers = [
+                            {
+                              fillColor: feature.properties.style.stroke.color,
+                              label: feature.properties.measurement,
+                              labelXOffset: "-40.0",
+                              haloColor: "white",
+                              haloOpacity: "0.7",
+                              haloRadius: "3.0",
+                              type: "text",
+                            },
+                            {
+                              fillColor: feature.properties.style.fill.color,
+                              fillOpacity: opacity,
+                              strokeColor: feature.properties.style.stroke.color,
+                              strokeWidth: feature.properties.style.stroke.width,
+                              type: "polygon",
+                            },
+                          ];
+                        } else {
+                          symbolizers = [
+                            {
+                              fillColor: feature.properties.style.fill.color,
+                              fillOpacity: opacity,
+                              strokeColor: feature.properties.style.stroke.color,
+                              strokeWidth: feature.properties.style.stroke.width,
+                              type: "polygon",
+                            },
+                          ];
+                        }
+
                         break;
                       default:
                         symbolizers = [
