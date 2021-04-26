@@ -459,6 +459,44 @@ angular.module('mainApp')
           }, {
             type: "overlay",
             gatekeeper: "true",
+            name: "annenruter",
+            url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
+            legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
+            groupid: 5,
+            params: {
+              layers: "AnnenRute",
+              format: "image/png"
+            },
+            guid: "5.AnnenRute",
+            options: {
+              isbaselayer: "false",
+              singletile: "true",
+              visibility: "false"
+            },
+            includedfields: {
+              capitalize: "true",
+              field: [{
+                name: "belysning"
+              }, {
+                name: "rutenavn"
+              }, {
+                name: "rutenummer"
+              }, {
+                name: "vedlikeholdsansvarlig"
+              }, {
+                name: "merking_d",
+                alias: "Merking"
+              }, {
+                name: "spesialrutetype_d",
+                alias: "Spesialrutetype"
+              }, {
+                name: "gradering_d",
+                alias: "Vanskelig"
+              }]
+            }
+          }, {
+            type: "overlay",
+            gatekeeper: "true",
             name: "historisk_ferdselsrute",
             url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
             legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
@@ -1848,6 +1886,44 @@ angular.module('mainApp')
                   format: "image/png"
                 },
                 guid: "5.Sykkelrute",
+                options: {
+                  isbaselayer: "false",
+                  singletile: "true",
+                  visibility: "false"
+                },
+                includedfields: {
+                  capitalize: "true",
+                  field: [{
+                    name: "belysning"
+                  }, {
+                    name: "rutenavn"
+                  }, {
+                    name: "rutenummer"
+                  }, {
+                    name: "vedlikeholdsansvarlig"
+                  }, {
+                    name: "merking_d",
+                    alias: "Merking"
+                  }, {
+                    name: "spesialrutetype_d",
+                    alias: "Spesialrutetype"
+                  }, {
+                    name: "gradering_d",
+                    alias: "Vanskelig"
+                  }]
+                }
+              }, {
+                type: "overlay",
+                gatekeeper: "true",
+                name: "annenruter",
+                url: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
+                legendurl: "https://wms.geonorge.no/skwms1/wms.friluftsruter2?",
+                groupid: 5,
+                params: {
+                  layers: "AnnenRute",
+                  format: "image/png"
+                },
+                guid: "5.AnnenRute",
                 options: {
                   isbaselayer: "false",
                   singletile: "true",
