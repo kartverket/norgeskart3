@@ -82,10 +82,17 @@ angular.module('mainApp')
           visibleOnLoad: false
         }],
         basemap: {
-          url: 'https://opencache.statkart.no/gatekeeper/gk/gk.open_wmts?',
+          url: ['https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?','https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?'],
+          gatekeeper: true,
+          name: "europa_forenklet",
           layers: 'europa_forenklet',
           format: 'image/png',
-          matrixprefix: 'true',
+          matrixPrefix: true,
+          options: {
+            isbaselayer: "true",
+            singletile: "false",
+            visibility: "true"
+          },
         },
         zoom: 3,
         center: [570130, 7032300],
