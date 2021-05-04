@@ -4,7 +4,7 @@
 node_modules
 coverage
 build
-dist
+# dist
 *.appcache
 *.lock
 package-lock.json
