@@ -874,7 +874,11 @@ angular
                   stedsnavn = document.navn
                     .map(function (a) {
                       a.name = a.skrivemåte;
-                      a.kommune = a.kommuner[0].kommunenavn;
+                      if (a.kommuner) {
+                        a.kommune = a.kommuner[0].kommunenavn;
+                      } else {
+                        a.kommune = ''
+                      }
                       a.lat = a.representasjonspunkt.nord;
                       a.lon = a.representasjonspunkt.øst;
                       return a;

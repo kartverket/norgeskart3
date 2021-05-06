@@ -194,7 +194,7 @@ angular
         },
 
         setPlacenamePage: function (value) {
-          placenamePage = value - 1;
+          placenamePage = value;
         },
 
         constructPoint: function (lat, lon, epsgFrom, epsgTo) {
