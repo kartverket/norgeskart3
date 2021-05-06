@@ -69,10 +69,10 @@ angular.module('mainApp')
           var testquery = query.split(',');
           if (testquery.length >= 2) {
             query = testquery[0] + "*&fylkeKommuneNavnListe=+" + testquery[1].trim();
-            return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + query + "&eksakteForst=true&antPerSide=" + antall + "&epsgKode=32633&side=" + side;
+            return urlGeonorge + "stedsnavn/v1/navn?sok=" + query + "treffPerSide=" + antall + "&side=" + side;  // + '&fuzzy=true';
           }
         }
-        return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + query + "*&eksakteForst=true&antPerSide=" + antall + "&epsgKode=32633&side=" + side;
+        return urlGeonorge + "stedsnavn/v1/navn?sok=" + query + "*&treffPerSide=" + antall + "&side=" + side; // + '&fuzzy=true';
       };
 
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {

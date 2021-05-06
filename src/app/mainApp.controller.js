@@ -249,10 +249,7 @@ angular.module("mainApp").controller("mainAppController", [
 
     function _showMapMarker() {
       var parameters = $location.search();
-      var marker =
-        parameters["markerLon"] && parameters["markerLat"]
-          ? [parameters["markerLon"], parameters["markerLat"]]
-          : undefined;
+      var marker = parameters["markerLon"] && parameters["markerLat"] ? [parameters["markerLon"], parameters["markerLat"]] : undefined;
       if (marker) {
         map.ShowInfoMarker(marker);
       }
