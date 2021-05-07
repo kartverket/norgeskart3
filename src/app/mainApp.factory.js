@@ -912,6 +912,36 @@ angular.module('mainApp')
                 alias: "preparering"
               }]
             }
+          }, {
+            type: "overlay",
+            gatekeeper: "true",
+            name: "Markagrensen",
+            url: " https://wms.geonorge.no/skwms1/wms.markagrensen?",
+            legendurl: "https://wms.geonorge.no/skwms1/wms.markagrensen?",
+            groupid: 3,
+            params: {
+              layers: "Markagrensen",
+              format: "image/png"
+            },
+            guid: "3.Markagrensen",
+            options: {
+              isbaselayer: "false",
+              singletile: "true",
+              visibility: "false"
+            },
+            includedfields: {
+              capitalize: "true",
+              field: [{
+                name: "lovnavn",
+                alias: "Lovnavn"
+              }, {
+                name: "lovid",
+                alias: "Lov id"
+              }, {
+                name: "objid",
+                alias: "Objekt-id"
+              }]
+            }
           }],
           maplayer: [{
             index: 3,
@@ -2366,6 +2396,36 @@ angular.module('mainApp')
                   }, {
                     name: "preparering_d",
                     alias: "preparering"
+                  }]
+                }
+              }, {
+                type: "overlay",
+                gatekeeper: "true",
+                name: "Markagrensen",
+                url: " https://wms.geonorge.no/skwms1/wms.markagrensen?",
+                legendurl: "https://wms.geonorge.no/skwms1/wms.markagrensen?",
+                groupid: 3,
+                params: {
+                  layers: "Markagrensen",
+                  format: "image/png"
+                },
+                guid: "3.Markagrensen",
+                options: {
+                  isbaselayer: "false",
+                  singletile: "true",
+                  visibility: "false"
+                },
+                includedfields: {
+                  capitalize: "true",
+                  field: [{
+                    name: "lovnavn",
+                    alias: "Lovnavn"
+                  }, {
+                    name: "lovid",
+                    alias: "Lov-id"
+                  }, {
+                    name: "objid",
+                    alias: "Objekt-id"
                   }]
                 }
               }],
