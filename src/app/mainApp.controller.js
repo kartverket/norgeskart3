@@ -124,8 +124,8 @@ angular.module("mainApp").controller("mainAppController", [
         }
       }
 
-      if (obj.layers !== undefined) {
-        mainAppFactory.setInitLayersInUrl(obj.layers);
+      if (obj.layers !== undefined || obj.l !== undefined) {
+        mainAppFactory.setInitLayersInUrl(obj.layers || obj.l);
       }
       var newSearch = angular.extend($location.search(), obj);
       $location.search(newSearch).replace();

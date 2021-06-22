@@ -1552,14 +1552,26 @@ angular
           }
 
           function init() {
-            var openPanel = $location.search().panel;
+            var openPanel = $location.search().panel || $location.search().p;
             if (openPanel !== undefined) {
               scope.activePosition = {
                 lon: 0,
                 lat: 0,
-                zoom: 0,
+                z: 0,
               };
-              scope.activePosition.zoom = Number($location.search().zoom);
+              if ($location.search().z) {
+                $location.search().zoom = $location.search().z
+                $location.search('z', null);
+              }
+              if ($location.search().mo) {
+                $location.search().markerLon = $location.search().mo
+                $location.search('mo', null);
+              }
+              if ($location.search().ma) {
+                $location.search().markerLat = $location.search().ma
+                $location.search('ma', null);
+              }
+              scope.activePosition.z = Number($location.search().zoom);
               scope.activePosition.lon = Number($location.search().markerLon);
               scope.activePosition.lat = Number($location.search().markerLat);
               if (
@@ -1582,7 +1594,7 @@ angular
                 case "Koordinater":
                   scope.showKoordTransPanel();
                   break;
-                case "Turkart":
+                case "tur":
                   scope.showLagTurKartPanel();
                   break;
                 case "Fargelegg":

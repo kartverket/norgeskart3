@@ -3,7 +3,7 @@ angular.module('searchPanel')
     function ($scope, toolsFactory, map, mainAppFactory, $timeout, $location, searchPanelFactory) {
 
       function _updateLocationPanel(panelName) {
-        $location.search()['panel'] = panelName;
+        $location.search()['p'] = panelName;
         $location.search(angular.extend($location.search(), $location.search())).replace();
       }
 
@@ -22,7 +22,7 @@ angular.module('searchPanel')
           mainAppFactory.setActiveSearchPanel('searchOptionsPanel');
           _updateLocationPanel("searchOptionsPanel");
         }else{
-          if ($location.search()['panel'] === undefined){
+          if ($location.search()['p'] === undefined){
             _updateLocationPanel("searchOptionsPanel");
           }
         }
@@ -52,7 +52,7 @@ angular.module('searchPanel')
       $scope.showLagTurKartPanel = function () {
         map.SetCenter($scope.activePosition);
         $scope.searchPanelLayout = "searchLagTurkartPanel";
-        _updateLocationPanel("Turkart");
+        _updateLocationPanel("tur");
         mainAppFactory.setActiveSearchPanel('searchLagTurkartPanel');
       };
 

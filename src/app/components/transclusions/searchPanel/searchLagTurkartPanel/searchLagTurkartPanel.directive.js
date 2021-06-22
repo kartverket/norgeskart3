@@ -15,6 +15,7 @@ angular.module('searchLagTurkartPanel')
           scope.showLegend = false;
           scope.showTrips = false;
           scope.showSweden = false;
+          scope.showCompass = false;
 
           eventHandler.RegisterEvent(ISY.Events.EventTypes.PrintBoxSelectReturnValue, _boxExtent);
 
@@ -95,7 +96,8 @@ angular.module('searchLagTurkartPanel')
               legend: scope.showLegend,
               trips: scope.showTrips,
               sweden: scope.showSweden,
-              link: "https://www.norgeskart.no/#!?zoom=" + scope.activePosition.zoom + "&lat=" + Number(Math.round(scope.activePosition.lat + 'e' + 2) + 'e-' + 2) + "&lon=" + Number(Math.round(scope.activePosition.lon + 'e' + 2) + 'e-' + 2)
+              compass: scope.showCompass,
+              link: "https://norgeskart.no/#!?z=" + scope.activePosition.zoom + "&ma=" + Number(Math.round(scope.activePosition.lat + 'e' + 2) + 'e-' + 2) + "&mo=" + Number(Math.round(scope.activePosition.lon + 'e' + 2) + 'e-' + 2) + '&p=tur'
             };
           };
 
@@ -116,7 +118,7 @@ angular.module('searchLagTurkartPanel')
             scope.showSpinner = false;
             document.getElementById("spinner1").style.backgroundColor = "transparent";
             document.getElementById("spinner1").style.transition = "0.8s";
-            mapLink = urlLagTurkart.replace('turkart', '') + response.data.linkPdf;
+            mapLink = urlLagTurkart.replace('turkart2', '') + response.data.linkPdf;
           };
 
           scope.downloadMap = function () {
