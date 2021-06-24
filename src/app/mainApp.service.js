@@ -10,6 +10,7 @@ angular.module('mainApp')
       var urlHavnivaa = "http://api.sehavniva.no/";
       var urlAdresseSok = 'https://ws.geonorge.no/adresser/v1/sok';
       var urlAdressePunktsok = 'https://ws.geonorge.no/adresser/v1/punktsok';
+      var urlStedsnavnPunktsok = 'https://ws.geonorge.no/stedsnavn/v1/punkt';
 
       this.uploadGpxFileService = function () {
         return url + 'ws/upload-gpx.py';
@@ -63,7 +64,6 @@ angular.module('mainApp')
         query = query.indexOf(',') !== -1 ? query.replace(',', ' ') : query;
         return urlAdresseSok + '?sok=' + encodeURIComponent(query) + '&treffPerSide=10';
       };
-
       this.generateSearchStedsnavnUrl = function (query, side, antall) {
         if (query) {
           var testquery = query.split(',');

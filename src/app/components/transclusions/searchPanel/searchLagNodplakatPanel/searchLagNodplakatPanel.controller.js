@@ -38,7 +38,7 @@ angular.module('searchLagNodplakatPanel')
 
             var _fetchPlacenamesByBbox = function () {
               var center = map.GetCenter();
-              var placenamesByPointUrl = mainAppService.generateSearchStedsnavnPunktUrl(center.lat, center.lon);
+              var placenamesByPointUrl = mainAppService.generatStedsnavnPunktsok(center.lat, center.lon);
               _downloadFromUrl(placenamesByPointUrl, 'placenamesByBbox');
             };
 
