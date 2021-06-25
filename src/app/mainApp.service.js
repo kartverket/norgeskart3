@@ -82,7 +82,7 @@ angular.module('mainApp')
       };
       this.generatStedsnavnPunktsok = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
-        return urlStedsnavnPunktsok + '?nord=' + lat + '&ost=' + lon + '&treffPerSide=20&koordsys=25833&radius=50' + "&side=" + side;
+        return urlStedsnavnPunktsok + '?nord=' + lat + '&ost=' + lon + '&treffPerSide=20&koordsys=25833&radius=1500' + "&side=" + side;
       }
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
         return urlGeonorge + "norgeskart/v1/teiger/bbox/" + minx + "," + miny + "," + maxx + "," + maxy;

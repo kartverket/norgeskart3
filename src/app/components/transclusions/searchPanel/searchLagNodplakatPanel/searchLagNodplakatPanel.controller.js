@@ -57,11 +57,11 @@ angular.module('searchLagNodplakatPanel')
                         break;
                     case ('placenamesByBbox'):
                         $scope.lagNodplakatDict[name] = data.navn.map(function (a) {
-                          a.skrivemaatenavn = a.stedsnavn[0].skrivemte; // + ' ' + a.meterFraPunkt + 'm fra søkt punkt'
+                          a.skrivemaatenavn = a.stedsnavn[0].skrivemåte; // + ' ' + a.meterFraPunkt + 'm fra søkt punkt'
                           return a;
                         });
                         if (!$scope.activePlaceName) {
-                            $scope.activePlaceName = data.navn[0].stedsnavn[0].skrivemte;
+                            $scope.activePlaceName = data.navn[0].stedsnavn[0].skrivemåte;
                             $scope.setSearchBarText($scope.activePlaceName);
                             $scope.lagNodplakatName = $scope.activePlaceName;
                         }
