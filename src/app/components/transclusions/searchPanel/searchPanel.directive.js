@@ -372,15 +372,6 @@ angular
           var _addSearchOptionToPanel = function (name, data) {
             switch (name) {
               case "elevationPoint":
-                scope.searchOptionsDict["ssrFakta"] = _constructSearchOption(
-                  "ssrFakta",
-                  "fa fa-flag",
-                  true,
-                  '"' + data.placename + '"',
-                  {
-                    url: mainAppService.generateFaktaarkUrl(data.stedsnummer),
-                  }
-                );
                 if (
                   scope.activeSearchResult &&
                   scope.activeSearchResult.source == "mouseClick"
@@ -393,8 +384,7 @@ angular
                     )
                     .replace();
                 }
-                var elevationValue =
-                  data.elevation === false ? "-" : data.elevation.toFixed(1);
+                var elevationValue = data.elevation === false ? "-" : data.elevation.toFixed(1);
                 scope.searchOptionsDict[name] = _constructSearchOption(
                   name,
                   "↑",
@@ -403,6 +393,40 @@ angular
                   {}
                 );
                 break;
+              case "stedsnavnPunkt":
+                var stedsnavn = data.navn
+                if (stedsnavn.length > 0) {
+                  console.warn(stedsnavn)
+                  scope.searchOptionsDict["ssrFakta"] = _constructSearchOption(
+                    "ssrFakta",
+                    "fa fa-flag",
+                    true,
+                    '"' + stedsnavn[0].stedsnavn[0].skrivemåte + '"',
+                    {
+                      url: mainAppService.generateFaktaarkUrl(stedsnavn[0].stedsnummer),
+                    }
+                  );
+                  if (
+                    scope.activeSearchResult &&
+                    scope.activeSearchResult.source == "mouseClick"
+                  ) {
+                    scope.searchBarModel = stedsnavn[0].stedsnavn[0].skrivemåte;
+                    $location.search()["sok"] = stedsnavn[0].stedsnavn[0].skrivemåte;
+                    $location
+                      .search(
+                        angular.extend($location.search(), $location.search())
+                      )
+                      .replace();
+                  }
+                  scope.searchOptionsDict[name] = _constructSearchOption(
+                    name,
+                    "↑",
+                    false,
+                    {}
+                  );
+                }
+
+                  break;
 
               case "seEiendom":
                 var jsonObject = xml.xmlToJSON(data);
@@ -441,6 +465,17 @@ angular
               epsgNumber
             );
             _downloadSearchOptionFromUrl(elevationPointUrl, "elevationPoint");
+          };
+          var _fetchStedsnavnPunkt = function () {
+            var lat = scope.activePosition.lat;
+            var lon = scope.activePosition.lon;
+            var epsgNumber = scope.mapEpsg.split(":")[1];
+            var stedsnavnPunktUrl = mainAppService.generatStedsnavnPunktsok(
+              lat,
+              lon,
+              epsgNumber
+            );
+            _downloadSearchOptionFromUrl(stedsnavnPunktUrl, "stedsnavnPunkt");
           };
 
           var _fetchMatrikkelInfo = function () {
@@ -528,6 +563,7 @@ angular
               ] = _emptySearchOption;
             }
             _fetchElevationPoint();
+            _fetchStedsnavnPunkt();
             _fetchMatrikkelInfo();
             _fetchAdresseInfo();
             _addKoordTransToSearchOptions();
