@@ -80,11 +80,11 @@ angular.module('mainApp')
       };
 
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
-        return 'https://norgeskart.no/ws/px.py?' + urlGeonorge + 'elevation-nk/v1/?lat=' + lat + '&lon=' + lon + '&epsg=' + epsgNumber;
+        return 'https://ws.geonorge.no/hoydedata/v1/punkt?nord=' + lat + '&ost=' + lon + '&koordsys=' + epsgNumber + '&&geojson=false';
       };
       this.generatStedsnavnPunktsok = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
-        return 'https://wstest.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=20&koordsys=25833&radius=50' + "&side=" + side;
+        return 'https://wstest.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=20&koordsys=25833&radius=100' + "&side=" + side;
       }
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
         return urlGeonorge + "norgeskart/v1/teiger/bbox/" + minx + "," + miny + "," + maxx + "," + maxy;

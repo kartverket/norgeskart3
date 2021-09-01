@@ -372,27 +372,17 @@ angular
           var _addSearchOptionToPanel = function (name, data) {
             switch (name) {
               case "elevationPoint":
-                if (
-                  scope.activeSearchResult &&
-                  scope.activeSearchResult.source == "mouseClick"
-                ) {
-                  scope.searchBarModel = data.placename;
-                  $location.search()["sok"] = data.placename;
-                  $location
-                    .search(
-                      angular.extend($location.search(), $location.search())
-                    )
-                    .replace();
+                if (data.punkter.length > 0) {
+                  var elevationValue = data.punkter[0].z === false ? "-" : data.punkter[0].z.toFixed(1);
+                  scope.searchOptionsDict[name] = _constructSearchOption(
+                    name,
+                    "↑",
+                    false,
+                    elevationValue,
+                    {}
+                  );
                 }
-                var elevationValue = data.elevation === false ? "-" : data.elevation.toFixed(1);
-                scope.searchOptionsDict[name] = _constructSearchOption(
-                  name,
-                  "↑",
-                  false,
-                  elevationValue,
-                  {}
-                );
-                break;
+              break;
               case "stedsnavnPunkt":
                 var stedsnavn = data.navn
                 if (stedsnavn.length > 0) {
