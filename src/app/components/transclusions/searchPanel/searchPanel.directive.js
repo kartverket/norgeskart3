@@ -386,14 +386,13 @@ angular
               case "stedsnavnPunkt":
                 var stedsnavn = data.navn
                 if (stedsnavn.length > 0) {
-                  console.warn(stedsnavn)
                   scope.searchOptionsDict["ssrFakta"] = _constructSearchOption(
                     "ssrFakta",
                     "fa fa-flag",
                     true,
-                    '"' + stedsnavn[0].stedsnavn[0].skrivemåte + '"',
+                    '',
                     {
-                      url: mainAppService.generateFaktaarkUrl(stedsnavn[0].stedsnummer),
+                      stedsnavn: stedsnavn,
                     }
                   );
                   if (
@@ -1339,6 +1338,7 @@ angular
           scope.mouseOver = function (searchResult) {
             scope.mouseHoverSearchResult = searchResult;
             map.RemoveInfoMarker();
+            console.log(searchResult.point)
             map.ShowInfoMarker(searchResult.point);
           };
 

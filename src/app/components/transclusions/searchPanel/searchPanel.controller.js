@@ -42,6 +42,14 @@ angular.module('searchPanel')
 
       $scope.searchOptionsDict = {};
 
+      $scope.showStedsnavnPanel = function () {
+        $scope.activeSearchOption = $scope.searchOptionsDict['ssrFakta'];
+        map.SetCenter($scope.activePosition);
+        $scope.searchPanelLayout = "searchStedsnavnPanel";
+        _updateLocationPanel("Stedsnavn");
+        mainAppFactory.setActiveSearchPanel('searchStedsnavnPanel');
+      };
+
       $scope.showKoordTransPanel = function () {
         map.SetCenter($scope.activePosition);
         $scope.searchPanelLayout = "searchKoordTransPanel";
