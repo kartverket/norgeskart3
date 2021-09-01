@@ -86,6 +86,10 @@ angular.module('mainApp')
         if (!side) { side = 1;}
         return 'https://wstest.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=20&koordsys=25833&radius=100' + "&side=" + side;
       }
+      this.generatStedsnavnPunktsokNodplakat = function (lat, lon, epsgNumber, side) {
+        if (!side) { side = 1;}
+        return 'https://wstest.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=30&koordsys=25833&radius=1000' + "&side=" + side;
+      }
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
         return urlGeonorge + "norgeskart/v1/teiger/bbox/" + minx + "," + miny + "," + maxx + "," + maxy;
       };
