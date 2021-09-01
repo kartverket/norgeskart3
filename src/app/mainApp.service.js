@@ -80,7 +80,7 @@ angular.module('mainApp')
       };
 
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
-        return urlGeonorge + 'elevation-nk/v1/?lat=' + lat + '&lon=' + lon + '&epsg=' + epsgNumber;
+        return 'https://norgeskart.no/ws/px.py?' + urlGeonorge + 'elevation-nk/v1/?lat=' + lat + '&lon=' + lon + '&epsg=' + epsgNumber;
       };
       this.generatStedsnavnPunktsok = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
