@@ -385,7 +385,6 @@ angular
               break;
               case "stedsnavnPunkt":
                 var stedsnavn = data.navn
-                if (stedsnavn.length > 0) {
                   scope.searchOptionsDict["ssrFakta"] = _constructSearchOption(
                     "ssrFakta",
                     "fa fa-flag",
@@ -395,7 +394,8 @@ angular
                       stedsnavn: stedsnavn,
                     }
                   );
-                  if (
+                  if (stedsnavn.length > 0) {
+                    if (
                     scope.activeSearchResult &&
                     scope.activeSearchResult.source == "mouseClick"
                   ) {
