@@ -5,7 +5,7 @@ angular
 
       var placenameHitsPerPage = 15;
 
-      var placenamePage = 0;
+      var placenamePage = 1;
 
       var mapEpsg = 'EPSG:25833';
 
@@ -80,16 +80,16 @@ angular
         var serviceDict = {};
         serviceDict['ssr'] = {
           url: mainAppService.generateSearchStedsnavnUrl(query, placenamePage, placenameHitsPerPage),
-          format: 'xml',
+          format: 'json',
           source: 'ssr',
-          epsg: 'EPSG:25833',
-          nameID: 'stedsnavn',
-          latID: 'nord',
-          lonID: 'aust',
-          kommuneID: 'kommunenavn',
+          epsg: 'EPSG:4258',
+          nameID: 'name',
+          latID: 'lat',
+          lonID: 'lon',
+          kommuneID: 'kommune',
           husnummerID: 'HUSNR',
           husnummerBokstav: false,
-          navnetypeID: 'navnetype'
+          navnetypeID: 'navneobjektype'
         };
 
         serviceDict['matrikkeladresse'] = {
@@ -176,11 +176,11 @@ angular
           return placenameHitsPerPage;
         },
         resetPlacenamePage: function () {
-          placenamePage = 0;
+          placenamePage = 1;
           return placenamePage;
         },
         decreasePlacenamePage: function () {
-          if (placenamePage > 0) {
+          if (placenamePage > 1) {
             placenamePage--;
           }
           return placenamePage;
@@ -194,7 +194,7 @@ angular
         },
 
         setPlacenamePage: function (value) {
-          placenamePage = value -1;
+          placenamePage = value;
         },
 
         constructPoint: function (lat, lon, epsgFrom, epsgTo) {
