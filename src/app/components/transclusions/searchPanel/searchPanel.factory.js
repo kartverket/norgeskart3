@@ -89,7 +89,7 @@ angular
           kommuneID: 'kommune',
           husnummerID: 'HUSNR',
           husnummerBokstav: false,
-          navnetypeID: 'navneobjektype'
+          navnetypeID: 'navneobjekttype'
         };
 
         serviceDict['matrikkeladresse'] = {
