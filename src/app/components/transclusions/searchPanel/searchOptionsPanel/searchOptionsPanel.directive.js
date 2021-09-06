@@ -1,5 +1,5 @@
 angular.module('searchOptionsPanel')
-    .directive('searchOptionsPanel', ['$window','ISY.MapAPI.Map','changeBaseLayerPanelFactory',
+    .directive('searchOptionsPanel', ['$window','ISY.MapAPI.Map','changeBaseLayerPanelFactory', 
         function($window, map, changeBaseLayerPanelFactory) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchOptionsPanel/searchOptionsPanel.html',
@@ -25,8 +25,8 @@ angular.module('searchOptionsPanel')
                                 scope.showLagNodplakatPanel();
                                 break;
                           case ('ssrFakta'):
-                                scope.showStedsnavnPanel();
-                                // window.open(searchOption.url, '_blank');
+                                  // $window.open( mainAppService.generateFaktaarkUrl(searchOption.stedsnavn[0].stedsnummer), '_blank');
+                                  scope.showStedsnavnPanel();
                                 break;
                             default:
                                 if (searchOption.url){

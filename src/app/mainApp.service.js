@@ -73,10 +73,10 @@ angular.module('mainApp')
           var testquery = query.split(',');
           if (testquery.length >= 2) {
             query = testquery[0] + "*&kommunenavn=" + testquery[1].trim() // + '&fylkesnavn=' + testquery[2].trim() ;
-            return " https://wstest.geonorge.no/stedsnavn/v1/navn?sok=" + query + "&treffPerSide=" + antall + "&side=" + side;  // + '&fuzzy=true';
+            return " https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "&treffPerSide=" + antall + "&side=" + side;  // + '&fuzzy=true';
           }
         }
-        return "https://wstest.geonorge.no/stedsnavn/v1/navn?sok=" + query + "*&treffPerSide=" + antall + "&side=" + side; // + '&fuzzy=true';
+        return "https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "*&treffPerSide=" + antall + "&side=" + side; // + '&fuzzy=true';
       };
 
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
@@ -84,11 +84,11 @@ angular.module('mainApp')
       };
       this.generatStedsnavnPunktsok = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
-        return 'https://wstest.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=20&koordsys=25833&radius=150' + "&side=" + side;
+        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=20&koordsys=25833&radius=150' + "&side=" + side;
       }
       this.generatStedsnavnPunktsokNodplakat = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
-        return 'https://wstest.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=30&koordsys=25833&radius=1000' + "&side=" + side;
+        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=30&koordsys=25833&radius=1000' + "&side=" + side;
       }
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
         return urlGeonorge + "norgeskart/v1/teiger/bbox/" + minx + "," + miny + "," + maxx + "," + maxy;
