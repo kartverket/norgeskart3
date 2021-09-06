@@ -1,0 +1,47 @@
+<div class="search-panel">
+  <div id="spinner1" class="search-loading-overlay" data-ng-show="showSpinner">
+    <div class="spinner-loader"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+  </div>
+  <div class="header">
+    <div class="row">
+      <div class="col-xs-12">
+        <span class="header-icon icon-important fa fa-flag"></span>
+        <span translate="Stedsnavn_title"></span>
+        <div class="pull-right">
+          <div class="closebtn" data-ng-click="deactivatePrintBoxSelect(); showSearchOptionsPanel()">
+            <span class="glyphicon glyphicon-menu-right"></span>
+            <span class="glyphicon glyphicon-menu-left"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="search-content" ng-show="searchOptionsDict['ssrFakta'].stedsnavn != undefined && searchOptionsDict['ssrFakta'].stedsnavn.length > 0">
+    <div class="new-section">
+      <div data-ng-show="searchOptionsDict['ssrFakta'].stedsnavn">
+        <ul class="list-result" data-ng-if="!isIosDevice()">
+          <li ng-mouseover="mouseOver(stedsnavnResult.representasjonspunkt)" class="pointer-cursor"
+            ng-repeat="stedsnavnResult in searchOptionsDict['ssrFakta'].stedsnavn"
+            data-ng-click="generateStedsnavnUrl(stedsnavnResult.stedsnummer)">
+            <div class="pointer-cursor" ng-repeat="sted in stedsnavnResult.stedsnavn">
+              <span ng-bind="sted['skrivemåte']"></span>
+            </div>
+            <div class="text-muted">
+              <span>Stedsnummer: </span>
+              <span ng-bind="stedsnavnResult.stedsnummer"></span>
+            </div>
+            <small class="text-muted">
+              <span>Navneobjekttype: </span>
+              <span ng-bind="stedsnavnResult.navneobjekttype"></span>
+            </small>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="search-content" ng-show="searchOptionsDict['ssrFakta'].stedsnavn === undefined  || searchOptionsDict['ssrFakta'].stedsnavn.length === 0">
+    <div class="noSearchHits">
+      <span translate="no_search_hits"></span>
+    </div>
+  </div>
+</div>

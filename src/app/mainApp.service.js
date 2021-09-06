@@ -10,7 +10,7 @@ angular.module('mainApp')
       var urlHavnivaa = "http://api.sehavniva.no/";
       var urlAdresseSok = 'https://ws.geonorge.no/adresser/v1/sok';
       var urlAdressePunktsok = 'https://ws.geonorge.no/adresser/v1/punktsok';
-      var urlStedsnavnPunktsok = 'https://ws.geonorge.no/stedsnavn/v1/punkt';
+      var ulrKommuneSearch = 'https://ws.geonorge.no/kommunereform/v1/endringer/?sok='
 
       this.uploadGpxFileService = function () {
         return url + 'ws/upload-gpx.py';
@@ -64,25 +64,31 @@ angular.module('mainApp')
         query = query.indexOf(',') !== -1 ? query.replace(',', ' ') : query;
         return urlAdresseSok + '?sok=' + encodeURIComponent(query) + '&treffPerSide=10';
       };
+
+      this.kommunesearch = function (query) {
+        return ulrKommuneSearch + query
+      }
       this.generateSearchStedsnavnUrl = function (query, side, antall) {
         if (query) {
           var testquery = query.split(',');
           if (testquery.length >= 2) {
-            query = testquery[0] + "*&fylkeKommuneNavnListe=+" + testquery[1].trim();
-            return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + query + "&eksakteForst=true&antPerSide=" + antall + "&epsgKode=32633&side=" + side;
-            //return urlGeonorge + "stedsnavn/v1/navn?sok=" + query + "*&treffPerSide=" + antall + "&side=" + side;  // + '&fuzzy=true';
+            query = testquery[0] + "*&kommunenavn=" + testquery[1].trim() // + '&fylkesnavn=' + testquery[2].trim() ;
+            return " https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "&treffPerSide=" + antall + "&side=" + side;  // + '&fuzzy=true';
           }
         }
-        return urlGeonorge + "SKWS3Index/v2/ssr/sok?navn=" + query + "*&eksakteForst=true&antPerSide=" + antall + "&epsgKode=32633&side=" + side;
-        //return urlGeonorge + "stedsnavn/v1/navn?sok=" + query + "*&treffPerSide=" + antall + "&side=" + side; // + '&fuzzy=true';
+        return "https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "*&treffPerSide=" + antall + "&side=" + side; // + '&fuzzy=true';
       };
 
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
-        return urlGeonorge + 'elevation-nk/v1/?lat=' + lat + '&lon=' + lon + '&epsg=' + epsgNumber;
+        return 'https://ws.geonorge.no/hoydedata/v1/punkt?nord=' + lat + '&ost=' + lon + '&koordsys=' + epsgNumber + '&&geojson=false';
       };
       this.generatStedsnavnPunktsok = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
-        return urlStedsnavnPunktsok + '?nord=' + lat + '&ost=' + lon + '&treffPerSide=20&koordsys=25833&radius=1500' + "&side=" + side;
+        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=20&koordsys=25833&radius=150' + "&side=" + side;
+      }
+      this.generatStedsnavnPunktsokNodplakat = function (lat, lon, epsgNumber, side) {
+        if (!side) { side = 1;}
+        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=30&koordsys=25833&radius=1000' + "&side=" + side;
       }
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
         return urlGeonorge + "norgeskart/v1/teiger/bbox/" + minx + "," + miny + "," + maxx + "," + maxy;
@@ -127,11 +133,11 @@ angular.module('mainApp')
       this.generateEmergencyPosterPointUrl = function (lat, lon) {
         return urlGeonorge + 'norgeskart/emergencyPoster/' + lon + '/' + lat;
       };
-
+/*
       this.generateSearchStedsnavnBboxUrl = function (minx, miny, maxx, maxy) {
         return urlGeonorge + 'SKWS3Index/ssr/sok?&nordLL=' + miny + '&ostLL=' + minx + '&nordUR=' + maxy + '&ostUR=' + maxx + '&epsgKode=32633';
       };
-
+*/
       this.generateEmergencyPosterPreviewImageUrl = function (minx, miny, maxx, maxy) {
         return urlOpenWms + 'wms.topo4?service=WMS&request=GetMap&CRS=EPSG:32633&FORMAT=image%2Fjpeg&BGCOLOR=0xFFFFFF&TRANSPARENT=false&LAYERS=topo4_WMS&VERSION=1.3.0&WIDTH=' + $(window).width() + '&HEIGHT=' + $(window).height() + '&BBOX=' + minx + ',' + miny + ',' + maxx + ',' + maxy;
       };

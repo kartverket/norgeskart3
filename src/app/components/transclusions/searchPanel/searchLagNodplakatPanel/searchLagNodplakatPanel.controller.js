@@ -38,7 +38,7 @@ angular.module('searchLagNodplakatPanel')
 
             var _fetchPlacenamesByBbox = function () {
               var center = map.GetCenter();
-              var placenamesByPointUrl = mainAppService.generatStedsnavnPunktsok(center.lat, center.lon);
+              var placenamesByPointUrl = mainAppService.generatStedsnavnPunktsokNodplakat(center.lat, center.lon);
               _downloadFromUrl(placenamesByPointUrl, 'placenamesByBbox');
             };
 
@@ -57,13 +57,15 @@ angular.module('searchLagNodplakatPanel')
                         break;
                     case ('placenamesByBbox'):
                         $scope.lagNodplakatDict[name] = data.navn.map(function (a) {
-                          a.skrivemaatenavn = a.stedsnavn[0].skrivemåte; // + ' ' + a.meterFraPunkt + 'm fra søkt punkt'
+                          a.skrivemaatenavn = a.stedsnavn[0]['skrivemåte']; // + ' ' + a.meterFraPunkt + 'm fra søkt punkt'
                           return a;
                         });
                         if (!$scope.activePlaceName) {
-                            $scope.activePlaceName = data.navn[0].stedsnavn[0].skrivemåte;
+                          if (data.navn.length > 0) {
+                            $scope.activePlaceName = data.navn[0].stedsnavn[0]['skrivemåte'];
                             $scope.setSearchBarText($scope.activePlaceName);
                             $scope.lagNodplakatName = $scope.activePlaceName;
+                          }
                         }
                         break;
                 }

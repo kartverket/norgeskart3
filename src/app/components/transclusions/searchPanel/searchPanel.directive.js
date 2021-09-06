@@ -372,37 +372,50 @@ angular
           var _addSearchOptionToPanel = function (name, data) {
             switch (name) {
               case "elevationPoint":
-                scope.searchOptionsDict["ssrFakta"] = _constructSearchOption(
-                  "ssrFakta",
-                  "fa fa-flag",
-                  true,
-                  '"' + data.placename + '"',
-                  {
-                    url: mainAppService.generateFaktaarkUrl(data.stedsnummer),
-                  }
-                );
-                if (
-                  scope.activeSearchResult &&
-                  scope.activeSearchResult.source == "mouseClick"
-                ) {
-                  scope.searchBarModel = data.placename;
-                  $location.search()["sok"] = data.placename;
-                  $location
-                    .search(
-                      angular.extend($location.search(), $location.search())
-                    )
-                    .replace();
+                if (data.punkter.length > 0) {
+                  var elevationValue = data.punkter[0].z === false ? "-" : data.punkter[0].z.toFixed(1);
+                  scope.searchOptionsDict[name] = _constructSearchOption(
+                    name,
+                    "↑",
+                    false,
+                    elevationValue,
+                    {}
+                  );
                 }
-                var elevationValue =
-                  data.elevation === false ? "-" : data.elevation.toFixed(1);
-                scope.searchOptionsDict[name] = _constructSearchOption(
-                  name,
-                  "↑",
-                  false,
-                  elevationValue,
-                  {}
-                );
-                break;
+              break;
+              case "stedsnavnPunkt":
+                var stedsnavn = data.navn
+                  scope.searchOptionsDict["ssrFakta"] = _constructSearchOption(
+                    "ssrFakta",
+                    "fa fa-flag",
+                    true,
+                    '',
+                    {
+                      stedsnavn: stedsnavn,
+                    }
+                  );
+                  if (stedsnavn.length > 0) {
+                    if (
+                    scope.activeSearchResult &&
+                    scope.activeSearchResult.source == "mouseClick"
+                  ) {
+                    scope.searchBarModel = stedsnavn[0].stedsnavn[0].skrivemåte;
+                    $location.search()["sok"] = stedsnavn[0].stedsnavn[0].skrivemåte;
+                    $location
+                      .search(
+                        angular.extend($location.search(), $location.search())
+                      )
+                      .replace();
+                  }
+                  scope.searchOptionsDict[name] = _constructSearchOption(
+                    name,
+                    "↑",
+                    false,
+                    {}
+                  );
+                }
+
+                  break;
 
               case "seEiendom":
                 var jsonObject = xml.xmlToJSON(data);
@@ -441,6 +454,17 @@ angular
               epsgNumber
             );
             _downloadSearchOptionFromUrl(elevationPointUrl, "elevationPoint");
+          };
+          var _fetchStedsnavnPunkt = function () {
+            var lat = scope.activePosition.lat;
+            var lon = scope.activePosition.lon;
+            var epsgNumber = scope.mapEpsg.split(":")[1];
+            var stedsnavnPunktUrl = mainAppService.generatStedsnavnPunktsok(
+              lat,
+              lon,
+              epsgNumber
+            );
+            _downloadSearchOptionFromUrl(stedsnavnPunktUrl, "stedsnavnPunkt");
           };
 
           var _fetchMatrikkelInfo = function () {
@@ -528,6 +552,7 @@ angular
               ] = _emptySearchOption;
             }
             _fetchElevationPoint();
+            _fetchStedsnavnPunkt();
             _fetchMatrikkelInfo();
             _fetchAdresseInfo();
             _addKoordTransToSearchOptions();
@@ -1316,6 +1341,7 @@ angular
           scope.mouseOver = function (searchResult) {
             scope.mouseHoverSearchResult = searchResult;
             map.RemoveInfoMarker();
+            console.log(searchResult.point)
             map.ShowInfoMarker(searchResult.point);
           };
 
