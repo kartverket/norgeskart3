@@ -1341,7 +1341,6 @@ angular
           scope.mouseOver = function (searchResult) {
             scope.mouseHoverSearchResult = searchResult;
             map.RemoveInfoMarker();
-            console.log(searchResult.point)
             map.ShowInfoMarker(searchResult.point);
           };
 

@@ -137,7 +137,7 @@ angular.module("menuPrint").controller("menuPrintController", [
     function removeKeys(obj, keys) {
       var index;
       for (var prop in obj) {
-        if (obj.hasOwnProperty(prop)) {
+        if (Object.prototype.hasOwnProperty.call(obj, prop)) {
           switch (typeof obj[prop]) {
             case "string":
               index = keys.indexOf(prop);
