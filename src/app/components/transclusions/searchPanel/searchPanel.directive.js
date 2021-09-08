@@ -892,7 +892,6 @@ angular
           var _convertSearchResult2Json = function (document, source) {
             switch (source) {
               case "ssr":
-                // var jsonObject = xml.xmlToJSON(document);
                 _getPlacenameHits(document);
                 var stedsnavn;
                 if (Array.isArray(document.navn)) {
@@ -1243,7 +1242,7 @@ angular
           };
 
           var _pushToUnifiedResults = function (result) {
-            if (result.kommune && result.name) {
+            if (result.name) {
               result.name =
                 result.source != "matrikkelnummer" ? scope.fixNames(result.name) : result.name;
               var resultID = _createID(result);
@@ -1255,7 +1254,7 @@ angular
                 point: result.point,
                 format: result.format,
                 source: result.source,
-                kommune: result.kommune,
+                kommune:  result.kommune ? result.kommune : '',
                 id: resultID,
                 url: result.url,
               };
