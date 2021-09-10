@@ -72,7 +72,7 @@ angular.module('mainApp')
         if (query) {
           var testquery = query.split(',');
           if (testquery.length >= 2) {
-            query = testquery[0] + "*&kommunenavn=" + testquery[1].trim() // + '&fylkesnavn=' + testquery[2].trim() ;
+            query = testquery[0] + "*&kommunenavn=" + testquery[1].trim() + '*' // + '&fylkesnavn=' + testquery[2].trim() ;
             return " https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "&treffPerSide=" + antall + "&side=" + side;  // + '&fuzzy=true';
           }
         }
@@ -84,7 +84,7 @@ angular.module('mainApp')
       };
       this.generatStedsnavnPunktsok = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
-        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=20&koordsys=25833&radius=150' + "&side=" + side;
+        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=25&koordsys=25833&radius=150' + "&side=" + side;
       }
       this.generatStedsnavnPunktsokNodplakat = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
