@@ -72,7 +72,9 @@ angular.module('mainApp')
         if (query) {
           var testquery = query.split(',');
           if (testquery.length >= 2) {
-            query = testquery[0] + "*&kommunenavn=" + testquery[1].trim() + '*' // + '&fylkesnavn=' + testquery[2].trim() ;
+            testquery[0] = testquery[0].indexOf('*') !== -1 ? testquery[0] : testquery[0] + '*';
+            testquery[1] = testquery[1].indexOf('*') !== -1 ? testquery[1].trim() : testquery[1].trim() + '*';
+            query = testquery[0] + "&kommunenavn=" + testquery[1] // + '&fylkesnavn=' + testquery[2].trim() ;
             return " https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "&treffPerSide=" + antall + "&side=" + side;  // + '&fuzzy=true';
           }
         }
