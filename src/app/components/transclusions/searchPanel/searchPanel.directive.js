@@ -880,7 +880,8 @@ angular
           };
 
           var _getPlacenameHits = function (jsonObject) {
-            scope.placenameHits = jsonObject.metadata.totaltAntallTreff;
+            //scope.placenameHits = jsonObject.metadata.totaltAntallTreff;
+            scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
             scope.placenameItems = _generateArrayWithValues(
               parseInt(scope.placenameHits, 10)
             );
@@ -892,8 +893,9 @@ angular
           var _convertSearchResult2Json = function (document, source) {
             switch (source) {
               case "ssr":
-                // var jsonObject = xml.xmlToJSON(document);
-                _getPlacenameHits(document);
+                var jsonObject = xml.xmlToJSON(document);
+                _getPlacenameHits(jsonObject);
+                /*
                 var stedsnavn;
                 if (Array.isArray(document.navn)) {
                   stedsnavn = document.navn
@@ -909,7 +911,8 @@ angular
                       return a;
                     });
                 }
-                return stedsnavn;
+                */
+                return jsonObject.sokRes.stedsnavn;
               case "adresse":
                 var parsedInput = searchPanelFactory.parseInput(_getQuery())
                   .parsedInput;
