@@ -25,6 +25,9 @@
             data-ng-click="generateStedsnavnUrl(stedsnavnResult.stedsnummer)">
             <div class="pointer-cursor" ng-repeat="sted in stedsnavnResult.stedsnavn">
               <span ng-bind="sted['skrivemåte']"></span>
+              <small class="text-muted">
+                (<span ng-bind="sted['navnestatus']"></span> )
+              </small>
             </div>
             <div class="text-muted">
               <span>Stedsnummer: </span>
