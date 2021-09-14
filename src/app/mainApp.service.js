@@ -72,7 +72,9 @@ angular.module('mainApp')
         if (query) {
           var testquery = query.split(',');
           if (testquery.length >= 2) {
-            query = testquery[0] + "*&kommunenavn=" + testquery[1].trim() // + '&fylkesnavn=' + testquery[2].trim() ;
+            testquery[0] = testquery[0].indexOf('*') !== -1 ? testquery[0] : testquery[0] + '*';
+            testquery[1] = testquery[1].indexOf('*') !== -1 ? testquery[1].trim() : testquery[1].trim() + '*';
+            query = testquery[0] + "&kommunenavn=" + testquery[1] // + '&fylkesnavn=' + testquery[2].trim() ;
             return " https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "&treffPerSide=" + antall + "&side=" + side;  // + '&fuzzy=true';
           }
         }
@@ -84,7 +86,7 @@ angular.module('mainApp')
       };
       this.generatStedsnavnPunktsok = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
-        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=20&koordsys=25833&radius=150' + "&side=" + side;
+        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=25&koordsys=25833&radius=150' + "&side=" + side;
       }
       this.generatStedsnavnPunktsokNodplakat = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
@@ -138,8 +140,22 @@ angular.module('mainApp')
         return urlGeonorge + 'SKWS3Index/ssr/sok?&nordLL=' + miny + '&ostLL=' + minx + '&nordUR=' + maxy + '&ostUR=' + maxx + '&epsgKode=32633';
       };
 */
-      this.generateEmergencyPosterPreviewImageUrl = function (minx, miny, maxx, maxy) {
-        return urlOpenWms + 'wms.topo4?service=WMS&request=GetMap&CRS=EPSG:32633&FORMAT=image%2Fjpeg&BGCOLOR=0xFFFFFF&TRANSPARENT=false&LAYERS=topo4_WMS&VERSION=1.3.0&WIDTH=' + $(window).width() + '&HEIGHT=' + $(window).height() + '&BBOX=' + minx + ',' + miny + ',' + maxx + ',' + maxy;
+      this.generateEmergencyPosterPreviewImageUrl = function (minx, miny, maxx, maxy ) {
+        return (
+          urlOpenWms +
+          "wms.topo4?service=WMS&request=GetMap&CRS=EPSG:32633&FORMAT=image%2Fjpeg&BGCOLOR=0xFFFFFF&TRANSPARENT=false&LAYERS=topo4_WMS&VERSION=1.3.0&WIDTH=" +
+          $(window).width() +
+          "&HEIGHT=" +
+          $(window).height() +
+          "&BBOX=" +
+          minx +
+          "," +
+          miny +
+          "," +
+          maxx +
+          "," +
+          maxy
+        );
       };
 
       this.generateGeoJSONUrl = function (hash, save) {

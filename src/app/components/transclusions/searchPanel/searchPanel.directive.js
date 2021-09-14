@@ -880,8 +880,7 @@ angular
           };
 
           var _getPlacenameHits = function (jsonObject) {
-            //scope.placenameHits = jsonObject.metadata.totaltAntallTreff;
-            scope.placenameHits = jsonObject.sokRes.totaltAntallTreff;
+            scope.placenameHits = jsonObject.metadata.totaltAntallTreff;
             scope.placenameItems = _generateArrayWithValues(
               parseInt(scope.placenameHits, 10)
             );
@@ -893,9 +892,7 @@ angular
           var _convertSearchResult2Json = function (document, source) {
             switch (source) {
               case "ssr":
-                var jsonObject = xml.xmlToJSON(document);
-                _getPlacenameHits(jsonObject);
-                /*
+                _getPlacenameHits(document);
                 var stedsnavn;
                 if (Array.isArray(document.navn)) {
                   stedsnavn = document.navn
@@ -911,8 +908,7 @@ angular
                       return a;
                     });
                 }
-                */
-                return jsonObject.sokRes.stedsnavn;
+                return stedsnavn;
               case "adresse":
                 var parsedInput = searchPanelFactory.parseInput(_getQuery())
                   .parsedInput;
@@ -1218,6 +1214,11 @@ angular
             ) {
               husnummer += jsonObject[identifiersDict.husnummerBokstav];
             }
+            if ((jsonObject['navnestatus'] && jsonObject['navnestatus'] === 'historisk') ||
+              (jsonObject['skrivemåtestatus'] && jsonObject['skrivemåtestatus'] === 'historisk og prioritert')
+            ) {
+              jsonObject[identifiersDict.kommuneID] = jsonObject[identifiersDict.kommuneID] + ' (historisk)';
+            }
             return {
               name: jsonObject[identifiersDict.nameID],
               kommune: jsonObject[identifiersDict.kommuneID],
@@ -1246,7 +1247,7 @@ angular
           };
 
           var _pushToUnifiedResults = function (result) {
-            if (result.kommune && result.name) {
+            if (result.name) {
               result.name =
                 result.source != "matrikkelnummer" ? scope.fixNames(result.name) : result.name;
               var resultID = _createID(result);
@@ -1258,7 +1259,7 @@ angular
                 point: result.point,
                 format: result.format,
                 source: result.source,
-                kommune: result.kommune,
+                kommune:  result.kommune ? result.kommune : '',
                 id: resultID,
                 url: result.url,
               };
@@ -1341,7 +1342,6 @@ angular
           scope.mouseOver = function (searchResult) {
             scope.mouseHoverSearchResult = searchResult;
             map.RemoveInfoMarker();
-            console.log(searchResult.point)
             map.ShowInfoMarker(searchResult.point);
           };
 
