@@ -86,11 +86,11 @@ angular.module('mainApp')
       };
       this.generatStedsnavnPunktsok = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
-        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=25&koordsys=25833&radius=150' + "&side=" + side;
+        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=35&koordsys=25833&radius=150' + "&side=" + side;
       }
       this.generatStedsnavnPunktsokNodplakat = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
-        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=30&koordsys=25833&radius=1000' + "&side=" + side;
+        return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=35&koordsys=25833&radius=1000' + "&side=" + side;
       }
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
         return urlGeonorge + "norgeskart/v1/teiger/bbox/" + minx + "," + miny + "," + maxx + "," + maxy;
