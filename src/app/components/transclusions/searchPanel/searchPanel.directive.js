@@ -1197,6 +1197,8 @@ angular
             var point;
             var lat = jsonObject[identifiersDict.latID] + "";
             var lon = jsonObject[identifiersDict.lonID] + "";
+            var navnestatus = ''
+
             if (isNaN(lat) && isNaN(lon)) {
               point = "";
             } else {
@@ -1217,7 +1219,7 @@ angular
             if ((jsonObject['navnestatus'] && jsonObject['navnestatus'] === 'historisk') ||
               (jsonObject['skrivemåtestatus'] && jsonObject['skrivemåtestatus'] === 'historisk og prioritert')
             ) {
-              jsonObject[identifiersDict.kommuneID] = jsonObject[identifiersDict.kommuneID] + ' (historisk)';
+              navnestatus = '(historisk)';
             }
             return {
               name: jsonObject[identifiersDict.nameID],
@@ -1227,6 +1229,7 @@ angular
               source: identifiersDict.source,
               husnummer: husnummer,
               navnetype: jsonObject[identifiersDict.navnetypeID],
+              navnestatus: navnestatus,
               url: jsonObject.url,
             };
           };
@@ -1261,24 +1264,25 @@ angular
                 source: result.source,
                 kommune:  result.kommune ? result.kommune : '',
                 id: resultID,
+                navnestatus: result.navnestatus ? result.navnestatus : '',
                 url: result.url,
               };
               if (result.husnummer) {
                 _unifiedResults[result.source][resultID]["husnummer"] =
-                  typeof result.husnummer === "string" ? [result.husnummer] : result.husnummer;
+                  typeof result.husnummer === "string" ? [result.husnummer] : result.husnummer
               } else if (result.navnetype) {
                 _unifiedResults[result.source][resultID]["navnetype"] =
                   result.navnetype;
                 switch (result.navnetype) {
                   case "Nasjon":
-                    _unifiedResults[result.source][resultID]["kommune"] = "";
-                    break;
+                    _unifiedResults[result.source][resultID]["kommune"] = ""
+                    break
                   case "Fylke":
-                    _unifiedResults[result.source][resultID]["kommune"] = "";
-                    break;
+                    _unifiedResults[result.source][resultID]["kommune"] = ""
+                    break
                   case "Kommune":
-                    _unifiedResults[result.source][resultID]["kommune"] = "";
-                    break;
+                    _unifiedResults[result.source][resultID]["kommune"] = ""
+                    break
                   case "By":
                   case "Adm. bydel":
                   case "Bydel":
@@ -1288,9 +1292,9 @@ angular
                   case "Fjellområde":
                   case "Bygdelag (bygd)":
                   case "Tettsteddel":
-                    break;
+                    break
                   case "Adressenavn (veg/gate)":
-                    break;
+                    break
                   case "Flyplass":
                   case "Fengsel":
                   case "Annen kulturdetalj":
@@ -1299,7 +1303,7 @@ angular
                   case "Bru":
                   case "Skole":
                   case "Bruk (gardsbruk)":
-                    break;
+                    break
                   default:
                 } // switch
               }
