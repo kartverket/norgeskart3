@@ -75,10 +75,11 @@ angular.module('mainApp')
             testquery[0] = testquery[0].indexOf('*') !== -1 ? testquery[0] : testquery[0] + '*';
             testquery[1] = testquery[1].indexOf('*') !== -1 ? testquery[1].trim() : testquery[1].trim() + '*';
             query = testquery[0] + "&kommunenavn=" + testquery[1] // + '&fylkesnavn=' + testquery[2].trim() ;
-            return " https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "&treffPerSide=" + antall + "&side=" + side;  // + '&fuzzy=true';
+            return " https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "&treffPerSide=" + antall + "&side=" + side;
           }
         }
-        return "https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "*&treffPerSide=" + antall + "&side=" + side; // + '&fuzzy=true';
+        query = query.indexOf('*') !== -1 ? query : query + '*';
+        return "https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "&treffPerSide=" + antall + "&side=" + side;
       };
 
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
