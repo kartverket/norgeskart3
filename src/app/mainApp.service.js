@@ -78,7 +78,7 @@ angular.module('mainApp')
             return " https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "&treffPerSide=" + antall + "&side=" + side;
           }
         }
-        query = query.indexOf('*') !== -1 ? query : query + '*';
+        query = query ? query.indexOf('*') !== -1 ? query : query + '*' : '';
         return "https://ws.geonorge.no/stedsnavn/v1/navn?sok=" + query + "&treffPerSide=" + antall + "&side=" + side;
       };
 
