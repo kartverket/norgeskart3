@@ -43,6 +43,17 @@ angular.module('searchPanel')
       $scope.searchOptionsDict = {};
 
       $scope.showStedsnavnPanel = function () {
+        if ($scope.searchBarModel) {
+          var stedsnavn = $scope.searchOptionsDict["ssrFakta"].stedsnavn
+          stedsnavn.forEach(function (item, i) {
+            if(item.stedsnavn[0]['skrivemåte']=== $scope.searchBarModel){
+              stedsnavn.splice(i, 1);
+              stedsnavn.unshift(item);
+            }
+          });
+          $scope.searchOptionsDict["ssrFakta"].stedsnavn = stedsnavn;
+        }
+
         $scope.activeSearchOption = $scope.searchOptionsDict['ssrFakta'];
         map.SetCenter($scope.activePosition);
         $scope.searchPanelLayout = "searchStedsnavnPanel";
