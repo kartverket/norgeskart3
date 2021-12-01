@@ -128,7 +128,8 @@ angular.module('mainApp')
               layers: "norgeskart_bakgrunn",
               format: "image/png"
             },
-            matrixprefix: "true",
+            matrixprefix: "false",
+            matrixset: "utm33n",
             guid: "0.norgeskart_bakgrunn",
             options: {
               isbaselayer: "true",
@@ -1614,7 +1615,8 @@ angular.module('mainApp')
                   layers: "norgeskart_bakgrunn",
                   format: "image/png"
                 },
-                matrixprefix: "true",
+                matrixprefix: "false",
+                matrixset: "utm33n",
                 guid: "0.norgeskart_bakgrunn",
                 options: {
                   isbaselayer: "true",
