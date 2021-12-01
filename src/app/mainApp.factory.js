@@ -123,7 +123,7 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "landkart",
-            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            url: "https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?|https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?",
             params: {
               layers: "norgeskart_bakgrunn",
               format: "image/png"
@@ -1609,7 +1609,7 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "landkart",
-                url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+                url: "https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?|https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?",
                 params: {
                   layers: "norgeskart_bakgrunn",
                   format: "image/png"
