@@ -81,6 +81,7 @@ angular.module('mainApp')
           }],
           visibleOnLoad: false
         }],
+        /*
         basemap: {
           url: ['https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?','https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?'],
           gatekeeper: true,
@@ -94,6 +95,7 @@ angular.module('mainApp')
             visibility: "true"
           },
         },
+        */
         zoom: 3,
         center: [570130, 7032300],
         hoverOptions: {
