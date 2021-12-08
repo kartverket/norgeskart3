@@ -81,21 +81,21 @@ angular.module('mainApp')
           }],
           visibleOnLoad: false
         }],
-        /*
         basemap: {
-          url: ['https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?','https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?'],
+          url: ['https://cache.kartverket.no/wmts/1.0.0/europa_forenklet?'],
+
           gatekeeper: true,
           name: "europa_forenklet",
           layers: 'europa_forenklet',
           format: 'image/png',
-          matrixPrefix: true,
+          matrixPrefix: false,
+          matrixSet: "utm33n",
           options: {
             isbaselayer: "true",
             singletile: "false",
             visibility: "true"
           },
         },
-        */
         zoom: 3,
         center: [570130, 7032300],
         hoverOptions: {
