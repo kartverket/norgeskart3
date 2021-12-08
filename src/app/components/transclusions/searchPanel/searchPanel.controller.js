@@ -46,10 +46,12 @@ angular.module('searchPanel')
         if ($scope.searchBarModel) {
           var stedsnavn = $scope.searchOptionsDict["ssrFakta"].stedsnavn
           stedsnavn.forEach(function (item, i) {
-            if(item.stedsnavn[0]['skrivemåte']=== $scope.searchBarModel || (item.stedsnavn[1] && item.stedsnavn[1]['skrivemåte']=== $scope.searchBarModel)){
-              stedsnavn.splice(i, 1);
-              stedsnavn.unshift(item);
-            }
+            item.stedsnavn.forEach(function (item2) {
+              if(item2['skrivemåte']=== $scope.searchBarModel){
+                stedsnavn.splice(i, 1);
+                stedsnavn.unshift(item);
+              }
+            })
           });
           $scope.searchOptionsDict["ssrFakta"].stedsnavn = stedsnavn;
         }
