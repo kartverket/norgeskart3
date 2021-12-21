@@ -12,7 +12,7 @@ angular.module('mainApp')
       var mainMenuIsOpen = false;
       var config = {
         instance: "norgeskart3",
-        configurl: "https://norgeskart.no/ws/px.py?http://nnrite540/miecar/nkconfig/"
+        configurl: "https://norgeskart.no/config"
       };
       var listprojects = [{
         SiteTitle: "tilgjengelighet",
@@ -1516,7 +1516,7 @@ angular.module('mainApp')
           mainMenuIsOpen = false;
           config = {
             instance: "norgeskart3",
-            configurl: "https://norgeskart.no/ws/px.py?http://nnrite540/miecar/nkconfig/"
+            configurl: "https://norgeskart.no/config"
           };
           listprojects = [{
             SiteTitle: "tilgjengelighet",
