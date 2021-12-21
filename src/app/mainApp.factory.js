@@ -12,7 +12,7 @@ angular.module('mainApp')
       var mainMenuIsOpen = false;
       var config = {
         instance: "norgeskart3",
-        configurl: "https://www.norgeskart.no/config"
+        configurl: "https://norgeskart.no/config"
       };
       var listprojects = [{
         SiteTitle: "tilgjengelighet",
@@ -44,6 +44,11 @@ angular.module('mainApp')
         ProjectName: "dekning",
         HeaderIcon: "",
         HeaderTitle: "dekning"
+      }, {
+        SiteTitle: "arbeidsgiveravgiftsoner",
+        ProjectName: "arbeidsgiveravgiftsoner",
+        HeaderIcon: "",
+        HeaderTitle: "arbeidsgiveravgiftsoner"
       }];
       var mapConfig = {
         name: "default config",
@@ -942,7 +947,7 @@ angular.module('mainApp')
                 alias: "Objekt-id"
               }]
             }
-          }],
+            }],
           maplayer: [{
             index: 3,
             name: "fakta",
@@ -1511,7 +1516,7 @@ angular.module('mainApp')
           mainMenuIsOpen = false;
           config = {
             instance: "norgeskart3",
-            configurl: "https://www.norgeskart.no/config"
+            configurl: "https://norgeskart.no/config"
           };
           listprojects = [{
             SiteTitle: "tilgjengelighet",
@@ -1543,6 +1548,11 @@ angular.module('mainApp')
             ProjectName: "dekning",
             HeaderIcon: "",
             HeaderTitle: "dekning"
+          }, {
+            SiteTitle: "arbeidsgiveravgiftsoner",
+            ProjectName: "arbeidsgiveravgiftsoner",
+            HeaderIcon: "",
+            HeaderTitle: "arbeidsgiveravgiftsoner"
           }];
           mapConfig = {
             name: "default config",

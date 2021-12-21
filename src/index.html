@@ -7,7 +7,6 @@
     <meta name="description" content="Kartverkets mest populære karttjeneste. Her finner du eiendomsdata, turkart, sjøkart, stedsnavn, nødplakat, sykkelruter og stier. I tillegg finner du luftfartshindre, tilgjengelighetsdata og fastmerker. Lag dine egne kart, og del på din egen nettside." />
     <link rel="preload" href="fonts/glyphicons-halflings-regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/MetaWeb-Book.woff" as="font" type="font/woff" crossorigin>
-    <link rel="preload" href="assets/fonts/fontawesome-webfont.woff2?v=4.6.3" as="font" type="font/woff2" crossorigin>
       <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
       <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
     <!-- Google Tag Manager -->
@@ -20,6 +19,7 @@
     <script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=Function.prototype.name%2Cdefault%2Cfetch"></script>
     <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
     <script type="text/javascript" src="<%= file %>"></script><% }); %>
+    <script src="https://kit.fontawesome.com/ffdc593498.js" crossorigin="anonymous"></script>
     <script >
         // BUG orientation portrait/lanscape IOS //
         if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {

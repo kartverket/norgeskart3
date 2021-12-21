@@ -51,6 +51,12 @@ angular
           symbol: "fa fa-map",
           symbol_text: "",
           isSelected: false
+        }, {
+          id: "arbeidsgiveravgiftsoner",
+          title: "Arbeidsgiveravgiftsoner_title",
+          symbol: "fa fa-funnel-dollar",
+          symbol_text: "",
+          isSelected: true
         }
       ];
 
