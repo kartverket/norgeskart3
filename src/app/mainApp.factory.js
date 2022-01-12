@@ -87,12 +87,14 @@ angular.module('mainApp')
           visibleOnLoad: false
         }],
         basemap: {
-          url: ['https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?','https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?'],
+          url: ['https://cache.kartverket.no/wmts/1.0.0/europa_forenklet?'],
+
           gatekeeper: true,
           name: "europa_forenklet",
           layers: 'europa_forenklet',
           format: 'image/png',
-          matrixPrefix: true,
+          matrixPrefix: false,
+          matrixSet: "utm33n",
           options: {
             isbaselayer: "true",
             singletile: "false",
@@ -128,12 +130,13 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "landkart",
-            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            url: "https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?|https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?",
             params: {
               layers: "norgeskart_bakgrunn",
               format: "image/png"
             },
-            matrixprefix: "true",
+            matrixprefix: "false",
+            matrixset: "utm33n",
             guid: "0.norgeskart_bakgrunn",
             options: {
               isbaselayer: "true",
@@ -1619,12 +1622,13 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "landkart",
-                url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+                url: "https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?|https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?",
                 params: {
                   layers: "norgeskart_bakgrunn",
                   format: "image/png"
                 },
-                matrixprefix: "true",
+                matrixprefix: "false",
+                matrixset: "utm33n",
                 guid: "0.norgeskart_bakgrunn",
                 options: {
                   isbaselayer: "true",
