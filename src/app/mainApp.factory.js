@@ -924,7 +924,7 @@ angular.module('mainApp')
             type: "overlay",
             gatekeeper: "true",
             name: "Markagrensen",
-            url: " https://wms.geonorge.no/skwms1/wms.markagrensen?",
+            url: "https://wms.geonorge.no/skwms1/wms.markagrensen?",
             legendurl: "https://wms.geonorge.no/skwms1/wms.markagrensen?",
             groupid: 3,
             params: {
@@ -2416,7 +2416,7 @@ angular.module('mainApp')
                 type: "overlay",
                 gatekeeper: "true",
                 name: "Markagrensen",
-                url: " https://wms.geonorge.no/skwms1/wms.markagrensen?",
+                url: "https://wms.geonorge.no/skwms1/wms.markagrensen?",
                 legendurl: "https://wms.geonorge.no/skwms1/wms.markagrensen?",
                 groupid: 3,
                 params: {
