@@ -250,7 +250,14 @@ angular.module("menuPrint").controller("menuPrintController", [
               identifier = layers[i].getSource().getMatrixSet() + ":";
             }
             var imageFormat = layers[i].getProperties().source.getFormat() || layers[i].getProperties().config.format;
-            var layername = layers[i].getProperties().source.layer_ || layers[i].getProperties().config.name;
+            var layername;
+            if (layers[i].getProperties().source.layer_) {
+              layername = layers[i].getProperties().source.layer_
+            } else if (layers[i].getProperties().config && layers[i].getProperties().config.name) {
+              layername = layers[i].getProperties().config.name
+            } else {
+              layername = layers[i].getProperties().source.getLayer()
+            }
             printLayer = {
               baseURL: baseUrl,
               customParams: customParams,
@@ -723,6 +730,8 @@ angular.module("menuPrint").controller("menuPrintController", [
         }
         if (Object.keys(printLayer).length !== 0) {
           if (sourceType === "VectorSource" || sourceType === "VECTOR") {
+            printJson.attributes.map.layers.unshift(printLayer);
+          } else if (sourceType === "WMTS" && printLayer.layername !== "europe_forenkelt") {
             printJson.attributes.map.layers.unshift(printLayer);
           } else {
             printJson.attributes.map.layers.push(printLayer);
