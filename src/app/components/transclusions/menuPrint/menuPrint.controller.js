@@ -738,7 +738,10 @@ angular.module("menuPrint").controller("menuPrintController", [
           }
         }
       }
-
+      var sortOrder = ['geojson', 'WMS', 'WMTS'];
+      printJson.attributes.map.layers.sort(function (a, b) {
+        return sortOrder.indexOf(a.type) - sortOrder.indexOf(b.type);
+      });
       var uploadPrintData = toolsPrint.uploadDataForPrint("kv", printJson);
       uploadPrintData.then(
         function (status) {
