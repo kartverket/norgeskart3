@@ -88,7 +88,6 @@ angular.module('mainApp')
         }],
         basemap: {
           url: ['https://cache.kartverket.no/wmts/1.0.0/europa_forenklet?'],
-
           gatekeeper: true,
           name: "europa_forenklet",
           layers: 'europa_forenklet',
@@ -165,13 +164,14 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "rasterkart",
-            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            url: "https://cache.kartverket.no/wmts/1.0.0/toporaster?|https://cache.kartverket.no/wmts/1.0.0/toporaster?",
             params: {
-              layers: "toporaster4",
+              layers: "toporaster",
               format: "image/png"
             },
-            matrixprefix: "true",
-            guid: "0.toporaster4",
+            matrixprefix: "false",
+            matrixset: "utm33n",
+            guid: "0.toporaster",
             options: {
               isbaselayer: "true",
               singletile: "false",
@@ -199,12 +199,13 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "enkel",
-            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            url: "https://cache.kartverket.no/wmts/1.0.0/norges_grunnkart?|https://cache.kartverket.no/wmts/1.0.0/norges_grunnkart?",
             params: {
               layers: "norges_grunnkart",
               format: "image/png"
             },
-            matrixprefix: "true",
+            matrixprefix: "false",
+            matrixset: "utm33n",
             guid: "0.norges_grunnkart",
             options: {
               isbaselayer: "true",
@@ -1657,13 +1658,14 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "rasterkart",
-                url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+                url: "https://cache.kartverket.no/wmts/1.0.0/toporaster?|https://cache.kartverket.no/wmts/1.0.0/toporaster?",
                 params: {
-                  layers: "toporaster4",
+                  layers: "toporaster",
                   format: "image/png"
                 },
-                matrixprefix: "true",
-                guid: "0.toporaster4",
+                matrixprefix: "false",
+                matrixset: "utm33n",
+                guid: "0.toporaster",
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
@@ -1691,12 +1693,13 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "enkel",
-                url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+                url: "https://cache.kartverket.no/wmts/1.0.0/norges_grunnkart?|https://cache.kartverket.no/wmts/1.0.0/norges_grunnkart?",
                 params: {
                   layers: "norges_grunnkart",
                   format: "image/png"
                 },
-                matrixprefix: "true",
+                matrixprefix: "false",
+                matrixset: "utm33n",
                 guid: "0.norges_grunnkart",
                 options: {
                   isbaselayer: "true",
