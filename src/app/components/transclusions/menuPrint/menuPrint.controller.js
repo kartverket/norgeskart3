@@ -459,16 +459,18 @@ angular.module("menuPrint").controller("menuPrintController", [
 
               featuresInExtent.forEach(function (feature) {
                 var symbolizers = [];
+                var values_ = feature.getProperties();
                 var id =
-                  feature.values_["id"] ||
-                  feature.values_["ID"] ||
-                  feature.values_["n"] ||
-                  feature.values_["N"] ||
-                  feature.values_["offisielt_navn"] ||
-                  feature.values_["MATRIKKELNR"] ||
-                  feature.values_["measurement"] ||
-                  feature.id_;
+                  values_["id"] ||
+                  values_["ID"] ||
+                  values_["n"] ||
+                  values_["N"] ||
+                  values_["offisielt_navn"] ||
+                  values_["MATRIKKELNR"] ||
+                  values_["measurement"] ||
+                  feature.getId();
                 feature.id_ = id;
+                feature.setId(id);
                 id = "[IN('" + id + "')]";
                 symbolizers.push(
                   {
@@ -496,8 +498,8 @@ angular.module("menuPrint").controller("menuPrintController", [
                 );
                 styleCollection[id] = { symbolizers: symbolizers };
                 // delete some feature objects some poduces erros in print service
-                delete feature.values_.boundedBy;
-                delete feature.values_.REPRESENTASJONSPUNKT;
+                feature.unset('boundedBy')
+                feature.unset('REPRESENTASJONSPUNKT');
               });
               if (featuresInExtent.length > 0) {
                 geojson = writer.writeFeatures(featuresInExtent);
