@@ -1251,8 +1251,7 @@ angular
 
           var _pushToUnifiedResults = function (result) {
             if (result.name) {
-              result.name =
-                result.source != "matrikkelnummer" ? scope.fixNames(result.name) : result.name;
+              // result.name = result.source != "matrikkelnummer" ? scope.fixNames(result.name) : result.name;
               var resultID = _createID(result);
               if (!_unifiedResults[result.source]) {
                 _unifiedResults[result.source] = {};
