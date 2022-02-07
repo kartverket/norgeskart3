@@ -18,11 +18,11 @@
   },
   "scripts": {
     "lite": "lite-server --port 10001 --baseDir=build",
-    "start": "yarn run lite",
+    "start": "npm run lite",
     "prebuild": "browserify ./node_modules/pouchdb-browser/lib/index.js -s PouchDB > ./external/pouchdb.js",
     "build": "grunt default -f",
     "bump": "grunt bump",
-    "dev": "yarn run prebuild && grunt watch -f"
+    "dev": "npm run prebuild && grunt watch -f"
   },
   "license": "SEE LICENSE IN README.md",
   "dependencies": {
