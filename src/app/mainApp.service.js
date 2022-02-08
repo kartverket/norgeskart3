@@ -39,20 +39,9 @@ angular.module('mainApp')
       };
 
       this.generateEmergencyPosterServiceUrl = function (config) {
-
-        var locationName = encodeURIComponent(config.locationName);
-        var position1 = encodeURIComponent(config.position1);
-        var position2 = encodeURIComponent(config.position2);
-        var street = encodeURIComponent(config.street);
-        var place = encodeURIComponent(config.place);
-        var matrikkel = encodeURIComponent(config.matrikkel);
-        var utm = encodeURIComponent(config.utm);
-        var posDez = encodeURIComponent(config.posDez);
         var map = encodeURIComponent(config.map);
-
-        return urlGeonorge + "/fop/fop?locationName=" + locationName + "&position1=" + position1 + "&position2=" + position2 +
-          "&street=" + street + "&place=" + place + "&matrikkel=" + matrikkel + "&utm=" + utm + "&posDez=" + posDez + "&map=" + map;
-
+        return  urlGeonorge + "/fop2/fop?locationName=" + config.locationName + "&position1=" + config.position1 + "&position2=" + config.position2 +
+        "&street=" + config.street + "&place=" + config.place + "&matrikkel=" + config.matrikkel + "&utm=" + config.utm + "&posDez=" + config.posDez + "&map=" + map;
       };
 
       this.generateSearchMatrikkelVegUrl = function (query) {
