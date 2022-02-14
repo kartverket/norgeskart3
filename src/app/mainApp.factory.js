@@ -216,12 +216,13 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "terreng",
-            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            url: "https://cache.kartverket.no/wmts/1.0.0/terreng_norgeskart?|https://cache.kartverket.no/wmts/1.0.0/terreng_norgeskart?",
             params: {
               layers: "terreng_norgeskart",
               format: "image/png"
             },
-            matrixprefix: "true",
+            matrixprefix: "false",
+            matrixset: "utm33n",
             guid: "0.terreng_norgeskart",
             options: {
               isbaselayer: "true",
@@ -232,12 +233,13 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "sjokart",
-            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            url: "https://cache.kartverket.no/wmts/1.0.0/sjokartraster?|https://cache.kartverket.no/wmts/1.0.0/sjokartraster?",
             params: {
               layers: "sjokartraster",
               format: "image/png"
             },
-            matrixprefix: "true",
+            matrixprefix: "false",
+            matrixset: "utm33n",
             guid: "0.sjokartraster",
             options: {
               isbaselayer: "true",
@@ -1710,12 +1712,13 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "terreng",
-                url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+                url: "https://cache.kartverket.no/wmts/1.0.0/terreng_norgeskart?|https://cache.kartverket.no/wmts/1.0.0/terreng_norgeskart?",
                 params: {
                   layers: "terreng_norgeskart",
                   format: "image/png"
                 },
-                matrixprefix: "true",
+                matrixprefix: "false",
+                matrixset: "utm33n",
                 guid: "0.terreng_norgeskart",
                 options: {
                   isbaselayer: "true",
@@ -1726,12 +1729,13 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "sjokart",
-                url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+                url: "https://cache.kartverket.no/wmts/1.0.0/sjokartraster?|https://cache.kartverket.no/wmts/1.0.0/sjokartraster?",
                 params: {
                   layers: "sjokartraster",
                   format: "image/png"
                 },
-                matrixprefix: "true",
+                matrixprefix: "false",
+                matrixset: "utm33n",
                 guid: "0.sjokartraster",
                 options: {
                   isbaselayer: "true",
