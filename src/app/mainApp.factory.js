@@ -87,7 +87,7 @@ angular.module('mainApp')
           visibleOnLoad: false
         }],
         basemap: {
-          url: ['https://cache.kartverket.no/wmts/1.0.0/europa_forenklet?'],
+          url: ['https://cache.kartverket.no/europa_forenklet/v1/wmts/1.0.0/'],
           gatekeeper: true,
           name: "europa_forenklet",
           layers: 'europa_forenklet',
@@ -129,7 +129,7 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "landkart",
-            url: "https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?|https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?",
+            url: "https://cache.kartverket.no/norgeskart_bakgrunn/v1/wmts/1.0.0/|https://cache.kartverket.no/norgeskart_bakgrunn/v1/wmts/1.0.0/",
             params: {
               layers: "norgeskart_bakgrunn",
               format: "image/png"
@@ -164,7 +164,7 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "rasterkart",
-            url: "https://cache.kartverket.no/wmts/1.0.0/toporaster?|https://cache.kartverket.no/wmts/1.0.0/toporaster?",
+            url: "https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/|https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/",
             params: {
               layers: "toporaster",
               format: "image/png"
@@ -182,12 +182,13 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "gratone",
-            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+            url: "https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/",
             params: {
               layers: "norges_grunnkart_graatone",
               format: "image/png"
             },
-            matrixprefix: "true",
+            matrixprefix: "false",
+            matrixset: "utm33n",
             guid: "0.norges_grunnkart_graatone",
             options: {
               isbaselayer: "true",
@@ -199,7 +200,7 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "enkel",
-            url: "https://cache.kartverket.no/wmts/1.0.0/norges_grunnkart?|https://cache.kartverket.no/wmts/1.0.0/norges_grunnkart?",
+            url: "https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/",
             params: {
               layers: "norges_grunnkart",
               format: "image/png"
@@ -216,7 +217,7 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "terreng",
-            url: "https://cache.kartverket.no/wmts/1.0.0/terreng_norgeskart?|https://cache.kartverket.no/wmts/1.0.0/terreng_norgeskart?",
+            url: "https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/|https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/",
             params: {
               layers: "terreng_norgeskart",
               format: "image/png"
@@ -233,7 +234,7 @@ angular.module('mainApp')
             type: "map",
             gatekeeper: "true",
             name: "sjokart",
-            url: "https://cache.kartverket.no/wmts/1.0.0/sjokartraster?|https://cache.kartverket.no/wmts/1.0.0/sjokartraster?",
+            url: "https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/|https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/",
             params: {
               layers: "sjokartraster",
               format: "image/png"
@@ -1625,7 +1626,7 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "landkart",
-                url: "https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?|https://cache.kartverket.no/wmts/1.0.0/norgeskart_bakgrunn?",
+                url: "https://cache.kartverket.no/norgeskart_bakgrunn/v1/wmts/1.0.0/|https://cache.kartverket.no/norgeskart_bakgrunn/v1/wmts/1.0.0/",
                 params: {
                   layers: "norgeskart_bakgrunn",
                   format: "image/png"
@@ -1660,7 +1661,7 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "rasterkart",
-                url: "https://cache.kartverket.no/wmts/1.0.0/toporaster?|https://cache.kartverket.no/wmts/1.0.0/toporaster?",
+                url: "https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/|https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/",
                 params: {
                   layers: "toporaster",
                   format: "image/png"
@@ -1678,7 +1679,7 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "gratone",
-                url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?|https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?",
+                url: "https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/",
                 params: {
                   layers: "norges_grunnkart_graatone",
                   format: "image/png"
@@ -1695,7 +1696,7 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "enkel",
-                url: "https://cache.kartverket.no/wmts/1.0.0/norges_grunnkart?|https://cache.kartverket.no/wmts/1.0.0/norges_grunnkart?",
+                url: "https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/",
                 params: {
                   layers: "norges_grunnkart",
                   format: "image/png"
@@ -1712,7 +1713,7 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "terreng",
-                url: "https://cache.kartverket.no/wmts/1.0.0/terreng_norgeskart?|https://cache.kartverket.no/wmts/1.0.0/terreng_norgeskart?",
+                url: "https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/|https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/",
                 params: {
                   layers: "terreng_norgeskart",
                   format: "image/png"
@@ -1729,7 +1730,7 @@ angular.module('mainApp')
                 type: "map",
                 gatekeeper: "true",
                 name: "sjokart",
-                url: "https://cache.kartverket.no/wmts/1.0.0/sjokartraster?|https://cache.kartverket.no/wmts/1.0.0/sjokartraster?",
+                url: "https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/|https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/",
                 params: {
                   layers: "sjokartraster",
                   format: "image/png"
