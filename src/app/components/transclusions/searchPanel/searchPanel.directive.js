@@ -373,7 +373,7 @@ angular
             switch (name) {
               case "elevationPoint":
                 if (data.punkter.length > 0) {
-                  var elevationValue = data.punkter[0].z === false ? "-" : data.punkter[0].z.toFixed(1);
+                  var elevationValue = data.punkter[0].z ? data.punkter[0].z.toFixed(1) : "-";
                   scope.searchOptionsDict[name] = _constructSearchOption(
                     name,
                     "↑",
