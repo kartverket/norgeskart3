@@ -899,7 +899,11 @@ angular
                     .map(function (a) {
                       a.name = a.skrivemåte;
                       if (a.kommuner) {
-                        a.kommune = a.kommuner[0].kommunenavn;
+                        var kommuner = [];
+                        for (var i = 0; i < a.kommuner.length; i++) {
+                          kommuner[i] = a.kommuner[i].kommunenavn;
+                        }
+                        a.kommune = kommuner.join(", ");
                       } else {
                         a.kommune = ''
                       }
