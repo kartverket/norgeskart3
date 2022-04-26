@@ -903,7 +903,10 @@ angular
                         for (var i = 0; i < a.kommuner.length; i++) {
                           kommuner[i] = a.kommuner[i].kommunenavn;
                         }
-                        a.kommune = kommuner.join(", ");
+                        a.kommune = kommuner.reduce(
+                          function (res, k, i) {
+                            return [res, k].join(i === kommuner.length - 1 ? ' og ' : ', ');
+                          })
                       } else {
                         a.kommune = ''
                       }
