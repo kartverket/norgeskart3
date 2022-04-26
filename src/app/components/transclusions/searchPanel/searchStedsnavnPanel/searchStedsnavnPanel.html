@@ -19,7 +19,7 @@
   <div class="search-content" ng-show="searchOptionsDict['ssrFakta'].stedsnavn != undefined && searchOptionsDict['ssrFakta'].stedsnavn.length > 0">
     <div class="new-section">
       <div data-ng-show="searchOptionsDict['ssrFakta'].stedsnavn">
-        <ul class="list-result" data-ng-if="!isIosDevice()">
+        <ul class="list-result">
           <li ng-mouseover="mouseOver(stedsnavnResult.representasjonspunkt)" class="pointer-cursor"
             ng-repeat="stedsnavnResult in searchOptionsDict['ssrFakta'].stedsnavn"
             data-ng-click="generateStedsnavnUrl(stedsnavnResult.stedsnummer)">
