@@ -51,7 +51,7 @@
     "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "2.x.x",
-    "grunt": "^1.4.1",
+    "grunt": "^1.5.2",
     "grunt-appcache": "0.2.x",
     "grunt-bump": "0.8.x",
     "grunt-contrib-clean": "2.0.x",
