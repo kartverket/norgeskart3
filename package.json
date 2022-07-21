@@ -78,6 +78,6 @@
     "karma-ng-html2js-preprocessor": "1.0.x",
     "karma-phantomjs-launcher": "1.0.x",
     "lite-server": "^2.x.x",
-    "terser": "^5.7.0"
+    "terser": "^5.14.2"
   }
 }
