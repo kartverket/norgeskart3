@@ -88,7 +88,6 @@ angular.module('mainApp')
         }],
         basemap: {
           url: ['https://cache.kartverket.no/europa_forenklet/v1/wmts/1.0.0/'],
-          gatekeeper: true,
           name: "europa_forenklet",
           layers: 'europa_forenklet',
           format: 'image/png',
@@ -121,13 +120,12 @@ angular.module('mainApp')
             displaycenterepsgcode: "EPSG:25833",
             displayCenter: "396722,7197864",
             displayprojectionepsgcode: "EPSG:25833",
-            isygatekeeper: "https://www.norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
-            tickethost: "https://www.norgeskart.no/ws/esk.py?wms.ecc_enc",
+            isygatekeeper: "https://norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
+            tickethost: "https://norgeskart.no/ws/esk.py?wms.ecc_enc",
             name: "norgeskart"
           },
           wmts: [{
             type: "map",
-            gatekeeper: "true",
             name: "landkart",
             url: "https://cache.kartverket.no/norgeskart_bakgrunn/v1/wmts/1.0.0/|https://cache.kartverket.no/norgeskart_bakgrunn/v1/wmts/1.0.0/",
             params: {
@@ -162,7 +160,6 @@ angular.module('mainApp')
             thumbnail: "aerial"
           }, {
             type: "map",
-            gatekeeper: "true",
             name: "rasterkart",
             url: "https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/|https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/",
             params: {
@@ -180,7 +177,6 @@ angular.module('mainApp')
             thumbnail: "raster"
           }, {
             type: "map",
-            gatekeeper: "true",
             name: "gratone",
             url: "https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/",
             params: {
@@ -198,7 +194,6 @@ angular.module('mainApp')
             thumbnail: "grey"
           }, {
             type: "map",
-            gatekeeper: "true",
             name: "enkel",
             url: "https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/",
             params: {
@@ -215,7 +210,6 @@ angular.module('mainApp')
             }
           }, {
             type: "map",
-            gatekeeper: "true",
             name: "terreng",
             url: "https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/|https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/",
             params: {
@@ -232,7 +226,6 @@ angular.module('mainApp')
             }
           }, {
             type: "map",
-            gatekeeper: "true",
             name: "sjokart",
             url: "https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/|https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/",
             params: {
@@ -975,7 +968,7 @@ angular.module('mainApp')
           vector: [{
             type: "overlay",
             name: "kommunenes_fjelltopper",
-            url: "https://www.norgeskart.no/json/tema/kommunefjell/Kommunefjell2018.geojson",
+            url: "https://norgeskart.no/json/tema/kommunefjell/Kommunefjell2018.geojson",
             epsg: "EPSG:25833",
             groupid: 3,
             params: {
@@ -1618,13 +1611,12 @@ angular.module('mainApp')
                 displaycenterepsgcode: "EPSG:25833",
                 displayCenter: "396722,7197864",
                 displayprojectionepsgcode: "EPSG:25833",
-                isygatekeeper: "https://www.norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
-                tickethost: "https://www.norgeskart.no/ws/esk.py?wms.ecc_enc",
+                isygatekeeper: "https://norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
+                tickethost: "https://norgeskart.no/ws/esk.py?wms.ecc_enc",
                 name: "norgeskart"
               },
               wmts: [{
                 type: "map",
-                gatekeeper: "true",
                 name: "landkart",
                 url: "https://cache.kartverket.no/norgeskart_bakgrunn/v1/wmts/1.0.0/|https://cache.kartverket.no/norgeskart_bakgrunn/v1/wmts/1.0.0/",
                 params: {
@@ -1659,7 +1651,6 @@ angular.module('mainApp')
                 thumbnail: "aerial"
               }, {
                 type: "map",
-                gatekeeper: "true",
                 name: "rasterkart",
                 url: "https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/|https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/",
                 params: {
@@ -1677,7 +1668,6 @@ angular.module('mainApp')
                 thumbnail: "raster"
               }, {
                 type: "map",
-                gatekeeper: "true",
                 name: "gratone",
                 url: "https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/",
                 params: {
@@ -1694,7 +1684,6 @@ angular.module('mainApp')
                 thumbnail: "grey"
               }, {
                 type: "map",
-                gatekeeper: "true",
                 name: "enkel",
                 url: "https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/",
                 params: {
@@ -1711,7 +1700,6 @@ angular.module('mainApp')
                 }
               }, {
                 type: "map",
-                gatekeeper: "true",
                 name: "terreng",
                 url: "https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/|https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/",
                 params: {
@@ -1728,7 +1716,6 @@ angular.module('mainApp')
                 }
               }, {
                 type: "map",
-                gatekeeper: "true",
                 name: "sjokart",
                 url: "https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/|https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/",
                 params: {
@@ -2471,7 +2458,7 @@ angular.module('mainApp')
               vector: [{
                 type: "overlay",
                 name: "kommunenes_fjelltopper",
-                url: "https://www.norgeskart.no/json/tema/kommunefjell/Kommunefjell2018.geojson",
+                url: "https://norgeskart.no/json/tema/kommunefjell/Kommunefjell2018.geojson",
                 epsg: "EPSG:25833",
                 groupid: 3,
                 params: {
