@@ -1,7 +1,7 @@
 {
   "author": "",
   "name": "norgeskart3",
-  "version": "2.0.71",
+  "version": "2.0.72",
   "homepage": "https://www.norgeskart.no/",
   "description": "Norgeskart3",
   "keywords": [
@@ -41,7 +41,7 @@
     "jquery": "^3.6.0",
     "jquery-ui": "^1.13.2",
     "maplib": "https://github.com/kartverket/MapLib.git",
-    "ol": "https://github.com/kartverket/ol.git#kv-main",
+    "ol": "git+https://github.com/kartverket/ol.git#kv-main",
     "pouchdb-browser": "7.2.2",
     "proj4": "^2.7.5",
     "xml-to-json": "git+https://github.com/SpeedShifter/Xml-to-JSON.git"
