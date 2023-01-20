@@ -2,7 +2,6 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist" id="myElevationTabs">
         <li role="presentation" class="active"><a href data-target="#shareOnline" aria-controls="shareOnline" role="tab" data-toggle="tab" translate="shareOnline_txt"></a></li>
-        <li role="presentation"><a href data-target="#embedMap" aria-controls="embedMap" role="tab" data-toggle="tab" translate="embedMap_txt"></a></li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content search-content">
@@ -39,38 +38,6 @@
             </div>
             <div class="new-section pull-right">
                 <button class="btn btn-default btn-important" data-ng-click="copyURL()" translate="copy_txt"></button>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="embedMap">
-            <div class="new-section row">
-                <div class="col-xs-12">
-                    <div class="title-text">
-                        <span translate="heading_txt"></span>
-                    </div>
-                    <input class="row-input" ng-change="getIframe()" ng-model="shortDescription" type="text">
-                </div>
-            </div>
-            <div class="new-section row">
-                <div class="col-xs-12">
-                    <div class="title-text">
-                        <span translate="description_txt"></span>
-                    </div>
-                    <input class="row-input" ng-change="getIframe()" ng-model="longDescription" type="text">
-                </div>
-            </div>
-            <div class="new-section row">
-                <div class="col-xs-12">
-                    <input ng-change="getIframe()" type="checkbox" ng-model="useMarker" data-ng-disabled="!activePosition">
-                    <span translate="iframe_useMarker"></span>
-                </div>
-            </div>
-            <div class="new-section row">
-                <div class="col-xs-12">
-                    <textarea data-ng-disabled="true" readonly ng-model="iframe" rows="10"></textarea>
-                </div>
-            </div>
-            <div class="new-section pull-right">
-                <button class="btn btn-default btn-important" data-ng-click="copyIFrame()" translate="copy_txt"></button>
             </div>
         </div>
     </div>
