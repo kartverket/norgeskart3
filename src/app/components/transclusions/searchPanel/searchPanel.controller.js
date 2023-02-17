@@ -77,13 +77,6 @@ angular.module('searchPanel')
         mainAppFactory.setActiveSearchPanel('searchLagTurkartPanel');
       };
 
-      $scope.showLagFargeleggingskartPanel = function () {
-        map.SetCenter($scope.activePosition);
-        $scope.searchPanelLayout = "searchLagFargeleggingskartPanel";
-        _updateLocationPanel("Fargelegg");
-        mainAppFactory.setActiveSearchPanel('searchLagFargeleggingskartPanel');
-      };
-
       $scope.showLagNodplakatPanel = function () {
         map.SetCenter($scope.activePosition);
         $scope.searchPanelLayout = "searchLagNodplakatPanel";

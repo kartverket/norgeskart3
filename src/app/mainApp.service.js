@@ -118,10 +118,6 @@ angular.module('mainApp')
         return urlGeonorge + "norgeskart/nkprint/turkart2";
       };
 
-      this.generateLagFargeleggingskartUrl = function () {
-        return urlGeonorge + "norgeskart/nkprint/fargelegg";
-      };
-
       this.generateEmergencyPosterPointUrl = function (lat, lon) {
         return urlGeonorge + 'norgeskart/emergencyPoster/' + lon + '/' + lat;
       };

@@ -150,7 +150,7 @@ angular
         return serviceDict;
       };
 
-      var searchOptionsOrder = ['seEiendom', 'ssrFakta', 'koordTrans', 'lagTurkart', 'lagFargeleggingskart', 'lagNodplakat'];
+      var searchOptionsOrder = ['seEiendom', 'ssrFakta', 'koordTrans', 'lagTurkart', 'lagNodplakat'];
       var eiendomMarkering = false;
 
       return {

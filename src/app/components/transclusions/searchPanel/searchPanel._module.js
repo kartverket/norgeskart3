@@ -6,6 +6,5 @@ angular.module("searchPanel", [
   "searchKoordTransPanel",
   "searchSeHavnivaaPanel",
   "searchLagTurkartPanel",
-  "searchLagFargeleggingskartPanel",
   "searchLagNodplakatPanel",
 ]);

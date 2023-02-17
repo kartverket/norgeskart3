@@ -514,17 +514,6 @@ angular
             );
           };
 
-          var _addLagFargeleggingskartToSearchOptions = function () {
-            var name = "lagFargeleggingskart";
-            scope.searchOptionsDict[name] = _constructSearchOption(
-              name,
-              "fa fa-paint-brush",
-              true,
-              "Lage fargeleggingskart",
-              {}
-            );
-          };
-
           var _addEmergencyPosterToSearchOptions = function () {
             var name = "lagNodplakat";
             scope.searchOptionsDict[name] = _constructSearchOption(
@@ -557,7 +546,6 @@ angular
             _fetchAdresseInfo();
             _addKoordTransToSearchOptions();
             _addLagTurkartToSearchOptions();
-            _addLagFargeleggingskartToSearchOptions();
             _addEmergencyPosterToSearchOptions();
           };
 
@@ -1635,9 +1623,6 @@ angular
                   break;
                 case "tur":
                   scope.showLagTurKartPanel();
-                  break;
-                case "Fargelegg":
-                  scope.showLagFargeleggingskartPanel();
                   break;
                 case "Nodplakat":
                   scope.showLagNodplakatPanel();

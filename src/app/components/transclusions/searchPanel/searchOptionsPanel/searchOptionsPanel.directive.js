@@ -1,5 +1,5 @@
 angular.module('searchOptionsPanel')
-    .directive('searchOptionsPanel', ['$window','ISY.MapAPI.Map','changeBaseLayerPanelFactory', 
+    .directive('searchOptionsPanel', ['$window','ISY.MapAPI.Map','changeBaseLayerPanelFactory',
         function($window, map, changeBaseLayerPanelFactory) {
             return {
                 templateUrl: 'components/transclusions/searchPanel/searchOptionsPanel/searchOptionsPanel.html',
@@ -16,10 +16,6 @@ angular.module('searchOptionsPanel')
                             case ('lagTurkart'):
                                 switchToLayer('rasterkart');
                                 scope.showLagTurKartPanel();
-                                break;
-                            case ('lagFargeleggingskart'):
-                                switchToLayer('rasterkart');
-                                scope.showLagFargeleggingskartPanel();
                                 break;
                             case ('lagNodplakat'):
                                 scope.showLagNodplakatPanel();
