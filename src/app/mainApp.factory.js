@@ -178,14 +178,14 @@ angular.module('mainApp')
           }, {
             type: "map",
             name: "gratone",
-            url: "https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/",
+            url: "https://cache.kartverket.no/topograatone/v1/wmts/1.0.0/|https://cache.kartverket.no/topograatone/v1/wmts/1.0.0/",
             params: {
-              layers: "norges_grunnkart_graatone",
+              layers: "topograatone",
               format: "image/png"
             },
             matrixprefix: "false",
             matrixset: "utm33n",
-            guid: "0.norges_grunnkart_graatone",
+            guid: "0.topograatone",
             options: {
               isbaselayer: "true",
               singletile: "false",
@@ -1669,13 +1669,13 @@ angular.module('mainApp')
               }, {
                 type: "map",
                 name: "gratone",
-                url: "https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart_graatone/v1/wmts/1.0.0/",
+                url: "https://cache.kartverket.no/topograatone/v1/wmts/1.0.0/|https://cache.kartverket.no/topograatone/v1/wmts/1.0.0/",
                 params: {
-                  layers: "norges_grunnkart_graatone",
+                  layers: "topograatone",
                   format: "image/png"
                 },
                 matrixprefix: "true",
-                guid: "0.norges_grunnkart_graatone",
+                guid: "0.topograatone",
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
