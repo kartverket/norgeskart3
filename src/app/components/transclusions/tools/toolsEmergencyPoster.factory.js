@@ -22,7 +22,7 @@ angular
         FORMAT: 'image/jpeg',
         BGCOLOR: '0xFFFFFF',
         TRANSPARENT: 'false',
-        LAYERS: 'topo4_WMS',
+        LAYERS: 'topo',
         VERSION: '1.3.0',
         WIDTH: '1145',
         HEIGHT: '660',
