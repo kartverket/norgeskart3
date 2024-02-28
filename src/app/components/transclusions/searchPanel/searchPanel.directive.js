@@ -496,7 +496,7 @@ angular
             var name = "koordTrans";
             scope.searchOptionsDict[name] = _constructSearchOption(
               name,
-              "fa fa-map-marker",
+              "fa fa-map-marker-alt",
               true,
               "Se koordinater",
               {}

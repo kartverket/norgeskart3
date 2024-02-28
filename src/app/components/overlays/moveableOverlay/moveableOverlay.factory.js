@@ -5,7 +5,7 @@ angular
             {
                 id: "DrawMenu",
                 headingTitle: 'tegne_og_male',
-                headingIcon: 'fa fa-pencil',
+                headingIcon: 'fa fa-pencil-alt',
                 show: false,
                 top: 12,
                 left: 19
@@ -13,7 +13,7 @@ angular
             {
                 id: "ElevationProfile",
                 headingTitle: 'lag_hoydeprofil',
-                headingIcon: 'fa fa-area-chart',
+                headingIcon: 'fa fa-chart-area',
                 show: false,
                 top: 12,
                 left: 19
