@@ -1400,7 +1400,7 @@ angular.module('mainApp')
             maxScale: source.options.maxscale,
             sortingIndex: -1,
             featureInfo: {
-              supportsGetFeatureInfo: true,
+              supportsGetFeatureInfo: source.queryable == false ? source.queryable : true,
               getFeatureInfoFormat: "application/vnd.ogc.gml",
               getFeatureInfoCrs: "",
               supportsGetFeature: true,
