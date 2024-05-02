@@ -1,0 +1,38 @@
+# nonk8s
+apiVersion: "backstage.io/v1alpha1"
+kind: "Component"
+metadata:
+  name: "norgeskart3"
+  tags:
+  - "public"
+spec:
+  type: "website"
+  lifecycle: "production"
+  owner: "tnt"
+  system: "norgeskart"
+---
+apiVersion: "backstage.io/v1alpha1"
+kind: "Group"
+metadata:
+  name: "security_champion_norgeskart3"
+  title: "Security Champion norgeskart3"
+spec:
+  type: "security_champion"
+  parent: "land_security_champions"
+  members:
+  - "carsmie"
+  children:
+  - "resource:norgeskart3"
+---
+apiVersion: "backstage.io/v1alpha1"
+kind: "Resource"
+metadata:
+  name: "norgeskart3"
+  links:
+  - url: "https://github.com/kartverket/norgeskart3"
+    title: "norgeskart3 på GitHub"
+spec:
+  type: "repo"
+  owner: "security_champion_norgeskart3"
+  dependencyOf:
+  - "component:norgeskart3"
