@@ -1674,7 +1674,8 @@ angular.module('mainApp')
                   layers: "topograatone",
                   format: "image/png"
                 },
-                matrixprefix: "true",
+                matrixprefix: "false",
+                matrixset: "utm33n",
                 guid: "0.topograatone",
                 options: {
                   isbaselayer: "true",
