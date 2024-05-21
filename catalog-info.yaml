@@ -8,7 +8,7 @@ metadata:
 spec:
   type: "website"
   lifecycle: "production"
-  owner: "tnt"
+  owner: "team_norgeskart_og_topo"
   system: "norgeskart"
 ---
 apiVersion: "backstage.io/v1alpha1"
