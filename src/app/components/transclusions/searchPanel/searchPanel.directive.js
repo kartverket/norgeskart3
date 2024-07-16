@@ -399,8 +399,12 @@ angular
                     scope.activeSearchResult &&
                     scope.activeSearchResult.source == "mouseClick"
                   ) {
-                    scope.searchBarModel = stedsnavn[0].stedsnavn[0].skrivemåte;
-                    $location.search()["sok"] = stedsnavn[0].stedsnavn[0].skrivemåte;
+                    var stedsnavnIndex = stedsnavn[0].stedsnavn.findIndex(function(stedsnavn) {
+                      return stedsnavn.navnestatus === 'hovednavn';
+                    });
+                    if (stedsnavnIndex === -1) stedsnavnIndex = 0;
+                    scope.searchBarModel = stedsnavn[0].stedsnavn[stedsnavnIndex].skrivemåte;
+                    $location.search()["sok"] = stedsnavn[0].stedsnavn[stedsnavnIndex].skrivemåte;
                     $location
                       .search(
                         angular.extend($location.search(), $location.search())
