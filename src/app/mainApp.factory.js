@@ -227,7 +227,7 @@ angular.module('mainApp')
           }, {
             type: "map",
             name: "sjokart",
-            url: "https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/|https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/",
+            url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
             params: {
               layers: "sjokartraster",
               format: "image/png"
@@ -1718,7 +1718,7 @@ angular.module('mainApp')
               }, {
                 type: "map",
                 name: "sjokart",
-                url: "https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/|https://cache.kartverket.no/sjokartraster/v1/wmts/1.0.0/",
+                url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
                 params: {
                   layers: "sjokartraster",
                   format: "image/png"
