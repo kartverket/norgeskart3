@@ -195,7 +195,7 @@ angular.module('mainApp')
           }, {
             type: "map",
             name: "enkel",
-            url: "https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/",
+            url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
             params: {
               layers: "norges_grunnkart",
               format: "image/png"
@@ -211,7 +211,7 @@ angular.module('mainApp')
           }, {
             type: "map",
             name: "terreng",
-            url: "https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/|https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/",
+            url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
             params: {
               layers: "terreng_norgeskart",
               format: "image/png"
@@ -1686,7 +1686,7 @@ angular.module('mainApp')
               }, {
                 type: "map",
                 name: "enkel",
-                url: "https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/|https://cache.kartverket.no/norges_grunnkart/v1/wmts/1.0.0/",
+                url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
                 params: {
                   layers: "norges_grunnkart",
                   format: "image/png"
@@ -1702,7 +1702,7 @@ angular.module('mainApp')
               }, {
                 type: "map",
                 name: "terreng",
-                url: "https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/|https://cache.kartverket.no/terreng_norgeskart/v1/wmts/1.0.0/",
+                url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
                 params: {
                   layers: "terreng_norgeskart",
                   format: "image/png"
