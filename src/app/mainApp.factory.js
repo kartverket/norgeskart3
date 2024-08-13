@@ -178,7 +178,7 @@ angular.module('mainApp')
           }, {
             type: "map",
             name: "gratone",
-            url: "https://cache.kartverket.no/topograatone/v1/wmts/1.0.0/|https://cache.kartverket.no/topograatone/v1/wmts/1.0.0/",
+            url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
             params: {
               layers: "topograatone",
               format: "image/png"
@@ -1669,7 +1669,7 @@ angular.module('mainApp')
               }, {
                 type: "map",
                 name: "gratone",
-                url: "https://cache.kartverket.no/topograatone/v1/wmts/1.0.0/|https://cache.kartverket.no/topograatone/v1/wmts/1.0.0/",
+                url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
                 params: {
                   layers: "topograatone",
                   format: "image/png"
