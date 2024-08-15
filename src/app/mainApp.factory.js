@@ -161,7 +161,7 @@ angular.module('mainApp')
           }, {
             type: "map",
             name: "rasterkart",
-            url: "https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/|https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/",
+            url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
             params: {
               layers: "toporaster",
               format: "image/png"
@@ -1652,7 +1652,7 @@ angular.module('mainApp')
               }, {
                 type: "map",
                 name: "rasterkart",
-                url: "https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/|https://cache.kartverket.no/toporaster/v1/wmts/1.0.0/",
+                url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
                 params: {
                   layers: "toporaster",
                   format: "image/png"
