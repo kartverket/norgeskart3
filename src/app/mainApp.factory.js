@@ -127,7 +127,7 @@ angular.module('mainApp')
           wmts: [{
             type: "map",
             name: "landkart",
-            url: "https://cache.kartverket.no/topo/v1/wmts/1.0.0/|https://cache.kartverket.no/topo/v1/wmts/1.0.0/",
+            url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
             params: {
               layers: "topo",
               format: "image/png"
@@ -1618,7 +1618,7 @@ angular.module('mainApp')
               wmts: [{
                 type: "map",
                 name: "landkart",
-                url: "https://cache.kartverket.no/topo/v1/wmts/1.0.0/|https://cache.kartverket.no/topo/v1/wmts/1.0.0/",
+                url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
                 params: {
                   layers: "topo",
                   format: "image/png"
