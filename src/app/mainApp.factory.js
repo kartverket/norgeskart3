@@ -87,7 +87,7 @@ angular.module('mainApp')
           visibleOnLoad: false
         }],
         basemap: {
-          url: ['https://cache.kartverket.no/europa_forenklet/v1/wmts/1.0.0/'],
+          url: ['https://cache.kartverket.no/test/wmts'],
           name: "europa_forenklet",
           layers: 'europa_forenklet',
           format: 'image/png',
