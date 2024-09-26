@@ -660,8 +660,8 @@ angular
                   } else {
                     scope.showQueryPoint(
                       scope.contructQueryPoint(
-                        response.data.nord,
-                        response.data.ost,
+                        response.data.y,
+                        response.data.x,
                         "EPSG:4326",
                         "coordGeo",
                         ""

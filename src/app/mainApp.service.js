@@ -108,7 +108,9 @@ angular.module('mainApp')
       this.generateKoordTransUrl = function (ost, nord, resSosiKoordSys, sosiKoordSys) {
         resSosiKoordSys = resSosiKoordSys || 84;
         sosiKoordSys = sosiKoordSys || 84;
-        return urlGeonorge + 'transApi?ost=' + ost + '&nord=' + nord + '&fra=' + sosiKoordSys + '&til=' + resSosiKoordSys;
+        var fra = this.sosiCodes.find(function (code) { return code.SOSI == sosiKoordSys; });
+        var til = this.sosiCodes.find(function (code) { return code.SOSI == resSosiKoordSys; });
+        return urlGeonorge + 'transformering/v1/transformer?x=' + ost + '&y=' + nord + '&fra=' + fra.EPSG + '&til=' + til.EPSG;
       };
 
       this.generateSeHavnivaaUrl = function (lat, lon) {
