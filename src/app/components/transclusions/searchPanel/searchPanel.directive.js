@@ -372,8 +372,8 @@ angular
           var _addSearchOptionToPanel = function (name, data) {
             switch (name) {
               case "elevationPoint":
-                if (data.punkter.length > 0) {
-                  var elevationValue = data.punkter[0].z ? data.punkter[0].z.toFixed(1) : "-";
+                if (data.samples.length > 0) {
+                  var elevationValue = data.samples[0].value === undefined ? "-" : parseFloat(data.samples[0].value).toFixed(1);
                   scope.searchOptionsDict[name] = _constructSearchOption(
                     name,
                     "↑",

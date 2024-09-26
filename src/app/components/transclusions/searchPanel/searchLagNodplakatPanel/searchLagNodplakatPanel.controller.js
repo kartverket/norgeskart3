@@ -45,7 +45,9 @@ angular.module('searchLagNodplakatPanel')
             var _retrieveDataFromResponse = function (name, data) {
                 switch (name) {
                     case ('elevationPoint'):
-                        $scope.activePlaceName = data.placename;
+                        if (data.placename !== undefined) {
+                            $scope.activePlaceName = data.placename;
+                        }
                         $scope.setSearchBarText($scope.activePlaceName);
                         $scope.lagNodplakatName = $scope.activePlaceName;
                         break;

@@ -72,7 +72,8 @@ angular.module('mainApp')
       };
 
       this.generateElevationPointUrl = function (lat, lon, epsgNumber) {
-        return 'https://ws.geonorge.no/hoydedata/v1/punkt?nord=' + lat + '&ost=' + lon + '&koordsys=' + epsgNumber + '&&geojson=false';
+        var geometry = encodeURIComponent('{"x":' + lon + ',"y":' + lat + ',"spatialReference":{"wkid":' + epsgNumber + '}}');
+        return 'https://hoydedata.no/arcgis/rest/services/NHM_DTM_TOPOBATHY_25833/ImageServer/getSamples?f=json&geometryType=esriGeometryPoint&geometry=' + geometry;
       };
       this.generatStedsnavnPunktsok = function (lat, lon, epsgNumber, side) {
         if (!side) { side = 1;}
