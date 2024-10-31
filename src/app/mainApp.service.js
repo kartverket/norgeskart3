@@ -426,7 +426,7 @@ angular.module('mainApp')
         },
         {
           ESRI: null,
-          EPSG: null,
+          EPSG: 4230,
           SOSI: 50,
           name: 'ED50 - Geografisk, grader',
           viewable: false,
