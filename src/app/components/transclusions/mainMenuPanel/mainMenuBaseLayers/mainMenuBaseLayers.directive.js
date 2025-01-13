@@ -7,6 +7,13 @@ angular.module('mainMenuBaseLayers')
                 link: function(scope){
 
                     scope.baseLayers = map.GetBaseLayers();
+                    scope.baseLayers.sort(function (a, b) {
+                        if (a.guid && b.guid) {
+                            return a.guid - b.guid;
+                        } else {
+                            return 0;
+                        }
+                    });
 
                     scope.getBaseLayerStyle = function (baseLayer) {
                         if (baseLayer.isVisible){
@@ -20,6 +27,13 @@ angular.module('mainMenuBaseLayers')
                         map.SetBaseLayer(baseLayer);
                         map.ZoomToLayer(baseLayer);
                         scope.baseLayers = map.GetBaseLayers();
+                        scope.baseLayers.sort(function (a, b) {
+                            if (a.guid && b.guid) {
+                                return a.guid - b.guid;
+                            } else {
+                                return 0;
+                            }
+                        });    
                         mapOverlaysLayoutFactory.setBaseLayerByName(baseLayer.name);
                         if (baseLayer.thumbnail !== ""){
                             changeBaseLayerPanelFactory.setBaseLayerById(baseLayer.thumbnail);

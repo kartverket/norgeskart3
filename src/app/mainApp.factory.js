@@ -82,6 +82,7 @@ angular.module('mainApp')
             format: "image/png",
             coordinate_system: "EPSG:32632",
             id: "1992",
+            guid: 0,
             tiled: true
           }],
           visibleOnLoad: false
@@ -134,7 +135,7 @@ angular.module('mainApp')
             },
             matrixprefix: "false",
             matrixset: "utm33n",
-            guid: "0.topo",
+            guid: 1,
             options: {
               isbaselayer: "true",
               singletile: "false",
@@ -151,14 +152,14 @@ angular.module('mainApp')
               format: "image/png"
             },
             matrixset: "default028mm",
-            guid: "0.ortofoto",
+            guid: 2,
             options: {
               isbaselayer: "true",
               singletile: "false",
               visibility: "false"
             },
             thumbnail: "aerial"
-          }, {
+            }, {
             type: "map",
             name: "rasterkart",
             url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
@@ -168,14 +169,14 @@ angular.module('mainApp')
             },
             matrixprefix: "false",
             matrixset: "utm33n",
-            guid: "0.toporaster",
+            guid: 3,
             options: {
               isbaselayer: "true",
               singletile: "false",
               visibility: "false"
             },
             thumbnail: "raster"
-          }, {
+            }, {
             type: "map",
             name: "gratone",
             url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
@@ -185,14 +186,14 @@ angular.module('mainApp')
             },
             matrixprefix: "false",
             matrixset: "utm33n",
-            guid: "0.topograatone",
+            guid: 4,
             options: {
               isbaselayer: "true",
               singletile: "false",
               visibility: "false"
             },
             thumbnail: "grey"
-          }, {
+            }, {
             type: "map",
             name: "enkel",
             url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
@@ -202,13 +203,13 @@ angular.module('mainApp')
             },
             matrixprefix: "false",
             matrixset: "utm33n",
-            guid: "0.norges_grunnkart",
+            guid: 5,
             options: {
               isbaselayer: "true",
               singletile: "false",
               visibility: "false"
             }
-          }, {
+            }, {
             type: "map",
             name: "terreng",
             url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
@@ -218,13 +219,14 @@ angular.module('mainApp')
             },
             matrixprefix: "false",
             matrixset: "utm33n",
-            guid: "0.terreng_norgeskart",
+            guid: 6,
             options: {
               isbaselayer: "true",
               singletile: "false",
               visibility: "false"
             }
-          }, {
+            }, {
+            id: 10088,
             type: "map",
             name: "sjokart",
             url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
@@ -234,13 +236,13 @@ angular.module('mainApp')
             },
             matrixprefix: "false",
             matrixset: "utm33n",
-            guid: "0.sjokartraster",
+            guid: 7,
             options: {
               isbaselayer: "true",
               singletile: "false",
               visibility: "false"
             }
-          }, {
+            }, {
             type: "map",
             name: "jan_mayen",
             url: "https://geodata.npolar.no/arcgis/rest/services/Basisdata/NP_Basiskart_JanMayen_WMTS_25833/MapServer/WMTS?",
@@ -251,13 +253,13 @@ angular.module('mainApp')
             matrixset: "default028mm",
             wmtsextent: "-393783.2540000008,7978220.98008712,-276963.7430000013,8084965.524000007",
             getcapabilities: "true",
-            guid: "2.Basisdata_NP_Basiskart_JanMayen_WMTS_25833",
+            guid: 9,
             options: {
               isbaselayer: "true",
               singletile: "false",
               visibility: "false"
             }
-          }, {
+            }, {
             type: "map",
             name: "svalbard",
             url: "https://geodata.npolar.no/arcgis/rest/services/Basisdata/NP_Basiskart_Svalbard_WMTS_25833/MapServer/WMTS?",
@@ -268,14 +270,33 @@ angular.module('mainApp')
             matrixset: "default028mm",
             wmtsextent: "369976.3899489096,8221306.539890718,878234.7199568129,9010718.76990194",
             getcapabilities: "true",
-            guid: "2.Basisdata_NP_Basiskart_Svalbard_WMTS_25833",
+            guid: 10,
             options: {
               isbaselayer: "true",
               singletile: "false",
               visibility: "false"
             }
           }],
-          wms: [{
+          wms: [
+            {
+              id: 1008,
+              type: "overlay",
+              name: "sjokart_WMS",
+              url: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?",
+              legendurl: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?",
+              groupid: 0,
+              params: {
+                layers: "all",
+                format: "image/png"
+              },
+              guid: 8,
+              options: {
+                isbaselayer: "true",
+                singletile: "true",
+                visibility: "false"
+              }
+          },
+            {
             type: "overlay",
             Layers: {
               Layer: {
@@ -291,13 +312,13 @@ angular.module('mainApp')
               layers: "cells",
               format: "image/png"
             },
-            guid: "0.cells",
+            guid: 11,
             options: {
               isbaselayer: "true",
               singletile: "true",
               visibility: "false"
             }
-          }, {
+            }, {
             type: "overlay",
             Layers: {
               Layer: {
@@ -313,13 +334,13 @@ angular.module('mainApp')
               layers: "n5raster_foerstegang_metadata,n5raster_foerstegang",
               format: "image/png"
             },
-            guid: "0.n5raster_foerstegang_metadata,n5raster_foerstegang",
+            guid: 12,
             options: {
               isbaselayer: "true",
               singletile: "true",
               visibility: "false"
             }
-          }, {
+            }, {
             type: "overlay",
             gatekeeper: "true",
             name: "fotruter",
@@ -357,7 +378,7 @@ angular.module('mainApp')
                 alias: "Vanskelig"
               }]
             }
-          }, {
+            }, {
             type: "overlay",
             gatekeeper: "true",
             name: "Ruteinfopunkt",
@@ -1392,7 +1413,7 @@ angular.module('mainApp')
             matrixPrefix: source.matrixprefix === "true",
             matrixSet: source.matrixset,
             numZoomLevels: mapConfig.numZoomLevels,
-            id: sourceType == 'VECTOR' ? mapConfig.layers.length + 8001 : mapConfig.layers.length + 1001,
+            id: sourceType == 'VECTOR' ? mapConfig.layers.length + 8001 : (source.id ? source.id : mapConfig.layers.length + 1001),
             transparent: true,
             layerIndex: -1,
             legendGraphicUrl: source.legendurl,
@@ -1424,7 +1445,7 @@ angular.module('mainApp')
           groupId: cat_ids,
           order: source.order,
           visibleOnLoad: (source.options.visibility === 'true'),
-          id: sourceType == 'VECTOR' ? mapConfig.layers.length + 8001 : mapConfig.layers.length + 1001,
+          id: sourceType == 'VECTOR' ? mapConfig.layers.length + 8001 : (source.id ? source.id : mapConfig.layers.length + 1001),
           isBaseLayer: (source.options.isbaselayer === 'true'),
           previewActive: false,
           opacity: 1,
@@ -1586,6 +1607,7 @@ angular.module('mainApp')
                 format: "image/png",
                 coordinate_system: "EPSG:32632",
                 id: "1992",
+                guid: 0,
                 tiled: true
               }],
               visibleOnLoad: false
@@ -1625,7 +1647,7 @@ angular.module('mainApp')
                 },
                 matrixprefix: "false",
                 matrixset: "utm33n",
-                guid: "0.topo",
+                guid: 1,
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
@@ -1642,14 +1664,14 @@ angular.module('mainApp')
                   format: "image/png"
                 },
                 matrixset: "default028mm",
-                guid: "0.ortofoto",
+                guid: 2,
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
                   visibility: "false"
                 },
                 thumbnail: "aerial"
-              }, {
+                }, {
                 type: "map",
                 name: "rasterkart",
                 url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
@@ -1659,14 +1681,14 @@ angular.module('mainApp')
                 },
                 matrixprefix: "false",
                 matrixset: "utm33n",
-                guid: "0.toporaster",
+                guid: 3,
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
                   visibility: "false"
                 },
                 thumbnail: "raster"
-              }, {
+                }, {
                 type: "map",
                 name: "gratone",
                 url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
@@ -1676,14 +1698,14 @@ angular.module('mainApp')
                 },
                 matrixprefix: "false",
                 matrixset: "utm33n",
-                guid: "0.topograatone",
+                guid: 4,
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
                   visibility: "false"
                 },
                 thumbnail: "grey"
-              }, {
+                }, {
                 type: "map",
                 name: "enkel",
                 url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
@@ -1693,13 +1715,13 @@ angular.module('mainApp')
                 },
                 matrixprefix: "false",
                 matrixset: "utm33n",
-                guid: "0.norges_grunnkart",
+                guid: 5,
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
                   visibility: "false"
                 }
-              }, {
+                }, {
                 type: "map",
                 name: "terreng",
                 url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
@@ -1709,13 +1731,14 @@ angular.module('mainApp')
                 },
                 matrixprefix: "false",
                 matrixset: "utm33n",
-                guid: "0.terreng_norgeskart",
+                guid: 6,
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
                   visibility: "false"
                 }
-              }, {
+                }, {
+                id: 10088,
                 type: "map",
                 name: "sjokart",
                 url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
@@ -1725,13 +1748,13 @@ angular.module('mainApp')
                 },
                 matrixprefix: "false",
                 matrixset: "utm33n",
-                guid: "0.sjokartraster",
+                guid: 7,
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
                   visibility: "false"
                 }
-              }, {
+                }, {
                 type: "map",
                 name: "jan_mayen",
                 url: "https://geodata.npolar.no/arcgis/rest/services/Basisdata/NP_Basiskart_JanMayen_WMTS_25833/MapServer/WMTS?",
@@ -1742,13 +1765,13 @@ angular.module('mainApp')
                 matrixset: "default028mm",
                 wmtsextent: "-393783.2540000008,7978220.98008712,-276963.7430000013,8084965.524000007",
                 getcapabilities: "true",
-                guid: "2.Basisdata_NP_Basiskart_JanMayen_WMTS_25833",
+                guid: 9,
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
                   visibility: "false"
                 }
-              }, {
+                }, {
                 type: "map",
                 name: "svalbard",
                 url: "https://geodata.npolar.no/arcgis/rest/services/Basisdata/NP_Basiskart_Svalbard_WMTS_25833/MapServer/WMTS?",
@@ -1759,14 +1782,32 @@ angular.module('mainApp')
                 matrixset: "default028mm",
                 wmtsextent: "369976.3899489096,8221306.539890718,878234.7199568129,9010718.76990194",
                 getcapabilities: "true",
-                guid: "2.Basisdata_NP_Basiskart_Svalbard_WMTS_25833",
+                guid: 11,
                 options: {
                   isbaselayer: "true",
                   singletile: "false",
                   visibility: "false"
                 }
               }],
-              wms: [{
+              wms: [
+                {
+                  id: 1008,
+                  type: "overlay",
+                  name: "sjokart_WMS",
+                  url: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?",
+                  legendurl: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?",
+                  groupid: 0,
+                  params: {
+                    layers: "all",
+                    format: "image/png"
+                  },
+                  guid: 8,
+                  options: {
+                    isbaselayer: "true",
+                    singletile: "true",
+                    visibility: "false"
+                  }
+              }, {
                 type: "overlay",
                 Layers: {
                   Layer: {
@@ -1782,7 +1823,7 @@ angular.module('mainApp')
                   layers: "cells",
                   format: "image/png"
                 },
-                guid: "0.cells",
+                guid: 12,
                 options: {
                   isbaselayer: "true",
                   singletile: "true",
@@ -1804,7 +1845,7 @@ angular.module('mainApp')
                   layers: "n5raster_foerstegang_metadata,n5raster_foerstegang",
                   format: "image/png"
                 },
-                guid: "0.n5raster_foerstegang_metadata,n5raster_foerstegang",
+                guid: 13,
                 options: {
                   isbaselayer: "true",
                   singletile: "true",
