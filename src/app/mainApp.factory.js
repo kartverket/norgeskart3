@@ -282,7 +282,7 @@ angular.module('mainApp')
               id: 1008,
               type: "overlay",
               name: "sjokart_WMS",
-              url: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?",
+              url: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?oversample_ratio=4",
               legendurl: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?",
               groupid: 0,
               params: {
@@ -1794,7 +1794,7 @@ angular.module('mainApp')
                   id: 1008,
                   type: "overlay",
                   name: "sjokart_WMS",
-                  url: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?",
+                  url: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?oversample_ratio=4",
                   legendurl: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?",
                   groupid: 0,
                   params: {
