@@ -284,7 +284,6 @@ angular.module('mainApp')
               name: "sjokart_WMS",
               url: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?oversample_ratio=4",
               legendurl: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?",
-              groupid: 0,
               params: {
                 layers: "all",
                 format: "image/png"
@@ -1796,7 +1795,6 @@ angular.module('mainApp')
                   name: "sjokart_WMS",
                   url: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?oversample_ratio=4",
                   legendurl: "https://wms.geonorge.no/skwms1/wms.sjokartraster2?",
-                  groupid: 0,
                   params: {
                     layers: "all",
                     format: "image/png"
