@@ -61,7 +61,7 @@ angular.module('searchOptionsPanel')
                     function switchToLayer(layerName) {
                         var mapSwitched=false;
                         var baselayers = map.GetBaseLayers();
-                        baseLayers.sort(function (a, b) {
+                        baselayers.sort(function (a, b) {
                             if (a.guid && b.guid) {
                                 return a.guid - b.guid;
                             } else {
