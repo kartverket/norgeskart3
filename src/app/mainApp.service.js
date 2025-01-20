@@ -2,7 +2,7 @@ angular.module('mainApp')
   .service('mainAppService', ['$http',
     function () {
       var url = 'https://norgeskart.no/';
-      var urlOpenWps = 'https://openwps.statkart.no/skwms1/';
+      var urlOpenWps = 'https://wps.geonorge.no/skwms1/';
       var urlOpenWms = 'https://openwms.statkart.no/skwms1/';
       var urlGeonorge = 'https://ws.geonorge.no/';
       var urlSeEiendom = 'https://seeiendom.kartverket.no/';
