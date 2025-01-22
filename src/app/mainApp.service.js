@@ -5,6 +5,7 @@ angular.module('mainApp')
       var urlOpenWps = 'https://wps.geonorge.no/skwms1/';
       var urlOpenWms = 'https://openwms.statkart.no/skwms1/';
       var urlGeonorge = 'https://ws.geonorge.no/';
+      var urlNorgeskartApi = 'https://testapi.norgeskart.no/';
       var urlSeEiendom = 'https://seeiendom.kartverket.no/';
       var urlFaktaark = 'https://stadnamn.kartverket.no/fakta/';
       var urlHavnivaa = "http://api.sehavniva.no/";
@@ -45,7 +46,7 @@ angular.module('mainApp')
       };
 
       this.generateSearchMatrikkelVegUrl = function (query) {
-        return urlGeonorge + "norgeskart/v1/matrikkel/veg/" + encodeURIComponent(query);
+        return urlNorgeskartApi + "v1/matrikkel/veg/" + encodeURIComponent(query);
       };
 
       this.generateSearchMatrikkelAdresseUrl = function (query) {
@@ -84,7 +85,7 @@ angular.module('mainApp')
         return 'https://ws.geonorge.no/stedsnavn/v1/punkt?nord=' + lat + '&ost=' + lon + '&treffPerSide=35&koordsys=25833&radius=1000' + "&side=" + side;
       }
       this.generateMatrikkelInfoUrl = function (minx, miny, maxx, maxy) {
-        return urlGeonorge + "norgeskart/v1/teiger/bbox/" + minx + "," + miny + "," + maxx + "," + maxy;
+        return urlNorgeskartApi + "v1/teiger/bbox/" + minx + "," + miny + "," + maxx + "," + maxy;
       };
 
       this.generateAdresseSokUrl = function (query) {
@@ -118,11 +119,11 @@ angular.module('mainApp')
       };
 
       this.generateLagTurkartUrl = function () {
-        return urlGeonorge + "norgeskart/nkprint/turkart2";
+        return urlNorgeskartApi + "nkprint/turkart2";
       };
 
       this.generateEmergencyPosterPointUrl = function (lat, lon) {
-        return urlGeonorge + 'norgeskart/emergencyPoster/' + lon + '/' + lat;
+        return urlNorgeskartApi + 'emergencyPoster/' + lon + '/' + lat;
       };
 /*
       this.generateSearchStedsnavnBboxUrl = function (minx, miny, maxx, maxy) {
@@ -161,7 +162,7 @@ angular.module('mainApp')
       };
 
       this.generateSearchMatrikkelNummerUrl = function (query) {
-        return urlGeonorge + 'norgeskart/v1/matrikkel/eie/' + query;
+        return urlNorgeskartApi + '/v1/matrikkel/eie/' + query;
       };
 
       this._constructMarkingFilter = function (property) {
@@ -169,11 +170,11 @@ angular.module('mainApp')
       };
 
       this.generateMatrikkelWfsFilterUrl = function (property) {
-        return urlGeonorge + 'norgeskart/v1/teiger/' + this._constructMarkingFilter(property) + '/';
+        return urlNorgeskartApi + '/v1/teiger/' + this._constructMarkingFilter(property) + '/';
       };
 
       this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {
-        var baseUrl = urlGeonorge + 'norgeskart/v1/matrikkel/eiendom/';
+        var baseUrl = urlGeonorge + '/v1/matrikkel/eiendom/';
         if (festnr !== "0") {
           if (sectionsnr === "0") {
             baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr;
