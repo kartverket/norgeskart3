@@ -162,7 +162,7 @@ angular.module('mainApp')
       };
 
       this.generateSearchMatrikkelNummerUrl = function (query) {
-        return urlNorgeskartApi + '/v1/matrikkel/eie/' + query;
+        return urlNorgeskartApi + 'v1/matrikkel/eie/' + query;
       };
 
       this._constructMarkingFilter = function (property) {
@@ -170,11 +170,11 @@ angular.module('mainApp')
       };
 
       this.generateMatrikkelWfsFilterUrl = function (property) {
-        return urlNorgeskartApi + '/v1/teiger/' + this._constructMarkingFilter(property) + '/';
+        return urlNorgeskartApi + 'v1/teiger/' + this._constructMarkingFilter(property) + '/';
       };
 
       this.generateEiendomAddress = function (kommunenr, gardsnr, bruksnr, festnr, sectionsnr) {
-        var baseUrl = urlGeonorge + '/v1/matrikkel/eiendom/';
+        var baseUrl = urlNorgeskartApi + 'v1/matrikkel/eiendom/';
         if (festnr !== "0") {
           if (sectionsnr === "0") {
             baseUrl += kommunenr + "-" + gardsnr + "/" + bruksnr + "/" + festnr;
