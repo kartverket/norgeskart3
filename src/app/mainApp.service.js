@@ -14,7 +14,7 @@ angular.module('mainApp')
       var ulrKommuneSearch = 'https://ws.geonorge.no/kommunereform/v1/endringer/?sok='
 
       this.uploadGpxFileService = function () {
-        return url + 'ws/upload-gpx.py';
+        return urlNorgeskartApi + 'ws/upload-gpx.py';
       };
 
       this.generateElevationChartServiceUrl = function (gpxFile) {
@@ -154,11 +154,11 @@ angular.module('mainApp')
         if (save) {
           params.save = true;
         }
-        return url + 'ws/get-json.py?' + $.param(params);
+        return urlNorgeskartApi + 'ws/get-json.py?' + $.param(params);
       };
 
       this.generateGeoJSONSaveUrl = function () {
-        return url + 'ws/upload-json.py';
+        return urlNorgeskartApi + 'ws/upload-json.py';
       };
 
       this.generateSearchMatrikkelNummerUrl = function (query) {
