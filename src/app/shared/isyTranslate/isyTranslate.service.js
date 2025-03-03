@@ -978,7 +978,7 @@ angular.module('isyTranslate').constant('translations', {
     "size_txt": "SIZE:",
     "sjo": "Nautical",
     "sjokart": "Nautical Charts overview",
-    "sjokart_WMS": "Nautical Charts updatet",
+    "sjokart_WMS": "Nautical Charts updated",
     "skal_ikke_behandles_etter_loven": "Not to be descided by law",
     "skiloype_ekspert": "Expert only",
     "skiloype_enkel": "Easy",
