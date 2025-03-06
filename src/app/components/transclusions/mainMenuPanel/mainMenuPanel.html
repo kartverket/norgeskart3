@@ -20,6 +20,23 @@
             <div ng-switch-when="mainMenuContact" main-menu-contact></div>
             <div ng-switch-when="mainMenuPrivacy" main-menu-privacy></div>
         </div>
+        
+        <div class="info-message" ng-if="message" ng-class="messageType || 'info'">
+            <div class="message-content">
+                <div class="message-icon">
+                    <span class="fa" ng-class="{
+                        'fa-info-circle': messageType === 'info' || !messageType,
+                        'fa-exclamation-triangle': messageType === 'warning',
+                        'fa-exclamation-circle': messageType === 'error'
+                    }"></span>
+                </div>
+                <div class="message-text" ng-bind-html="message"></div>
+                <button type="button" class="message-close" ng-click="dismissMessage()">
+                    <span class="fa fa-times"></span>
+                </button>
+            </div>
+        </div>
+        
         <!-- <div class="footer">
             <div class="chat">
                 <img src="../../../../assets/img/chat-blue.png" width="auto" height="40px">

@@ -191,6 +191,10 @@ angular.module('mainApp')
         return url + 'ws/faq.py?code=' + code;
       };
 
+      this.messagesUrl = function (code) {
+        return 'https://raw.githubusercontent.com/kartverket/nk3config/refs/heads/master/messages/info.' + code;
+      };
+
       /*
        // No CORS
        this.generateSeHavnivaaUrl = function (lat, lon) {

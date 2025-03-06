@@ -18,9 +18,12 @@
   },
   "scripts": {
     "lite": "lite-server --port 10001 --baseDir=build",
-    "start": "npm run lite",
+    "start": "npm run prebuild && npm run build && npm run lite",
     "prebuild": "browserify ./node_modules/pouchdb-browser/lib/index.js -s PouchDB > ./external/pouchdb.js",
     "build": "grunt default -f",
+    "build:css": "grunt compass",
+    "postinstall": "npm install liftup",
+    "fix-dependencies": "npm install liftup findup-sync --save-dev",
     "bump": "grunt bump",
     "dev": "npm run prebuild && grunt watch -f"
   },
@@ -51,7 +54,8 @@
     "eslint": "^8.27.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "2.x.x",
-    "grunt": "^1.5.3",
+    "findup-sync": "^4.0.0",
+    "grunt": "^1.6.1",
     "grunt-appcache": "0.2.x",
     "grunt-bump": "0.8.x",
     "grunt-contrib-clean": "^2.0.1",
@@ -77,6 +81,7 @@
     "karma-jasmine": "4.x.x",
     "karma-ng-html2js-preprocessor": "1.0.x",
     "karma-phantomjs-launcher": "1.0.x",
+    "liftup": "^3.0.1",
     "lite-server": "^2.x.x",
     "terser": "^5.15.1"
   }

@@ -1,6 +1,6 @@
 angular.module('mainMenuPanel')
-    .controller('mainMenuPanelController', ['$scope', 'moveableOverlayFactory','mapOverlaysLayoutFactory', 'localStorageFactory', 'ISY.MapAPI.Map',
-        function($scope, moveableOverlayFactory, mapOverlaysLayoutFactory, localStorageFactory, map){
+    .controller('mainMenuPanelController', ['$scope', 'moveableOverlayFactory','mapOverlaysLayoutFactory', 'localStorageFactory', 'ISY.MapAPI.Map', 'mainAppService', '$http',
+        function($scope, moveableOverlayFactory, mapOverlaysLayoutFactory, localStorageFactory, map, mainAppService, $http) {
 
             $scope.drawActivated=false;
 
@@ -94,5 +94,33 @@ angular.module('mainMenuPanel')
                     return "";
                 }
             };
+
+            // Initialize message properties
+            $scope.message = '';
+            $scope.messageType = 'info'; // Can be 'info', 'warning', or 'error'
+            
+            // Function to show a message with type
+            $scope.showMessage = function(message, type) {
+                $scope.message = message;
+                $scope.messageType = type || 'info';
+            };
+            
+            // Function to dismiss the message
+            $scope.dismissMessage = function() {
+                $scope.message = '';
+            };
+
+            //var currentLanguage = isyTranslateFactory.getCurrentLanguage();
+            //var languageId = currentLanguage.id || 'no';
+            var languageId = 'no';
+            var url = mainAppService.messagesUrl(languageId);
+            $http.get(url)
+            .then(function(response){
+                $scope.message = response.data;
+            })
+            .catch(function(response){
+                console.error('Messages error: ', response.status, response.data);
+            })
+
         }
     ]);
