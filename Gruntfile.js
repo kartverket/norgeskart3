@@ -255,18 +255,18 @@ module.exports = function (grunt) {
     compass: {
       dist: {
         options: {
-          outputStyle: 'compressed',
           sassDir: 'src/assets/sass/',
           cssDir: '<%= build_dir %>/css/',
-          raw: "preferred_syntax = :scss\n"
+          environment: 'production',
+          outputStyle: 'compressed'
         }
       },
       dev: {
         options: {
-          outputStyle: 'compact',
           sassDir: 'src/assets/sass/',
           cssDir: '<%= build_dir %>/css/',
-          raw: "preferred_syntax = :scss\n"
+          environment: 'development',
+          outputStyle: 'expanded'
         }
       }
     },
@@ -524,7 +524,7 @@ module.exports = function (grunt) {
   /**
    * The default task is to build and compile.
    */
-  grunt.registerTask('default', ['build', 'compile'])
+  grunt.registerTask('default', ['build', 'compile', 'compass:dist'])
 
   /**
    * The `build` task gets your app ready to run for development and testing.

@@ -62,3 +62,41 @@ learn more.
   self-executing anonymous function to ensure no clashes with other libraries.
 - `package.json` - metadata about the app, used by NPM and our build script. Our
   NPM dependencies are listed here.
+
+## Development Setup
+
+### Troubleshooting
+
+#### Error: Cannot find module 'liftup'
+
+If you encounter the error "Cannot find module 'liftup'" when running `grunt compass` or any other grunt task, follow these steps:
+
+1. Run the fix-dependencies script:
+   ```bash
+   chmod +x fix-dependencies.sh
+   ./fix-dependencies.sh
+   ```
+
+2. Or install the missing dependencies manually:
+   ```bash
+   npm install liftup@1.0.0 findup-sync@0.3.0 --save-dev
+   ```
+
+3. Make sure you have Ruby and Compass installed:
+   ```bash
+   # On Ubuntu/Debian
+   sudo apt install ruby-full
+   sudo gem install compass
+
+   # On macOS
+   brew install ruby
+   gem install compass
+   ```
+
+#### CSS Not Generating Correctly
+
+If the CSS isn't generating correctly, ensure:
+
+1. Ruby and Compass are properly installed
+2. The SASS files are in the correct location (src/sass)
+3. Run `npm run build:css` to specifically build the CSS
