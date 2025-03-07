@@ -8,10 +8,8 @@
                 <a data-ng-click="resetApplication($event)" href=".">
                     <span class="norgeskart-logo-image"></span>
                         Norgeskart</a>
-
             </h1>
         </div>
-
         <div ng-switch="mainMenuPanelLayout">
             <div ng-switch-when="mainMenuSections" main-menu-sections></div>
             <div ng-switch-when="mainMenuBaseLayers" main-menu-base-layers></div>
@@ -20,29 +18,83 @@
             <div ng-switch-when="mainMenuContact" main-menu-contact></div>
             <div ng-switch-when="mainMenuPrivacy" main-menu-privacy></div>
         </div>
-        
-        <div class="info-message" ng-if="message" ng-class="messageType || 'info'">
-            <div class="message-content">
-                <div class="message-icon">
-                    <span class="fa" ng-class="{
-                        'fa-info-circle': messageType === 'info' || !messageType,
-                        'fa-exclamation-triangle': messageType === 'warning',
-                        'fa-exclamation-circle': messageType === 'error'
-                    }"></span>
-                </div>
-                <div class="message-text" ng-bind-html="message"></div>
-                <button type="button" class="message-close" ng-click="dismissMessage()">
-                    <span class="fa fa-times"></span>
-                </button>
-            </div>
-        </div>
-        
+
         <!-- <div class="footer">
             <div class="chat">
                 <img src="../../../../assets/img/chat-blue.png" width="auto" height="40px">
                 <span translate="chat_with_kartverket"></span>
             </div>
         </div> -->
+    </div>
+</div>
+
+<!-- Moved info-message outside of mainMenu to make it floating -->
+<div class="info-message floating-message" ng-if="message" ng-class="[messageType || 'info', {'fade-out': isClosing, 'minimized': isMinimized}]">
+    <!-- Minimized view -->
+    <div class="minimized-content" ng-if="isMinimized" ng-click="toggleMinimize()">
+        <div class="message-icon">
+            <span class="fa" ng-class="{
+                'fa-info-circle': messageType === 'info' || !messageType,
+                'fa-exclamation-triangle': messageType === 'warning',
+                'fa-exclamation-circle': messageType === 'error'
+            }"></span>
+        </div>
+        <div class="message-preview">{{messageType || 'info' | uppercase}} (Click to expand)</div>
+    </div>
+
+    <!-- Normal view -->
+    <div class="message-content" ng-if="!isMinimized">
+        <div class="message-icon">
+            <span class="fa" ng-class="{
+                'fa-info-circle': messageType === 'info' || !messageType,
+                'fa-exclamation-triangle': messageType === 'warning',
+                'fa-exclamation-circle': messageType === 'error'
+            }"></span>
+        </div>
+        <div class="message-text" ng-bind-html="message"></div>
+        <div class="message-actions">
+          <!---
+            <button type="button" class="message-minimize-btn" ng-click="toggleMinimize()" title="Minimize message">
+                <span class="fa fa-minus"></span>
+            </button>
+            <button type="button" class="message-history-btn" ng-click="toggleMessageHistory()" title="Show message history">
+                <span class="fa fa-history"></span>
+            </button>
+          -->
+            <button type="button" class="message-close" ng-click="toggleMinimize()" title="Dismiss message">
+                <span class="fa fa-times"></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Message history panel -->
+<div class="message-history-panel" ng-if="showMessageHistory">
+    <div class="message-history-header">
+        <h4>Message History</h4>
+        <button type="button" class="close-history-btn" ng-click="toggleMessageHistory()">
+            <span class="fa fa-times"></span>
+        </button>
+    </div>
+    <div class="message-history-content">
+        <div ng-if="messageHistory.length === 0" class="no-messages">
+            No previous messages
+        </div>
+        <div ng-repeat="item in messageHistory" class="history-item" ng-class="item.type" ng-click="restoreMessage(item)">
+            <div class="history-item-content">
+                <div class="history-item-icon">
+                    <span class="fa" ng-class="{
+                        'fa-info-circle': item.type === 'info',
+                        'fa-exclamation-triangle': item.type === 'warning',
+                        'fa-exclamation-circle': item.type === 'error'
+                    }"></span>
+                </div>
+                <div class="history-item-text" ng-bind-html="item.text"></div>
+                <div class="history-item-time">
+                    {{item.timestamp | date:'shortTime'}}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

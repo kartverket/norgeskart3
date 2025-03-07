@@ -1,6 +1,6 @@
 angular.module('mainMenuPanel')
-    .controller('mainMenuPanelController', ['$scope', 'moveableOverlayFactory','mapOverlaysLayoutFactory', 'localStorageFactory', 'ISY.MapAPI.Map', 'mainAppService', '$http',
-        function($scope, moveableOverlayFactory, mapOverlaysLayoutFactory, localStorageFactory, map, mainAppService, $http) {
+    .controller('mainMenuPanelController', ['$scope', 'moveableOverlayFactory','mapOverlaysLayoutFactory', 'localStorageFactory', 'ISY.MapAPI.Map', 'mainAppService', '$http', '$timeout',
+        function($scope, moveableOverlayFactory, mapOverlaysLayoutFactory, localStorageFactory, map, mainAppService, $http, $timeout) {
 
             $scope.drawActivated=false;
 
@@ -62,7 +62,7 @@ angular.module('mainMenuPanel')
                 $scope.moveableOverlayLayout = "menuElevationProfileLayout";
                 _setActiveMoveableMenu("ElevationProfile");
             };
-            
+
             $scope.showMoveablePrintMenu = function() {
                 $scope.moveableOverlayLayout = "menuPrintLayout";
                 _setActiveMoveableMenu("PrintMenu");
@@ -98,16 +98,64 @@ angular.module('mainMenuPanel')
             // Initialize message properties
             $scope.message = '';
             $scope.messageType = 'info'; // Can be 'info', 'warning', or 'error'
-            
+            $scope.messageHistory = []; // Array to store message history
+            $scope.showMessageHistory = false;
+            $scope.isMinimized = false; // Track if message is minimized
+
             // Function to show a message with type
             $scope.showMessage = function(message, type) {
                 $scope.message = message;
                 $scope.messageType = type || 'info';
+                $scope.isMinimized = false; // Reset minimized state when showing new message
             };
-            
+
+            // Function to minimize/maximize the message
+            $scope.toggleMinimize = function() {
+                $scope.isMinimized = !$scope.isMinimized;
+            };
+
             // Function to dismiss the message
             $scope.dismissMessage = function() {
-                $scope.message = '';
+                // Add the current message to history if it's not empty
+                if ($scope.message) {
+                    $scope.messageHistory.unshift({
+                        text: $scope.message,
+                        type: $scope.messageType,
+                        timestamp: new Date()
+                    });
+
+                    // Limit history to last 10 messages
+                    if ($scope.messageHistory.length > 10) {
+                        $scope.messageHistory.pop();
+                    }
+                }
+
+                // Add the fade-out class
+                $scope.isClosing = true;
+
+                // After animation completes, remove the message
+                $timeout(function() {
+                    $scope.message = '';
+                    $scope.isClosing = false;
+                    $scope.isMinimized = false;
+                }, 500); // Match animation duration (500ms)
+            };
+
+            // Function to toggle message history display
+            $scope.toggleMessageHistory = function() {
+                $scope.showMessageHistory = !$scope.showMessageHistory;
+
+                // If opening history and message is minimized, maximize it
+                if ($scope.showMessageHistory && $scope.isMinimized) {
+                    $scope.isMinimized = false;
+                }
+            };
+
+            // Function to restore a message from history
+            $scope.restoreMessage = function(historyItem) {
+                $scope.message = historyItem.text;
+                $scope.messageType = historyItem.type;
+                $scope.showMessageHistory = false;
             };
 
             //var currentLanguage = isyTranslateFactory.getCurrentLanguage();
