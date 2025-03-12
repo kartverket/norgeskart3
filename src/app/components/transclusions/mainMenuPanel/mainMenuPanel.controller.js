@@ -164,7 +164,8 @@ angular.module('mainMenuPanel')
             var url = mainAppService.messagesUrl(languageId);
             $http.get(url)
             .then(function(response){
-                $scope.message = response.data;
+                // Convert newlines in the message to HTML line breaks
+                $scope.message = response.data ? response.data.replace(/\n/g, '<br>') : '';
             })
             .catch(function(response){
                 console.info('Messages response is: ', response.data);
