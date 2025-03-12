@@ -167,7 +167,7 @@ angular.module('mainMenuPanel')
                 $scope.message = response.data;
             })
             .catch(function(response){
-                console.error('Messages error: ', response.status, response.data);
+                console.info('Messages response is: ', response.data);
             })
 
         }
