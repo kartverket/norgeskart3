@@ -3,7 +3,8 @@ angular.module('searchKoordTransPanel')
     function ($scope, mainAppService, $http, searchKoordTransPanelFactory) {
 
       var _round = function (value, decimals) {
-        return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+        const factor = Math.pow(10, decimals);
+        return Math.round(value * factor) / factor;
       };
 
       if (!Math.sign) {
@@ -97,7 +98,7 @@ angular.module('searchKoordTransPanel')
             dms = sign + d + '°' + DmsSeparator + m + '′' + DmsSeparator + s + '″';
             break;
         }
-
+        
         return dms;
       };
       // End snippet
@@ -111,10 +112,10 @@ angular.module('searchKoordTransPanel')
           $scope.activePosition.transLon3 = decToDMS(data.x, 'dms');
           $scope.activePosition.transLat3 = decToDMS(data.y, 'dms');
         } else {
-          $scope.activePosition.transLat = _round(data.y, 2);
+          $scope.activePosition.transLat = _round(data.y, 4);
           $scope.activePosition.transLat2 = '';
           $scope.activePosition.transLat3 = '';
-          $scope.activePosition.transLon = _round(data.x, 2);
+          $scope.activePosition.transLon = _round(data.x, 4);
           $scope.activePosition.transLon2 = '';
           $scope.activePosition.transLon3 = '';
         }

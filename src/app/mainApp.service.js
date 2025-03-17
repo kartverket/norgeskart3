@@ -208,7 +208,7 @@ angular.module('mainApp')
 
       this.sosiCodes = [{
           ESRI: null,
-          EPSG: 4326,
+          EPSG: 4258,
           SOSI: 84,
           name: 'EU89 - Geografisk, grader (Lat/Lon)',
           viewable: false,
