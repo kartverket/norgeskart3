@@ -72,9 +72,9 @@ angular.module('mainApp')
         },
         layers: [],
         basemap: {
-          url: ['https://cache.kartverket.no/test/wmts'],
-          name: "europa_forenklet",
-          layers: 'europa_forenklet',
+          url: ['https://cache.kartverket.no/v1/service'],
+          name: "europaForenklet",
+          layers: 'europaForenklet',
           format: 'image/png',
           matrixPrefix: false,
           matrixSet: "utm33n",
@@ -112,7 +112,7 @@ angular.module('mainApp')
           wmts: [{
             type: "map",
             name: "landkart",
-            url: "https://cache.atgcp1-prod.kartverket.cloud/v1/service|https://cache.atgcp1-prod.kartverket.cloud/v1/service",
+            url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
             params: {
               layers: "topo",
               format: "image/png"
@@ -146,7 +146,7 @@ angular.module('mainApp')
             }, {
             type: "map",
             name: "rasterkart",
-            url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
+            url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
             params: {
               layers: "toporaster",
               format: "image/png"
@@ -163,7 +163,7 @@ angular.module('mainApp')
             }, {
             type: "map",
             name: "gratone",
-            url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
+            url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
             params: {
               layers: "topograatone",
               format: "image/png"
@@ -181,7 +181,7 @@ angular.module('mainApp')
             id: 10088,
             type: "map",
             name: "sjokart",
-            url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
+            url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
             params: {
               layers: "sjokartraster",
               format: "image/png"
@@ -1575,7 +1575,7 @@ angular.module('mainApp')
               wmts: [{
                 type: "map",
                 name: "landkart",
-                url: "https://cache.atgcp1-prod.kartverket.cloud/v1/service|https://cache.atgcp1-prod.kartverket.cloud/v1/service",
+                url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
                 params: {
                   layers: "topo",
                   format: "image/png"
@@ -1609,7 +1609,7 @@ angular.module('mainApp')
                 }, {
                 type: "map",
                 name: "rasterkart",
-                url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
+                url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
                 params: {
                   layers: "toporaster",
                   format: "image/png"
@@ -1626,9 +1626,9 @@ angular.module('mainApp')
                 }, {
                 type: "map",
                 name: "gratone",
-                url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
+                url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
                 params: {
-                  layers: "topograatone",
+                  layers: "topoGratone",
                   format: "image/png"
                 },
                 matrixprefix: "false",
@@ -1644,7 +1644,7 @@ angular.module('mainApp')
                 id: 10088,
                 type: "map",
                 name: "sjokart",
-                url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
+                url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
                 params: {
                   layers: "sjokartraster",
                   format: "image/png"
