@@ -71,19 +71,19 @@ angular.module('mainApp')
           en: {}
         },
         layers: [],
-        basemap: {
-          url: ['https://cache.kartverket.no/v1/service'],
-          name: "europaForenklet",
-          layers: 'europaForenklet',
-          format: 'image/png',
-          matrixPrefix: false,
-          matrixSet: "utm33n",
-          options: {
-            isbaselayer: "true",
-            singletile: "false",
-            visibility: "true"
-          },
-        },
+        // basemap: {
+        //   url: ['https://cache.kartverket.no/v1/service'],
+        //   name: "europaForenklet",
+        //   layers: 'europaForenklet',
+        //   format: 'image/png',
+        //   matrixPrefix: false,
+        //   matrixSet: "utm33n",
+        //   options: {
+        //     isbaselayer: "true",
+        //     singletile: "false",
+        //     visibility: "true"
+        //   },
+        // },
         zoom: 3,
         center: [570130, 7032300],
         hoverOptions: {

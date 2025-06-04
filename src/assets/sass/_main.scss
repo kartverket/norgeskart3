@@ -106,9 +106,14 @@ ul {
 /*
   Defines a class which disables click on the
   element but allows click on all child elements.
+  Also prevents text selection to fix Firefox panning issues.
 */
 .clickThrough{
   pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   > *{
     pointer-events: all;
@@ -427,6 +432,19 @@ html{
   right: 0;
   left: 0;
   @extend .clickThrough;
+
+  // Additional Firefox-specific fixes for panning issues
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+
+  // Prevent dragging of images/elements during map interaction
+  * {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+  }
 }
 
 .draw-content{
