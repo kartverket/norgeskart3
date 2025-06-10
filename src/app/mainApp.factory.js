@@ -87,19 +87,6 @@ angular.module('mainApp')
           }],
           visibleOnLoad: false
         }],
-        basemap: {
-          url: ['https://cache.kartverket.no/test/wmts'],
-          name: "europa_forenklet",
-          layers: 'europa_forenklet',
-          format: 'image/png',
-          matrixPrefix: false,
-          matrixSet: "utm33n",
-          options: {
-            isbaselayer: "true",
-            singletile: "false",
-            visibility: "true"
-          },
-        },
         zoom: 3,
         center: [570130, 7032300],
         hoverOptions: {
