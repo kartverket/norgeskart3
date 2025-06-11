@@ -145,23 +145,6 @@ angular.module('mainApp')
             thumbnail: "aerial"
             }, {
             type: "map",
-            name: "rasterkart",
-            url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
-            params: {
-              layers: "toporaster",
-              format: "image/png"
-            },
-            matrixprefix: "false",
-            matrixset: "utm33n",
-            guid: 3,
-            options: {
-              isbaselayer: "true",
-              singletile: "false",
-              visibility: "false"
-            },
-            thumbnail: "raster"
-            }, {
-            type: "map",
             name: "gratone",
             url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
             params: {
@@ -177,6 +160,23 @@ angular.module('mainApp')
               visibility: "false"
             },
             thumbnail: "grey"
+            }, {
+            type: "map",
+            name: "rasterkart",
+            url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
+            params: {
+              layers: "toporaster",
+              format: "image/png"
+            },
+            matrixprefix: "false",
+            matrixset: "utm33n",
+            guid: 3,
+            options: {
+              isbaselayer: "true",
+              singletile: "false",
+              visibility: "false"
+            },
+            thumbnail: "raster"
             }, {
             id: 10088,
             type: "map",
