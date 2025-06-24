@@ -115,7 +115,7 @@ angular.module('mainApp')
           wmts: [{
             type: "map",
             name: "landkart",
-            url: "https://cache.atkv3-dev.kartverket-intern.cloud/v1/service",
+            url: "https://cache.atkv3-dev.kartverket.cloud/v1/service",
             params: {
               layers: "topo",
               format: "image/png"
@@ -1626,7 +1626,7 @@ angular.module('mainApp')
               wmts: [{
                 type: "map",
                 name: "landkart",
-                url: "https://cache.atkv3-dev.kartverket-intern.cloud/v1/service",
+                url: "https://cache.atkv3-dev.kartverket.cloud/v1/service",
                 params: {
                   layers: "topo",
                   format: "image/png"
