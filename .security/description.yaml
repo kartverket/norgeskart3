@@ -2,4 +2,4 @@ organization: Land
 product: Norgeskart
 repo_types: [PublicClient]
 platforms: [SKIP, OS_VM]
-visibility: internal
+visibility: public
