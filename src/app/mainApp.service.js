@@ -193,7 +193,7 @@ angular.module('mainApp')
       };
 
       this.messagesUrl = function (code) {
-        return 'https://raw.githubusercontent.com/kartverket/nk3config/refs/heads/master/messages/info.' + code;
+        return 'https://raw.githubusercontent.com/kartverket/nk3config/refs/heads/master/messages/test.' + code;
       };
 
       /*
