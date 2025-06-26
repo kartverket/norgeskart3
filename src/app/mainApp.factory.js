@@ -70,23 +70,7 @@ angular.module('mainApp')
           no: {},
           en: {}
         },
-        layers: [{
-          id: "1992",
-          isBaseLayer: true,
-          subLayers: [{
-            title: "norges_grunnkart",
-            source: "WMS",
-            url: ["https://opencache.statkart.no/gatekeeper/gk/gk.open?LAYERS=norges_grunnkart"],
-            gatekeeper: true,
-            name: "norges_grunnkart",
-            format: "image/png",
-            coordinate_system: "EPSG:32632",
-            id: "1992",
-            guid: 0,
-            tiled: true
-          }],
-          visibleOnLoad: false
-        }],
+        layers: [],
         zoom: 3,
         center: [570130, 7032300],
         hoverOptions: {
@@ -149,7 +133,7 @@ angular.module('mainApp')
             }, {
             type: "map",
             name: "rasterkart",
-            url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
+            url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
             params: {
               layers: "toporaster",
               format: "image/png"
@@ -166,7 +150,7 @@ angular.module('mainApp')
             }, {
             type: "map",
             name: "gratone",
-            url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
+            url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
             params: {
               layers: "topograatone",
               format: "image/png"
@@ -181,42 +165,10 @@ angular.module('mainApp')
             },
             thumbnail: "grey"
             }, {
-            type: "map",
-            name: "enkel",
-            url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
-            params: {
-              layers: "norges_grunnkart",
-              format: "image/png"
-            },
-            matrixprefix: "false",
-            matrixset: "utm33n",
-            guid: 5,
-            options: {
-              isbaselayer: "true",
-              singletile: "false",
-              visibility: "false"
-            }
-            }, {
-            type: "map",
-            name: "terreng",
-            url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
-            params: {
-              layers: "terreng_norgeskart",
-              format: "image/png"
-            },
-            matrixprefix: "false",
-            matrixset: "utm33n",
-            guid: 6,
-            options: {
-              isbaselayer: "true",
-              singletile: "false",
-              visibility: "false"
-            }
-            }, {
             id: 10088,
             type: "map",
             name: "sjokart",
-            url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
+            url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
             params: {
               layers: "sjokartraster",
               format: "image/png"
@@ -1581,23 +1533,7 @@ angular.module('mainApp')
               no: {},
               en: {}
             },
-            layers: [{
-              id: "1992",
-              isBaseLayer: true,
-              subLayers: [{
-                title: "norges_grunnkart",
-                source: "WMS",
-                url: ["https://opencache.statkart.no/gatekeeper/gk/gk.open?LAYERS=norges_grunnkart"],
-                gatekeeper: true,
-                name: "norges_grunnkart",
-                format: "image/png",
-                coordinate_system: "EPSG:32632",
-                id: "1992",
-                guid: 0,
-                tiled: true
-              }],
-              visibleOnLoad: false
-            }],
+            layers: [],
             zoom: 3,
             center: [570130, 7032300],
             hoverOptions: {
@@ -1660,7 +1596,7 @@ angular.module('mainApp')
                 }, {
                 type: "map",
                 name: "rasterkart",
-                url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
+                url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
                 params: {
                   layers: "toporaster",
                   format: "image/png"
@@ -1677,7 +1613,7 @@ angular.module('mainApp')
                 }, {
                 type: "map",
                 name: "gratone",
-                url: "https://cache.kartverket.no/v1/wmts|https://cache.kartverket.no/v1/wmts",
+                url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
                 params: {
                   layers: "topograatone",
                   format: "image/png"
@@ -1692,42 +1628,10 @@ angular.module('mainApp')
                 },
                 thumbnail: "grey"
                 }, {
-                type: "map",
-                name: "enkel",
-                url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
-                params: {
-                  layers: "norges_grunnkart",
-                  format: "image/png"
-                },
-                matrixprefix: "false",
-                matrixset: "utm33n",
-                guid: 5,
-                options: {
-                  isbaselayer: "true",
-                  singletile: "false",
-                  visibility: "false"
-                }
-                }, {
-                type: "map",
-                name: "terreng",
-                url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
-                params: {
-                  layers: "terreng_norgeskart",
-                  format: "image/png"
-                },
-                matrixprefix: "false",
-                matrixset: "utm33n",
-                guid: 6,
-                options: {
-                  isbaselayer: "true",
-                  singletile: "false",
-                  visibility: "false"
-                }
-                }, {
                 id: 10088,
                 type: "map",
                 name: "sjokart",
-                url: "https://cache.kartverket.no/test/wmts|https://cache.kartverket.no/test/wmts",
+                url: "https://cache.kartverket.no/v1/service|https://cache.kartverket.no/v1/service",
                 params: {
                   layers: "sjokartraster",
                   format: "image/png"
