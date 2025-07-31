@@ -937,29 +937,7 @@ angular.module('mainApp')
             name: "Skiløypepreparering",
             groupid: 7
           }],
-          vector: [{
-            type: "overlay",
-            name: "kommunenes_fjelltopper",
-            url: "https://norgeskart.no/json/tema/kommunefjell/Kommunefjell2018.geojson",
-            epsg: "EPSG:25833",
-            groupid: 3,
-            params: {
-              format: "application/json"
-            },
-            guid: "3.Kommunenes fjelltopper",
-            options: {
-              visibility: "false"
-            },
-            style: {
-              regularshape: {
-                fill: {
-                  color: "#000000"
-                },
-                points: 3,
-                radius: 9
-              }
-            }
-          }],
+          vector: [],
           mapbounds: {
             mapbound: [{
               epsg: "EPSG:23031",
@@ -2399,29 +2377,7 @@ angular.module('mainApp')
                 name: "Skiløypepreparering",
                 groupid: 7
               }],
-              vector: [{
-                type: "overlay",
-                name: "kommunenes_fjelltopper",
-                url: "https://norgeskart.no/json/tema/kommunefjell/Kommunefjell2018.geojson",
-                epsg: "EPSG:25833",
-                groupid: 3,
-                params: {
-                  format: "application/json"
-                },
-                guid: "3.Kommunenes fjelltopper",
-                options: {
-                  visibility: "false"
-                },
-                style: {
-                  regularshape: {
-                    fill: {
-                      color: "#000000"
-                    },
-                    points: 3,
-                    radius: 9
-                  }
-                }
-              }],
+              vector: [],
               mapbounds: {
                 mapbound: [{
                   epsg: "EPSG:23031",
