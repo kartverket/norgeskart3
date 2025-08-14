@@ -140,6 +140,10 @@
     padding: 0 10px;
     font-size: 14px;
     line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    min-width: 0; // Allows flex item to shrink below its content size
 
     @media (max-width: 480px) {
       font-size: 13px;
