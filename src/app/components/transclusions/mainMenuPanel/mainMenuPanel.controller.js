@@ -162,10 +162,24 @@ angular.module('mainMenuPanel')
             //var languageId = currentLanguage.id || 'no';
             var languageId = 'no';
             var url = mainAppService.messagesUrl(languageId);
+
+            // Function to convert URLs to clickable links
+            var linkifyText = function(text) {
+                if (!text) return text;
+
+                // URL regex pattern - matches http(s) URLs
+                var urlPattern = /(https?:\/\/[^\s<>"{}|\\^`[\]]+)/gi;
+
+                return text.replace(urlPattern, function(url) {
+                    return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
+                });
+            };
+
             $http.get(url)
             .then(function(response){
-                // Convert newlines in the message to HTML line breaks
-                $scope.message = response.data ? response.data.replace(/\n/g, '<br>') : '';
+                // Convert newlines to HTML line breaks and URLs to clickable links
+                var messageText = response.data ? response.data.replace(/\n/g, '<br>') : '';
+                $scope.message = linkifyText(messageText);
             })
             .catch(function(response){
                 console.info('Messages response is: ', response.data);
