@@ -1341,7 +1341,7 @@ angular.module('mainApp')
             extentUnits: mapConfig.extentUnits,
             matrixPrefix: source.matrixprefix === "true",
             matrixSet: source.matrixset,
-            numZoomLevels: mapConfig.numZoomLevels,
+            numZoomLevels: source.name == 'flybilder' ? 18 : mapConfig.numZoomLevels,
             id: sourceType == 'VECTOR' ? mapConfig.layers.length + 8001 : (source.id ? source.id : mapConfig.layers.length + 1001),
             transparent: true,
             layerIndex: -1,
