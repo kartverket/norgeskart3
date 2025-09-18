@@ -5,7 +5,8 @@ angular.module('mainApp')
       var urlOpenWps = 'https://wps.geonorge.no/skwms1/';
       var urlOpenWms = 'https://openwms.statkart.no/skwms1/';
       var urlGeonorge = 'https://ws.geonorge.no/';
-      var urlNorgeskartApi = 'https://testapi.norgeskart.no/';
+      var urlNorgeskartApi = 'https://api.norgeskart.no/';
+      var urlNodplakat = 'https://nodplakat.norgeskart.no/';
       var urlSeEiendom = 'https://seeiendom.kartverket.no/';
       var urlFaktaark = 'https://stadnamn.kartverket.no/fakta/';
       var urlHavnivaa = "http://api.sehavniva.no/";
@@ -41,7 +42,7 @@ angular.module('mainApp')
 
       this.generateEmergencyPosterServiceUrl = function (config) {
         var map = encodeURIComponent(config.map);
-        return  urlGeonorge + "/fop2/fop?locationName=" + config.locationName + "&position1=" + config.position1 + "&position2=" + config.position2 +
+        return urlNodplakat + "fop2/fop?locationName=" + config.locationName + "&position1=" + config.position1 + "&position2=" + config.position2 +
         "&street=" + config.street + "&place=" + config.place + "&matrikkel=" + config.matrikkel + "&utm=" + config.utm + "&posDez=" + config.posDez + "&map=" + map;
       };
 
