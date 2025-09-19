@@ -105,8 +105,8 @@ angular.module('mainApp')
             displaycenterepsgcode: "EPSG:25833",
             displayCenter: "396722,7197864",
             displayprojectionepsgcode: "EPSG:25833",
-            isygatekeeper: "https://norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
-            tickethost: "https://norgeskart.no/ws/esk.py?wms.ecc_enc",
+            isygatekeeper: "https://api.norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
+            tickethost: "https://api.norgeskart.no/ws/esk.py?wms.ecc_enc",
             name: "norgeskart"
           },
           wmts: [{
@@ -1546,8 +1546,8 @@ angular.module('mainApp')
                 displaycenterepsgcode: "EPSG:25833",
                 displayCenter: "396722,7197864",
                 displayprojectionepsgcode: "EPSG:25833",
-                isygatekeeper: "https://norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
-                tickethost: "https://norgeskart.no/ws/esk.py?wms.ecc_enc",
+                isygatekeeper: "https://api.norgeskart.no/ws/gatekeeper.py?key=73e029c3632c49bb1586fc57a60fb701kv",
+                tickethost: "https://api.norgeskart.no/ws/esk.py?wms.ecc_enc",
                 name: "norgeskart"
               },
               wmts: [{
