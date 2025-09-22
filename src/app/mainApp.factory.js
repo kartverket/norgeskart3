@@ -128,9 +128,9 @@ angular.module('mainApp')
             thumbnail: "land"
           }, {
             type: "map",
-            gatekeeper: "true",
+            //gatekeeper: "true",
             name: "flybilder",
-            url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?|https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?",
+            url: "https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_utm33_wmts_v2?|https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_utm33_wmts_v2?",
             params: {
               layers: "Nibcache_UTM33_EUREF89",
               format: "image/png"
@@ -1569,9 +1569,9 @@ angular.module('mainApp')
                 thumbnail: "land"
               }, {
                 type: "map",
-                gatekeeper: "true",
+                //gatekeeper: "true",
                 name: "flybilder",
-                url: "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?|https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?",
+                url: "https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_utm33_wmts_v2?|https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_utm33_wmts_v2?",
                 params: {
                   layers: "Nibcache_UTM33_EUREF89",
                   format: "image/png"
