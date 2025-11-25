@@ -3,7 +3,7 @@ angular.module('mainApp')
     function () {
       var url = 'https://norgeskart.no/';
       var urlOpenWps = 'https://wps.geonorge.no/skwms1/';
-      var urlOpenWms = 'https://openwms.statkart.no/skwms1/';
+      var urlOpenWms = 'https://wms.geonorge.no/skwms1/';
       var urlGeonorge = 'https://ws.geonorge.no/';
       var urlNorgeskartApi = 'https://api.norgeskart.no/';
       var urlNodplakat = 'https://nodplakat.norgeskart.no/';
