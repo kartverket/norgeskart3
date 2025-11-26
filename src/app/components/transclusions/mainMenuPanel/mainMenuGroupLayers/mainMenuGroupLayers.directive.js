@@ -1,6 +1,6 @@
 angular.module('mainMenuGroupLayers')
-  .directive('mainMenuGroupLayers', ['ISY.MapAPI.Map', 'mainMenuPanelFactory',
-    function (map, mainMenuPanelFactory) {
+  .directive('mainMenuGroupLayers', ['ISY.MapAPI.Map', 'ISY.MapAPI.Groups', 'mainMenuPanelFactory', '$translate',
+    function (map, mapGroups, mainMenuPanelFactory, $translate) {
       return {
         templateUrl: 'components/transclusions/mainMenuPanel/mainMenuGroupLayers/mainMenuGroupLayers.html',
         restrict: 'A',
@@ -105,6 +105,31 @@ angular.module('mainMenuGroupLayers')
               return isyLayer;
             }
           };
+
+          scope.hasVisibleNRLLayers = function() {
+            var overlayLayers = map.GetOverlayLayers();
+            for (var i = 0; i < overlayLayers.length; i++) {
+              var layer = overlayLayers[i];
+              if (layer.isVisible) {
+                // Check if this is an NRL layer
+                var lowerName = layer.name ? layer.name.toLowerCase() : '';
+                var isNRLLayer = lowerName.indexOf('luftfart') > -1 ||
+                               lowerName.indexOf('hinder') > -1 ||
+                               lowerName.indexOf('obstacle') > -1 ||
+                               lowerName.indexOf('nrl') > -1;
+
+                // Also check by groupId (typically 4 for NRL)
+                if (!isNRLLayer && layer.groupId) {
+                  isNRLLayer = layer.groupId.indexOf(4) > -1;
+                }
+
+                if (isNRLLayer) {
+                  return true;
+                }
+              }
+            }
+            return false;
+          };
           scope.GetLegendGraphicUrl = function (isyLayer) {
             if (isyLayer.isVisible) {
               return isyLayer.subLayers[0].legendGraphicUrl;
@@ -121,8 +146,38 @@ angular.module('mainMenuGroupLayers')
               } else {
                 isyLayer.previewActive = false;
                 map.ShowLayer(isyLayer);
+                // Check if this is an NRL layer and show warning
+                _checkAndShowNRLWarning(isyLayer);
               }
               _updateGroupStateByLayer(isyLayer, scope.groupLayers);
+            }
+          };
+
+          var _checkAndShowNRLWarning = function(isyLayer) {
+            // Check if the layer belongs to NRL (Luftfartshindre) group
+            // NRL layers typically have groupId 4 or name containing 'luftfart', 'hinder', 'obstacle'
+            var isNRLLayer = false;
+
+            // Check by name patterns
+            if (isyLayer.name) {
+              var lowerName = isyLayer.name.toLowerCase();
+              isNRLLayer = lowerName.indexOf('luftfart') > -1 ||
+                          lowerName.indexOf('hinder') > -1 ||
+                          lowerName.indexOf('obstacle') > -1 ||
+                          lowerName.indexOf('nrl') > -1;
+            }
+
+            // Check by groupId (typically 4 for NRL)
+            if (!isNRLLayer && isyLayer.groupId) {
+              isNRLLayer = isyLayer.groupId.indexOf(4) > -1;
+            }
+
+            if (isNRLLayer) {
+              // Use the parent scope's showMessage function
+              if (scope.$parent && scope.$parent.showMessage) {
+                var translatedMessage = $translate.instant('nrl_warning_message');
+                scope.$parent.showMessage(translatedMessage, 'warning');
+              }
             }
           };
 
@@ -154,6 +209,10 @@ angular.module('mainMenuGroupLayers')
                   var tmpLayer = getSortedLayer(sortedLayers[i].id);
                   map.ShowLayer(tmpLayer);
                   _updateGroupStateByLayer(tmpLayer, scope.groupLayers);
+                  // Check if showing NRL layers
+                  if (i === 0) { // Only show warning once per group
+                    _checkAndShowNRLWarning(tmpLayer);
+                  }
                 }
               }
               // if (group.subCategories !== undefined) {

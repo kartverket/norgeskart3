@@ -194,6 +194,32 @@
   }
 }
 
+// NRL Warning Box in Legend
+.nrl-warning-box {
+  margin: 10px 15px;
+  padding: 10px 12px;
+  background-color: #fff3cd;
+  border-left: 4px solid #ffa500;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #856404;
+  display: flex;
+  align-items: flex-start;
+
+  .fa-exclamation-triangle {
+    flex: 0 0 20px;
+    font-size: 16px;
+    color: #ffa500;
+    margin-right: 8px;
+    padding-top: 1px;
+  }
+
+  span {
+    flex: 1;
+  }
+}
+
 // Message history panel
 .message-history-panel {
   position: fixed;
