@@ -173,16 +173,16 @@ angular.module('mainMenuGroupLayers')
             }
 
             if (isNRLLayer) {
-              // Use the parent scope's showMessage function
               if (scope.$parent && scope.$parent.showMessage) {
                 var translatedMessage = $translate.instant('nrl_warning_message');
                 scope.$parent.showMessage(translatedMessage, 'warning');
               }
+            } else {
+              scope.$parent.dismissMessage();
             }
           };
 
           scope.toggleGroup = function (group) {
-            // console.log(group);
             if (!group.isAllLayersSelected) { //select all layers
               if (group.isyLayers !== undefined) {
                 if (scope.onlyOneGroup && group.groupId !== 999) {
