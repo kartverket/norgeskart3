@@ -37,14 +37,7 @@ angular
           symbol: "fa fa-map-pin",
           symbol_text: "",
           isSelected: false
-        },
-        {
-          id: "nrl",
-          title: "Luftfartshindre_title",
-          symbol: "fa fa-plane",
-          symbol_text: "",
-          isSelected: false
-        },
+        },       
         {
           id: "dekning",
           title: "Dekning_title",

@@ -25,11 +25,6 @@ angular.module('mainApp')
         HeaderIcon: "",
         HeaderTitle: "fastmerker"
       }, {
-        SiteTitle: "nrl",
-        ProjectName: "nrl",
-        HeaderIcon: "",
-        HeaderTitle: "nrl"
-      }, {
         SiteTitle: "seeiendom",
         ProjectName: "seeiendom",
         HeaderIcon: "",
@@ -1478,11 +1473,6 @@ angular.module('mainApp')
             ProjectName: "fastmerker",
             HeaderIcon: "",
             HeaderTitle: "fastmerker"
-          }, {
-            SiteTitle: "nrl",
-            ProjectName: "nrl",
-            HeaderIcon: "",
-            HeaderTitle: "nrl"
           }, {
             SiteTitle: "norgeskart",
             ProjectName: "norgeskart",
