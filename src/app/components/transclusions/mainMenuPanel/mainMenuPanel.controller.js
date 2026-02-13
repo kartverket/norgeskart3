@@ -162,10 +162,41 @@ angular.module('mainMenuPanel')
             //var languageId = currentLanguage.id || 'no';
             var languageId = 'no';
             var url = mainAppService.messagesUrl(languageId);
+
+            function escapeHtml(value) {
+                return value
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+            }
+
+            function renderMessageMarkdown(markdown) {
+                if (!markdown) {
+                    return '';
+                }
+
+                var boldRegex = /\*\*([^*]+)\*\*/g;
+                var linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+
+                return markdown.split(/\r?\n/).map(function(line) {
+                    var headerMatch = line.match(/^(#{1,3})\s+(.*)$/);
+                    var content = headerMatch ? headerMatch[2] : line;
+                    var escapedContent = escapeHtml(content);
+                    var withBold = escapedContent.replace(boldRegex, '<strong>$1</strong>');
+                    var withLinks = withBold.replace(linkRegex, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+                    if (headerMatch) {
+                        var level = headerMatch[1].length;
+                        return '<h' + level + '>' + withLinks + '</h' + level + '>';
+                    }
+
+                    return withLinks;
+                }).join('<br>');
+            }
+
             $http.get(url)
-            .then(function(response){
-                // Convert newlines in the message to HTML line breaks
-                $scope.message = response.data ? response.data.replace(/\n/g, '<br>') : '';
+                .then(function (response) {
+                $scope.message = renderMessageMarkdown(response.data);
             })
             .catch(function(response){
                 console.info('Messages response is: ', response.data);

@@ -141,6 +141,16 @@
     font-size: 14px;
     line-height: 1.4;
 
+    a {
+      color: #0050a4;
+      text-decoration: underline;
+
+      &:hover,
+      &:focus {
+        color: #003f82;
+      }
+    }
+
     @media (max-width: 480px) {
       font-size: 13px;
       padding: 0 5px;
