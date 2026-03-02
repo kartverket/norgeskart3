@@ -129,7 +129,7 @@ angular.module('mainApp')
           }, {
             type: "map",
             name: "flybilder",
-            url: "https://tilecache.norgeibilder.no/arcgis/rest/services/Nibcache_UTM33_EUREF89_v2/MapServer/WMTS?token=XfHYfx1C2WFLyx_YIQ691V208TmiXQBOos-XW4ngvUx5-Ruh-_NJpLQ1YmBUDgnh",
+            url: "https://tilecache.norgeibilder.no/arcgis/rest/services/Nibcache_UTM33_EUREF89_v2/MapServer/WMTS?token=93yC_UAZ6kUTKeZ5grseBDTkEsqnBIwMeBzvaNkJxb0-VzYBaXUu2c7GPGMAtu7I",
             params: {
               layers: "Nibcache_UTM33_EUREF89_v2",
               format: "image/png"
@@ -142,7 +142,7 @@ angular.module('mainApp')
               singletile: "false",
               visibility: "false"
             },
-            thumbnail: "aerial"
+            thumbnail: "aerial"            
             }, {
             type: "map",
             name: "gratone",
@@ -1569,7 +1569,7 @@ angular.module('mainApp')
               }, {
                 type: "map",
                 name: "flybilder",
-                url: "https://tilecache.norgeibilder.no/arcgis/rest/services/Nibcache_UTM33_EUREF89_v2/MapServer/WMTS?token=XfHYfx1C2WFLyx_YIQ691V208TmiXQBOos-XW4ngvUx5-Ruh-_NJpLQ1YmBUDgnh",
+                url: "https://tilecache.norgeibilder.no/arcgis/rest/services/Nibcache_UTM33_EUREF89_v2/MapServer/WMTS?token=93yC_UAZ6kUTKeZ5grseBDTkEsqnBIwMeBzvaNkJxb0-VzYBaXUu2c7GPGMAtu7I",                
                 params: {
                   layers: "Nibcache_UTM33_EUREF89_v2",
                   format: "image/png"
