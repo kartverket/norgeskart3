@@ -128,14 +128,14 @@ angular.module('mainApp')
             thumbnail: "land"
           }, {
             type: "map",
-            //gatekeeper: "true",
             name: "flybilder",
-            url: "https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_utm33_wmts_v2?|https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_utm33_wmts_v2?",
+            url: "https://tilecache.norgeibilder.no/arcgis/rest/services/Nibcache_UTM33_EUREF89_v2/MapServer/WMTS?token=XfHYfx1C2WFLyx_YIQ691V208TmiXQBOos-XW4ngvUx5-Ruh-_NJpLQ1YmBUDgnh",
             params: {
-              layers: "Nibcache_UTM33_EUREF89",
+              layers: "Nibcache_UTM33_EUREF89_v2",
               format: "image/png"
             },
             matrixset: "default028mm",
+            getcapabilities: "true",
             guid: 2,
             options: {
               isbaselayer: "true",
@@ -1325,7 +1325,6 @@ angular.module('mainApp')
         //     thumbnailInfo = 'aerial';
         // }
 
-
         var newIsyLayer = new ISY.Domain.Layer({
           subLayers: [{
             title: source.name,
@@ -1569,14 +1568,14 @@ angular.module('mainApp')
                 thumbnail: "land"
               }, {
                 type: "map",
-                //gatekeeper: "true",
                 name: "flybilder",
-                url: "https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_utm33_wmts_v2?|https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_utm33_wmts_v2?",
+                url: "https://tilecache.norgeibilder.no/arcgis/rest/services/Nibcache_UTM33_EUREF89_v2/MapServer/WMTS?token=XfHYfx1C2WFLyx_YIQ691V208TmiXQBOos-XW4ngvUx5-Ruh-_NJpLQ1YmBUDgnh",
                 params: {
-                  layers: "Nibcache_UTM33_EUREF89",
+                  layers: "Nibcache_UTM33_EUREF89_v2",
                   format: "image/png"
                 },
                 matrixset: "default028mm",
+                getcapabilities: "true",
                 guid: 2,
                 options: {
                   isbaselayer: "true",
