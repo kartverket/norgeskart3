@@ -97,7 +97,7 @@ angular.module('searchLagTurkartPanel')
               trips: scope.showTrips,
               sweden: scope.showSweden,
               compass: scope.showCompass,
-              link: "https://norgeskart.no/#!?z=" + scope.activePosition.zoom + "&ma=" + Number(Math.round(scope.activePosition.lat + 'e' + 2) + 'e-' + 2) + "&mo=" + Number(Math.round(scope.activePosition.lon + 'e' + 2) + 'e-' + 2) + '&p=tur'
+              link: "https://arkiv.norgeskart.no/#!?z=" + scope.activePosition.zoom + "&ma=" + Number(Math.round(scope.activePosition.lat + 'e' + 2) + 'e-' + 2) + "&mo=" + Number(Math.round(scope.activePosition.lon + 'e' + 2) + 'e-' + 2) + '&p=tur'
             };
           };
 

@@ -1,7 +1,7 @@
 angular.module('mainApp')
   .service('mainAppService', ['$http',
     function () {
-      var url = 'https://norgeskart.no/';
+      var url = 'https://arkiv.norgeskart.no/';
       var urlOpenWps = 'https://wps.geonorge.no/skwms1/';
       var urlOpenWms = 'https://wms.geonorge.no/skwms1/';
       var urlGeonorge = 'https://ws.geonorge.no/';

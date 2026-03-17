@@ -11,7 +11,7 @@ angular.module('menuShareMap')
       };
 
       $scope.getMailUrl = function () {
-        var url = 'mailto:?subject=norgeskart.no&body=' + getEncodedUrl();
+        var url = 'mailto:?subject=arkiv.norgeskart.no&body=' + getEncodedUrl();
         $window.open(url, '_self');
       };
 

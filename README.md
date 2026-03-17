@@ -1,7 +1,7 @@
 # Norgeskart3
 Norgeskart version 3
 
-The content of norgeskart.no and this repository is available under the following licenses:
+The content of arkiv.norgeskart.no and this repository is available under the following licenses:
 
 * Kartverkets logo and font: (C) Kartverket. 
 * OpenLayers and all contributions to openlayers, included at /lib/src/openlayers: BSD style - see https://github.com/openlayers/openlayers/blob/master/LICENSE.md
