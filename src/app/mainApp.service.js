@@ -576,10 +576,10 @@ angular.module('mainApp')
         return "https://testapi.norgeskart.no/" + "print/" + appId + "/report.pdf";
       };
       this.generatePrintDownloadUrl = function(downloadUrl){
-        return "https://testapi.norgeskart.no/" + downloadUrl;
+        return "https://testapi.norgeskart.no" + downloadUrl;
       };
       this.generateStatusPrintDownloadUrl = function(statusUrl){
-        return "https://testapi.norgeskart.no/" + statusUrl;
+        return "https://testapi.norgeskart.no" + statusUrl;
       };
       this.generateCancelPrintUrl = function(refNum){
         return "https://testapi.norgeskart.no/" + 'print/cancel/' + refNum;
