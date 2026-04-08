@@ -570,19 +570,19 @@ angular.module('mainApp')
           });
       };
       this.generateUrlPrintCapabilities = function(appId) {
-        return urlGeonorge + "print/" + appId + "/capabilities.json";
+        return "https://testapi.norgeskart.no/" + "print/" + appId + "/capabilities.json";
       };
       this.generatePrintUrl = function(appId){
-        return urlGeonorge + "print/" + appId + "/report.pdf";
+        return "https://testapi.norgeskart.no/" + "print/" + appId + "/report.pdf";
       };
       this.generatePrintDownloadUrl = function(downloadUrl){
-        return urlGeonorge.slice(0, -1) + downloadUrl;
+        return "https://testapi.norgeskart.no/" + downloadUrl;
       };
       this.generateStatusPrintDownloadUrl = function(statusUrl){
-        return urlGeonorge.slice(0, -1) + statusUrl;
+        return "https://testapi.norgeskart.no/" + statusUrl;
       };
       this.generateCancelPrintUrl = function(refNum){
-        return urlGeonorge + 'print/cancel/' + refNum;
+        return "https://testapi.norgeskart.no/" + 'print/cancel/' + refNum;
       };
     }
   ]);
